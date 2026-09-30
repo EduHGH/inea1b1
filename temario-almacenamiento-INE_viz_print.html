@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Almacenamiento y modelos de datos — CSE-INE A1 (temario, diapositivas y esquema)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f3f0e8;--paper-raised:#faf8f2;--ink:#232019;--ink-soft:#5a5548;--rule:#d8d2c2;--tinta:#2c4a6e;--tinta-soft:#e7edf3;--marg:#a8562f;--verde:#4a6b4d;--verde-soft:#e8eee7;--serif:'Source Serif 4',Georgia,serif;--mono:'IBM Plex Mono',ui-monospace,monospace;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#1c1a16;--paper-raised:#26241e;--ink:#e9e4d8;--ink-soft:#a39d8c;--rule:#3a362c;--tinta:#8fb3d9;--tinta-soft:#25344a;--marg:#d68259;--verde:#8fba92;--verde-soft:#213325;}}
+:root[data-theme="dark"]{--paper:#1c1a16;--paper-raised:#26241e;--ink:#e9e4d8;--ink-soft:#a39d8c;--rule:#3a362c;--tinta:#8fb3d9;--tinta-soft:#25344a;--marg:#d68259;--verde:#8fba92;--verde-soft:#213325;}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--serif);
+  font-size:17px; line-height:1.65; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 24px 120px;}
+header.masthead{
+  max-width:820px;margin:0 auto;padding:56px 24px 28px;
+  border-bottom:1px solid var(--rule);
+}
+.kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;color:var(--marg);margin:0 0 10px;}
+h1.title{font-size:clamp(26px,5vw,38px);line-height:1.15;margin:0 0 10px;font-weight:600;letter-spacing:-.01em;}
+.subtitle{color:var(--ink-soft);font-size:16px;margin:0;max-width:62ch;}
+.notabox{
+  max-width:820px;margin:16px auto 0;padding:14px 24px;border-top:1px dashed var(--rule);
+}
+.notabox p{font-size:13.5px;color:var(--ink-soft);margin:0;}
+.notabox strong{color:var(--ink);}
+nav.tabs{
+  position:sticky; top:0; z-index:20; background:var(--paper); border-bottom:1px solid var(--rule);
+  display:flex; gap:4px; max-width:820px;margin:0 auto; padding:0 24px; overflow-x:auto;
+}
+nav.tabs button{
+  font-family:var(--mono);font-size:12.5px;background:none;border:none;color:var(--ink-soft);
+  padding:16px 12px 14px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;
+  transition:color .15s ease, border-color .15s ease;
+}
+nav.tabs button:hover{color:var(--ink);}
+nav.tabs button.active{color:var(--tinta);border-bottom-color:var(--marg);font-weight:600;}
+.theme-toggle{
+  margin-left:auto;align-self:center;background:none;border:1px solid var(--rule);border-radius:20px;
+  width:38px;height:38px;min-width:38px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--ink-soft);transition:color .15s ease, border-color .15s ease;
+}
+.theme-toggle:hover{color:var(--tinta);border-color:var(--tinta);}
+.theme-toggle svg{width:17px;height:17px;}
+.theme-toggle .icon-moon{display:none;}
+:root[data-theme="dark"] .theme-toggle .icon-sun{display:none;}
+:root[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
+section.panel{display:none;padding-top:36px;}
+section.panel.active{display:block;animation:fade .25s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+h2{font-size:23px;font-weight:600;margin:44px 0 14px;letter-spacing:-.01em;scroll-margin-top:70px;}
+section.panel > h2:first-child{margin-top:0;}
+h3{font-size:17.5px;font-weight:600;margin:28px 0 10px;color:var(--ink);scroll-margin-top:70px;}
+h4{font-size:15px;font-weight:600;margin:20px 0 8px;color:var(--tinta);}
+p{margin:0 0 14px;}
+strong{font-weight:600;}
+ul,ol{margin:0 0 14px;padding-left:1.3em;}
+li{margin-bottom:6px;}
+em{color:var(--ink-soft);}
+hr{border:none;border-top:1px solid var(--rule);margin:40px 0;}
+code{font-family:var(--mono);font-size:.88em;background:var(--tinta-soft);color:var(--tinta);padding:.1em .35em;border-radius:3px;}
+
+/* Fase cards */
+.fase{
+  border:1px solid var(--rule); border-radius:10px; background:var(--paper-raised);
+  margin:20px 0; overflow:hidden;
+}
+.fase-head{
+  display:flex; align-items:center; gap:14px; padding:16px 20px; cursor:pointer;
+  border-bottom:1px solid transparent; transition:border-color .15s ease;
+  user-select:none;
+}
+.fase.open .fase-head{border-bottom-color:var(--rule);}
+.fase-num{
+  font-family:var(--mono); font-size:13px; color:var(--paper-raised); background:var(--tinta);
+  width:30px;height:30px;min-width:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-weight:600;
+}
+.fase.fase-previa .fase-num{background:var(--ink-soft);}
+.fase-titles{flex:1;}
+.fase-titles .ftit{font-weight:600; font-size:16.5px; margin:0;}
+.fase-titles .fsub{font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); margin:2px 0 0;}
+.fase-chevron{font-size:13px; color:var(--ink-soft); transition:transform .2s ease;}
+.fase.open .fase-chevron{transform:rotate(90deg);}
+.fase-body{display:none; padding:4px 20px 22px;}
+.fase.open .fase-body{display:block;}
+.temas-list{list-style:none; margin:0 0 12px; padding:0;}
+.temas-list li{
+  padding:10px 14px; margin-bottom:8px; background:var(--paper); border:1px solid var(--rule);
+  border-radius:7px; font-size:14.5px; line-height:1.5;
+}
+.temas-list .tnum{
+  font-family:var(--mono); font-size:11px; color:var(--tinta); background:var(--tinta-soft);
+  padding:1px 7px; border-radius:4px; margin-right:8px; white-space:nowrap;
+}
+.link-chip{
+  display:inline-block; font-family:var(--mono); font-size:11.5px; color:var(--verde);
+  background:var(--verde-soft); padding:2px 9px; border-radius:12px; margin:2px 4px 2px 0;
+}
+.link-chip.back{color:var(--marg); background:color-mix(in srgb, var(--marg) 12%, var(--paper-raised));}
+
+/* Epigrafe sections within a tema */
+.epigrafe{margin:32px 0;padding-top:6px;border-top:1px dashed var(--rule);}
+.epigrafe:first-of-type{border-top:none;padding-top:0;}
+.epig-num{font-family:var(--mono);font-size:11px;color:var(--tinta);background:var(--tinta-soft);padding:1px 7px;border-radius:4px;margin-right:8px;}
+
+/* Flow connector */
+.flow-arrow{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  font-family:var(--mono); font-size:12px; color:var(--ink-soft); margin:2px 0;
+}
+.flow-arrow::before, .flow-arrow::after{content:'';flex:1;height:1px;background:var(--rule);}
+
+/* Interconnection notes */
+.conexion{
+  background:var(--tinta-soft); border-radius:8px; padding:12px 16px; margin:12px 0;
+  font-size:14px; color:var(--ink);
+}
+.conexion strong{color:var(--tinta);}
+.conexion.retro{background:color-mix(in srgb, var(--marg) 10%, var(--paper-raised)); }
+.conexion.retro strong{color:var(--marg);}
+.conexion.ext{background:var(--verde-soft);}
+.conexion.ext strong{color:var(--verde);}
+
+/* Table */
+.table-scroll{overflow-x:auto;margin:0 0 20px;border:1px solid var(--rule);border-radius:6px;}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px;}
+th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--rule);vertical-align:top;}
+th{font-family:var(--mono);font-size:11.5px;letter-spacing:.01em;color:var(--ink-soft);background:var(--paper-raised);font-weight:600;}
+tr:last-child td{border-bottom:none;}
+
+/* Diagram (SVG) */
+.viz{margin:18px 0 6px;border:1px solid var(--rule);border-radius:8px;background:var(--paper);padding:16px 18px 18px;}
+.viz-label{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;color:var(--ink-soft);
+  display:flex;align-items:center;gap:8px;margin-bottom:12px;text-transform:uppercase;
+}
+.viz-label::after{content:'';flex:1;height:1px;background:var(--rule);}
+.viz-label::before{content:'◆';font-size:9px;color:var(--tinta);}
+.viz-stage{position:relative;width:100%;overflow-x:auto;}
+.viz-stage svg{display:block;max-width:100%;height:auto;}
+
+.thread-box{background:var(--tinta-soft);border-radius:8px;padding:20px 22px;margin-top:36px;}
+.thread-box h2{margin-top:0;font-size:20px;}
+
+.examen{
+  border:1px solid color-mix(in srgb, var(--marg) 45%, var(--rule)); border-radius:8px;
+  padding:12px 16px; margin:14px 0; font-size:14px; background:color-mix(in srgb, var(--marg) 6%, var(--paper));
+}
+.examen .etag{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.04em; text-transform:uppercase;
+  color:var(--marg); font-weight:600; display:block; margin-bottom:5px;
+}
+.examen p{margin:0;}
+.examen p + p{margin-top:8px;}
+
+.practica{
+  border:1px solid color-mix(in srgb, var(--verde) 45%, var(--rule)); border-radius:8px;
+  padding:12px 16px; margin:14px 0; font-size:14px; background:color-mix(in srgb, var(--verde) 7%, var(--paper));
+}
+.practica .etag{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.04em; text-transform:uppercase;
+  color:var(--verde); font-weight:600; display:flex; align-items:center; gap:6px; margin-bottom:5px;
+}
+.practica .etag::before{content:'⚙';font-size:12px;}
+.practica p{margin:0;}
+.practica p + p{margin-top:8px;}
+.practica ul{margin:8px 0 0;padding-left:1.2em;}
+.practica li{margin-bottom:4px;}
+
+/* Definition box */
+.defbox{
+  border-left:3px solid var(--tinta); background:var(--paper-raised); border-radius:0 8px 8px 0;
+  padding:12px 16px; margin:14px 0; font-size:14.5px;
+}
+.defbox .dtag{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--tinta);font-weight:600;display:block;margin-bottom:4px;}
+.defbox p{margin:0;}
+.defbox p+p{margin-top:6px;}
+
+/* Ojo / atencion box */
+.ojo{
+  border-left:3px solid var(--marg); background:color-mix(in srgb, var(--marg) 6%, var(--paper));
+  border-radius:0 8px 8px 0; padding:12px 16px; margin:14px 0; font-size:14.5px;
+}
+.ojo .dtag{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--marg);font-weight:600;display:block;margin-bottom:4px;}
+.ojo p{margin:0;}
+
+/* Oficial / programa literal box */
+.oficial{
+  border:1px dashed var(--rule); background:var(--paper-raised); border-radius:8px;
+  padding:12px 16px; margin:0 0 22px; font-size:13.5px;
+}
+.oficial .dtag{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;display:block;margin-bottom:6px;}
+.oficial p{margin:0;color:var(--ink-soft);font-style:italic;}
+
+.legend-row{display:flex;flex-wrap:wrap;gap:14px 22px;font-family:var(--mono);font-size:12px;color:var(--ink-soft);margin:14px 0 6px;}
+.legend-row span{display:flex;align-items:center;gap:6px;}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+.sq{width:10px;height:10px;display:inline-block;}
+
+/* Mini table of contents per tema */
+.tema-toc{
+  background:var(--paper); border:1px solid var(--rule); border-radius:8px;
+  padding:12px 16px; margin:0 0 24px; font-size:13.5px;
+}
+.tema-toc .ttag{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:6px;}
+.tema-toc ol{margin:0;padding-left:1.2em;columns:1;}
+.tema-toc li{margin-bottom:3px;}
+.tema-toc a{color:var(--tinta);text-decoration:none;}
+.tema-toc a:hover{text-decoration:underline;}
+
+@media (max-width:600px){
+  body{font-size:16px;}
+  .wrap, header.masthead, nav.tabs{padding-left:16px;padding-right:16px;}
+  .fase-head{padding:14px 16px;}
+  .fase-body{padding:4px 16px 18px;}
+}
+
+/* Presentación (ámbito #pres) */
+#pres .deck{max-width:920px;margin:0 auto;width:100%;flex:1;display:flex;flex-direction:column;padding:0 24px;}
+#pres .slide{display:none;flex:1;padding:34px 0 20px;overflow-y:auto;}
+#pres .slide.active{display:flex;flex-direction:column;animation:fade .25s ease;}
+#pres .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.02em;color:var(--marg);margin:0 0 8px;}
+#pres h1{font-size:clamp(25px,4.2vw,36px);line-height:1.15;margin:0 0 12px;font-weight:600;letter-spacing:-.01em;}
+#pres h2.slide-title{font-size:clamp(20px,3.2vw,27px);font-weight:600;margin:0 0 14px;letter-spacing:-.01em;}
+#pres h3{font-size:15.5px;font-weight:600;margin:16px 0 6px;color:var(--tinta);}
+#pres h4{font-size:14px;font-weight:600;margin:12px 0 4px;color:var(--marg);}
+#pres p{margin:0 0 10px;font-size:15.5px;line-height:1.5;}
+#pres ul,#pres ol{margin:0 0 10px;padding-left:1.2em;}
+#pres li{margin-bottom:5px;font-size:14.5px;line-height:1.45;}
+#pres strong{font-weight:600;}
+#pres em{color:var(--ink-soft);}
+#pres .subtitle{color:var(--ink-soft);font-size:15.5px;max-width:62ch;margin:0 0 6px;}
+#pres .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media (max-width:640px){#pres .two-col{grid-template-columns:1fr;}}
+#pres .box{background:var(--paper-raised);border:1px solid var(--rule);border-left:3px solid var(--tinta);border-radius:6px;padding:11px 16px;margin:0 0 11px;}
+#pres .box.warn{border-left-color:var(--marg);}
+#pres .box.green{border-left-color:var(--verde);}
+#pres .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--tinta);display:block;margin-bottom:5px;}
+#pres .box.warn .tag{color:var(--marg);}
+#pres .box.green .tag{color:var(--verde);}
+#pres .table-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;margin:0 0 11px;}
+#pres table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:420px;}
+#pres th,#pres td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--rule);vertical-align:top;}
+#pres th{font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);background:var(--paper-raised);font-weight:600;}
+#pres tr:last-child td{border-bottom:none;}
+#pres .jumpnote{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);border-top:1px solid var(--rule);padding-top:10px;margin-top:auto;}
+#pres code{font-family:var(--mono);font-size:.85em;background:var(--tinta-soft);color:var(--tinta);padding:.1em .3em;border-radius:3px;}
+#pres nav.bar{position:sticky;top:0;background:var(--paper);border-bottom:1px solid var(--rule);z-index:10;}
+#pres .bar-inner{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 24px;}
+#pres .progress{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);white-space:nowrap;}
+#pres .section-label{font-family:var(--mono);font-size:11.5px;color:var(--tinta);white-space:nowrap;display:none;}
+@media(min-width:700px){#pres .section-label{display:inline;}}
+#pres .dots{display:flex;gap:4px;flex:1;overflow-x:auto;}
+#pres .dots button{width:7px;height:7px;border-radius:50%;border:none;background:var(--rule);cursor:pointer;flex:0 0 auto;padding:0;}
+#pres .dots button.active{background:var(--marg);width:18px;border-radius:4px;}
+#pres .navbtn{font-family:var(--mono);font-size:12.5px;background:none;border:1px solid var(--rule);border-radius:20px;padding:6px 12px;cursor:pointer;color:var(--ink);white-space:nowrap;}
+#pres .navbtn:hover{border-color:var(--tinta);color:var(--tinta);}
+#pres .navbtn:disabled{opacity:.35;cursor:default;}
+#pres .cover{justify-content:center;}
+#pres .cover .kicker{font-size:13px;}
+#pres .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 11px;}
+@media (max-width:640px){#pres .grid3{grid-template-columns:1fr;}}
+#pres .mini{background:var(--paper-raised);border:1px solid var(--rule);border-radius:6px;padding:10px 12px;}
+#pres .mini h4{margin:0 0 3px;font-size:12px;font-family:var(--mono);color:var(--tinta);}
+#pres .mini p{font-size:12.5px;margin:0;color:var(--ink-soft);}
+.present-btn,nav.tabs button.present-btn{font-family:var(--mono);font-size:12.5px;background:var(--tinta);color:var(--paper-raised);border:none;border-radius:20px;padding:7px 14px;margin:0 8px;align-self:center;cursor:pointer;white-space:nowrap;}
+nav.tabs button.present-btn:hover{color:var(--paper-raised);opacity:.88;}
+button.link-chip{border:none;cursor:pointer;}
+.fase{scroll-margin-top:70px;}
+.equiv-note{margin:0 0 22px;}
+body.pres-open{overflow:hidden;}
+#pres{position:fixed;inset:0;z-index:100;background:var(--paper);color:var(--ink);font-family:var(--serif);display:none;flex-direction:column;height:100vh;height:100dvh;-webkit-font-smoothing:antialiased;}
+#pres.open{display:flex;}
+#pres .deck{min-height:0;}
+#pres .theme-toggle{width:32px;height:32px;min-width:32px;margin-left:0;}
+#pres .theme-toggle svg{width:14px;height:14px;}
+
+.dg{width:100%;height:auto;display:block}.dg text{font:11.5px var(--mono);fill:var(--ink);text-anchor:middle}
+.dg .s{fill:var(--ink-soft);font-size:10.5px}.dg .h{font-weight:600}.dg .tt{fill:var(--tinta)}.dg .tm{fill:var(--marg)}.dg .tv{fill:var(--verde)}
+.dg .b{fill:var(--tinta-soft);stroke:var(--tinta);stroke-width:1.5}.dg .m{fill:color-mix(in srgb,var(--marg) 12%,var(--paper));stroke:var(--marg);stroke-width:1.5}
+.dg .v{fill:var(--verde-soft);stroke:var(--verde);stroke-width:1.5}.dg .g{fill:var(--paper-raised);stroke:var(--rule);stroke-width:1.5}
+.dg .l{stroke:var(--ink-soft);stroke-width:1.5;fill:none}.dg .dash{stroke-dasharray:4 3}.dg .ah{fill:var(--ink-soft)}
+#pres .viz svg{max-height:40vh}
+.wg label{font:12.5px var(--mono);color:var(--ink-soft);display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 0}
+.wg input[type=number],.wg select{font:13px var(--mono);background:var(--paper-raised);color:var(--ink);border:1px solid var(--rule);border-radius:5px;padding:4px 7px;max-width:110px}
+.wg select{max-width:none}.wg input[type=range]{flex:1;min-width:140px;accent-color:var(--marg)}
+.wg .out{font:13px/1.8 var(--mono);margin:6px 0 10px}.wg .out b{color:var(--tinta)}.wg .out .bad{color:var(--marg)}
+.bit{display:inline-block;min-width:22px;text-align:center;font:13px var(--mono);border:1px solid var(--rule);border-radius:3px;margin:1px;padding:2px 0;background:var(--paper-raised)}
+.bit.s{border-color:var(--marg);background:color-mix(in srgb,var(--marg) 22%,transparent)}.bit.e{border-color:var(--tinta);background:var(--tinta-soft)}.bit.f{border-color:var(--verde);background:var(--verde-soft)}
+.wg .bar{height:14px;border-radius:3px;background:var(--tinta);margin:3px 0}.wg .bar.m{background:var(--verde)}
+.disks{display:flex;gap:8px;margin:10px 0}.disks>div{flex:1;height:110px;display:flex;flex-direction:column;border:1.5px solid var(--ink-soft);border-radius:5px;overflow:hidden}
+.disks i{display:flex;align-items:center;justify-content:center;font:normal 10px var(--mono);text-align:center}
+.disks .d{background:var(--tinta-soft);color:var(--tinta)}.disks .m{background:var(--verde-soft);color:var(--verde)}.disks .p{background:color-mix(in srgb,var(--marg) 25%,var(--paper));color:var(--marg)}
+
+/* Botón imprimir */
+nav.tabs button.print-btn{font-family:var(--mono);font-size:12.5px;background:transparent;color:var(--tinta);border:1px solid var(--tinta);border-radius:20px;padding:6px 13px;margin:0 8px 0 0;align-self:center;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;border-bottom:1px solid var(--tinta);}
+nav.tabs button.print-btn:hover{background:var(--tinta-soft);color:var(--tinta);}
+nav.tabs button.print-btn svg{width:14px;height:14px;}
+
+/* ===== Versión imprimible: A4, ahorro de tinta, páginas numeradas (solo el número) ===== */
+@page{size:A4;margin:16mm 15mm 20mm;@bottom-center{content:counter(page);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9pt;color:#000;}}
+html:root.print-mode:root:root{--paper:#fff;--paper-raised:#fff;--ink:#1a1a1a;--ink-soft:#444;--rule:#aaa;--tinta:#1f3a5f;--tinta-soft:#fff;--marg:#8a3f1c;--verde:#2f5a33;--verde-soft:#fff;}
+@media print{
+html:root:root:root{--paper:#fff;--paper-raised:#fff;--ink:#1a1a1a;--ink-soft:#444;--rule:#aaa;--tinta:#1f3a5f;--tinta-soft:#fff;--marg:#8a3f1c;--verde:#2f5a33;--verde-soft:#fff;}
+html,body{background:#fff !important;color:#1a1a1a;-webkit-print-color-adjust:economy;print-color-adjust:economy;}
+body{font-size:10pt;line-height:1.45;}
+nav.tabs,#pres,.theme-toggle,.present-btn,.print-btn{display:none !important;}
+.wrap{max-width:none;margin:0;padding:0;}
+header.masthead{max-width:none;padding:0 0 8pt;border-bottom:.6pt solid #888;}
+.notabox{max-width:none;padding:8pt 0 0;margin:8pt 0 0;border-top:.5pt dashed #999;}
+.notabox p{font-size:9pt;color:#333;}
+h1.title{font-size:20pt;}
+.subtitle{font-size:10pt;}
+.kicker{font-size:8.5pt;}
+section.panel{display:block !important;padding-top:0;animation:none;break-before:page;}
+section.panel#t1{break-before:auto;padding-top:14pt;}
+h2{font-size:14pt;margin:16pt 0 6pt;}
+section.panel > h2:first-child{margin-top:0;}
+h3{font-size:11.5pt;margin:12pt 0 5pt;}
+h4{font-size:10.5pt;margin:9pt 0 4pt;}
+h2,h3,h4{break-after:avoid;color:#000;}
+p,li{orphans:3;widows:3;}
+p{margin:0 0 7pt;}
+li{margin-bottom:3pt;}
+hr{margin:14pt 0;border-top:.5pt solid #aaa;}
+a{color:inherit;text-decoration:none;}
+code{background:none;color:#000;padding:0;font-weight:500;}
+/* cajas sin relleno */
+.defbox,.ojo,.examen,.practica,.conexion,.oficial,.tema-toc,.viz,.temas-list li{background:none !important;break-inside:avoid;font-size:9.5pt;}
+.defbox{border:none;border-left:2pt solid #555;padding:5pt 9pt;margin:8pt 0;}
+.ojo{border:none;border-left:2pt solid #000;padding:5pt 9pt;margin:8pt 0;}
+.examen,.practica{border:.6pt solid #777;border-radius:0;padding:6pt 9pt;margin:8pt 0;}
+.conexion,.conexion.ext,.conexion.retro{border:.5pt dashed #999;border-radius:0;padding:5pt 9pt;margin:8pt 0;}
+.oficial{border:.5pt dashed #999;border-radius:0;padding:5pt 9pt;margin:0 0 10pt;}
+.tema-toc{border:.5pt solid #bbb;border-radius:0;padding:6pt 10pt;margin:0 0 12pt;}
+.thread-box{background:none;border:.6pt solid #999;border-radius:0;padding:10pt 12pt;margin-top:16pt;}
+.temas-list li{border:.5pt solid #bbb;border-radius:0;padding:5pt 8pt;}
+.defbox .dtag,.ojo .dtag,.examen .etag,.practica .etag,.oficial .dtag,.tema-toc .ttag,.epig-num,.temas-list .tnum,.ttag{color:#000;}
+.epig-num,.temas-list .tnum{background:none;border:.5pt solid #888;}
+.epigrafe{margin:16pt 0;}
+/* fases del esquema: todas desplegadas */
+.fase{border:.6pt solid #999;border-radius:0;background:none;margin:10pt 0;overflow:visible;}
+.fase-head{cursor:default;padding:7pt 10pt;border-bottom:.5pt solid #ccc;break-after:avoid;}
+.fase-body{display:block !important;padding:4pt 10pt 10pt;}
+.fase-chevron{display:none;}
+.fase-num{background:none;color:#000;border:.6pt solid #444;}
+.fase.fase-previa .fase-num{background:none;}
+.link-chip,button.link-chip,.link-chip.back{background:none !important;color:#000;border:.5pt solid #999;border-radius:0;font-size:8.5pt;padding:0 5pt;}
+/* tablas */
+.table-scroll{overflow:visible;border:none;margin:0 0 10pt;}
+table{min-width:0;font-size:8.5pt;}
+thead{display:table-header-group;}
+tr{break-inside:avoid;}
+th{background:none;color:#000;border-bottom:.8pt solid #444;}
+th,td{padding:4pt 6pt;border-bottom:.4pt solid #bbb;}
+/* diagramas y calculadoras */
+.viz{border:.5pt solid #aaa;border-radius:0;padding:8pt 10pt;margin:10pt 0;}
+.viz-stage{overflow:visible;}
+.viz-stage svg{max-height:105mm;}
+.viz-label{font-size:8pt;}
+.legend-row{font-size:8.5pt;gap:6pt 14pt;}
+.dot,.sq{border:.5pt solid #333;}
+.dg .b,.dg .m,.dg .v,.dg .g{fill:none;}
+.dg .g{stroke:#777;}
+.dg text{fill:#1a1a1a;}
+.dg .s{fill:#444;}
+#ring-stage svg rect{fill:none !important;stroke:#444;stroke-width:1.2;opacity:1;}
+#ring-stage svg text{fill:#1a1a1a !important;}
+.wg label{font-size:9pt;}
+.wg input[type=number],.wg select{background:none;color:#000;border:.5pt solid #777;}
+.wg .out{font-size:9pt;}
+.wg .bar,.wg .bar.m{background:none;border:.5pt solid #333;height:9px;}
+.bit{background:none !important;border:.5pt solid #777;}
+.bit.s{font-weight:700;border-color:#000;}
+.bit.e{text-decoration:underline;border-color:#444;}
+.bit.f{border-style:dotted;}
+.disks>div{height:70px;border:.6pt solid #444;}
+.disks .d,.disks .m,.disks .p{background:none;color:#000;}
+.disks .m{border-top:.5pt dashed #666;}
+.disks .p{border-top:.5pt dotted #666;font-style:italic;}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <p class="kicker">CSE-INE A1 · Grupo de materias comunes · III. Almacenamiento y modelos de datos</p>
+  <h1 class="title">Almacenamiento y modelos de datos</h1>
+  <p class="subtitle">Documento integrado: el temario completo de los Temas 1 a 4 (pestañas 01–04, según el Anexo I de la Resolución de 22 de diciembre de 2025, BOE-A-2025-26900), el resumen en diapositivas (botón «Presentar») y el esquema interconectado con preguntas reales de convocatorias e hilos transversales (pestaña 05).</p>
+</header>
+<div class="notabox">
+  <p><strong>Nota sobre el alcance de este bloque:</strong> las pestañas 01–04 cubren únicamente los 4 temas del bloque III de <em>materias comunes</em>, exigibles en el primer y segundo ejercicio. Los contenidos más avanzados de bases de datos (modelo entidad-relación, álgebra y cálculo relacional, SQL, tecnologías web, XML) pertenecen a las <em>materias específicas</em> de la especialidad I (cuarto ejercicio) y no se desarrollan en el temario. <strong>Ojo:</strong> el esquema de la pestaña 05 usa otra numeración de los temas; la tabla de equivalencias está al principio de esa pestaña.</p>
+</div>
+
+<nav class="tabs" id="tabs">
+  <button data-panel="t1" class="active">01 · Representación de la información</button>
+  <button data-panel="t2">02 · Hardware</button>
+  <button data-panel="t3">03 · Sistemas operativos</button>
+  <button data-panel="t4">04 · Bases de datos</button>
+  <button data-panel="esq">05 · Esquema y preguntas de examen</button>
+  <button class="present-btn" id="presentBtn">▶ Presentar</button>
+  <button class="print-btn" id="printBtn" title="Versión imprimible: A4, ahorro de tinta y páginas numeradas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M6 14h12v7H6z"/></svg>Imprimir</button>
+  <button class="theme-toggle" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema">
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="2" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+  </button>
+</nav>
+
+<div class="wrap">
+
+<section class="panel active" id="t1">
+    <h2>Tema 1 · Representación y almacenamiento de la información</h2>
+    <div class="oficial">
+      <span class="dtag">Programa oficial (Anexo I, BOE-A-2025-26900)</span>
+      <p>Tema 1. Representación y almacenamiento de la información. Introducción. Bits y bytes. Organización de la memoria principal. Representación de la información como cadenas de bits. Inexistencia de «tipos» para los ficheros en disco.</p>
+    </div>
+    <div class="tema-toc">
+      <span class="ttag">Contenido del tema</span>
+      <ol>
+        <li><a href="#t1-1">Introducción: por qué representar información como bits</a></li>
+        <li><a href="#t1-2">Bits y bytes</a></li>
+        <li><a href="#t1-3">Organización de la memoria principal</a></li>
+        <li><a href="#t1-4">Representación de la información como cadenas de bits</a></li>
+        <li><a href="#t1-5">Inexistencia de «tipos» para los ficheros en disco</a></li>
+      </ol>
+    </div>
+
+    <div class="epigrafe" id="t1-1">
+      <h3><span class="epig-num">1.1</span>Introducción: por qué representar información como bits</h3>
+      <p>Cualquier sistema de computación digital solo es capaz de manejar, en última instancia, dos estados físicos distinguibles (por ejemplo, dos niveles de tensión eléctrica). Toda la información que un ordenador procesa o almacena —números, texto, imágenes, sonido, o los propios programas que se ejecutan— debe, por tanto, codificarse como secuencias de estos dos valores. Esta es la premisa fundamental de la que parte cualquier estudio de la representación y el almacenamiento de la información: no existe ninguna otra forma "más directa" de guardar un dato en un ordenador que reducirlo, en algún nivel, a una cadena de estos dos símbolos.</p>
+      <div class="defbox"><span class="dtag">Por qué importa distinguir representación de significado</span><p>Una misma secuencia de bits puede representar cosas completamente distintas —un número entero, un carácter, una instrucción de máquina— según el convenio de interpretación que se aplique. El bit, por sí solo, no tiene significado: el significado se lo da el programa o el sistema que lo interpreta en un contexto determinado.</p></div>
+    </div>
+
+    <div class="epigrafe" id="t1-2">
+      <h3><span class="epig-num">1.2</span>Bits y bytes</h3>
+      <p>El <strong>bit (binary digit)</strong> es la unidad mínima de información que puede manejar un sistema digital: toma uno de dos valores posibles, habitualmente representados como 0 y 1. Es la unidad atómica sobre la que se construye cualquier representación de datos.</p>
+      <p>El <strong>byte</strong> es la unidad de almacenamiento y direccionamiento más habitual en los sistemas de computación actuales, formada por una agrupación de 8 bits. Con 8 bits pueden representarse 2⁸ = 256 combinaciones distintas, lo que resulta suficiente para codificar, por ejemplo, un carácter del alfabeto latino en los juegos de caracteres más simples.</p>
+      <div class="defbox"><span class="dtag">Múltiplos del byte</span><p>Para expresar cantidades mayores se emplean prefijos como kilobyte (KB), megabyte (MB), gigabyte (GB) o terabyte (TB). Conviene tener presente la distinción entre los múltiplos decimales (potencias de 10, como los emplean los fabricantes de discos) y los múltiplos binarios (potencias de 2: kibibyte KiB = 2¹⁰ bytes, mebibyte MiB = 2²⁰ bytes, etc.), que son los que realmente maneja el sistema operativo al direccionar memoria.</p></div>
+      <div class="examen"><span class="etag">Cómo se pregunta en la práctica</span><p>Es habitual pedir calcular cuántos bits o bytes son necesarios para representar un determinado número de combinaciones, valores o caracteres distintos, o realizar conversiones entre bits, bytes y sus múltiplos.</p></div>
+    </div>
+
+    <div class="viz"><div class="viz-label">Calculadora · bits, combinaciones y rango</div><div class="wg" data-f="w1"><label>n = <b id="w1n">8</b> bits <input type="range" id="w1r" min="1" max="32" value="8"></label><div class="out" id="w1o"></div><label>¿Bits necesarios para N valores distintos? N = <input type="number" id="w1N" value="200" min="2"></label><div class="out" id="w1p"></div></div></div><div class="epigrafe" id="t1-3">
+      <h3><span class="epig-num">1.3</span>Organización de la memoria principal</h3>
+      <p>La <strong>memoria principal</strong> de un sistema de computación puede entenderse como una larga secuencia (array) de celdas de almacenamiento, cada una de un tamaño fijo (típicamente un byte), y cada una identificada de forma única por una <strong>dirección de memoria</strong>. Esta organización permite que la Unidad Central de Proceso (CPU) acceda a cualquier dato o instrucción indicando simplemente la dirección numérica de la celda en la que se encuentra, sin tener que recorrer secuencialmente el resto de la memoria: es lo que se conoce como <strong>acceso aleatorio</strong> (de ahí el nombre RAM, <em>Random Access Memory</em>).</p>
+      <ul>
+        <li><strong>Dirección de memoria:</strong> número entero que identifica de forma unívoca cada celda de memoria direccionable. El rango de direcciones posibles depende de la anchura (en bits) del bus de direcciones del sistema.</li>
+        <li><strong>Palabra (word):</strong> unidad natural de datos que un procesador concreto maneja de una sola vez (por ejemplo, 32 o 64 bits), que suele coincidir con el tamaño de sus registros internos.</li>
+        <li><strong>Espacio de direccionamiento:</strong> conjunto total de direcciones de memoria que un sistema es capaz de referenciar, determinado por la arquitectura del procesador y del sistema operativo.</li>
+      </ul>
+      <div class="viz">
+        <div class="viz-label">La memoria principal como secuencia de celdas direccionables</div>
+        <div class="viz-stage" id="viz-t1-memoria"></div>
+      </div>
+      <p>Sobre esta organización lineal de la memoria, el sistema operativo (Tema 3) construye los mecanismos que permiten que múltiples programas compartan la memoria física de forma segura y eficiente, como la memoria virtual o la paginación.</p>
+    </div>
+
+    <div class="viz"><div class="viz-label">Calculadora · ancho del bus de direcciones → memoria direccionable</div><div class="wg" data-f="w2"><label>bus de direcciones de <b id="w2n">32</b> bits <input type="range" id="w2r" min="8" max="64" value="32"></label><div class="out" id="w2o"></div></div></div><div class="epigrafe" id="t1-4">
+      <h3><span class="epig-num">1.4</span>Representación de la información como cadenas de bits</h3>
+      <p>Cualquier tipo de dato manejado por un ordenador se codifica finalmente como una cadena de bits, según un convenio de interpretación específico para cada tipo:</p>
+      <h4>Números enteros: signo-magnitud, complemento a 1 y complemento a 2</h4>
+      <p>Para representar enteros con signo en un número fijo de bits existen tres convenios principales:</p>
+      <ul>
+        <li><strong>Signo-magnitud:</strong> el bit más significativo indica el signo (0 positivo, 1 negativo) y el resto codifica el valor absoluto. Tiene el inconveniente de una doble representación del cero (+0 y −0).</li>
+        <li><strong>Complemento a 1 (C1):</strong> los números negativos se obtienen invirtiendo todos los bits del positivo equivalente. También presenta doble cero.</li>
+        <li><strong>Complemento a 2 (C2):</strong> los números negativos se obtienen invirtiendo todos los bits del positivo equivalente y sumando 1. Es el sistema empleado universalmente en los procesadores actuales porque resuelve el problema del doble cero y permite sumar y restar con el mismo circuito, sin distinguir el signo durante la operación.</li>
+      </ul>
+      <div class="defbox"><span class="dtag">Rango representable en C2 con n bits</span><p>Con n bits en complemento a 2 se representan los enteros del intervalo [−2<sup>n−1</sup>, 2<sup>n−1</sup> − 1]. Por ejemplo, con 8 bits: de −128 a +127. Nótese la asimetría: hay un negativo más que positivos, porque el cero solo ocupa una combinación.</p></div>
+      <h4>Desbordamiento (overflow)</h4>
+      <p>El <strong>desbordamiento</strong> se produce cuando el resultado de una operación aritmética no cabe en el número de bits disponible para representarlo. En complemento a 2, se detecta comparando el acarreo que entra en el bit de signo con el que sale de él: si son distintos, hay overflow. El sistema no lanza automáticamente un error visible: el resultado se trunca y puede interpretarse como un número completamente distinto (incluso de signo opuesto) sin ningún aviso, salvo que el propio programa compruebe explícitamente esa condición.</p>
+      <div class="ojo"><span class="dtag">Por qué importa en la práctica de examen</span><p>El desbordamiento programático (donde una variable de tamaño fijo se trunca en cada reasignación sucesiva) es uno de los subtipos de pregunta más recurrentes en las últimas convocatorias del INE A1: conviene dominar el mecanismo de suma/resta en C2 y saber detectar cuándo el resultado se sale del rango representable.</p></div>
+      <h4>Coma flotante (representación de números reales)</h4>
+      <p>Los números con parte fraccionaria se representan mediante <strong>notación en coma flotante</strong>, siguiendo típicamente el estándar <strong>IEEE 754</strong>, que descompone el número en tres campos dentro de una palabra de tamaño fijo (habitualmente 32 o 64 bits):</p>
+      <ul>
+        <li><strong>Signo</strong> (1 bit): 0 positivo, 1 negativo.</li>
+        <li><strong>Exponente</strong>: codificado con un <strong>sesgo (bias)</strong> —por ejemplo, 127 en simple precisión de 32 bits— para poder representar exponentes negativos sin un bit de signo propio.</li>
+        <li><strong>Mantisa (o fracción):</strong> los dígitos significativos del número, normalizados de forma que el primer dígito antes de la coma sea siempre 1 (y por tanto no se almacena explícitamente: es el llamado "1 implícito").</li>
+      </ul>
+      <p>La <strong>normalización</strong> consiste en desplazar la coma del número hasta dejar un único dígito distinto de cero a su izquierda, ajustando el exponente para compensar ese desplazamiento; es el paso indispensable antes de codificar cualquier número real en coma flotante.</p>
+      <h4>Caracteres y texto</h4>
+      <p>El texto se representa asignando a cada carácter un código numérico según una <strong>tabla de codificación</strong>: los juegos de caracteres clásicos como <strong>ASCII</strong> emplean 7 u 8 bits por carácter, suficientes para el alfabeto latino sin diacríticos; los juegos de caracteres modernos como <strong>Unicode</strong> (habitualmente codificado en <strong>UTF-8</strong>, de longitud variable) permiten representar prácticamente cualquier símbolo de cualquier alfabeto o sistema de escritura del mundo.</p>
+      <div class="examen"><span class="etag">Cómo se pregunta en la práctica</span>
+        <p>El patrón de examen es estable de una convocatoria a otra, aunque cambie el "envoltorio" del enunciado: representar un decimal en signo-magnitud, C1 y C2 con un número de bits dado; interpretar un patrón binario dado en C2; calcular el rango representable con n bits; realizar una resta directamente en C2 (sumando el minuendo con el complemento a 2 del sustraendo); calcular el número mínimo de bits necesario para representar un entero dado; codificar o decodificar un número en coma flotante normalizada con un sesgo determinado; o razonar, a partir de un fragmento de pseudocódigo con variables de tamaño fijo, qué valor imprime cada operación tras sucesivos truncamientos por desbordamiento.</p>
+        <p>Conviene, por tanto, dominar el mecanismo general de conversión y detección de overflow en lugar de memorizar un enunciado concreto: lo que varía entre convocatorias es la envoltura del problema, no el fundamento aritmético.</p>
+      </div>
+    </div>
+
+    <div class="viz"><div class="viz-label">Laboratorio · representación en C1/C2 y suma con detección de overflow</div><div class="wg" data-f="w3"><label>bits <select id="w3n"><option>4</option><option selected>8</option><option>16</option></select> a = <input type="number" id="w3a" value="100"> <select id="w3o"><option value="+">+</option><option value="-">−</option></select> b = <input type="number" id="w3b" value="50"></label><div class="out" id="w3out"></div></div></div><div class="viz"><div class="viz-label">Laboratorio · codificación en coma flotante IEEE 754</div><div class="wg" data-f="w4"><label>x = <input type="number" id="w4x" value="-5.75" step="any"> formato <select id="w4f"><option value="8,23">32 bits (sesgo 127)</option><option value="5,10">16 bits (sesgo 15)</option></select></label><div class="out" id="w4o"></div><p class="legend-row"><span><i class="sq" style="background:var(--marg)"></i>signo</span><span><i class="sq" style="background:var(--tinta)"></i>exponente sesgado</span><span><i class="sq" style="background:var(--verde)"></i>mantisa</span></p></div></div><div class="epigrafe" id="t1-5">
+      <h3><span class="epig-num">1.5</span>Inexistencia de «tipos» para los ficheros en disco</h3>
+      <p>Un aspecto conceptualmente importante —y con frecuencia contraintuitivo para quien se acerca por primera vez a esta materia— es que, a nivel del sistema de almacenamiento, <strong>un fichero es, sin más, una secuencia de bytes</strong>. El disco no almacena ninguna marca intrínseca que indique "esto es una imagen" o "esto es un documento de texto": esa interpretación depende enteramente del software (sistema operativo o aplicación) que lea el fichero.</p>
+      <ul>
+        <li><strong>La extensión del nombre de fichero</strong> (<code>.txt</code>, <code>.jpg</code>, <code>.csv</code>) es únicamente una <strong>convención</strong> que ayuda al sistema operativo y al usuario a decidir con qué programa abrirlo; no es una propiedad física del contenido almacenado, y puede cambiarse libremente sin alterar en absoluto los bytes del fichero.</li>
+        <li>Es la propia aplicación la que, al leer la secuencia de bytes, decide cómo interpretarla: como texto plano, como una imagen comprimida en un formato concreto, como una base de datos, etc., normalmente reconociendo una <strong>cabecera (header)</strong> con una estructura interna conocida al principio del fichero.</li>
+        <li>Esta ausencia de "tipos" a nivel de almacenamiento explica por qué es posible, por ejemplo, renombrar un fichero cambiando su extensión sin que su contenido cambie, o por qué un fichero corrupto o con la extensión incorrecta puede seguir "abriéndose" con resultados imprevisibles si el programa intenta interpretar los bytes según una estructura que no les corresponde.</li>
+      </ul>
+      <div class="viz"><div class="viz-label">Los mismos bytes, tres lecturas distintas</div><div class="wg" data-f=""><p>Un fichero de 4 bytes: <span class="bit" style="width:auto;padding:2px 8px">48</span><span class="bit" style="width:auto;padding:2px 8px">6F</span><span class="bit" style="width:auto;padding:2px 8px">6C</span><span class="bit" style="width:auto;padding:2px 8px">61</span></p><div class="table-scroll"><table><tr><th>Interpretación</th><th>Cómo se lee</th><th>Resultado</th></tr><tr><td>Texto ASCII</td><td>48→H · 6F→o · 6C→l · 61→a</td><td>«Hola»</td></tr><tr><td>Entero sin signo de 32 bits</td><td>0x486F6C61</td><td>1.215.261.793</td></tr><tr><td>Cuatro niveles de gris (0–255)</td><td>72 · 111 · 108 · 97</td><td>4 píxeles grises</td></tr></table></div><p>Los bytes no cambian; solo cambia el programa que los interpreta.</p></div></div><div class="ojo"><span class="dtag">Matiz que conviene tener claro</span><p>Esto no contradice que existan sistemas de ficheros que almacenen algunos metadatos adicionales (fecha de creación, permisos, a veces un tipo MIME); lo que no existe, a nivel del propio contenido almacenado en disco, es un "tipo" impuesto por el hardware o por el sistema de almacenamiento: el contenido es, en sí mismo, indistinguible de cualquier otra secuencia de bytes de la misma longitud.</p></div>
+      <div class="practica"><span class="etag">Aplicación diaria en el INE</span>
+        <p>Comprender que un fichero es solo una secuencia de bytes es la base para entender por qué, en producción estadística, hay que ser explícito sobre el formato exacto de cada fichero de intercambio (separador de un CSV, codificación de caracteres, formato de fecha): el sistema no puede "adivinar" la estructura de un fichero de microdatos si no se documenta y se procesa con el programa preparado para interpretarla correctamente.</p>
+      </div>
+    </div>
+
+  
+<div class="conexion ext"><strong>Ver también en el esquema:</strong> preguntas reales de examen sobre este tema → <button class="link-chip back" data-goto="f1">Aritmética en C2 y convocatorias 2023-2025</button></div>
+  </section>
+
+<section class="panel" id="t2">
+    <h2>Tema 2 · Componentes principales del hardware de un sistema de computación</h2>
+    <div class="oficial">
+      <span class="dtag">Programa oficial (Anexo I, BOE-A-2025-26900)</span>
+      <p>Tema 2. Componentes principales del hardware de un sistema de computación. Introducción. Componentes principales de hardware de un sistema de computación.</p>
+    </div>
+    <div class="tema-toc">
+      <span class="ttag">Contenido del tema</span>
+      <ol>
+        <li><a href="#t2-1">Introducción: el modelo de Von Neumann</a></li>
+        <li><a href="#t2-2">La Unidad Central de Proceso (CPU)</a></li>
+        <li><a href="#t2-3">La memoria: jerarquía y tipos</a></li>
+        <li><a href="#t2-4">Dispositivos de almacenamiento secundario</a></li>
+        <li><a href="#t2-5">Periféricos de entrada y salida</a></li>
+        <li><a href="#t2-6">Buses y comunicación entre componentes</a></li>
+      </ol>
+    </div>
+
+    <div class="epigrafe" id="t2-1">
+      <h3><span class="epig-num">2.1</span>Introducción: el modelo de Von Neumann</h3>
+      <p>Un sistema de computación se describe habitualmente mediante la <strong>arquitectura de Von Neumann</strong>: un modelo en el que un único procesador ejecuta instrucciones almacenadas en una memoria compartida con los datos, accediendo a ambas a través de un conjunto de buses. Sus componentes esenciales son cuatro: la <strong>Unidad Central de Proceso (CPU)</strong>, que ejecuta las instrucciones; la <strong>memoria</strong>, que almacena programas y datos; los <strong>periféricos de entrada/salida</strong>, que comunican el sistema con el exterior; y los <strong>buses</strong>, que interconectan a los tres anteriores.</p>
+      <div class="defbox"><span class="dtag">Cuello de botella de Von Neumann</span><p>Al compartir un único bus para instrucciones y datos, la CPU no puede leer una instrucción y un dato al mismo tiempo: esta limitación estructural es la razón última por la que existe la jerarquía de memoria y la memoria caché descritas en el epígrafe 2.3.</p></div>
+      <p>Frente a este modelo, la <strong>arquitectura Harvard</strong> —empleada en muchos microcontroladores y procesadores especializados— separa físicamente la memoria de instrucciones de la memoria de datos, con buses independientes, lo que permite acceder a ambas simultáneamente a costa de mayor complejidad y coste.</p>
+      <div class="viz">
+        <div class="viz-label">Esquema de bloques de un sistema de computación</div>
+        <div class="viz-stage" id="viz-t2-arch"></div>
+        <div class="legend-row">
+          <span><span class="dot" style="background:var(--tinta)"></span>CPU (control + ALU)</span>
+          <span><span class="dot" style="background:var(--marg)"></span>Memoria principal</span>
+          <span><span class="dot" style="background:var(--verde)"></span>E/S y almacenamiento secundario</span>
+        </div>
+      </div>
+      <div class="conexion retro"><strong>Conexión hacia atrás:</strong> tanto la memoria como los dispositivos de almacenamiento de este tema son, en última instancia, el soporte físico donde se materializa la representación en bits del Tema 1: cualquier dato representado como cadena de bits necesita residir físicamente en alguno de estos componentes.</div>
+    </div>
+
+    <div class="epigrafe" id="t2-2">
+      <h3><span class="epig-num">2.2</span>La Unidad Central de Proceso (CPU)</h3>
+      <p>La CPU es el componente que interpreta y ejecuta las instrucciones de un programa. Se compone de dos subunidades funcionales y un conjunto de registros:</p>
+      <ul>
+        <li><strong>Unidad de Control (UC):</strong> dirige la secuencia de ejecución de instrucciones, genera las señales de control que activan el resto de componentes y gestiona el ciclo de instrucción.</li>
+        <li><strong>Unidad Aritmético-Lógica (ALU):</strong> ejecuta las operaciones aritméticas (suma, resta, multiplicación) y lógicas (AND, OR, NOT, comparaciones) sobre los datos.</li>
+        <li><strong>Registros:</strong> memoria interna de la CPU, de acceso casi instantáneo y capacidad muy reducida. Destacan el <strong>contador de programa (PC)</strong>, que apunta a la siguiente instrucción a ejecutar; el <strong>registro de instrucción (RI)</strong>, que contiene la instrucción en curso; y los registros de propósito general, donde se cargan operandos y resultados intermedios.</li>
+      </ul>
+      <p>La ejecución de cada instrucción sigue el llamado <strong>ciclo de instrucción</strong>, que se repite continuamente: <em>fetch</em> (búsqueda de la instrucción en memoria, apuntada por el PC), <em>decode</em> (decodificación: la UC interpreta qué operación representa) y <em>execute</em> (ejecución: la ALU o el componente correspondiente realiza la operación indicada).</p>
+      <div class="examen"><span class="etag">Cómo se pregunta en la práctica</span><p>Se pide con frecuencia distinguir la función de la unidad de control frente a la ALU, y describir el ciclo fetch-decode-execute como base de cómo un procesador "ejecuta un programa" paso a paso.</p></div>
+    </div>
+
+    <div class="viz" id="vz-fetch"><div class="viz-label">Ciclo de instrucción: fetch → decode → execute</div><div class="viz-stage"><svg class="dg" viewBox="0 0 640 240" role="img"><rect x="20" y="60" width="170" height="80" rx="7" class="b"/><text x="105" y="85" class="h tt">1 · FETCH</text><text x="105" y="106" class="s">PC → RAM: lee instr.</text><text x="105" y="124" class="s">RI ← instr · PC ← PC+1</text><rect x="235" y="60" width="170" height="80" rx="7" class="m"/><text x="320" y="85" class="h tm">2 · DECODE</text><text x="320" y="106" class="s">La UC interpreta el</text><text x="320" y="124" class="s">código de operación</text><rect x="450" y="60" width="170" height="80" rx="7" class="v"/><text x="535" y="85" class="h tv">3 · EXECUTE</text><text x="535" y="106" class="s">ALU, memoria o E/S</text><text x="535" y="124" class="s">hace la operación</text><line x1="190" y1="100" x2="229.0" y2="100.0" class="l"/><polygon points="235,100 227.0,103.5 227.0,96.5" class="ah"/><line x1="405" y1="100" x2="444.0" y2="100.0" class="l"/><polygon points="450,100 442.0,103.5 442.0,96.5" class="ah"/><line x1="535" y1="140" x2="535" y2="190" class="l"/><line x1="535" y1="190" x2="105" y2="190" class="l"/><line x1="105" y1="190" x2="105.0" y2="147.0" class="l"/><polygon points="105,141 108.5,149.0 101.5,149.0" class="ah"/><text x="320" y="212" class="s">se repite sin parar mientras el programa siga en ejecución</text><text x="320" y="30" class="s">Registros implicados: PC (siguiente instrucción) · RI (instrucción en curso)</text></svg></div></div><div class="epigrafe" id="t2-3">
+      <h3><span class="epig-num">2.3</span>La memoria: jerarquía de memoria, memoria principal y memoria secundaria</h3>
+      <p>Ningún tipo de memoria es simultáneamente rápida, barata y de gran capacidad, así que los sistemas de computación organizan la memoria en una <strong>jerarquía</strong> de niveles, de menor a mayor capacidad y de mayor a menor velocidad (y coste por byte):</p>
+      <ol>
+        <li><strong>Registros de la CPU</strong> — acceso casi instantáneo, capacidad de unas pocas decenas de bytes.</li>
+        <li><strong>Memoria caché</strong> (niveles L1, L2, a veces L3) — memoria muy rápida situada entre la CPU y la RAM, que retiene copias de los datos e instrucciones usados con más frecuencia, aprovechando el <strong>principio de localidad</strong> (temporal: lo usado recientemente se volverá a usar pronto; espacial: lo cercano a un dato usado también se usará pronto).</li>
+        <li><strong>Memoria principal (RAM)</strong> — memoria volátil de acceso rápido donde residen los programas en ejecución y los datos que están siendo procesados en cada momento, organizada como se describió en el epígrafe 1.3.</li>
+        <li><strong>Memoria secundaria</strong> (discos, SSD) — no volátil, de gran capacidad y coste por byte muy inferior, pero mucho más lenta; es donde se almacenan de forma persistente los ficheros.</li>
+      </ol>
+      <div class="defbox"><span class="dtag">Volatilidad</span><p>Los registros, la caché y la RAM son memorias <strong>volátiles</strong>: pierden su contenido al desconectar la alimentación. La memoria secundaria es <strong>no volátil</strong>: por eso cualquier dato que deba persistir entre sesiones de trabajo debe escribirse en ella.</p></div>
+      <div class="viz">
+        <div class="viz-label">Pirámide de la jerarquía de memoria</div>
+        <div class="viz-stage" id="viz-t2-memoria"></div>
+      </div>
+      <div class="examen"><span class="etag">Cómo se pregunta en la práctica</span><p>Es habitual pedir ordenar los niveles de memoria de más rápido/caro a más lento/barato, y justificar por qué existe la memoria caché en términos del principio de localidad.</p></div>
+    </div>
+
+    <div class="viz"><div class="viz-label">Calculadora · efecto de la caché en el tiempo medio de acceso</div><div class="wg" data-f="w6"><label>tasa de aciertos h = <b id="w6hv"></b> <input type="range" id="w6h" min="0" max="100" value="90"></label><label>t<sub>caché</sub> <input type="number" id="w6c" value="2" min="1"> ns · t<sub>RAM</sub> <input type="number" id="w6m" value="100" min="1"> ns</label><div class="out" id="w6o"></div></div></div><div class="epigrafe" id="t2-4">
+      <h3><span class="epig-num">2.4</span>Dispositivos de almacenamiento secundario</h3>
+      <p>Dentro de la memoria secundaria conviven distintas tecnologías con perfiles de rendimiento y fiabilidad diferentes:</p>
+      <ul>
+        <li><strong>Discos magnéticos (HDD):</strong> almacenan la información en platos giratorios recubiertos de material magnético, leídos por una cabeza mecánica. Su coste por gigabyte es bajo y su capacidad alta, pero su velocidad de acceso está limitada por la latencia mecánica (tiempo de búsqueda y de rotación).</li>
+        <li><strong>Unidades de estado sólido (SSD):</strong> almacenan la información en memoria flash, sin partes mecánicas móviles. Ofrecen tiempos de acceso muy inferiores a los de un HDD (especialmente en accesos aleatorios), mayor resistencia a golpes y menor consumo, a cambio de un coste por gigabyte superior y un número finito de ciclos de escritura por celda.</li>
+      </ul>
+      <p>Cuando la fiabilidad o el rendimiento de un único disco no son suficientes, se recurre a <strong>RAID (Redundant Array of Independent Disks)</strong>: combinar varios discos físicos para que el sistema los vea como una sola unidad lógica, mejorando el rendimiento, la tolerancia a fallos, o ambos, según el nivel elegido.</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Nivel</th><th>Técnica</th><th>Ventaja</th><th>Coste en capacidad</th></tr></thead>
+          <tbody>
+            <tr><td>RAID 0</td><td>Fragmentación (striping) sin redundancia</td><td>Máximo rendimiento de lectura/escritura</td><td>Ninguno perdido, pero cero tolerancia a fallos</td></tr>
+            <tr><td>RAID 1</td><td>Duplicación (mirroring)</td><td>Máxima tolerancia a fallos: copia exacta en otro disco</td><td>50% de la capacidad total</td></tr>
+            <tr><td>RAID 5</td><td>Fragmentación + paridad distribuida</td><td>Buen equilibrio rendimiento/redundancia; tolera el fallo de 1 disco</td><td>Capacidad de 1 disco (para paridad)</td></tr>
+            <tr><td>RAID 10 (1+0)</td><td>Combinación de mirroring y striping</td><td>Alto rendimiento y alta redundancia</td><td>50% de la capacidad total</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="conexion"><strong>Conexión hacia delante:</strong> es sobre estos dispositivos de almacenamiento secundario donde el sistema operativo (Tema 3) construye el sistema de ficheros, y donde reside, en última instancia, cualquier base de datos (Tema 4).</div>
+    </div>
+
+    <div class="viz"><div class="viz-label">Calculadora · capacidad útil y tolerancia a fallos en RAID</div><div class="wg" data-f="w7"><label>nivel <select id="w7l"><option value="0">RAID 0</option><option value="1">RAID 1</option><option value="5" selected>RAID 5</option><option value="10">RAID 10</option></select> discos <input type="number" id="w7n" value="4" min="2" max="8"> tamaño <input type="number" id="w7s" value="4" min="1"> TB</label><div class="out" id="w7o"></div></div></div><div class="epigrafe" id="t2-5">
+      <h3><span class="epig-num">2.5</span>Periféricos de entrada y salida</h3>
+      <p>Los periféricos son los dispositivos que permiten la comunicación del sistema de computación con el exterior. Se clasifican habitualmente en:</p>
+      <ul>
+        <li><strong>Periféricos de entrada:</strong> introducen información en el sistema (teclado, ratón, escáner, lector de códigos, sensores).</li>
+        <li><strong>Periféricos de salida:</strong> presentan información procesada al exterior (monitor, impresora, altavoces).</li>
+        <li><strong>Periféricos de entrada/salida (mixtos):</strong> cumplen ambas funciones (pantallas táctiles, módems, dispositivos de red, unidades de almacenamiento extraíble).</li>
+      </ul>
+      <p>La comunicación entre la CPU y los periféricos, dada la diferencia de velocidad entre ambos, se gestiona mediante mecanismos como las <strong>interrupciones</strong> (el periférico avisa a la CPU cuando tiene datos listos, en lugar de que la CPU consulte continuamente su estado) y el <strong>acceso directo a memoria (DMA)</strong>, que permite a un periférico transferir datos directamente a memoria principal sin que la CPU intervenga en cada byte transferido, liberándola para otras tareas.</p>
+    </div>
+
+    <div class="epigrafe" id="t2-6">
+      <h3><span class="epig-num">2.6</span>Buses y comunicación entre componentes</h3>
+      <p>Un <strong>bus</strong> es un canal de comunicación compartido que interconecta los distintos componentes del sistema. Se distinguen tres tipos según la información que transportan:</p>
+      <ul>
+        <li><strong>Bus de datos:</strong> transporta los datos que se intercambian entre CPU, memoria y periféricos. Su anchura (en bits) determina cuántos bits pueden transferirse simultáneamente.</li>
+        <li><strong>Bus de direcciones:</strong> transporta la dirección de memoria (o del periférico) a la que se quiere acceder. Su anchura determina el espacio máximo de memoria direccionable, tal y como se introdujo en el epígrafe 1.3.</li>
+        <li><strong>Bus de control:</strong> transporta las señales que coordinan la operación (lectura/escritura, interrupciones, temporización).</li>
+      </ul>
+      <p>El hecho de que estos buses sean compartidos por múltiples componentes es precisamente lo que genera el cuello de botella de Von Neumann mencionado en el epígrafe 2.1: solo un componente puede usar el bus en cada instante.</p>
+      <div class="practica"><span class="etag">Aplicación diaria en el INE</span>
+        <p>Cualquier decisión de dimensionamiento de un servidor corporativo del INE que da servicio a las aplicaciones de recogida, depuración o explotación de una operación estadística —cuánta RAM, qué tipo de disco, cuántos núcleos de CPU— se apoya directamente en comprender estos componentes de hardware y sus cuellos de botella característicos.</p>
+      </div>
+    </div>
+
+  
+<div class="conexion ext"><strong>Ver también en el esquema:</strong> interconexiones y pregunta real → <button class="link-chip back" data-goto="f1">Pregunta de examen 2023 sobre la arquitectura del hardware</button></div>
+  </section>
+
+<section class="panel" id="t3">
+    <h2>Tema 3 · Introducción a los sistemas operativos</h2>
+    <div class="oficial">
+      <span class="dtag">Programa oficial (Anexo I, BOE-A-2025-26900)</span>
+      <p>Tema 3. Introducción a los sistemas operativos. Qué hacen los sistemas operativos. Organización de sistemas de computación. Arquitectura de sistemas de computación. Estructura de sistemas operativos. Operaciones en sistemas operativos. Gestión de procesos. Gestión de memoria. Gestión de almacenamiento. Protección y seguridad. Sistemas distribuidos. Entornos de computación.</p>
+    </div>
+    <div class="tema-toc">
+      <span class="ttag">Contenido del tema</span>
+      <ol>
+        <li><a href="#t3-1">Qué hacen los sistemas operativos</a></li>
+        <li><a href="#t3-2">Organización y arquitectura de sistemas de computación</a></li>
+        <li><a href="#t3-3">Estructura de sistemas operativos</a></li>
+        <li><a href="#t3-4">Operaciones en sistemas operativos</a></li>
+        <li><a href="#t3-5">Gestión de procesos</a></li>
+        <li><a href="#t3-6">Gestión de memoria</a></li>
+        <li><a href="#t3-7">Gestión de almacenamiento</a></li>
+        <li><a href="#t3-8">Protección y seguridad</a></li>
+        <li><a href="#t3-9">Sistemas distribuidos</a></li>
+        <li><a href="#t3-10">Entornos de computación</a></li>
+      </ol>
+    </div>
+
+    <div class="epigrafe" id="t3-1">
+      <h3><span class="epig-num">3.1</span>Qué hacen los sistemas operativos</h3>
+      <p>El <strong>sistema operativo (SO)</strong> es el software que actúa de intermediario entre el hardware descrito en el Tema 2 y las aplicaciones (entre ellas, el SGBD del Tema 4). Cumple, básicamente, dos papeles:</p>
+      <ul>
+        <li><strong>Como gestor de recursos:</strong> asigna y reparte de forma ordenada los recursos del sistema —procesador, memoria, dispositivos de E/S— entre los distintos programas que se ejecutan simultáneamente, resolviendo los conflictos de acceso que puedan surgir.</li>
+        <li><strong>Como máquina extendida (o virtual):</strong> oculta al usuario y al programador los detalles complejos e incómodos del hardware —cómo se controla exactamente un disco o una tarjeta de red— ofreciendo en su lugar una interfaz de más alto nivel, más sencilla y uniforme de usar.</li>
+      </ul>
+      <div class="defbox"><span class="dtag">Objetivos del sistema operativo</span><p>Un sistema operativo persigue simultáneamente: ejecutar los programas de usuario y facilitar la resolución de sus problemas; hacer el sistema de computación cómodo de usar; y emplear el hardware del sistema de computación de forma eficiente.</p></div>
+    </div>
+
+    <div class="epigrafe" id="t3-2">
+      <h3><span class="epig-num">3.2</span>Organización y arquitectura de sistemas de computación</h3>
+      <p>Desde el punto de vista del sistema operativo, un sistema de computación se organiza en torno a la CPU, la memoria principal y los dispositivos controladores de E/S, todos ellos conectados a través de un bus común que proporciona acceso a la memoria compartida, tal y como se describió en el Tema 2. El funcionamiento habitual se basa en <strong>interrupciones</strong>: cuando un dispositivo de E/S termina una operación, envía una señal de interrupción a la CPU, que suspende momentáneamente lo que está haciendo y transfiere el control a una rutina fija —el <strong>gestor de interrupciones</strong>— encargada de atender el evento.</p>
+      <p>Según el número de procesadores disponibles, la arquitectura puede clasificarse en <strong>sistemas monoprocesador</strong> (una única CPU de propósito general) o <strong>sistemas multiprocesador</strong>, que a su vez pueden ser de <strong>multiprocesamiento asimétrico</strong> (cada procesador tiene asignada una tarea específica) o <strong>multiprocesamiento simétrico —SMP—</strong> (cada procesador realiza todas las tareas del sistema operativo indistintamente). Existen además arquitecturas de <strong>clústeres</strong>, formadas por varios sistemas completos interconectados que cooperan y a menudo comparten almacenamiento, empleadas principalmente para ofrecer alta disponibilidad.</p>
+    </div>
+
+    <div class="epigrafe" id="t3-3">
+      <h3><span class="epig-num">3.3</span>Estructura de sistemas operativos</h3>
+      <p>El diseño interno de un sistema operativo puede organizarse siguiendo distintos modelos estructurales:</p>
+      <ul>
+        <li><strong>Estructura simple (monolítica):</strong> el sistema operativo se escribe como un conjunto de procedimientos, cada uno de los cuales puede llamar a cualquier otro, sin una separación estricta entre componentes.</li>
+        <li><strong>Enfoque en capas (layered approach):</strong> el sistema operativo se divide en un cierto número de capas (niveles), cada una construida sobre las inferiores; la capa inferior (capa 0) es el hardware, y la superior (capa N) es la interfaz de usuario.</li>
+        <li><strong>Microkernels:</strong> se retira del núcleo todo el componente que no sea estrictamente esencial, trasladándolo a programas de nivel de usuario; el núcleo, muy reducido, se limita a proporcionar comunicación entre procesos y funciones básicas.</li>
+        <li><strong>Módulos:</strong> el sistema operativo dispone de un conjunto de componentes principales y enlaza dinámicamente servicios adicionales mediante módulos, de forma similar a los objetos con interfaces bien definidas.</li>
+        <li><strong>Sistemas híbridos:</strong> combinan en la práctica elementos de varias de las estructuras anteriores para equilibrar rendimiento, seguridad y facilidad de mantenimiento.</li>
+      </ul>
+    </div>
+
+    <div class="viz" id="vz-os"><div class="viz-label">Tres formas de estructurar un sistema operativo</div><div class="viz-stage"><svg class="dg" viewBox="0 0 640 240" role="img"><text x="105" y="22" class="h tt">Monolítico</text><rect x="20" y="35" width="170" height="150" rx="7" class="b"/><text x="105" y="90" class="">Núcleo único</text><text x="105" y="110" class="s">procesos · memoria</text><text x="105" y="127" class="s">ficheros · drivers</text><text x="105" y="144" class="s">todo en modo núcleo</text><rect x="20" y="195" width="170" height="32" rx="7" class="g"/><text x="105" y="216" class="">Hardware</text><text x="320" y="22" class="h tm">En capas</text><rect x="235" y="35" width="170" height="34" rx="7" class="m"/><text x="320" y="57" class="">Capa N · interfaz de usuario</text><rect x="235" y="75" width="170" height="34" rx="7" class="m"/><text x="320" y="97" class="">Capa 2 · …</text><rect x="235" y="115" width="170" height="34" rx="7" class="m"/><text x="320" y="137" class="">Capa 1 · …</text><rect x="235" y="155" width="170" height="34" rx="7" class="g"/><text x="320" y="177" class="">Capa 0 · hardware</text><text x="320" y="214" class="s">cada capa usa solo la inferior</text><text x="535" y="22" class="h tv">Microkernel</text><rect x="450" y="35" width="52" height="44" rx="7" class="v"/><text x="476" y="62" class="s">Ficheros</text><rect x="509" y="35" width="52" height="44" rx="7" class="v"/><text x="535" y="62" class="s">Red</text><rect x="568" y="35" width="52" height="44" rx="7" class="v"/><text x="594" y="62" class="s">Drivers</text><line x1="476" y1="79" x2="476.0" y2="99.0" class="l"/><polygon points="476,105 472.5,97.0 479.5,97.0" class="ah"/><line x1="535" y1="79" x2="535.0" y2="99.0" class="l"/><polygon points="535,105 531.5,97.0 538.5,97.0" class="ah"/><line x1="594" y1="79" x2="594.0" y2="99.0" class="l"/><polygon points="594,105 590.5,97.0 597.5,97.0" class="ah"/><rect x="450" y="105" width="170" height="50" rx="7" class="b"/><text x="535" y="127" class="h tt">Microkernel</text><text x="535" y="144" class="s">IPC + funciones mínimas</text><rect x="450" y="165" width="170" height="32" rx="7" class="g"/><text x="535" y="186" class="">Hardware</text><text x="535" y="214" class="s">servicios en modo usuario</text></svg></div></div><div class="epigrafe" id="t3-4">
+      <h3><span class="epig-num">3.4</span>Operaciones en sistemas operativos</h3>
+      <p>Los sistemas operativos modernos son de <strong>interrupción dirigida (interrupt driven)</strong>: si no hay procesos que ejecutar, ni dispositivos de E/S a los que atender, ni usuarios a los que responder, el sistema operativo permanece a la espera de que ocurra algo.</p>
+      <p>Dentro de las operaciones que gestiona destaca la distinción entre <strong>modo usuario</strong> y <strong>modo núcleo (kernel)</strong> —también llamada <strong>modo dual de operación</strong>—, que permite al sistema operativo proteger a sí mismo y al resto de componentes del sistema frente a programas defectuosos o malintencionados: determinadas instrucciones consideradas privilegiadas solo pueden ejecutarse en modo núcleo, mientras que los programas de usuario se ejecutan en un modo restringido.</p>
+      <div class="defbox"><span class="dtag">Temporizador (timer)</span><p>El sistema operativo se apoya en un temporizador programable para evitar que un proceso monopolice indefinidamente la CPU o entre en un bucle infinito: transcurrido un intervalo fijo, el temporizador genera una interrupción que devuelve el control al sistema operativo.</p></div>
+    </div>
+
+    <div class="epigrafe" id="t3-5">
+      <h3><span class="epig-num">3.5</span>Gestión de procesos</h3>
+      <p>Un <strong>proceso</strong> es un programa en ejecución, y constituye la unidad de trabajo de un sistema de computación moderno. El sistema operativo es responsable de una serie de actividades relacionadas con la gestión de procesos:</p>
+      <ul>
+        <li>La creación y eliminación de procesos, tanto de usuario como del propio sistema.</li>
+        <li>La suspensión y reanudación de procesos.</li>
+        <li>El suministro de mecanismos para la <strong>sincronización de procesos</strong>, cuando varios de ellos necesitan coordinarse.</li>
+        <li>El suministro de mecanismos para la <strong>comunicación entre procesos</strong>.</li>
+      </ul>
+      <p>El sistema operativo debe decidir en cada instante qué proceso ocupa la CPU (<strong>planificación o scheduling</strong>), permitiendo que varios procesos parezcan ejecutarse a la vez mediante el reparto rápido del tiempo de CPU (<strong>multitarea</strong>).</p>
+    </div>
+
+    <div class="viz" id="vz-proc"><div class="viz-label">Estados de un proceso y sus transiciones</div><div class="viz-stage"><svg class="dg" viewBox="0 0 640 250" role="img"><rect x="15" y="95" width="95" height="44" rx="7" class="g"/><text x="62" y="122" class="">Nuevo</text><rect x="190" y="95" width="95" height="44" rx="7" class="b"/><text x="237" y="122" class="h tt">Listo</text><rect x="400" y="95" width="110" height="44" rx="7" class="v"/><text x="455" y="122" class="h tv">Ejecución</text><rect x="545" y="95" width="85" height="44" rx="7" class="g"/><text x="587" y="122" class="">Terminado</text><rect x="255" y="190" width="130" height="40" rx="7" class="m"/><text x="320" y="215" class="tm">Espera (E/S)</text><line x1="110" y1="117" x2="184.0" y2="117.0" class="l"/><polygon points="190,117 182.0,120.5 182.0,113.5" class="ah"/><text x="150" y="108" class="s">admitido</text><line x1="285" y1="107" x2="394.0" y2="107.0" class="l"/><polygon points="400,107 392.0,110.5 392.0,103.5" class="ah"/><text x="342" y="96" class="s">despacho (planificador)</text><line x1="400" y1="128" x2="291.0" y2="128.0" class="l"/><polygon points="285,128 293.0,124.5 293.0,131.5" class="ah"/><text x="342" y="148" class="s">interrupción · timer</text><line x1="510" y1="117" x2="539.0" y2="117.0" class="l"/><polygon points="545,117 537.0,120.5 537.0,113.5" class="ah"/><text x="528" y="108" class="s">fin</text><line x1="440" y1="139" x2="389.3" y2="187.8" class="l"/><polygon points="385,192 388.3,183.9 393.2,189.0" class="ah"/><text x="462" y="172" class="s">pide E/S</text><line x1="255" y1="192" x2="218.6" y2="143.8" class="l"/><polygon points="215,139 222.6,143.3 217.0,147.5" class="ah"/><text x="200" y="172" class="s">fin de E/S</text><text x="320" y="30" class="s">Solo un proceso ocupa la CPU en cada instante (por núcleo): el resto espera</text></svg></div></div><div class="epigrafe" id="t3-6">
+      <h3><span class="epig-num">3.6</span>Gestión de memoria</h3>
+      <p>Como se vio en los Temas 1 y 2, la memoria principal es un array de bytes direccionable de forma individual, en el que residen los programas y los datos que la CPU está utilizando en cada momento. Para optimizar el uso de la CPU y la respuesta del sistema a sus usuarios, un sistema de computación de propósito general debe mantener varios programas en memoria simultáneamente, lo que exige que el sistema operativo gestione dicha memoria compartida. Entre sus actividades destacan:</p>
+      <ul>
+        <li>Llevar un registro de qué partes de la memoria están siendo utilizadas y por quién.</li>
+        <li>Decidir qué procesos (o partes de ellos) se cargan o retiran de memoria.</li>
+        <li>Asignar y liberar espacio de memoria según sea necesario.</li>
+      </ul>
+      <p>Una técnica habitual es la <strong>memoria virtual</strong>: simula, mediante el uso combinado de RAM y memoria secundaria, un espacio de direcciones mayor que la memoria física realmente disponible, paginando a disco los contenidos menos usados en cada momento y protegiendo el espacio de un proceso frente a accesos de otros.</p>
+    </div>
+
+    <div class="viz" id="vz-pag"><div class="viz-label">Memoria virtual: paginación y fallo de página</div><div class="viz-stage"><svg class="dg" viewBox="0 0 640 230" role="img"><text x="95" y="24" class="h">Espacio virtual</text><text x="325" y="24" class="h">RAM (marcos)</text><text x="545" y="24" class="h">Disco (swap)</text><rect x="40" y="36" width="110" height="34" rx="7" class="b"/><text x="95" y="58" class="">Página P0</text><rect x="40" y="78" width="110" height="34" rx="7" class="b"/><text x="95" y="100" class="">Página P1</text><rect x="40" y="120" width="110" height="34" rx="7" class="b"/><text x="95" y="142" class="">Página P2</text><rect x="40" y="162" width="110" height="34" rx="7" class="b"/><text x="95" y="184" class="">Página P3</text><rect x="270" y="36" width="110" height="34" rx="7" class="m"/><text x="325" y="58" class="">F0 · P1</text><rect x="270" y="78" width="110" height="34" rx="7" class="m"/><text x="325" y="100" class="">F1 · P0</text><rect x="270" y="120" width="110" height="34" rx="7" class="m"/><text x="325" y="142" class="">F2 · P2</text><line x1="150" y1="53" x2="264.3" y2="93.0" class="l"/><polygon points="270,95 261.3,95.7 263.6,89.1" class="ah"/><line x1="150" y1="95" x2="264.3" y2="55.0" class="l"/><polygon points="270,53 263.6,58.9 261.3,52.3" class="ah"/><line x1="150" y1="137" x2="264.0" y2="137.0" class="l"/><polygon points="270,137 262.0,140.5 262.0,133.5" class="ah"/><rect x="480" y="36" width="130" height="120" rx="7" class="v"/><text x="545" y="100" class="tv">P3</text><text x="545" y="118" class="s">no está en RAM</text><line x1="150" y1="179" x2="474.1" y2="111.2" class="l dash"/><polygon points="480,110 472.9,115.1 471.5,108.2" class="ah"/><text x="330" y="196" class="s">bit de presencia = 0 → fallo de página: el SO la trae a un marco libre</text><text x="210" y="215" class="s">la tabla de páginas traduce página → marco</text></svg></div></div><div class="epigrafe" id="t3-7">
+      <h3><span class="epig-num">3.7</span>Gestión de almacenamiento</h3>
+      <p>El sistema operativo proporciona, sobre los dispositivos de almacenamiento secundario descritos en el Tema 2, una <strong>visión lógica y uniforme</strong> del almacenamiento de información en forma de <strong>ficheros</strong>, abstrayendo al usuario y a las aplicaciones de las propiedades físicas concretas de su dispositivo de almacenamiento.</p>
+      <p>El <strong>sistema de ficheros</strong> es el componente encargado de organizar cómo se almacenan, nombran y recuperan los ficheros en los dispositivos de almacenamiento, gestionando el espacio libre, los permisos de acceso y la estructura jerárquica de directorios. Es, en última instancia, sobre este sistema de ficheros donde reside cualquier base de datos (Tema 4), incluidas las que un SGBD gestiona internamente.</p>
+      <p>Dado que la memoria principal es habitualmente demasiado pequeña para almacenar de forma permanente todos los programas y datos, y volátil además, el sistema de computación debe proporcionar <strong>almacenamiento secundario</strong> como respaldo de la memoria principal; algunos sistemas incorporan también un nivel de <strong>almacenamiento terciario</strong> para copias de seguridad de muy bajo coste y menor velocidad de acceso.</p>
+      <div class="conexion retro"><strong>Conexión hacia atrás:</strong> los procesos, la memoria y los dispositivos de almacenamiento que gestiona el sistema operativo son exactamente los mismos recursos físicos descritos en el Tema 2: este epígrafe es la capa de software que los organiza y reparte entre múltiples usuarios y programas.</div>
+    </div>
+
+    <div class="epigrafe" id="t3-8">
+      <h3><span class="epig-num">3.8</span>Protección y seguridad</h3>
+      <p>Si un sistema de computación tiene varios usuarios y permite la ejecución concurrente de varios procesos, se debe proteger los distintos procesos entre sí: la <strong>protección</strong> es cualquier mecanismo para controlar el acceso de programas, procesos o usuarios a los recursos definidos por el sistema de computación.</p>
+      <p>La <strong>seguridad</strong>, por su parte, comprende la defensa del sistema frente a ataques tanto internos como externos, incluyendo virus y gusanos, ataques de denegación de servicio, robo de identidad y robo de servicio, entre otras amenazas. Mientras que la protección se ocupa de establecer y hacer cumplir un esquema de permisos ya definido, la seguridad exige considerar el entorno externo en el que opera el sistema.</p>
+    </div>
+
+    <div class="epigrafe" id="t3-9">
+      <h3><span class="epig-num">3.9</span>Sistemas distribuidos</h3>
+      <p>Un <strong>sistema distribuido</strong> es una colección de procesadores físicamente separados, que no comparten memoria ni reloj, y que se comunican entre sí a través de una red de comunicaciones (una línea de alta velocidad o una red de área local, según la proximidad de los procesadores). El acceso a un recurso compartido permite, entre otras ventajas, aumentar la velocidad de cálculo, incrementar la disponibilidad de datos y mejorar la fiabilidad del sistema en su conjunto.</p>
+    </div>
+
+    <div class="epigrafe" id="t3-10">
+      <h3><span class="epig-num">3.10</span>Entornos de computación</h3>
+      <p>Los sistemas operativos deben adaptarse a la diversidad de entornos en los que se despliegan actualmente, entre los que cabe destacar:</p>
+      <ul>
+        <li><strong>Computación tradicional</strong>: ordenadores personales y estaciones de trabajo conectados a una red.</li>
+        <li><strong>Computación móvil</strong>: teléfonos inteligentes y tabletas, con sistemas operativos adaptados a recursos limitados de energía y capacidad.</li>
+        <li><strong>Computación cliente-servidor</strong>: los sistemas centralizados actúan como servidores para satisfacer las peticiones generadas por sistemas cliente.</li>
+        <li><strong>Computación entre iguales (peer-to-peer)</strong>: los sistemas participantes actúan tanto de clientes como de servidores entre sí, sin un servidor central distinguido.</li>
+        <li><strong>Computación en la nube (cloud computing)</strong>: entrega bajo demanda de recursos y servicios de computación a través de Internet, tanto en su modalidad pública como privada o híbrida.</li>
+      </ul>
+      <div class="practica"><span class="etag">Aplicación diaria en el INE</span>
+        <p>El INE gestiona sus operaciones estadísticas sobre sistemas que combinan servidores tradicionales, entornos cliente-servidor para las aplicaciones de recogida y explotación, y, cada vez con más frecuencia, infraestructuras de computación en la nube; comprender los distintos entornos de computación y las funciones básicas del sistema operativo que los sustenta —gestión de procesos, memoria, almacenamiento, protección y seguridad— es la base sobre la que se apoya cualquier decisión posterior de arquitectura de sistemas de información.</p>
+      </div>
+    </div>
+
+  
+<div class="conexion ext"><strong>Ver también en el esquema:</strong> interconexiones y aplicación en el INE → <button class="link-chip back" data-goto="f2">Sistemas operativos en el esquema</button></div>
+  </section>
+
+<section class="panel" id="t4">
+    <h2>Tema 4 · Bases de datos</h2>
+    <div class="oficial">
+      <span class="dtag">Programa oficial (Anexo I, BOE-A-2025-26900)</span>
+      <p>Tema 4. Bases de datos. Introducción. Sistemas tradicionales basados en ficheros: descripción y limitaciones. Base de datos, sistema de gestión de bases de datos, programas de aplicación y componentes de un sistema de gestión de bases de datos (generalidades). Ventajas y desventajas de los sistemas de gestión de bases de datos.</p>
+    </div>
+    <div class="tema-toc">
+      <span class="ttag">Contenido del tema</span>
+      <ol>
+        <li><a href="#t4-1">Introducción</a></li>
+        <li><a href="#t4-2">Sistemas tradicionales basados en ficheros: descripción y limitaciones</a></li>
+        <li><a href="#t4-3">Base de datos, SGBD, programas de aplicación y componentes (generalidades)</a></li>
+        <li><a href="#t4-4">Ventajas y desventajas de los sistemas de gestión de bases de datos</a></li>
+      </ol>
+    </div>
+
+    <div class="epigrafe" id="t4-1">
+      <h3><span class="epig-num">4.1</span>Introducción</h3>
+      <p>La gestión de datos es una disciplina que se ocupa de definir las estrategias adecuadas para la recogida, el almacenamiento y el procesamiento de los datos de forma que estos sean fácilmente accesibles a los usuarios. A lo largo del desarrollo histórico de la informática, la forma de organizar y almacenar los datos de una organización ha evolucionado desde los sistemas de ficheros tradicionales, gestionados de forma independiente por cada aplicación, hasta los sistemas de gestión de bases de datos actuales, que centralizan y comparten los datos entre múltiples aplicaciones y usuarios.</p>
+    </div>
+
+    <div class="epigrafe" id="t4-2">
+      <h3><span class="epig-num">4.2</span>Sistemas tradicionales basados en ficheros: descripción y limitaciones</h3>
+      <p>Un <strong>sistema tradicional basado en ficheros</strong> es aquel en el que cada aplicación o departamento de una organización define y gestiona sus propios ficheros de datos, con sus propios programas para acceder a ellos y mantenerlos, sin que exista un mecanismo centralizado que coordine el conjunto.</p>
+      <p>Este enfoque, habitual en los primeros sistemas informáticos de gestión, presenta una serie de limitaciones importantes que motivaron el desarrollo posterior de los sistemas de gestión de bases de datos:</p>
+      <ul>
+        <li><strong>Separación y aislamiento de los datos:</strong> como los datos están aislados en ficheros separados, es difícil acceder a datos que deberían estar relacionados pero que residen en ficheros distintos, gestionados por aplicaciones distintas.</li>
+        <li><strong>Duplicación de los datos:</strong> debido a la descentralización, la falta de control provoca con frecuencia una redundancia no controlada de los datos, con el consiguiente derroche de espacio de almacenamiento y esfuerzo de mantenimiento.</li>
+        <li><strong>Dependencia de los datos:</strong> la estructura física de los ficheros y la organización de los registros se define en el código de los propios programas de aplicación, de forma que cualquier cambio en la estructura de un fichero exige modificar todos los programas que lo utilizan.</li>
+        <li><strong>Formatos de fichero incompatibles:</strong> al haber sido diseñados independientemente por distintos programadores y en distintos lenguajes de programación, los programas de una misma organización pueden emplear formatos de fichero incompatibles entre sí, dificultando el intercambio de información.</li>
+        <li><strong>Consultas fijas y proliferación de programas de aplicación:</strong> los sistemas basados en ficheros dependen en gran medida de programas de aplicación de uso general, y cualquier consulta o informe nuevo que se necesite exige que un programador escriba un nuevo programa, lo que resulta lento y costoso.</li>
+      </ul>
+      <div class="ojo"><span class="dtag">Idea clave para el examen</span><p>Todas estas limitaciones tienen una raíz común: la ausencia de un control centralizado sobre la definición y el acceso a los datos. Es precisamente esa centralización la que aporta un sistema de gestión de bases de datos, y por eso conviene enlazar cada limitación de los ficheros tradicionales con la solución concreta que ofrece un SGBD en el epígrafe siguiente.</p></div>
+    </div>
+
+    <div class="viz" id="vz-files"><div class="viz-label">Ficheros tradicionales frente a SGBD</div><div class="viz-stage"><svg class="dg" viewBox="0 0 640 270" role="img"><text x="150" y="22" class="h tm">Sistema de ficheros</text><text x="485" y="22" class="h tv">Con SGBD</text><line x1="320" y1="10" x2="320" y2="255" class="l dash"/><rect x="20" y="36" width="110" height="34" rx="7" class="b"/><text x="75" y="58" class="s">App Ventas</text><line x1="130" y1="53" x2="172.0" y2="53.0" class="l"/><polygon points="178,53 170.0,56.5 170.0,49.5" class="ah"/><rect x="180" y="36" width="120" height="34" rx="7" class="m"/><text x="240" y="58" class="s">clientes.dat</text><rect x="20" y="82" width="110" height="34" rx="7" class="b"/><text x="75" y="104" class="s">App Facturas</text><line x1="130" y1="99" x2="172.0" y2="99.0" class="l"/><polygon points="178,99 170.0,102.5 170.0,95.5" class="ah"/><rect x="180" y="82" width="120" height="34" rx="7" class="m"/><text x="240" y="104" class="s">facturas.dat*</text><rect x="20" y="128" width="110" height="34" rx="7" class="b"/><text x="75" y="150" class="s">App Personal</text><line x1="130" y1="145" x2="172.0" y2="145.0" class="l"/><polygon points="178,145 170.0,148.5 170.0,141.5" class="ah"/><rect x="180" y="128" width="120" height="34" rx="7" class="m"/><text x="240" y="150" class="s">personal.dat</text><text x="160" y="190" class="s">* repite datos del cliente, formato propio</text><text x="160" y="212" class="tm">duplicación · inconsistencia · dependencia</text><rect x="345" y="36" width="100" height="34" rx="7" class="b"/><text x="395" y="58" class="s">App Ventas</text><line x1="445" y1="53" x2="494.0" y2="53.0" class="l"/><polygon points="500,53 492.0,56.5 492.0,49.5" class="ah"/><rect x="345" y="82" width="100" height="34" rx="7" class="b"/><text x="395" y="104" class="s">App Facturas</text><line x1="445" y1="99" x2="494.0" y2="99.0" class="l"/><polygon points="500,99 492.0,102.5 492.0,95.5" class="ah"/><rect x="345" y="128" width="100" height="34" rx="7" class="b"/><text x="395" y="150" class="s">App Personal</text><line x1="445" y1="145" x2="494.0" y2="145.0" class="l"/><polygon points="500,145 492.0,148.5 492.0,141.5" class="ah"/><rect x="500" y="36" width="125" height="126" rx="7" class="v"/><text x="562" y="90" class="h tv">SGBD</text><text x="562" y="110" class="s">control central</text><text x="562" y="127" class="s">seguridad · integridad</text><line x1="562" y1="162" x2="562.0" y2="176.0" class="l"/><polygon points="562,182 558.5,174.0 565.5,174.0" class="ah"/><rect x="500" y="182" width="125" height="38" rx="7" class="b"/><text x="562" y="206" class="">BD única</text><text x="485" y="246" class="tv">un solo almacén de datos, gestionado de forma centralizada</text></svg></div></div><div class="epigrafe" id="t4-3">
+      <h3><span class="epig-num">4.3</span>Base de datos, sistema de gestión de bases de datos, programas de aplicación y componentes de un sistema de gestión de bases de datos (generalidades)</h3>
+      <p>Una <strong>base de datos</strong> es un conjunto organizado de datos relacionados lógicamente entre sí, junto con una descripción de dichos datos, diseñado para satisfacer las necesidades de información de una organización.</p>
+      <p>Un <strong>sistema de gestión de bases de datos (SGBD)</strong> es el software que permite a los usuarios definir, crear, mantener y controlar el acceso a la base de datos. Un SGBD proporciona, entre otras, las siguientes funciones:</p>
+      <ul>
+        <li>Permite a los usuarios definir la base de datos, normalmente a través de un <strong>lenguaje de definición de datos (DDL)</strong>, especificando los tipos de datos, las estructuras y las restricciones que deben cumplir.</li>
+        <li>Permite a los usuarios insertar, actualizar, eliminar y recuperar datos de la base de datos, normalmente mediante un <strong>lenguaje de manipulación de datos (DML)</strong>.</li>
+        <li>Proporciona acceso controlado a la base de datos, por ejemplo mediante sistemas de seguridad, de integridad, de control de concurrencia y de recuperación ante fallos.</li>
+      </ul>
+      <p>Los <strong>programas de aplicación</strong> son los programas informáticos que interactúan con la base de datos, a través del SGBD, para satisfacer las necesidades concretas de información y proceso de los usuarios de la organización, sin necesidad de conocer los detalles internos de cómo se almacenan físicamente los datos.</p>
+      <p>De forma general, un sistema de gestión de bases de datos se apoya en un conjunto de componentes que trabajan de forma coordinada para prestar sus funciones: el <strong>motor de base de datos (o núcleo)</strong>, que gestiona el almacenamiento físico y el acceso a los datos; el <strong>subsistema de definición de datos</strong>, que procesa las definiciones expresadas en DDL; el <strong>subsistema de manipulación de datos</strong>, que procesa las operaciones expresadas en DML; y el <strong>diccionario de datos (catálogo del sistema)</strong>, un repositorio de metadatos que describe la propia estructura de la base de datos y que el SGBD consulta para interpretar las peticiones que recibe.</p>
+      <div class="examen"><span class="etag">Cómo se pregunta en la práctica</span><p>Se pregunta con frecuencia por la definición de base de datos frente a sistema de gestión de bases de datos —conviene no confundir ambos conceptos— y por enumerar y describir brevemente los componentes generales de un SGBD (motor, DDL, DML, diccionario de datos).</p></div>
+    </div>
+
+    <div class="viz" id="vz-ansi"><div class="viz-label">Niveles de abstracción ANSI/SPARC e independencia de datos</div><div class="viz-stage"><svg class="dg" viewBox="0 0 640 260" role="img"><rect x="40" y="25" width="370" height="54" rx="7" class="b"/><text x="225" y="47" class="h tt">Nivel externo</text><text x="225" y="66" class="s">vistas de cada usuario o aplicación</text><rect x="40" y="105" width="370" height="54" rx="7" class="m"/><text x="225" y="127" class="h tm">Nivel conceptual</text><text x="225" y="146" class="s">esquema lógico de toda la BD (ER / relacional)</text><rect x="40" y="185" width="370" height="54" rx="7" class="v"/><text x="225" y="207" class="h tv">Nivel interno</text><text x="225" y="226" class="s">almacenamiento físico: ficheros, índices, discos</text><line x1="225" y1="79" x2="225.0" y2="99.0" class="l"/><polygon points="225,105 221.5,97.0 228.5,97.0" class="ah"/><line x1="225" y1="159" x2="225.0" y2="179.0" class="l"/><polygon points="225,185 221.5,177.0 228.5,177.0" class="ah"/><text x="525" y="92" class="s tm">← independencia lógica</text><text x="525" y="110" class="s">cambiar el esquema</text><text x="525" y="126" class="s">no afecta a las vistas</text><text x="525" y="172" class="s tv">← independencia física</text><text x="525" y="190" class="s">cambiar el disco o los</text><text x="525" y="206" class="s">índices no afecta al esquema</text></svg></div></div><div class="epigrafe" id="t4-4">
+      <h3><span class="epig-num">4.4</span>Ventajas y desventajas de los sistemas de gestión de bases de datos</h3>
+      <p>Frente a los sistemas tradicionales basados en ficheros descritos en el epígrafe 4.2, un SGBD ofrece una serie de <strong>ventajas</strong> notables:</p>
+      <ul>
+        <li><strong>Control de la redundancia de datos:</strong> al centralizar los datos, un SGBD puede eliminar, o al menos controlar y minimizar, la duplicación existente en los sistemas basados en ficheros.</li>
+        <li><strong>Consistencia de los datos:</strong> al reducir o eliminar la redundancia, se reduce en gran medida el riesgo de inconsistencias, evitando que un mismo dato aparezca con valores distintos en distintos lugares.</li>
+        <li><strong>Compartición de los datos:</strong> un SGBD permite que los datos, ya integrados, sean compartidos entre múltiples usuarios y aplicaciones de forma simultánea y controlada.</li>
+        <li><strong>Mantenimiento de estándares:</strong> la integración facilita respetar los estándares establecidos —de la organización, nacionales o internacionales— para la representación de los datos.</li>
+        <li><strong>Mejora de la integridad de los datos:</strong> el SGBD permite definir e imponer restricciones de integridad sobre los datos almacenados.</li>
+        <li><strong>Mejora de la seguridad:</strong> el SGBD permite definir restricciones de seguridad y controlar el acceso a la base de datos y a sus objetos.</li>
+        <li><strong>Mejora en el acceso y en la disponibilidad de los datos:</strong> el SGBD proporciona lenguajes de consulta o generadores de informes que permiten obtener respuesta inmediata a consultas ad hoc, sin necesidad de un programador que escriba un nuevo programa para cada necesidad.</li>
+        <li><strong>Mejora de la productividad:</strong> el SGBD proporciona muchas de las funciones habituales que el programador necesitaría escribir en un sistema basado en ficheros, reduciendo el tiempo de desarrollo de nuevas aplicaciones.</li>
+        <li><strong>Mejora en el mantenimiento gracias a la independencia de datos:</strong> al separar la descripción de los datos de las aplicaciones que los usan, un cambio en la estructura de los datos no exige, en general, modificar los programas de aplicación que no se ven afectados por dicho cambio.</li>
+        <li><strong>Aumento de la concurrencia:</strong> el SGBD gestiona el acceso concurrente a los datos garantizando que no se produzcan interferencias entre los usuarios que actualizan los mismos datos a la vez.</li>
+        <li><strong>Mejora en los servicios de copia de seguridad y de recuperación:</strong> el SGBD proporciona mecanismos para minimizar el proceso de recuperación en caso de fallo del sistema.</li>
+      </ul>
+      <p>Junto a estas ventajas, la adopción de un SGBD conlleva también algunas <strong>desventajas</strong>:</p>
+      <ul>
+        <li><strong>Complejidad:</strong> un SGBD es un software complejo, y todos los participantes (diseñadores, desarrolladores, administradores y usuarios finales) deben comprender bien sus funciones para aprovecharlo adecuadamente.</li>
+        <li><strong>Tamaño:</strong> la funcionalidad que ofrece un SGBD hace que sea un software voluminoso, que ocupa una cantidad considerable de espacio en disco y de memoria para funcionar de forma eficiente.</li>
+        <li><strong>Coste del SGBD:</strong> el coste de un SGBD varía según el entorno y la funcionalidad ofrecida, e incluye tanto la licencia como el mantenimiento anual.</li>
+        <li><strong>Coste adicional de hardware:</strong> los requisitos de almacenamiento y de procesamiento de un SGBD pueden hacer necesaria la adquisición de hardware adicional.</li>
+        <li><strong>Coste de la conversión:</strong> el coste de convertir aplicaciones ya existentes, diseñadas para trabajar sobre ficheros o sobre otro SGBD, para que funcionen sobre un nuevo SGBD, puede superar en ocasiones el coste del propio SGBD.</li>
+        <li><strong>Rendimiento:</strong> como un SGBD se escribe para gestionar necesidades genéricas, en lugar de para una aplicación específica, algunas aplicaciones pueden no alcanzar el rendimiento máximo que sí lograrían con un sistema construido a medida.</li>
+        <li><strong>Mayor impacto de un fallo:</strong> al centralizarse los recursos de datos en el SGBD, un fallo en cualquiera de sus componentes puede detener el funcionamiento de toda la organización durante el tiempo que dure el fallo.</li>
+      </ul>
+      <div class="practica"><span class="etag">Aplicación diaria en el INE</span>
+        <p>El INE gestiona sus operaciones estadísticas sobre sistemas de gestión de bases de datos corporativos precisamente para obtener las ventajas descritas frente a un enfoque de ficheros aislados: control de la redundancia entre las distintas fases de una operación estadística (recogida, depuración, explotación), consistencia de los datos entre aplicaciones, y posibilidad de que múltiples equipos accedan de forma concurrente y controlada a los mismos ficheros de una encuesta sin que se pierdan ni se dupliquen registros.</p>
+      </div>
+    </div>
+
+    <div class="thread-box">
+      <h2>Hilo conductor del bloque</h2>
+      <p>Los cuatro temas de este bloque forman una progresión continua: el <strong>Tema 1</strong> parte de la representación más elemental de la información como cadenas de bits y bytes, y de su organización dentro de la memoria principal. El <strong>Tema 2</strong> sitúa esa representación dentro del hardware físico completo —CPU, memoria, almacenamiento secundario, periféricos y buses— sobre el que se ejecuta cualquier sistema de computación. El <strong>Tema 3</strong> añade la capa de software que organiza y reparte ese hardware entre múltiples usuarios y programas: el sistema operativo, con sus funciones de gestión de procesos, memoria, almacenamiento, protección, seguridad y su papel en los sistemas distribuidos. El <strong>Tema 4</strong>, por último, se sitúa un nivel por encima del sistema operativo para explicar por qué, y cómo, un sistema de gestión de bases de datos resuelve las limitaciones de los sistemas tradicionales basados en ficheros a la hora de organizar la información de una organización.</p>
+    </div>
+
+  
+<div class="conexion ext"><strong>Ver también en el esquema:</strong> componentes del SGBD, pregunta real y aplicación en el INE → <button class="link-chip back" data-goto="f2">SGBD, ACID y ANSI/SPARC en el esquema</button></div>
+  </section>
+
+<section class="panel" id="esq">
+<h2>Esquema general interconectado</h2>
+<div class="ojo equiv-note"><span class="dtag">Ojo: la numeración de este esquema no coincide con la del temario</span>
+<p>El esquema, elaborado antes, agrupa los cuatro temas de otra manera que el temario oficial (Anexo I) que siguen las pestañas 01–04 y las diapositivas. Todo su contenido se conserva aquí íntegro; esta tabla indica dónde encaja cada parte. Conviene contrastar con el texto del BOE cuál es la delimitación definitiva.</p></div>
+<div class="table-scroll"><table>
+<thead><tr><th>Temario (pestañas 01–04)</th><th>Esquema (numeración previa)</th></tr></thead>
+<tbody>
+<tr><td>T1 · Representación y almacenamiento de la información</td><td>T1 · Arquitectura de un sistema de computación (parte de representación, complemento a 2 y overflow)</td></tr>
+<tr><td>T2 · Componentes principales del hardware</td><td>T1 · Arquitectura de un sistema de computación (parte de CPU, memoria, RAID y buses)</td></tr>
+<tr><td>T3 · Introducción a los sistemas operativos</td><td>T2 · Sistemas operativos y SGBD (parte de sistema operativo)</td></tr>
+<tr><td>T4 · Bases de datos (de los ficheros al SGBD)</td><td>T2 · Sistemas operativos y SGBD (parte de SGBD, ACID, ANSI/SPARC y concurrencia)</td></tr>
+<tr><td>Fuera de los cuatro temas: el temario sitúa ER, relacional y SQL en las materias específicas (cuarto ejercicio)</td><td>T3 · Modelado de datos y bases de datos relacionales</td></tr>
+<tr><td>No figura en los cuatro temas del temario</td><td>T4 · Almacenes de datos y arquitecturas de Big Data</td></tr>
+</tbody></table></div>
+
+<hr><h2>A · Mapa del bloque</h2>
+
+    <h2>La idea madre</h2>
+    <p>Los 4 temas de <strong>Almacenamiento y modelos de datos</strong> no son cuatro asignaturas sueltas de informática general: son <strong>una sola pila tecnológica</strong> que sube en abstracción, capa a capa. En la base está la <strong>máquina física</strong> (hardware, procesador, memoria, almacenamiento) que ejecuta cualquier proceso estadístico. Encima se sitúa el <strong>software de sistema</strong> —sistema operativo y Sistema Gestor de Bases de Datos— que organiza esos recursos físicos y da acceso ordenado a la información. Sobre esa base se apoya el <strong>diseño lógico de los datos</strong> —cómo se modela la realidad en entidades, relaciones y tablas normalizadas— y todo ello culmina en las <strong>arquitecturas de almacenamiento a gran escala</strong> (almacenes de datos, Big Data, NoSQL) que hoy sostienen la producción estadística oficial cuando el volumen y la variedad de los datos desbordan el modelo relacional clásico.</p>
+
+    <div class="viz">
+      <div class="viz-label">Vista de conjunto — capas del bloque</div>
+      <div class="viz-stage" id="ring-stage"></div>
+      <div class="legend-row">
+        <span><span class="dot" style="background:var(--ink-soft)"></span>Arquitectura física del sistema de computación (T1)</span>
+        <span><span class="dot" style="background:var(--tinta)"></span>Software de sistema: SO y SGBD (T2)</span>
+        <span><span class="dot" style="background:var(--marg)"></span>Modelado lógico y diseño de bases de datos (T3)</span>
+        <span><span class="sq" style="background:var(--verde);border-radius:2px;"></span>Almacenes de datos y arquitecturas Big Data (T4)</span>
+      </div>
+    </div>
+
+    <h3>La lógica constructiva en una frase por tema</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Capa</th><th>Tema</th><th>Pregunta que responde</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>T1 — Arquitectura de un sistema de computación</td><td>¿Con qué componentes físicos se procesan y almacenan los datos?</td></tr>
+          <tr><td>2</td><td>T2 — Sistemas operativos y sistemas gestores de bases de datos</td><td>¿Qué software organiza esos recursos y da acceso a la información?</td></tr>
+          <tr><td>3</td><td>T3 — Modelado de datos y bases de datos relacionales</td><td>¿Cómo se representa lógicamente la realidad y se diseña una base de datos correcta?</td></tr>
+          <tr><td>4</td><td>T4 — Almacenes de datos y arquitecturas de Big Data</td><td>¿Cómo se almacenan y explotan volúmenes masivos y heterogéneos de datos?</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="viz-note" style="font-size:13px;color:var(--ink-soft);">A diferencia de Derecho o Cuentas Nacionales, este es el bloque más corto (solo 4 temas) pero también el más técnico y acumulativo: cada tema presupone el anterior, por lo que conviene estudiarlo en orden y no saltar directamente al Big Data sin dominar antes el modelo relacional.</p>
+    <p class="viz-note" style="font-size:13px;color:var(--ink-soft);"><strong>Sobre cómo se pregunta:</strong> en los exámenes reales, T1 y T2 tienden a preguntarse en formato de manual general (componentes, definiciones, características técnicas), mientras que T3 y T4 son los que más se prestan a preguntas aplicadas al INE (diseño de una base de datos estadística concreta, arquitectura de un almacén de datos para una operación). Cada tema del panel siguiente lleva sus notas correspondientes.</p>
+
+    <hr>
+    <p class="jumpnote" style="font-family:var(--mono);font-size:13px;color:var(--ink-soft);">→ Más abajo: <strong>B · Temas desarrollados</strong>, con el detalle de cada tema y sus interconexiones concretas.</p>
+  
+<hr><h2>B · Temas desarrollados</h2>
+
+    <!-- TEMA 1 -->
+    <div class="fase open" id="f1">
+      <div class="fase-head" onclick="toggleFase('f1')">
+        <div class="fase-num">1</div>
+        <div class="fase-titles">
+          <p class="ftit">Arquitectura de un sistema de computación</p>
+          <p class="fsub">Tema 1</p>
+        </div>
+        <div class="fase-chevron">▸</div>
+      </div>
+      <div class="fase-body">
+        <ul class="temas-list">
+          <li><span class="tnum">T1</span>Arquitectura básica del hardware de un sistema de computación. La Unidad Central de Proceso (CPU): unidad de control y unidad aritmético-lógica. La memoria: jerarquía de memoria, memoria principal y memoria secundaria. Dispositivos de almacenamiento: discos magnéticos, SSD, sistemas RAID. Periféricos de entrada y salida. Buses y comunicación entre componentes. Representación de la información en el ordenador.</li>
+        </ul>
+        <p>Es el tema de arranque del bloque: describe la <strong>máquina física</strong> sobre la que se ejecuta absolutamente todo lo que viene después. La <strong>CPU</strong> (con su unidad de control y su unidad aritmético-lógica) es el componente que ejecuta las instrucciones; la <strong>jerarquía de memoria</strong> —de los registros del procesador, pasando por la caché y la memoria principal (RAM), hasta la memoria secundaria en disco— explica el compromiso constante entre velocidad de acceso y capacidad de almacenamiento que condiciona el diseño de cualquier sistema de información.</p>
+        <p>Los <strong>dispositivos de almacenamiento</strong> (discos magnéticos, unidades SSD, sistemas <strong>RAID</strong> para redundancia y tolerancia a fallos) son el soporte físico donde reside, en última instancia, cualquier base de datos estadística. Comprender sus características (velocidad, fiabilidad, coste) es la base técnica para entender después, en T4, por qué se eligen unas arquitecturas de almacenamiento u otras según el volumen de datos.</p>
+        <div class="conexion"><strong>Conexión hacia delante:</strong> sobre este mismo hardware se instala el sistema operativo y el Sistema Gestor de Bases de Datos que describe T2 — ningún software de gestión de datos puede funcionar sin la infraestructura física de proceso, memoria y almacenamiento que fija este tema.</div>
+        <div class="conexion ext"><strong>Conexión con otras materias:</strong> el desbordamiento (overflow) de este tema es, conceptualmente, el mismo tipo de error de integridad que las propiedades ACID de T2 están pensadas para prevenir a nivel de base de datos — allí el problema es que una transacción deje el dato en un estado inconsistente; aquí es que una operación aritmética en un número fijo de bits produzca silenciosamente un resultado incorrecto sin que el sistema avise.</div>
+        <div class="examen"><span class="etag">Cómo se pregunta en la práctica</span>
+          <p>Pregunta real de examen (convocatoria 2023): "Indique cuál es la arquitectura básica del hardware en un sistema de computación y una explicación breve de los distintos componentes." Formato típico de manual general: conviene tener clara la lista completa de componentes (CPU, memoria, periféricos, buses) y saber explicar brevemente la función de cada uno, sin necesidad de aplicarlo al INE.</p>
+          <p><strong>Aritmética en complemento a 2 y desbordamiento (overflow):</strong> es el subtipo de ejercicio de examen más recurrente dentro de T1, con presencia constante en las últimas convocatorias — siempre como pregunta de problemas (Cuestión 3 del segundo ejercicio), nunca como pregunta corta. La base conceptual (representación de enteros en signo-magnitud, C1 y C2; representación en coma flotante normalizada con sesgo) rara vez cambia; lo que varía entre convocatorias es el envoltorio del enunciado:</p>
+          <ul>
+            <li><strong>Convocatoria 2023:</strong> pedía representar un número decimal en signo-magnitud, C1 y C2 con 8 bits, interpretar un patrón binario dado en C2, y calcular el rango representable (mínimo y máximo) con ese número de bits.</li>
+            <li><strong>Convocatoria 2024:</strong> pedía realizar una resta directamente en C2 con 8 bits (sumando el minuendo con el complemento a 2 del sustraendo), calcular el número mínimo de bits necesarios para representar un entero negativo dado, y representar un número decimal con parte fraccionaria en coma flotante de 32 bits (sesgo 127).</li>
+            <li><strong>Convocatoria 2025:</strong> mantuvo la representación en coma flotante (esta vez de 16 bits, sesgo 15, tanto codificar un decimal como decodificar una cadena de bits dada) y añadió una variante nueva: un fragmento de pseudocódigo con variables de 8 bits en C2 donde cada operación se trunca módulo 256 y se pedía razonar qué valor imprime cada <code>print()</code> tras sucesivas sumas — el ejercicio de "overflow programático" en el que el resultado de una operación se recalcula y se vuelve a truncar cada vez que se reasigna la variable.</li>
+          </ul>
+          <p>El patrón de fondo es siempre el mismo — codificar/decodificar en un sistema de representación con un número de bits fijo y detectar qué ocurre cuando el resultado de una operación no cabe en ese número de bits — así que conviene dominar el mecanismo general (cómo se calcula C1 y C2, cómo se interpreta el bit de signo, cómo se normaliza un número en coma flotante) en lugar de memorizar un enunciado concreto: el examinador cambia el envoltorio (resta directa, cálculo de bits mínimos, coma flotante, pseudocódigo con reasignaciones) pero el mecanismo aritmético subyacente no cambia de una convocatoria a otra.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-arrow">↓ sobre ese hardware se instala el software que lo gobierna y da acceso a los datos ↓</div>
+
+    <!-- TEMA 2 -->
+    <div class="fase open" id="f2">
+      <div class="fase-head" onclick="toggleFase('f2')">
+        <div class="fase-num">2</div>
+        <div class="fase-titles">
+          <p class="ftit">Sistemas operativos y sistemas gestores de bases de datos</p>
+          <p class="fsub">Tema 2</p>
+        </div>
+        <div class="fase-chevron">▸</div>
+      </div>
+      <div class="fase-body">
+        <ul class="temas-list">
+          <li><span class="tnum">T2</span>El sistema operativo: funciones y componentes. Gestión de procesos, memoria y archivos. Concepto de base de datos. Componentes y funciones de un Sistema Gestor de Bases de Datos (SGBD). Independencia de los datos. Niveles de abstracción (ANSI/SPARC). Usuarios de una base de datos. Transacciones: propiedades ACID. Control de concurrencia y seguridad.</li>
+        </ul>
+        <p>El <strong>sistema operativo</strong> es la primera capa de software que organiza el hardware de T1: gestiona qué procesos se ejecutan, cómo se reparte la memoria entre ellos y cómo se organiza el sistema de archivos donde, en última instancia, residen físicamente las bases de datos. Sin esta capa de gestión, ningún SGBD podría funcionar de forma ordenada sobre varios usuarios y procesos simultáneos.</p>
+        <p>El núcleo del tema es el <strong>Sistema Gestor de Bases de Datos (SGBD)</strong>: su función es ofrecer <strong>independencia de los datos</strong> respecto de las aplicaciones que los usan, algo que se formaliza en los <strong>tres niveles de abstracción ANSI/SPARC</strong> (externo, conceptual e interno). Las <strong>propiedades ACID</strong> de las transacciones (atomicidad, consistencia, aislamiento, durabilidad) y el <strong>control de concurrencia</strong> son lo que garantiza que múltiples usuarios puedan leer y escribir datos a la vez sin corromper la información — una propiedad crítica que en el INE se aplica constantemente porque muchas operaciones estadísticas reciben datos de forma continua desde distintas fuentes.</p>
+        <div class="conexion retro"><strong>Conexión hacia atrás:</strong> los procesos, la memoria y los archivos que gestiona el sistema operativo de este tema son exactamente los mismos recursos físicos —CPU, memoria, almacenamiento— que describe T1: este tema es la capa de software que los organiza.</div>
+        <div class="conexion"><strong>Conexión hacia delante:</strong> la independencia de los datos y los niveles de abstracción que aquí se introducen son el fundamento conceptual sobre el que T3 construye el diseño lógico concreto de una base de datos —el nivel conceptual de ANSI/SPARC es, en la práctica, el modelo entidad-relación que allí se desarrolla.</div>
+        <div class="examen"><span class="etag">Cómo se pregunta en la práctica</span><p>Pregunta real de examen (convocatoria 2023): "Describa los componentes de un Sistema de Gestión de Bases de Datos y cuáles son sus principales características." De nuevo formato de manual general: conviene dominar bien la lista de componentes (motor de datos, lenguaje de definición, lenguaje de manipulación, diccionario de datos) y las características (independencia, integridad, seguridad, concurrencia).</p></div>
+        <div class="practica"><span class="etag">Aplicación diaria en el INE</span>
+          <p>El INE gestiona sus operaciones estadísticas sobre SGBD relacionales corporativos que dan servicio simultáneo a decenas de aplicaciones de recogida, depuración y explotación de datos; el control de concurrencia y las propiedades ACID son lo que permite que distintos equipos trabajen a la vez sobre los mismos ficheros de una encuesta sin que se pierdan ni se dupliquen registros.</p>
+          <p>La independencia de los datos es especialmente relevante cuando una operación estadística cambia de metodología o de sistema de recogida (por ejemplo, al pasar de cuestionario en papel a cuestionario electrónico): el modelo conceptual y los datos ya almacenados no tienen por qué verse afectados si el diseño respeta los niveles de abstracción de ANSI/SPARC.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-arrow">↓ del software de gestión se pasa al diseño lógico concreto de los datos que ese software organiza ↓</div>
+
+    <!-- TEMA 3 -->
+    <div class="fase open" id="f3">
+      <div class="fase-head" onclick="toggleFase('f3')">
+        <div class="fase-num">3</div>
+        <div class="fase-titles">
+          <p class="ftit">Modelado de datos y bases de datos relacionales</p>
+          <p class="fsub">Tema 3</p>
+        </div>
+        <div class="fase-chevron">▸</div>
+      </div>
+      <div class="fase-body">
+        <ul class="temas-list">
+          <li><span class="tnum">T3</span>El modelo Entidad-Relación: entidades, atributos, relaciones y cardinalidades. El modelo relacional: relaciones, tuplas, claves primarias y foráneas. Reglas de integridad. Normalización: formas normales. Transformación del modelo Entidad-Relación al modelo relacional. El lenguaje SQL: definición, manipulación y consulta de datos.</li>
+        </ul>
+        <p>Este tema aterriza los niveles de abstracción de T2 en un método de trabajo concreto. El <strong>modelo Entidad-Relación</strong> permite representar la realidad —personas, empresas, viviendas, operaciones estadísticas— como <strong>entidades</strong> con <strong>atributos</strong> conectadas por <strong>relaciones</strong>, antes de pensar en cómo se implementará técnicamente. Ese diseño conceptual se traduce después al <strong>modelo relacional</strong>: tablas (relaciones), filas (tuplas) y columnas (atributos), con <strong>claves primarias</strong> que identifican de forma única cada registro y <strong>claves foráneas</strong> que materializan las relaciones entre tablas.</p>
+        <p>La <strong>normalización</strong> (primera, segunda, tercera forma normal y siguientes) es el proceso técnico que evita redundancias e inconsistencias en el diseño —evitar, por ejemplo, que el nombre de un municipio se repita en miles de registros y pueda quedar desactualizado en unos y no en otros—. El <strong>lenguaje SQL</strong> es la herramienta estándar para definir estas estructuras (DDL) y para consultarlas y manipularlas (DML) una vez implementadas.</p>
+        <div class="conexion retro"><strong>Conexión hacia atrás:</strong> el nivel conceptual y el nivel interno de ANSI/SPARC que T2 introduce en abstracto son, respectivamente, el modelo Entidad-Relación y el modelo relacional ya implementado que este tema desarrolla en detalle.</div>
+        <div class="conexion"><strong>Conexión hacia delante:</strong> cuando el volumen o la variedad de los datos desborda lo que un modelo relacional normalizado puede manejar eficientemente, T4 presenta las arquitecturas alternativas (almacenes de datos, NoSQL) que sacrifican parte de esta normalización a cambio de escalabilidad.</div>
+        <div class="examen"><span class="etag">Cómo se pregunta en la práctica</span><p>Es el tema con más recorrido para preguntas aplicadas: puede pedirse diseñar el modelo Entidad-Relación de un caso concreto (por ejemplo, una encuesta con hogares, personas y viviendas) o identificar en qué forma normal se encuentra una tabla dada y cómo normalizarla, más que una simple definición teórica.</p></div>
+        <div class="practica"><span class="etag">Aplicación diaria en el INE</span>
+          <p>Cada operación estadística nueva del INE parte de un ejercicio de modelado: identificar qué entidades intervienen (unidad estadística, variable, periodo de referencia, fuente) y cómo se relacionan, antes de construir las tablas físicas donde se cargarán los microdatos recogidos.</p>
+          <p>SQL es la herramienta diaria de explotación: desde la validación y depuración de ficheros de encuesta hasta la generación de tablas de resultados agregados que después se difunden, buena parte del trabajo técnico consiste en escribir y optimizar consultas sobre estas bases relacionales.</p>
+          <ul>
+            <li>Un diseño mal normalizado en una operación estadística se traduce en inconsistencias reales: la misma variable codificada de dos formas distintas entre ficheros, o actualizaciones que no se propagan correctamente.</li>
+            <li>Las claves primarias y foráneas son las que permiten enlazar, por ejemplo, los datos de un hogar con los de cada uno de sus miembros sin duplicar información.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-arrow">↓ cuando el volumen y la variedad de los datos desbordan el modelo relacional, entran otras arquitecturas ↓</div>
+
+    <!-- TEMA 4 -->
+    <div class="fase open" id="f4">
+      <div class="fase-head" onclick="toggleFase('f4')">
+        <div class="fase-num">4</div>
+        <div class="fase-titles">
+          <p class="ftit">Almacenes de datos y arquitecturas de Big Data</p>
+          <p class="fsub">Tema 4</p>
+        </div>
+        <div class="fase-chevron">▸</div>
+      </div>
+      <div class="fase-body">
+        <ul class="temas-list">
+          <li><span class="tnum">T4</span>Concepto de almacén de datos (Data Warehouse). Diferencias con los sistemas transaccionales (OLTP frente a OLAP). Arquitectura y modelado dimensional: hechos y dimensiones, esquema en estrella y en copo de nieve. Bases de datos NoSQL: tipos (clave-valor, documentales, columnares, de grafos). El fenómeno Big Data: las "V" del Big Data. Arquitecturas distribuidas para el procesamiento masivo de datos.</li>
+        </ul>
+        <p>Cierra el bloque con las arquitecturas pensadas para cuando el modelo relacional transaccional de T3 no basta. Un <strong>almacén de datos (Data Warehouse)</strong> integra y consolida información procedente de múltiples fuentes, orientada al <strong>análisis (OLAP)</strong> más que a la operación diaria (<strong>OLTP</strong>, el uso típico de una base de datos relacional transaccional): en vez de normalizar al máximo, adopta un <strong>modelado dimensional</strong> —tablas de <strong>hechos</strong> (las medidas, como el número de ocupados) y tablas de <strong>dimensiones</strong> (tiempo, territorio, sector económico) organizadas en <strong>esquema en estrella</strong> o en <strong>copo de nieve</strong>— que prioriza la velocidad de consulta agregada.</p>
+        <p>Las <strong>bases de datos NoSQL</strong> (clave-valor, documentales, columnares, de grafos) surgen para manejar datos que no encajan bien en tablas relacionales rígidas —datos semiestructurados, de alto volumen o de estructura cambiante—, sacrificando parte de las garantías ACID de T2 a cambio de escalabilidad horizontal. El fenómeno <strong>Big Data</strong> se caracteriza habitualmente por sus "V" (volumen, velocidad, variedad, veracidad...) y exige <strong>arquitecturas distribuidas</strong> de procesamiento que repartan el trabajo entre múltiples máquinas.</p>
+        <div class="conexion retro"><strong>Cierra el ciclo:</strong> este tema es, en cierto modo, la respuesta arquitectónica a los límites del modelo relacional normalizado de T3 cuando el volumen y la heterogeneidad de los datos crecen — no lo sustituye, sino que lo complementa para los usos analíticos y de gran escala que el modelo transaccional puro no resuelve bien.</div>
+        <div class="examen"><span class="etag">Cómo se pregunta en la práctica</span><p>Es el tema más "de actualidad" del bloque y donde con más naturalidad se pide aplicarlo a la actividad del INE: por ejemplo, justificar qué arquitectura (almacén de datos clásico, NoSQL, procesamiento distribuido) sería más adecuada para explotar los resultados agregados de una gran encuesta o para tratar fuentes de datos masivas y no estructuradas (registros administrativos, datos de sensores o de telefonía móvil).</p></div>
+        <div class="practica"><span class="etag">Aplicación diaria en el INE</span>
+          <p>El INE construye almacenes de datos y cubos OLAP para la <strong>difusión de resultados agregados</strong> (por ejemplo, series desagregadas por territorio, sexo y periodo), separando ese entorno analítico de las bases de datos transaccionales donde se recoge y valida la información en bruto de cada operación.</p>
+          <p>El organismo explora y usa cada vez más fuentes de <strong>datos masivos no tradicionales</strong> (registros administrativos de otras Administraciones, datos de posicionamiento de telefonía móvil para estudios de movilidad) que, por su volumen y estructura variable, encajan mejor en arquitecturas NoSQL o de procesamiento distribuido que en el modelo relacional clásico de T3.</p>
+          <ul>
+            <li>El uso de estas fuentes masivas se hace siempre bajo los límites del secreto estadístico y la protección de datos: la escalabilidad técnica del Big Data no exime del cumplimiento de esas garantías jurídicas.</li>
+            <li>La elección entre un almacén de datos clásico y una arquitectura NoSQL depende del caso: series temporales muy estructuradas para difusión suelen seguir encajando bien en el modelo dimensional clásico, mientras que fuentes masivas y heterogéneas empujan hacia soluciones NoSQL o distribuidas.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  
+<hr><h2>C · Hilos transversales</h2>
+    <h3>Dos hilos que atraviesan todo el bloque</h3>
+    <p>Además del recorrido tema a tema, conviene tener localizados estos hilos porque el Tribunal tiende a preguntarlos de forma transversal, cruzando varios temas en una sola cuestión práctica.</p>
+
+    <h3>1 · De la abstracción a la implementación</h3>
+    <p>Todo el bloque puede leerse como un único recorrido de abstracción decreciente: el <strong>hardware</strong> de T1 es la capa más concreta y física; el <strong>sistema operativo y el SGBD</strong> de T2 introducen la primera capa de abstracción lógica (los niveles ANSI/SPARC); el <strong>modelo Entidad-Relación y el modelo relacional</strong> de T3 son la materialización concreta de esa abstracción en un diseño de datos implementable; y las <strong>arquitecturas de T4</strong> son, en realidad, un regreso a decisiones muy concretas sobre cómo distribuir físicamente el almacenamiento cuando la escala lo exige. Cualquier pregunta que pida "trazar el recorrido desde el dato en bruto hasta su explotación" remite a este mismo hilo, atravesando los cuatro temas en orden.</p>
+
+    <div class="viz" id="vz-star"><div class="viz-label">Esquema en estrella (modelo dimensional de un almacén de datos)</div><div class="viz-stage"><svg class="dg" viewBox="0 0 640 300" role="img"><line x1="320" y1="60" x2="320" y2="105" class="l"/><line x1="170" y1="140" x2="240" y2="140" class="l"/><line x1="400" y1="140" x2="470" y2="140" class="l"/><line x1="320" y1="175" x2="320" y2="215" class="l"/><rect x="240" y="105" width="160" height="70" rx="7" class="m"/><text x="320" y="130" class="h tm">HECHOS</text><text x="320" y="148" class="s">Encuesta / Ventas</text><text x="320" y="164" class="s">medidas: importe, nº</text><rect x="250" y="15" width="140" height="45" rx="7" class="b"/><text x="320" y="36" class="h tt">Dim. Tiempo</text><text x="320" y="52" class="s">año · trimestre · mes</text><rect x="20" y="108" width="150" height="64" rx="7" class="b"/><text x="95" y="133" class="h tt">Dim. Territorio</text><text x="95" y="151" class="s">CCAA · prov. · mun.</text><rect x="470" y="108" width="150" height="64" rx="7" class="b"/><text x="545" y="133" class="h tt">Dim. Persona</text><text x="545" y="151" class="s">sexo · edad · nacion.</text><rect x="250" y="215" width="140" height="50" rx="7" class="b"/><text x="320" y="236" class="h tt">Dim. Actividad</text><text x="320" y="252" class="s">CNAE · sector</text><text x="320" y="288" class="s">Cada dimensión es una tabla desnormalizada; en «copo de nieve» se normalizan en subtablas</text></svg></div></div><h3>2 · OLTP frente a OLAP: dos necesidades, dos diseños</h3>
+    <p>El SGBD transaccional de T2, las propiedades ACID y el modelo normalizado de T3 están optimizados para <strong>OLTP</strong>: muchas transacciones pequeñas, concurrentes, que deben mantener la integridad del dato en todo momento (dar de alta una respuesta de encuesta, corregir un registro). El almacén de datos y el modelo dimensional de T4 están optimizados para <strong>OLAP</strong>: pocas consultas, pero muy grandes, sobre volúmenes históricos de datos ya consolidados, donde lo prioritario es la velocidad de respuesta y no la actualización constante. Distinguir cuál de los dos enfoques conviene a un supuesto de examen —recogida y validación de una encuesta frente a explotación y difusión de sus resultados agregados— es uno de los ejercicios más recurrentes de este bloque.</p>
+
+  </section>
+
+</div>
+
+<div id="pres" role="dialog" aria-label="Presentación"><nav class="bar"><div class="bar-inner"><button class="navbtn" id="closePres">✕ Cerrar</button><button class="navbtn" id="prevBtn">← Ant.</button><span class="section-label" id="sectionLabel"></span><div class="dots" id="dots"></div><span class="progress" id="progress"></span><button class="navbtn" id="nextBtn">Sig. →</button><button class="theme-toggle" aria-label="Tema"><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg></button></div></nav><div class="deck" id="deck">
+
+<!-- PORTADA -->
+<section class="slide cover" data-section="Portada">
+  <p class="kicker">CSE-INE A1 · Materias comunes · III. Almacenamiento y modelos de datos</p>
+  <h1>Almacenamiento y<br>modelos de datos</h1>
+  <p class="subtitle">Temas 1 a 4 del bloque III de materias comunes: de la representación de la información en bits hasta los sistemas de gestión de bases de datos — con definiciones, matices de examen y aplicación al INE.</p>
+  <p class="jumpnote">DATUM Formaciones</p>
+</section>
+
+<!-- ===================== TEMA 1 ===================== -->
+<section class="slide" data-section="T1 · Representación">
+  <p class="kicker">Tema 1 · Presentación</p>
+  <h2 class="slide-title">Representación y almacenamiento de la información</h2>
+  <div class="box"><span class="tag">Programa oficial (Anexo I, BOE-A-2025-26900)</span><p>Introducción. Bits y bytes. Organización de la memoria principal. Representación de la información como cadenas de bits. Inexistencia de «tipos» para los ficheros en disco.</p></div>
+  <p>Es el tema más elemental del bloque, pero uno de los más rentables: sus preguntas siguen un patrón estable de convocatoria en convocatoria.</p>
+</section>
+
+<section class="slide" data-section="T1 · Representación">
+  <p class="kicker">Tema 1 · 1.1</p>
+  <h2 class="slide-title">Por qué representar información como bits</h2>
+  <p>Cualquier sistema de computación digital solo maneja, en última instancia, dos estados físicos distinguibles (por ejemplo, dos niveles de tensión eléctrica). Toda la información que un ordenador procesa o almacena —números, texto, imágenes, sonido, o los propios programas— debe codificarse como secuencias de estos dos valores.</p>
+  <div class="box"><span class="tag">Por qué importa distinguir representación de significado</span><p>Una misma secuencia de bits puede representar cosas completamente distintas —un número entero, un carácter, una instrucción de máquina— según el convenio de interpretación aplicado. El bit, por sí solo, no tiene significado: se lo da el programa o sistema que lo interpreta en un contexto determinado.</p></div>
+</section>
+
+<section class="slide" data-section="T1 · Representación">
+  <p class="kicker">Tema 1 · 1.2</p>
+  <h2 class="slide-title">Bits y bytes</h2>
+  <p>El <strong>bit (binary digit)</strong> es la unidad mínima de información de un sistema digital: toma uno de dos valores posibles (0 y 1). Es la unidad atómica sobre la que se construye cualquier representación de datos.</p>
+  <p>El <strong>byte</strong> es la unidad de almacenamiento y direccionamiento más habitual: una agrupación de 8 bits. Con 8 bits pueden representarse 2⁸ = 256 combinaciones distintas.</p>
+  <div class="box green"><span class="tag">Múltiplos del byte</span><p>Distinguir múltiplos decimales (potencias de 10, los que usan los fabricantes de discos: KB, MB, GB, TB) de múltiplos binarios (potencias de 2: KiB=2¹⁰, MiB=2²⁰...), que son los que realmente maneja el sistema operativo al direccionar memoria.</p></div>
+  <div class="box warn"><span class="tag">Cómo se pregunta en la práctica</span><p>Calcular cuántos bits o bytes hacen falta para representar N combinaciones, valores o caracteres distintos; conversiones entre bits, bytes y sus múltiplos.</p></div>
+</section>
+
+<section class="slide" data-section="T1 · Representación">
+  <p class="kicker">Tema 1 · 1.3</p>
+  <h2 class="slide-title">Organización de la memoria principal</h2>
+  <p>La <strong>memoria principal</strong> puede entenderse como una larga secuencia (array) de celdas de almacenamiento, cada una de tamaño fijo (típicamente un byte), identificada de forma única por una <strong>dirección de memoria</strong>.</p>
+  <div class="box"><span class="tag">Acceso aleatorio</span><p>Esta organización permite que la CPU acceda a cualquier dato o instrucción indicando la dirección numérica de la celda, sin recorrer secuencialmente el resto de la memoria — de ahí el nombre RAM (<em>Random Access Memory</em>).</p></div>
+  <p class="jumpnote">Sobre esta organización lineal, el sistema operativo (T3) construye los mecanismos para que múltiples programas compartan la memoria física de forma segura: memoria virtual, paginación.</p>
+</section>
+
+<section class="slide" data-section="T1 · Representación">
+  <p class="kicker">Tema 1 · 1.4</p>
+  <h2 class="slide-title">Números enteros: tres convenios de representación</h2>
+  <ul>
+    <li><strong>Signo-magnitud:</strong> el bit más significativo indica el signo (0 positivo, 1 negativo); el resto codifica el valor absoluto. Inconveniente: doble representación del cero (+0 y −0).</li>
+    <li><strong>Complemento a 1 (C1):</strong> los negativos se obtienen invirtiendo todos los bits del positivo equivalente. También presenta doble cero.</li>
+    <li><strong>Complemento a 2 (C2):</strong> los negativos se obtienen invirtiendo los bits del positivo y sumando 1. Es el sistema universal en procesadores actuales: resuelve el doble cero y permite sumar y restar con el mismo circuito.</li>
+  </ul>
+  <div class="box"><span class="tag">Rango representable en C2 con n bits</span><p>Intervalo [−2<sup>n−1</sup>, 2<sup>n−1</sup>−1]. Con 8 bits: de −128 a +127. Hay un negativo más que positivos, porque el cero solo ocupa una combinación.</p></div>
+</section>
+
+<section class="slide" data-section="T1 · Representación">
+  <p class="kicker">Tema 1 · 1.4 (cont.)</p>
+  <h2 class="slide-title">Desbordamiento (overflow)</h2>
+  <p>Se produce cuando el resultado de una operación aritmética no cabe en el número de bits disponible. En complemento a 2, se detecta comparando el acarreo que entra en el bit de signo con el que sale de él: si son distintos, hay overflow.</p>
+  <p>El sistema <strong>no lanza automáticamente un error visible</strong>: el resultado se trunca y puede interpretarse como un número completamente distinto (incluso de signo opuesto) sin ningún aviso, salvo que el programa compruebe explícitamente esa condición.</p>
+  <div class="box warn"><span class="tag">Por qué importa en la práctica de examen</span><p>El desbordamiento programático —una variable de tamaño fijo que se trunca en cada reasignación sucesiva— es uno de los subtipos de pregunta más recurrentes en las últimas convocatorias. Conviene dominar el mecanismo de suma/resta en C2 y saber detectar cuándo el resultado se sale del rango representable.</p></div>
+</section>
+
+<section class="slide" data-section="T1 · Representación">
+  <p class="kicker">Tema 1 · 1.4 (cont.)</p>
+  <h2 class="slide-title">Coma flotante — IEEE 754</h2>
+  <p>Los números con parte fraccionaria se representan con <strong>notación en coma flotante</strong>, típicamente según el estándar <strong>IEEE 754</strong>, que descompone el número en tres campos:</p>
+  <ul>
+    <li><strong>Signo</strong> (1 bit): 0 positivo, 1 negativo.</li>
+    <li><strong>Exponente:</strong> codificado con un <strong>sesgo (bias)</strong> —p. ej. 127 en simple precisión de 32 bits— para representar exponentes negativos sin bit de signo propio.</li>
+    <li><strong>Mantisa (fracción):</strong> dígitos significativos normalizados de forma que el primer dígito antes de la coma sea siempre 1 (el "1 implícito", que no se almacena).</li>
+  </ul>
+  <p>La <strong>normalización</strong> desplaza la coma hasta dejar un único dígito no nulo a su izquierda, ajustando el exponente para compensar el desplazamiento — paso indispensable antes de codificar cualquier real.</p>
+</section>
+
+<section class="slide" data-section="T1 · Representación">
+  <p class="kicker">Tema 1 · 1.4 (cont.) y patrón de examen</p>
+  <h2 class="slide-title">Caracteres y texto · cómo se pregunta este epígrafe</h2>
+  <p>El texto se representa asignando a cada carácter un código numérico según una <strong>tabla de codificación</strong>: <strong>ASCII</strong> (7 u 8 bits, suficiente para el alfabeto latino sin diacríticos) y <strong>Unicode</strong> (habitualmente en <strong>UTF-8</strong>, longitud variable), que cubre prácticamente cualquier alfabeto del mundo.</p>
+  <div class="box warn"><span class="tag">Patrón estable de examen</span><p>Representar un decimal en signo-magnitud, C1 y C2 con n bits dados; interpretar un patrón binario en C2; calcular el rango representable; restar directamente en C2 (sumando el minuendo con el C2 del sustraendo); calcular el mínimo de bits para un entero dado; codificar/decodificar coma flotante normalizada con un sesgo dado; razonar sobre pseudocódigo con variables de tamaño fijo tras sucesivos truncamientos.</p></div>
+  <p class="jumpnote">Lo que varía entre convocatorias es la envoltura del problema, no el fundamento aritmético.</p>
+</section>
+
+<section class="slide" data-section="T1 · Representación">
+  <p class="kicker">Tema 1 · 1.5</p>
+  <h2 class="slide-title">Inexistencia de «tipos» para los ficheros en disco</h2>
+  <p>A nivel del sistema de almacenamiento, <strong>un fichero es, sin más, una secuencia de bytes</strong>. El disco no almacena ninguna marca intrínseca de "esto es una imagen" o "esto es un documento": esa interpretación depende enteramente del software que lea el fichero.</p>
+  <ul>
+    <li>La <strong>extensión del nombre</strong> (<code>.txt</code>, <code>.jpg</code>, <code>.csv</code>) es solo una <strong>convención</strong>, no una propiedad física del contenido; puede cambiarse sin alterar los bytes.</li>
+    <li>Es la propia aplicación la que decide cómo interpretar la secuencia de bytes, normalmente reconociendo una <strong>cabecera (header)</strong> con estructura conocida al inicio del fichero.</li>
+  </ul>
+  <div class="box warn"><span class="tag">Matiz que conviene tener claro</span><p>Esto no contradice que existan sistemas de ficheros que almacenen metadatos adicionales (fecha, permisos, a veces tipo MIME); lo que no existe a nivel de contenido es un "tipo" impuesto por el hardware o el almacenamiento.</p></div>
+  <p class="jumpnote">Aplicación en el INE: hay que ser explícito sobre el formato exacto de cada fichero de intercambio (separador de CSV, codificación, formato de fecha) — el sistema no puede "adivinar" la estructura de un fichero de microdatos.</p>
+</section>
+
+<!-- ===================== TEMA 2 ===================== -->
+<section class="slide" data-section="T2 · Hardware">
+  <p class="kicker">Tema 2 · Presentación</p>
+  <h2 class="slide-title">Componentes principales del hardware</h2>
+  <div class="box"><span class="tag">Programa oficial</span><p>Introducción. Componentes principales de hardware de un sistema de computación.</p></div>
+  <p>Este tema sitúa la representación en bits de T1 dentro del hardware físico completo: CPU, memoria, almacenamiento, periféricos y buses.</p>
+</section>
+
+<section class="slide" data-section="T2 · Hardware">
+  <p class="kicker">Tema 2 · 2.1</p>
+  <h2 class="slide-title">El modelo de Von Neumann</h2>
+  <p>Un sistema de computación se describe habitualmente mediante la <strong>arquitectura de Von Neumann</strong>: un único procesador ejecuta instrucciones almacenadas en una memoria compartida con los datos, accediendo a ambas a través de un conjunto de buses. Componentes esenciales: <strong>CPU</strong>, <strong>memoria</strong>, <strong>periféricos de E/S</strong> y <strong>buses</strong>.</p>
+  <div class="box warn"><span class="tag">Cuello de botella de Von Neumann</span><p>Al compartir un único bus para instrucciones y datos, la CPU no puede leer una instrucción y un dato al mismo tiempo — razón última de la jerarquía de memoria y la caché.</p></div>
+  <p>Frente a esto, la <strong>arquitectura Harvard</strong> —microcontroladores y procesadores especializados— separa físicamente memoria de instrucciones y de datos, con buses independientes: acceso simultáneo a costa de mayor complejidad y coste.</p>
+</section>
+
+<section class="slide" data-section="T2 · Hardware">
+  <p class="kicker">Tema 2 · 2.2</p>
+  <h2 class="slide-title">La Unidad Central de Proceso (CPU)</h2>
+  <p>Interpreta y ejecuta las instrucciones de un programa. Se compone de:</p>
+  <ul>
+    <li><strong>Unidad de Control (UC):</strong> dirige la secuencia de ejecución, genera señales de control, gestiona el ciclo de instrucción.</li>
+    <li><strong>Unidad Aritmético-Lógica (ALU):</strong> ejecuta operaciones aritméticas y lógicas.</li>
+    <li><strong>Registros:</strong> memoria interna casi instantánea y de capacidad reducida — <strong>contador de programa (PC)</strong>, <strong>registro de instrucción (RI)</strong> y registros de propósito general.</li>
+  </ul>
+  <div class="box"><span class="tag">Ciclo de instrucción</span><p><strong>Fetch</strong> (búsqueda en memoria, apuntada por el PC) → <strong>decode</strong> (la UC interpreta la operación) → <strong>execute</strong> (la ALU o el componente correspondiente la ejecuta). Se repite continuamente.</p></div>
+</section>
+
+<section class="slide" data-section="T2 · Hardware">
+  <p class="kicker">Tema 2 · 2.3</p>
+  <h2 class="slide-title">Jerarquía de memoria</h2>
+  <p>Ningún tipo de memoria es simultáneamente rápida, barata y de gran capacidad, así que los sistemas la organizan en niveles, de menor a mayor capacidad y de mayor a menor velocidad:</p>
+  <ol>
+    <li><strong>Registros de la CPU</strong> — acceso casi instantáneo, pocas decenas de bytes.</li>
+    <li><strong>Memoria caché</strong> (L1, L2, a veces L3) — muy rápida, retiene lo más usado, aprovechando el <strong>principio de localidad</strong> (temporal y espacial).</li>
+    <li><strong>Memoria principal (RAM)</strong> — volátil, acceso rápido, programas y datos en ejecución.</li>
+    <li><strong>Memoria secundaria</strong> (discos, SSD) — no volátil, gran capacidad, coste por byte muy inferior, pero mucho más lenta.</li>
+  </ol>
+  <div class="box warn"><span class="tag">Volatilidad</span><p>Registros, caché y RAM son <strong>volátiles</strong>: pierden el contenido al desconectar la alimentación. La memoria secundaria es <strong>no volátil</strong> — por eso cualquier dato que deba persistir debe escribirse en ella.</p></div>
+</section>
+
+<section class="slide" data-section="T2 · Hardware">
+  <p class="kicker">Tema 2 · 2.4</p>
+  <h2 class="slide-title">Dispositivos de almacenamiento secundario</h2>
+  <div class="two-col">
+    <div class="mini"><h4>HDD — discos magnéticos</h4><p>Platos giratorios recubiertos de material magnético, leídos por cabeza mecánica. Coste/GB bajo, capacidad alta; velocidad limitada por latencia mecánica.</p></div>
+    <div class="mini"><h4>SSD — estado sólido</h4><p>Memoria flash, sin partes móviles. Accesos aleatorios mucho más rápidos, más resistente, menos consumo; coste/GB mayor y ciclos de escritura finitos.</p></div>
+  </div>
+  <p><strong>RAID</strong> (Redundant Array of Independent Disks): combina varios discos físicos para que el sistema los vea como una unidad lógica, mejorando rendimiento, tolerancia a fallos, o ambos.</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Nivel</th><th>Técnica</th><th>Ventaja</th><th>Coste en capacidad</th></tr></thead>
+    <tbody>
+      <tr><td>RAID 0</td><td>Striping sin redundancia</td><td>Máximo rendimiento</td><td>Ninguno perdido, cero tolerancia a fallos</td></tr>
+      <tr><td>RAID 1</td><td>Mirroring</td><td>Máxima tolerancia a fallos</td><td>50% de la capacidad total</td></tr>
+      <tr><td>RAID 5</td><td>Striping + paridad distribuida</td><td>Equilibrio rendimiento/redundancia; tolera 1 disco</td><td>Capacidad de 1 disco</td></tr>
+      <tr><td>RAID 10</td><td>Mirroring + striping</td><td>Alto rendimiento y alta redundancia</td><td>50% de la capacidad total</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="slide" data-section="T2 · Hardware">
+  <p class="kicker">Tema 2 · 2.5 y 2.6</p>
+  <h2 class="slide-title">Periféricos y buses</h2>
+  <h3>Periféricos de entrada y salida</h3>
+  <p><strong>Entrada</strong> (teclado, ratón, escáner, sensores) · <strong>salida</strong> (monitor, impresora, altavoces) · <strong>mixtos</strong> (pantallas táctiles, módems, red, almacenamiento extraíble).</p>
+  <p>La comunicación CPU-periférico se gestiona con <strong>interrupciones</strong> (el periférico avisa cuando tiene datos, en vez de que la CPU consulte continuamente) y <strong>DMA</strong> (acceso directo a memoria: transferencia sin intervención de la CPU en cada byte).</p>
+  <h3>Buses</h3>
+  <ul>
+    <li><strong>Bus de datos</strong> — transporta los datos intercambiados; su anchura determina cuántos bits se transfieren a la vez.</li>
+    <li><strong>Bus de direcciones</strong> — transporta la dirección a la que se accede; su anchura determina el espacio máximo direccionable.</li>
+    <li><strong>Bus de control</strong> — señales de coordinación (lectura/escritura, interrupciones, temporización).</li>
+  </ul>
+  <p class="jumpnote">Que los buses sean compartidos es lo que genera el cuello de botella de Von Neumann: solo un componente puede usar el bus en cada instante.</p>
+</section>
+
+<!-- ===================== TEMA 3 ===================== -->
+<section class="slide" data-section="T3 · Sistemas operativos">
+  <p class="kicker">Tema 3 · Presentación</p>
+  <h2 class="slide-title">Introducción a los sistemas operativos</h2>
+  <div class="box"><span class="tag">Programa oficial</span><p>Qué hacen los SO. Organización y arquitectura de sistemas de computación. Estructura de SO. Operaciones en SO. Gestión de procesos, memoria y almacenamiento. Protección y seguridad. Sistemas distribuidos. Entornos de computación.</p></div>
+  <p>El tema con más epígrafes del bloque: la capa de software que organiza y reparte el hardware de T2 entre múltiples usuarios y programas.</p>
+</section>
+
+<section class="slide" data-section="T3 · Sistemas operativos">
+  <p class="kicker">Tema 3 · 3.1</p>
+  <h2 class="slide-title">Qué hacen los sistemas operativos</h2>
+  <p>El <strong>sistema operativo (SO)</strong> es el software intermediario entre el hardware (T2) y las aplicaciones (entre ellas, el SGBD de T4). Cumple dos papeles:</p>
+  <ul>
+    <li><strong>Como gestor de recursos:</strong> asigna y reparte procesador, memoria y E/S entre los programas en ejecución, resolviendo conflictos de acceso.</li>
+    <li><strong>Como máquina extendida (virtual):</strong> oculta los detalles complejos del hardware, ofreciendo una interfaz de más alto nivel.</li>
+  </ul>
+  <div class="box"><span class="tag">Objetivos del SO</span><p>Ejecutar los programas de usuario y facilitar la resolución de sus problemas; hacer el sistema cómodo de usar; emplear el hardware de forma eficiente.</p></div>
+</section>
+
+<section class="slide" data-section="T3 · Sistemas operativos">
+  <p class="kicker">Tema 3 · 3.2</p>
+  <h2 class="slide-title">Organización, arquitectura e interrupciones</h2>
+  <p>El sistema se organiza en torno a CPU, memoria principal y controladores de E/S, conectados por un bus común. El funcionamiento se basa en <strong>interrupciones</strong>: cuando un dispositivo termina una operación, envía una señal que suspende momentáneamente la CPU y transfiere el control al <strong>gestor de interrupciones</strong>.</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Arquitectura</th><th>Descripción</th></tr></thead>
+    <tbody>
+      <tr><td>Monoprocesador</td><td>Una única CPU de propósito general</td></tr>
+      <tr><td>Multiproc. asimétrico</td><td>Cada procesador tiene una tarea específica asignada</td></tr>
+      <tr><td>Multiproc. simétrico (SMP)</td><td>Cada procesador realiza todas las tareas del SO indistintamente</td></tr>
+      <tr><td>Clústeres</td><td>Varios sistemas completos interconectados, comparten almacenamiento, alta disponibilidad</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="slide" data-section="T3 · Sistemas operativos">
+  <p class="kicker">Tema 3 · 3.3</p>
+  <h2 class="slide-title">Estructura de sistemas operativos</h2>
+  <ul>
+    <li><strong>Estructura simple (monolítica):</strong> conjunto de procedimientos donde cualquiera puede llamar a cualquier otro, sin separación estricta.</li>
+    <li><strong>Enfoque en capas (layered):</strong> el SO se divide en capas; la capa 0 es el hardware, la capa N la interfaz de usuario.</li>
+    <li><strong>Microkernels:</strong> el núcleo se reduce a lo esencial (comunicación entre procesos); el resto pasa a nivel de usuario.</li>
+    <li><strong>Módulos:</strong> componentes principales que enlazan dinámicamente servicios adicionales, como objetos con interfaces definidas.</li>
+    <li><strong>Sistemas híbridos:</strong> combinan varias de las estructuras anteriores.</li>
+  </ul>
+</section>
+
+<section class="slide" data-section="T3 · Sistemas operativos">
+  <p class="kicker">Tema 3 · 3.4</p>
+  <h2 class="slide-title">Operaciones en sistemas operativos</h2>
+  <p>Los SO modernos son de <strong>interrupción dirigida (interrupt driven)</strong>: si no hay procesos, dispositivos ni usuarios que atender, el SO permanece a la espera.</p>
+  <div class="box"><span class="tag">Modo dual de operación</span><p>Distinción entre <strong>modo usuario</strong> y <strong>modo núcleo (kernel)</strong>: protege al SO y al sistema frente a programas defectuosos o malintencionados. Las instrucciones privilegiadas solo se ejecutan en modo núcleo.</p></div>
+  <div class="box warn"><span class="tag">Temporizador (timer)</span><p>Evita que un proceso monopolice la CPU o entre en bucle infinito: transcurrido un intervalo fijo, genera una interrupción que devuelve el control al SO.</p></div>
+</section>
+
+<section class="slide" data-section="T3 · Sistemas operativos">
+  <p class="kicker">Tema 3 · 3.5</p>
+  <h2 class="slide-title">Gestión de procesos</h2>
+  <p>Un <strong>proceso</strong> es un programa en ejecución: la unidad de trabajo de un sistema moderno. El SO gestiona:</p>
+  <ul>
+    <li>Creación y eliminación de procesos, de usuario y del propio sistema.</li>
+    <li>Suspensión y reanudación de procesos.</li>
+    <li>Mecanismos de <strong>sincronización de procesos</strong> cuando varios necesitan coordinarse.</li>
+    <li>Mecanismos de <strong>comunicación entre procesos</strong>.</li>
+  </ul>
+  <p>El SO decide en cada instante qué proceso ocupa la CPU (<strong>planificación / scheduling</strong>), permitiendo que varios procesos parezcan ejecutarse a la vez mediante el reparto rápido del tiempo de CPU (<strong>multitarea</strong>).</p>
+</section>
+
+<section class="slide" data-section="T3 · Sistemas operativos">
+  <p class="kicker">Tema 3 · 3.6</p>
+  <h2 class="slide-title">Gestión de memoria</h2>
+  <p>La memoria principal es un array de bytes direccionable individualmente (T1-T2), donde residen programas y datos en uso. Para optimizar CPU y respuesta, el sistema debe mantener varios programas en memoria a la vez, lo que exige que el SO gestione esa memoria compartida:</p>
+  <ul>
+    <li>Registrar qué partes de la memoria están en uso y por quién.</li>
+    <li>Decidir qué procesos (o partes) se cargan o retiran de memoria.</li>
+    <li>Asignar y liberar espacio de memoria según sea necesario.</li>
+  </ul>
+  <div class="box green"><span class="tag">Memoria virtual</span><p>Simula, combinando RAM y memoria secundaria, un espacio de direcciones mayor que la memoria física disponible: pagina a disco los contenidos menos usados y protege el espacio de un proceso frente a otros.</p></div>
+</section>
+
+<section class="slide" data-section="T3 · Sistemas operativos">
+  <p class="kicker">Tema 3 · 3.7</p>
+  <h2 class="slide-title">Gestión de almacenamiento</h2>
+  <p>El SO proporciona, sobre los dispositivos de almacenamiento secundario (T2), una <strong>visión lógica y uniforme</strong> en forma de <strong>ficheros</strong>, abstrayendo las propiedades físicas concretas del dispositivo.</p>
+  <div class="box"><span class="tag">Sistema de ficheros</span><p>Organiza cómo se almacenan, nombran y recuperan los ficheros: gestiona espacio libre, permisos de acceso y estructura jerárquica de directorios. Es, en última instancia, donde reside cualquier base de datos (T4).</p></div>
+  <p>La memoria principal suele ser demasiado pequeña y volátil para almacenar todo de forma permanente: el sistema necesita <strong>almacenamiento secundario</strong> como respaldo, y a veces un nivel de <strong>almacenamiento terciario</strong> para copias de seguridad de bajo coste y menor velocidad.</p>
+</section>
+
+<section class="slide" data-section="T3 · Sistemas operativos">
+  <p class="kicker">Tema 3 · 3.8</p>
+  <h2 class="slide-title">Protección y seguridad</h2>
+  <div class="two-col">
+    <div class="mini"><h4>Protección</h4><p>Cualquier mecanismo para controlar el acceso de programas, procesos o usuarios a los recursos del sistema. Establece y hace cumplir un esquema de permisos ya definido.</p></div>
+    <div class="mini"><h4>Seguridad</h4><p>Defensa del sistema frente a ataques internos y externos: virus, gusanos, denegación de servicio, robo de identidad o de servicio. Exige considerar el entorno externo.</p></div>
+  </div>
+  <p class="jumpnote">Si un sistema tiene varios usuarios y ejecución concurrente de procesos, hay que proteger los procesos entre sí — de ahí la necesidad de ambos mecanismos.</p>
+</section>
+
+<section class="slide" data-section="T3 · Sistemas operativos">
+  <p class="kicker">Tema 3 · 3.9 y 3.10</p>
+  <h2 class="slide-title">Sistemas distribuidos y entornos de computación</h2>
+  <div class="box"><span class="tag">Sistema distribuido</span><p>Colección de procesadores físicamente separados, sin memoria ni reloj compartidos, que se comunican por una red. Ventajas: mayor velocidad de cálculo, disponibilidad de datos y fiabilidad del conjunto.</p></div>
+  <ul>
+    <li><strong>Computación tradicional</strong> — ordenadores personales y estaciones de trabajo en red.</li>
+    <li><strong>Computación móvil</strong> — smartphones y tabletas, recursos de energía y capacidad limitados.</li>
+    <li><strong>Cliente-servidor</strong> — sistemas centralizados sirven peticiones de sistemas cliente.</li>
+    <li><strong>Peer-to-peer</strong> — los participantes actúan de clientes y servidores entre sí, sin servidor central.</li>
+    <li><strong>Cloud computing</strong> — entrega bajo demanda de recursos vía Internet (pública, privada, híbrida).</li>
+  </ul>
+  <p class="jumpnote">El INE combina servidores tradicionales, cliente-servidor y cloud en sus sistemas de recogida y explotación estadística.</p>
+</section>
+
+<!-- ===================== TEMA 4 ===================== -->
+<section class="slide" data-section="T4 · Bases de datos">
+  <p class="kicker">Tema 4 · Presentación</p>
+  <h2 class="slide-title">Bases de datos</h2>
+  <div class="box"><span class="tag">Programa oficial</span><p>Introducción. Sistemas tradicionales basados en ficheros: descripción y limitaciones. Base de datos, SGBD, programas de aplicación y componentes (generalidades). Ventajas y desventajas de los SGBD.</p></div>
+  <p>Se sitúa un nivel por encima del SO (T3) para explicar por qué un SGBD resuelve las limitaciones de los sistemas basados en ficheros.</p>
+</section>
+
+<section class="slide" data-section="T4 · Bases de datos">
+  <p class="kicker">Tema 4 · 4.1 y 4.2</p>
+  <h2 class="slide-title">De los ficheros tradicionales al SGBD</h2>
+  <p>Un <strong>sistema tradicional basado en ficheros</strong>: cada aplicación o departamento define y gestiona sus propios ficheros, con sus propios programas de acceso, sin coordinación centralizada.</p>
+  <ul>
+    <li><strong>Separación y aislamiento de los datos:</strong> difícil acceder a datos relacionados que residen en ficheros y aplicaciones distintos.</li>
+    <li><strong>Duplicación de los datos:</strong> redundancia no controlada, derroche de espacio y esfuerzo de mantenimiento.</li>
+    <li><strong>Dependencia de los datos:</strong> la estructura física se define en el código de los programas; cambiarla exige modificar todos los programas que usan el fichero.</li>
+    <li><strong>Formatos incompatibles:</strong> distintos programadores, distintos lenguajes, formatos que no se entienden entre sí.</li>
+    <li><strong>Consultas fijas:</strong> cualquier consulta nueva exige que un programador escriba un nuevo programa.</li>
+  </ul>
+  <div class="box warn"><span class="tag">Idea clave para el examen</span><p>Todas estas limitaciones tienen una raíz común: la ausencia de control centralizado. Es esa centralización la que aporta un SGBD — conviene enlazar cada limitación con la solución concreta del SGBD.</p></div>
+</section>
+
+<section class="slide" data-section="T4 · Bases de datos">
+  <p class="kicker">Tema 4 · 4.3</p>
+  <h2 class="slide-title">Base de datos y SGBD: definiciones</h2>
+  <div class="box"><span class="tag">Base de datos</span><p>Conjunto organizado de datos relacionados lógicamente entre sí, junto con una descripción de dichos datos, diseñado para satisfacer las necesidades de información de una organización.</p></div>
+  <div class="box"><span class="tag">Sistema de gestión de bases de datos (SGBD)</span><p>Software que permite a los usuarios definir, crear, mantener y controlar el acceso a la base de datos.</p></div>
+  <ul>
+    <li>Define la base de datos mediante un <strong>lenguaje de definición de datos (DDL)</strong>: tipos, estructuras, restricciones.</li>
+    <li>Permite insertar, actualizar, eliminar y recuperar datos mediante un <strong>lenguaje de manipulación de datos (DML)</strong>.</li>
+    <li>Proporciona acceso controlado: seguridad, integridad, control de concurrencia, recuperación ante fallos.</li>
+  </ul>
+  <p>Los <strong>programas de aplicación</strong> interactúan con la base de datos a través del SGBD, sin conocer cómo se almacenan físicamente los datos.</p>
+</section>
+
+<section class="slide" data-section="T4 · Bases de datos">
+  <p class="kicker">Tema 4 · 4.3 (cont.)</p>
+  <h2 class="slide-title">Componentes generales de un SGBD</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Componente</th><th>Función</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Motor de base de datos (núcleo)</strong></td><td>Gestiona el almacenamiento físico y el acceso a los datos</td></tr>
+      <tr><td><strong>Subsistema de definición de datos</strong></td><td>Procesa las definiciones expresadas en DDL</td></tr>
+      <tr><td><strong>Subsistema de manipulación de datos</strong></td><td>Procesa las operaciones expresadas en DML</td></tr>
+      <tr><td><strong>Diccionario de datos (catálogo)</strong></td><td>Repositorio de metadatos que describe la estructura de la base de datos; el SGBD lo consulta para interpretar peticiones</td></tr>
+    </tbody>
+  </table></div>
+  <div class="box warn"><span class="tag">Cómo se pregunta en la práctica</span><p>Distinguir base de datos de SGBD (no confundir ambos conceptos); enumerar y describir brevemente los componentes generales de un SGBD.</p></div>
+</section>
+
+<section class="slide" data-section="T4 · Bases de datos">
+  <p class="kicker">Tema 4 · 4.4</p>
+  <h2 class="slide-title">Ventajas de un SGBD frente a ficheros</h2>
+  <ul>
+    <li><strong>Control de la redundancia:</strong> centraliza los datos, elimina o minimiza la duplicación.</li>
+    <li><strong>Consistencia:</strong> menos redundancia, menos riesgo de que un dato tenga valores distintos en distintos lugares.</li>
+    <li><strong>Compartición:</strong> datos integrados, compartidos entre múltiples usuarios y aplicaciones a la vez.</li>
+    <li><strong>Mantenimiento de estándares</strong> y <strong>mejora de la integridad</strong> (restricciones) y <strong>de la seguridad</strong> (control de acceso).</li>
+    <li><strong>Acceso y disponibilidad:</strong> lenguajes de consulta/informes sin necesidad de un programador para cada petición.</li>
+    <li><strong>Productividad:</strong> el SGBD ya ofrece funciones que el programador tendría que escribir a mano.</li>
+    <li><strong>Independencia de datos:</strong> separar descripción y uso — un cambio de estructura no exige modificar programas no afectados.</li>
+    <li><strong>Concurrencia:</strong> gestiona el acceso simultáneo sin interferencias entre usuarios.</li>
+    <li><strong>Copia de seguridad y recuperación</strong> ante fallos del sistema.</li>
+  </ul>
+</section>
+
+<section class="slide" data-section="T4 · Bases de datos">
+  <p class="kicker">Tema 4 · 4.4 (cont.)</p>
+  <h2 class="slide-title">Desventajas de un SGBD</h2>
+  <ul>
+    <li><strong>Complejidad:</strong> software complejo; diseñadores, desarrolladores, administradores y usuarios deben comprenderlo bien.</li>
+    <li><strong>Tamaño:</strong> software voluminoso, consume espacio en disco y memoria.</li>
+    <li><strong>Coste del SGBD:</strong> licencia y mantenimiento anual, según entorno y funcionalidad.</li>
+    <li><strong>Coste adicional de hardware:</strong> puede exigir hardware adicional.</li>
+    <li><strong>Coste de la conversión:</strong> migrar aplicaciones existentes puede superar el coste del propio SGBD.</li>
+    <li><strong>Rendimiento:</strong> al ser genérico, puede no alcanzar el máximo rendimiento de un sistema a medida.</li>
+    <li><strong>Mayor impacto de un fallo:</strong> al centralizar los datos, un fallo puede detener toda la organización.</li>
+  </ul>
+  <p class="jumpnote">Aplicación en el INE: control de redundancia entre fases de una operación estadística (recogida, depuración, explotación), consistencia entre aplicaciones, acceso concurrente y controlado a los ficheros de una encuesta.</p>
+</section>
+
+<!-- HILO CONDUCTOR -->
+<section class="slide" data-section="Hilo conductor">
+  <p class="kicker">Cierre del bloque</p>
+  <h2 class="slide-title">Hilo conductor del bloque</h2>
+  <p>Los cuatro temas forman una progresión continua:</p>
+  <ul>
+    <li><strong>T1</strong> parte de la representación más elemental de la información como cadenas de bits y bytes, y su organización en memoria principal.</li>
+    <li><strong>T2</strong> sitúa esa representación dentro del hardware físico completo: CPU, memoria, almacenamiento secundario, periféricos y buses.</li>
+    <li><strong>T3</strong> añade la capa de software que organiza y reparte ese hardware entre múltiples usuarios y programas: el sistema operativo.</li>
+    <li><strong>T4</strong> se sitúa un nivel por encima del SO para explicar por qué y cómo un SGBD resuelve las limitaciones de los sistemas basados en ficheros.</li>
+  </ul>
+</section>
+
+<!-- CIERRE -->
+<section class="slide cover" data-section="Cierre">
+  <p class="kicker">Fin del resumen</p>
+  <h1>De un bit a una base de datos</h1>
+  <p class="subtitle">Representación (T1) → hardware físico (T2) → sistema operativo que lo reparte (T3) → sistema de gestión de bases de datos que organiza la información de la organización (T4).</p>
+  <p class="jumpnote">DATUM Formaciones · CSE-INE A1</p>
+</section>
+
+</div></div>
+<script>
+(function(){
+function css(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs){
+    var e = document.createElementNS(NS, tag);
+    for(var k in attrs){ e.setAttribute(k, attrs[k]); }
+    return e;
+  }
+  function svg(viewBox){ return el('svg', {viewBox: viewBox, xmlns: NS}); }
+  function rect(x,y,w,h,fill,rx){ return el('rect', {x:x,y:y,width:w,height:h,fill:fill,rx:rx||6}); }
+  function text(x,y,str,opts){
+    opts = opts || {};
+    var t = el('text', {x:x,y:y,fill:opts.fill||css('--ink'),'font-family':opts.mono?css('--mono'):css('--serif'),'font-size':opts.size||13,'font-weight':opts.weight||400,'text-anchor':opts.anchor||'middle'});
+    t.textContent = str;
+    return t;
+  }
+  function line(x1,y1,x2,y2,stroke,opts){
+    opts = opts || {};
+    var l = el('line', {x1:x1,y1:y1,x2:x2,y2:y2,stroke:stroke,'stroke-width':opts.w||1.5});
+    if(opts.dash){ l.setAttribute('stroke-dasharray', opts.dash); }
+    return l;
+  }
+  function arrowMarker(svgEl, id, color){
+    var defs = el('defs', {});
+    var marker = el('marker', {id:id, viewBox:'0 0 10 10', refX:'8', refY:'5', markerWidth:'6', markerHeight:'6', orient:'auto-start-reverse'});
+    var path = el('path', {d:'M0,0 L10,5 L0,10 z', fill:color});
+    marker.appendChild(path);
+    defs.appendChild(marker);
+    svgEl.appendChild(defs);
+  }
+
+  /* ---- T1: memoria principal como array direccionable ---- */
+  function buildMemoriaAddrViz(){
+    var stage = document.getElementById('viz-t1-memoria');
+    if(!stage) return;
+    var s = svg('0 0 640 190');
+    var tinta = css('--tinta'), marg = css('--marg'), rule = css('--rule');
+    var cellW = 56, cellH = 46, startX = 30, y = 60, n = 10;
+    for(var i=0;i<n;i++){
+      var x = startX + i*cellW;
+      s.appendChild(rect(x,y,cellW-6,cellH,'color-mix(in srgb, '+tinta+' 10%, transparent)',5));
+      var b = el('rect',{x:x,y:y,width:cellW-6,height:cellH,fill:'none',stroke:tinta,'stroke-width':1.5,rx:5}); s.appendChild(b);
+      s.appendChild(text(x+(cellW-6)/2,y+20,'0x'+(100+i).toString(16).toUpperCase(),{size:9.5,mono:true,fill:css('--ink-soft')}));
+      s.appendChild(text(x+(cellW-6)/2,y+36,'byte',{size:10,fill:tinta,weight:600}));
+    }
+    s.appendChild(text(320,30,'Memoria principal: secuencia de celdas de 1 byte, cada una con su dirección',{size:12,fill:css('--ink-soft')}));
+    s.appendChild(text(320,145,'La CPU accede directamente a cualquier celda indicando su dirección — acceso aleatorio (RAM)',{size:11.5,fill:marg}));
+    var arrow = el('line',{x1:58,y1:118,x2:58,y2:106,stroke:marg,'stroke-width':2});
+    s.appendChild(arrow);
+    stage.innerHTML='';stage.appendChild(s);
+  }
+
+  /* ---- T2: arquitectura de bloques ---- */
+  function buildArchViz(){
+    var stage = document.getElementById('viz-t2-arch');
+    if(!stage) return;
+    var s = svg('0 0 640 220');
+    var tinta = css('--tinta'), marg = css('--marg'), verde = css('--verde'), soft = css('--tinta-soft'), rule = css('--rule');
+    arrowMarker(s,'arrCPU',tinta);
+    s.appendChild(rect(20,80,140,60,soft,8));
+    var cpuBorder = el('rect',{x:20,y:80,width:140,height:60,fill:'none',stroke:tinta,'stroke-width':2,rx:8}); s.appendChild(cpuBorder);
+    s.appendChild(text(90,105,'CPU',{weight:600,fill:tinta}));
+    s.appendChild(text(90,124,'UC + ALU + registros',{size:10.5,fill:css('--ink-soft')}));
+
+    s.appendChild(rect(250,80,140,60,'color-mix(in srgb, '+marg+' 12%, transparent)',8));
+    var memBorder = el('rect',{x:250,y:80,width:140,height:60,fill:'none',stroke:marg,'stroke-width':2,rx:8}); s.appendChild(memBorder);
+    s.appendChild(text(320,105,'Memoria principal',{weight:600,fill:marg,size:13}));
+    s.appendChild(text(320,124,'RAM (volátil)',{size:10.5,fill:css('--ink-soft')}));
+
+    s.appendChild(rect(480,80,140,60,'color-mix(in srgb, '+verde+' 12%, transparent)',8));
+    var ioBorder = el('rect',{x:480,y:80,width:140,height:60,fill:'none',stroke:verde,'stroke-width':2,rx:8}); s.appendChild(ioBorder);
+    s.appendChild(text(550,101,'E/S y almacenamiento',{weight:600,fill:verde,size:12.5}));
+    s.appendChild(text(550,120,'secundario (no volátil)',{size:10.5,fill:css('--ink-soft')}));
+
+    ['160,110 250,110','390,110 480,110'].forEach(function(coords){
+      var pts = coords.split(' ').map(function(p){ return p.split(',').map(Number); });
+      var l = line(pts[0][0],pts[0][1],pts[1][0],pts[1][1],rule,{w:3});
+      s.appendChild(l);
+    });
+    s.appendChild(text(320,55,'BUS (datos · direcciones · control)',{mono:true,size:11.5,fill:css('--ink-soft')}));
+    s.appendChild(line(20,68,620,68,rule,{w:1.5,dash:'4,3'}));
+    s.appendChild(line(90,68,90,80,rule,{w:1.5}));
+    s.appendChild(line(320,68,320,80,rule,{w:1.5}));
+    s.appendChild(line(550,68,550,80,rule,{w:1.5}));
+
+    s.appendChild(text(320,190,'Todos los componentes comparten el mismo bus → cuello de botella de Von Neumann',{size:11,fill:css('--ink-soft')}));
+    stage.innerHTML='';stage.appendChild(s);
+  }
+
+  /* ---- T2: pirámide de memoria ---- */
+  function buildMemoriaViz(){
+    var stage = document.getElementById('viz-t2-memoria');
+    if(!stage) return;
+    var s = svg('0 0 640 260');
+    var levels = [
+      {label:'Registros CPU', sub:'ns · bytes', w:120, color:css('--tinta')},
+      {label:'Caché (L1/L2/L3)', sub:'ns · KB–MB', w:220, color:css('--tinta')},
+      {label:'Memoria principal (RAM)', sub:'ns–µs · GB', w:340, color:css('--marg')},
+      {label:'Memoria secundaria (disco/SSD)', sub:'ms–µs · TB', w:460, color:css('--verde')}
+    ];
+    var y = 20, h = 50, gap = 8;
+    levels.forEach(function(lv, i){
+      var x = (640 - lv.w)/2;
+      s.appendChild(rect(x,y,lv.w,h,'color-mix(in srgb, '+lv.color+' 14%, transparent)',8));
+      var b = el('rect',{x:x,y:y,width:lv.w,height:h,fill:'none',stroke:lv.color,'stroke-width':2,rx:8}); s.appendChild(b);
+      s.appendChild(text(320,y+22,lv.label,{weight:600,size:13,fill:lv.color}));
+      s.appendChild(text(320,y+38,lv.sub,{mono:true,size:10.5,fill:css('--ink-soft')}));
+      y += h + gap;
+    });
+    s.appendChild(text(80,40,'+ rápido',{size:11,mono:true,fill:css('--ink-soft'),anchor:'start'}));
+    s.appendChild(text(80,y-10,'+ capacidad',{size:11,mono:true,fill:css('--ink-soft'),anchor:'start'}));
+    var arrow = el('line',{x1:60,y1:20,x2:60,y2:y-gap,stroke:css('--rule'),'stroke-width':2});
+    s.appendChild(arrow);
+    stage.innerHTML='';stage.appendChild(s);
+  }
+
+  
+function svgEl(tag, attrs){const el=document.createElementNS("http://www.w3.org/2000/svg",tag);for(const k in attrs)el.setAttribute(k,attrs[k]);return el;}
+function cssv(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
+function renderDiagram(){
+  const stage = document.getElementById('ring-stage');
+  if(!stage) return;
+  const w = 720, h = 420;
+  const svg = svgEl('svg', {viewBox:`0 0 ${w} ${h}`, width:'100%'});
+
+  const layers = [
+    {label:'T1 · Arquitectura de un sistema de computación', color: cssv('--ink-soft'), w: 0.90},
+    {label:'T2 · Sistemas operativos y SGBD', color: cssv('--tinta'), w: 0.72},
+    {label:'T3 · Modelado y bases de datos relacionales', color: cssv('--marg'), w: 0.80},
+    {label:'T4 · Almacenes de datos y Big Data', color: cssv('--verde'), w: 0.66},
+  ];
+
+  const bandH = 52, gap = 12, topPad = 24;
+  const totalH = layers.length*(bandH+gap) - gap + topPad*2;
+  svg.setAttribute('viewBox', `0 0 ${w} ${totalH}`);
+
+  layers.forEach((layer, i)=>{
+    const bw = w * layer.w;
+    const bx = (w-bw)/2;
+    const by = topPad + i*(bandH+gap);
+    const rect = svgEl('rect', {x:bx, y:by, width:bw, height:bandH, rx:9, fill:layer.color, opacity: 0.92});
+    svg.appendChild(rect);
+    const text = svgEl('text', {x:w/2, y:by+bandH/2+4, 'text-anchor':'middle', 'font-family':cssv('--mono'), 'font-size':12, fill:cssv('--paper-raised'), 'font-weight':'600'});
+    text.textContent = layer.label;
+    svg.appendChild(text);
+
+    if(i < layers.length-1){
+      const arrowY1 = by+bandH+1, arrowY2 = by+bandH+gap-1;
+      const arrow = svgEl('path', {d:`M ${w/2} ${arrowY1} L ${w/2} ${arrowY2}`, stroke:cssv('--rule'), 'stroke-width':2});
+      svg.appendChild(arrow);
+    }
+  });
+
+  stage.innerHTML = '';
+  stage.appendChild(svg);
+}
+function renderAll(){buildMemoriaAddrViz();buildArchViz();buildMemoriaViz();renderDiagram();}
+var root=document.documentElement;
+var tabs=document.querySelectorAll('nav.tabs button[data-panel]'),panels=document.querySelectorAll('section.panel');
+function showPanel(id){tabs.forEach(function(b){b.classList.toggle('active',b.dataset.panel===id);});panels.forEach(function(p){p.classList.toggle('active',p.id===id);});}
+tabs.forEach(function(b){b.addEventListener('click',function(){showPanel(b.dataset.panel);window.scrollTo({top:0,behavior:'instant'});});});
+window.toggleFase=function(id){document.getElementById(id).classList.toggle('open');};
+document.querySelectorAll('[data-goto]').forEach(function(b){b.addEventListener('click',function(){
+  showPanel('esq');var f=document.getElementById(b.dataset.goto);if(f){f.classList.add('open');f.scrollIntoView({block:'start'});}});});
+try{var saved=localStorage.getItem('almacenamiento-theme');if(saved)root.setAttribute('data-theme',saved);}catch(e){}
+document.querySelectorAll('.theme-toggle').forEach(function(btn){btn.addEventListener('click',function(){
+  var cur=root.getAttribute('data-theme'),dark=cur?cur==='dark':(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
+  var next=dark?'light':'dark';root.setAttribute('data-theme',next);try{localStorage.setItem('almacenamiento-theme',next);}catch(e){}renderAll();});});
+if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',renderAll);
+renderAll();
+// presentacion
+var pres=document.getElementById('pres'),slides=Array.from(pres.querySelectorAll('.slide')),dotsEl=document.getElementById('dots'),
+    prog=document.getElementById('progress'),lab=document.getElementById('sectionLabel'),prev=document.getElementById('prevBtn'),next=document.getElementById('nextBtn'),idx=0;
+slides.forEach(function(_,i){var b=document.createElement('button');b.setAttribute('aria-label','Diapositiva '+(i+1));b.addEventListener('click',function(){go(i);});dotsEl.appendChild(b);});
+var dots=Array.from(dotsEl.children);
+function go(i){idx=Math.max(0,Math.min(slides.length-1,i));slides.forEach(function(s,j){s.classList.toggle('active',j===idx);});
+  dots.forEach(function(d,j){d.classList.toggle('active',j===idx);});prog.textContent=(idx+1)+' / '+slides.length;
+  lab.textContent=slides[idx].getAttribute('data-section')||'';prev.disabled=idx===0;next.disabled=idx===slides.length-1;slides[idx].scrollTop=0;}
+function openPres(){pres.classList.add('open');document.body.classList.add('pres-open');go(idx);}
+function closePres(){pres.classList.remove('open');document.body.classList.remove('pres-open');}
+prev.addEventListener('click',function(){go(idx-1);});next.addEventListener('click',function(){go(idx+1);});
+document.getElementById('closePres').addEventListener('click',closePres);
+document.getElementById('presentBtn').addEventListener('click',openPres);
+document.addEventListener('keydown',function(e){if(!pres.classList.contains('open'))return;
+  if(e.key==='ArrowRight')go(idx+1);else if(e.key==='ArrowLeft')go(idx-1);else if(e.key==='Escape')closePres();});
+// versión imprimible (paleta clara de bajo consumo de tinta; el resto lo hace @media print)
+var printing=false;
+function enterPrint(){if(printing)return;printing=true;root.classList.add('print-mode');renderAll();}
+function exitPrint(){if(!printing)return;printing=false;root.classList.remove('print-mode');renderAll();}
+document.getElementById('printBtn').addEventListener('click',function(){if(pres.classList.contains('open'))closePres();enterPrint();setTimeout(function(){window.print();},60);});
+window.addEventListener('beforeprint',enterPrint);window.addEventListener('afterprint',exitPrint);
+if(window.matchMedia){var pmq=window.matchMedia('print'),pch=function(e){e.matches?enterPrint():exitPrint();};pmq.addEventListener?pmq.addEventListener('change',pch):pmq.addListener(pch);}
+})();
+</script>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)},M=function(n){return Math.pow(2,n)},fmt=function(x){return x.toLocaleString('es-ES')};
+function bin(v,n){var m=M(n);return (((v%m)+m)%m).toString(2).padStart(n,'0')}
+function bits(t,f){return t.split('').map(function(c,i){return '<span class="bit '+(f?f(i):'')+'">'+c+'</span>'}).join('')}
+function w1(){var n=+$('w1r').value;$('w1n').textContent=n;
+$('w1o').innerHTML='2<sup>'+n+'</sup> = <b>'+fmt(M(n))+'</b> combinaciones<br>sin signo: [0, '+fmt(M(n)-1)+'] · C2: ['+fmt(-M(n-1))+', '+fmt(M(n-1)-1)+'] · '+(n/8)+' byte(s)';
+var N=Math.max(2,+$('w1N').value||2),k=Math.ceil(Math.log2(N));
+$('w1p').innerHTML='2<sup>'+(k-1)+'</sup> = '+fmt(M(k-1))+' &lt; '+fmt(N)+' &le; 2<sup>'+k+'</sup> = '+fmt(M(k))+' &rarr; <b>'+k+' bits</b> sin signo<br>En C2: &minus;'+fmt(N)+' necesita <b>'+(k+1)+' bits</b>; +'+fmt(N)+' necesita <b>'+(Math.ceil(Math.log2(N+1))+1)+' bits</b>'}
+function w2(){var m=+$('w2r').value;$('w2n').textContent=m;var b=BigInt(2)**BigInt(m),u=['B','KiB','MiB','GiB','TiB','PiB','EiB'],i=0,k=BigInt(1024);while(b>=k&&i<6){b/=k;i++}
+$('w2o').innerHTML='2<sup>'+m+'</sup> direcciones &times; 1 byte por celda = <b>'+b+' '+u[i]+'</b> direccionables'}
+function w3(){var n=+$('w3n').value,a=parseInt($('w3a').value)||0,b=parseInt($('w3b').value)||0,op=$('w3o').value,lo=-M(n-1),hi=M(n-1)-1,o=$('w3out');
+if(a<lo||a>hi||b<lo||b>hi){o.innerHTML='<b class="bad">Fuera de rango:</b> con '+n+' bits solo caben enteros de '+lo+' a '+hi;return}
+var sg=function(i){return i==0?'s':''},ab=Math.abs(a),rep=ab<M(n-1),h='';
+h+='<b>'+a+'</b> en signo-magnitud: '+(rep?bits((a<0?'1':'0')+bin(ab,n-1),sg):'no representable')+'<br>';
+h+='<b>'+a+'</b> en C1: '+(rep?bits(a<0?bin(ab,n).split('').map(function(x){return x=='0'?'1':'0'}).join(''):bin(a,n),sg):'no representable')+(a<0&&rep?' <small>(invertir bits)</small>':'')+'<br>';
+h+='<b>'+a+'</b> en C2: '+bits(bin(a,n),sg)+(a<0?' <small>(invertir y sumar 1)</small>':'')+'<hr>';
+var bv=op=='+'?b:-b,tr=a+bv,S=bin(tr,n),au=(a+M(n))%M(n),bu=(bv+M(n))%M(n),cin=(au%M(n-1))+(bu%M(n-1))>=M(n-1)?1:0,cout=(au+bu)>=M(n)?1:0,ov=cin!=cout,sv=parseInt(S,2);sv=sv>=M(n-1)?sv-M(n):sv;
+h+='A = '+bits(bin(a,n),sg)+' ('+a+')<br>'+(op=='+'?'B':'C2(&minus;b)')+' = '+bits(bin(bv,n),sg)+' ('+bv+')<br>';
+h+='acarreo al bit de signo: <b>'+cin+'</b> · acarreo de salida: <b>'+cout+'</b> &rarr; '+(ov?'<b class="bad">OVERFLOW (acarreos distintos)</b>':'sin overflow (acarreos iguales)')+'<br>';
+h+='resultado en '+n+' bits: '+bits(S,sg)+' = <b>'+sv+'</b>'+(ov?' <span class="bad">&mdash; el valor correcto, '+tr+', no cabe</span>':'');o.innerHTML=h}
+function w4(){var x=parseFloat($('w4x').value),f=$('w4f').value.split(',').map(Number),eb=f[0],mb=f[1],bias=M(eb-1)-1,o=$('w4o');if(isNaN(x)){o.innerHTML='';return}
+var sn=x<0?1:0,ax=Math.abs(x),cls=function(i){return i==0?'s':i<=eb?'e':'f'};
+if(ax===0){o.innerHTML=bits('0'.repeat(1+eb+mb),cls);return}
+var e=Math.floor(Math.log2(ax)),m=ax/M(e);if(m>=2){m/=2;e++}if(m<1){m*=2;e--}
+var fr=Math.round((m-1)*M(mb));if(fr>=M(mb)){fr=0;e++}var be=e+bias;
+if(be<=0||be>=M(eb)-1){o.innerHTML='Fuera del rango normalizado de este formato (exponente sesgado = '+be+')';return}
+var ip=Math.floor(ax),fp=ax-ip,fs='';for(var i=0;i<24&&fp>0;i++){var t=fp*2;fs+=t>=1?'1':'0';fp=t%1}
+o.innerHTML='1 &middot; signo = <b>'+sn+'</b><br>2 &middot; |x| en binario = <b>'+ip.toString(2)+(fs?'.'+fs:'')+'</b><br>3 &middot; normalizar: <b>1,'+bin(fr,mb)+' &times; 2<sup>'+e+'</sup></b> (el 1 inicial es implícito)<br>4 &middot; exponente sesgado = '+e+' + '+bias+' = <b>'+be+'</b> = '+bin(be,eb)+'<br>5 &middot; palabra: '+bits(String(sn)+bin(be,eb)+bin(fr,mb),cls)}
+function w6(){var h=+$('w6h').value/100,tc=+$('w6c').value||1,tm=+$('w6m').value||1,t=h*tc+(1-h)*tm,mx=Math.max(t,tm);$('w6hv').textContent=Math.round(h*100)+' %';
+$('w6o').innerHTML='t<sub>medio</sub> = h&middot;t<sub>caché</sub> + (1&minus;h)&middot;t<sub>RAM</sub> = '+h.toFixed(2)+'&middot;'+tc+' + '+(1-h).toFixed(2)+'&middot;'+tm+' = <b>'+t.toFixed(1)+' ns</b> &middot; aceleración <b>&times;'+(tm/t).toFixed(1)+'</b><div class="bar" style="width:'+(t/mx*100)+'%"></div>con caché ('+t.toFixed(1)+' ns)<div class="bar m" style="width:'+(tm/mx*100)+'%"></div>solo RAM ('+tm+' ns)'}
+function w7(){var L=$('w7l').value,n=Math.min(8,Math.max(2,+$('w7n').value||2)),s=+$('w7s').value||1,o=$('w7o'),err='';
+if(L=='5'&&n<3)err='RAID 5 necesita al menos 3 discos.';if(L=='10'&&(n<4||n%2))err='RAID 10 necesita un número par de discos (m&iacute;nimo 4).';if(err){o.innerHTML='<b class="bad">'+err+'</b>';return}
+var cap={'0':n*s,'1':s,'5':(n-1)*s,'10':n/2*s}[L],fm={'0':'n&middot;s','1':'s','5':'(n&minus;1)&middot;s','10':'(n/2)&middot;s'}[L],tol={'0':'ning&uacute;n disco','1':(n-1)+' disco(s)','5':'1 disco','10':'1 disco seguro (hasta n/2 si son de pares distintos)'}[L];
+var sg=function(i){return L=='5'?[['d',n-1],['p',1]]:L=='0'?[['d',1]]:(L=='1'?i==0:i%2==0)?[['d',1]]:[['m',1]]},nm={d:'datos',m:'copia',p:'paridad'};
+o.innerHTML='<div class="disks">'+Array.from({length:n},function(_,i){return '<div>'+sg(i).map(function(g,j){return '<i class="'+g[0]+'" style="flex:'+g[1]+'">'+(j?'':'D'+(i+1)+' ')+nm[g[0]]+'</i>'}).join('')+'</div>'}).join('')+'</div>capacidad &uacute;til = '+fm+' = <b>'+cap+' TB</b> de '+n*s+' TB brutos ('+Math.round(cap/(n*s)*100)+' %) &middot; tolera el fallo de <b>'+tol+'</b>'}
+var F={w1:w1,w2:w2,w3:w3,w4:w4,w6:w6,w7:w7};
+document.querySelectorAll('.wg[data-f]').forEach(function(g){var f=F[g.dataset.f];if(!f)return;g.addEventListener('input',f);g.addEventListener('change',f);f()});
+[['vz-fetch','La Unidad Central de Proceso (CPU)'],['vz-os','Estructura de sistemas operativos'],['vz-proc','Gestión de procesos'],['vz-pag','Gestión de memoria'],['vz-files','De los ficheros tradicionales al SGBD'],['vz-ansi','Ventajas de un SGBD frente a ficheros']].forEach(function(p){
+var src=$(p[0]),sl=Array.from(document.querySelectorAll('#pres .slide')).find(function(x){var t=x.querySelector('.slide-title');return t&&t.textContent.trim()===p[1]});
+if(src&&sl){var c=src.cloneNode(true);c.removeAttribute('id');var j=sl.querySelector('.jumpnote');j?sl.insertBefore(c,j):sl.appendChild(c)}});
+})();
+</script>
+</body>
+</html>
