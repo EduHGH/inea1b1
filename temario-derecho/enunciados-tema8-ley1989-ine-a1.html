@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 8 · Enunciados probables de examen — Derecho INE A1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --ink:#241F17;
+    --ink-soft:#6b6252;
+    --line:#dcd4c2;
+    --der:#2E5266;
+    --der-soft:#DCE6EB;
+    --der-glow:rgba(46,82,102,.18);
+    --glass:rgba(255,255,255,.55);
+
+    --hot:#8B3A3A;
+    --hot-soft:#F3DEDE;
+    --hot-glow:rgba(139,58,58,.20);
+    --warm:#966A24;
+    --warm-soft:#F1E4CB;
+    --cold:#3E6B4F;
+    --cold-soft:#DEEBE2;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(36,31,23,.07) 1px, transparent 0) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    padding:48px 20px 80px;
+  }
+
+  .wrap{max-width:880px; margin:0 auto;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:38px 36px 32px;
+    border-radius:20px;
+    background:var(--glass);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -24px rgba(36,31,23,.25);
+    overflow:hidden;
+    margin-bottom:28px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:-40% -20% auto auto;
+    width:340px; height:340px;
+    background:radial-gradient(circle, var(--der-glow), transparent 70%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--der);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--der);}
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(26px, 4vw, 38px);
+    line-height:1.1;
+    margin:0 0 10px;
+    letter-spacing:-.01em;
+  }
+  .hero p{
+    margin:0;
+    max-width:64ch;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.6;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-top:22px;
+  }
+  .meta-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.55);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 12px;
+  }
+
+  /* NOTICE */
+  .notice{
+    display:flex; gap:12px; align-items:flex-start;
+    padding:14px 18px;
+    margin-bottom:20px;
+    border-radius:12px;
+    background:var(--der-soft);
+    border:1px solid rgba(46,82,102,.2);
+  }
+  .notice svg{flex:none; color:var(--der); margin-top:2px;}
+  .notice p{
+    margin:0;
+    font-size:13px;
+    line-height:1.55;
+    color:var(--ink);
+  }
+  .notice b{color:var(--der);}
+  .notice.hot{background:var(--hot-soft); border-color:rgba(139,58,58,.25);}
+  .notice.hot svg{color:var(--hot);}
+  .notice.hot b{color:var(--hot);}
+
+  /* LEGEND */
+  .legend{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-bottom:30px;
+  }
+  .legend-item{
+    display:flex; align-items:center; gap:7px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 13px 6px 8px;
+  }
+  .legend-dot{width:9px; height:9px; border-radius:3px; flex:none;}
+  .legend-dot.hot{background:var(--hot);}
+  .legend-dot.warm{background:var(--warm);}
+  .legend-dot.cold{background:var(--cold);}
+
+  /* SECTION HEAD */
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+    margin:44px 0 16px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+  }
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .section-count{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+  }
+  .section-intro{
+    font-size:13.5px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    max-width:68ch;
+    margin:0 0 18px;
+  }
+
+  /* EPIGRAFE GROUP CARD */
+  .list{display:flex; flex-direction:column; gap:16px; margin-bottom:8px;}
+  .epi-card{
+    position:relative;
+    padding:22px 24px;
+    border-radius:14px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -20px rgba(36,31,23,.3);
+  }
+  .epi-card.nivel-hot{border-color:rgba(139,58,58,.35);}
+  .epi-card.nivel-warm{border-color:rgba(150,106,36,.3);}
+  .epi-card.nivel-cold{border-color:rgba(62,107,79,.28);}
+
+  .epi-top{
+    display:flex; gap:14px; align-items:flex-start; margin-bottom:4px;
+  }
+  .epi-icon{
+    flex:none;
+    width:38px; height:38px;
+    border-radius:10px;
+    background:var(--der-soft);
+    color:var(--der);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .epi-card.nivel-hot .epi-icon{background:var(--hot-soft); color:var(--hot);}
+  .epi-card.nivel-warm .epi-icon{background:var(--warm-soft); color:var(--warm);}
+  .epi-card.nivel-cold .epi-icon{background:var(--cold-soft); color:var(--cold);}
+  .epi-icon svg{width:18px; height:18px;}
+
+  .epi-heading{flex:1; min-width:0;}
+  .epi-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16.5px;
+    line-height:1.3;
+    margin:0 0 4px;
+    color:var(--ink);
+  }
+  .epi-stats{
+    display:flex; flex-wrap:wrap; gap:8px;
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:5px;
+    border-radius:100px;
+    padding:3px 10px;
+    font-weight:700;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    font-size:9.5px;
+    flex:none;
+    white-space:nowrap;
+  }
+  .badge.hot{background:var(--hot-soft); color:var(--hot);}
+  .badge.warm{background:var(--warm-soft); color:var(--warm);}
+  .badge.cold{background:var(--cold-soft); color:var(--cold);}
+
+  .veredicto{
+    margin:12px 0 14px;
+    font-size:13px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    padding:10px 14px;
+    background:rgba(255,255,255,.4);
+    border-left:2px solid var(--line);
+    border-radius:0 8px 8px 0;
+  }
+  .epi-card.nivel-hot .veredicto{border-left-color:var(--hot);}
+  .epi-card.nivel-warm .veredicto{border-left-color:var(--warm);}
+  .epi-card.nivel-cold .veredicto{border-left-color:var(--cold);}
+
+  /* ENUNCIADOS */
+  .enunciados{
+    list-style:none;
+    margin:14px 0 0;
+    padding:14px 0 0;
+    border-top:1px dashed var(--line);
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .enunciado{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    padding:12px 14px;
+    background:rgba(255,255,255,.45);
+    border-radius:9px;
+    border-left:3px solid var(--der-soft);
+  }
+  .enunciado.hot{border-left-color:var(--hot);}
+  .enunciado.warm{border-left-color:var(--warm);}
+  .enunciado.cold{border-left-color:var(--cold);}
+  .en-num{
+    flex:none;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:6px;
+    padding:3px 8px;
+    margin-top:1px;
+  }
+  .en-body{flex:1; min-width:0;}
+  .en-text{
+    font-size:13.5px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:0 0 5px;
+    font-weight:500;
+  }
+  .en-nota{
+    font-size:12px;
+    line-height:1.55;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .en-tags{
+    display:flex; flex-wrap:wrap; gap:6px;
+    margin-top:7px;
+  }
+  .en-tag{
+    display:inline-block;
+    font-family:'Space Mono', monospace;
+    font-size:9px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    font-weight:700;
+    padding:2px 8px;
+    border-radius:100px;
+    background:var(--der-soft);
+    color:var(--der);
+  }
+  .en-tag.hot{background:var(--hot-soft); color:var(--hot);}
+  .en-tag.warm{background:var(--warm-soft); color:var(--warm);}
+
+  /* PATRONES / RETORICA */
+  .retorica-intro{
+    font-size:13.5px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    max-width:68ch;
+    margin:0 0 22px;
+  }
+  .patron-grid{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-bottom:8px;
+  }
+  .patron-card{
+    padding:20px 22px;
+    border-radius:14px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -20px rgba(36,31,23,.3);
+  }
+  .patron-head{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    margin-bottom:10px;
+  }
+  .patron-num{
+    flex:none;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:100px;
+    padding:3px 10px;
+  }
+  .patron-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16px;
+    color:var(--ink);
+    margin:0;
+  }
+  .patron-desc{
+    font-size:13px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    margin:0 0 14px;
+  }
+  .patron-ejemplos{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .patron-ej{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    padding:10px 12px;
+    background:rgba(255,255,255,.45);
+    border-radius:8px;
+    border-left:2px solid var(--der-soft);
+  }
+  .patron-ej .yr{
+    flex:none;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:6px;
+    padding:2px 7px;
+    margin-top:1px;
+  }
+  .patron-ej-text{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--ink);
+  }
+  .patron-ej-text i{color:var(--ink-soft); font-style:italic;}
+
+  /* CHECKLIST FINAL */
+  .checklist-box{
+    margin-top:26px;
+    padding:22px 24px;
+    border-radius:14px;
+    background:var(--der-soft);
+    border:1px solid rgba(46,82,102,.2);
+  }
+  .checklist-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    color:var(--der);
+    margin:0 0 12px;
+  }
+  .checklist-cols{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  @media (max-width:560px){
+    .checklist-cols{grid-template-columns:1fr;}
+  }
+  .checklist-col h4{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--der);
+    margin:0 0 8px;
+  }
+  .checklist-col ul{
+    margin:0; padding:0 0 0 16px;
+    font-size:12.5px;
+    line-height:1.7;
+    color:var(--ink);
+  }
+  .checklist-col li b{color:var(--der);}
+
+  .foot{
+    margin-top:46px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-size:11.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+  .foot b{color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dot"></span>Derecho · Temario INE A1 · Tema 8</div>
+    <h1>Enunciados probables de examen — Ley 12/1989, de la Función Estadística Pública</h1>
+    <p>Enunciados de desarrollo verosímiles para el primer ejercicio (Derecho no tiene segundo ejercicio), construidos cruzando el subíndice oficial del Tema 8, el articulado completo de la Ley 12/1989 y los seis patrones retóricos que repite este tribunal en las últimas cuatro convocatorias (2023-2026).</p>
+    <div class="hero-meta">
+      <span class="meta-chip">5 epígrafes del temario</span>
+      <span class="meta-chip">5 preguntas registradas (2023-2025)</span>
+      <span class="meta-chip">16 enunciados propuestos</span>
+      <span class="meta-chip">Fuente: BOE-A-2025-26900 + Ley 12/1989 (BOE-A-1989-10767)</span>
+    </div>
+  </div>
+
+  <div class="notice hot">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    <p><b>El "tema estrella" del cuerpo.</b> Es el tema más preguntado de todo el bloque de Derecho, con cinco preguntas en las cuatro últimas convocatorias (dos solo en 2025). Es la norma fundacional del propio Cuerpo Superior de Estadísticos del Estado, por lo que su presencia en el próximo examen es prácticamente segura — la duda no es "si" preguntará de este tema, sino "por qué ángulo exacto" lo hará.</p>
+  </div>
+
+  <div class="notice">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><circle cx="12" cy="16" r="0.6" fill="currentColor"/></svg>
+    <p><b>Solo primer ejercicio.</b> El bloque de Derecho del Cuerpo Superior de Estadísticos del Estado únicamente se evalúa en el primer ejercicio del turno libre (desarrollo escrito de temas). El segundo ejercicio (caso práctico) no incluye contenido de Derecho, por lo que todos los enunciados de este documento están pensados exclusivamente para ese formato.</p>
+  </div>
+
+  <div class="legend">
+    <span class="legend-item"><span class="legend-dot hot"></span>Muy probable</span>
+    <span class="legend-item"><span class="legend-dot warm"></span>Probable</span>
+    <span class="legend-item"><span class="legend-dot cold"></span>Ya preguntado — repaso, no prioridad nueva</span>
+  </div>
+
+  <!-- ============ EPÍGRAFE 1 ============ -->
+  <div class="section-head">
+    <h2>Epígrafe 1 — Otros servicios estadísticos y coordinación estadística</h2>
+    <span class="section-count">Único epígrafe sin preguntar — máxima prioridad</span>
+  </div>
+  <p class="section-intro">Con los otros cuatro epígrafes ya explorados (principios generales, secreto estadístico, infracciones, INE/Consejo Superior), este es el hueco más evidente del tema: la función de coordinación estadística del INE respecto de los servicios estadísticos de otros Ministerios, nunca preguntada de forma directa.</p>
+  <div class="list">
+
+    <div class="epi-card nivel-hot">
+      <div class="epi-top">
+        <div class="epi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51 15.42 17.49"/><path d="M15.41 6.51 8.59 10.49"/></svg></div>
+        <div class="epi-heading">
+          <h3 class="epi-title">La coordinación estadística: art. 26.a) y la relación con los servicios ministeriales</h3>
+          <div class="epi-stats"><span class="badge hot">Nunca preguntado</span></div>
+        </div>
+      </div>
+      <p class="veredicto">El único epígrafe del Tema 8 sin pregunta propia. Es contenido de conexión entre órganos (INE frente a servicios estadísticos departamentales), el tipo de pregunta "función de un órgano en concreto" que este tribunal repite mucho, aplicado aquí a la coordinación en vez de a la naturaleza del INE.</p>
+      <ul class="enunciados">
+        <li class="enunciado hot">
+          <span class="en-num">01</span>
+          <div class="en-body">
+            <p class="en-text">"Explicar la función de coordinación estadística atribuida al Instituto Nacional de Estadística respecto de los servicios estadísticos de otros Ministerios y Organismos, de conformidad con la Ley 12/1989."</p>
+            <p class="en-nota">Sigue el Patrón 5 (norma citada) y el Patrón 1 (explicar con exigencia implícita de causa: para qué sirve coordinar — evitar duplicidades, homogeneizar metodologías, garantizar coherencia).</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 1+5</span></div>
+          </div>
+        </li>
+        <li class="enunciado hot">
+          <span class="en-num">02</span>
+          <div class="en-body">
+            <p class="en-text">"Los otros servicios estadísticos de la Administración del Estado: concepto y relación con el Instituto Nacional de Estadística."</p>
+            <p class="en-nota">Reproduce casi literalmente la rúbrica del propio subíndice oficial del tema, un patrón que este tribunal ya ha usado en otros epígrafes "de hueco único" (p. ej., "Acceso, promoción y provisión de puestos" en el Tema 6).</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 3</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">03</span>
+          <div class="en-body">
+            <p class="en-text">"Diferencias entre el Consejo Superior de Estadística, el Comité Interterritorial de Estadística y la Comisión Interministerial de Estadística como órganos de coordinación estadística."</p>
+            <p class="en-nota">Patrón 2 (comparación explícita) sobre el matiz que el propio material de estudio señala como "tres cuerpos distintos que no debes confundir": cada uno coordina un nivel distinto (sociedad civil, CC.AA., interno del Estado).</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 2</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">04</span>
+          <div class="en-body">
+            <p class="en-text">"¿Puede un Ministerio distinto de Economía elaborar estadísticas para fines estatales por sí mismo, sin intervención del Instituto Nacional de Estadística? Razonar la respuesta con base en la Ley 12/1989."</p>
+            <p class="en-nota">Pregunta cerrada (Patrón 4): la respuesta correcta matiza que sí puede, a través de sus propios servicios estadísticos departamentales, pero siempre bajo la función coordinadora del INE (art. 26.a) — no contestar solo "sí" o "no".</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 4</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ============ EPÍGRAFE 2 ============ -->
+  <div class="section-head">
+    <h2>Epígrafe 2 — Principios generales</h2>
+    <span class="section-count">Preguntado en 2024 (Plan Estadístico Nacional)</span>
+  </div>
+  <p class="section-intro">Solo se ha preguntado el Plan Estadístico Nacional. Los nueve principios del art. 4.2 y la obligación de colaboración estadística del art. 10 siguen sin explotarse de forma directa y son de los contenidos más "listables" de toda la ley.</p>
+  <div class="list">
+
+    <div class="epi-card nivel-hot">
+      <div class="epi-top">
+        <div class="epi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></div>
+        <div class="epi-heading">
+          <h3 class="epi-title">Los nueve principios de la producción estadística oficial (art. 4.2)</h3>
+          <div class="epi-stats"><span class="badge hot">Nunca preguntado directamente</span></div>
+        </div>
+      </div>
+      <p class="veredicto">La lista de nueve principios (independencia profesional, imparcialidad, objetividad, fiabilidad, secreto estadístico, rentabilidad, transparencia, especialidad y proporcionalidad) es, según el propio material de estudio, "la más citada de todo el temario de estadística" — y sin embargo nunca ha sido objeto de pregunta directa y aislada.</p>
+      <ul class="enunciados">
+        <li class="enunciado hot">
+          <span class="en-num">05</span>
+          <div class="en-body">
+            <p class="en-text">"Enumerar y explicar los principios a los que debe ajustarse la producción estadística para fines estatales, de conformidad con el art. 4 de la Ley 12/1989."</p>
+            <p class="en-nota">Combina Patrón 3 (enumeración cerrada, nueve elementos coordinados) con Patrón 5 (norma citada): omitir alguno de los nueve principios es una respuesta incompleta, no solo mejorable.</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 3+5</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">06</span>
+          <div class="en-body">
+            <p class="en-text">"La obligación de colaboración estadística: a quién obliga, en qué condiciones y qué excepciones contempla la Ley 12/1989."</p>
+            <p class="en-nota">Cruza el art. 10 (deber de contestar veraz, exacto, completo y en plazo) con sus excepciones (seguridad/defensa, datos tributarios) — enunciado de tres partes (Patrón 1) que exige regla y excepción, no solo la regla general.</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 1</span></div>
+          </div>
+        </li>
+        <li class="enunciado cold">
+          <span class="en-num">07</span>
+          <div class="en-body">
+            <p class="en-text">"Definición, contenido y duración del Plan Estadístico Nacional."</p>
+            <p class="en-nota">Enunciado literal ya preguntado en 2024. Repaso obligatorio por si repite, pero no es la prioridad de estudio nuevo de este epígrafe.</p>
+            <div class="en-tags"><span class="en-tag">ya preguntado</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ============ EPÍGRAFE 3 ============ -->
+  <div class="section-head">
+    <h2>Epígrafe 3 — Secreto estadístico</h2>
+    <span class="section-count">Preguntado en 2023 (definición y a quién obliga)</span>
+  </div>
+  <p class="section-intro">La pregunta de 2023 fue la definición general. El capítulo tiene mucho más recorrido: la distinción entre identificación directa e indirecta, las excepciones (investigación, directorios de empresas) y los plazos de acceso a datos históricos son ángulos concretos aún sin explotar.</p>
+  <div class="list">
+
+    <div class="epi-card nivel-warm">
+      <div class="epi-top">
+        <div class="epi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div class="epi-heading">
+          <h3 class="epi-title">Excepciones al secreto estadístico y plazos de acceso a datos históricos (arts. 15, 16, 19)</h3>
+          <div class="epi-stats"><span class="badge warm">Sin preguntar directamente</span></div>
+        </div>
+      </div>
+      <p class="veredicto">Las excepciones de investigación (art. 15.3) y directorios de empresas (art. 16), junto con los tres plazos de acceso histórico del art. 19 (25, 50 y 15 años), son contenido muy técnico y "de trampa" que aún no ha aparecido, pese a que el propio material de estudio los señala como frecuentemente confundidos entre sí.</p>
+      <ul class="enunciados">
+        <li class="enunciado hot">
+          <span class="en-num">08</span>
+          <div class="en-body">
+            <p class="en-text">"Plazos de acceso público a los datos protegidos por el secreto estadístico, según el art. 19 de la Ley 12/1989: personas físicas y personas jurídicas."</p>
+            <p class="en-nota">Enunciado nominal con cifras concretas (Patrón 3): exige distinguir los 25 años desde la muerte, los 50 años si se desconoce la fecha, y los 15 años mínimos para personas jurídicas — tres plazos que se confunden con facilidad.</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 3</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">09</span>
+          <div class="en-body">
+            <p class="en-text">"¿Pueden los directorios de empresas (nombre, ubicación, actividad) quedar amparados por el secreto estadístico? Razonar la respuesta con base en el art. 16 de la Ley 12/1989."</p>
+            <p class="en-nota">Pregunta cerrada (Patrón 4) sobre una excepción contraintuitiva: la respuesta correcta es que no, salvo el dato de intervalo de tamaño si la empresa manifiesta expresamente su disconformidad.</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 4</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">10</span>
+          <div class="en-body">
+            <p class="en-text">"Requisitos para la cesión de datos confidenciales con fines de investigación científica, de conformidad con el art. 15.3 de la Ley 12/1989."</p>
+            <p class="en-nota">Exige los tres requisitos acumulativos: identificación solo indirecta (nunca directa), cesión a instituciones (nunca a personas físicas a título individual), y fin científico de interés público.</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 5</span></div>
+          </div>
+        </li>
+        <li class="enunciado cold">
+          <span class="en-num">11</span>
+          <div class="en-body">
+            <p class="en-text">"De conformidad con la Ley 12/1989, de la Función Estadística Pública, explicar qué es el secreto estadístico y a quiénes obliga."</p>
+            <p class="en-nota">Enunciado literal ya preguntado en 2023 — es la pregunta más clásica del bloque de Derecho según el propio material de estudio. Repasar la definición legal exacta por si repite.</p>
+            <div class="en-tags"><span class="en-tag">ya preguntado</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ============ EPÍGRAFE 4 ============ -->
+  <div class="section-head">
+    <h2>Epígrafe 4 — Infracciones y sanciones</h2>
+    <span class="section-count">Preguntado en 2025 (graves y muy graves)</span>
+  </div>
+  <p class="section-intro">La pregunta de 2025 se centró en distinguir infracciones graves de muy graves. Quedan sin preguntar directamente las infracciones leves, las cuantías y plazos de prescripción, y el matiz de que este régimen sancionador no se aplica a los propios funcionarios.</p>
+  <div class="list">
+
+    <div class="epi-card nivel-warm">
+      <div class="epi-top">
+        <div class="epi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></div>
+        <div class="epi-heading">
+          <h3 class="epi-title">Ámbito subjetivo del régimen sancionador y plazos de prescripción (arts. 48, 52)</h3>
+          <div class="epi-stats"><span class="badge warm">Sin preguntar directamente</span></div>
+        </div>
+      </div>
+      <p class="veredicto">El matiz del art. 48.2 —el propio Título V de infracciones no se aplica a funcionarios ni personal laboral, que quedan sujetos al TREBEP— es una conexión directa con el Tema 6 que este tribunal aún no ha explotado, en la línea del Patrón 6 de cruce entre temas.</p>
+      <ul class="enunciados">
+        <li class="enunciado hot">
+          <span class="en-num">12</span>
+          <div class="en-body">
+            <p class="en-text">"¿Se aplica el régimen sancionador de la Ley 12/1989 a los funcionarios públicos que incumplan el secreto estadístico? Razonar la respuesta y precisar el régimen que les resulta de aplicación."</p>
+            <p class="en-nota">Pregunta cerrada (Patrón 4) que cruza directamente con el TREBEP (Patrón 6): la respuesta correcta es que no, porque el art. 48.2 excluye expresamente a funcionarios y personal laboral, que se rigen por el régimen disciplinario del Título VII TREBEP visto en el Tema 6.</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 4+6</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">13</span>
+          <div class="en-body">
+            <p class="en-text">"Plazos de prescripción de las infracciones muy graves, graves y leves en materia estadística, según el art. 52 de la Ley 12/1989."</p>
+            <p class="en-nota">Enunciado nominal con cifras (Patrón 3): tres años, dos años y seis meses respectivamente — la infracción leve prescribe en meses, no en años, un dato que se presta a confusión.</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 3</span></div>
+          </div>
+        </li>
+        <li class="enunciado cold">
+          <span class="en-num">14</span>
+          <div class="en-body">
+            <p class="en-text">"Infracciones graves y muy graves en materia estadística."</p>
+            <p class="en-nota">Enunciado literal ya preguntado en 2025 — el ejemplo citado por el propio análisis retórico como "enunciado nominal más corto de las cuatro convocatorias". Repasar igualmente por si repite.</p>
+            <div class="en-tags"><span class="en-tag">ya preguntado</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ============ EPÍGRAFE 5 ============ -->
+  <div class="section-head">
+    <h2>Epígrafe 5 — Los servicios estadísticos del Estado: el INE y el Consejo Superior de Estadística</h2>
+    <span class="section-count">Preguntado en 2025 (dos veces) — el más explotado</span>
+  </div>
+  <p class="section-intro">Es el epígrafe con más preguntas ya registradas (Consejo Superior de Estadística y recursos económicos del INE, ambas en 2025). Aun así, la naturaleza jurídica del INE, sus órganos superiores y el régimen especial de recursos administrativos siguen sin preguntarse de forma directa.</p>
+  <div class="list">
+
+    <div class="epi-card nivel-warm">
+      <div class="epi-top">
+        <div class="epi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div>
+        <div class="epi-heading">
+          <h3 class="epi-title">Naturaleza jurídica del INE, órganos superiores y régimen de recursos (arts. 25, 28, 30, 31)</h3>
+          <div class="epi-stats"><span class="badge warm">Sin preguntar directamente</span></div>
+        </div>
+      </div>
+      <p class="veredicto">Ya se ha preguntado sobre el Consejo Superior de Estadística y sobre los recursos económicos, pero nunca sobre la naturaleza jurídica del propio INE, ni sobre el régimen especial de recursos administrativos del art. 31 —que combina con la "neutralidad operativa" del art. 30 en un enunciado técnico muy citable.</p>
+      <ul class="enunciados">
+        <li class="enunciado hot">
+          <span class="en-num">15</span>
+          <div class="en-body">
+            <p class="en-text">"Naturaleza jurídica y órganos superiores del Instituto Nacional de Estadística, según la Ley 12/1989."</p>
+            <p class="en-nota">Exige las tres calificaciones jurídicas del art. 25 (organismo autónomo, personalidad jurídica y patrimonio propios, autoridad estadística nacional) más los dos órganos superiores del art. 28 (Consejo de Dirección y Presidente) — contenido nunca preguntado pese a ser el corazón del tema.</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 3</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">16</span>
+          <div class="en-body">
+            <p class="en-text">"¿Cabe recurso de alzada ante el Ministro contra las resoluciones del Presidente del Instituto Nacional de Estadística relativas al secreto estadístico? Razonar la respuesta con base en el art. 31 de la Ley 12/1989."</p>
+            <p class="en-nota">Pregunta cerrada (Patrón 4) sobre la excepción procesal más "de trampa" del tema: la respuesta correcta es que no, porque en materia técnica o de secreto estadístico las resoluciones del Presidente agotan ya la vía administrativa, conectando con la "neutralidad operativa" del art. 30.</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 4</span></div>
+          </div>
+        </li>
+        <li class="enunciado cold">
+          <span class="en-num">17</span>
+          <div class="en-body">
+            <p class="en-text">"Funciones del Consejo Superior de Estadística." / "¿Cuáles son los recursos económicos de que dispone el Instituto Nacional de Estadística para el cumplimiento de sus funciones conforme a la Ley 12/1989?"</p>
+            <p class="en-nota">Los dos enunciados literales ya preguntados en 2025. El Tema 5 demuestra que este tribunal sí repite enunciados de un año para otro, así que conviene tenerlos tan trabajados como el resto pese a su menor prioridad de estudio nuevo.</p>
+            <div class="en-tags"><span class="en-tag">ya preguntados</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ============ RETÓRICA ============ -->
+  <div class="section-head">
+    <h2>Cómo se ha construido cada enunciado</h2>
+    <span class="section-count">6 patrones</span>
+  </div>
+  <p class="retorica-intro">Cada enunciado propuesto sigue, de forma deliberada, uno de los seis patrones retóricos que este tribunal repite en las quince preguntas reales de Derecho registradas entre 2023 y 2026. Se listan aquí para poder identificar, ya en el examen, qué exige realmente el verbo o la estructura del enunciado que toque.</p>
+  <div class="patron-grid">
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 1</span>
+        <h3 class="patron-title">"Explicar" trae casi siempre una segunda exigencia unida con "y"</h3>
+      </div>
+      <p class="patron-desc">El verbo "explicar" no pide una descripción libre: suele venir acompañado de una segunda tarea coordinada con "y" que es tan evaluable como la primera.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 01</span><span class="patron-ej-text">"Explicar la función de coordinación [...] respecto de los servicios estadísticos de otros Ministerios [...]." <i>— exige el "para qué" de la coordinación (evitar duplicidades, homogeneizar), no solo definirla.</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 2</span>
+        <h3 class="patron-title">La comparación explícita entre dos o más figuras es uno de los formatos favoritos</h3>
+      </div>
+      <p class="patron-desc">Cuando el temario ofrece varias figuras cercanas entre sí, el tribunal tiende a pedir las diferencias entre ellas en vez de describirlas por separado.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 03</span><span class="patron-ej-text">"Diferencias entre el Consejo Superior de Estadística, el Comité Interterritorial [...] y la Comisión Interministerial [...]." <i>— exige distinguir tres órganos que se confunden con facilidad, no describir uno solo.</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 3</span>
+        <h3 class="patron-title">El enunciado nominal sin verbo convierte cada sustantivo coordinado en un apartado evaluable</h3>
+      </div>
+      <p class="patron-desc">Un título seco, sin verbo explícito, no es una pregunta más fácil: cada elemento coordinado con comas o con "y" se evalúa como un apartado independiente.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 14 (2025)</span><span class="patron-ej-text">"Infracciones graves y muy graves en materia estadística." <i>— el enunciado nominal más corto de las cuatro convocatorias exige dos categorías separadas, no una lista mezclada.</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 4</span>
+        <h3 class="patron-title">La pregunta cerrada ("¿es...?", "¿puede...?") exige postura y fundamento, no descripción</h3>
+      </div>
+      <p class="patron-desc">El verbo "razonar" obliga a fundamentar la respuesta con el artículo exacto, no solo a contestar sí o no. En este tema aparece con frecuencia sobre excepciones contraintuitivas.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 12</span><span class="patron-ej-text">"¿Se aplica el régimen sancionador de la Ley 12/1989 a los funcionarios públicos [...]? Razonar la respuesta [...]." <i>— la respuesta correcta es "no", y el razonamiento exige citar el régimen alternativo (TREBEP).</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 5</span>
+        <h3 class="patron-title">"De conformidad con..." ancla la respuesta a una norma concreta, no al tema en general</h3>
+      </div>
+      <p class="patron-desc">Citar la Ley 12/1989 por su nombre al empezar el enunciado no es adorno: es la instrucción implícita de que la respuesta debe apoyarse en esa norma exacta, con sus artículos.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 11 (2023)</span><span class="patron-ej-text">"<b>De conformidad con</b> la Ley 12/1989 [...], explicar qué es el secreto estadístico." <i>— ancla la respuesta a la definición legal, no a una paráfrasis de manual.</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 6</span>
+        <h3 class="patron-title">Las preguntas más recientes cruzan dos bloques en un solo enunciado</h3>
+      </div>
+      <p class="patron-desc">La evolución más clara del estilo del tribunal en 2025-2026: el enunciado solo se responde bien si se conectan dos contenidos distintos, a veces de temas diferentes del bloque.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 12</span><span class="patron-ej-text">"[...] a los funcionarios públicos [...] precisar el régimen que les resulta de aplicación." <i>— obliga a cruzar el Tema 8 (infracciones estadísticas) con el régimen disciplinario del TREBEP visto en el Tema 6.</i></span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="checklist-box">
+    <h3 class="checklist-title">Checklist de repaso rápido antes del examen</h3>
+    <div class="checklist-cols">
+      <div class="checklist-col">
+        <h4>Datos de memorización literal</h4>
+        <ul>
+          <li><b>Art. 4.2</b> — los nueve principios: independencia profesional, imparcialidad, objetividad, fiabilidad, secreto estadístico, rentabilidad, transparencia, especialidad y proporcionalidad.</li>
+          <li><b>Art. 8</b> — Plan Estadístico Nacional (cuatrienal) frente a programa anual (anual); ambos por Real Decreto.</li>
+          <li><b>Art. 19</b> — plazos de acceso histórico: 25 años desde la muerte, 50 años si se desconoce, 15 años mínimo para personas jurídicas.</li>
+          <li><b>Arts. 50-52</b> — tres niveles de infracción (muy grave/grave/leve) y sus plazos de prescripción (3 años / 2 años / 6 meses).</li>
+          <li><b>Art. 25</b> — INE: organismo autónomo, personalidad jurídica y patrimonio propios, autoridad estadística nacional.</li>
+        </ul>
+      </div>
+      <div class="checklist-col">
+        <h4>Cruces con otros temas a vigilar</h4>
+        <ul>
+          <li><b>Con el Tema 6</b> — el art. 48.2 excluye a funcionarios del régimen sancionador de esta ley; se rigen por el TREBEP.</li>
+          <li><b>Con el Tema 9</b> — el art. 11.2 (datos sensibles siempre voluntarios) conecta directamente con el art. 25.2 LOPDGDD.</li>
+          <li><b>Con el Tema 10</b> — los nueve principios del art. 4.2 enlazan con los principios estadísticos del Reglamento 223/2009.</li>
+          <li><b>Con el Tema 11</b> — la función censal electoral del INE (art. 26.t) conecta con la Administración electoral.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <b>Cómo se han construido estos enunciados:</b> se ha cruzado el subíndice oficial del Tema 8 (BOE-A-2025-26900) con el articulado completo de la Ley 12/1989, de la Función Estadística Pública (BOE-A-1989-10767) recogido en el material de complemento del tema, y con los seis patrones retóricos identificados en las quince preguntas reales de Derecho de las últimas cuatro convocatorias (2023-2026). Los enunciados marcados como "ya preguntado" son los cinco registrados oficialmente por el INE para este tema; el resto son formulaciones verosímiles construidas a partir de huecos reales del temario y del estilo documentado del tribunal — no transcripciones de exámenes reales ni garantía de que vayan a aparecer tal cual.
+    <br><br>
+    <b>Fuente del temario:</b> Resolución de 22 de diciembre de 2025, de la Subsecretaría (Ministerio de Economía, Comercio y Empresa) — BOE núm. 313, de 29/12/2025, Anexo I, Programa, apartado A.VI «Derecho». Ref. BOE-A-2025-26900.
+    <br><br>
+    <b>Fuente normativa:</b> Ley 12/1989, de 9 de mayo, de la Función Estadística Pública (BOE-A-1989-10767), texto consolidado, última modificación de 8 de julio de 2022. Contrastar contra la versión vigente en la fecha de la convocatoria.
+    <br><br>
+    <b>Sobre el primer y segundo ejercicio:</b> el bloque de Derecho del turno libre al Cuerpo Superior de Estadísticos del Estado solo se evalúa en el primer ejercicio (exposición de un tema de desarrollo elegido por sorteo); el segundo ejercicio (resolución de un caso o supuesto práctico) no incluye contenido de esta materia, por lo que no existen enunciados de "segundo ejercicio" para el Tema 8.
+  </div>
+
+</div>
+</body>
+</html>

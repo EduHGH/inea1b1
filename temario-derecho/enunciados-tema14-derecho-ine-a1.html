@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 14 · Enunciados probables · Derecho INE A1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --ink:#241F17;
+    --ink-soft:#6b6252;
+    --line:#dcd4c2;
+    --der:#2E5266;
+    --der-soft:#DCE6EB;
+    --der-glow:rgba(46,82,102,.18);
+    --glass:rgba(255,255,255,.55);
+
+    --hot:#8B3A3A;
+    --hot-soft:#F3DEDE;
+    --hot-glow:rgba(139,58,58,.20);
+    --warm:#966A24;
+    --warm-soft:#F1E4CB;
+    --cold:#3E6B4F;
+    --cold-soft:#DEEBE2;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(36,31,23,.07) 1px, transparent 0) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    padding:48px 20px 80px;
+  }
+
+  .wrap{max-width:880px; margin:0 auto;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:38px 36px 32px;
+    border-radius:20px;
+    background:var(--glass);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -24px rgba(36,31,23,.25);
+    overflow:hidden;
+    margin-bottom:28px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:-40% -20% auto auto;
+    width:340px; height:340px;
+    background:radial-gradient(circle, var(--der-glow), transparent 70%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--der);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--der);}
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(26px, 4vw, 38px);
+    line-height:1.1;
+    margin:0 0 10px;
+    letter-spacing:-.01em;
+  }
+  .hero p{
+    margin:0;
+    max-width:64ch;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.6;
+  }
+  .hero p + p{margin-top:10px;}
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-top:22px;
+  }
+  .meta-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.55);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 12px;
+  }
+  .meta-chip.warn{color:var(--hot); border-color:rgba(139,58,58,.3); background:var(--hot-soft);}
+
+  /* LEGEND */
+  .legend{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-bottom:8px;
+  }
+  .legend-item{
+    display:flex; align-items:center; gap:7px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 13px 6px 8px;
+  }
+  .legend-dot{width:9px; height:9px; border-radius:3px; flex:none;}
+  .legend-dot.hot{background:var(--hot);}
+  .legend-dot.warm{background:var(--warm);}
+  .legend-dot.cold{background:var(--cold);}
+
+  /* SECTION HEAD */
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+    margin:44px 0 16px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+  }
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .section-count{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+  }
+  .section-intro{
+    margin:0 0 18px;
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    max-width:70ch;
+  }
+
+  /* ENUNCIADO CARD */
+  .list{display:flex; flex-direction:column; gap:14px; margin-bottom:8px;}
+  .enun{
+    position:relative;
+    padding:22px 24px;
+    border-radius:14px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -20px rgba(36,31,23,.3);
+  }
+  .enun.nivel-hot{border-color:rgba(139,58,58,.35);}
+  .enun.nivel-warm{border-color:rgba(150,106,36,.3);}
+
+  .enun-top{
+    display:flex; gap:16px; align-items:flex-start; margin-bottom:4px;
+  }
+  .num{
+    flex:none;
+    width:40px; height:40px;
+    border-radius:11px;
+    background:var(--der-soft);
+    color:var(--der);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16px;
+  }
+  .enun.nivel-hot .num{background:var(--hot-soft); color:var(--hot);}
+  .enun.nivel-warm .num{background:var(--warm-soft); color:var(--warm);}
+
+  .enun-heading{flex:1; min-width:0;}
+  .enun-stats{
+    display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+    margin-bottom:6px;
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:5px;
+    border-radius:100px;
+    padding:3px 10px;
+    font-weight:700;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    font-size:9.5px;
+    flex:none;
+    white-space:nowrap;
+    font-family:'Space Mono', monospace;
+  }
+  .badge.hot{background:var(--hot-soft); color:var(--hot);}
+  .badge.warm{background:var(--warm-soft); color:var(--warm);}
+  .badge.cold{background:var(--cold-soft); color:var(--cold);}
+  .epig-label{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.03em;
+    color:var(--ink-soft);
+  }
+
+  .enunciado-text{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16.5px;
+    line-height:1.42;
+    margin:0 0 12px;
+    color:var(--ink);
+  }
+
+  .desglose{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin:0 0 12px;
+    padding:12px 14px;
+    background:rgba(255,255,255,.4);
+    border-left:2px solid var(--line);
+    border-radius:0 8px 8px 0;
+  }
+  .enun.nivel-hot .desglose{border-left-color:var(--hot);}
+  .enun.nivel-warm .desglose{border-left-color:var(--warm);}
+  .desglose-item{
+    display:flex; gap:8px;
+    font-size:12.8px;
+    line-height:1.55;
+    color:var(--ink-soft);
+  }
+  .desglose-item b{color:var(--ink); font-weight:600;}
+  .desglose-item .di-num{
+    flex:none;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--der);
+    padding-top:1px;
+  }
+
+  .fundamento{
+    display:flex; flex-wrap:wrap; gap:6px;
+    margin-bottom:10px;
+  }
+  .norma-pill{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.02em;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:100px;
+    padding:4px 10px;
+  }
+
+  .porque{
+    font-size:12.8px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .porque b{color:var(--ink);}
+
+  .patron-tag{
+    display:inline-block;
+    margin-top:10px;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.03em;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.5);
+    border:1px dashed var(--line);
+    border-radius:100px;
+    padding:3px 10px;
+  }
+
+  /* variantes cortas */
+  .variantes{
+    margin-top:14px;
+    padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .variantes-label{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+  }
+  .variante{
+    font-size:12.8px;
+    line-height:1.55;
+    color:var(--ink-soft);
+    margin:0 0 6px;
+    padding-left:14px;
+    position:relative;
+  }
+  .variante::before{
+    content:'—';
+    position:absolute; left:0; color:var(--line);
+  }
+  .variante b{color:var(--ink); font-weight:600;}
+
+  .foot{
+    margin-top:44px;
+    padding:20px 22px;
+    border-radius:14px;
+    background:rgba(255,255,255,.35);
+    border:1px solid var(--line);
+    font-size:11.5px;
+    line-height:1.7;
+    color:var(--ink-soft);
+  }
+  .foot b{color:var(--ink);}
+
+  @media (max-width:600px){
+    body{padding:28px 12px 60px;}
+    .hero{padding:26px 20px 24px;}
+    .enun{padding:18px 16px;}
+    .enun-top{gap:12px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dot"></span>Derecho · Tema 14 · Solo primer ejercicio</div>
+    <h1>Enunciados probables: la administración TIC de la AGE</h1>
+    <p>Batería de enunciados construidos a partir del subíndice del tema, el articulado legal (Ley 39/2015 art. 70, RD 4/2010 ENI/NTI, RD 806/2014 de gobernanza TIC, Ley 40/2015 Cap. V y RD 311/2022 del ENS) y los seis patrones retóricos con los que este tribunal redacta sus preguntas de Derecho en las últimas cuatro convocatorias.</p>
+    <p>El Tema 14 no tiene segundo ejercicio: el bloque de Derecho del CSE solo se evalúa en el primer ejercicio (memorístico/desarrollo), por lo que todos los enunciados de este documento están pensados para ese formato — respuesta escrita y desarrollada, sin test ni supuesto práctico.</p>
+    <div class="hero-meta">
+      <span class="meta-chip">1 pregunta real registrada · 2026</span>
+      <span class="meta-chip">Tema de incorporación reciente al temario</span>
+      <span class="meta-chip warn">Sin 2º ejercicio en Derecho</span>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot hot"></span>Prioridad alta — no preguntado aún, encaja con el estilo del tribunal</div>
+    <div class="legend-item"><span class="legend-dot warm"></span>Prioridad media — plausible, ángulo algo más específico</div>
+    <div class="legend-item"><span class="legend-dot cold"></span>Prioridad baja — ya preguntado en 2026 o poco autónomo</div>
+  </div>
+
+  <!-- ============ BLOQUE A: EXPEDIENTE ELECTRÓNICO Y NTI ============ -->
+  <div class="section-head">
+    <h2>Bloque A — El expediente electrónico y las NTI</h2>
+    <span class="section-count">Prioridad alta</span>
+  </div>
+  <p class="section-intro">Es el epígrafe que el propio análisis de probabilidad señala como el hueco más claro del tema: contenido concreto, con definición legal exacta (art. 70 Ley 39/2015) y no tocado por la pregunta de 2026, que se centró en el ENS.</p>
+
+  <div class="list">
+
+    <div class="enun nivel-hot">
+      <div class="enun-top">
+        <div class="num">1</div>
+        <div class="enun-heading">
+          <div class="enun-stats"><span class="badge hot">Alta</span><span class="epig-label">El expediente electrónico</span></div>
+          <p class="enunciado-text">"Concepto de expediente administrativo. Formato, formación e índice electrónico del expediente conforme a la Ley 39/2015."</p>
+        </div>
+      </div>
+      <div class="desglose">
+        <div class="desglose-item"><span class="di-num">1</span><span><b>Concepto:</b> conjunto ordenado de documentos y actuaciones que sirven de antecedente y fundamento a la resolución administrativa, y las diligencias para ejecutarla.</span></div>
+        <div class="desglose-item"><span class="di-num">2</span><span><b>Formato y formación:</b> los expedientes tienen formato electrónico y se forman por agregación ordenada de documentos, pruebas, informes, acuerdos y notificaciones.</span></div>
+        <div class="desglose-item"><span class="di-num">3</span><span><b>Índice electrónico:</b> numerado, y su función de garantizar la integridad del expediente y permitir su recuperación.</span></div>
+      </div>
+      <div class="fundamento"><span class="norma-pill">Ley 39/2015, art. 70</span></div>
+      <p class="porque">Enunciado nominal de tres sustantivos coordinados (<b>Patrón 3</b>): "concepto, formato, índice" son tres apartados obligatorios evaluados por separado, igual que "definición, contenido y duración" del PEN en 2024.</p>
+      <span class="patron-tag">Patrón 3 · enunciado nominal con tres partes</span>
+      <div class="variantes">
+        <div class="variantes-label">Variantes plausibles del mismo epígrafe</div>
+        <p class="variante"><b>"Definir</b> el expediente administrativo y <b>explicar</b> qué garantiza el índice electrónico que debe acompañarlo." — combina definición + función, calco del estilo de 2023 sobre el secreto estadístico.</p>
+        <p class="variante"><b>"De conformidad con</b> el artículo 70 de la Ley 39/2015, explicar en qué consiste el expediente administrativo y qué requisitos debe reunir cuando se remite a otra Administración." — aplica el Patrón 5 (norma citada expresamente) a este epígrafe.</p>
+      </div>
+    </div>
+
+    <div class="enun nivel-hot">
+      <div class="enun-top">
+        <div class="num">2</div>
+        <div class="enun-heading">
+          <div class="enun-stats"><span class="badge hot">Alta</span><span class="epig-label">Normas Técnicas de Interoperabilidad</span></div>
+          <p class="enunciado-text">"Explicar qué son las Normas Técnicas de Interoperabilidad, su relación con el Esquema Nacional de Interoperabilidad y su carácter de obligado cumplimiento para las Administraciones públicas."</p>
+        </div>
+      </div>
+      <div class="desglose">
+        <div class="desglose-item"><span class="di-num">1</span><span><b>Remisión legal:</b> el art. 70.3 de la Ley 39/2015 exige que la remisión del expediente electrónico se ajuste al Esquema Nacional de Interoperabilidad y a las NTI correspondientes.</span></div>
+        <div class="desglose-item"><span class="di-num">2</span><span><b>Desarrollo reglamentario:</b> el RD 4/2010 (ENI) es el que da cuerpo a esas NTI: catálogo de estándares, política de firma electrónica, digitalización, modelo de datos para el intercambio de asientos entre registros.</span></div>
+        <div class="desglose-item"><span class="di-num">3</span><span><b>Carácter vinculante:</b> son de obligado cumplimiento para todas las Administraciones públicas, incluidos los organismos estadísticos.</span></div>
+      </div>
+      <div class="fundamento"><span class="norma-pill">Ley 39/2015, art. 70.3</span><span class="norma-pill">RD 4/2010, art. 11</span></div>
+      <p class="porque">Verbo "explicar" + "y" con segunda exigencia oculta (<b>Patrón 1</b>): no basta con definir las NTI, hay que encadenarlas con el ENI y cerrar con su carácter obligatorio — la misma estructura causal que en la pregunta de 2023 sobre el secreto estadístico.</p>
+      <span class="patron-tag">Patrón 1 · "explicar... y..."</span>
+      <div class="variantes">
+        <div class="variantes-label">Variantes plausibles del mismo epígrafe</div>
+        <p class="variante"><b>"Exponer</b> al menos tres ámbitos que regulan las Normas Técnicas de Interoperabilidad." — aplica el Patrón 2 (cuantificación explícita) al catálogo de NTI del RD 4/2010.</p>
+        <p class="variante">"El Esquema Nacional de Interoperabilidad. <b>Objeto y desarrollo normativo</b>." — enunciado nominal corto (Patrón 3) que exige distinguir el ENI (marco) de las NTI (desarrollo concreto).</p>
+      </div>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="num">3</div>
+        <div class="enun-heading">
+          <div class="enun-stats"><span class="badge warm">Media</span><span class="epig-label">Interoperabilidad entre Administraciones</span></div>
+          <p class="enunciado-text">"¿Debe el expediente electrónico remitido entre Administraciones públicas someterse a algún estándar técnico común? Razonar la respuesta con referencia al artículo 3 de la Ley 40/2015."</p>
+        </div>
+      </div>
+      <div class="desglose">
+        <div class="desglose-item"><span class="di-num">1</span><span><b>Principio general:</b> las Administraciones públicas se relacionan entre sí a través de medios electrónicos que aseguran la interoperabilidad y seguridad de sus sistemas.</span></div>
+        <div class="desglose-item"><span class="di-num">2</span><span><b>Conexión:</b> ese principio de interoperabilidad "ad intra" es la base de que el expediente electrónico se remita conforme al ENI y a las NTI (art. 70.3 Ley 39/2015).</span></div>
+      </div>
+      <div class="fundamento"><span class="norma-pill">Ley 40/2015, art. 3.2</span><span class="norma-pill">Ley 39/2015, art. 70.3</span></div>
+      <p class="porque">Pregunta cerrada + norma citada (<b>Patrón 4 + Patrón 5</b> combinados), igual que la de la obligatoriedad del Censo Electoral en 2023: exige respuesta afirmativa razonada y fundamento legal exacto, no una descripción general de la interoperabilidad.</p>
+      <span class="patron-tag">Patrón 4 + 5 · pregunta cerrada con norma citada</span>
+    </div>
+
+  </div>
+
+  <!-- ============ BLOQUE B: GOBERNANZA TIC ============ -->
+  <div class="section-head">
+    <h2>Bloque B — Gobernanza TIC de la AGE</h2>
+    <span class="section-count">Prioridad alta / media</span>
+  </div>
+  <p class="section-intro">Bloque completamente virgen: ningún ángulo de este epígrafe ha sido preguntado todavía. El RD 806/2014 aporta dos órganos con nombre y función propios —la Comisión de Estrategia TIC y la Comisión Ministerial de Administración Digital— que encajan bien con el estilo de pregunta de "adscripción, composición y funciones" que ya ha usado el tribunal en otros temas (Consejo de Empadronamiento, 2026).</p>
+
+  <div class="list">
+
+    <div class="enun nivel-hot">
+      <div class="enun-top">
+        <div class="num">4</div>
+        <div class="enun-heading">
+          <div class="enun-stats"><span class="badge hot">Alta</span><span class="epig-label">Comisión de Estrategia TIC</span></div>
+          <p class="enunciado-text">"La Comisión de Estrategia TIC. Naturaleza y funciones."</p>
+        </div>
+      </div>
+      <div class="desglose">
+        <div class="desglose-item"><span class="di-num">1</span><span><b>Naturaleza:</b> órgano colegiado responsable de fijar las líneas estratégicas de la política TIC de la AGE y sus Organismos Públicos, conforme a las directrices del Gobierno.</span></div>
+        <div class="desglose-item"><span class="di-num">2</span><span><b>Funciones:</b> informar preceptivamente anteproyectos de ley y proyectos de reglamento con impacto TIC, definir prioridades de inversión y elevar un informe anual al Consejo de Ministros.</span></div>
+      </div>
+      <div class="fundamento"><span class="norma-pill">RD 806/2014, art. 5</span></div>
+      <p class="porque">Enunciado nominal corto (<b>Patrón 3</b>): "naturaleza y funciones" son dos sustantivos coordinados que exigen dos apartados diferenciados, con el riesgo típico de describir solo una función suelta y olvidar el carácter de órgano de cúpula estratégica que no ejecuta proyectos.</p>
+      <span class="patron-tag">Patrón 3 · enunciado nominal</span>
+      <div class="variantes">
+        <div class="variantes-label">Variantes plausibles del mismo epígrafe</div>
+        <p class="variante"><b>"Exponer</b> al menos tres funciones de la Comisión de Estrategia TIC." — Patrón 2, cuantificación explícita.</p>
+        <p class="variante"><b>"Explicar</b> qué se entiende por medio o servicio TIC "compartido" en la AGE y qué órgano decide su declaración." — versión más fina, centrada en el efecto práctico de esa cúpula de gobernanza.</p>
+      </div>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="num">5</div>
+        <div class="enun-heading">
+          <div class="enun-stats"><span class="badge warm">Media</span><span class="epig-label">Comisión Ministerial de Administración Digital</span></div>
+          <p class="enunciado-text">"La Comisión Ministerial de Administración Digital. Adscripción, composición y funciones de coordinación con la Secretaría General de Administración Digital."</p>
+        </div>
+      </div>
+      <div class="desglose">
+        <div class="desglose-item"><span class="di-num">1</span><span><b>Existencia en cada Ministerio:</b> órgano de relación entre el Departamento y sus entidades vinculadas o dependientes con la Secretaría General de Administración Digital (SGAD).</span></div>
+        <div class="desglose-item"><span class="di-num">2</span><span><b>Función:</b> asegurar la coordinación con los criterios y políticas TIC definidas por la SGAD, replicando a escala ministerial la lógica de la Comisión de Estrategia TIC.</span></div>
+      </div>
+      <div class="fundamento"><span class="norma-pill">RD 806/2014, art. 12</span></div>
+      <p class="porque">Réplica exacta del formato "adscripción, composición y funciones" usado en 2026 para el Consejo de Empadronamiento (<b>Patrón 3</b>) — el propio análisis retórico avisa de que este tipo de enunciado nominal de tres sustantivos suele hacer perder puntos por olvidar alguno de los tres apartados.</p>
+      <span class="patron-tag">Patrón 3 · calco del formato 2026</span>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="num">6</div>
+        <div class="enun-heading">
+          <div class="enun-stats"><span class="badge warm">Media</span><span class="epig-label">Modelo de gobernanza TIC en su conjunto</span></div>
+          <p class="enunciado-text">"Explicar cómo se organiza la gobernanza TIC de la Administración General del Estado, distinguiendo el nivel estratégico central del nivel de coordinación departamental."</p>
+        </div>
+      </div>
+      <div class="desglose">
+        <div class="desglose-item"><span class="di-num">1</span><span><b>Nivel central:</b> Comisión de Estrategia TIC, que fija la política común para toda la AGE y sus Organismos Públicos.</span></div>
+        <div class="desglose-item"><span class="di-num">2</span><span><b>Nivel ministerial:</b> Comisión Ministerial de Administración Digital, que traslada esas directrices dentro de cada Departamento y enlaza con la SGAD.</span></div>
+      </div>
+      <div class="fundamento"><span class="norma-pill">RD 806/2014, arts. 5 y 12</span></div>
+      <p class="porque">Verbo "explicar" que exige desarrollo causal, no listado (<b>Patrón 1</b>): pide relacionar dos órganos de dos niveles distintos, no describirlos por separado como si fueran epígrafes aislados.</p>
+      <span class="patron-tag">Patrón 1 · desarrollo causal entre dos órganos</span>
+    </div>
+
+  </div>
+
+  <!-- ============ BLOQUE C: TRANSFORMACIÓN DIGITAL ============ -->
+  <div class="section-head">
+    <h2>Bloque C — Transformación digital de la AGE</h2>
+    <span class="section-count">Prioridad media</span>
+  </div>
+  <p class="section-intro">Epígrafe más conceptual y con menos anclaje en un artículo único, por lo que resulta algo menos probable como pregunta autónoma — pero es un buen "epígrafe puente" para introducir cualquiera de los otros dos bloques.</p>
+
+  <div class="list">
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="num">7</div>
+        <div class="enun-heading">
+          <div class="enun-stats"><span class="badge warm">Media</span><span class="epig-label">Tramitación electrónica como regla general</span></div>
+          <p class="enunciado-text">"¿Es la tramitación electrónica una alternativa a la tramitación en papel en la Administración General del Estado? Razonar la respuesta conforme a las Leyes 39/2015 y 40/2015."</p>
+        </div>
+      </div>
+      <div class="desglose">
+        <div class="desglose-item"><span class="di-num">1</span><span><b>Respuesta:</b> no, es la actuación administrativa ordinaria, no una alternativa opcional al papel.</span></div>
+        <div class="desglose-item"><span class="di-num">2</span><span><b>Fundamento:</b> ambas leyes consagran la tramitación electrónica como regla general, desarrollada operativamente por el RD 203/2021.</span></div>
+      </div>
+      <div class="fundamento"><span class="norma-pill">Ley 39/2015</span><span class="norma-pill">Ley 40/2015</span><span class="norma-pill">RD 203/2021</span></div>
+      <p class="porque">Pregunta cerrada con norma citada (<b>Patrón 4 + 5</b>): formato poco frecuente pero muy penalizador si se responde "de memoria" sin fijar la idea clave — que no es una alternativa, sino la regla.</p>
+      <span class="patron-tag">Patrón 4 + 5 · pregunta cerrada con norma citada</span>
+    </div>
+
+  </div>
+
+  <!-- ============ BLOQUE D: ESQUEMA NACIONAL DE SEGURIDAD ============ -->
+  <div class="section-head">
+    <h2>Bloque D — Esquema Nacional de Seguridad (ENS)</h2>
+    <span class="section-count">Prioridad baja como pregunta aislada · alta si se cruza con otro tema</span>
+  </div>
+  <p class="section-intro">Este es el único epígrafe ya preguntado (2026), y de forma detallada, por lo que repetirlo tal cual en la próxima convocatoria es poco probable. Aun así, se incluyen enunciados por dos motivos: conviene tenerlos preparados como repaso, y el patrón de cruce entre temas (Patrón 6) hace muy plausible que el ENS reaparezca combinado con un ángulo distinto al ya preguntado.</p>
+
+  <div class="list">
+
+    <div class="enun nivel-cold">
+      <div class="enun-top">
+        <div class="num">8</div>
+        <div class="enun-heading">
+          <div class="enun-stats"><span class="badge cold">Baja (ya preguntado)</span><span class="epig-label">ENS aplicado a la producción estadística — enunciado real</span></div>
+          <p class="enunciado-text">"Explicar cómo se aplica el Esquema Nacional de Seguridad (ENS) a la producción estadística oficial y qué medidas deben adoptarse para garantizar la integridad, confidencialidad y disponibilidad de los datos manejados por un organismo estadístico."</p>
+        </div>
+      </div>
+      <div class="fundamento"><span class="norma-pill">RD 311/2022</span><span class="norma-pill">Ley 40/2015, art. 156.2</span></div>
+      <p class="porque">Enunciado real de la convocatoria de 2026. Se incluye tal cual para repaso directo — cruza el ENS con el secreto estadístico (Tema 8) y con Producción Estadística: no basta con describir el ENS en abstracto.</p>
+      <span class="patron-tag">Patrón 1 + Patrón 6 · pregunta ya caída</span>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="num">9</div>
+        <div class="enun-heading">
+          <div class="enun-stats"><span class="badge warm">Media</span><span class="epig-label">Objeto y principios básicos del ENS</span></div>
+          <p class="enunciado-text">"Objeto del Esquema Nacional de Seguridad. Principios básicos y dimensiones de seguridad que garantiza."</p>
+        </div>
+      </div>
+      <div class="desglose">
+        <div class="desglose-item"><span class="di-num">1</span><span><b>Objeto:</b> regular el ENS, constituido por los principios básicos y requisitos mínimos para una protección adecuada de la información y los servicios.</span></div>
+        <div class="desglose-item"><span class="di-num">2</span><span><b>Principios básicos:</b> seguridad integral, gestión de riesgos, prevención-detección-respuesta, líneas de defensa, vigilancia continua y diferenciación de responsabilidades.</span></div>
+        <div class="desglose-item"><span class="di-num">3</span><span><b>Dimensiones de seguridad:</b> disponibilidad, integridad, confidencialidad, autenticidad y trazabilidad.</span></div>
+      </div>
+      <div class="fundamento"><span class="norma-pill">RD 311/2022, arts. 1 y 5</span></div>
+      <p class="porque">Aunque el ENS ya salió en 2026, este ángulo (objeto + principios + dimensiones) es distinto del enfoque aplicado que ya se preguntó — encaja con el Patrón 6 de reexplotar un tema desde un ángulo nuevo, y con el Patrón 3 por su estructura de tres bloques nominales.</p>
+      <span class="patron-tag">Patrón 3 + Patrón 6 · mismo tema, ángulo distinto</span>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="num">10</div>
+        <div class="enun-heading">
+          <div class="enun-stats"><span class="badge warm">Media</span><span class="epig-label">Categorización de sistemas</span></div>
+          <p class="enunciado-text">"Exponer las categorías de sistemas que establece el Esquema Nacional de Seguridad y qué determinan sobre las medidas de seguridad exigibles."</p>
+        </div>
+      </div>
+      <div class="desglose">
+        <div class="desglose-item"><span class="di-num">1</span><span><b>Categorías:</b> básica, media o alta, según el impacto potencial sobre las dimensiones de seguridad.</span></div>
+        <div class="desglose-item"><span class="di-num">2</span><span><b>Efecto:</b> la categoría asignada determina las medidas de seguridad concretas exigibles a cada sistema.</span></div>
+      </div>
+      <div class="fundamento"><span class="norma-pill">RD 311/2022</span></div>
+      <p class="porque">"Exponer" con enumeración cerrada de tres categorías (<b>Patrón 2</b>): el riesgo típico aquí es nombrar solo dos de las tres o no explicar la consecuencia práctica (qué determina la categoría), que es la segunda mitad de la pregunta.</p>
+      <span class="patron-tag">Patrón 2 · exponer + enumeración cerrada</span>
+    </div>
+
+    <div class="enun nivel-hot">
+      <div class="enun-top">
+        <div class="num">11</div>
+        <div class="enun-heading">
+          <div class="enun-stats"><span class="badge hot">Alta (cruce de temas)</span><span class="epig-label">ENS + secreto estadístico + protección de datos</span></div>
+          <p class="enunciado-text">"Un organismo estadístico trata datos amparados por el secreto estadístico y datos de carácter personal. Explicar qué exige el Esquema Nacional de Seguridad en este supuesto y cómo se relaciona con las obligaciones derivadas de la Ley 12/1989 y de la LOPDGDD."</p>
+        </div>
+      </div>
+      <div class="desglose">
+        <div class="desglose-item"><span class="di-num">1</span><span><b>ENS:</b> exige medidas de seguridad reforzadas coherentes con la categorización del sistema, dado el impacto potencial de esa información especialmente sensible.</span></div>
+        <div class="desglose-item"><span class="di-num">2</span><span><b>Secreto estadístico (Tema 8):</b> obligación de reserva sobre los datos individuales recogidos con fines estadísticos.</span></div>
+        <div class="desglose-item"><span class="di-num">3</span><span><b>Protección de datos (Tema 9):</b> garantías adicionales de la LOPDGDD cuando los datos estadísticos son también datos personales.</span></div>
+      </div>
+      <div class="fundamento"><span class="norma-pill">RD 311/2022</span><span class="norma-pill">Ley 12/1989</span><span class="norma-pill">LOPDGDD</span></div>
+      <p class="porque">Formulación de "supuesto + explicar" que fuerza expresamente el cruce de tres temas (<b>Patrón 6</b> llevado al extremo): es la evolución más reciente del estilo del tribunal y el escenario más exigente si el ENS vuelve a aparecer.</p>
+      <span class="patron-tag">Patrón 6 · cruce de tres temas</span>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <b>Sobre este documento:</b> los enunciados son elaboración propia de apoyo al estudio, construidos combinando el subíndice del Tema 14 («indice-derecho-ine-a1.html»), el análisis de probabilidad y los seis patrones retóricos identificados sobre las 15 preguntas reales de Derecho de las convocatorias 2023-2026 («posibles_futuras_preguntas-examen-derecho-ine-a1.html»), y el articulado legal completo del bloque X («derecho-articulado-ine-a1.html»): Ley 39/2015 (art. 70), Real Decreto 4/2010 del Esquema Nacional de Interoperabilidad, Real Decreto 806/2014 de gobernanza TIC, Ley 40/2015 (Cap. V, art. 3.2) y Real Decreto 311/2022 del Esquema Nacional de Seguridad. Solo el enunciado nº8 reproduce una pregunta real ya formulada por el tribunal (convocatoria 2026); el resto son enunciados probables, no transcripciones de examen. El Tema 14 pertenece en exclusiva al primer ejercicio del turno libre del Cuerpo Superior de Estadísticos del Estado: el bloque de Derecho queda excluido del segundo ejercicio. Antes del examen, conviene contrastar siempre la vigencia de las normas citadas frente al BOE en el momento de la convocatoria.
+  </div>
+
+</div>
+</body>
+</html>

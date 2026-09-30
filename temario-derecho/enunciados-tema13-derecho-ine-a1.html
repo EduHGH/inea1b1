@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 13 · Enunciados probables · Derecho INE A1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --ink:#241F17;
+    --ink-soft:#6b6252;
+    --line:#dcd4c2;
+    --der:#2E5266;
+    --der-soft:#DCE6EB;
+    --der-glow:rgba(46,82,102,.18);
+    --glass:rgba(255,255,255,.55);
+
+    --hot:#8B3A3A;
+    --hot-soft:#F3DEDE;
+    --warm:#966A24;
+    --warm-soft:#F1E4CB;
+    --cold:#3E6B4F;
+    --cold-soft:#DEEBE2;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(36,31,23,.07) 1px, transparent 0) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    padding:48px 20px 80px;
+  }
+
+  .wrap{max-width:880px; margin:0 auto;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:38px 36px 32px;
+    border-radius:20px;
+    background:var(--glass);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -24px rgba(36,31,23,.25);
+    overflow:hidden;
+    margin-bottom:30px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:-40% -20% auto auto;
+    width:340px; height:340px;
+    background:radial-gradient(circle, var(--der-glow), transparent 70%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--der);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--der);}
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(27px, 4vw, 39px);
+    line-height:1.1;
+    margin:0 0 10px;
+    letter-spacing:-.01em;
+  }
+  .hero p{
+    margin:0;
+    max-width:62ch;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.6;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-top:22px;
+  }
+  .meta-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.55);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 12px;
+  }
+
+  /* NOTA ESTRUCTURA (no hay segundo ejercicio) */
+  .nota-estructura{
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    padding:16px 20px;
+    border-radius:14px;
+    background:var(--der-soft);
+    border:1px solid rgba(46,82,102,.25);
+    margin-bottom:34px;
+    font-size:13px;
+    line-height:1.6;
+    color:var(--ink);
+  }
+  .nota-estructura svg{flex:none; margin-top:2px; color:var(--der);}
+  .nota-estructura b{color:var(--der);}
+
+  /* SECTION HEAD */
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+    margin:44px 0 6px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+  }
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16px;
+    letter-spacing:.01em;
+    color:var(--ink);
+    margin:0;
+  }
+  .section-count{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    flex:none;
+  }
+  .section-sub{
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.6;
+    max-width:66ch;
+    margin:10px 0 22px;
+  }
+
+  /* ENUNCIADO CARD */
+  .list{display:flex; flex-direction:column; gap:16px; margin-bottom:8px;}
+  .enunciado{
+    position:relative;
+    padding:24px 26px;
+    border-radius:16px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -20px rgba(36,31,23,.3);
+  }
+  .enunciado.nivel-hot{border-color:rgba(139,58,58,.35);}
+  .enunciado.nivel-warm{border-color:rgba(150,106,36,.3);}
+
+  .en-head{
+    display:flex; gap:14px; align-items:flex-start; margin-bottom:14px;
+  }
+  .en-num{
+    flex:none;
+    width:34px; height:34px;
+    border-radius:10px;
+    background:var(--der-soft);
+    color:var(--der);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    font-size:13px;
+  }
+  .en-tags{
+    flex:1; min-width:0;
+    display:flex; flex-wrap:wrap; align-items:center; gap:8px;
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:5px;
+    border-radius:100px;
+    padding:3px 10px;
+    font-weight:700;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    font-family:'Space Mono', monospace;
+    font-size:9px;
+    flex:none;
+    white-space:nowrap;
+  }
+  .badge.hot{background:var(--hot-soft); color:var(--hot);}
+  .badge.warm{background:var(--warm-soft); color:var(--warm);}
+  .badge.real{background:var(--der-soft); color:var(--der);}
+
+  .en-epigrafe{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    letter-spacing:.02em;
+  }
+
+  .en-enunciado{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:17px;
+    line-height:1.45;
+    color:var(--ink);
+    margin:0 0 14px;
+  }
+
+  .en-porque{
+    font-size:13px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    padding:12px 15px;
+    background:rgba(255,255,255,.4);
+    border-left:2px solid var(--line);
+    border-radius:0 8px 8px 0;
+    margin:0 0 14px;
+  }
+  .enunciado.nivel-hot .en-porque{border-left-color:var(--hot);}
+  .enunciado.nivel-warm .en-porque{border-left-color:var(--warm);}
+  .en-porque b{color:var(--ink);}
+
+  .en-fundamento{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .art-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:100px;
+    padding:4px 10px;
+  }
+
+  /* GUION DE RESPUESTA */
+  .guion{
+    margin-top:14px;
+  }
+  .guion-toggle{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--der);
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:0;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .guion-toggle .chev{
+    display:inline-block;
+    transition:transform .18s ease;
+    font-size:9px;
+  }
+  .guion-toggle.open .chev{transform:rotate(90deg);}
+  .guion-body{
+    display:none;
+    margin-top:12px;
+    padding:14px 16px;
+    background:rgba(255,255,255,.45);
+    border-radius:10px;
+    border:1px solid var(--line);
+  }
+  .guion-body.open{display:block;}
+  .guion-body ol{
+    margin:0;
+    padding-left:18px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .guion-body li{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--ink);
+  }
+  .guion-body li b{color:var(--der);}
+
+  /* FOOT */
+  .foot{
+    margin-top:46px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-size:11.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+  .foot b{color:var(--ink);}
+
+  @media (max-width:600px){
+    body{padding:28px 14px 60px;}
+    .hero{padding:28px 22px 24px;}
+    .enunciado{padding:20px 18px;}
+    .en-enunciado{font-size:16px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dot"></span>Derecho · Tema 13 · Cuerpo Superior de Estadísticos del Estado</div>
+    <h1>La Gobernanza Pública — enunciados probables de examen</h1>
+    <p>Enunciados completos, redactados en el estilo real del tribunal, para el Tema 13 (gobernanza pública, gobierno abierto, Ley 19/2013 y Consejo de Transparencia). Incluye el único enunciado ya documentado y las variantes con mayor probabilidad de aparecer, cada una con su fundamento articulado y un guion de respuesta.</p>
+    <div class="hero-meta">
+      <span class="meta-chip">7 enunciados</span>
+      <span class="meta-chip">1 ya preguntado (2023)</span>
+      <span class="meta-chip">6 proyectados</span>
+      <span class="meta-chip">Ley 19/2013 · Ley 37/2007 · RD 919/2014</span>
+    </div>
+  </div>
+
+  <div class="nota-estructura">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <div><b>Nota sobre la estructura del examen:</b> el bloque de Derecho del Cuerpo Superior de Estadísticos del Estado solo se evalúa en el <b>primer ejercicio</b> (tipo test o desarrollo, según convocatoria). El <b>segundo ejercicio</b> del turno libre excluye expresamente la materia de Derecho, por lo que todos los enunciados de este documento corresponden únicamente al primer ejercicio.</div>
+  </div>
+
+  <!-- ============ YA PREGUNTADO ============ -->
+  <div class="section-head">
+    <h2>Ya preguntado por el tribunal</h2>
+    <span class="section-count">1 enunciado</span>
+  </div>
+  <p class="section-sub">Registrado en las últimas cuatro convocatorias (2022–2025, exámenes 2023–2026). Es la única pregunta documentada de todo el tema: repásala tal cual, porque su reformulación es la variante más probable de todas.</p>
+
+  <div class="list">
+
+    <div class="enunciado nivel-hot">
+      <div class="en-head">
+        <div class="en-num">01</div>
+        <div class="en-tags">
+          <span class="badge real">Ya preguntado · 2023</span>
+          <span class="en-epigrafe">El Consejo de Transparencia y Buen Gobierno</span>
+        </div>
+      </div>
+      <p class="en-enunciado">Explique cuáles son los principales objetivos del Consejo de Transparencia y Buen Gobierno.</p>
+      <p class="en-porque"><b>Por qué se preguntó así:</b> pide los fines/funciones del órgano en concreto (art. 34 Ley 19/2013 y su desarrollo en el RD 919/2014), no una descripción general de toda la Ley 19/2013. El tribunal premia respuestas centradas en el órgano, no en la ley completa.</p>
+      <div class="en-fundamento">
+        <span class="art-chip">Ley 19/2013, art. 34</span>
+        <span class="art-chip">RD 919/2014, art. 2</span>
+        <span class="art-chip">RD 919/2014, art. 8</span>
+      </div>
+      <div class="guion">
+        <button class="guion-toggle" type="button" onclick="toggleGuion(this)"><span class="chev">▶</span>Ver guion de respuesta</button>
+        <div class="guion-body">
+          <ol>
+            <li><b>Naturaleza previa (1 línea):</b> organismo público independiente, personalidad jurídica propia, adscrito administrativamente a Hacienda y Función Pública.</li>
+            <li><b>Los cuatro fines del art. 34:</b> promover la transparencia de la actividad pública; velar por el cumplimiento de las obligaciones de publicidad activa; salvaguardar el ejercicio del derecho de acceso a la información; garantizar la observancia de las disposiciones de buen gobierno.</li>
+            <li><b>Traducción a funciones concretas:</b> resolver reclamaciones frente a resoluciones expresas o presuntas en materia de acceso; adoptar recomendaciones; promover códigos de buenas prácticas; asesorar en materia de transparencia; controlar la publicidad activa.</li>
+            <li><b>Cierre:</b> mencionar brevemente su doble órgano de gobierno (Presidencia + Comisión de Transparencia y Buen Gobierno, art. 8 RD 919/2014) para mostrar dominio del estatuto, no solo de la ley.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ ALTA PROBABILIDAD ============ -->
+  <div class="section-head">
+    <h2>Alta probabilidad — sin preguntar todavía</h2>
+    <span class="section-count">3 enunciados</span>
+  </div>
+  <p class="section-sub">El tribunal solo ha tocado el órgano de control (Consejo de Transparencia). El contenido nuclear de la Ley 19/2013 —sus tres títulos: publicidad activa, derecho de acceso y buen gobierno— nunca se ha preguntado como tal, y es el hueco más evidente del tema.</p>
+
+  <div class="list">
+
+    <div class="enunciado nivel-hot">
+      <div class="en-head">
+        <div class="en-num">02</div>
+        <div class="en-tags">
+          <span class="badge hot">Alta</span>
+          <span class="en-epigrafe">Ley 19/2013 · estructura general</span>
+        </div>
+      </div>
+      <p class="en-enunciado">Explique los tres grandes objetos de la Ley 19/2013, de transparencia, acceso a la información pública y buen gobierno, y cómo se corresponden con la estructura de títulos de la ley.</p>
+      <p class="en-porque"><b>Por qué es probable:</b> es la pregunta "de manual" que cierra el círculo del tema — nunca se ha pedido la ley en su conjunto, solo el órgano derivado de ella. El art. 1 de la ley resume los tres objetos en una sola frase, lo que la hace muy citable y muy tentadora para el tribunal.</p>
+      <div class="en-fundamento">
+        <span class="art-chip">Ley 19/2013, art. 1</span>
+        <span class="art-chip">Título I, Cap. II (publicidad activa)</span>
+        <span class="art-chip">Título I, Cap. III (derecho de acceso)</span>
+        <span class="art-chip">Título II (buen gobierno)</span>
+      </div>
+      <div class="guion">
+        <button class="guion-toggle" type="button" onclick="toggleGuion(this)"><span class="chev">▶</span>Ver guion de respuesta</button>
+        <div class="guion-body">
+          <ol>
+            <li><b>Cita el art. 1</b> casi literal: ampliar y reforzar la transparencia, regular y garantizar el derecho de acceso, establecer las obligaciones de buen gobierno.</li>
+            <li><b>Transparencia = publicidad activa</b> (Título I, Cap. II): impulso "de oficio" de la Administración, obligación de publicar periódicamente información institucional, organizativa, jurídica y económico-presupuestaria (art. 8, incluye información estadística).</li>
+            <li><b>Derecho de acceso</b> (Título I, Cap. III): impulso "a petición" del ciudadano, universal (art. 12: "todas las personas"), sin necesidad de motivación (art. 17.3).</li>
+            <li><b>Buen gobierno</b> (Título II): código de conducta de altos cargos y régimen sancionador asociado.</li>
+            <li><b>Idea de cierre:</b> no confundir transparencia (de oficio) con derecho de acceso (a instancia de parte) — son mecanismos complementarios, no sinónimos.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="en-head">
+        <div class="en-num">03</div>
+        <div class="en-tags">
+          <span class="badge hot">Alta</span>
+          <span class="en-epigrafe">Derecho de acceso a la información pública</span>
+        </div>
+      </div>
+      <p class="en-enunciado">Explique en qué consiste el derecho de acceso a la información pública regulado por la Ley 19/2013 y qué límites pueden aplicarse a su ejercicio.</p>
+      <p class="en-porque"><b>Por qué es probable:</b> es el epígrafe con más desarrollo normativo del tema (arts. 12 a 24) y conecta directamente con el fundamento constitucional (art. 105.b CE), lo que permite al tribunal cruzarlo con el bloque constitucional ya trabajado en los Temas 1-4. La falta de exigencia de motivación es un matiz muy "preguntable" porque distingue este derecho de otras figuras de la Ley 39/2015.</p>
+      <div class="en-fundamento">
+        <span class="art-chip">Ley 19/2013, art. 12</span>
+        <span class="art-chip">Ley 19/2013, art. 14</span>
+        <span class="art-chip">Ley 19/2013, art. 17</span>
+        <span class="art-chip">CE, art. 105.b)</span>
+      </div>
+      <div class="guion">
+        <button class="guion-toggle" type="button" onclick="toggleGuion(this)"><span class="chev">▶</span>Ver guion de respuesta</button>
+        <div class="guion-body">
+          <ol>
+            <li><b>Concepto y titularidad (art. 12):</b> derecho de todas las personas, no solo de interesados en un procedimiento, con fundamento directo en el art. 105.b) CE.</li>
+            <li><b>Procedimiento (art. 17):</b> se inicia con solicitud; no es obligatorio motivarla (apdo. 3), aunque el solicitante puede exponer motivos.</li>
+            <li><b>Límites (art. 14.1):</b> enumerar por bloques — seguridad y defensa nacional, relaciones exteriores y seguridad pública; investigación y sanción de ilícitos e igualdad de partes en procesos judiciales; funciones de vigilancia/inspección/control; intereses económicos y comerciales y política económica/monetaria; secreto profesional y propiedad intelectual; confidencialidad en la toma de decisiones; medio ambiente.</li>
+            <li><b>Cómo se aplican los límites (art. 14.2):</b> no automáticamente — juicio de proporcionalidad caso por caso, ponderando el interés público o privado superior que justifique el acceso.</li>
+            <li><b>Distinción clave para cerrar:</b> este derecho de acceso general (universal, sin interés legítimo) frente al derecho de acceso al expediente propio de un interesado bajo la Ley 39/2015.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="en-head">
+        <div class="en-num">04</div>
+        <div class="en-tags">
+          <span class="badge hot">Alta</span>
+          <span class="en-epigrafe">Publicidad activa · información estadística</span>
+        </div>
+      </div>
+      <p class="en-enunciado">Explique en qué consiste la obligación de publicidad activa de la Ley 19/2013 y qué papel ocupa en ella la información económica, presupuestaria y estadística.</p>
+      <p class="en-porque"><b>Por qué es probable:</b> el propio art. 8 de la ley da nombre expreso a la categoría de información estadística dentro de la publicidad activa, y conecta directamente con la Ley 12/1989 (Tema 8, el más preguntado del bloque). Es exactamente el tipo de pregunta "de cruce" que ya ha usado el tribunal en otros temas del bloque (ver Tema 14 sobre el ENS aplicado a la producción estadística).</p>
+      <div class="en-fundamento">
+        <span class="art-chip">Ley 19/2013, art. 8</span>
+        <span class="art-chip">Ley 12/1989, art. 4.2 (principio de transparencia)</span>
+      </div>
+      <div class="guion">
+        <button class="guion-toggle" type="button" onclick="toggleGuion(this)"><span class="chev">▶</span>Ver guion de respuesta</button>
+        <div class="guion-body">
+          <ol>
+            <li><b>Definición de publicidad activa:</b> obligación de los sujetos incluidos en el ámbito de la ley de publicar de forma periódica y actualizada la información cuyo conocimiento sea relevante, sin que medie solicitud.</li>
+            <li><b>Encaje del art. 8:</b> exige publicar como mínimo la información relativa a actos de gestión administrativa con repercusión económica o presupuestaria — y da nombre expreso a la categoría "estadística" dentro de este mandato.</li>
+            <li><b>Conexión con el INE / Ley 12/1989:</b> la transparencia es uno de los nueve principios de la producción estadística oficial (art. 4.2 Ley 12/1989); citar esto demuestra visión de conjunto del bloque de Derecho, no solo del tema aislado.</li>
+            <li><b>Cierre:</b> diferenciar publicidad activa (de oficio, art. 8) del derecho de acceso (a instancia de parte, arts. 12-17) para no mezclar los dos mecanismos.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ PROBABILIDAD MEDIA ============ -->
+  <div class="section-head">
+    <h2>Probabilidad media</h2>
+    <span class="section-count">3 enunciados</span>
+  </div>
+  <p class="section-sub">Epígrafes con desarrollo normativo suficiente para sostener una pregunta de desarrollo, pero con menos "gancho" o menos precedente que el bloque anterior.</p>
+
+  <div class="list">
+
+    <div class="enunciado nivel-warm">
+      <div class="en-head">
+        <div class="en-num">05</div>
+        <div class="en-tags">
+          <span class="badge warm">Media</span>
+          <span class="en-epigrafe">Gobernanza pública y gobierno abierto</span>
+        </div>
+      </div>
+      <p class="en-enunciado">Explique el concepto de gobierno abierto y los principios informadores que lo caracterizan.</p>
+      <p class="en-porque"><b>Por qué es probable:</b> es el epígrafe introductorio del tema, con contenido muy tipificable en cuatro principios claramente delimitados — un formato "de lista" que el tribunal ha usado en otros temas del bloque para preguntas de desarrollo corto.</p>
+      <div class="en-fundamento">
+        <span class="art-chip">Índice del tema 13</span>
+        <span class="art-chip">Concepto doctrinal — Open Government Partnership</span>
+      </div>
+      <div class="guion">
+        <button class="guion-toggle" type="button" onclick="toggleGuion(this)"><span class="chev">▶</span>Ver guion de respuesta</button>
+        <div class="guion-body">
+          <ol>
+            <li><b>Gobernanza pública:</b> forma de dirección y gestión de los asuntos públicos basada en la interacción Estado-mercado-sociedad civil, más allá de la jerarquía administrativa tradicional.</li>
+            <li><b>Gobierno abierto (Open Government):</b> modelo de relación entre gobernantes y ciudadanía basado en transparencia, participación y colaboración.</li>
+            <li><b>Los cuatro principios informadores:</b> colaboración (implicación de ciudadanía y sector privado en el diseño de políticas), participación (consultas, audiencia pública, iniciativa legislativa popular), transparencia (publicidad activa y acceso), rendición de cuentas (accountability — justificar decisiones ante el escrutinio ciudadano).</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="en-head">
+        <div class="en-num">06</div>
+        <div class="en-tags">
+          <span class="badge warm">Media</span>
+          <span class="en-epigrafe">Datos abiertos y reutilización</span>
+        </div>
+      </div>
+      <p class="en-enunciado">Explique en qué consiste la reutilización de la información del sector público regulada por la Ley 37/2007 y en qué se diferencia del derecho de acceso de la Ley 19/2013.</p>
+      <p class="en-porque"><b>Por qué es probable:</b> tiene aplicación directa al INE (habilita la explotación de microdatos y tablas por terceros) y ofrece un contraste conceptual muy claro con el derecho de acceso — el tipo de pregunta "distinga estas dos figuras" que favorece al opositor bien preparado.</p>
+      <div class="en-fundamento">
+        <span class="art-chip">Ley 37/2007, art. 1</span>
+        <span class="art-chip">Ley 37/2007, art. 3</span>
+        <span class="art-chip">Ley 37/2007, art. 6</span>
+      </div>
+      <div class="guion">
+        <button class="guion-toggle" type="button" onclick="toggleGuion(this)"><span class="chev">▶</span>Ver guion de respuesta</button>
+        <div class="guion-body">
+          <ol>
+            <li><b>Objeto (art. 1):</b> régimen jurídico aplicable a la reutilización de documentos elaborados o custodiados por el sector público; se aplica "sin perjuicio" del régimen del derecho de acceso.</li>
+            <li><b>Concepto de reutilización (art. 3.1):</b> uso de documentos en poder de las Administraciones, por personas físicas o jurídicas, con fines comerciales o no, siempre que no constituya en sí misma actividad administrativa pública.</li>
+            <li><b>Prohibición de derechos exclusivos (art. 6):</b> abierta a todos los agentes del mercado; ningún contrato puede otorgar exclusividad, ni siquiera a quien ya explota productos de valor añadido con esos datos.</li>
+            <li><b>Diferencia con el derecho de acceso:</b> el acceso (Ley 19/2013) resuelve si un ciudadano puede conocer una información; la reutilización (Ley 37/2007) resuelve, una vez esa información ya es pública o accesible, en qué condiciones un tercero puede explotarla — son regímenes superpuestos pero no idénticos.</li>
+            <li><b>Aplicación al INE:</b> es la norma que permite a empresas e investigadores construir productos de valor añadido a partir de estadísticas oficiales ya publicadas, sin autorización caso por caso.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="en-head">
+        <div class="en-num">07</div>
+        <div class="en-tags">
+          <span class="badge warm">Media</span>
+          <span class="en-epigrafe">Marco jurídico y planes de gobierno abierto en España</span>
+        </div>
+      </div>
+      <p class="en-enunciado">Explique el marco internacional y los instrumentos de planificación del gobierno abierto en España.</p>
+      <p class="en-porque"><b>Por qué es probable:</b> es el epígrafe con menos desarrollo articulado del tema, pero tiene un componente internacional (adhesión de España a la Alianza para el Gobierno Abierto) que le da valor como pregunta de cultura general institucional, en la línea de otras preguntas de contexto internacional ya vistas en el bloque (Tema 10, Sistema Estadístico Europeo).</p>
+      <div class="en-fundamento">
+        <span class="art-chip">Open Government Partnership</span>
+        <span class="art-chip">Planes de Gobierno Abierto de España</span>
+      </div>
+      <div class="guion">
+        <button class="guion-toggle" type="button" onclick="toggleGuion(this)"><span class="chev">▶</span>Ver guion de respuesta</button>
+        <div class="guion-body">
+          <ol>
+            <li><b>Alianza para el Gobierno Abierto (OGP):</b> iniciativa internacional a la que España está adherida; exige la elaboración periódica de Planes de Gobierno Abierto como condición de pertenencia.</li>
+            <li><b>Planes de Gobierno Abierto de España:</b> instrumentos plurianuales, elaborados de forma participada, con compromisos concretos y medibles en materia de transparencia, participación y rendición de cuentas.</li>
+            <li><b>Idea de cierre:</b> vincular estos planes con los cuatro principios del gobierno abierto (colaboración, participación, transparencia, rendición de cuentas) para mostrar que el epígrafe no es un dato aislado, sino la traducción operativa de esos principios.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <b>Cómo se ha construido este documento:</b> combina el único enunciado documentado del tribunal para el Tema 13 (primer ejercicio del turno libre al Cuerpo Superior de Estadísticos del Estado, convocatorias 2022-2025, exámenes 2023-2026) con enunciados proyectados sobre los epígrafes del tema que aún no han sido preguntados, redactados en el mismo registro que usa el tribunal. Las preguntas proyectadas son elaboración propia de apoyo al estudio: no están confirmadas ni garantizadas, y su función es dirigir el repaso hacia los huecos con mayor probabilidad razonada, no anticipar el enunciado literal del examen.
+    <br><br>
+    <b>Fundamento normativo:</b> Ley 19/2013, de 9 de diciembre, de transparencia, acceso a la información pública y buen gobierno (BOE-A-2013-12887); Ley 37/2007, de 16 de noviembre, sobre reutilización de la información del sector público (BOE-A-2007-19814), modificada por Ley 18/2015 y Real Decreto-ley 24/2021; Real Decreto 919/2014, de 31 de octubre, por el que se aprueba el Estatuto del Consejo de Transparencia y Buen Gobierno. Verifica siempre el texto consolidado vigente en el momento de la convocatoria.
+    <br><br>
+    <b>Estructura del examen:</b> el bloque de Derecho se evalúa únicamente en el primer ejercicio del turno libre; el segundo ejercicio lo excluye expresamente, por lo que no existen enunciados de segundo ejercicio para esta materia.
+  </div>
+
+</div>
+
+<script>
+  function toggleGuion(btn){
+    var box = btn.nextElementSibling;
+    var open = box.classList.toggle('open');
+    btn.classList.toggle('open', open);
+  }
+</script>
+</body>
+</html>

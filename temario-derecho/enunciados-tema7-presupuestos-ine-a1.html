@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 7 · Enunciados probables de examen — Derecho INE A1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --ink:#241F17;
+    --ink-soft:#6b6252;
+    --line:#dcd4c2;
+    --der:#2E5266;
+    --der-soft:#DCE6EB;
+    --der-glow:rgba(46,82,102,.18);
+    --glass:rgba(255,255,255,.55);
+
+    --hot:#8B3A3A;
+    --hot-soft:#F3DEDE;
+    --hot-glow:rgba(139,58,58,.20);
+    --warm:#966A24;
+    --warm-soft:#F1E4CB;
+    --cold:#3E6B4F;
+    --cold-soft:#DEEBE2;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(36,31,23,.07) 1px, transparent 0) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    padding:48px 20px 80px;
+  }
+
+  .wrap{max-width:880px; margin:0 auto;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:38px 36px 32px;
+    border-radius:20px;
+    background:var(--glass);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -24px rgba(36,31,23,.25);
+    overflow:hidden;
+    margin-bottom:28px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:-40% -20% auto auto;
+    width:340px; height:340px;
+    background:radial-gradient(circle, var(--der-glow), transparent 70%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--der);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--der);}
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(26px, 4vw, 38px);
+    line-height:1.1;
+    margin:0 0 10px;
+    letter-spacing:-.01em;
+  }
+  .hero p{
+    margin:0;
+    max-width:64ch;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.6;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-top:22px;
+  }
+  .meta-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.55);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 12px;
+  }
+
+  /* NOTICE — no hay segundo ejercicio */
+  .notice{
+    display:flex; gap:12px; align-items:flex-start;
+    padding:14px 18px;
+    margin-bottom:20px;
+    border-radius:12px;
+    background:var(--der-soft);
+    border:1px solid rgba(46,82,102,.2);
+  }
+  .notice svg{flex:none; color:var(--der); margin-top:2px;}
+  .notice p{
+    margin:0;
+    font-size:13px;
+    line-height:1.55;
+    color:var(--ink);
+  }
+  .notice b{color:var(--der);}
+
+  /* NOTICE variant — tema nunca preguntado */
+  .notice.hot{background:var(--hot-soft); border-color:rgba(139,58,58,.25);}
+  .notice.hot svg{color:var(--hot);}
+  .notice.hot b{color:var(--hot);}
+
+  /* LEGEND */
+  .legend{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-bottom:30px;
+  }
+  .legend-item{
+    display:flex; align-items:center; gap:7px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 13px 6px 8px;
+  }
+  .legend-dot{width:9px; height:9px; border-radius:3px; flex:none;}
+  .legend-dot.hot{background:var(--hot);}
+  .legend-dot.warm{background:var(--warm);}
+  .legend-dot.cold{background:var(--cold);}
+
+  /* SECTION HEAD */
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+    margin:44px 0 16px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+  }
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .section-count{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+  }
+  .section-intro{
+    font-size:13.5px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    max-width:68ch;
+    margin:0 0 18px;
+  }
+
+  /* EPIGRAFE GROUP CARD */
+  .list{display:flex; flex-direction:column; gap:16px; margin-bottom:8px;}
+  .epi-card{
+    position:relative;
+    padding:22px 24px;
+    border-radius:14px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -20px rgba(36,31,23,.3);
+  }
+  .epi-card.nivel-hot{border-color:rgba(139,58,58,.35);}
+  .epi-card.nivel-warm{border-color:rgba(150,106,36,.3);}
+  .epi-card.nivel-cold{border-color:rgba(62,107,79,.28);}
+
+  .epi-top{
+    display:flex; gap:14px; align-items:flex-start; margin-bottom:4px;
+  }
+  .epi-icon{
+    flex:none;
+    width:38px; height:38px;
+    border-radius:10px;
+    background:var(--der-soft);
+    color:var(--der);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .epi-card.nivel-hot .epi-icon{background:var(--hot-soft); color:var(--hot);}
+  .epi-card.nivel-warm .epi-icon{background:var(--warm-soft); color:var(--warm);}
+  .epi-card.nivel-cold .epi-icon{background:var(--cold-soft); color:var(--cold);}
+  .epi-icon svg{width:18px; height:18px;}
+
+  .epi-heading{flex:1; min-width:0;}
+  .epi-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16.5px;
+    line-height:1.3;
+    margin:0 0 4px;
+    color:var(--ink);
+  }
+  .epi-stats{
+    display:flex; flex-wrap:wrap; gap:8px;
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:5px;
+    border-radius:100px;
+    padding:3px 10px;
+    font-weight:700;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    font-size:9.5px;
+    flex:none;
+    white-space:nowrap;
+  }
+  .badge.hot{background:var(--hot-soft); color:var(--hot);}
+  .badge.warm{background:var(--warm-soft); color:var(--warm);}
+  .badge.cold{background:var(--cold-soft); color:var(--cold);}
+
+  .veredicto{
+    margin:12px 0 14px;
+    font-size:13px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    padding:10px 14px;
+    background:rgba(255,255,255,.4);
+    border-left:2px solid var(--line);
+    border-radius:0 8px 8px 0;
+  }
+  .epi-card.nivel-hot .veredicto{border-left-color:var(--hot);}
+  .epi-card.nivel-warm .veredicto{border-left-color:var(--warm);}
+  .epi-card.nivel-cold .veredicto{border-left-color:var(--cold);}
+
+  /* ENUNCIADOS */
+  .enunciados{
+    list-style:none;
+    margin:14px 0 0;
+    padding:14px 0 0;
+    border-top:1px dashed var(--line);
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .enunciado{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    padding:12px 14px;
+    background:rgba(255,255,255,.45);
+    border-radius:9px;
+    border-left:3px solid var(--der-soft);
+  }
+  .enunciado.hot{border-left-color:var(--hot);}
+  .enunciado.warm{border-left-color:var(--warm);}
+  .enunciado.cold{border-left-color:var(--cold);}
+  .en-num{
+    flex:none;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:6px;
+    padding:3px 8px;
+    margin-top:1px;
+  }
+  .en-body{flex:1; min-width:0;}
+  .en-text{
+    font-size:13.5px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:0 0 5px;
+    font-weight:500;
+  }
+  .en-nota{
+    font-size:12px;
+    line-height:1.55;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .en-tags{
+    display:flex; flex-wrap:wrap; gap:6px;
+    margin-top:7px;
+  }
+  .en-tag{
+    display:inline-block;
+    font-family:'Space Mono', monospace;
+    font-size:9px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    font-weight:700;
+    padding:2px 8px;
+    border-radius:100px;
+    background:var(--der-soft);
+    color:var(--der);
+  }
+  .en-tag.hot{background:var(--hot-soft); color:var(--hot);}
+  .en-tag.warm{background:var(--warm-soft); color:var(--warm);}
+
+  /* PATRONES / RETORICA */
+  .retorica-intro{
+    font-size:13.5px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    max-width:68ch;
+    margin:0 0 22px;
+  }
+  .patron-grid{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-bottom:8px;
+  }
+  .patron-card{
+    padding:20px 22px;
+    border-radius:14px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -20px rgba(36,31,23,.3);
+  }
+  .patron-head{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    margin-bottom:10px;
+  }
+  .patron-num{
+    flex:none;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:100px;
+    padding:3px 10px;
+  }
+  .patron-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16px;
+    color:var(--ink);
+    margin:0;
+  }
+  .patron-desc{
+    font-size:13px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    margin:0 0 14px;
+  }
+  .patron-ejemplos{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .patron-ej{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    padding:10px 12px;
+    background:rgba(255,255,255,.45);
+    border-radius:8px;
+    border-left:2px solid var(--der-soft);
+  }
+  .patron-ej .yr{
+    flex:none;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:6px;
+    padding:2px 7px;
+    margin-top:1px;
+  }
+  .patron-ej-text{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--ink);
+  }
+  .patron-ej-text i{color:var(--ink-soft); font-style:italic;}
+
+  /* CHECKLIST FINAL */
+  .checklist-box{
+    margin-top:26px;
+    padding:22px 24px;
+    border-radius:14px;
+    background:var(--der-soft);
+    border:1px solid rgba(46,82,102,.2);
+  }
+  .checklist-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    color:var(--der);
+    margin:0 0 12px;
+  }
+  .checklist-cols{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  @media (max-width:560px){
+    .checklist-cols{grid-template-columns:1fr;}
+  }
+  .checklist-col h4{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--der);
+    margin:0 0 8px;
+  }
+  .checklist-col ul{
+    margin:0; padding:0 0 0 16px;
+    font-size:12.5px;
+    line-height:1.7;
+    color:var(--ink);
+  }
+  .checklist-col li b{color:var(--der);}
+
+  .foot{
+    margin-top:46px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-size:11.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+  .foot b{color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dot"></span>Derecho · Temario INE A1 · Tema 7</div>
+    <h1>Enunciados probables de examen — Los Presupuestos Generales del Estado</h1>
+    <p>Enunciados de desarrollo verosímiles para el primer ejercicio (Derecho no tiene segundo ejercicio), construidos cruzando el subíndice oficial del Tema 7, el articulado completo de la Ley 47/2003 General Presupuestaria y los seis patrones retóricos que repite este tribunal en las últimas cuatro convocatorias (2023-2026).</p>
+    <div class="hero-meta">
+      <span class="meta-chip">2 epígrafes del temario</span>
+      <span class="meta-chip">0 preguntas registradas en 4 años</span>
+      <span class="meta-chip">12 enunciados propuestos</span>
+      <span class="meta-chip">Fuente: BOE-A-2025-26900 + Ley 47/2003 (BOE-A-2003-21614)</span>
+    </div>
+  </div>
+
+  <div class="notice hot">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M12 9v4"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L14.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 17h.01"/></svg>
+    <p><b>Tema nunca preguntado — máxima prioridad de todo el bloque.</b> El Tema 7 es uno de los cinco temas de Derecho que nunca han salido en las últimas cuatro convocatorias (2023-2026). Al ser además el tema más corto del bloque (solo dos epígrafes), es estadísticamente de los que más "tocan": cuando aparezca, es previsible que sea con un enunciado que abarque uno de los dos epígrafes casi completo, no un recorte pequeño.</p>
+  </div>
+
+  <div class="notice">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><circle cx="12" cy="16" r="0.6" fill="currentColor"/></svg>
+    <p><b>Solo primer ejercicio.</b> El bloque de Derecho del Cuerpo Superior de Estadísticos del Estado únicamente se evalúa en el primer ejercicio del turno libre (desarrollo escrito de temas). El segundo ejercicio (caso práctico) no incluye contenido de Derecho, por lo que todos los enunciados de este documento están pensados exclusivamente para ese formato.</p>
+  </div>
+
+  <div class="legend">
+    <span class="legend-item"><span class="legend-dot hot"></span>Muy probable</span>
+    <span class="legend-item"><span class="legend-dot warm"></span>Probable</span>
+    <span class="legend-item"><span class="legend-dot cold"></span>Posible, contenido más colateral</span>
+  </div>
+
+  <!-- ============ EPÍGRAFE 1 ============ -->
+  <div class="section-head">
+    <h2>Epígrafe 1 — Estructura del presupuesto: clasificación de los gastos</h2>
+    <span class="section-count">Nunca preguntado</span>
+  </div>
+  <p class="section-intro">Las tres clasificaciones del art. 40 (orgánica, por programas, económica) son el contenido más "listable" de todo el Tema 7 y encajan perfectamente con el patrón de enumeración que repite este tribunal en otros temas del bloque. Es, con diferencia, el epígrafe con más probabilidad de las dos.</p>
+  <div class="list">
+
+    <div class="epi-card nivel-hot">
+      <div class="epi-top">
+        <div class="epi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></div>
+        <div class="epi-heading">
+          <h3 class="epi-title">Las tres clasificaciones del gasto público (art. 40 Ley 47/2003)</h3>
+          <div class="epi-stats"><span class="badge hot">Nunca preguntado</span></div>
+        </div>
+      </div>
+      <p class="veredicto">Orgánica (quién gasta), por programas (para qué se gasta) y económica (en qué se gasta) son tres clasificaciones que coexisten sobre el mismo crédito y no son alternativas entre sí — el matiz que más se presta a "trampa" de examen. Es el contenido más citado del tema en cualquier manual de referencia.</p>
+      <ul class="enunciados">
+        <li class="enunciado hot">
+          <span class="en-num">01</span>
+          <div class="en-body">
+            <p class="en-text">"Explicar las clasificaciones del gasto público recogidas en el art. 40 de la Ley 47/2003, General Presupuestaria, y poner un ejemplo de cada una."</p>
+            <p class="en-nota">Sigue el Patrón 1 (explicar + segunda exigencia con "y"): no basta con nombrar las tres clasificaciones, hay que ilustrarlas con un ejemplo concreto para cada una, lo que penaliza una respuesta puramente memorística.</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 1</span></div>
+          </div>
+        </li>
+        <li class="enunciado hot">
+          <span class="en-num">02</span>
+          <div class="en-body">
+            <p class="en-text">"Clasificación orgánica, por programas y económica de los estados de gastos, de conformidad con la Ley 47/2003, General Presupuestaria."</p>
+            <p class="en-nota">Enunciado nominal sin verbo (Patrón 3): cada una de las tres clasificaciones coordinadas es un apartado evaluable por separado; omitir alguna cuenta como respuesta incompleta.</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 3</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">03</span>
+          <div class="en-body">
+            <p class="en-text">"¿Son alternativas entre sí las clasificaciones orgánica, por programas y económica del gasto público, o se aplican simultáneamente sobre un mismo crédito? Razonar la respuesta con base en el art. 40 de la Ley 47/2003."</p>
+            <p class="en-nota">Pregunta cerrada (Patrón 4) construida sobre el matiz más citado del comentario de manual: la respuesta correcta es que las tres coexisten y se aplican a la vez, no son excluyentes.</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 4</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">04</span>
+          <div class="en-body">
+            <p class="en-text">"Explicar cómo se estructura y presenta el presupuesto de un organismo autónomo como el Instituto Nacional de Estadística dentro de los Presupuestos Generales del Estado."</p>
+            <p class="en-nota">Cruce directo con el perfil del cuerpo (Patrón 6): traslada la estructura general de los PGE al caso concreto del INE, en la línea de otros enunciados ya vistos que conectan Derecho con la maquinaria estadística (Tema 8, Tema 14).</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 6</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="epi-card nivel-hot">
+      <div class="epi-top">
+        <div class="epi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="epi-heading">
+          <h3 class="epi-title">Definición y ámbito temporal de los PGE (arts. 32 y 34 Ley 47/2003)</h3>
+          <div class="epi-stats"><span class="badge hot">Nunca preguntado</span></div>
+        </div>
+      </div>
+      <p class="veredicto">La definición literal del art. 32 ("expresión cifrada, conjunta y sistemática...") y el principio de anualidad con su excepción de prórroga automática son datos muy citables que suelen preguntarse juntos, precisamente por esa combinación regla-excepción tan explotada por este tribunal.</p>
+      <ul class="enunciados">
+        <li class="enunciado hot">
+          <span class="en-num">05</span>
+          <div class="en-body">
+            <p class="en-text">"Definición de los Presupuestos Generales del Estado y principio de anualidad presupuestaria, de conformidad con la Ley 47/2003, General Presupuestaria."</p>
+            <p class="en-nota">Sigue el Patrón 5 (norma citada por su nombre y número): exige reproducir la definición legal exacta del art. 32 —derechos y obligaciones "a liquidar", no ya producidos— y no una paráfrasis genérica de "qué es el presupuesto".</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 5</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">06</span>
+          <div class="en-body">
+            <p class="en-text">"¿Qué ocurre si la Ley de Presupuestos Generales del Estado no se aprueba antes del primer día del ejercicio? Razonar la respuesta con base en la Ley 47/2003."</p>
+            <p class="en-nota">Pregunta cerrada (Patrón 4) sobre la excepción a la anualidad: la prórroga automática de los presupuestos del ejercicio anterior (art. 38) es el dato que el propio comentario de manual señala como "muy preguntado junto a la definición".</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 4</span></div>
+          </div>
+        </li>
+        <li class="enunciado cold">
+          <span class="en-num">07</span>
+          <div class="en-body">
+            <p class="en-text">"Naturaleza jurídica y ámbito temporal de los Presupuestos Generales del Estado: el principio de anualidad y sus excepciones."</p>
+            <p class="en-nota">Variante más descriptiva del enunciado 05-06, con menor exigencia de cifra o cita literal; probabilidad algo menor por solaparse casi por completo con los dos anteriores.</p>
+            <div class="en-tags"><span class="en-tag">variante</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ============ EPÍGRAFE 2 ============ -->
+  <div class="section-head">
+    <h2>Epígrafe 2 — El control interno: la IGAE</h2>
+    <span class="section-count">Nunca preguntado</span>
+  </div>
+  <p class="section-intro">La distinción entre control externo (Tribunal de Cuentas, art. 136 CE) y control interno (IGAE) es un clásico de manual que este tribunal aún no ha explotado. Las tres modalidades de control interno —función interventora, control financiero permanente y auditoría pública— dan pie a un enunciado enumerativo muy en la línea del resto del bloque.</p>
+  <div class="list">
+
+    <div class="epi-card nivel-hot">
+      <div class="epi-top">
+        <div class="epi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c1.5 0 2.91.37 4.15 1.02"/><path d="M21 5 12 14l-3-3"/></svg></div>
+        <div class="epi-heading">
+          <h3 class="epi-title">La función interventora y el control interno de la IGAE (art. 140 Ley 47/2003)</h3>
+          <div class="epi-stats"><span class="badge hot">Nunca preguntado</span></div>
+        </div>
+      </div>
+      <p class="veredicto">La contraposición control externo (Tribunal de Cuentas) / control interno (IGAE) es un contenido de manual con conexión constitucional directa (art. 136 CE), lo que abre la puerta a un enunciado que cruce el Tema 7 con el Tema 1 o el Tema 3, siguiendo el patrón de cruce entre temas ya visto en 2025-2026.</p>
+      <ul class="enunciados">
+        <li class="enunciado hot">
+          <span class="en-num">08</span>
+          <div class="en-body">
+            <p class="en-text">"Explicar la función interventora de la Intervención General de la Administración del Estado (IGAE)."</p>
+            <p class="en-nota">Enunciado corto y de foco estrecho, en la línea de "¿Cuáles son los recursos económicos del INE?" (2025): exige centrarse en la función interventora en concreto, no en el control interno en general ni en las otras dos modalidades.</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 4 (foco estrecho)</span></div>
+          </div>
+        </li>
+        <li class="enunciado hot">
+          <span class="en-num">09</span>
+          <div class="en-body">
+            <p class="en-text">"Diferencias entre el control externo del Tribunal de Cuentas y el control interno de la Intervención General de la Administración del Estado sobre la gestión económico-financiera del sector público estatal."</p>
+            <p class="en-nota">Patrón 2 (comparación explícita): exige distinguir el control externo, constitucionalmente reservado al Tribunal de Cuentas (art. 136 CE), del control interno que ejerce la IGAE dentro de la propia Administración — cruce directo con el Tema 1 (Constitución).</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 2+6</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">10</span>
+          <div class="en-body">
+            <p class="en-text">"Modalidades de control interno de la gestión económico-financiera del sector público estatal ejercidas por la IGAE, de conformidad con la Ley 47/2003, General Presupuestaria."</p>
+            <p class="en-nota">Enunciado nominal (Patrón 3) que exige las tres modalidades como apartados separados: función interventora, control financiero permanente y auditoría pública — solo la primera aparece desarrollada en el articulado de referencia, lo que obliga a completar con las otras dos.</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 3</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">11</span>
+          <div class="en-body">
+            <p class="en-text">"¿Está sometida la Intervención General de la Administración del Estado a las autoridades y entidades cuya gestión controla? Razonar la respuesta con base en el art. 140 de la Ley 47/2003."</p>
+            <p class="en-nota">Pregunta cerrada (Patrón 4) construida sobre la "plena autonomía" que el propio artículo atribuye a la IGAE respecto de los entes que fiscaliza — la respuesta correcta es "no", y razonar por qué esa autonomía es la garantía de que el control no sea papel mojado.</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 4</span></div>
+          </div>
+        </li>
+        <li class="enunciado cold">
+          <span class="en-num">12</span>
+          <div class="en-body">
+            <p class="en-text">"El control de la gestión económico-financiera del sector público estatal: órganos competentes y clases de control, según la Ley 47/2003, General Presupuestaria."</p>
+            <p class="en-nota">Versión más amplia y descriptiva que engloba los enunciados 08-11 en uno solo; probabilidad algo menor de aparecer tal cual por ser redundante con los anteriores, pero útil como guion de repaso integrador de todo el epígrafe.</p>
+            <div class="en-tags"><span class="en-tag">guion integrador</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ============ RETÓRICA ============ -->
+  <div class="section-head">
+    <h2>Cómo se ha construido cada enunciado</h2>
+    <span class="section-count">6 patrones</span>
+  </div>
+  <p class="retorica-intro">Cada enunciado propuesto sigue, de forma deliberada, uno de los seis patrones retóricos que este tribunal repite en las quince preguntas reales de Derecho registradas entre 2023 y 2026. Se listan aquí para poder identificar, ya en el examen, qué exige realmente el verbo o la estructura del enunciado que toque.</p>
+  <div class="patron-grid">
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 1</span>
+        <h3 class="patron-title">"Explicar" trae casi siempre una segunda exigencia unida con "y"</h3>
+      </div>
+      <p class="patron-desc">El verbo "explicar" no pide una descripción libre: suele venir acompañado de una segunda tarea coordinada con "y" que es tan evaluable como la primera.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 01</span><span class="patron-ej-text">"Explicar las clasificaciones del gasto público [...] <b>y</b> poner un ejemplo de cada una." <i>— sin el ejemplo concreto, la respuesta queda incompleta aunque las tres clasificaciones estén bien definidas.</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 2</span>
+        <h3 class="patron-title">La comparación explícita entre dos figuras es uno de los formatos favoritos</h3>
+      </div>
+      <p class="patron-desc">Cuando el temario ofrece dos figuras cercanas (dos tipos de control, dos sistemas de provisión...), el tribunal tiende a pedir la diferencia entre ambas en vez de describirlas por separado.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 09</span><span class="patron-ej-text">"Diferencias entre el <b>control externo</b> del Tribunal de Cuentas y el <b>control interno</b> de la IGAE [...]." <i>— exige contraponer expresamente ambos, no desarrollar cada uno de forma aislada.</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 3</span>
+        <h3 class="patron-title">El enunciado nominal sin verbo convierte cada sustantivo coordinado en un apartado evaluable</h3>
+      </div>
+      <p class="patron-desc">Un título seco, sin verbo explícito, no es una pregunta más fácil: cada elemento coordinado con comas o con "y" se evalúa como un apartado independiente.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 02</span><span class="patron-ej-text">"Clasificación orgánica, por programas y económica de los estados de gastos [...]." <i>— exige las tres, no una selección de la que más se recuerde.</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 4</span>
+        <h3 class="patron-title">La pregunta cerrada ("¿es...?", "¿está...?") exige postura y fundamento, no descripción</h3>
+      </div>
+      <p class="patron-desc">El verbo "razonar" obliga a fundamentar la respuesta con el artículo exacto, no solo a contestar sí o no. En este tema también aparece en formato "foco estrecho": una pregunta muy concreta dentro de un contenido más amplio.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 11</span><span class="patron-ej-text">"¿Está sometida la IGAE a las autoridades [...] cuya gestión controla? Razonar la respuesta [...]." <i>— la respuesta correcta es "no", y el razonamiento gira en torno a la "plena autonomía" del art. 140.</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 5</span>
+        <h3 class="patron-title">"De conformidad con..." ancla la respuesta a una norma concreta, no al tema en general</h3>
+      </div>
+      <p class="patron-desc">Citar la Ley 47/2003 por su nombre al empezar el enunciado no es adorno: es la instrucción implícita de que la respuesta debe apoyarse en esa norma exacta.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 05</span><span class="patron-ej-text">"Definición de los PGE [...], <b>de conformidad con</b> la Ley 47/2003, General Presupuestaria." <i>— exige la definición legal literal del art. 32, no una paráfrasis libre de "qué es el presupuesto".</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 6</span>
+        <h3 class="patron-title">Las preguntas más recientes cruzan dos bloques en un solo enunciado</h3>
+      </div>
+      <p class="patron-desc">La evolución más clara del estilo del tribunal en 2025-2026: el enunciado solo se responde bien si se conectan dos contenidos distintos, a veces de temas diferentes del bloque.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 04</span><span class="patron-ej-text">"[...] cómo se estructura [...] el presupuesto de un organismo autónomo como el <b>Instituto Nacional de Estadística</b> [...]." <i>— traslada la teoría general de los PGE al caso concreto del INE, en vez de describir el presupuesto en abstracto.</i></span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="checklist-box">
+    <h3 class="checklist-title">Checklist de repaso rápido antes del examen</h3>
+    <div class="checklist-cols">
+      <div class="checklist-col">
+        <h4>Datos de memorización literal</h4>
+        <ul>
+          <li><b>Art. 32</b> — definición de los PGE: "expresión cifrada, conjunta y sistemática" de derechos y obligaciones <b>a liquidar</b> (previsión, no hechos consumados).</li>
+          <li><b>Art. 34 / art. 38</b> — principio de anualidad; si no se aprueba a tiempo, prórroga automática de los presupuestos del ejercicio anterior.</li>
+          <li><b>Art. 40</b> — las tres clasificaciones del gasto: orgánica (quién), por programas (para qué), económica (en qué); coexisten, no son alternativas.</li>
+          <li><b>Art. 140</b> — control interno de la IGAE con "plena autonomía" respecto de los entes que controla.</li>
+        </ul>
+      </div>
+      <div class="checklist-col">
+        <h4>Cruces con otros temas a vigilar</h4>
+        <ul>
+          <li><b>Con el Tema 1</b> — el control externo del Tribunal de Cuentas (art. 136 CE) es la pieza que falta para completar la comparación con el control interno de la IGAE.</li>
+          <li><b>Con el Tema 8</b> — el presupuesto del INE y del Plan Estadístico Nacional se estructura con las mismas tres clasificaciones del art. 40.</li>
+          <li><b>Con el Tema 2</b> — la aprobación de los PGE por las Cortes Generales conecta con las funciones de las Cámaras y la reserva de Pleno para su tramitación (nunca en comisión).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <b>Cómo se han construido estos enunciados:</b> se ha cruzado el subíndice oficial del Tema 7 (BOE-A-2025-26900) con el articulado completo de la Ley 47/2003, General Presupuestaria (BOE-A-2003-21614) recogido en el material de complemento del tema, y con los seis patrones retóricos identificados en las quince preguntas reales de Derecho de las últimas cuatro convocatorias (2023-2026). Ninguno de los enunciados de este documento ha sido registrado como pregunta real: el Tema 7 no aparece en el histórico de las cuatro últimas convocatorias, por lo que todos son formulaciones verosímiles construidas a partir del contenido del temario y del estilo documentado del tribunal — no transcripciones de exámenes reales ni garantía de que vayan a aparecer tal cual.
+    <br><br>
+    <b>Fuente del temario:</b> Resolución de 22 de diciembre de 2025, de la Subsecretaría (Ministerio de Economía, Comercio y Empresa) — BOE núm. 313, de 29/12/2025, Anexo I, Programa, apartado A.VI «Derecho». Ref. BOE-A-2025-26900.
+    <br><br>
+    <b>Fuente normativa:</b> Ley 47/2003, de 26 de noviembre, General Presupuestaria (BOE-A-2003-21614), texto consolidado. Contrastar contra la versión vigente en la fecha de la convocatoria.
+    <br><br>
+    <b>Sobre el primer y segundo ejercicio:</b> el bloque de Derecho del turno libre al Cuerpo Superior de Estadísticos del Estado solo se evalúa en el primer ejercicio (exposición de un tema de desarrollo elegido por sorteo); el segundo ejercicio (resolución de un caso o supuesto práctico) no incluye contenido de esta materia, por lo que no existen enunciados de "segundo ejercicio" para el Tema 7.
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 3 · Enunciados probables de examen — El Gobierno y la Administración Pública</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;500;700&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --ink:#241F17;
+    --ink-soft:#6b6252;
+    --ink-faint:#9a9082;
+    --line:#dcd4c2;
+    --der:#2E5266;
+    --der-soft:#DCE6EB;
+    --der-glow:rgba(46,82,102,.18);
+    --glass:rgba(255,255,255,.6);
+    --card:#FBF8F1;
+
+    --hot:#8B3A3A;
+    --hot-soft:#F3DEDE;
+    --warm:#966A24;
+    --warm-soft:#F1E4CB;
+    --cold:#3E6B4F;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(36,31,23,.07) 1px, transparent 0) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    padding:48px 20px 90px;
+    line-height:1.6;
+  }
+
+  .wrap{max-width:840px; margin:0 auto;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:38px 36px 32px;
+    border-radius:20px;
+    background:var(--glass);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -24px rgba(36,31,23,.25);
+    overflow:hidden;
+    margin-bottom:30px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:-40% -20% auto auto;
+    width:340px; height:340px;
+    background:radial-gradient(circle, var(--der-glow), transparent 70%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.1em;
+    color:var(--der);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--der);}
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(24px, 4vw, 35px);
+    line-height:1.14;
+    margin:0 0 10px;
+    letter-spacing:-.01em;
+  }
+  .hero p{
+    margin:0;
+    max-width:64ch;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.65;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:9px;
+    margin-top:20px;
+  }
+  .meta-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.55);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 12px;
+  }
+
+  /* NOTA ESTRUCTURAL */
+  .nota-estructura{
+    background:var(--der-soft);
+    border-radius:14px;
+    padding:18px 22px;
+    margin-bottom:32px;
+    font-size:13.5px;
+    color:#26414d;
+    line-height:1.6;
+  }
+  .nota-estructura b{color:var(--der);}
+
+  .nota-alerta{
+    background:var(--warm-soft);
+    border-radius:14px;
+    padding:16px 22px;
+    margin-bottom:32px;
+    font-size:13.5px;
+    color:#4d3a12;
+    line-height:1.6;
+  }
+  .nota-alerta b{color:var(--warm);}
+
+  /* SECTION HEADS */
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:14px;
+    margin:44px 0 6px;
+    padding-bottom:10px;
+    border-bottom:2px solid var(--ink);
+  }
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0;
+    letter-spacing:-.005em;
+  }
+  .section-count{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-faint);
+    white-space:nowrap;
+  }
+  .section-lead{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    max-width:66ch;
+    margin:12px 0 22px;
+  }
+
+  /* ENUNCIADO CARD */
+  .enunciado{
+    position:relative;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:4px solid var(--der);
+    border-radius:4px;
+    padding:20px 24px 20px 22px;
+    margin-bottom:16px;
+  }
+  .enunciado.hot{border-left-color:var(--hot);}
+  .enunciado.warm{border-left-color:var(--warm);}
+  .enunciado.cold{border-left-color:var(--cold);}
+
+  .en-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:10px;
+    flex-wrap:wrap;
+  }
+  .en-num{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:#fff;
+    background:var(--der);
+    border-radius:100px;
+    padding:3px 10px;
+    flex:none;
+  }
+  .en-num.hot{background:var(--hot);}
+  .en-num.warm{background:var(--warm);}
+  .en-num.cold{background:var(--cold);}
+  .en-tag{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.04em;
+    color:var(--ink-faint);
+    background:rgba(0,0,0,.04);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:3px 9px;
+  }
+
+  .en-enunciado{
+    font-family:'Fraunces', serif;
+    font-size:17.5px;
+    font-weight:500;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 12px;
+  }
+  .en-enunciado mark{
+    background:transparent;
+    color:var(--der);
+    font-weight:600;
+  }
+
+  .en-porque{
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.6;
+    border-top:1px dashed var(--line);
+    padding-top:11px;
+  }
+  .en-porque b{color:var(--ink);}
+
+  /* LEXICO */
+  .lexico-box{
+    margin-top:40px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:26px 28px;
+  }
+  .lexico-box h3{
+    font-family:'Fraunces', serif;
+    font-size:17px;
+    font-weight:600;
+    margin:0 0 14px;
+  }
+  .lexico-box ul{
+    margin:0;
+    padding-left:20px;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .lexico-box li{margin-bottom:7px;}
+  .lexico-box b{color:var(--ink);}
+
+  .foot{
+    margin-top:44px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-size:12px;
+    color:var(--ink-faint);
+    line-height:1.7;
+  }
+  .foot b{color:var(--ink-soft);}
+
+  @media(max-width:600px){
+    .hero{padding:28px 22px 24px;}
+    .enunciado{padding:18px 18px 18px 16px;}
+    .en-enunciado{font-size:16.5px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dot"></span>INE A1 · CUERPO SUPERIOR DE ESTADÍSTICOS · BLOQUE DE DERECHO</div>
+    <h1>Tema 3 — El Gobierno y la Administración Pública</h1>
+    <p>Enunciados probables de examen para el primer ejercicio (desarrollo escrito), construidos sobre los arts. 97-107 CE, la Ley 50/1997 del Gobierno, el Título I de la Ley 40/2015 (órganos superiores y directivos, Administración periférica) y la estructura concreta y vigente del Ministerio de Economía, Comercio y Empresa y sus organismos adscritos. El bloque de Derecho no tiene segundo ejercicio: se evalúa únicamente en el primer ejercicio del turno libre.</p>
+    <div class="hero-meta">
+      <span class="meta-chip">arts. 97-107 CE</span>
+      <span class="meta-chip">Ley 50/1997 del Gobierno</span>
+      <span class="meta-chip">Ley 40/2015, Título I</span>
+      <span class="meta-chip">RD 410/2024 (estructura del Ministerio)</span>
+      <span class="meta-chip">Solo primer ejercicio</span>
+    </div>
+  </div>
+
+  <div class="nota-estructura">
+    <b>Cómo está construido este tema.</b> El subíndice oficial del Tema 3 tiene cuatro epígrafes de naturaleza muy distinta entre sí: (A) composición y funciones del Gobierno como órgano constitucional (arts. 97-101 CE y Ley 50/1997); (B) la organización interna de la AGE en órganos superiores y directivos (Título I de la Ley 40/2015); (C) la Administración periférica del Estado (Delegados y Subdelegados del Gobierno); y (D) la estructura concreta del Ministerio del que depende el INE y sus organismos adscritos, que se fija por Real Decreto y cambia con cada reorganización de Gobierno. Los tres primeros son contenido normativo estable; el cuarto es una "foto" del organigrama vigente que conviene repasar cerca de la fecha del examen. Los enunciados de este documento no son transcripción de ningún examen real: son construcciones propias por analogía con el estilo retórico que sí se ha detectado en las preguntas reales de otros temas de las convocatorias 2023-2026.
+  </div>
+
+  <div class="nota-alerta">
+    <b>Aviso sobre nomenclatura.</b> El programa oficial (BOE-A-2022-2725) todavía nombra el epígrafe D como "Estructura del Ministerio de Asuntos Económicos y Transformación Digital", denominación anterior a la reestructuración de noviembre de 2023. El nombre vigente del departamento es <b>Ministerio de Economía, Comercio y Empresa</b> (RD 829/2023). Si un enunciado usa el nombre antiguo, es probable que se refiera al temario tal cual está redactado — pero la respuesta debe manejar la estructura y denominación actuales salvo que se pregunte explícitamente por un momento histórico.
+  </div>
+
+  <!-- ============ BLOQUE A: COMPOSICIÓN Y FUNCIONES DEL GOBIERNO ============ -->
+  <div class="section-head">
+    <h2>Bloque A — Composición y funciones del Gobierno</h2>
+    <span class="section-count">arts. 97-102 CE · Ley 50/1997</span>
+  </div>
+  <p class="section-lead">El epígrafe más "constitucional" del tema, en la línea directa del Tema 2 que le precede. Combina el mandato genérico de la Constitución con el desarrollo detallado de la Ley 50/1997, lo que da pie a preguntas que exigen citar ambas normas juntas.</p>
+
+  <div class="enunciado hot">
+    <div class="en-head">
+      <span class="en-num hot">A·1</span>
+      <span class="en-tag">verbo: explicar</span>
+      <span class="en-tag">patrón 1</span>
+    </div>
+    <p class="en-enunciado">Explicar la composición del Gobierno según el artículo 98 CE y la Ley 50/1997, indicando qué órganos, pese a su relevancia política, quedan fuera de la condición de miembro del Gobierno.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> el propio articulado señala como dato destacado que los Secretarios de Estado no son miembros del Gobierno pese a asistir a veces al Consejo de Ministros — matiz fácil de convertir en la "segunda exigencia" característica del verbo "explicar" en este tribunal.</p>
+  </div>
+
+  <div class="enunciado hot">
+    <div class="en-head">
+      <span class="en-num hot">A·2</span>
+      <span class="en-tag">verbo: exponer</span>
+      <span class="en-tag">patrón 2</span>
+    </div>
+    <p class="en-enunciado">Exponer el procedimiento de investidura del Presidente del Gobierno regulado en el artículo 99 CE, señalando las mayorías exigidas en cada votación y la consecuencia de que transcurran dos meses sin que ningún candidato obtenga la confianza del Congreso.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> combina dos cifras muy citables (mayoría absoluta en primera votación, mayoría simple 48 horas después) con un plazo cerrado (dos meses) y su consecuencia jurídica (disolución automática) — encaja con el patrón "enumerar y explicar" que este tribunal ya ha usado con las cifras del Congreso y el Senado.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">A·3</span>
+      <span class="en-tag">enunciado nominal</span>
+      <span class="en-tag">patrón 3</span>
+    </div>
+    <p class="en-enunciado">Las causas de cese del Gobierno y el régimen del Gobierno en funciones: supuestos del artículo 101 CE y alcance de la continuidad prevista en su apartado 2.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> cuatro causas de cese que se prestan a pregunta "por eliminación" (elecciones generales, pérdida de confianza, dimisión, fallecimiento del Presidente) más el concepto de "Gobierno en funciones", que suele confundirse con un vacío de poder ejecutivo que en realidad no existe.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">A·4</span>
+      <span class="en-tag">verbo: razonar</span>
+      <span class="en-tag">patrón 4</span>
+    </div>
+    <p class="en-enunciado">¿Puede el Consejo de Ministros crear o suprimir un Departamento ministerial por Real Decreto, o requiere una ley? Razonar la respuesta con referencia al artículo 2.2.j) de la Ley 50/1997.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> pregunta cerrada de fundamento legal exacto, en la línea de las ya hechas sobre el Censo Electoral (2023) y el veto del Senado; la respuesta correcta —que es el Presidente, no el Consejo de Ministros, y por Real Decreto, sin necesidad de ley— es fácil de errar si no se cita el precepto exacto, y conecta directamente con por qué la estructura ministerial "cambia con cada legislatura" tal como advierte el propio complemento del tema.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">A·5</span>
+      <span class="en-tag">verbo: explicar</span>
+    </div>
+    <p class="en-enunciado">Explicar la responsabilidad penal del Presidente del Gobierno y de los Ministros según el artículo 102 CE, indicando el órgano jurisdiccional competente y el supuesto agravado que exige iniciativa cualificada del Congreso.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> permite comparar este fuero con el ya visto para Diputados y Senadores (art. 71.3 CE, Tema 2) y con la exclusión expresa del indulto (art. 102.3) — tipo de pregunta que premia relacionar contenido con un tema contiguo ya trabajado.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">A·6</span>
+      <span class="en-tag">definición</span>
+    </div>
+    <p class="en-enunciado">Definir el principio de dirección presidencial que consagra el artículo 2 de la Ley 50/1997 y precisar su compatibilidad con la competencia y responsabilidad directa de cada Ministro en su gestión.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> tensión clásica entre supremacía del Presidente (dirige y coordina) y autonomía de gestión de cada Ministro (art. 98.2 CE) — el tipo de matiz que separa una respuesta memorística de una razonada.</p>
+  </div>
+
+  <!-- ============ BLOQUE B: ÓRGANOS SUPERIORES Y DIRECTIVOS ============ -->
+  <div class="section-head">
+    <h2>Bloque B — Órganos superiores y directivos de la AGE</h2>
+    <span class="section-count">Ley 40/2015, arts. 55, 61-66</span>
+  </div>
+  <p class="section-lead">El epígrafe con la distinción más citada de todo el tema —órganos superiores frente a órganos directivos— y con una jerarquía completa (Ministro → Secretario de Estado → Subsecretario → Director general → Subdirector general) que se presta muy bien a preguntas de enumeración con matices de nombramiento.</p>
+
+  <div class="enunciado hot">
+    <div class="en-head">
+      <span class="en-num hot">B·1</span>
+      <span class="en-tag">verbo: exponer</span>
+      <span class="en-tag">patrón 2</span>
+    </div>
+    <p class="en-enunciado">Exponer la distinción entre órganos superiores y órganos directivos de la Administración General del Estado conforme al artículo 55.3 de la Ley 40/2015, señalando qué diferencia de fondo existe en el criterio de nombramiento de unos y otros.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> el propio articulado la señala como "una distinción que se pregunta constantemente"; el matiz final (superiores = cargos políticos; directivos = principio de profesionalización, nombrados entre funcionarios de carrera) es justo la segunda exigencia que este tribunal suele esconder tras el "y" o el "señalando".</p>
+  </div>
+
+  <div class="enunciado hot">
+    <div class="en-head">
+      <span class="en-num hot">B·2</span>
+      <span class="en-tag">enunciado nominal</span>
+      <span class="en-tag">patrón 3</span>
+    </div>
+    <p class="en-enunciado">La jerarquía de los órganos ministeriales desde el Ministro hasta el Subdirector general: denominación de cada nivel y órgano competente para su nombramiento.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> el articulado marca explícitamente esta cadena como algo que "conviene fijar de memoria", con el detalle de que Directores generales se nombran por Real Decreto del Consejo de Ministros y Subdirectores generales por Orden del Ministro — distinción muy citable en tipo test que encaja bien como pregunta de desarrollo por niveles.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">B·3</span>
+      <span class="en-tag">verbo: explicar</span>
+    </div>
+    <p class="en-enunciado">Explicar las funciones que el artículo 63 de la Ley 40/2015 atribuye a los Subsecretarios y su posición jerárquica respecto de los Directores generales del mismo Ministerio.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> el Subsecretario es "el primer órgano directivo en rango" según el propio comentario del articulado, con funciones transversales (servicios comunes) distintas de la gestión sectorial de los Directores generales — contraste que se presta a pregunta de diferenciación de funciones.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">B·4</span>
+      <span class="en-tag">verbo: razonar</span>
+      <span class="en-tag">patrón 4</span>
+    </div>
+    <p class="en-enunciado">¿Son los Secretarios de Estado miembros del Gobierno? Razonar la respuesta distinguiendo su condición de órgano superior de la AGE de la de miembro del Gobierno en sentido estricto.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> cruza directamente el Bloque A (composición del Gobierno, art. 1.2 Ley 50/1997) con el Bloque B (art. 55.3 Ley 40/2015, que sí los califica de "órganos superiores") — mismo tipo de pregunta cerrada que ya se ha usado en otros temas para poner a prueba un matiz que se confunde con frecuencia.</p>
+  </div>
+
+  <!-- ============ BLOQUE C: ADMINISTRACIÓN PERIFÉRICA ============ -->
+  <div class="section-head">
+    <h2>Bloque C — La Administración periférica del Estado</h2>
+    <span class="section-count">Ley 40/2015, arts. 69, 72-75</span>
+  </div>
+  <p class="section-lead">Epígrafe muy reglado y estable frente a la estructura ministerial concreta —no depende de qué Gobierno esté en el poder—, lo que lo hace, según el propio mapa de probabilidad de otros temas de este bloque, más "seguro" de preguntar que contenido sujeto a cambios de legislatura.</p>
+
+  <div class="enunciado hot">
+    <div class="en-head">
+      <span class="en-num hot">C·1</span>
+      <span class="en-tag">verbo: explicar</span>
+      <span class="en-tag">patrón 1</span>
+    </div>
+    <p class="en-enunciado">Explicar la doble dependencia orgánica y funcional de los Delegados del Gobierno en las Comunidades Autónomas, e indicar el nivel orgánico que la ley atribuye a las Delegaciones del Gobierno.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> el articulado subraya ambos datos como "se pregunta siempre" (dependencia orgánica del Presidente del Gobierno, funcional del Ministerio competente) y "se pregunta con frecuencia" (nivel orgánico de Subsecretaría) — combinación exacta del patrón "explicar + indicar" ya detectado en otros temas.</p>
+  </div>
+
+  <div class="enunciado hot">
+    <div class="en-head">
+      <span class="en-num hot">C·2</span>
+      <span class="en-tag">verbo: exponer</span>
+      <span class="en-tag">patrón 2</span>
+    </div>
+    <p class="en-enunciado">Exponer las diferencias entre el régimen de nombramiento de los Delegados del Gobierno y el de los Subdelegados del Gobierno en las provincias, incluidos el órgano competente y los requisitos de titulación exigidos.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> contraste muy citable en el propio articulado (Delegados: Real Decreto del Consejo de Ministros, a propuesta del Presidente; Subdelegados: libre designación del propio Delegado, entre funcionarios de carrera con titulación de grupo A1) — sigue el patrón "tipos + diferencias" ya usado por el tribunal con los recursos administrativos.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">C·3</span>
+      <span class="en-tag">enunciado nominal</span>
+      <span class="en-tag">patrón 3</span>
+    </div>
+    <p class="en-enunciado">Competencias de los Delegados del Gobierno en las Comunidades Autónomas: principales bloques funcionales que les atribuye el artículo 73 de la Ley 40/2015.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> el propio comentario del articulado agrupa el listado legal en cinco grandes categorías y advierte de recordar "el esquema de bloques más que el literal de cada letra" — formulación que encaja con el patrón de enunciado nominal que exige estructura clara más que memorización literal.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">C·4</span>
+      <span class="en-tag">verbo: razonar</span>
+      <span class="en-tag">patrón 4</span>
+    </div>
+    <p class="en-enunciado">¿Existe la figura del Subdelegado del Gobierno en todas las provincias? Razonar la respuesta y explicar quién asume sus competencias cuando no existe tal figura.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> excepción poco citada en manuales generalistas (Comunidades Autónomas uniprovinciales, donde por regla general no hay Subdelegado y sus funciones las asume el propio Delegado) — el tipo de matiz de detalle que este tribunal ha demostrado premiar en preguntas cerradas.</p>
+  </div>
+
+  <!-- ============ BLOQUE D: ESTRUCTURA DEL MINISTERIO Y ORGANISMOS ADSCRITOS ============ -->
+  <div class="section-head">
+    <h2>Bloque D — Estructura del Ministerio y organismos adscritos, con foco en el INE</h2>
+    <span class="section-count">RD 829/2023 · RD 410/2024</span>
+  </div>
+  <p class="section-lead">El epígrafe con más valor de examen específico para un tribunal de estadísticos: no interesa memorizar el organigrama completo, sino fijar la adscripción exacta del INE y su "compañero de vecindario" administrativo. El propio complemento de este tema anticipa las tres preguntas más probables, que aquí se desarrollan en formato de enunciado de examen.</p>
+
+  <div class="enunciado hot">
+    <div class="en-head">
+      <span class="en-num hot">D·1</span>
+      <span class="en-tag">verbo: explicar</span>
+      <span class="en-tag">cruce con Tema 8</span>
+      <span class="en-tag">patrón 6</span>
+    </div>
+    <p class="en-enunciado">Explicar a qué Ministerio está adscrito el Instituto Nacional de Estadística y a través de qué Secretaría de Estado, indicando su naturaleza jurídica como organismo público y la norma que aprueba su Estatuto.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> es literalmente el "encadenado de examen típico" que anticipa el propio complemento de este tema (Ministerio de Economía, Comercio y Empresa → Secretaría de Estado de Economía y Apoyo a la Empresa → organismo autónomo → RD 803/2022), y cruza de forma natural con el Tema 8 (Ley 12/1989) y con la Ley 40/2015 (organismos autónomos, arts. 98-100).</p>
+  </div>
+
+  <div class="enunciado hot">
+    <div class="en-head">
+      <span class="en-num hot">D·2</span>
+      <span class="en-tag">verbo: exponer</span>
+      <span class="en-tag">patrón 2</span>
+    </div>
+    <p class="en-enunciado">Exponer al menos tres organismos públicos adscritos o vinculados al Ministerio de Economía, Comercio y Empresa a través de la misma Secretaría de Estado que el Instituto Nacional de Estadística, distinguiendo su naturaleza jurídica.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> el propio complemento advierte de que la CNMV es "el compañero de adscripción que más se confunde en examen" con la CNMC, y que ambas —junto al FROB— se vinculan como autoridades administrativas independientes (arts. 109-110 Ley 40/2015), no como organismos autónomos ordinarios como el INE; el patrón "al menos tres" ya se ha usado literalmente en 2023 para los principios de conducta del TREBEP.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">D·3</span>
+      <span class="en-tag">definición</span>
+    </div>
+    <p class="en-enunciado">Definir la naturaleza jurídica del Instituto Nacional de Estadística como organismo autónomo, precisando su encaje en la sección 2ª del capítulo III del título II de la Ley 40/2015.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> conecta la clasificación general de entes del sector público institucional (Ley 40/2015) con el caso concreto del INE, en la línea de preguntas ya hechas sobre otros organismos concretos (Consejo Superior de Estadística, Consejo de Transparencia) que piden "naturaleza y funciones de un órgano determinado".</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">D·4</span>
+      <span class="en-tag">verbo: razonar</span>
+      <span class="en-tag">patrón 4</span>
+    </div>
+    <p class="en-enunciado">¿Puede modificarse la estructura del Ministerio del que depende el INE mediante Real Decreto, sin necesidad de una ley? Razonar la respuesta con referencia al artículo 59.1 de la Ley 40/2015.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> retoma desde el ángulo del Bloque D la misma habilitación general ya vista en el enunciado A·4 (potestad organizatoria del Gobierno), pero aplicada esta vez al caso concreto y "sensible" del propio Ministerio del examinando — tipo de pregunta que premia entender por qué la denominación ministerial cambia con cada legislatura sin que ello afecte a la validez de la estructura.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">D·5</span>
+      <span class="en-tag">verbo: exponer</span>
+      <span class="en-tag">cruce con Tema 8</span>
+      <span class="en-tag">patrón 6</span>
+    </div>
+    <p class="en-enunciado">Exponer la diferencia entre la Secretaría de Estado de Economía y Apoyo a la Empresa y la Secretaría de Estado de Comercio, indicando de cuál de las dos depende funcionalmente la actividad estadística oficial.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> el complemento del tema ofrece explícitamente la regla mnemotécnica "Economía y Apoyo a la Empresa = hacia dentro (incluida la estadística) / Comercio = hacia fuera (comercio exterior, ICEX)" — contraste fácil de convertir en pregunta de diferenciación funcional con aplicación directa al organismo del propio tribunal.</p>
+  </div>
+
+  <div class="lexico-box">
+    <h3>Cómo leer estos enunciados</h3>
+    <ul>
+      <li><b>Estos diecinueve enunciados no son transcripción de ningún examen real.</b> Son construcciones propias que aplican al contenido de los arts. 97-107 CE, la Ley 50/1997, el Título I de la Ley 40/2015 y la estructura vigente del Ministerio los patrones lingüísticos detectados en las 15 preguntas literales de las convocatorias 2023-2026 del primer ejercicio.</li>
+      <li><b>El Bloque D es una "foto", no una norma estable.</b> A diferencia de los Bloques A, B y C, la estructura concreta del Ministerio (nombre, Secretarías de Estado, organismos adscritos) se fija por Real Decreto y cambia con cada reorganización de Gobierno — conviene verificar en boe.es o lamoncloa.gob.es que los datos de titulares y denominación siguen vigentes cerca de la fecha del examen, sin que ello afecte al esquema organizativo de fondo (que sí es estable y evaluable).</li>
+      <li><b>Etiquetas de patrón:</b> remiten al análisis retórico ya usado para el Tema 2 ("explicar" = desarrollo causal con doble exigencia; "exponer" = enumeración con número mínimo o diferencias; enunciado nominal = varios apartados evaluables; cruce de temas = exige conectar dos bloques distintos del temario, aquí sobre todo con el Tema 8, Ley 12/1989).</li>
+      <li><b>Solo primer ejercicio.</b> El bloque de Derecho de la convocatoria INE A1 se evalúa exclusivamente en el primer ejercicio del turno libre; el segundo ejercicio lo excluye expresamente.</li>
+    </ul>
+  </div>
+
+  <div class="foot">
+    <b>Fuentes:</b> articulado y comentarios del Tema 3 (arts. 97-107 CE; Ley 50/1997, arts. 1, 2, 5, 22-26; Ley 40/2015, Título I, arts. 55, 61-66, 69, 72-75) tomados del documento base de Derecho articulado INE A1; alcance exacto del subíndice oficial del tema, del índice de temario de Derecho; estructura concreta y vigente del Ministerio de Economía, Comercio y Empresa, adscripción exacta del INE y organismos "compañeros de vecindario" (CNMV, CNMC, ICO, FROB), del complemento específico del Tema 3 sobre estructura ministerial (RD 829/2023, RD 1009/2023, RD 410/2024, RD 803/2022).
+    <br><br>
+    Los diecinueve enunciados de este documento son elaboración propia de apoyo al estudio, construidos por analogía con el estilo real del tribunal — no son transcripción literal de ningún examen. Antes de la convocatoria, contrasta siempre contra el texto vigente de cada norma y el organigrama ministerial actualizado.
+  </div>
+
+</div>
+</body>
+</html>

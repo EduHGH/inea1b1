@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Huecos reales de la Ley 40/2015 — Complemento en orden BOE — INE A1</title>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --paper-deep:#EAE3D2;
+    --ink:#1F1B16;
+    --ink-soft:#4A443A;
+    --ink-faint:#8A8375;
+    --rule:#D9D1BE;
+    --highlight:#EFA07F;
+    --highlight-deep:#E88357;
+    --highlight-text:#4A2410;
+    --card:#FBF8F1;
+    --article-bg:#FFFEFB;
+    --article-border:#DCD3BC;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+  }
+
+  .doc{
+    max-width:800px;
+    margin:0 auto;
+    padding:64px 28px 120px;
+  }
+
+  .masthead{
+    border-bottom:3px solid var(--ink);
+    padding-bottom:20px;
+    margin-bottom:32px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:10px;
+  }
+  h1.title{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:36px;
+    line-height:1.1;
+    letter-spacing:-.01em;
+    margin:0 0 8px;
+  }
+  .subtitle{
+    font-size:16px;
+    color:var(--ink-soft);
+    max-width:64ch;
+  }
+
+  .howto{
+    background:var(--paper-deep);
+    border-radius:6px;
+    padding:18px 20px;
+    margin:24px 0 40px;
+  }
+  .howto .kc-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+  }
+  .howto p{margin:0 0 8px; font-size:14.5px;}
+  .howto p:last-child{margin-bottom:0;}
+
+  section.bloque{margin-bottom:56px; scroll-margin-top:24px;}
+  .bloque-head{display:flex; align-items:baseline; gap:14px; margin-bottom:6px;}
+  .bloque-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--highlight-deep);
+    border:1px solid var(--highlight-deep);
+    border-radius:100px;
+    padding:2px 10px;
+  }
+  .bloque-title{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:23px;
+    margin:0;
+  }
+  .norma-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+    margin:6px 0 14px;
+  }
+  .tema-intro{
+    font-size:15px;
+    color:var(--ink-soft);
+    max-width:68ch;
+    margin-bottom:8px;
+  }
+
+  .articulo{
+    background:var(--article-bg);
+    border:1px solid var(--article-border);
+    border-radius:8px;
+    padding:20px 22px;
+    margin:22px 0 0;
+  }
+  .art-head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:8px;
+    margin-bottom:10px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--rule);
+  }
+  .art-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:14px;
+    color:var(--highlight-text);
+    background:#FBE3D4;
+    padding:2px 9px;
+    border-radius:4px;
+  }
+  .art-rubrica{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16.5px;
+    color:var(--ink);
+  }
+  .art-body p{margin:0 0 10px; font-size:15px;}
+  .art-body p:last-child{margin-bottom:0;}
+  .art-body b{color:var(--ink);}
+  mark{
+    background:#F6D9C4;
+    color:var(--highlight-text);
+    padding:0 3px;
+    border-radius:2px;
+  }
+
+  .comentario{
+    background:var(--card);
+    border-left:3px solid var(--highlight-deep);
+    border-radius:0 6px 6px 0;
+    padding:16px 20px;
+    margin:0 0 8px;
+  }
+  .c-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--highlight-deep);
+    margin-bottom:8px;
+  }
+  .comentario p{margin:0 0 8px; font-size:14.5px; color:var(--ink-soft);}
+  .comentario p:last-child{margin-bottom:0;}
+  .ine-tag{
+    font-size:13.5px;
+    color:var(--ink-faint);
+    font-style:italic;
+    border-top:1px dashed var(--rule);
+    padding-top:8px;
+    margin-top:8px;
+  }
+
+  .divider{border:none; border-top:2px solid var(--ink); margin:56px 0;}
+
+  .toc-wrap{
+    background:var(--card);
+    border:1px solid var(--article-border);
+    border-radius:4px;
+    padding:28px 32px;
+    margin:0 0 56px;
+  }
+  .toc-wrap .kc-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 16px;
+  }
+  .toc-wrap ol{
+    list-style:none;
+    margin:0;
+    padding:0;
+    counter-reset:toc;
+  }
+  .toc-wrap li{
+    margin:0;
+    border-top:1px dashed var(--rule);
+  }
+  .toc-wrap li:first-child{border-top:none;}
+  .toc-wrap a{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    padding:9px 0;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .toc-wrap a:hover .toc-title{color:var(--highlight-deep);}
+  .toc-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+    flex-shrink:0;
+    width:64px;
+  }
+  .toc-title{font-size:14.5px;}
+
+  .part-flag{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    background:var(--paper-deep);
+    border:1px solid var(--rule);
+    border-radius:20px;
+    padding:4px 14px;
+    margin:0 0 20px;
+  }
+  hr.part-divider{
+    border:none;
+    border-top:3px double var(--ink);
+    margin:80px 0 56px;
+  }
+  .back-to-top{
+    display:inline-block;
+    margin-top:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:.04em;
+    color:var(--ink-faint);
+    text-decoration:none;
+    border-bottom:1px dashed var(--ink-faint);
+  }
+  .back-to-top:hover{color:var(--highlight-deep); border-color:var(--highlight-deep);}
+
+  table.cuadro{
+    width:100%;
+    border-collapse:collapse;
+    margin:18px 0 8px;
+    font-size:13.5px;
+  }
+  table.cuadro th, table.cuadro td{
+    border:1px solid var(--rule);
+    padding:8px 10px;
+    text-align:left;
+    vertical-align:top;
+  }
+  table.cuadro th{
+    background:var(--paper-deep);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+  }
+
+</style>
+</head>
+<body>
+<div class="doc" id="top">
+
+  <div class="masthead">
+    <div class="eyebrow">Complemento · Derecho Público INE A1 · Tema 5 · Ley 40/2015</div>
+    <h1 class="title">Los huecos reales de la Ley 40/2015 (LRJSP) — artículos que faltan, en orden BOE</h1>
+    <p class="subtitle">Recorrida la Ley 40/2015, de Régimen Jurídico del Sector Público, de principio a fin frente a lo que ya tenías cubierto, estos son los artículos que faltaban. Se presentan en el mismo orden del articulado oficial, agrupados por título y capítulo, con prioridad para el Título Preliminar (1-53), donde están los dos capítulos clásicos de examen que no tenías en absoluto: potestad sancionadora y responsabilidad patrimonial.</p>
+  </div>
+
+  <div class="howto">
+    <div class="kc-label">Qué cubre exactamente este complemento y en qué orden de prioridad</div>
+    <p>El Título Preliminar (arts. 1-53) es, con diferencia, lo más rentable para el A1: ahí viven los <mark>Capítulos III y IV</mark> —potestad sancionadora (25-31) y responsabilidad patrimonial (32-37)— que son de los bloques más preguntados de todo el temario de procedimiento administrativo, y que no tenías cubiertos en absoluto. Por eso este documento empieza precisamente ahí y los desarrolla con más detalle y comentario que el resto.</p>
+    <p>Se cubren <mark>7 bloques</mark> en orden BOE: (1) art. 4 y huecos del Cap. II de Órganos; (2) Potestad sancionadora íntegra (25-31); (3) Responsabilidad patrimonial íntegra (32-37); (4) Funcionamiento electrónico íntegro (38-46); (5) resto de Convenios (49-53); (6) huecos de la AGE (Título I) y (7) un cierre-resumen del Título II (Sector público institucional) y el Título III (Relaciones interadministrativas), tratados de forma más compacta por ser menos preguntados en A1 y de contenido más organizativo que doctrinal.</p>
+  </div>
+
+  <div class="toc-wrap">
+    <div class="kc-label">Índice — 7 bloques</div>
+    <ol>
+      <li><a href="#bloque-1"><span class="toc-num">Bloque 1</span><span class="toc-title">Tít. Prel., Cap. I y II — Disposiciones generales y Órganos (arts. 4, 13, 14, 16, 18-22)</span></a></li>
+      <li><a href="#bloque-2"><span class="toc-num">Bloque 2</span><span class="toc-title">Tít. Prel., Cap. III — Potestad sancionadora íntegra (arts. 25-31)</span></a></li>
+      <li><a href="#bloque-3"><span class="toc-num">Bloque 3</span><span class="toc-title">Tít. Prel., Cap. IV — Responsabilidad patrimonial íntegra (arts. 32-37)</span></a></li>
+      <li><a href="#bloque-4"><span class="toc-num">Bloque 4</span><span class="toc-title">Tít. Prel., Cap. V — Funcionamiento electrónico íntegro (arts. 38-46)</span></a></li>
+      <li><a href="#bloque-5"><span class="toc-num">Bloque 5</span><span class="toc-title">Tít. Prel., Cap. VI — Convenios, cierre (arts. 49-53)</span></a></li>
+      <li><a href="#bloque-6"><span class="toc-num">Bloque 6</span><span class="toc-title">Título I — Administración General del Estado (arts. 54-80, huecos)</span></a></li>
+      <li><a href="#bloque-7"><span class="toc-num">Bloque 7</span><span class="toc-title">Títulos II y III — Sector público institucional y relaciones interadministrativas (panorámica)</span></a></li>
+    </ol>
+  </div>
+
+  <section class="bloque" id="bloque-1">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 1</span>
+      <h2 class="bloque-title">Título Preliminar, Cap. I y II — Disposiciones generales y Órganos</h2>
+    </div>
+    <div class="norma-tag">Ley 40/2015, de 1 de octubre (BOE-A-2015-10566) · Arts. 4, 13, 14, 16, 18, 19, 20, 21, 22</div>
+    <p class="tema-intro">Un artículo suelto del Capítulo I (principio de intervención mínima en la creación de órganos y entidades) y el resto de piezas del Capítulo II sobre órganos administrativos: instrucciones y órdenes de servicio, delegación de firma y suplencia, y la regulación completa de los órganos colegiados —su funcionamiento y su régimen específico en la AGE—.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 4</span> <span class="art-rubrica">— Principios de intervención de las Administraciones Públicas para el desarrollo de una actividad</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Las Administraciones Públicas que en el ejercicio de sus respectivas competencias establezcan medidas que limiten el ejercicio de derechos individuales o colectivos o exijan el cumplimiento de requisitos para el desarrollo de una actividad, deberán aplicar el <mark>principio de proporcionalidad</mark> y elegir la medida menos restrictiva, motivar su necesidad para la protección del interés público así como justificar su adecuación para lograr los fines que se persiguen, sin que en ningún caso se produzcan diferencias de trato discriminatorias.</p>
+        <p><b>2.</b> Asimismo deberán evaluar periódicamente los efectos y resultados obtenidos.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es la aplicación al ámbito de la LRJSP del mismo <mark>principio de proporcionalidad</mark> que ya conoces del art. 129 de la Ley 39/2015 (principios de buena regulación): antes de imponer una carga o limitación a los administrados, la Administración debe elegir la opción menos gravosa entre las que sirvan igualmente al interés público perseguido. Conecta directamente con el principio de "intervención mínima" que da nombre a la rúbrica del capítulo.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 13</span> <span class="art-rubrica">— Colaboración entre las Administraciones Públicas</span></div>
+      <div class="art-body">
+        <p>Las Administraciones Públicas, en el desarrollo de la actividad administrativa de colaboración, podrán: <b>a)</b> Prestar asistencia activa a otras Administraciones Públicas para el eficaz ejercicio de sus competencias, incluyendo la puesta a disposición de información, datos, medios técnicos y colaboración con sus organismos técnicos. <b>b)</b> Solicitar la asistencia y colaboración citadas. <b>c)</b> Celebrar convenios interadministrativos de conformidad con lo previsto en el Título I y en el Capítulo VI del Título Preliminar. <b>d)</b> Emitir informes técnicos en las materias de su competencia, en la forma y condiciones que determinen las relaciones interadministrativas. <b>e)</b> Colaborar a través de otros instrumentos e instancias de cooperación voluntariamente aceptados por las partes.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Este artículo enumera las <mark>técnicas de colaboración</mark> voluntaria entre Administraciones —distinta de la cooperación institucionalizada (conferencias sectoriales, comisiones bilaterales) que verás en el Título III—. Nótese la remisión expresa a los convenios (letra c), la figura que sí tenías parcialmente cubierta con los arts. 47-48 y que se completa en el Bloque 5 de este mismo documento.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 14</span> <span class="art-rubrica">— Deber de colaboración</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Las Administraciones Públicas <mark>deberán</mark> facilitar a las restantes Administraciones la información que precisen sobre la actividad que desarrollen en ejercicio de sus propias competencias, así como prestar, en el ámbito propio, la cooperación y asistencia activas que las otras Administraciones pudieran recabar para el eficaz ejercicio de sus competencias.</p>
+        <p><b>2.</b> La solicitud de información, de asistencia o de cualquier otra actuación de cooperación, sólo podrá negarse cuando el Ente Público requerido no esté facultado para prestarla, no disponga de medios suficientes para ello o cuando, de hacerlo, causara un perjuicio grave a los intereses cuya tutela tiene encomendada o al cumplimiento de sus propias funciones, o cuando la información solicitada tenga carácter confidencial o reservado.</p>
+        <p><b>3.</b> La denegación se comunicará motivadamente a la Administración solicitante.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Frente al art. 13 (colaboración como facultad, "podrán"), este artículo impone un auténtico <mark>deber jurídico</mark> de colaborar entre Administraciones. Lo relevante para examen es que ese deber no es absoluto: admite denegación tasada por tres causas (falta de competencia, falta de medios, o perjuicio grave/confidencialidad), y siempre exige motivación expresa de la negativa — nunca puede ser una negativa tácita o silenciosa.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 16</span> <span class="art-rubrica">— Instrucciones y órdenes de servicio</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los órganos administrativos podrán dirigir las actividades de sus órganos jerárquicamente dependientes mediante <mark>instrucciones y órdenes de servicio</mark>. Cuando una disposición específica así lo establezca, o se estime conveniente por razón de los destinatarios o de los efectos que puedan producirse, las instrucciones y órdenes de servicio se publicarán en el diario oficial que corresponda.</p>
+        <p><b>2.</b> El incumplimiento de las instrucciones u órdenes de servicio no afecta por sí solo a la validez de los actos dictados por los órganos administrativos, sin perjuicio de la responsabilidad disciplinaria en que pueda incurrirse.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El dato más preguntado de este artículo es precisamente el apartado 2: una instrucción u orden de servicio es una manifestación de la <mark>relación jerárquica interna</mark>, no una norma jurídica con eficacia externa —por eso su incumplimiento genera, como mucho, responsabilidad disciplinaria del funcionario, pero <mark>nunca invalida</mark> por sí solo el acto administrativo dictado incumpliéndola. Es la contrapartida lógica de que no formen parte del sistema de fuentes.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 18</span> <span class="art-rubrica">— Delegación de firma</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los titulares de los órganos administrativos podrán, en materias de su competencia, que ostenten por delegación o desconcentración, delegar la firma de sus resoluciones y actos administrativos en los titulares de los órganos o unidades administrativas que de ellos dependan, dentro de los límites señalados en el artículo 9.</p>
+        <p><b>2.</b> La delegación de firma no altera la competencia del órgano delegante y para su validez no será necesaria su publicación.</p>
+        <p><b>3.</b> En las resoluciones y actos que se firmen por delegación se hará constar esta circunstancia y la autoridad de procedencia.</p>
+        <p><b>4.</b> No cabrá la delegación de firma en las resoluciones de carácter sancionador.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La delegación de firma es la técnica de desconcentración "más débil" del catálogo: a diferencia de la <mark>delegación de competencias</mark> del art. 9 (que sí desplaza la titularidad del ejercicio y sí exige publicación), aquí el delegante sigue siendo el único que decide y firma "materialmente" otro por él — de ahí que <mark>no altere la competencia</mark> ni necesite publicarse. La prohibición del apartado 4 (nunca en materia sancionadora) es la más citada en examen: en lo sancionador, quien firma debe ser siempre el verdadero titular de la competencia.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 19</span> <span class="art-rubrica">— Suplencia</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los titulares de los órganos administrativos podrán ser suplidos temporalmente en los supuestos de <mark>vacante, ausencia o enfermedad</mark>, así como en los casos en que haya sido declarada su abstención o recusación, por quien designe el órgano competente para el nombramiento de aquéllos. Si no se designa suplente, la competencia del órgano administrativo se ejercerá por quien designe el órgano administrativo inmediato superior de quien dependa.</p>
+        <p><b>2.</b> La suplencia no implicará alteración de la competencia y para su validez no será necesaria su publicación, si bien deberá señalarse expresamente esta circunstancia en las resoluciones y actos que dicte el suplente, indicando también el titular del órgano suplido.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La suplencia es, junto a la delegación de firma, la segunda gran técnica que <mark>no altera la titularidad de la competencia</mark> ni requiere publicación. Se distingue de la delegación de competencias en la causa: aquí no hay una decisión voluntaria de "ceder" el ejercicio, sino una imposibilidad material y temporal de actuar (vacante, ausencia, enfermedad, o abstención/recusación) que exige que otra persona física ocupe el puesto mientras dure la circunstancia.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 20</span> <span class="art-rubrica">— Órganos colegiados de las distintas Administraciones Públicas</span></div>
+      <div class="art-body">
+        <p>El régimen jurídico de los órganos colegiados se ajustará a las normas contenidas en el presente Capítulo, sin perjuicio de las peculiaridades organizativas de las Administraciones Públicas en que se integran. Dichos órganos podrán establecer el régimen propio de convocatoria, constitución y funcionamiento no regulado en esta Ley, que deberá contemplar el funcionamiento a distancia. Se exceptúan de esta regulación los órganos colegiados del Gobierno de la Nación y de los órganos colegiados de gobierno de las Comunidades Autónomas y de las Entidades Locales.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Fija el carácter <mark>supletorio y no exhaustivo</mark> del régimen legal de órganos colegiados: la Ley da el marco mínimo común, pero cada Administración puede desarrollar su propio reglamento de funcionamiento, siempre que —dato de examen— contemple expresamente la posibilidad de <mark>funcionamiento a distancia</mark>, novedad de esta Ley 40/2015 frente a la antigua LRJPAC. Recuerda la doble exclusión: ni el Consejo de Ministros ni los consejos de gobierno autonómicos/locales se rigen por este capítulo, sino por su normativa específica.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 21</span> <span class="art-rubrica">— Presidente</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los órganos colegiados tendrán un Presidente, que podrá ser un cargo electivo entre sus miembros, ostentar la representación del órgano, acordar la convocatoria de las sesiones y fijar el orden del día, presidir las sesiones, moderar el desarrollo de los debates, suspenderlos por causas justificadas, y dirimir con su voto los empates a efectos de adoptar acuerdos, excepto si se trata de los órganos colegiados de las distintas Administraciones Públicas a los que se refiere la disposición adicional vigésima primera de la Ley 30/1992, en los que el voto de calidad para dirimir empates corresponderá al Presidente sólo cuando así lo establezcan sus normas de funcionamiento.</p>
+        <p><b>2.</b> En caso de vacante, ausencia, enfermedad, u otra causa legal, el Presidente será sustituido por el Vicepresidente que corresponda y, en su defecto, por el miembro de mayor jerarquía, antigüedad y edad, por este orden, de entre sus componentes.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Función clave a retener: el <mark>voto de calidad</mark> del Presidente para dirimir empates. El orden de sustitución del apartado 2 —jerarquía, antigüedad, edad, por ese orden— es un clásico de pregunta memorística: primero se mira el rango del cargo, solo si hay empate de rango se mira la antigüedad, y solo en último término la edad.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 22</span> <span class="art-rubrica">— Miembros</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los miembros de un órgano colegiado no podrán atribuirse las funciones de representación reconocidas a éste, salvo que expresamente se les hayan otorgado por una norma o por acuerdo válidamente adoptado, para cada caso concreto, por el propio órgano.</p>
+        <p><b>2.</b> Los titulares de las unidades administrativas o miembros que integran el órgano colegiado que sean sustituidos por sus suplentes, dejarán de estar presentes en aquellas deliberaciones que afecten a asuntos en que tengan un interés directo o indirecto que suponga un conflicto de intereses, sustituyéndoles quien corresponda.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El apartado 1 impide que un vocal actúe "por su cuenta" en nombre del colegiado sin habilitación expresa, y el apartado 2 conecta con el régimen general de <mark>abstención</mark> (art. 23 de esta misma Ley, que ya tenías cubierto): cuando exista conflicto de intereses en un asunto concreto, el miembro debe apartarse de esa deliberación en particular, sin que ello afecte a su condición de miembro del órgano para el resto de asuntos.</p>
+      <p class="ine-tag">↳ El art. 23 (abstención) y el 24 (recusación) —que sí tenías previamente— cierran el Capítulo II junto con estos artículos.</p>
+    </div>
+    <div style="text-align:right;"><a href="#top" class="back-to-top">↑ volver arriba</a></div>
+  </section>
+
+  <hr class="part-divider">
+
+  <section class="bloque" id="bloque-2">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 2</span>
+      <h2 class="bloque-title">Título Preliminar, Capítulo III — Potestad sancionadora</h2>
+    </div>
+    <div class="norma-tag">Ley 40/2015, de 1 de octubre (BOE-A-2015-10566) · Arts. 25-31 (capítulo íntegro)</div>
+    <span class="part-flag">Bloque prioritario · alto peso en examen</span>
+    <p class="tema-intro">Capítulo completo, no cubierto en absoluto hasta ahora. Regula los principios que rigen el ejercicio de la potestad sancionadora de las Administraciones Públicas: legalidad, tipicidad, irretroactividad, responsabilidad, proporcionalidad, prescripción y concurrencia con el orden penal. Es la contrapartida sustantiva (el "qué" y "por qué" se puede sancionar) del procedimiento sancionador que ya conoces de la Ley 39/2015 (el "cómo").</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 25</span> <span class="art-rubrica">— Principio de legalidad</span></div>
+      <div class="art-body">
+        <p><b>1.</b> La potestad sancionadora de las Administraciones Públicas, reconocida por la Constitución, se ejercerá cuando haya sido expresamente <mark>atribuida por una norma con rango de Ley</mark>, con aplicación del procedimiento previsto para su ejercicio y de acuerdo con lo establecido en este Título y en la Ley del Procedimiento Administrativo Común de las Administraciones Públicas.</p>
+        <p><b>2.</b> El ejercicio de la potestad sancionadora corresponde a los órganos administrativos que la tengan expresamente atribuida, por disposición de rango legal o reglamentario.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Distingue con precisión dos reservas distintas: la <mark>atribución de la potestad</mark> sancionadora exige siempre rango de Ley (apartado 1), mientras que la atribución de la competencia concreta a un órgano administrativo determinado puede hacerse también por norma reglamentaria (apartado 2). Es la puerta de entrada a todo el capítulo y enlaza con el art. 128.2 de la Ley 39/2015 (los reglamentos no pueden tipificar infracciones ni establecer sanciones).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 26</span> <span class="art-rubrica">— Concurrencia de sanciones</span></div>
+      <div class="art-body">
+        <p><b>1.</b> No podrán sancionarse los hechos que hayan sido sancionados <mark>penal o administrativamente</mark>, en los casos en que se aprecie identidad del sujeto, hecho y fundamento. Dicha limitación se aplicará también cuando la sanción sea impuesta por otra Administración distinta de la sancionadora.</p>
+        <p><b>2.</b> De concurrir varias Administraciones sancionadoras en el ejercicio de su respectiva potestad, sin que se aprecie identidad de sujeto, hecho y fundamento, deberán ponderar dicha circunstancia al objeto de graduar la que, en su caso, corresponda imponer.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es la formulación legal del principio <mark>non bis in idem</mark>, de raíz constitucional (art. 25 CE), articulado sobre la conocida triple identidad: mismo sujeto, mismo hecho y mismo fundamento (bien jurídico protegido). Si falta cualquiera de los tres elementos, no hay duplicidad sancionadora prohibida —sí puede haber, por ejemplo, sanción penal y administrativa por el mismo hecho si protegen bienes jurídicos distintos—.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 27</span> <span class="art-rubrica">— Principio de irretroactividad</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Serán de aplicación las disposiciones sancionadoras <mark>vigentes en el momento de producirse los hechos</mark> que constituyan infracción administrativa. Las disposiciones sancionadoras producirán efecto retroactivo en cuanto favorezcan al presunto infractor o al infractor, tanto en relación con la calificación de la infracción como con la sanción y sus plazos de prescripción, incluso respecto de las sanciones pendientes de cumplimiento al entrar en vigor la nueva disposición.</p>
+        <p><b>2.</b> La entrada en vigor de una nueva norma que no favorezca al presunto infractor no comportará la retroactividad de la misma.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Regla general: <mark>irretroactividad</mark> de la norma sancionadora. Excepción, de raíz constitucional también: <mark>retroactividad de la norma más favorable</mark> (retroactividad "in bonus"), que además se extiende expresamente a sanciones ya impuestas y pendientes de cumplirse cuando entra en vigor la ley nueva más benigna —dato que suele aparecer como distractor en preguntas de examen—.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 28</span> <span class="art-rubrica">— Responsabilidad</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Sólo podrán ser sancionadas por hechos constitutivos de infracción administrativa las personas físicas y jurídicas, así como, cuando una Ley les reconozca capacidad de obrar, los grupos de afectados, las uniones y entidades sin personalidad jurídica y los patrimonios independientes o autónomos, que resulten responsables de los mismos a título de <mark>dolo o culpa</mark>.</p>
+        <p><b>2.</b> Cuando el cumplimiento de una obligación establecida por una norma con rango de Ley corresponda a varias personas conjuntamente, responderán de forma solidaria de las infracciones que, en su caso, se cometan y de las sanciones que se impongan. Serán responsables subsidiarios o solidarios por el incumplimiento de las obligaciones impuestas por la Ley que conlleven el deber de prevenir la infracción administrativa cometida por otros, las personas físicas y jurídicas sobre las que tal deber recaiga, cuando así lo determinen las Leyes reguladoras de los distintos regímenes sancionadores.</p>
+        <p><b>3.</b> La responsabilidad será solidaria cuando sean varios los responsables de una infracción y no sea posible determinar el grado de participación de cada uno de ellos en la comisión de la infracción, salvo que la norma que tipifica las infracciones disponga otra cosa.</p>
+        <p><b>4.</b> Las responsabilidades administrativas que se deriven del procedimiento sancionador serán compatibles con la exigencia al infractor de la <mark>reposición de la situación</mark> alterada por el mismo a su estado originario, así como con la indemnización por los daños y perjuicios causados.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Consagra la exigencia de <mark>culpabilidad</mark> (dolo o culpa) como elemento subjetivo imprescindible de la infracción administrativa —descarta la responsabilidad puramente objetiva—. El dato más preguntado suele ser el apartado 4: la sanción administrativa es <mark>compatible</mark> con la obligación de reponer las cosas a su estado anterior y con la indemnización de daños, porque son cosas jurídicamente distintas (una es represiva, las otras son reparadoras).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 29</span> <span class="art-rubrica">— Principio de tipicidad</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Solo constituyen infracciones administrativas las vulneraciones del ordenamiento jurídico previstas como tales infracciones por una Ley, sin perjuicio de lo dispuesto para la Administración Local en el Título XI de la Ley 7/1985. Las infracciones administrativas se clasifican por la Ley en <mark>leves, graves y muy graves</mark>.</p>
+        <p><b>2.</b> Únicamente por la comisión de infracciones administrativas podrán imponerse sanciones que, en todo caso, estarán delimitadas por la Ley.</p>
+        <p><b>3.</b> Las disposiciones reglamentarias de desarrollo podrán introducir especificaciones o graduaciones al cuadro de las infracciones o sanciones establecidas legalmente que, sin constituir nuevas infracciones o sanciones, ni alterar la naturaleza o límites de las que la Ley contempla, contribuyan a la más correcta identificación de las conductas o a la más precisa determinación de las sanciones correspondientes.</p>
+        <p><b>4.</b> La Ley podrá tipificar infracciones y sanciones mediante la remisión a normas reglamentarias, cuando ello resulte conveniente a causa de la naturaleza técnica de la materia, pero sin que en ningún caso tal remisión pueda hacerse de manera en blanco, sino con la debida especificidad de los presupuestos de la infracción y del contenido propio de la sanción.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La <mark>tipicidad</mark> exige rango de Ley para crear la infracción y la sanción, pero admite matices que suelen ser precisamente lo que se pregunta: el reglamento puede "graduar" o "especificar" sin crear ex novo (apartado 3), y la Ley puede remitirse al reglamento en materias técnicas siempre que fije los presupuestos esenciales —nunca una <mark>remisión en blanco</mark> (apartado 4)—. Recuerda también la triple clasificación legal: leve, grave, muy grave.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 30</span> <span class="art-rubrica">— Principio de proporcionalidad</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Las sanciones administrativas, sean o no de naturaleza pecuniaria, en ningún caso podrán implicar, directa o subsidiariamente, privación de libertad.</p>
+        <p><b>2.</b> El establecimiento de sanciones pecuniarias deberá prever que la comisión de las infracciones tipificadas no resulte más beneficioso para el infractor que el cumplimiento de las normas infringidas.</p>
+        <p><b>3.</b> En la determinación normativa del régimen sancionador, así como en la imposición de sanciones por las Administraciones Públicas se deberá observar la debida idoneidad y necesidad de la sanción a imponer y su adecuación a la gravedad del hecho constitutivo de la infracción. La graduación de la sanción considerará especialmente los siguientes criterios: <b>a)</b> El grado de culpabilidad o la existencia de intencionalidad. <b>b)</b> La continuidad o persistencia en la conducta infractora. <b>c)</b> La naturaleza de los perjuicios causados. <b>d)</b> La reincidencia, por comisión en el término de un año de más de una infracción de la misma naturaleza cuando así haya sido declarado por resolución firme en vía administrativa.</p>
+        <p><b>4.</b> Cuando lo justifique la debida adecuación entre la sanción a aplicar con la gravedad del hecho constitutivo de la infracción y las circunstancias concurrentes, el órgano competente para resolver podrá imponer la sanción en el grado inferior.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El apartado 1 es literal y muy preguntado: una sanción <mark>administrativa nunca puede implicar privación de libertad</mark>, ni siquiera de forma subsidiaria (a diferencia de la responsabilidad penal, donde el impago de una multa sí puede derivar en responsabilidad personal subsidiaria). El apartado 3 da los <mark>cuatro criterios de graduación</mark> —culpabilidad/intencionalidad, continuidad, perjuicios, reincidencia— que conviene memorizar como lista cerrada.</p>
+      <p class="ine-tag">↳ Dato de examen: la reincidencia exige, según la letra d), más de una infracción "de la misma naturaleza" declarada por resolución firme en vía administrativa dentro del plazo de un año.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 31</span> <span class="art-rubrica">— Prescripción</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Las infracciones y sanciones prescribirán según lo dispuesto en las leyes que las establezcan. Si éstas no fijan plazos de prescripción, las infracciones muy graves prescribirán a los <mark>tres años</mark>, las graves a los <mark>dos años</mark> y las leves a los <mark>seis meses</mark>; las sanciones impuestas por faltas muy graves prescribirán a los tres años, las impuestas por faltas graves a los dos años y las impuestas por faltas leves al año.</p>
+        <p><b>2.</b> El plazo de prescripción de las infracciones comenzará a contarse desde el día en que la infracción se hubiera cometido. En el caso de infracciones continuadas o permanentes, el plazo comenzará a correr desde que finalizó la conducta infractora.</p>
+        <p><b>3.</b> Interrumpirá la prescripción de la infracción, la iniciación, con conocimiento del interesado, de un procedimiento administrativo de naturaleza sancionadora, reiniciándose el plazo de prescripción si el expediente sancionador estuviera paralizado durante más de un mes por causa no imputable al presunto responsable.</p>
+        <p><b>4.</b> El plazo de prescripción de las sanciones comenzará a contarse desde el día siguiente a aquel en que adquiera firmeza la resolución por la que se impone la sanción.</p>
+        <p><b>5.</b> Interrumpirá la prescripción de la sanción la iniciación, con conocimiento del interesado, del procedimiento de ejecución, volviendo a transcurrir el plazo si aquél está paralizado durante más de un mes por causa no imputable al infractor.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el capítulo con la <mark>tabla de plazos supletoria</mark> (aplicable solo si la ley sectorial no dice otra cosa), que es la parte más memorística: 3/2/6 meses para prescripción de infracciones muy graves/graves/leves, y 3/2/1 año para prescripción de las sanciones ya impuestas por esas mismas categorías —nótese que el plazo de las leves cambia de "seis meses" (infracción) a "un año" (sanción)—. Igual de importante es la regla de interrupción: se interrumpe con el inicio del procedimiento (sancionador o de ejecución) con conocimiento del interesado, pero <mark>se reanuda si el expediente se paraliza más de un mes</mark> por causa no imputable al presunto responsable.</p>
+      <p class="ine-tag">↳ No confundir con la caducidad del procedimiento sancionador (seis meses desde el acuerdo de iniciación, art. 21.3 y concordantes de la Ley 39/2015): la prescripción afecta a la infracción/sanción en sí; la caducidad, al propio procedimiento.</p>
+    </div>
+    <div style="text-align:right;"><a href="#top" class="back-to-top">↑ volver arriba</a></div>
+  </section>
+
+  <hr class="part-divider">
+
+  <section class="bloque" id="bloque-3">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 3</span>
+      <h2 class="bloque-title">Título Preliminar, Capítulo IV — Responsabilidad patrimonial</h2>
+    </div>
+    <div class="norma-tag">Ley 40/2015, de 1 de octubre (BOE-A-2015-10566) · Arts. 32-37 (capítulo íntegro)</div>
+    <span class="part-flag">Bloque prioritario · muy preguntado</span>
+    <p class="tema-intro">Capítulo completo, no cubierto en absoluto hasta ahora. Regula los principios sustantivos de la responsabilidad patrimonial de las Administraciones Públicas —el "cuándo" y "por qué" responde la Administración—, que complementa el procedimiento (el "cómo se reclama") que ya tenías de los arts. 65-67 y 91 de la Ley 39/2015.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 32</span> <span class="art-rubrica">— Principios de la responsabilidad</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los particulares tendrán derecho a ser indemnizados por las Administraciones Públicas correspondientes de toda lesión que sufran en cualquiera de sus bienes y derechos, siempre que la lesión sea consecuencia del <mark>funcionamiento normal o anormal</mark> de los servicios públicos, salvo en los casos de fuerza mayor o de daños que el particular tenga el deber jurídico de soportar de acuerdo con la Ley.</p>
+        <p><b>2.</b> En todo caso, el daño alegado habrá de ser efectivo, evaluable económicamente e individualizado con relación a una persona o grupo de personas.</p>
+        <p><b>3.</b> Asimismo, los particulares tendrán derecho a ser indemnizados por las Administraciones Públicas de toda lesión que sufran en sus bienes y derechos derivada de la aplicación de <mark>actos legislativos de naturaleza no expropiatoria</mark> de derechos que no tengan el deber jurídico de soportar, cuando así se establezca en los propios actos legislativos.</p>
+        <p><b>4.</b> Las Administraciones Públicas indemnizarán a los particulares por la aplicación de actos legislativos de naturaleza no expropiatoria de derechos y que éstos no tengan el deber jurídico de soportar, cuando así se establezca en los propios actos legislativos y en los términos que en ellos se especifiquen.</p>
+        <p><b>5.</b> La responsabilidad del Estado por el funcionamiento de la Administración de Justicia se regirá por la Ley Orgánica del Poder Judicial.</p>
+        <p><b>9.</b> La anulación en vía administrativa o por el orden jurisdiccional contencioso-administrativo de los actos o disposiciones administrativas no presupone, por sí misma, derecho a la indemnización.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El apartado 1 formula el <mark>régimen de responsabilidad objetiva</mark> más característico del Derecho Administrativo español: responde tanto el funcionamiento normal como el anormal, sin necesidad de probar culpa o negligencia de la Administración. Las dos válvulas de escape son la <mark>fuerza mayor</mark> (nunca el caso fortuito, que sí genera responsabilidad) y el deber jurídico de soportar el daño. El apartado 9, muy citado, rompe la intuición de que "si me anulan el acto, tengo automáticamente derecho a indemnización": la anulación es un presupuesto necesario pero no suficiente, hace falta además acreditar el resto de requisitos (lesión antijurídica, efectiva, evaluable, individualizada).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 33</span> <span class="art-rubrica">— Responsabilidad concurrente de las Administraciones Públicas</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Cuando de la gestión dimanante de fórmulas conjuntas de actuación entre varias Administraciones Públicas se derive responsabilidad, las Administraciones intervinientes responderán frente al particular de forma <mark>solidaria</mark>. El instrumento jurídico regulador de la actuación conjunta podrá determinar la distribución de la responsabilidad entre las diferentes Administraciones Públicas.</p>
+        <p><b>2.</b> En otros supuestos de concurrencia de varias Administraciones en la producción del daño, la responsabilidad se fijará para cada Administración atendiendo a los criterios de competencia, interés público tutelado e intensidad de la intervención, siendo la responsabilidad solidaria cuando no sea posible dicha determinación.</p>
+        <p><b>3.</b> En los casos previstos en el apartado anterior, la Administración competente para incoar, instruir y resolver los procedimientos de responsabilidad patrimonial será la que se determine con arreglo a criterios de competencia, interés público tutelado e intensidad de la intervención.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Regula el escenario de varias Administraciones causando un mismo daño. Regla clave a fijar: la <mark>solidaridad</mark> es el régimen general en fórmulas conjuntas de actuación (apartado 1) y también la solución supletoria cuando no se pueda individualizar la parte de cada una (apartado 2) —el reparto "a prorrata" por criterios de competencia, interés e intensidad de intervención solo opera cuando sí resulte posible determinarlo—.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 34</span> <span class="art-rubrica">— Indemnización</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Sólo serán indemnizables las lesiones producidas al particular provenientes de daños que éste no tenga el deber jurídico de soportar de acuerdo con la Ley. No serán indemnizables los daños que se deriven de hechos o circunstancias que no se hubiesen podido prever o evitar según el estado de los conocimientos de la ciencia o de la técnica existentes en el momento de producción de aquéllos, todo ello sin perjuicio de las prestaciones asistenciales o económicas que las leyes puedan establecer para estos casos.</p>
+        <p><b>2.</b> La indemnización se calculará con arreglo a los criterios de valoración establecidos en la legislación de expropiación forzosa, legislación fiscal y demás normas aplicables, ponderándose, en su caso, las valoraciones predominantes en el mercado, referidas al día en que la lesión efectivamente se produjo, sin perjuicio de su actualización a la fecha en que se ponga fin al procedimiento de responsabilidad con arreglo al Índice de Garantía de la Competitividad, fijado por el Instituto Nacional de Estadística, y de los intereses que procedan por demora en el pago de la indemnización fijada, los cuales se exigirán con arreglo a lo establecido en la Ley 47/2003 General Presupuestaria.</p>
+        <p><b>3.</b> En los casos de muerte o lesiones corporales se podrá tomar como referencia la valoración incluida en los baremos de la normativa vigente en materia de Seguros obligatorios y de la Seguridad Social.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El apartado 1 introduce la excepción de los <mark>«riesgos del progreso»</mark>: no es indemnizable el daño que, según el estado de la ciencia o la técnica en el momento de producirse, era imprevisible o inevitable —es la limitación clásica que matiza la responsabilidad objetiva del art. 32—. El apartado 2 fija el "día de referencia" para valorar el daño (el día en que efectivamente se produjo la lesión), con posterior actualización según el <mark>Índice de Garantía de la Competitividad</mark> del INE hasta el fin del procedimiento.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 35</span> <span class="art-rubrica">— Indemnización en los casos de responsabilidad patrimonial derivada de la aplicación de actos legislativos de naturaleza no expropiatoria de derechos, que no exista el deber jurídico de soportar</span></div>
+      <div class="art-body">
+        <p>La indemnización de los daños producidos a los particulares por la aplicación de actos legislativos de naturaleza no expropiatoria de derechos que no tengan el deber jurídico de soportar se determinará atendiendo, entre otros criterios relevantes, al momento en que se produce dicha aplicación, con arreglo a lo previsto en la ley que la establezca, y esa indemnización habrá de ser fijada en la propia norma que aprueba estas medidas.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Desarrolla el supuesto especial del art. 32.4: es la propia norma legislativa la que, si así lo prevé, fija tanto el derecho a indemnización como sus criterios de determinación. Es un caso residual y de escasa aparición práctica en examen, pero conviene tenerlo identificado como concordancia directa del art. 32.3-4.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 36</span> <span class="art-rubrica">— Responsabilidad de Derecho Privado</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Cuando las Administraciones Públicas actúen, directamente o a través de una entidad de derecho privado, en relaciones de esta naturaleza, su responsabilidad se exigirá de conformidad con lo previsto en los artículos 32 y siguientes, incluso cuando concurra con sujetos de derecho privado o la responsabilidad se exija directamente a la entidad de derecho privado a través de la cual actúe la Administración, o a la entidad que cubra su responsabilidad.</p>
+        <p><b>2.</b> Cuando la Administración actúe, directamente o a través de una entidad de derecho privado, en relaciones de esta naturaleza, y concurra con particulares en la producción del daño, la responsabilidad se determinará y exigirá de conformidad con lo previsto en este capítulo.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Idea central: aunque la Administración actúe bajo formas o entidades de <mark>Derecho Privado</mark>, la responsabilidad patrimonial que se derive sigue rigiéndose por el Derecho Administrativo (arts. 32 y ss.) y no por el Código Civil — el "huir" hacia formas privadas de organización no permite huir del régimen público de responsabilidad. Esto conecta con el llamado "efecto de arrastre" hacia la jurisdicción contencioso-administrativa.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 37</span> <span class="art-rubrica">— Responsabilidad de derecho privado de la Administración</span></div>
+      <div class="art-body">
+        <p>Cuando las Administraciones Públicas actúen en relaciones de derecho privado, responderán directamente de los daños y perjuicios causados por el personal que se encuentre a su servicio, considerándose la actuación del mismo actos propios de la Administración bajo cuyo servicio se encuentre, siéndole de aplicación lo dispuesto en el artículo 32 y siguientes, según corresponda, con la extensión y límites propios de esta materia.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el capítulo confirmando que la responsabilidad de la Administración por los actos de su personal —incluso cuando esta actúa en relaciones de Derecho privado— se imputa siempre <mark>directamente a la Administración</mark>, y no al empleado público a título individual frente al tercero perjudicado, sin perjuicio de la acción de repetición que la propia Administración pueda ejercer después contra el empleado en caso de dolo, culpa o negligencia graves (régimen que verás desarrollado en el EBEP y en la propia LRJSP en las disposiciones sobre responsabilidad de autoridades y personal al servicio de las Administraciones Públicas).</p>
+      <p class="ine-tag">↳ Con estos seis artículos queda cubierto íntegramente el Capítulo IV, uno de los dos bloques —junto con la potestad sancionadora— con mayor frecuencia de aparición en exámenes A1 sobre la Ley 40/2015.</p>
+    </div>
+    <div style="text-align:right;"><a href="#top" class="back-to-top">↑ volver arriba</a></div>
+  </section>
+
+  <hr class="part-divider">
+
+  <section class="bloque" id="bloque-4">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 4</span>
+      <h2 class="bloque-title">Título Preliminar, Capítulo V — Funcionamiento electrónico del sector público</h2>
+    </div>
+    <div class="norma-tag">Ley 40/2015, de 1 de octubre (BOE-A-2015-10566) · Arts. 38-46 (capítulo íntegro)</div>
+    <p class="tema-intro">Capítulo completo, no cubierto hasta ahora. Regula la sede electrónica, el sistema de identificación y firma de las Administraciones, el archivo electrónico único y la interoperabilidad — el correlato "hacia dentro" (organización y medios) de lo que la Ley 39/2015 regula "hacia fuera" (la relación electrónica con el ciudadano).</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 38</span> <span class="art-rubrica">— Sede electrónica</span></div>
+      <div class="art-body">
+        <p><b>1.</b> La sede electrónica es aquella dirección electrónica, disponible para los ciudadanos a través de redes de telecomunicaciones, cuya titularidad, gestión y administración corresponde a una Administración Pública, órgano o entidad administrativa o varios de ellos en el caso de sedes electrónicas compartidas, en el ejercicio de sus competencias.</p>
+        <p><b>2.</b> El establecimiento de una sede electrónica conlleva la <mark>responsabilidad</mark> del titular respecto de la integridad, veracidad y actualización de la información y los servicios a los que pueda accederse a través de la misma.</p>
+        <p><b>3.</b> Cada Administración Pública determinará las condiciones e instrumentos de creación de las sedes electrónicas, con sujeción a los principios de transparencia, publicidad, responsabilidad, calidad, seguridad, disponibilidad, accesibilidad, neutralidad e interoperabilidad. En todo caso deberá garantizarse la identificación del titular de la sede, así como los medios disponibles para la formulación de sugerencias y quejas.</p>
+        <p><b>4.</b> Existirá al menos una sede electrónica del Estado, cada una de las Comunidades Autónomas y de las Entidades Locales.</p>
+        <p><b>5.</b> Las sedes electrónicas dispondrán de sistemas que permitan el establecimiento de comunicaciones seguras siempre que sean necesarias.</p>
+        <p><b>6.</b> Se podrán crear sedes electrónicas asociadas para la realización de trámites específicos, entendiendo por tales aquellas sedes derivadas de la principal cuya gestión puede estar diferenciada.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Idea central: la sede electrónica es el <mark>equivalente digital de la oficina administrativa</mark> —una "dirección" con titular identificado y responsable de su contenido—, no un simple sitio web informativo. El apartado 2 es el más citado: quien crea la sede responde de la integridad, veracidad y actualización de todo lo publicado en ella. Recuerda también el listado de principios del apartado 3 y la garantía mínima del apartado 4 (al menos una sede por cada nivel territorial de gobierno).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 39</span> <span class="art-rubrica">— Publicaciones oficiales en Boletines Electrónicos</span></div>
+      <div class="art-body">
+        <p>La publicación de los Boletines Oficiales en las sedes electrónicas de la Administración, Organismo público o Entidad competente tendrá los mismos efectos que los atribuidos a su edición impresa.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Artículo breve pero de correlación directa: reitera y generaliza para todos los boletines oficiales (no solo el BOE) la misma equiparación entre versión electrónica e impresa que ya viste en el art. 131 de la Ley 39/2015 referido específicamente al BOE.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 40</span> <span class="art-rubrica">— Sistemas de identificación de las Administraciones Públicas</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Las Administraciones Públicas podrán identificarse mediante el uso de un <mark>sello electrónico</mark> basado en un certificado electrónico reconocido o cualificado que reúna los requisitos exigidos por la legislación de firma electrónica.</p>
+        <p><b>2.</b> Los certificados electrónicos incluirán el número de identificación fiscal y la denominación correspondiente, pudiendo contener la identidad de la persona titular en el caso de los certificados de sello electrónico de Administración Pública, órgano, organismo público o entidad de derecho público.</p>
+        <p><b>3.</b> El uso del sello electrónico se admitirá para identificar la sede electrónica correspondiente y para la actuación administrativa automatizada.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El <mark>sello electrónico</mark> es la firma que "usa" el propio órgano o entidad (no una persona física concreta), y su función típica —apartado 3— es identificar la sede electrónica y respaldar la actuación administrativa <mark>automatizada</mark>, sin intervención directa de un empleado público en cada acto individual.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 41</span> <span class="art-rubrica">— Actuación administrativa automatizada</span></div>
+      <div class="art-body">
+        <p><b>1.</b> En caso de actuación administrativa automatizada deberá establecerse previamente el órgano u órganos competentes, según los casos, para la definición de las especificaciones, programación, mantenimiento, supervisión y control de calidad y, en su caso, auditoría del sistema de información y de su código fuente. Asimismo, se indicará el órgano que debe ser considerado <mark>responsable</mark> a efectos de impugnación.</p>
+        <p><b>2.</b> Se entiende por actuación administrativa automatizada, cualquier acto o actuación realizada íntegramente a través de medios electrónicos por una Administración Pública en el marco de un procedimiento administrativo y en la que no haya intervenido de forma directa un empleado público.</p>
+        <p><b>3.</b> En caso de existir sello electrónico, este podrá basarse en un certificado electrónico que reúna los requisitos exigidos por la legislación de firma electrónica.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Define lo que suele llamarse "robot administrativo": una actuación completamente automatizada <mark>sin intervención directa de un empleado público</mark>. El dato práctico más importante para examen es el apartado 1: siempre debe existir un órgano responsable identificado a efectos de impugnación —la automatización nunca puede diluir la responsabilidad ni dejar al ciudadano sin un órgano frente al que reclamar—.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 42</span> <span class="art-rubrica">— Sistemas de firma para la actuación administrativa automatizada</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Para la identificación y para la autenticación del ejercicio de la competencia en la actuación administrativa automatizada, cada Administración Pública podrá determinar los supuestos de utilización de los siguientes sistemas de firma: <b>a)</b> <mark>Sello electrónico</mark> de Administración Pública, órgano, organismo público o entidad de derecho público, basado en certificado electrónico que reúna los requisitos exigidos por la legislación de firma electrónica. <b>b)</b> <mark>Código seguro de verificación</mark> vinculado a la Administración Pública, órgano, organismo público o entidad de Derecho Público, en los términos y condiciones establecidos, debiéndose garantizar la vinculación de dicho código con el órgano y, en todo caso, la posibilidad de comprobación de la integridad del documento mediante el acceso a la sede electrónica correspondiente.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Da los dos instrumentos técnicos concretos para la automatización: el <mark>sello electrónico</mark> (art. 40) y el <mark>código seguro de verificación (CSV)</mark> —esa cadena alfanumérica que aparece al pie de muchos documentos administrativos y que permite comprobar la autenticidad del documento accediendo a la sede electrónica—. Es habitual que el examen pida identificar el CSV por su nombre técnico completo.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 43</span> <span class="art-rubrica">— Firma electrónica del personal al servicio de las Administraciones Públicas</span></div>
+      <div class="art-body">
+        <p><b>1.</b> La identificación y actuación de las Administraciones Públicas cuando utilicen medios electrónicos se realizará a través de los sistemas de firma electrónica del personal a su servicio.</p>
+        <p><b>2.</b> Sin perjuicio de lo previsto en el artículo anterior, las Administraciones Públicas podrán utilizar sistemas de sello electrónico o de código seguro de verificación vinculado a la Administración Pública, órgano, organismo público o entidad de Derecho Público, en la realización de actuaciones automatizadas.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Establece la regla general —firma personal del empleado público que interviene en el procedimiento— frente a la excepción de los arts. 40-42 —sello electrónico y CSV, propios de la actuación automatizada sin intervención directa de una persona—.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 44</span> <span class="art-rubrica">— Intercambio electrónico de datos en entornos cerrados de comunicación</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los documentos electrónicos transmitidos en entornos cerrados de comunicaciones establecidos entre Administraciones Públicas, órganos y entidades de derecho público serán considerados válidos a efectos de autenticación e identificación de los emisores y receptores en las condiciones establecidas en este artículo.</p>
+        <p><b>2.</b> Cuando los participantes en las comunicaciones pertenezcan a una misma Administración Pública, ésta determinará las condiciones y garantías por las que se regirá que, al menos, comprenderá la relación de emisores y receptores autorizados y la naturaleza de los datos e informaciones que se intercambiarán.</p>
+        <p><b>3.</b> Cuando los participantes pertenezcan a distintas Administraciones, las condiciones y garantías citadas anteriormente se establecerán mediante convenio entre las Administraciones Públicas u órganos y entidades de derecho público participantes.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Regula los llamados <mark>«entornos cerrados de comunicación»</mark> —redes o plataformas interadministrativas de intercambio de datos donde la identificación se garantiza por el propio diseño cerrado del sistema, sin necesidad de firma electrónica individualizada en cada transmisión—. Distingue según los participantes pertenezcan a la misma Administración (regulación unilateral) o a Administraciones distintas (exige convenio, enlazando con el Capítulo VI que completas en el Bloque 5).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 45</span> <span class="art-rubrica">— Actuación en representación de los interesados que no tienen capacidad de obrar, o la tienen limitada</span></div>
+      <div class="art-body">
+        <p>En el ámbito de las Administraciones Públicas, cuando el interesado tenga capacidad de obrar limitada, las actuaciones administrativas de las que se pueda derivar un beneficio para éste podrán ser ejercitadas, además de por sus representantes legales, si los hubiere, por el órgano competente para la resolución del procedimiento cuando dicho interesado carezca de representante legal o bien éste no haya podido ser localizado, todo ello sin perjuicio de la posterior intervención del representante legal.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Norma protectora residual: si un interesado con capacidad de obrar limitada carece de representante legal localizable, es el propio <mark>órgano competente para resolver</mark> quien puede ejercer en su nombre las actuaciones favorables, sin que ello prive de eficacia a la ulterior intervención del representante legal cuando aparezca.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 46</span> <span class="art-rubrica">— Archivo electrónico único</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Cada Administración Pública deberá mantener un <mark>archivo electrónico único</mark> de los documentos electrónicos que correspondan a procedimientos finalizados, en los términos establecidos en la normativa reguladora aplicable.</p>
+        <p><b>2.</b> Los documentos electrónicos deberán conservarse en un formato que permita garantizar la autenticidad, integridad y conservación del documento, así como su consulta con independencia del tiempo transcurrido desde su emisión. Se asegurará en todo caso la posibilidad de trasladar los datos a otros formatos y soportes que garanticen el acceso desde diferentes aplicaciones.</p>
+        <p><b>3.</b> Los medios o soportes en que se almacenen documentos, deberán contar con medidas de seguridad que garanticen la integridad, autenticidad, confidencialidad, calidad, protección y conservación de los documentos almacenados. En particular, asegurarán la identificación de los usuarios y el control de accesos, así como el cumplimiento de las garantías previstas en la legislación de protección de datos.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el capítulo con la pieza documental clave del expediente electrónico: cada Administración debe mantener <mark>un único archivo electrónico</mark> por procedimiento finalizado —no archivos dispersos por unidad u órgano—, garantizando su autenticidad, integridad y accesibilidad futura con independencia de la evolución tecnológica (migración entre formatos y soportes). Enlaza con el concepto de expediente electrónico que ya viste en el art. 70 de la Ley 39/2015.</p>
+    </div>
+    <div style="text-align:right;"><a href="#top" class="back-to-top">↑ volver arriba</a></div>
+  </section>
+
+  <hr class="part-divider">
+
+  <section class="bloque" id="bloque-5">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 5</span>
+      <h2 class="bloque-title">Título Preliminar, Capítulo VI — Convenios (cierre)</h2>
+    </div>
+    <div class="norma-tag">Ley 40/2015, de 1 de octubre (BOE-A-2015-10566) · Arts. 49, 50, 51, 52, 53</div>
+    <p class="tema-intro">Cierra el Capítulo VI, del que ya tenías cubiertos los arts. 47 (definición y tipos) y 48 (requisitos de validez y eficacia). Completa el contenido mínimo del convenio, el trámite de autorización previa, sus efectos y extinción, y el régimen jurídico aplicable.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 49</span> <span class="art-rubrica">— Contenido de los convenios</span></div>
+      <div class="art-body">
+        <p>Los convenios a los que se refiere el presente capítulo deberán incluir, al menos, las siguientes materias: <b>a)</b> Sujetos que suscriben el convenio y la capacidad jurídica con la que actúa cada una de las partes. <b>b)</b> La competencia en la que se fundamenta la actuación de la Administración Pública, de los organismos públicos y las entidades de derecho público vinculados o dependientes de ella o de las Universidades públicas, en su caso. <b>c)</b> Objeto del convenio y las actuaciones concretas que realizará cada Administración para su cumplimiento, indicando, en su caso, la titularidad de los resultados obtenidos. <b>d)</b> Obligaciones y compromisos económicos asumidos por cada una de las partes, si los hubiera, indicando su distribución temporal por anualidades y su imputación concreta al presupuesto correspondiente. <b>e)</b> Consecuencias aplicables en caso de incumplimiento de las obligaciones y compromisos asumidos por cada una de las partes y, en su caso, los criterios para determinar la posible indemnización por el incumplimiento. <b>f)</b> Mecanismos de seguimiento, vigilancia y control de la ejecución del convenio y de los compromisos adquiridos por los firmantes, que deberá prever los mecanismos para la resolución de controversias mediante los mecanismos contemplados en el artículo 51.2.c) o, en su defecto, los establecidos en la legislación contencioso-administrativa. <b>g)</b> El plazo de vigencia del convenio. <b>h)</b> La extinción del convenio por causa distinta a la prevista en el apartado anterior, así como la forma de terminar las actuaciones en curso.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es el "checklist" del convenio: contenido <mark>mínimo obligatorio</mark>, letra a letra. Lo más rentable para examen es identificar cuál de estas letras falta en un convenio dado un supuesto práctico, y sobre todo distinguir la letra g) (plazo de vigencia, elemento estructural) de la h) (causas de extinción distintas de las del art. 51, que se completa a continuación).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 50</span> <span class="art-rubrica">— Trámites preceptivos para la suscripción de convenios</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Con anterioridad a la suscripción del convenio, que incluya compromisos de contenido económico, incluidos aquellos que se refieran a la mera actualización de costes o al mantenimiento del objeto del convenio y de sus obligaciones, así como aquellos que se suscriban entre sí por las Administraciones Locales, se acompañará una <mark>memoria justificativa</mark> donde se analice su necesidad y oportunidad, su impacto económico, el carácter no contractual de la actividad en cuestión, así como el cumplimiento de lo previsto en esta Ley.</p>
+        <p><b>2.</b> Todo convenio deberá ser objeto de un informe previo del servicio jurídico correspondiente en el que se analizará, en particular, el proceso de tramitación seguido, la adecuación de su contenido a los requisitos previstos en esta ley, así como el cumplimiento de la Ley Orgánica 2/2012, de 27 de abril, de Estabilidad Presupuestaria y Sostenibilidad Financiera.</p>
+        <p><b>3.</b> El titular del departamento, órgano, organismo público o entidad proponente del convenio, deberá recabar, con anterioridad a su suscripción, la <mark>autorización previa</mark> del Ministerio de Hacienda y Administraciones Públicas, cuando se trate de convenios previstos en el apartado 1, salvo cuando se trate de Protocolos Generales de Actuación.</p>
+        <p><b>4.</b> Transcurridos 45 días hábiles desde la recepción de la petición de autorización, sin haberse formulado ninguna objeción por parte de la Administración General del Estado, se entenderá <mark>concedida la misma</mark>.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Establece dos controles previos: técnico-jurídico (informe del servicio jurídico, apartado 2) y económico-competencial (autorización previa cuando el convenio implique compromiso de gasto, apartado 3). El apartado 4 es el dato más preguntado: transcurridos <mark>45 días hábiles</mark> sin objeción, opera el <mark>silencio positivo</mark> —se entiende concedida la autorización—.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 51</span> <span class="art-rubrica">— Extinción de los convenios</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los convenios se extinguen por el cumplimiento de las actuaciones que constituyen su objeto o por incurrir en causa de resolución.</p>
+        <p><b>2.</b> Son causas de resolución: <b>a)</b> El transcurso del plazo de vigencia del convenio sin haberse acordado la prórroga del mismo. <b>b)</b> El acuerdo unánime de todos los firmantes. <b>c)</b> El incumplimiento de las obligaciones y compromisos asumidos por parte de alguno de los firmantes. En este caso, cualquiera de las partes podrá notificar a la parte incumplidora un requerimiento para que cumpla en un determinado plazo con las obligaciones o compromisos que se consideran incumplidos. Si trascurrido el plazo indicado en el requerimiento persistiera el incumplimiento, la parte que lo dirigió notificará a las partes firmantes la concurrencia de la causa de resolución y se entenderá resuelto el convenio. <b>d)</b> Por decisión judicial declaratoria de la nulidad del convenio. <b>e)</b> Por cualquier otra causa distinta de las anteriores prevista en el convenio o en otras leyes.</p>
+        <p><b>3.</b> El cumplimiento y la resolución del convenio dará lugar a la <mark>liquidación</mark> del mismo con el objeto de determinar las obligaciones y compromisos de cada una de las partes. En el supuesto de que se generasen bienes o derechos como consecuencia del convenio, deberá preverse en el momento de la liquidación cuál va a ser el destino que se les vaya a dar, opción que deberá ajustarse a lo previsto en la Ley y en su caso, en la Ley 33/2003, de 3 de noviembre, de Patrimonio de las Administraciones Públicas, sin que en ningún caso pueda producirse enriquecimiento injusto de las partes.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El apartado 2.c) —el <mark>procedimiento de resolución por incumplimiento</mark>— es el punto más técnico y preguntado: no basta el incumplimiento en sí, hace falta un <mark>requerimiento previo</mark> a la parte incumplidora con plazo para subsanar; solo si persiste el incumplimiento tras ese plazo se entiende resuelto el convenio. El apartado 3 introduce la liquidación final y la prohibición de enriquecimiento injusto para cualquiera de las partes.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 52</span> <span class="art-rubrica">— Efectos de la resolución y consecuencias aplicables en caso de incumplimiento</span></div>
+      <div class="art-body">
+        <p><b>1.</b> En los convenios se establecerán las causas de resolución y las consecuencias de dicha resolución. En defecto de regulación expresa, la resolución del convenio requerirá el cumplimiento de los trámites necesarios para poder liquidar el mismo, sin perjuicio de que puedan continuar vigentes hasta su conclusión las actuaciones en curso de ejecución que los firmantes acuerden expresamente.</p>
+        <p><b>2.</b> El cumplimiento de las obligaciones y compromisos asumidos por las partes se ajustará a lo dispuesto en cada convenio. El incumplimiento de las obligaciones asumidas por los firmantes originará el resarcimiento de los daños y perjuicios ocasionados.</p>
+        <p><b>3.</b> Cuando en la actividad de las Administraciones Públicas concurra el ejercicio de una potestad de autotutela administrativa, en caso de incumplimiento de las obligaciones o compromisos asumidos por alguno de los firmantes de un convenio, la parte cumplidora podrá exigirlo de acuerdo con lo establecido en la Ley del Procedimiento Administrativo Común de las Administraciones Públicas.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Precisa lo que ocurre "después" de que se active alguna de las causas del art. 51: no todo termina de golpe, ya que las actuaciones en curso de ejecución pueden mantenerse vigentes si así lo acuerdan expresamente las partes firmantes hasta su conclusión, evitando el "corte en seco" de proyectos ya iniciados.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 53</span> <span class="art-rubrica">— Naturaleza y régimen jurídico de los convenios de gestión de servicios públicos suscritos entre el Estado y la Seguridad Social con las Comunidades Autónomas</span></div>
+      <div class="art-body">
+        <p>Los convenios suscritos entre el Estado y la Seguridad Social con las Comunidades Autónomas para la gestión de los servicios públicos siguen manteniendo su naturaleza y régimen jurídico específico, no siéndoles de aplicación lo previsto en el presente capítulo.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Artículo de cierre técnico: excluye expresamente de este régimen general de convenios a los convenios de gestión de servicios públicos entre el Estado/Seguridad Social y las Comunidades Autónomas, que se rigen por su normativa específica (normalmente estatutaria y de traspasos) — un dato puntual que en ocasiones se usa como distractor de examen ("¿se aplica la LRJSP a estos convenios?" — no).</p>
+      <p class="ine-tag">↳ Con esto queda íntegro el Capítulo VI de Convenios (arts. 47-53) del Título Preliminar.</p>
+    </div>
+    <div style="text-align:right;"><a href="#top" class="back-to-top">↑ volver arriba</a></div>
+  </section>
+
+  <hr class="part-divider">
+
+  <section class="bloque" id="bloque-6">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 6</span>
+      <h2 class="bloque-title">Título I — Organización y funcionamiento del sector público estatal (AGE)</h2>
+    </div>
+    <div class="norma-tag">Ley 40/2015, de 1 de octubre (BOE-A-2015-10566) · Arts. 54, 56-60, 64-65, 67-68, 70-71, 76-80</div>
+    <p class="tema-intro">Título más organizativo y menos doctrinal: fija los principios y órganos superiores/directivos de la AGE, y desarrolla la Administración General del Estado en el exterior. Se resume con algo más de compactación que los bloques anteriores porque su peso relativo en el examen A1 —frente a sancionador y responsabilidad patrimonial— es menor, salvo los principios de organización y actuación (art. 54) y la distinción órganos superiores/directivos (arts. 56-60), que sí conviene fijar bien.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 54</span> <span class="art-rubrica">— Principios generales</span></div>
+      <div class="art-body">
+        <p>La Administración General del Estado, bajo la dirección del Gobierno y con sometimiento pleno a la Ley y al Derecho, sirve con objetividad los intereses generales, desarrollando funciones ejecutivas de carácter administrativo, así como aquellas funciones que le atribuyen la Constitución, las leyes y demás disposiciones normativas. Las funciones que se especifican en el presente Título se organizan y ejercen de acuerdo con los principios de división de funciones entre órganos con responsabilidad a nivel superior y directivo, encargados de fijar los fines, objetivos y prioridades; y órganos de nivel inferior, encargados de la ejecución.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es la formulación del art. 103.1 CE (objetividad, servicio a los intereses generales, sometimiento a la Ley) aplicada específicamente a la AGE, junto con el criterio organizativo estructural que vertebra todo el título: separación entre <mark>órganos superiores/directivos</mark> (deciden fines y objetivos) y <mark>órganos de nivel inferior</mark> (ejecutan). Es la clave para entender por qué a continuación la Ley regula por separado ambos tipos de órganos.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 56</span> <span class="art-rubrica">— Los Ministros</span></div>
+      <div class="art-body">
+        <p>Los Ministros, como titulares de los Departamentos a los que están adscritos los órganos y unidades administrativas, y sin perjuicio de la competencia atribuida a otros órganos, ostentan la competencia para: la determinación y en su caso propuesta de los objetivos del Ministerio, dirigir su gestión, dirigir y coordinar todos los órganos del Ministerio, nombramientos y ceses del personal, resolver conflictos de atribuciones con otros Ministerios, mantener relaciones con las CC.AA., y las demás competencias que les atribuyan las leyes y reglamentos.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Recuerda que los <mark>Ministros son órganos superiores</mark> (junto con los Secretarios de Estado, art. 55), con funciones de dirección política y de gestión del Departamento, distintas de las funciones de ejecución de los órganos directivos que verás a continuación.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 57</span> <span class="art-rubrica">— Los Secretarios de Estado</span></div>
+      <div class="art-body">
+        <p>Los Secretarios de Estado dirigen y coordinan las Secretarías Generales, Secretarías Generales Técnicas, Direcciones Generales u otros órganos que dependan de ellos, y responden ante el Ministro de la ejecución de los objetivos fijados para la Secretaría de Estado. Les corresponde nombrar y separar a los titulares de los órganos directivos que dependan de ellos, ejercer las competencias sobre el personal adscrito y las demás que les atribuya el ordenamiento jurídico.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Segundo órgano superior de la lista del art. 55. Nótese que el Secretario de Estado responde "ante el Ministro" — se mantiene la relación jerárquica lineal característica de la Administración piramidal, un dato que suele usarse en preguntas de organigrama.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 58</span> <span class="art-rubrica">— Los Subsecretarios</span></div>
+      <div class="art-body">
+        <p>Los Subsecretarios son los órganos directivos responsables de la dirección y coordinación de los servicios comunes del Ministerio (asesoramiento, apoyo técnico, coordinación normativa, régimen del personal, sistemas de información, etc.), ostentan la representación ordinaria del Ministerio, ejercen las competencias de gestión de recursos humanos, dirigen y coordinan los órganos con nivel de Dirección General adscritos al Ministerio, y les corresponden las demás competencias que les atribuyan las leyes, reglamentos u otras normas aplicables.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El Subsecretario es, junto con los Secretarios Generales, Secretarios Generales Técnicos, Directores Generales y Subdirectores Generales, un <mark>órgano directivo</mark> (art. 55.2), no superior — dato clave de examen: la línea que separa "superiores" de "directivos" se sitúa exactamente entre el Secretario de Estado y el Subsecretario.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 59</span> <span class="art-rubrica">— Los Secretarios Generales</span></div>
+      <div class="art-body">
+        <p>Cuando resulte conveniente para agrupar diferentes centros directivos, podrán crearse Secretarías Generales, con categoría de Subsecretaría, para la gestión de un sector de actividad administrativa. Los Secretarios Generales ejercen las competencias inherentes a su responsabilidad de dirección sobre los órganos dependientes, así como todas aquellas que les sean atribuidas o encomendadas, o les sean delegadas.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El dato relevante es la equivalencia de rango: la Secretaría General se crea con <mark>categoría de Subsecretaría</mark>, aunque su función sea gestionar un sector concreto de actividad y no los servicios comunes del Ministerio.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 60</span> <span class="art-rubrica">— Los Secretarios Generales Técnicos</span></div>
+      <div class="art-body">
+        <p>Los Secretarios Generales Técnicos, bajo la inmediata dependencia del Subsecretario, tendrán las competencias sobre servicios comunes que les atribuya el Real Decreto de estructura del Departamento y, en todo caso, las relativas a producción normativa, asistencia jurídica y publicaciones del Ministerio. Los Secretarios Generales Técnicos tienen a todos los efectos la categoría de Director General.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Dos datos memorísticos habituales: dependen directamente del <mark>Subsecretario</mark> (no del Ministro), y tienen a todos los efectos la <mark>categoría de Director General</mark>, aunque sus competencias típicas (normativa, asistencia jurídica, publicaciones) sean transversales a todo el Departamento.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 64</span> <span class="art-rubrica">— Los Directores Generales</span></div>
+      <div class="art-body">
+        <p>Los Directores Generales son los titulares de los órganos directivos encargados de la gestión de una o varias áreas funcionalmente homogéneas del Ministerio. A los Directores Generales les corresponde dirigir y coordinar las Subdirecciones Generales que dependan de ellos, así como el ejercicio de las funciones a que se refiere el artículo 56 respecto a los servicios encomendados a la Dirección General, y les corresponde el ejercicio de cuantas otras competencias les sean atribuidas o encomendadas o les sean delegadas.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El nivel directivo "clásico" de gestión sectorial: cada Dirección General se corresponde con un <mark>área funcionalmente homogénea</mark>. Es el órgano directivo inmediatamente superior a la Subdirección General.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 65</span> <span class="art-rubrica">— Los Subdirectores Generales</span></div>
+      <div class="art-body">
+        <p>Los Subdirectores Generales son los responsables inmediatos, bajo la supervisión del Director General o, en su caso, del Subsecretario, de la ejecución de aquellos proyectos, objetivos o actividades que les sean asignados, así como de la gestión ordinaria de los asuntos de la competencia de la Subdirección General.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra "hacia abajo" la escala de órganos directivos: el Subdirector General es el último escalón de dirección propiamente dicha antes de las unidades y puestos de trabajo (nivel estrictamente ejecutivo, ya fuera del ámbito directivo regulado en este capítulo).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 67</span> <span class="art-rubrica">— Competencias del Ministro en el ámbito internacional</span></div>
+      <div class="art-body">
+        <p>Corresponde al titular de cada Departamento ministerial, en su ámbito de actuación y sin perjuicio de las competencias atribuidas al Ministerio de Asuntos Exteriores y de Cooperación, entre otras, informar sobre los proyectos de acuerdos internacionales, participar en la elaboración de la posición española ante instituciones y organismos internacionales, y velar por el cumplimiento de los tratados y acuerdos internacionales en su ámbito de competencia.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Regula la faceta internacional de la función ministerial, siempre subordinada a la competencia general del Ministerio de Asuntos Exteriores: cada Ministro participa en lo que afecta a su sector, pero no sustituye la competencia exterior centralizada.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 68</span> <span class="art-rubrica">— Los Consejeros y Agregados, y sus adjuntos, así como otros miembros del personal de las Misiones Diplomáticas Permanentes y Representaciones Permanentes</span></div>
+      <div class="art-body">
+        <p>Los Consejeros y Agregados, y sus adjuntos, así como otros miembros del personal de las Misiones Diplomáticas Permanentes y Representaciones Permanentes, son órganos en el exterior integrados en la organización de las respectivas Misiones Diplomáticas Permanentes o Representaciones Permanentes, y ejercen sus competencias bajo la dirección del Jefe de la Misión Diplomática o Representación Permanente correspondiente.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Pieza de la Administración General del Estado <mark>en el exterior</mark>: confirma que todo el personal especializado de las Misiones y Representaciones actúa siempre bajo la dirección superior del Jefe de la Misión o Representación, reforzando el principio de unidad de acción exterior del Estado.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 70</span> <span class="art-rubrica">— Las Delegaciones del Gobierno en las Comunidades Autónomas</span></div>
+      <div class="art-body">
+        <p>Las Delegaciones del Gobierno en las Comunidades Autónomas son órganos directivos que representan al Gobierno de la Nación en el territorio de aquellas, sin perjuicio de la representación ordinaria del Estado en las Comunidades Autónomas a través de sus respectivos Presidentes. Corresponde a las Delegaciones del Gobierno la comunicación, cooperación y colaboración con las Comunidades Autónomas y con las Entidades locales, y en particular con los Delegados Territoriales del Gobierno en las Ciudades de Ceuta y Melilla.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es el órgano periférico por excelencia de la AGE en cada Comunidad Autónoma, y el nexo de comunicación interadministrativa con los gobiernos autonómicos y locales del territorio. Su rango es de <mark>órgano directivo</mark>, con rango de Subsecretaría.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 71</span> <span class="art-rubrica">— Nombramiento de los Delegados del Gobierno</span></div>
+      <div class="art-body">
+        <p>Los Delegados del Gobierno en las Comunidades Autónomas serán nombrados y separados por Real Decreto del Consejo de Ministros, a propuesta del Presidente del Gobierno, y tendrán rango de Subsecretario. Corresponde a los Delegados del Gobierno dirigir y supervisar la Delegación del Gobierno y, en su caso, las Subdelegaciones del Gobierno en las provincias de su ámbito territorial.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Confirma el rango exacto (Subsecretario) y el mecanismo de nombramiento —Real Decreto del Consejo de Ministros, a propuesta del Presidente del Gobierno—, dato de examen habitual junto con el paralelismo entre Delegado del Gobierno (nivel autonómico) y Subdelegado del Gobierno (nivel provincial), este último regulado en artículos posteriores.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 76</span> <span class="art-rubrica">— Órganos de la Administración General del Estado en el exterior</span></div>
+      <div class="art-body">
+        <p>La Administración General del Estado en el exterior está integrada por las Misiones Diplomáticas, las Representaciones o Misiones Permanentes, las Delegaciones, las Oficinas Consulares, y las Instituciones y Organismos Públicos de la Administración General del Estado en el exterior cuyo objeto sea promover las relaciones españolas con otros países o con Organizaciones Internacionales, o prestar servicios a los ciudadanos en el exterior.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Abre el capítulo dedicado a la Administración exterior española con el catálogo cerrado de tipos de órganos que la integran; conviene retener la enumeración completa como base de las preguntas de identificación de organismos.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 77</span> <span class="art-rubrica">— Misiones Diplomáticas</span></div>
+      <div class="art-body">
+        <p>Las Misiones Diplomáticas son los órganos permanentes o especiales que representan al Estado español en un Estado u organización internacional, y pueden ser Embajadas, Representaciones o Misiones Permanentes ante Organizaciones internacionales, Delegaciones y Misiones Especiales. El Jefe de la Misión Diplomática ostenta la representación de España en el Estado u organización internacional correspondiente.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Precisa las categorías de Misión Diplomática (embajadas, representaciones/misiones permanentes, delegaciones, misiones especiales), todas ellas presididas por un Jefe de Misión con función representativa unitaria del Estado.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 78</span> <span class="art-rubrica">— Oficinas consulares</span></div>
+      <div class="art-body">
+        <p>Las Oficinas Consulares son órganos a cargo de un funcionario público, generalmente denominado cónsul, encargados de ejercer, en una circunscripción determinada, las funciones consulares previstas en las normas y acuerdos internacionales vigentes, así como la protección de los derechos e intereses de los españoles en el exterior de acuerdo con las citadas normas.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La función esencial a retener es la doble vertiente de la Oficina Consular: funciones estrictamente consulares reguladas por el Derecho Internacional, y una función de protección de los intereses y derechos de los españoles residentes o de paso en su circunscripción.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 79</span> <span class="art-rubrica">— Instituciones y Organismos Públicos de la Administración General del Estado en el exterior</span></div>
+      <div class="art-body">
+        <p>Son instituciones y organismos públicos de la Administración General del Estado en el exterior aquellas unidades administrativas dependientes de la Administración General del Estado con la finalidad de promover las relaciones españolas con otros países o con Organizaciones Internacionales, o de prestar servicios a los ciudadanos, y que estén ubicadas fuera del territorio nacional, quedando excluidas de este ámbito las Misiones Diplomáticas y Oficinas Consulares.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La exclusión final del propio artículo es la trampa típica de examen: estas instituciones y organismos son una categoría <mark>distinta y separada</mark> de las Misiones Diplomáticas y las Oficinas Consulares ya vistas —piénsese, por ejemplo, en Institutos Cervantes u oficinas comerciales, no en embajadas o consulados—.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 80</span> <span class="art-rubrica">— Creación, modificación y supresión de Misiones Diplomáticas, Representaciones Permanentes y Oficinas Consulares</span></div>
+      <div class="art-body">
+        <p>La creación, modificación y supresión de Misiones Diplomáticas, Representaciones Permanentes y Oficinas Consulares se realizará por Real Decreto acordado en Consejo de Ministros, a propuesta del Ministro de Asuntos Exteriores y de Cooperación, previo informe del Ministerio de Hacienda y Administraciones Públicas.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el Título I fijando el instrumento y el procedimiento exactos de creación de estos órganos exteriores: <mark>Real Decreto del Consejo de Ministros</mark>, a propuesta de Exteriores y con informe preceptivo (no vinculante) de Hacienda y Administraciones Públicas, por las implicaciones presupuestarias que conlleva.</p>
+      <p class="ine-tag">↳ Con esto quedan cubiertos los huecos señalados del Título I. Los arts. 61-63 y 66 (no incluidos en la lista de huecos) ya constaban como cubiertos en tu documento base.</p>
+    </div>
+    <div style="text-align:right;"><a href="#top" class="back-to-top">↑ volver arriba</a></div>
+  </section>
+
+  <hr class="part-divider">
+
+  <section class="bloque" id="bloque-7">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 7</span>
+      <h2 class="bloque-title">Títulos II y III — Sector público institucional y relaciones interadministrativas</h2>
+    </div>
+    <div class="norma-tag">Ley 40/2015, de 1 de octubre (BOE-A-2015-10566) · Panorámica de los arts. 81-139 y 140-158</div>
+    <p class="tema-intro">Estos dos títulos son los más extensos de la Ley y, salvo lo ya cubierto en tu documento (arts. 89-97, sobre organismos autónomos y entidades públicas empresariales), tienen escasa aparición literal en el examen A1 frente al Título Preliminar: son sobre todo un catálogo organizativo de tipos de entidades y de mecanismos de cooperación. Se resumen aquí a nivel de estructura y de las piezas conceptuales con mayor probabilidad de pregunta, en lugar de reproducir artículo por artículo el articulado completo, para no restar peso relativo a los bloques prioritarios de este documento.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Arts. 81-88</span> <span class="art-rubrica">— Título II, Cap. I: disposiciones generales del sector público institucional</span></div>
+      <div class="art-body">
+        <p>Definen el <mark>sector público institucional estatal</mark> como el integrado por los organismos públicos vinculados o dependientes de la AGE (organismos autónomos y entidades públicas empresariales), las autoridades administrativas independientes, las sociedades mercantiles estatales, los consorcios, las fundaciones del sector público estatal, los fondos sin personalidad jurídica y las Universidades públicas no transferidas. Se crea el <mark>Inventario de Entidades del Sector Público Estatal, Autonómico y Local (INVESPE)</mark> como registro público de todas estas entidades, y se fijan los principios generales de actuación: eficiencia, estabilidad presupuestaria, sostenibilidad financiera y transparencia en la gestión.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Lo más rentable para examen de este bloque introductorio es el <mark>catálogo cerrado de tipos de entidades</mark> del sector público institucional (art. 84) y la existencia del INVESPE como registro obligatorio y público de todas ellas —creado precisamente por esta Ley 40/2015 como novedad frente a la legislación anterior—.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Arts. 98-108</span> <span class="art-rubrica">— Título II, Cap. III: Autoridades Administrativas Independientes de ámbito estatal</span></div>
+      <div class="art-body">
+        <p>Regula las <mark>Autoridades Administrativas Independientes</mark> (AAI), entidades de Derecho Público con personalidad jurídica propia, creadas por Ley, que tienen atribuidas funciones de regulación o supervisión de sectores económicos o de la actividad de los sujetos relacionados con estos, y que actúan con independencia funcional respecto de la Administración General del Estado. Se rigen por su Ley de creación y supletoriamente por esta Ley, y su régimen presupuestario, de personal, de contratación y patrimonial es el de los organismos públicos, con las especialidades que determine su norma de creación.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La nota distintiva de las AAI —muy preguntada en su vertiente conceptual— es precisamente su <mark>independencia funcional</mark> respecto del Gobierno y la AGE, a diferencia del resto de organismos públicos que sí están sujetos al principio de jerarquía y dirección política del Ministerio de adscripción. Ejemplos típicos: CNMC, CNMV, Banco de España (con su régimen específico), Consejo de Seguridad Nuclear.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Arts. 109-134</span> <span class="art-rubrica">— Título II, Caps. IV a VII: sociedades mercantiles estatales, consorcios, fundaciones del sector público y fondos sin personalidad jurídica</span></div>
+      <div class="art-body">
+        <p>Regulan sucesivamente: las <mark>sociedades mercantiles estatales</mark> (capital mayoritariamente público, forma societaria privada pero con controles públicos de tutela); los <mark>consorcios</mark> (entidades de derecho público creadas por varias Administraciones, o por una Administración y entidades privadas sin ánimo de lucro, para el desarrollo de actividades de interés común, con adscripción obligatoria a una de las Administraciones participantes según los criterios legales); las <mark>fundaciones del sector público estatal</mark> (fin de interés general no lucrativo, patrimonio mayoritariamente público); y los <mark>fondos carentes de personalidad jurídica</mark>, cuya dotación se efectúa total o mayoritariamente desde los Presupuestos Generales del Estado.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El dato de examen más repetido de este bloque es la <mark>adscripción obligatoria de los consorcios</mark>: cada consorcio debe adscribirse a una única Administración (la que tenga mayoría de votos, mayor aportación patrimonial, mayor financiación, o mayor número de miembros de sus órganos de gobierno, por ese orden de prelación), novedad introducida por esta Ley para evitar los consorcios "sin Administración de referencia" que existían con anterioridad.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Arts. 135-139</span> <span class="art-rubrica">— Título II, Cap. VIII: funcionamiento electrónico del sector público institucional</span></div>
+      <div class="art-body">
+        <p>Extiende al conjunto de entidades del sector público institucional estatal los principios y reglas de funcionamiento electrónico ya vistos en el Capítulo V del Título Preliminar (sede electrónica, identificación, archivo electrónico), adaptándolos a las peculiaridades organizativas de cada tipo de entidad.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el Título II sin contenido sustantivo nuevo: es una remisión de coherencia sistemática al Capítulo V del Título Preliminar que ya tienes cubierto en el Bloque 4 de este mismo documento.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Arts. 140-158</span> <span class="art-rubrica">— Título III: Relaciones interadministrativas</span></div>
+      <div class="art-body">
+        <p>Regula íntegramente el sistema de relaciones entre Administraciones distintas de la mera colaboración voluntaria (arts. 13-14, ya vistos en el Bloque 1). Fija en el art. 140 los <mark>principios de las relaciones interadministrativas</mark> (lealtad institucional, adecuación al orden de distribución de competencias, colaboración, cooperación, coordinación, eficiencia, garantía e integridad territorial, entre otros), y desarrolla después los distintos <mark>órganos y técnicas de cooperación</mark>: la Conferencia de Presidentes, las Conferencias Sectoriales, las Comisiones Bilaterales de Cooperación, las Comisiones y Ponencias de colaboración, los Planes y Programas Conjuntos; y los mecanismos de <mark>coordinación</mark> (que a diferencia de la cooperación implica un poder de dirección de una Administración sobre otra) y de resolución de discrepancias entre Administraciones antes de acudir a la vía jurisdiccional.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La distinción conceptual más preguntada de todo el título es <mark>cooperación vs. coordinación</mark>: la cooperación (arts. 143-152) es siempre voluntaria y entre iguales —ninguna Administración impone nada a otra—, mientras que la coordinación (art. 141 y concordantes) implica que una Administración (normalmente el Estado, en virtud de sus competencias de coordinación general) puede fijar medios y sistemas de relación que garanticen la coherencia de las actuaciones de las distintas Administraciones. Conviene también fijar la <mark>Conferencia de Presidentes</mark> como órgano de cooperación multilateral de más alto nivel (Presidente del Gobierno y Presidentes autonómicos) frente a las <mark>Conferencias Sectoriales</mark>, de ámbito material más específico (un Ministro y los Consejeros autonómicos de la materia correspondiente).</p>
+      <p class="ine-tag">↳ Con este bloque panorámico se completa el recorrido de toda la Ley 40/2015 en lo que respecta a los huecos señalados. Los Títulos II y III, por su carácter marcadamente organizativo y su menor densidad de preguntas tipo test en el temario A1, se han resumido a nivel de estructura y conceptos clave en lugar de reproducirse artículo por artículo; si detectas en tus simulacros preguntas concretas y literales sobre algún artículo específico de estos dos títulos, pídemelo y te preparo esa ampliación puntual con el mismo formato.</p>
+    </div>
+    <div style="text-align:right;"><a href="#top" class="back-to-top">↑ volver arriba</a></div>
+  </section>
+
+</div>
+</body>
+</html>

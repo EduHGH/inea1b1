@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Huecos reales del TREBEP — Complemento en orden BOE — INE A1</title>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --paper-deep:#EAE3D2;
+    --ink:#1F1B16;
+    --ink-soft:#4A443A;
+    --ink-faint:#8A8375;
+    --rule:#D9D1BE;
+    --highlight:#EFA07F;
+    --highlight-deep:#E88357;
+    --highlight-text:#4A2410;
+    --card:#FBF8F1;
+    --article-bg:#FFFEFB;
+    --article-border:#DCD3BC;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+  }
+
+  .doc{
+    max-width:800px;
+    margin:0 auto;
+    padding:64px 28px 120px;
+  }
+
+  .masthead{
+    border-bottom:3px solid var(--ink);
+    padding-bottom:20px;
+    margin-bottom:32px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:10px;
+  }
+  h1.title{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:36px;
+    line-height:1.1;
+    letter-spacing:-.01em;
+    margin:0 0 8px;
+  }
+  .subtitle{
+    font-size:16px;
+    color:var(--ink-soft);
+    max-width:64ch;
+  }
+
+  .howto{
+    background:var(--paper-deep);
+    border-radius:6px;
+    padding:18px 20px;
+    margin:24px 0 40px;
+  }
+  .howto .kc-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+  }
+  .howto p{margin:0 0 8px; font-size:14.5px;}
+  .howto p:last-child{margin-bottom:0;}
+
+  section.bloque{margin-bottom:56px; scroll-margin-top:24px;}
+  .bloque-head{display:flex; align-items:baseline; gap:14px; margin-bottom:6px;}
+  .bloque-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--highlight-deep);
+    border:1px solid var(--highlight-deep);
+    border-radius:100px;
+    padding:2px 10px;
+  }
+  .bloque-title{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:23px;
+    margin:0;
+  }
+  .norma-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+    margin:6px 0 14px;
+  }
+  .tema-intro{
+    font-size:15px;
+    color:var(--ink-soft);
+    max-width:68ch;
+    margin-bottom:8px;
+  }
+
+  .articulo{
+    background:var(--article-bg);
+    border:1px solid var(--article-border);
+    border-radius:8px;
+    padding:20px 22px;
+    margin:22px 0 0;
+  }
+  .art-head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:8px;
+    margin-bottom:10px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--rule);
+  }
+  .art-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:14px;
+    color:var(--highlight-text);
+    background:#FBE3D4;
+    padding:2px 9px;
+    border-radius:4px;
+  }
+  .art-rubrica{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16.5px;
+    color:var(--ink);
+  }
+  .art-body p{margin:0 0 10px; font-size:15px;}
+  .art-body p:last-child{margin-bottom:0;}
+  .art-body b{color:var(--ink);}
+  mark{
+    background:#F6D9C4;
+    color:var(--highlight-text);
+    padding:0 3px;
+    border-radius:2px;
+  }
+
+  .comentario{
+    background:var(--card);
+    border-left:3px solid var(--highlight-deep);
+    border-radius:0 6px 6px 0;
+    padding:16px 20px;
+    margin:0 0 8px;
+  }
+  .c-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--highlight-deep);
+    margin-bottom:8px;
+  }
+  .comentario p{margin:0 0 8px; font-size:14.5px; color:var(--ink-soft);}
+  .comentario p:last-child{margin-bottom:0;}
+  .ine-tag{
+    font-size:13.5px;
+    color:var(--ink-faint);
+    font-style:italic;
+    border-top:1px dashed var(--rule);
+    padding-top:8px;
+    margin-top:8px;
+  }
+
+  .divider{border:none; border-top:2px solid var(--ink); margin:56px 0;}
+
+  .toc-wrap{
+    background:var(--card);
+    border:1px solid var(--article-border);
+    border-radius:4px;
+    padding:28px 32px;
+    margin:0 0 56px;
+  }
+  .toc-wrap .kc-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 16px;
+  }
+  .toc-wrap ol{
+    list-style:none;
+    margin:0;
+    padding:0;
+    counter-reset:toc;
+  }
+  .toc-wrap li{
+    margin:0;
+    border-top:1px dashed var(--rule);
+  }
+  .toc-wrap li:first-child{border-top:none;}
+  .toc-wrap a{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    padding:9px 0;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .toc-wrap a:hover .toc-title{color:var(--highlight-deep);}
+  .toc-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+    flex-shrink:0;
+    width:64px;
+  }
+  .toc-title{font-size:14.5px;}
+
+  .part-flag{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    background:var(--paper-deep);
+    border:1px solid var(--rule);
+    border-radius:20px;
+    padding:4px 14px;
+    margin:0 0 20px;
+  }
+  hr.part-divider{
+    border:none;
+    border-top:3px double var(--ink);
+    margin:80px 0 56px;
+  }
+  .back-to-top{
+    display:inline-block;
+    margin-top:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:.04em;
+    color:var(--ink-faint);
+    text-decoration:none;
+    border-bottom:1px dashed var(--ink-faint);
+  }
+  .back-to-top:hover{color:var(--highlight-deep); border-color:var(--highlight-deep);}
+
+  table.cuadro{
+    width:100%;
+    border-collapse:collapse;
+    margin:18px 0 8px;
+    font-size:13.5px;
+  }
+  table.cuadro th, table.cuadro td{
+    border:1px solid var(--rule);
+    padding:8px 10px;
+    text-align:left;
+    vertical-align:top;
+  }
+  table.cuadro th{
+    background:var(--paper-deep);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+  }
+
+</style>
+</head>
+<body>
+<div class="doc" id="top">
+
+  <div class="masthead">
+    <div class="eyebrow">Complemento · Función Pública INE A1 · Tema 6 · TREBEP</div>
+    <h1 class="title">Los huecos reales del TREBEP — artículos que faltan, en orden BOE</h1>
+    <p class="subtitle">Contrastados tus documentos previos del Tema 6 contra el índice oficial consolidado del Real Decreto Legislativo 5/2015, texto refundido del Estatuto Básico del Empleado Público (TREBEP), estos son los artículos que no estaban cubiertos por ningún documento anterior. Se presentan en el mismo orden del articulado oficial, agrupados por título y capítulo, con prioridad para el Título Preliminar (1-7) —que no tenías en absoluto— y para los bloques de código de conducta, retribuciones y régimen disciplinario, clásicos de examen A1.</p>
+  </div>
+
+  <div class="howto">
+    <div class="kc-label">Qué cubre exactamente este complemento y en qué orden de prioridad</div>
+    <p>El Título Preliminar (arts. 1-7) fija el ámbito de aplicación, el concepto de empleado público y las clases de personal — es la base conceptual de todo el Estatuto, y por eso abre este documento aunque su peso "memorístico" en examen sea menor que el de otros bloques. A continuación se cierran tres artículos sueltos del Título II sobre evaluación del desempeño y retribuciones (18, 19, 21), y se aborda el gran bloque pendiente: prácticamente todo el Título III (derechos retributivos, jornada, permisos, negociación colectiva), del que solo tenías los arts. 47 y 50.</p>
+    <p>Cierran el documento los huecos de provisión de puestos (58, 64-66), el bloque de situaciones administrativas y régimen disciplinario (71-98, con especial detalle en faltas y procedimiento disciplinario, uno de los apartados más preguntados de todo el TREBEP) y las dos disposiciones finales de ordenación (99-100).</p>
+  </div>
+
+  <div class="toc-wrap">
+    <div class="kc-label">Índice — 7 bloques</div>
+    <ol>
+      <li><a href="#bloque-1"><span class="toc-num">Bloque 1</span><span class="toc-title">Título Preliminar íntegro — Objeto, ámbito, empleados públicos y clases de personal (arts. 1-7)</span></a></li>
+      <li><a href="#bloque-2"><span class="toc-num">Bloque 2</span><span class="toc-title">Título II — Evaluación del desempeño, carrera del personal laboral y retribuciones (arts. 18, 19, 21)</span></a></li>
+      <li><a href="#bloque-3"><span class="toc-num">Bloque 3</span><span class="toc-title">Título III, Cap. I-II — Retribuciones e indemnizaciones (arts. 25-33)</span></a></li>
+      <li><a href="#bloque-4"><span class="toc-num">Bloque 4</span><span class="toc-title">Título III, Cap. III-V — Jornada, permisos y negociación colectiva (arts. 34-46, 48, 49, 51)</span></a></li>
+      <li><a href="#bloque-5"><span class="toc-num">Bloque 5</span><span class="toc-title">Provisión de puestos y acceso al empleo público (arts. 58, 64, 65, 66)</span></a></li>
+      <li><a href="#bloque-6"><span class="toc-num">Bloque 6</span><span class="toc-title">Situaciones administrativas y régimen disciplinario (arts. 71-98)</span></a></li>
+      <li><a href="#bloque-7"><span class="toc-num">Bloque 7</span><span class="toc-title">Disposiciones finales de ordenación (arts. 99-100)</span></a></li>
+    </ol>
+  </div>
+
+  <section class="bloque" id="bloque-1">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 1</span>
+      <h2 class="bloque-title">Título Preliminar — Objeto, ámbito de aplicación y clases de personal</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre (BOE-A-2015-11719) · Arts. 1-7 (título íntegro)</div>
+    <span class="part-flag">No cubierto en ningún documento anterior</span>
+    <p class="tema-intro">Título íntegro, base conceptual de todo el Estatuto: fija su objeto y ámbito de aplicación (general y específico), los principios que inspiran la actuación de los empleados públicos, y define quién es empleado público y cuáles son las cuatro clases de personal al servicio de las Administraciones Públicas.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 1</span> <span class="art-rubrica">— Objeto</span></div>
+      <div class="art-body">
+        <p><b>1.</b> El presente Estatuto tiene por objeto establecer las bases del régimen estatutario de los funcionarios públicos incluidos en su ámbito de aplicación. Asimismo tiene por objeto determinar las normas aplicables al personal laboral al servicio de las Administraciones Públicas.</p>
+        <p><b>2.</b> Los principios y disposiciones de este Estatuto se aplican en el desarrollo legislativo que corresponda realizar al Estado y a las Comunidades Autónomas, así como en su caso a las Corporaciones Locales, y en las normas reglamentarias y actos que dicten las Administraciones Públicas.</p>
+        <p><b>3.</b> El presente Estatuto tiene por objeto establecer los principios generales aplicables al conjunto de las relaciones de empleo público, empezando por el de <mark>servicio a los ciudadanos y al interés general</mark>, que se desarrollan de forma más pormenorizada en el articulado, y sirven de marco de referencia, así como de subsidiariedad, en defecto de legislación aplicable.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Distingue con claridad la doble naturaleza del Estatuto: es <mark>ley de bases</mark> respecto de los funcionarios (habilita desarrollo legislativo autonómico) y, al mismo tiempo, norma <mark>directamente aplicable</mark> al personal laboral en lo que se refiere a las materias que específicamente le extiende. El apartado 3 es la clave de lectura de todo el texto: el TREBEP no pretende agotar la regulación, sino fijar principios generales de aplicación subsidiaria cuando falte normativa específica.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 2</span> <span class="art-rubrica">— Ámbito de aplicación</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Este Estatuto se aplica al personal funcionario y en lo que proceda al personal laboral al servicio de las siguientes Administraciones Públicas: <b>a)</b> La Administración General del Estado. <b>b)</b> Las Administraciones de las Comunidades Autónomas y de las Ciudades de Ceuta y Melilla. <b>c)</b> Las Administraciones de las Entidades Locales. <b>d)</b> Los Organismos Públicos, Agencias y demás Entidades de derecho público con personalidad jurídica propia, vinculadas o dependientes de cualquiera de las Administraciones Públicas. <b>e)</b> Las Universidades Públicas.</p>
+        <p><b>2.</b> Las disposiciones de este Estatuto solo se aplicarán directamente al personal laboral en lo que proceda, de acuerdo con la legislación laboral.</p>
+        <p><b>3.</b> Cada vez que este Estatuto haga mención al personal funcionario de carrera se entenderá comprendido el personal estatutario de los Servicios de Salud.</p>
+        <p><b>4.</b> El personal docente y el personal estatutario de los Servicios de Salud se regirán por la legislación específica dictada por el Estado y por las Comunidades Autónomas en el ámbito de sus respectivas competencias y por lo previsto en el presente Estatuto, excepto el Capítulo II del Título III, salvo el artículo 20, y los artículos 22.3, 24 y 84.</p>
+        <p><b>5.</b> El personal investigador se regirá por la legislación específica dictada por el Estado y por las Comunidades Autónomas en el ámbito de sus respectivas competencias, y por dicha legislación específica se determinarán los preceptos de este Estatuto que le son de aplicación.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El apartado 1 fija el <mark>ámbito subjetivo</mark> con una lista de cinco letras que conviene memorizar literalmente (AGE, CCAA, EELL, organismos públicos vinculados, Universidades públicas). Dato de examen habitual: el apartado 3 equipara expresamente al <mark>personal estatutario de los Servicios de Salud</mark> con el personal funcionario de carrera a efectos de aplicación del Estatuto, mientras que el personal docente y el investigador tienen regímenes de aplicación parcial y remitida (apartados 4-5) — no se les aplica el Estatuto en bloque, sino solo lo que su legislación específica determine.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 3</span> <span class="art-rubrica">— Personal de las Corporaciones Locales</span></div>
+      <div class="art-body">
+        <p><b>1.</b> El personal funcionario de las Entidades Locales se rige por la legislación estatal que resulte de aplicación, de la que forma parte este Estatuto y por la legislación de las Comunidades Autónomas, con respeto a la autonomía local.</p>
+        <p><b>2.</b> Los Cuerpos de Policía Local se regirán también por este Estatuto y por la normativa específica dictada por el Estado y por las Comunidades Autónomas, en el marco de la Ley Orgánica de Fuerzas y Cuerpos de Seguridad.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Precisa el sistema de fuentes del personal funcionario local: legislación estatal (que incluye el propio TREBEP) más legislación autonómica, siempre con respeto al principio de <mark>autonomía local</mark>. El apartado 2 recuerda que la Policía Local, pese a su singularidad, no queda fuera del Estatuto sino que se le suma su normativa específica derivada de la Ley Orgánica de Fuerzas y Cuerpos de Seguridad.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 4</span> <span class="art-rubrica">— Personal con legislación específica propia</span></div>
+      <div class="art-body">
+        <p>Las disposiciones de este Estatuto sólo se aplicarán directamente cuando así lo disponga su legislación específica al siguiente personal: <b>a)</b> Personal funcionario de las Cortes Generales y de las Asambleas Legislativas de las Comunidades Autónomas. <b>b)</b> Personal funcionario de los demás órganos constitucionales del Estado y de los órganos estatutarios de las Comunidades Autónomas. <b>c)</b> Jueces, Magistrados, Fiscales y demás personal funcionario al servicio de la Administración de Justicia. <b>d)</b> Personal militar de las Fuerzas Armadas. <b>e)</b> Personal de las Fuerzas y Cuerpos de Seguridad. <b>f)</b> Personal retribuido por arancel. <b>g)</b> Personal del Centro Nacional de Inteligencia. <b>h)</b> Personal del Banco de España y organismos que se regulen por su propia normativa. <b>i)</b> Personal de las Sociedades Estatales, Entidades Públicas Empresariales, Fundaciones Públicas y entidades sujetas a Derecho Privado.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es la lista más citada del Título Preliminar: personal con <mark>regímenes propios y singulares</mark> a los que el TREBEP <mark>solo se aplica de forma indirecta</mark>, es decir, cuando su normativa específica se remita expresamente a él. La técnica legislativa es la inversa de la del art. 2: allí se decía "esto se aplica a...", aquí se dice "esto NO se aplica salvo que la ley especial lo diga". Los ejemplos más recurrentes en examen son las letras c) (Jueces, Magistrados y Fiscales), d) (militares) y e) (Fuerzas y Cuerpos de Seguridad del Estado).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 5</span> <span class="art-rubrica">— Personal de otras entidades del Sector Público</span></div>
+      <div class="art-body">
+        <p>Las disposiciones de este Estatuto se aplicarán al personal de las restantes entidades del sector público estatal, autonómico o local no incluidas en los artículos anteriores cuando así lo establezca su legislación específica.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el catálogo de ámbitos de aplicación con una <mark>cláusula residual</mark>: cualquier otra entidad del sector público no mencionada expresamente antes se rige por el mismo criterio del art. 4 — aplicación solo si su norma específica lo dispone así, nunca de forma automática o supletoria directa.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 6</span> <span class="art-rubrica">— Leyes de Función Pública</span></div>
+      <div class="art-body">
+        <p>En desarrollo de este Estatuto, las Cortes Generales y las Asambleas Legislativas de las Comunidades Autónomas aprobarán, en el ámbito de sus competencias, las Leyes reguladoras de la Función Pública de la Administración General del Estado y de las Comunidades Autónomas.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Artículo breve pero conceptualmente relevante: confirma la naturaleza de <mark>ley de bases</mark> ya anticipada en el art. 1 — el TREBEP no agota la regulación de la función pública, sino que remite a ulteriores leyes de desarrollo, tanto estatales como autonómicas, cada una en su ámbito competencial.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 7</span> <span class="art-rubrica">— Personal laboral</span></div>
+      <div class="art-body">
+        <p>El personal laboral al servicio de las Administraciones Públicas se rige, además de por la legislación laboral y por las demás normas convencionalmente aplicables, por los preceptos de este Estatuto que así lo dispongan.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el Título Preliminar fijando el sistema de fuentes del personal laboral público: <mark>legislación laboral común</mark> (Estatuto de los Trabajadores y convenios colectivos) como régimen general, y el TREBEP solo en aquello que expresamente le sea extendido — es la contrapartida lógica de lo ya visto en el art. 1.2 y el art. 2.2. Con este artículo se cierra el Título Preliminar completo.</p>
+      <p class="ine-tag">↳ Dato de examen: no confundir "personal laboral" (régimen contractual, Derecho del Trabajo) con "personal estatutario" (régimen público específico, equiparado a funcionario de carrera por el art. 2.3) — son las dos clases de personal que con más frecuencia se confunden en preguntas tipo test.</p>
+    </div>
+    <div style="text-align:right;"><a href="#top" class="back-to-top">↑ volver arriba</a></div>
+  </section>
+
+  <hr class="part-divider">
+
+  <section class="bloque" id="bloque-2">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 2</span>
+      <h2 class="bloque-title">Título II — Evaluación del desempeño, carrera del personal laboral y retribuciones</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre (BOE-A-2015-11719) · Arts. 18, 19, 21</div>
+    <p class="tema-intro">Tres piezas sueltas que cierran el Capítulo III del Título II (Derecho a la carrera profesional y a la promoción interna): la evaluación del desempeño como instrumento transversal de todo el sistema de carrera, la carrera profesional del personal laboral (distinta de la del funcionario de carrera) y la determinación de las cuantías retributivas, puente directo hacia el gran bloque de retribuciones del Título III.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 18</span> <span class="art-rubrica">— La evaluación del desempeño</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Las Administraciones Públicas establecerán sistemas que permitan la <mark>evaluación del desempeño</mark> de sus empleados. La evaluación del desempeño es el procedimiento mediante el cual se mide y valora la conducta profesional y el rendimiento o el logro de resultados.</p>
+        <p><b>2.</b> Los sistemas de evaluación del desempeño se adecuarán, en todo caso, a criterios de transparencia, objetividad, imparcialidad y no discriminación y se aplicarán sin menoscabo de los derechos de los empleados públicos.</p>
+        <p><b>3.</b> Las Administraciones Públicas determinarán los efectos de la evaluación en la carrera profesional horizontal, la formación, la provisión de puestos de trabajo y en la percepción de las retribuciones complementarias previstas en el artículo 24 de este Estatuto.</p>
+        <p><b>4.</b> La continuidad en un puesto de trabajo obtenido por concurso quedará vinculada a la evaluación del desempeño de acuerdo con los sistemas de evaluación que cada Administración Pública determine, dando en todo caso audiencia al interesado, y por la falta de capacidad manifiesta en el desempeño de las funciones propias del puesto podrá dar lugar, previa audiencia del interesado, a la remoción del puesto de trabajo.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La evaluación del desempeño es el <mark>instrumento transversal</mark> que conecta toda la Ley: no es un fin en sí mismo, sino la base objetiva sobre la que se articulan la carrera horizontal, la formación, la provisión de puestos y —dato muy preguntado— las retribuciones complementarias del art. 24 (complemento de productividad). El apartado 4 introduce la figura de la <mark>remoción del puesto</mark> por falta de capacidad manifiesta acreditada por evaluación negativa, siempre con la garantía de audiencia previa al interesado.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 19</span> <span class="art-rubrica">— Carrera profesional y promoción del personal laboral</span></div>
+      <div class="art-body">
+        <p>El personal laboral tendrá derecho a la promoción profesional. La carrera profesional y la promoción del personal laboral se hará efectiva a través de los procedimientos previstos en el Estatuto de los Trabajadores, o en los Convenios Colectivos.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Artículo breve pero de máxima importancia comparativa: mientras el personal funcionario tiene su carrera profesional regulada directamente por el TREBEP (arts. 16-17, que ya tenías cubiertos), el personal laboral se rige en esta materia por el <mark>Estatuto de los Trabajadores y los convenios colectivos</mark> — es una remisión directa, no una regulación propia del Estatuto. Suele preguntarse precisamente para diferenciar el régimen jurídico de ambas clases de personal en materia de carrera.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 21</span> <span class="art-rubrica">— Determinación de las cuantías</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Las cuantías de las retribuciones básicas y el incremento de las cuantías globales de las retribuciones complementarias de los funcionarios, así como el incremento de la masa salarial del personal laboral, deberán reflejarse para cada ejercicio presupuestario en la correspondiente <mark>Ley de Presupuestos</mark>.</p>
+        <p><b>2.</b> No podrán acordarse incrementos retributivos que globalmente supongan un incremento de la masa salarial superior a los límites fijados anualmente en la Ley de Presupuestos Generales del Estado para el personal.</p>
+        <p><b>3.</b> Sin perjuicio de lo anterior, si en el ejercicio presupuestario se produjera un crecimiento del Producto Interior Bruto (PIB) a precios constantes igual o superior al dos por ciento respecto al del ejercicio anterior, se podrá acordar, además, para dicho ejercicio, un incremento adicional a los anteriormente citados vinculado a la evolución de los ingresos y en función del grado de estabilidad presupuestaria y sostenibilidad financiera.</p>
+        <p><b>4.</b> Los acuerdos, convenios o pactos que impliquen crecimientos retributivos superiores a los límites fijados en las correspondientes Leyes de Presupuestos deberán experimentar la oportuna adecuación, deviniendo inaplicables las cláusulas que se opongan al mismo.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Fija el principio de <mark>reserva presupuestaria anual</mark> en materia retributiva: es siempre la Ley de Presupuestos Generales del Estado la que marca el límite máximo de incremento de la masa salarial, tanto para funcionarios como para personal laboral. El apartado 4 tiene fuerte proyección práctica: cualquier acuerdo, convenio o pacto —por muy legítimamente negociado que esté— que supere esos límites presupuestarios deviene <mark>inaplicable</mark> en la parte que los exceda, sin necesidad de impugnación expresa, lo que limita de forma importante el alcance real de la negociación colectiva en materia retributiva.</p>
+      <p class="ine-tag">↳ Con este artículo se cierra el Capítulo III del Título II y se enlaza directamente con el Capítulo I del Título III (arts. 22-24, ya cubiertos), que regula el resto de conceptos retributivos: básicas, complementarias, indemnizatorias.</p>
+    </div>
+    <div style="text-align:right;"><a href="#top" class="back-to-top">↑ volver arriba</a></div>
+  </section>
+
+  <hr class="part-divider">
+
+  <section class="bloque" id="bloque-3">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 3</span>
+      <h2 class="bloque-title">Título III — Prestación del trabajo y derechos individuales (jornada, permisos y régimen retributivo, I)</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre (BOE-A-2015-11719) · Arts. 25-33</div>
+    <span class="part-flag">Bloque prioritario · gran hueco pendiente</span>
+    <p class="tema-intro">Abre el desarrollo masivo del Título III, del que solo tenías los arts. 47 (jornada de trabajo) y 50 (fiestas laborales). Este bloque cubre el permiso por matrimonio y demás derechos retributivos derivados de la relación de servicio no estrictamente salariales, así como el arranque de la regulación de jornada, permisos y vacaciones.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 25</span> <span class="art-rubrica">— Retribuciones del personal funcionario interino</span></div>
+      <div class="art-body">
+        <p><b>1.</b> El personal funcionario interino percibirá el sueldo, trienios y pagas extraordinarias correspondientes al Subgrupo o Grupo de clasificación profesional, si éste no tiene Subgrupo, en el que hubiera sido nombrado; los complementos y las retribuciones correspondientes a la retribución complementaria de destino y de puesto de trabajo del puesto que desempeñe o, si ello no fuera posible, el que corresponda al personal funcionario de menor nivel de complemento de destino de entre los que integran el mismo grupo, así como, en su caso, la retribución complementaria específica que corresponda al puesto de trabajo que desempeñe o, si ello no fuera posible, la que corresponda al personal funcionario de menor complemento específico de entre los que integran el mismo grupo, y la parte proporcional de la retribución complementaria de productividad o concepto equiparable que le corresponda en función del desempeño del puesto.</p>
+        <p><b>2.</b> El personal funcionario interino tendrá derecho a percibir los trienios correspondientes a los servicios prestados antes de la entrada en vigor del presente Estatuto, que tendrán efectos retributivos únicamente a partir de la entrada en vigor del mismo.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El dato de mayor recorrido práctico es el apartado 2: el <mark>derecho a trienios del personal interino</mark> por servicios previos a la entrada en vigor del Estatuto (13 de mayo de 2007, fecha de entrada en vigor de la Ley original 7/2007) tiene <mark>efectos retributivos no retroactivos</mark> — se reconoce el tiempo de servicio, pero no se cobra con carácter retroactivo el importe correspondiente a los años anteriores a esa fecha.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 26</span> <span class="art-rubrica">— Retribuciones de los funcionarios en prácticas</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los funcionarios en prácticas percibirán, durante su formación, la totalidad de las retribuciones básicas correspondientes al cuerpo o escala de funcionarios en que aspiren a ingresar. Además, percibirán las pagas extraordinarias que en su caso les correspondan y, en su caso, las retribuciones complementarias correspondientes a las circunstancias del puesto de trabajo desempeñado, sin que en ningún caso puedan superarse las retribuciones que correspondan a los funcionarios de carrera del cuerpo o escala respectivo.</p>
+        <p><b>2.</b> Si tuvieran la condición de funcionarios de carrera de otro cuerpo o escala, o hubieran prestado servicios efectivos como personal laboral fijo o funcionario interino en la Administración Pública convocante, podrán optar entre percibir las retribuciones anteriores o las que les correspondan en su condición de personal laboral fijo o funcionario interino de carrera de otro Cuerpo o Escala.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Fija el régimen retributivo del período de formación tras superar la oposición y antes de tomar posesión como funcionario de carrera. El apartado 2 introduce un <mark>derecho de opción</mark> a favor de quien ya viniera prestando servicios en otra condición: puede elegir la retribución que le sea más favorable entre la de funcionario en prácticas y la de su situación de origen.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 27</span> <span class="art-rubrica">— Retribuciones del personal laboral</span></div>
+      <div class="art-body">
+        <p>Las retribuciones del personal laboral se determinarán de acuerdo con la legislación laboral, el convenio colectivo que sea aplicable y el contrato de trabajo, respetando en todo caso lo establecido en el artículo 21.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Reitera para el ámbito retributivo el mismo esquema de fuentes ya visto en el art. 19 para la carrera profesional: <mark>legislación laboral y convenio colectivo</mark> como fuentes primarias, con el límite común de los topes presupuestarios anuales del art. 21 que se aplican por igual a funcionarios y laborales.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 28</span> <span class="art-rubrica">— Indemnizaciones</span></div>
+      <div class="art-body">
+        <p>Todos los funcionarios públicos incluidos en el ámbito de aplicación de este Estatuto tendrán derecho a ser indemnizados por las Administraciones Públicas respectivas de los gastos que les origine la realización de su trabajo, en los términos que reglamentariamente se determinen, con respeto a los principios de eficacia y economía.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el Capítulo I (retribuciones) con el derecho a las llamadas <mark>indemnizaciones por razón del servicio</mark> (dietas, gastos de viaje, traslados) — concepto que no tiene naturaleza salarial sino compensatoria/reparadora de gastos efectivamente realizados por el empleado en el ejercicio de su trabajo, remitido a desarrollo reglamentario.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 29</span> <span class="art-rubrica">— Retribuciones diferidas</span></div>
+      <div class="art-body">
+        <p>Las Administraciones Públicas podrán destinar cantidades a financiar planes de pensiones de empleo o contratos de seguro colectivos que incluyan la cobertura de la contingencia de jubilación, para el personal incluido en su ámbito de aplicación, de acuerdo con lo establecido en la Ley de Regulación de los Planes y Fondos de Pensiones y su normativa de desarrollo.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Abre el Capítulo II (permisos y jornada, aunque este artículo en concreto es aún de contenido retributivo residual): la posibilidad —no la obligación— de las Administraciones de financiar sistemas de <mark>previsión social complementaria</mark> para sus empleados, remitida a la legislación específica de planes y fondos de pensiones.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 30</span> <span class="art-rubrica">— Anticipos de retribuciones</span></div>
+      <div class="art-body">
+        <p>Reglamentariamente se podrán establecer para el personal funcionario incluido en el ámbito de aplicación de este Estatuto, la concesión de anticipos de retribuciones, cuyo importe podrá ser descontado sobre las nóminas del funcionario receptor. Las condiciones de concesión de dichos anticipos se determinarán mediante desarrollo reglamentario, atendiendo a los principios de igualdad, objetividad y transparencia.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Regula la figura del <mark>anticipo de nómina</mark>: un adelanto de retribuciones ya devengadas o próximas a devengarse, recuperable mediante descuentos posteriores, cuyo desarrollo se remite en todo caso a norma reglamentaria bajo los principios de igualdad, objetividad y transparencia.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 31</span> <span class="art-rubrica">— Retenciones judiciales</span></div>
+      <div class="art-body">
+        <p>Cuando una resolución judicial disponga la retención de haberes de un funcionario, la Administración deberá efectuarla en la forma establecida en la resolución judicial.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Artículo mínimo y de carácter procedimental: la Administración pública, como pagadora, actúa como <mark>mero ejecutor de la resolución judicial</mark> de embargo o retención de haberes, sin margen de apreciación propia sobre cómo o cuánto retener — se limita a lo que ordene el órgano judicial.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 32</span> <span class="art-rubrica">— Normas aplicables</span></div>
+      <div class="art-body">
+        <p>Las relaciones colectivas de trabajo del personal funcionario, estatutario y laboral se ajustarán a lo establecido en el presente Capítulo y en la legislación específica que resulte de aplicación.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Abre el Capítulo IV (derechos de representación colectiva, negociación colectiva y participación institucional) fijando la doble fuente: el propio TREBEP y la legislación específica de cada colectivo (Ley Orgánica de Libertad Sindical, Estatuto de los Trabajadores para el personal laboral, etc.).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 33</span> <span class="art-rubrica">— Órganos de representación</span></div>
+      <div class="art-body">
+        <p>La representación del personal funcionario para los fines tratados en el presente Capítulo se llevará a cabo por medio de <mark>Delegados de Personal y de Juntas de Personal</mark>. El personal laboral será representado por los órganos previstos en el Estatuto de los Trabajadores.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Dato clave de examen por la comparación de figuras: el personal funcionario se representa mediante <mark>Delegados de Personal</mark> (en unidades pequeñas) y <mark>Juntas de Personal</mark> (en unidades mayores), mientras que el personal laboral se representa mediante <mark>Comités de Empresa y Delegados de Personal del Estatuto de los Trabajadores</mark> — dos sistemas de representación paralelos y distintos según la clase de personal.</p>
+    </div>
+    <div style="text-align:right;"><a href="#top" class="back-to-top">↑ volver arriba</a></div>
+  </section>
+
+  <hr class="part-divider">
+
+  <section class="bloque" id="bloque-4">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 4</span>
+      <h2 class="bloque-title">Título III — Negociación colectiva, representación sindical y régimen de jornada y permisos</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre (BOE-A-2015-11719) · Arts. 34-46, 48, 49, 51</div>
+    <span class="part-flag">Bloque prioritario · gran hueco pendiente</span>
+    <p class="tema-intro">El grueso del Título III: elección de los órganos de representación, el completo sistema de Mesas de Negociación (General y sectoriales), los pactos y acuerdos, y el capítulo de jornada de trabajo, permisos y vacaciones —salvo los arts. 47 (jornada) y 50 (fiestas) que ya tenías cubiertos—.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 34</span> <span class="art-rubrica">— Mesas de Negociación</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Se constituye una Mesa General de Negociación de las Administraciones Públicas para la negociación de todas aquellas materias y condiciones de trabajo comunes al personal funcionario, estatutario y laboral de cada Administración Pública. Para ello estará integrada por representantes de la Administración General del Estado, de las Comunidades Autónomas, de las Ciudades de Ceuta y Melilla, de la Federación Española de Municipios y Provincias, así como por las Organizaciones Sindicales más representativas a nivel estatal.</p>
+        <p><b>2.</b> Los acuerdos que se puedan alcanzar en el ámbito de la Mesa General de Negociación de las Administraciones Públicas para todas aquellas materias y condiciones de trabajo comunes al personal funcionario, estatutario y laboral serán objeto de ratificación expresa por los órganos de gobierno de la Administración General del Estado, Comunidades Autónomas, Ciudades de Ceuta y Melilla y Corporaciones Locales, en su ámbito respectivo de competencia.</p>
+        <p><b>3-7.</b> Se constituye igualmente una Mesa General de Negociación en cada una de las Administraciones Públicas para las materias comunes a funcionarios, personal estatutario y laboral, así como Mesas Sectoriales para las materias específicas del personal funcionario y del personal laboral, con la representación sindical determinada por los criterios de representatividad y afiliación de la LO 11/1985 de Libertad Sindical.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es el artículo estructural de todo el sistema de negociación colectiva en el empleo público. Fija la <mark>arquitectura en niveles</mark>: la Mesa General de Negociación de las Administraciones Públicas (nivel estatal, materias comunes) en la cúspide, y por debajo una Mesa General por cada Administración más las Mesas Sectoriales específicas de cada colectivo. El apartado 2 es de gran recorrido práctico: los acuerdos alcanzados requieren siempre <mark>ratificación expresa</mark> por el órgano de gobierno competente — la negociación colectiva en lo público nunca tiene eficacia normativa automática, a diferencia del convenio colectivo laboral privado.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 35</span> <span class="art-rubrica">— Composición de la Mesa General de Negociación de las Administraciones Públicas</span></div>
+      <div class="art-body">
+        <p>La designación de los miembros de las Organizaciones Sindicales y de las Administraciones Públicas correspondientes a la Mesa General de Negociación de las Administraciones Públicas se llevará a cabo teniendo en cuenta la representatividad obtenida en las elecciones a los órganos de representación del personal funcionario y laboral en el conjunto de las Administraciones Públicas, computándose conjuntamente los resultados obtenidos en dichos procesos electorales.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El criterio de designación es siempre la <mark>representatividad electoral conjunta</mark> —resultados agregados de todas las elecciones sindicales de todas las Administraciones—, no una representación proporcional específica de cada Administración por separado.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 36</span> <span class="art-rubrica">— Mesas Generales de Negociación</span></div>
+      <div class="art-body">
+        <p><b>1.</b> En cada Administración Pública se constituirá una Mesa General de Negociación para las materias y condiciones de trabajo comunes al personal funcionario, estatutario y laboral de la correspondiente Administración Pública.</p>
+        <p><b>3.</b> Son de aplicación a las Mesas Generales de Negociación de las Comunidades Autónomas, Ciudades de Ceuta y Melilla y Entidades Locales los criterios de representatividad y de capacidad para ser parte determinados en los artículos 6.3.c) y 7.1 de la Ley Orgánica 11/1985, de 2 de agosto, de Libertad Sindical.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Traslada al nivel de cada Administración concreta (estatal, autonómica, local) el mismo esquema de Mesa General ya visto a nivel conjunto en el art. 34, con remisión expresa a los criterios de legitimación sindical de la Ley Orgánica de Libertad Sindical.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 37</span> <span class="art-rubrica">— Materias objeto de negociación</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Serán objeto de negociación, en su ámbito respectivo y en relación con las competencias de cada Administración Pública y con el alcance que legalmente proceda en cada caso, las materias siguientes: <b>a)</b> La aplicación del incremento de las retribuciones del personal al servicio de las Administraciones Públicas. <b>b)</b> La determinación y aplicación de las retribuciones complementarias. <b>c)</b> Las normas que fijen los criterios generales en materia de acceso, carrera, provisión, sistemas de clasificación de puestos de trabajo, y planes e instrumentos de planificación de RRHH. <b>d)</b> Las normas que fijen los criterios y mecanismos generales en materia de evaluación del desempeño. <b>e)</b> Los planes de Previsión Social Complementaria. <b>f)</b> Los criterios generales de los planes y fondos para la formación y la promoción interna. <b>g)</b> Los criterios generales para la determinación de prestaciones sociales y pensiones de clases pasivas. <b>h)</b> Las propuestas sobre derechos sindicales y de participación. <b>i)</b> Los criterios generales de acción social. <b>j)</b> Las que así se establezcan en la normativa de prevención de riesgos laborales. <b>k)</b> Las que afecten a las condiciones de trabajo y a las retribuciones de los funcionarios, cuya regulación exija norma con rango de Ley. <b>l)</b> Los criterios generales sobre ofertas de empleo público. <b>m)</b> Las referidas a calendario laboral, horarios, jornadas, vacaciones y permisos.</p>
+        <p><b>2.</b> Quedan excluidas de la obligatoriedad de la negociación las materias siguientes: <b>a)</b> Las decisiones de las Administraciones Públicas que afecten a sus potestades de organización. <b>b)</b> La regulación del ejercicio de los derechos de los ciudadanos y de los usuarios de los servicios públicos, así como el procedimiento de formación de los actos y disposiciones administrativas. <b>c)</b> La determinación de condiciones de trabajo del personal directivo. <b>d)</b> Los poderes de dirección y control propios de la relación jerárquica. <b>e)</b> La regulación y determinación concreta, en cada caso, de los sistemas, criterios, órganos y procedimientos de acceso al empleo público y la promoción profesional.</p>
+        <p><b>3.</b> Cuando las consecuencias de las decisiones de las Administraciones Públicas que afecten a sus potestades de organización tengan repercusión sobre condiciones de trabajo de los funcionarios públicos contempladas en el apartado anterior, procederá la <mark>consulta</mark> a las Organizaciones Sindicales.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es el artículo más preguntado de todo el bloque de negociación colectiva: la <mark>doble lista</mark> (materias negociables del apartado 1, trece letras; materias excluidas del apartado 2, cinco letras) es un clásico de examen para pedir "identifique cuál de las siguientes materias es negociable/no negociable". La clave conceptual del apartado 2 es que las excluidas son, sobre todo, decisiones que afectan a la <mark>potestad de autoorganización</mark> de la Administración — un núcleo indisponible que no puede quedar sujeto a negociación, aunque sí, cuando repercuta en condiciones de trabajo, a mera <mark>consulta</mark> (apartado 3, un grado de participación sindical menor que la negociación en sentido estricto).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 38</span> <span class="art-rubrica">— Pactos y Acuerdos</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los Pactos se circunscribirán a las materias que corresponden al ámbito de competencia del correspondiente órgano administrativo y que vengan referidas a cuestiones que afecten exclusivamente a las relaciones entre dicha Administración y su personal, y su contenido será directamente aplicable al personal del ámbito correspondiente sin necesidad de que se ejerciten otras actuaciones salvo, cuando por su naturaleza, sea necesaria su formalización a través de norma con rango de Ley.</p>
+        <p><b>2.</b> Cuando de los Acuerdos se derivase compromiso de gasto, éstos deberán ser aprobados expresamente por el órgano de gobierno competente. Cuando el cumplimiento exigiera norma con rango de Ley, deberán ser aprobados por el órgano competente.</p>
+        <p><b>3.</b> Los Acuerdos que versen sobre materias competencia de los órganos de gobierno de las distintas Administraciones Públicas tendrán la consideración de acuerdos de aplicación directa al personal de su ámbito.</p>
+        <p><b>4.</b> Con el fin de facilitar su conocimiento por los ciudadanos y demás Administraciones Públicas, los Pactos y Acuerdos deberán ser remitidos a la Administración Pública competente y publicados, según los casos, en el Boletín Oficial del Estado, de la Comunidad Autónoma, o de la Provincia correspondiente, según el ámbito territorial.</p>
+        <p><b>6.</b> El acuerdo entre la Administración General del Estado y las Organizaciones Sindicales, para el personal funcionario de dicha Administración, será aplicable en sus propios términos una vez publicado, y no requerirá de otra actuación, salvo cuando de su contenido se derive afectación al ejercicio de derechos de los ciudadanos por parte de las Administraciones Públicas.</p>
+        <p><b>7.</b> Los Acuerdos que resulten de la negociación colectiva de personal laboral, a través de los representantes legales de los trabajadores, se ajustarán a lo previsto en la legislación laboral.</p>
+        <p><b>8.</b> La negociación colectiva de las condiciones de trabajo, así como las materias del apartado 3 del artículo anterior, y demás normas que afecten al personal al servicio de la Administración, se llevará a cabo, cuando corresponda, mediante el ejercicio del derecho a la negociación colectiva de los representantes de las Administraciones Públicas y de las Organizaciones Sindicales legitimadas a tal efecto, siendo, en todo caso, obligatoria la negociación de las materias incluidas en el apartado 1 del artículo anterior.</p>
+        <p><b>10.</b> Cuando exista falta de acuerdo en la negociación de condiciones de trabajo, tras el correspondiente proceso negociador, y una vez agotados, en su caso, los procedimientos de solución extrajudicial de conflictos, corresponderá a los órganos de gobierno de las Administraciones Públicas establecer las condiciones de trabajo del personal funcionario, con excepción de aquellas materias en las que sea necesario el acuerdo sindical para su validez y eficacia.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La distinción capital que se pregunta constantemente es <mark>Pacto vs. Acuerdo</mark>: el Pacto se limita a cuestiones internas del ámbito de una Administración concreta y se aplica directamente sin trámite ulterior (apartado 1); el Acuerdo puede requerir ratificación posterior por el órgano de gobierno, especialmente si conlleva gasto (apartado 2). El apartado 10 tiene fuerte proyección de examen: la Administración recupera la <mark>facultad unilateral de decisión</mark> si no hay acuerdo tras un proceso negociador completo, salvo en las materias que exijan expresamente acuerdo sindical para su validez.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 39</span> <span class="art-rubrica">— Legitimación para negociar en las Mesas Generales de Negociación</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Serán objeto de negociación en la Mesa General de Negociación de las Administraciones Públicas... la determinación de las condiciones de trabajo comunes al personal funcionario, estatutario y laboral. Estarán legitimados para estar presentes en las Mesas Generales de Negociación, las Organizaciones Sindicales más representativas a nivel estatal, así como las Organizaciones Sindicales más representativas de Comunidad Autónoma, y los Sindicatos que hayan obtenido el 10 por 100 o más de los representantes en las elecciones para Delegados y Juntas de Personal, en las unidades electorales comprendidas en el ámbito específico de su constitución.</p>
+        <p><b>4.</b> En las Mesas Generales estarán legitimados para estar presentes, además de las Organizaciones Sindicales, los sindicatos que formen parte de sus Órganos de Gobierno, cuando tal legitimación derive de acuerdos de federación o confederación a los que estén afiliados.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Fija el umbral de <mark>legitimación sindical</mark> para tener presencia en la mesa: sindicatos más representativos a nivel estatal o autonómico, o cualquier otro que alcance <mark>el 10% de los representantes</mark> en las elecciones sindicales del ámbito correspondiente — porcentaje que conviene memorizar por su frecuente aparición literal en examen.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 40</span> <span class="art-rubrica">— Mesas Sectoriales de Negociación</span></div>
+      <div class="art-body">
+        <p>En el seno de las Mesas Generales de Negociación correspondientes podrán constituirse Mesas Sectoriales, en atención a las condiciones específicas de trabajo de las organizaciones administrativas afectadas o a las peculiaridades de sectores concretos de funcionarios públicos y su número y ámbito de representación se acordará en cada ámbito de negociación, atendiendo a la organización de las Administraciones Públicas.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Confirma que las Mesas Sectoriales no son órganos independientes, sino que se constituyen <mark>en el seno</mark> de las respectivas Mesas Generales, para atender la especificidad de colectivos concretos (docentes, sanitarios, etc.) sin romper la unidad del sistema general de negociación.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 41</span> <span class="art-rubrica">— Otros sistemas de negociación</span></div>
+      <div class="art-body">
+        <p>Además de en las Mesas Generales y Sectoriales, se podrán constituir Mesas de negociación de materias comunes a las de personal funcionario, estatutario y laboral que sólo afecten al personal de un sector concreto o restringido a un ámbito funcional específico, cuando existan singulares condiciones de trabajo en ese ámbito concreto que así lo aconsejen.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el sistema con una cláusula de flexibilidad organizativa adicional para ámbitos funcionales muy específicos, siempre por debajo del nivel General y con carácter excepcional, justificado en la singularidad de las condiciones de trabajo de ese ámbito concreto.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 42</span> <span class="art-rubrica">— Capacidad negociadora</span></div>
+      <div class="art-body">
+        <p>Corresponde a las Administraciones Públicas, en su respectivo ámbito, establecer las Unidades de negociación adecuadas con la finalidad de facilitar y hacer más racional y ágil la negociación colectiva.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Deja en manos de cada Administración concreta la organización interna de las Unidades de negociación, buscando eficacia y agilidad en la mecánica de la negociación colectiva.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 43</span> <span class="art-rubrica">— Composición de las Mesas de negociación</span></div>
+      <div class="art-body">
+        <p>En las Mesas de negociación correspondientes las Administraciones Públicas podrán contar con la asistencia de las organizaciones sindicales legitimadas para ello, así como con los representantes que en cada caso se acuerden de las Entidades Locales incluidas en el ámbito correspondiente.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Regula la composición mixta de las mesas, permitiendo la incorporación de representantes de las Entidades Locales del ámbito afectado junto a las organizaciones sindicales legitimadas.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 44</span> <span class="art-rubrica">— Validez de los acuerdos</span></div>
+      <div class="art-body">
+        <p>Para la validez de los Pactos y Acuerdos será necesario, en todo caso, la aprobación expresa y formal de los órganos de gobierno de la Administración Pública correspondiente. Cuando el correspondiente Acuerdo, Convenio o Pacto haya sido ya ratificado o aprobado por el órgano de gobierno competente, éste no podrá ser modificado unilateralmente.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Doble garantía en sentido inverso: la validez inicial exige aprobación formal expresa del órgano de gobierno, pero una vez producida esa ratificación, el Pacto o Acuerdo queda <mark>blindado frente a modificación unilateral</mark> — la Administración no puede después "deshacer" por su sola voluntad lo que aprobó formalmente.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 45</span> <span class="art-rubrica">— Comisiones Paritarias</span></div>
+      <div class="art-body">
+        <p>De los Acuerdos y Pactos, así como, en su caso, de los acuerdos de las Mesas Generales de Negociación conjunta de funcionarios y personal laboral, podrán derivarse Comisiones Paritarias de seguimiento de lo negociado, con la composición y funciones que a tal efecto se determinen.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Introduce el mecanismo de <mark>seguimiento y control</mark> posterior de lo pactado: las Comisiones Paritarias (composición igual de representantes de Administración y sindicatos) vigilan la correcta ejecución del acuerdo, con funciones que se determinan en cada caso concreto por las propias partes negociadoras.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 46</span> <span class="art-rubrica">— Órganos de las Administraciones Públicas competentes para la negociación</span></div>
+      <div class="art-body">
+        <p>La designación de los representantes de las Administraciones Públicas en las Mesas de negociación corresponde a cada Administración Pública en el ámbito de sus respectivas competencias.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el Capítulo IV (negociación colectiva) con el principio general de <mark>autoorganización</mark>: cada Administración decide quiénes son sus representantes en la mesa, sin injerencia de las demás Administraciones.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 48</span> <span class="art-rubrica">— Permisos de los funcionarios públicos</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los funcionarios públicos tendrán los siguientes permisos: por fallecimiento, accidente o enfermedad grave de un familiar; por traslado de domicilio; para realizar funciones sindicales o de representación del personal; para concurrir a exámenes finales; para la realización de exámenes prenatales y técnicas de preparación al parto; por lactancia de un hijo menor de doce meses; por nacimiento de hijos prematuros o que requieran hospitalización; por razones de guarda legal; por ser preciso atender el cuidado de un familiar de primer grado; por tiempo indispensable para el cumplimiento de un deber inexcusable de carácter público o personal; por asuntos particulares (cuya duración total será de seis días al año, o de cuatro días para el personal que ingrese en la función pública durante el año, en proporción al tiempo de servicios); por matrimonio; permiso por parto, con una duración de dieciséis semanas ininterrumpidas; permiso por adopción, por guarda con fines de adopción, o acogimiento; permiso de paternidad por el nacimiento, guarda con fines de adopción, acogimiento o adopción de un hijo; y el resto de permisos previstos en la Ley Orgánica 3/2007, de 22 de marzo, para la igualdad efectiva de mujeres y hombres.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es el catálogo completo de los permisos del funcionario, y suele ser objeto de preguntas muy literales sobre <mark>duraciones concretas</mark>: los seis días de asuntos particulares (proporcionales el año de ingreso) y las dieciséis semanas ininterrumpidas del permiso por parto son los dos datos numéricos más preguntados de todo el artículo. Conviene tener presente que este listado se ha ido actualizando por sucesivas reformas legales para equiparar los permisos de nacimiento/paternidad con el permiso por parto, en línea con la normativa de igualdad.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 49</span> <span class="art-rubrica">— Permisos por motivos de conciliación de la vida personal, familiar y laboral, por razón de violencia de género y para las víctimas de terrorismo y sus familiares directos</span></div>
+      <div class="art-body">
+        <p>En todo caso se concederán los siguientes permisos con las correspondientes condiciones mínimas: <b>a)</b> Permiso por parto: tendrá una duración de dieciséis semanas ininterrumpidas. <b>b)</b> Permiso por adopción, por guarda con fines de adopción, y por acogimiento, tanto temporal como permanente: tendrá una duración de dieciséis semanas ininterrumpidas. <b>c)</b> Permiso de paternidad por el nacimiento, guarda con fines de adopción, acogimiento o adopción de un hijo: tendrá una duración de dieciséis semanas ininterrumpidas. <b>d)</b> Permiso por razón de violencia de género sobre la mujer funcionaria: las faltas de asistencia, totales o parciales, tendrán la consideración de justificadas por el tiempo y en las condiciones en que así lo determinen los servicios sociales de atención o de salud según proceda. <b>e)</b> Permiso por cuidado de hijo menor afectado por cáncer u otra enfermedad grave: el funcionario tendrá derecho a una reducción de la jornada de trabajo de al menos la mitad de la duración de aquella, percibiendo las retribuciones íntegras.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Establece <mark>condiciones mínimas irrenunciables</mark> de un grupo de permisos con especial protección constitucional y social (maternidad/paternidad, violencia de género, enfermedad grave de hijos), que ninguna Administración puede recortar por debajo de lo aquí fijado, aunque sí ampliar. El dato más citado es la equiparación a <mark>dieciséis semanas ininterrumpidas</mark> tanto para el permiso por parto como para el de paternidad/adopción — fruto de sucesivas reformas de igualdad efectiva entre hombres y mujeres.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 51</span> <span class="art-rubrica">— Régimen del personal laboral</span></div>
+      <div class="art-body">
+        <p>El régimen de jornada de trabajo, horarios, fiestas, vacaciones y permisos del personal laboral se rige por el presente Capítulo y la legislación laboral correspondiente, sin perjuicio de los días de libre disposición establecidos, en su caso, en las relaciones de trabajo del personal laboral de las distintas Administraciones Públicas.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el Título III confirmando el principio ya reiterado en artículos anteriores: al personal laboral se le aplica el <mark>régimen general de este Capítulo</mark> (jornada, permisos, vacaciones, ya cubierto en los arts. 47 y 50 que sí tenías, más este bloque) junto con la legislación laboral, sin perjuicio de las mejoras que puedan pactarse en su propio convenio o relación de trabajo.</p>
+      <p class="ine-tag">↳ Con este artículo se completa el Título III salvo los arts. 47 (jornada) y 50 (fiestas laborales), que ya constaban como cubiertos en tu documento base.</p>
+    </div>
+    <div style="text-align:right;"><a href="#top" class="back-to-top">↑ volver arriba</a></div>
+  </section>
+
+  <hr class="part-divider">
+
+  <section class="bloque" id="bloque-5">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 5</span>
+      <h2 class="bloque-title">Provisión de puestos de trabajo y movilidad; acceso al empleo público</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre (BOE-A-2015-11719) · Arts. 58, 64, 65, 66</div>
+    <p class="tema-intro">Cierra los huecos sueltos del Capítulo III del Título V (provisión de puestos y movilidad) y abre el Capítulo I del Título VI (acceso al empleo público y adquisición de la relación de servicio), del que ya tenías cubiertos el grueso de los artículos de provisión.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 58</span> <span class="art-rubrica">— Movilidad del personal funcionario de administración local con habilitación de carácter nacional</span></div>
+      <div class="art-body">
+        <p>La movilidad del personal funcionario de administración local con habilitación de carácter nacional se regirá por lo establecido en los artículos 92 bis y 92 ter de la Ley 7/1985, de 2 de abril, Reguladora de las Bases del Régimen Local.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es una norma de <mark>remisión pura</mark>: la movilidad de la Habilitación Nacional (Secretarios, Interventores, Tesoreros de la Administración Local) no se rige directamente por el TREBEP sino por su normativa específica en la Ley de Bases de Régimen Local, dada la singularidad de este colectivo funcionarial, que depende orgánicamente del Estado pero presta servicio en Corporaciones Locales.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 64</span> <span class="art-rubrica">— Requisitos generales</span></div>
+      <div class="art-body">
+        <p>Para poder participar en los procesos selectivos será necesario reunir los requisitos que se establezcan en las correspondientes normas, referidos a la posesión de la nacionalidad, edad y capacidad, así como los que específicamente pueda exigir la correspondiente convocatoria.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Abre el Capítulo I del Título VI (Adquisición y pérdida de la relación de servicio) recordando que los requisitos de acceso concretos ya se regulan en el propio TREBEP (arts. 56-57, nacionalidad y requisitos generales, ya cubiertos) y en las convocatorias específicas de cada proceso selectivo, que pueden añadir requisitos adicionales pero nunca contradecir el marco legal general.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 65</span> <span class="art-rubrica">— Adquisición de la condición de funcionario de carrera</span></div>
+      <div class="art-body">
+        <p>La condición de funcionario de carrera se adquiere por el cumplimiento sucesivo de los siguientes requisitos: <b>a)</b> Superación del proceso selectivo. <b>b)</b> Nombramiento por el órgano o autoridad competente, que será publicado en el Diario oficial correspondiente. <b>c)</b> Acto de acatamiento de la Constitución y, en su caso, del Estatuto de Autonomía correspondiente y del resto del Ordenamiento Jurídico. <b>d)</b> Toma de posesión dentro del plazo que se establezca.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es la <mark>secuencia de cuatro pasos sucesivos</mark> más citada de todo el Título VI: superación del proceso, nombramiento publicado, acatamiento constitucional y toma de posesión, en ese orden estricto. Ninguno de los cuatro puede omitirse ni alterarse: la condición de funcionario de carrera solo se perfecciona al completarse el último de ellos (toma de posesión).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 66</span> <span class="art-rubrica">— Verificación de los requisitos y disposiciones para el acceso al empleo público</span></div>
+      <div class="art-body">
+        <p>Las Administraciones Públicas podrán exigir, cuando así lo dispongan las correspondientes normas o convocatorias, un curso selectivo, un período de prácticas o la superación de un período de formación para la adquisición de la condición de funcionario de carrera, cuya duración y contenido se determinarán en las mismas.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Confirma que el proceso selectivo puede incluir, además de la fase de oposición o concurso propiamente dicha, un <mark>periodo formativo o de prácticas posterior</mark> —muy habitual en cuerpos como el A1 de Estadística que estás preparando—, cuya exigencia depende siempre de que así lo prevea expresamente la norma o convocatoria correspondiente, no siendo un requisito universal para todo proceso selectivo.</p>
+      <p class="ine-tag">↳ Con estos cuatro artículos se cierran los huecos del bloque de provisión de puestos y acceso; los arts. 55, 56, 57, 59, 60, 61, 62 y 63 ya constaban como cubiertos en tu documento base.</p>
+    </div>
+    <div style="text-align:right;"><a href="#top" class="back-to-top">↑ volver arriba</a></div>
+  </section>
+
+  <hr class="part-divider">
+
+  <section class="bloque" id="bloque-6">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 6</span>
+      <h2 class="bloque-title">Situaciones administrativas y régimen disciplinario</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre (BOE-A-2015-11719) · Arts. 71-74, 77, 82-84, 88, 90-92, 94, 97, 98</div>
+    <span class="part-flag">Bloque prioritario · régimen disciplinario muy preguntado</span>
+    <p class="tema-intro">Cierra los huecos de las situaciones administrativas (servicio en otras Administraciones, excedencias) y desarrolla con especial detalle el régimen disciplinario: la potestad disciplinaria, el catálogo completo de faltas graves y leves, las sanciones y —el apartado con mayor densidad de preguntas de todo el TREBEP— las garantías y trámites esenciales del procedimiento disciplinario.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 71</span> <span class="art-rubrica">— Servicio en otras Administraciones Públicas</span></div>
+      <div class="art-body">
+        <p>Los funcionarios de carrera en situación de servicio activo que pasen a prestar servicios en otra Administración Pública distinta a través de los procedimientos de movilidad se encontrarán respecto de la Administración de origen, en la situación administrativa de <mark>servicio en otras Administraciones Públicas</mark>, salvo que se hubiera obtenido el reingreso al servicio activo en la Administración de origen, y sin perjuicio de que las Administraciones de destino puedan atribuirle una situación distinta a la citada.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Define la situación específica que se genera cuando un funcionario se traslada a otra Administración distinta de la suya de origen: mantiene un vínculo residual con la Administración de origen —en la situación de "servicio en otras Administraciones Públicas"— mientras presta servicios efectivos en la de destino, lo que le permite conservar derechos (como los trienios) frente a su Administración originaria.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 72</span> <span class="art-rubrica">— Efectos de la situación de servicio en otras Administraciones Públicas</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los funcionarios de carrera en situación de servicio en otras Administraciones Públicas que se encuentren en dicha situación, se rigen por la legislación de la Administración en la que estén destinados de forma efectiva, y conservan su condición de funcionario de la Administración de origen y el derecho a participar en las convocatorias para la provisión de puestos de trabajo que se efectúen por esta última.</p>
+        <p><b>2.</b> El tiempo de servicio en la Administración Pública de destino se computará como de servicio activo en el Cuerpo o Escala de la Administración Pública de origen.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Fija los dos efectos jurídicos clave de esta situación: la conservación de derechos de participación en la Administración de origen (apartado 1) y —dato de examen habitual— el <mark>cómputo del tiempo de servicio en destino como servicio activo</mark> en el Cuerpo de origen (apartado 2), lo que garantiza que no se pierden trienios ni antigüedad por el hecho de moverse a otra Administración.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 73</span> <span class="art-rubrica">— Excedencia voluntaria por interés particular</span></div>
+      <div class="art-body">
+        <p>Corresponde a las leyes de Función Pública que se dicten en desarrollo de este Estatuto regular las situaciones administrativas de los funcionarios de carrera, así como en su caso las particularidades de las de los funcionarios interinos y del personal laboral, ajustándose en todo caso a lo establecido en los artículos siguientes.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Precisión de encaje sistemático: fija que el catálogo detallado de situaciones administrativas —incluidas las distintas modalidades de excedencia— se desarrolla en las leyes específicas de función pública de cada Administración, siempre respetando el marco mínimo común que fija el TREBEP en los artículos siguientes.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 74</span> <span class="art-rubrica">— Reordenación de efectivos</span></div>
+      <div class="art-body">
+        <p>Las Administraciones Públicas podrán establecer mecanismos de movilidad forzosa de su personal funcionario de carrera, y del personal laboral fijo en su caso, en los términos que establezcan las leyes de Función Pública que se dicten en desarrollo de este Estatuto, en los casos de reestructuraciones de las Administraciones Públicas de las que deriven cambios en la organización o supresión de puestos de trabajo.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Introduce la posibilidad de <mark>movilidad forzosa</mark> del personal (frente a la voluntaria, propia de los concursos de provisión) cuando así lo exija una reestructuración administrativa que suprima o modifique puestos de trabajo — con remisión, de nuevo, a la ley de función pública que corresponda desarrollarlo en cada ámbito.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 77</span> <span class="art-rubrica">— Situación de los funcionarios en el extranjero</span></div>
+      <div class="art-body">
+        <p>Los funcionarios de carrera que accedan a la condición de personal al servicio de organizaciones internacionales, gobiernos o entidades públicas extranjeras o de carácter supranacional se encontrarán en la situación administrativa que reglamentariamente se determine, cuando no les corresponda quedar en otra situación conforme a lo previsto en este Estatuto y en las normas que lo desarrollen.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Regula una situación residual y remitida a desarrollo reglamentario, aplicable al funcionario que pasa a servir a una organización internacional o gobierno extranjero, cuando esa circunstancia no encaje ya en ninguna de las situaciones típicas expresamente reguladas (servicios especiales, excedencia, etc.).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 82</span> <span class="art-rubrica">— Excedencia por cuidado de familiares</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los funcionarios de carrera tendrán derecho a un período de excedencia de duración no superior a tres años para atender al cuidado de cada hijo, tanto cuando lo sea por naturaleza, como por adopción, o guarda con fines de adopción o acogimiento permanente, a contar desde la fecha de nacimiento o, en su caso, de la resolución judicial o administrativa. También tendrán derecho a un período de excedencia de duración no superior a tres años, para atender al cuidado de un familiar que se encuentre a su cargo, hasta el segundo grado inclusive de consanguinidad o afinidad que por razones de edad, accidente, enfermedad o discapacidad no pueda valerse por sí mismo y no desempeñe actividad retribuida.</p>
+        <p><b>2.</b> El período de excedencia será único por cada sujeto causante. El período en que el funcionario permanezca en esta situación será computable a efectos de trienios, carrera y derechos en el régimen de Seguridad Social que sea de aplicación. El puesto de trabajo desempeñado se reservará, al menos, durante dos años. Transcurrido este periodo, dicha reserva lo será a un puesto en la misma localidad y de igual retribución.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es la excedencia con mayores garantías del catálogo, dato de examen recurrente: <mark>hasta tres años</mark> de duración, cómputo a efectos de trienios, carrera y Seguridad Social (a diferencia de la excedencia voluntaria por interés particular, que no computa), y <mark>reserva del mismo puesto durante dos años</mark>, degradándose después a reserva de "puesto en la misma localidad e igual retribución" — no necesariamente el mismo puesto concreto.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 83</span> <span class="art-rubrica">— Excedencia por razón de violencia de género</span></div>
+      <div class="art-body">
+        <p>Las funcionarias víctimas de violencia de género, para hacer efectiva su protección o su derecho a la asistencia social integral, tendrán derecho a solicitar la situación de excedencia sin necesidad de haber prestado un tiempo mínimo de servicios previos y sin que sea exigible plazo de permanencia en la misma. Durante los seis primeros meses tendrán derecho a la reserva del puesto de trabajo que desempeñaran, siendo computable dicho período a efectos de antigüedad, carrera y derechos del régimen de Seguridad Social que sea de aplicación.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La singularidad de esta excedencia frente a las demás es doble: <mark>no exige antigüedad mínima previa</mark> ni plazo de permanencia obligatorio, y ofrece reserva de puesto de trabajo durante los primeros <mark>seis meses</mark>, ampliable judicialmente por razones de seguridad y protección de la víctima según se prevé en apartados posteriores del propio artículo.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 84</span> <span class="art-rubrica">— Movilidad por razón de violencia de género</span></div>
+      <div class="art-body">
+        <p>Las mujeres víctimas de violencia de género que se vean obligadas a abandonar el puesto de trabajo en la localidad donde venían prestando sus servicios, para hacer efectiva su protección o su derecho a la asistencia social integral, tendrán derecho al traslado a otro puesto de trabajo propio de su cuerpo, escala o categoría profesional, de análogas características, sin necesidad de que sea vacante de necesaria cobertura. En tales supuestos la Administración Pública competente estará obligada a comunicarle las vacantes ubicadas en la misma localidad o en las localidades que la interesada expresamente solicite.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es la contrapartida de la excedencia del art. 83 para quien prefiere no dejar de trabajar sino trasladarse: derecho a movilidad geográfica <mark>sin necesidad de vacante de necesaria cobertura</mark> —una excepción destacable al régimen ordinario de provisión de puestos, que normalmente exige que el puesto esté formalmente ofertado—.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 88</span> <span class="art-rubrica">— Suspensión de funciones</span></div>
+      <div class="art-body">
+        <p><b>1.</b> El funcionario declarado en la situación de suspensión quedará privado durante el tiempo de permanencia en la misma del ejercicio de sus funciones y de todos los derechos inherentes a la condición de funcionario.</p>
+        <p><b>2.</b> La suspensión firme se impondrá en virtud de sentencia dictada en causa criminal o en virtud de sanción disciplinaria. La suspensión firme determinará la pérdida del puesto de trabajo cuando exceda de seis meses.</p>
+        <p><b>3.</b> El funcionario declarado en la situación de suspensión de funciones no podrá prestar servicios en ninguna Administración Pública ni en los organismos públicos, agencias, entidades de derecho público, sociedades mercantiles públicas u otras entidades del sector público durante el tiempo de cumplimiento de la pena o sanción disciplinaria.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La suspensión firme es la situación con efectos más gravosos del catálogo: no solo se pierde el ejercicio de funciones, sino <mark>todos los derechos</mark> inherentes a la condición de funcionario (apartado 1), y si la sanción supera los <mark>seis meses</mark> conlleva la pérdida definitiva del puesto de trabajo (apartado 2) — dato de examen especialmente citado, que conecta directamente con la sanción disciplinaria de suspensión firme que verás en los artículos siguientes.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 90</span> <span class="art-rubrica">— Movilidad por razón de violencia terrorista</span></div>
+      <div class="art-body">
+        <p>Los funcionarios que hayan sufrido daños físicos o psíquicos como consecuencia de la actividad terrorista, así como los amenazados en los términos del artículo 5 de la Ley 29/2011, de 22 de septiembre, de Reconocimiento y Protección Integral a las Víctimas del Terrorismo, previo cumplimiento de los requisitos establecidos en la citada Ley, tendrán derecho a disfrutar de un derecho preferente para ocupar otro puesto de trabajo propio de su cuerpo, escala o categoría profesional, de análogas características, sin necesidad de que sea vacante de necesaria cobertura.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el bloque de movilidad protectora con un régimen paralelo al del art. 84 pero referido a las víctimas del terrorismo, remitido en sus requisitos concretos a la Ley 29/2011 específica de esta materia.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 91</span> <span class="art-rubrica">— Régimen disciplinario</span></div>
+      <div class="art-body">
+        <p>Los funcionarios públicos y el personal laboral quedan sujetos al régimen disciplinario establecido en el presente Título y en las normas que las leyes de Función Pública dicten en desarrollo de este Estatuto. El régimen disciplinario del personal laboral se regirá por la legislación laboral.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Abre el Título VII (Régimen Disciplinario) fijando de nuevo el criterio dual: el TREBEP regula directamente el régimen disciplinario del <mark>personal funcionario</mark>, mientras que el personal laboral se rige por la legislación laboral (Estatuto de los Trabajadores y convenio colectivo aplicable) — el mismo patrón de dualidad de fuentes que has visto repetido en retribuciones y en carrera profesional.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 92</span> <span class="art-rubrica">— Responsabilidad disciplinaria</span></div>
+      <div class="art-body">
+        <p>Los funcionarios públicos y el personal laboral quedan sujetos al régimen disciplinario establecido en el presente Título y en las normas que las Leyes de Función Pública dicten en desarrollo de este Estatuto. Los funcionarios públicos y el personal laboral que indujeren a otros a la realización de actos o conductas constitutivas de falta disciplinaria incurrirán en la misma responsabilidad que éstos. Igualmente incurrirán en responsabilidad los funcionarios públicos y el personal laboral que encubrieren las faltas consumadas muy graves o graves, cuando de dichos actos se derive daño grave para la Administración o los ciudadanos.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Extiende la responsabilidad disciplinaria más allá del autor material de la falta: quien <mark>induce</mark> a otro a cometerla responde con la misma responsabilidad que el autor, y quien <mark>encubre</mark> faltas ya consumadas muy graves o graves también incurre en responsabilidad —siempre que se derive daño grave para la Administración o los ciudadanos, requisito que acota la extensión de esta figura al encubrimiento—.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 94</span> <span class="art-rubrica">— Ejercicio de la potestad disciplinaria</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Las Administraciones Públicas corregirán disciplinariamente las infracciones del personal a su servicio a que hace referencia el artículo anterior cometidas en el ejercicio de sus funciones y cargos, sin perjuicio de la responsabilidad patrimonial o penal que pudiera derivarse de tales infracciones.</p>
+        <p><b>2.</b> La potestad disciplinaria se ejercerá de acuerdo con los siguientes principios: <b>a)</b> Principio de <mark>legalidad y tipicidad</mark> de las faltas y sanciones, a través de la predeterminación normativa. <b>b)</b> Principio de <mark>irretroactividad</mark> de las disposiciones sancionadoras no favorables y de retroactividad de las favorables al presunto infractor. <b>c)</b> Principio de <mark>proporcionalidad</mark>, aplicable tanto a la clasificación de las infracciones y sanciones como a su aplicación. <b>d)</b> Principio de <mark>culpabilidad</mark>. <b>e)</b> Principio de <mark>presunción de inocencia</mark>.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Traslada al ámbito disciplinario los mismos principios generales del Derecho sancionador que ya conoces de la potestad sancionadora administrativa de la Ley 40/2015 (legalidad, tipicidad, irretroactividad, proporcionalidad, culpabilidad). El apartado 1 aclara además que la <mark>vía disciplinaria es compatible</mark> —no excluyente— con la responsabilidad patrimonial y penal, un enfoque idéntico al del art. 28.4 de la Ley 40/2015 que ya has visto.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 97</span> <span class="art-rubrica">— Faltas disciplinarias</span></div>
+      <div class="art-body">
+        <p>Las faltas disciplinarias pueden ser <mark>muy graves, graves y leves</mark>. Son faltas muy graves las enumeradas en el artículo 95 de este Estatuto (ya cubierto en tu documento base: incumplimiento del deber de respeto a la Constitución, toda actuación que suponga discriminación, abandono del servicio, publicación o utilización indebida de secretos oficiales, notoria falta de rendimiento, violencia en el trabajo, acoso, incumplimiento de normas sobre incompatibilidades, y demás previstas legalmente).</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Este artículo enlaza formalmente la <mark>triple clasificación</mark> de faltas (muy graves, graves, leves) con el catálogo material de faltas muy graves del art. 95, que se remite en bloque en lugar de reproducirse por constar ya en tu documento base. El elemento clave de examen es recordar que las faltas graves quedan determinadas por Ley de las Cortes Generales o de las Asambleas Legislativas de las Comunidades Autónomas (art. 96, ya cubierto), y las leves por la legislación de función pública que en cada caso resulte de aplicación.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 98</span> <span class="art-rubrica">— Sanciones</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Por razón de las faltas cometidas podrán imponerse las siguientes sanciones: <b>a)</b> Separación del servicio de los funcionarios, que en el caso de los funcionarios interinos comportará la revocación de su nombramiento, y que sólo podrá sancionar la comisión de faltas muy graves. <b>b)</b> Traslado forzoso, con o sin cambio de localidad de residencia, por el período que en cada caso se establezca. <b>c)</b> Suspensión firme de funciones, o de empleo y sueldo en el caso del personal laboral, con una duración máxima de seis años. <b>d)</b> Demérito, que consistirá en la penalización a efectos de carrera, promoción o movilidad voluntaria. <b>e)</b> Apercibimiento. <b>f)</b> Cualquier otra que se establezca por Ley.</p>
+        <p><b>2.</b> Procederá la readmisión del personal laboral fijo sancionado con el despido, cuando sea declarado improcedente.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el bloque disciplinario con el <mark>catálogo cerrado de sanciones</mark>, ordenado de mayor a menor gravedad: separación del servicio (solo para faltas muy graves), traslado forzoso, suspensión firme (hasta seis años máximo, dato preguntado que conecta con el art. 88 ya visto), demérito y apercibimiento. Conviene fijar especialmente que la <mark>separación del servicio</mark> es la única sanción reservada en exclusiva a las faltas muy graves — nunca puede imponerse por una falta grave o leve.</p>
+      <p class="ine-tag">↳ Con este artículo se cierra el bloque de situaciones administrativas y régimen disciplinario. Los arts. 67-70, 75-76, 78-81, 85-87, 89, 93, 95-96 ya constaban como cubiertos en tu documento base.</p>
+    </div>
+    <div style="text-align:right;"><a href="#top" class="back-to-top">↑ volver arriba</a></div>
+  </section>
+
+</div>
+</body>
+</html>

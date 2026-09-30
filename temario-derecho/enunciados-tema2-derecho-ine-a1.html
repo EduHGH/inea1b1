@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 2 · Enunciados probables de examen — La Corona. Las Cortes Generales</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;500;700&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --ink:#241F17;
+    --ink-soft:#6b6252;
+    --ink-faint:#9a9082;
+    --line:#dcd4c2;
+    --der:#2E5266;
+    --der-soft:#DCE6EB;
+    --der-glow:rgba(46,82,102,.18);
+    --glass:rgba(255,255,255,.6);
+    --card:#FBF8F1;
+
+    --hot:#8B3A3A;
+    --hot-soft:#F3DEDE;
+    --warm:#966A24;
+    --warm-soft:#F1E4CB;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(36,31,23,.07) 1px, transparent 0) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    padding:48px 20px 90px;
+    line-height:1.6;
+  }
+
+  .wrap{max-width:840px; margin:0 auto;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:38px 36px 32px;
+    border-radius:20px;
+    background:var(--glass);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -24px rgba(36,31,23,.25);
+    overflow:hidden;
+    margin-bottom:30px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:-40% -20% auto auto;
+    width:340px; height:340px;
+    background:radial-gradient(circle, var(--der-glow), transparent 70%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.1em;
+    color:var(--der);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--der);}
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(26px, 4vw, 37px);
+    line-height:1.12;
+    margin:0 0 10px;
+    letter-spacing:-.01em;
+  }
+  .hero p{
+    margin:0;
+    max-width:64ch;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.65;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:9px;
+    margin-top:20px;
+  }
+  .meta-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.55);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 12px;
+  }
+
+  /* NOTA ESTRUCTURAL */
+  .nota-estructura{
+    background:var(--der-soft);
+    border-radius:14px;
+    padding:18px 22px;
+    margin-bottom:32px;
+    font-size:13.5px;
+    color:#26414d;
+    line-height:1.6;
+  }
+  .nota-estructura b{color:var(--der);}
+
+  /* SECTION HEADS */
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:14px;
+    margin:44px 0 6px;
+    padding-bottom:10px;
+    border-bottom:2px solid var(--ink);
+  }
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:21px;
+    margin:0;
+    letter-spacing:-.005em;
+  }
+  .section-count{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-faint);
+    white-space:nowrap;
+  }
+  .section-lead{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    max-width:66ch;
+    margin:12px 0 22px;
+  }
+
+  /* ENUNCIADO CARD */
+  .enunciado{
+    position:relative;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:4px solid var(--der);
+    border-radius:4px;
+    padding:20px 24px 20px 22px;
+    margin-bottom:16px;
+  }
+  .enunciado.hot{border-left-color:var(--hot);}
+  .enunciado.warm{border-left-color:var(--warm);}
+
+  .en-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:10px;
+    flex-wrap:wrap;
+  }
+  .en-num{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:#fff;
+    background:var(--der);
+    border-radius:100px;
+    padding:3px 10px;
+    flex:none;
+  }
+  .en-num.hot{background:var(--hot);}
+  .en-num.warm{background:var(--warm);}
+  .en-tag{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.04em;
+    color:var(--ink-faint);
+    background:rgba(0,0,0,.04);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:3px 9px;
+  }
+
+  .en-enunciado{
+    font-family:'Fraunces', serif;
+    font-size:17.5px;
+    font-weight:500;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 12px;
+  }
+  .en-enunciado mark{
+    background:transparent;
+    color:var(--der);
+    font-weight:600;
+  }
+
+  .en-porque{
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.6;
+    border-top:1px dashed var(--line);
+    padding-top:11px;
+  }
+  .en-porque b{color:var(--ink);}
+
+  /* LEXICO */
+  .lexico-box{
+    margin-top:40px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:26px 28px;
+  }
+  .lexico-box h3{
+    font-family:'Fraunces', serif;
+    font-size:17px;
+    font-weight:600;
+    margin:0 0 14px;
+  }
+  .lexico-box ul{
+    margin:0;
+    padding-left:20px;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .lexico-box li{margin-bottom:7px;}
+  .lexico-box b{color:var(--ink);}
+
+  .foot{
+    margin-top:44px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-size:12px;
+    color:var(--ink-faint);
+    line-height:1.7;
+  }
+  .foot b{color:var(--ink-soft);}
+
+  @media(max-width:600px){
+    .hero{padding:28px 22px 24px;}
+    .enunciado{padding:18px 18px 18px 16px;}
+    .en-enunciado{font-size:16.5px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dot"></span>INE A1 · CUERPO SUPERIOR DE ESTADÍSTICOS · BLOQUE DE DERECHO</div>
+    <h1>Tema 2 — La Corona. Las Cortes Generales</h1>
+    <p>Enunciados probables de examen para el primer ejercicio (desarrollo escrito), construidos sobre el articulado de los arts. 56 a 96 CE y calibrados con el estilo retórico real que ha usado el tribunal en las convocatorias 2023-2026. El bloque de Derecho no tiene segundo ejercicio: se evalúa únicamente en el primer ejercicio del turno libre.</p>
+    <div class="hero-meta">
+      <span class="meta-chip">0 preguntas registradas en 4 años</span>
+      <span class="meta-chip">Prioridad 1 — probabilidad alta</span>
+      <span class="meta-chip">arts. 56-96 CE (Títulos II y III)</span>
+      <span class="meta-chip">Solo primer ejercicio</span>
+    </div>
+  </div>
+
+  <div class="nota-estructura">
+    <b>Por qué este tema es candidato serio.</b> Ninguna de las cuatro últimas convocatorias (2023, 2024, 2025, 2026) ha preguntado el Tema 2, pese a ser uno de los bloques constitucionales más clásicos y con mayor densidad articulada (41 artículos, Títulos II y III completos). Los dos epígrafes del subíndice oficial —régimen de la Corona y composición/funcionamiento de las Cámaras— están marcados como probabilidad <b>alta</b> en el mapa de estimación. Los enunciados siguientes no son transcripción de ningún examen real: son construcciones propias que siguen los patrones retóricos documentados (verbo "explicar" con doble exigencia, "exponer" con número mínimo, enunciado nominal de varios sustantivos, pregunta cerrada con "de conformidad con", cruce entre dos temas) aplicados al contenido concreto de este tema.
+  </div>
+
+  <!-- ============ BLOQUE A: LA CORONA ============ -->
+  <div class="section-head">
+    <h2>Bloque A — Régimen de funcionamiento y atribuciones de la Corona</h2>
+    <span class="section-count">arts. 56-65 CE</span>
+  </div>
+  <p class="section-lead">El epígrafe con más "material tipo test" de todo el tema: sucesión, refrendo y funciones regladas del Rey. Es también el que más se presta al patrón de pregunta favorito de este tribunal — "explicar X e indicar Y" — porque casi cada artículo trae una excepción o un matiz que funciona como segunda exigencia oculta.</p>
+
+  <div class="enunciado hot">
+    <div class="en-head">
+      <span class="en-num hot">A·1</span>
+      <span class="en-tag">verbo: explicar</span>
+      <span class="en-tag">patrón 1</span>
+    </div>
+    <p class="en-enunciado">Explicar las funciones que la Constitución atribuye al Rey como Jefe del Estado, indicando cuáles de ellas exigen el refrendo previsto en el artículo 64 y cuáles constituyen excepción a dicho requisito.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> combina el art. 62 (catálogo de funciones) con el art. 64 (refrendo) y su excepción del art. 65 (dotación y Casa del Rey) — el "y" final es la segunda tarea real de la pregunta, siguiendo el patrón ya usado en 2025-2026 para el ENS y el secreto estadístico.</p>
+  </div>
+
+  <div class="enunciado hot">
+    <div class="en-head">
+      <span class="en-num hot">A·2</span>
+      <span class="en-tag">verbo: exponer</span>
+      <span class="en-tag">patrón 2</span>
+    </div>
+    <p class="en-enunciado">Exponer el orden regular de sucesión en la Corona previsto en el artículo 57 CE, así como el procedimiento previsto para el supuesto de extinción de todas las líneas sucesorias.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> el orden de primogenitura y representación (línea, grado, sexo, edad) es el dato más citado en manuales; añadir el supuesto residual del art. 57.3 (Cortes Generales proveyendo a la sucesión) es el tipo de matiz final que este tribunal suele exigir para diferenciar una respuesta completa de una incompleta.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">A·3</span>
+      <span class="en-tag">enunciado nominal</span>
+      <span class="en-tag">patrón 3</span>
+    </div>
+    <p class="en-enunciado">La Regencia y la tutela del Rey menor de edad: supuestos, orden de llamamiento y régimen de incompatibilidad entre ambos cargos.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> tres sustantivos coordinados (Regencia, tutela, incompatibilidad) que corresponden a tres artículos distintos (59, 60.1, 60.2) — el enunciado nominal seco es, según el propio análisis retórico, el formato que más partes obligatorias suele esconder.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">A·4</span>
+      <span class="en-tag">verbo: razonar</span>
+      <span class="en-tag">patrón 4</span>
+    </div>
+    <p class="en-enunciado">¿Puede el Rey declarar la guerra por iniciativa propia? Razonar la respuesta con referencia al artículo 63 CE y relacionarla con el carácter reglado del resto de sus funciones.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> pregunta cerrada que exige fundamento legal exacto, en la línea de la única pregunta cerrada ya registrada sobre la LOREG en 2023; la respuesta correcta ("no, requiere autorización previa de las Cortes Generales") es fácil de fallar si se describe el artículo sin fijar la postura.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">A·5</span>
+      <span class="en-tag">verbo: explicar</span>
+    </div>
+    <p class="en-enunciado">Explicar el régimen jurídico del refrendo de los actos del Rey: quién refrenda con carácter general, qué excepciones prevé el artículo 64.1 y qué efecto tiene el refrendo sobre la responsabilidad de dichos actos.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> la excepción del refrendo por el Presidente del Congreso (propuesta y nombramiento del Presidente del Gobierno, disolución del art. 99) es el matiz más citado en los propios comentarios del articulado como "se pregunta con frecuencia".</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">A·6</span>
+      <span class="en-tag">definición</span>
+    </div>
+    <p class="en-enunciado">Definir el principio de inviolabilidad e irresponsabilidad del Rey recogido en el artículo 56.3 CE y explicar el mecanismo jurídico que lo hace compatible con el principio democrático.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> conecta un principio (inviolabilidad) con su fundamento sistemático (el refrendo como traslado de responsabilidad) — tipo de pregunta que obliga a razonar la relación entre dos artículos, no solo a recitar uno.</p>
+  </div>
+
+  <!-- ============ BLOQUE B: LAS CORTES GENERALES ============ -->
+  <div class="section-head">
+    <h2>Bloque B — Composición y funcionamiento de las Cámaras</h2>
+    <span class="section-count">arts. 66-96 CE</span>
+  </div>
+  <p class="section-lead">El epígrafe más extenso: bicameralismo imperfecto, estatuto de los parlamentarios, funcionamiento de las Cámaras y todo el procedimiento legislativo (leyes ordinarias, orgánicas, delegación legislativa, decretos-leyes, tratados internacionales). Es el terreno natural para preguntas de "enumerar y explicar" con cifras concretas.</p>
+
+  <div class="enunciado hot">
+    <div class="en-head">
+      <span class="en-num hot">B·1</span>
+      <span class="en-tag">verbo: exponer</span>
+      <span class="en-tag">patrón 2</span>
+    </div>
+    <p class="en-enunciado">Exponer la composición del Congreso de los Diputados y del Senado según los artículos 68 y 69 CE, señalando las diferencias entre el sistema de elección de una y otra Cámara.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> es el ejemplo citado explícitamente en el mapa de probabilidad como "material muy citable con números concretos" (350 diputados, 4 senadores por provincia); el patrón "exponer + diferencias" es el mismo que ya usó el tribunal en 2023 para los recursos administrativos.</p>
+  </div>
+
+  <div class="enunciado hot">
+    <div class="en-head">
+      <span class="en-num hot">B·2</span>
+      <span class="en-tag">verbo: explicar</span>
+      <span class="en-tag">patrón 1</span>
+    </div>
+    <p class="en-enunciado">Explicar las tres funciones esenciales que el artículo 66.2 CE atribuye a las Cortes Generales, e indicar en qué artículos de la Constitución se concreta cada una de ellas.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> el "y" final (indicar dónde se concreta cada función: legislar → arts. 87-91, presupuestos → Ley 47/2003 ya trabajada, control del Gobierno → cuestión de confianza) obliga a cruzar el propio Título III con contenido ya visto de otros bloques del mismo bloque de Derecho.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">B·3</span>
+      <span class="en-tag">definición</span>
+    </div>
+    <p class="en-enunciado">Definir la inviolabilidad y la inmunidad parlamentaria del artículo 71 CE, diferenciando su naturaleza y su alcance temporal, y precisar el fuero especial aplicable a Diputados y Senadores.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> es la pareja de garantías más citada en manuales de test por su parecido léxico y su fácil confusión; distinguir inviolabilidad (permanente, por opiniones) de inmunidad (temporal, procesal, con suplicatorio) es justo el tipo de matiz que separa una respuesta correcta de una aproximada.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">B·4</span>
+      <span class="en-tag">enunciado nominal</span>
+      <span class="en-tag">patrón 3</span>
+    </div>
+    <p class="en-enunciado">La Diputación Permanente de las Cámaras: composición mínima, presidencia y funciones en los supuestos de disolución o expiración del mandato.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> tres sustantivos coordinados sobre un órgano poco trabajado en los manuales generalistas frente a la Corona o el procedimiento legislativo; encaja con el patrón ya visto para el Consejo de Empadronamiento en 2026 ("adscripción, composición y funciones").</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">B·5</span>
+      <span class="en-tag">verbo: exponer</span>
+      <span class="en-tag">patrón 2</span>
+    </div>
+    <p class="en-enunciado">Exponer los tipos de disposiciones normativas con rango de ley que puede dictar el Gobierno por delegación o habilitación de las Cortes Generales, señalando al menos dos diferencias entre ellas.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> Decretos Legislativos (art. 85, delegación previa y expresa) frente a Decretos-leyes (art. 86, urgencia extraordinaria, sin delegación previa, límites materiales, convalidación en 30 días) es la distinción más rentable de los arts. 82-86 y sigue el mismo patrón "tipos + diferencias" ya usado con los recursos administrativos.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">B·6</span>
+      <span class="en-tag">verbo: explicar</span>
+      <span class="en-tag">de conformidad con</span>
+      <span class="en-tag">patrón 5</span>
+    </div>
+    <p class="en-enunciado">De conformidad con el artículo 81 CE, explicar qué materias están reservadas a ley orgánica y qué mayoría exige su aprobación, modificación o derogación.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> el propio articulado señala este artículo como "uno de los más rentables de todo el temario de Derecho"; el enunciado cita la norma exacta (patrón "de conformidad con") y permite conectar con normas ya trabajadas en otros temas (LOPDGDD, LOREG, LO 3/2007), lo que encaja con la tendencia de cruzar temas detectada en 2025-2026.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">B·7</span>
+      <span class="en-tag">verbo: exponer</span>
+      <span class="en-tag">patrón 2</span>
+    </div>
+    <p class="en-enunciado">Exponer las fases del procedimiento legislativo ordinario desde la iniciativa hasta la sanción y promulgación de la ley, señalando la diferencia entre proyecto de ley y proposición de ley.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> recorre en un solo enunciado los arts. 87 a 91, con una distinción terminológica (proyecto/proposición) que el propio articulado marca como "diferencia clásica de examen"; el formato "fases + diferencia" combina los patrones 1 y 2 detectados en el análisis retórico.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">B·8</span>
+      <span class="en-tag">verbo: explicar</span>
+      <span class="en-tag">cruce de temas</span>
+      <span class="en-tag">patrón 6</span>
+    </div>
+    <p class="en-enunciado">Explicar el papel de las Cortes Generales en la celebración de tratados internacionales, distinguiendo los supuestos que exigen autorización previa de aquellos que solo requieren información posterior a las Cámaras, y su relación con la integración de España en organizaciones supranacionales.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> cruza el Título III (arts. 93-96) con la base constitucional de la pertenencia de España a la Unión Europea, que el propio documento base señala como "muy citado también al hablar del Reglamento (CE) 223/2009" (Tema 10) — el mismo tipo de cruce entre temas que ya usó el tribunal para el ENS en 2026.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">B·9</span>
+      <span class="en-tag">verbo: exponer</span>
+    </div>
+    <p class="en-enunciado">Exponer los periodos ordinarios de sesiones de las Cámaras y los supuestos en que pueden reunirse en sesión extraordinaria o en sesión conjunta.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> combina una cifra exacta y fácil de preguntar en tipo test (septiembre-diciembre / febrero-junio) con dos supuestos especiales (extraordinaria del art. 73.2, conjunta del art. 74) que suelen confundirse entre sí en manuales generalistas.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">B·10</span>
+      <span class="en-tag">verbo: razonar</span>
+      <span class="en-tag">patrón 4</span>
+    </div>
+    <p class="en-enunciado">¿Puede el Senado impedir de forma definitiva la aprobación de un proyecto de ley aprobado por el Congreso? Razonar la respuesta con referencia al artículo 90 CE.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> pregunta cerrada de fundamento legal exacto sobre el carácter suspensivo (no absoluto) del veto del Senado — mismo formato que la pregunta ya hecha en 2023 sobre la inscripción en el Censo Electoral, aplicado aquí al bicameralismo imperfecto.</p>
+  </div>
+
+  <div class="lexico-box">
+    <h3>Cómo leer estos enunciados</h3>
+    <ul>
+      <li><b>Estos dieciséis enunciados no son transcripción de ningún examen real.</b> El Tema 2 no registra preguntas propias en las últimas cuatro convocatorias del primer ejercicio (2023-2026); son construcciones propias que aplican al contenido de los arts. 56-96 CE los patrones lingüísticos que sí se han detectado en las 15 preguntas literales de esas convocatorias.</li>
+      <li><b>Etiquetas de patrón:</b> remiten al análisis retórico del documento de mapa de probabilidad ("explicar" = desarrollo causal con doble exigencia; "exponer" = enumeración con número mínimo o diferencias; enunciado nominal = varios apartados evaluables; "de conformidad con" = ancla la respuesta a la norma citada por su nombre; cruce de temas = exige conectar dos bloques distintos del temario).</li>
+      <li><b>Solo primer ejercicio.</b> El bloque de Derecho de la convocatoria INE A1 se evalúa exclusivamente en el primer ejercicio del turno libre; el segundo ejercicio lo excluye expresamente, por lo que este tema no tiene enunciados de segundo ejercicio que anticipar.</li>
+      <li><b>Uso recomendado:</b> practicar cada enunciado por escrito y en tiempo, cronometrando la respuesta, y contrastar después contra el articulado completo del Tema 2 para comprobar que se han cubierto todas las "segundas exigencias" que el enunciado esconde.</li>
+    </ul>
+  </div>
+
+  <div class="foot">
+    <b>Fuentes:</b> articulado y comentarios del Tema 2 (arts. 56-96 CE, Títulos II y III) tomados del documento base de Derecho articulado INE A1; verificación del alcance exacto del tema y de la ausencia de preguntas propias registradas, del índice de temario de Derecho; patrones retóricos y estimación de probabilidad ("Prioridad 1 — 0 preguntas en 4 años", ambos epígrafes en probabilidad alta), del mapa de probabilidad de examen construido sobre las 15 preguntas literales registradas del primer ejercicio del turno libre en las convocatorias 2022-2025 (exámenes 2023-2026), tal como las publica el INE en su material de apoyo a la oposición.
+    <br><br>
+    Los dieciséis enunciados de este documento son elaboración propia de apoyo al estudio, construidos por analogía con el estilo real del tribunal — no son transcripción literal de ningún examen. Antes de la convocatoria, contrasta siempre contra el texto constitucional vigente.
+  </div>
+
+</div>
+</body>
+</html>

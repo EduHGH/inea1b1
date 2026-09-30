@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complemento Tema 3 — Estructura del Ministerio de Economía, Comercio y Empresa y organismos adscritos — INE A1</title>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --paper-deep:#EAE3D2;
+    --ink:#1F1B16;
+    --ink-soft:#4A443A;
+    --ink-faint:#8A8375;
+    --rule:#D9D1BE;
+    --highlight:#EFA07F;
+    --highlight-deep:#E88357;
+    --highlight-text:#4A2410;
+    --card:#FBF8F1;
+    --article-bg:#FFFEFB;
+    --article-border:#DCD3BC;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+  }
+
+  .doc{
+    max-width:800px;
+    margin:0 auto;
+    padding:64px 28px 120px;
+  }
+
+  .masthead{
+    border-bottom:3px solid var(--ink);
+    padding-bottom:20px;
+    margin-bottom:32px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:10px;
+  }
+  h1.title{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:34px;
+    line-height:1.15;
+    letter-spacing:-.01em;
+    margin:0 0 8px;
+  }
+  .subtitle{
+    font-size:16px;
+    color:var(--ink-soft);
+    max-width:64ch;
+  }
+
+  .howto{
+    background:var(--paper-deep);
+    border-radius:6px;
+    padding:18px 20px;
+    margin:24px 0 40px;
+  }
+  .howto .kc-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+  }
+  .howto p{margin:0 0 8px; font-size:14.5px;}
+  .howto p:last-child{margin-bottom:0;}
+
+  section.bloque{margin-bottom:56px; scroll-margin-top:24px;}
+  .bloque-head{display:flex; align-items:baseline; gap:14px; margin-bottom:6px;}
+  .bloque-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--highlight-deep);
+    border:1px solid var(--highlight-deep);
+    border-radius:100px;
+    padding:2px 10px;
+  }
+  .bloque-title{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:23px;
+    margin:0;
+  }
+  .norma-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+    margin:6px 0 14px;
+  }
+  .tema-intro{
+    font-size:15px;
+    color:var(--ink-soft);
+    max-width:68ch;
+    margin-bottom:8px;
+  }
+
+  .articulo{
+    background:var(--article-bg);
+    border:1px solid var(--article-border);
+    border-radius:8px;
+    padding:20px 22px;
+    margin:22px 0 0;
+  }
+  .art-head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:8px;
+    margin-bottom:10px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--rule);
+  }
+  .art-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:14px;
+    color:var(--highlight-text);
+    background:#FBE3D4;
+    padding:2px 9px;
+    border-radius:4px;
+  }
+  .art-rubrica{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16.5px;
+    color:var(--ink);
+  }
+  .art-body p{margin:0 0 10px; font-size:15px;}
+  .art-body p:last-child{margin-bottom:0;}
+  .art-body b{color:var(--ink);}
+  .art-body ul{margin:8px 0; padding-left:22px;}
+  .art-body li{margin-bottom:5px; font-size:15px;}
+  mark{
+    background:#F6D9C4;
+    color:var(--highlight-text);
+    padding:0 3px;
+    border-radius:2px;
+  }
+
+  .comentario{
+    background:var(--card);
+    border-left:3px solid var(--highlight-deep);
+    border-radius:0 6px 6px 0;
+    padding:16px 20px;
+    margin:0 0 8px;
+  }
+  .c-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--highlight-deep);
+    margin-bottom:8px;
+  }
+  .comentario p{margin:0 0 8px; font-size:14.5px; color:var(--ink-soft);}
+  .comentario p:last-child{margin-bottom:0;}
+  .ine-tag{
+    font-size:13.5px;
+    color:var(--ink-faint);
+    font-style:italic;
+    border-top:1px dashed var(--rule);
+    padding-top:8px;
+    margin-top:8px;
+  }
+
+  .divider{border:none; border-top:2px solid var(--ink); margin:56px 0;}
+
+  .toc-wrap{
+    background:var(--card);
+    border:1px solid var(--article-border);
+    border-radius:4px;
+    padding:28px 32px;
+    margin:0 0 56px;
+  }
+  .toc-wrap .kc-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 16px;
+  }
+  .toc-wrap ol{
+    list-style:none;
+    margin:0;
+    padding:0;
+    counter-reset:toc;
+  }
+  .toc-wrap li{
+    margin:0;
+    border-top:1px dashed var(--rule);
+  }
+  .toc-wrap li:first-child{border-top:none;}
+  .toc-wrap a{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    padding:9px 0;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .toc-wrap a:hover .toc-title{color:var(--highlight-deep);}
+  .toc-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+    flex-shrink:0;
+    width:64px;
+  }
+  .toc-title{font-size:14.5px;}
+
+  .part-flag{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    background:var(--paper-deep);
+    border:1px solid var(--rule);
+    border-radius:20px;
+    padding:4px 14px;
+    margin:0 0 20px;
+  }
+  .back-to-top{
+    display:inline-block;
+    margin-top:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:.04em;
+    color:var(--ink-faint);
+    text-decoration:none;
+    border-bottom:1px dashed var(--ink-faint);
+  }
+  .back-to-top:hover{color:var(--highlight-deep); border-color:var(--highlight-deep);}
+
+  table.cuadro{
+    width:100%;
+    border-collapse:collapse;
+    margin:18px 0 8px;
+    font-size:13.5px;
+  }
+  table.cuadro th, table.cuadro td{
+    border:1px solid var(--rule);
+    padding:8px 10px;
+    text-align:left;
+    vertical-align:top;
+  }
+  table.cuadro th{
+    background:var(--paper-deep);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+  }
+
+  .organigrama{
+    background:var(--article-bg);
+    border:1px solid var(--article-border);
+    border-radius:8px;
+    padding:22px 24px;
+    margin:20px 0;
+    font-size:14.5px;
+  }
+  .org-nivel{margin:0 0 6px; padding-left:0;}
+  .org-nivel.n2{padding-left:22px; color:var(--ink-soft);}
+  .org-nivel.n3{padding-left:44px; color:var(--ink-faint); font-size:13.5px;}
+  .org-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--highlight-deep);
+    margin-right:6px;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="doc" id="top">
+
+  <div class="masthead">
+    <div class="eyebrow">Complemento · Derecho Público INE A1 · Tema 3 · Estructura ministerial</div>
+    <h1 class="title">La estructura del Ministerio de Economía, Comercio y Empresa y sus organismos públicos adscritos</h1>
+    <p class="subtitle">El Tema 3 del programa (BOE-A-2022-2725) pide expresamente "Estructura del Ministerio de Economía y Empresa y Organismos públicos adscritos". Tu material cubre bien la organización <em>genérica</em> de la AGE (Ministerios, Secretarías de Estado, Delegaciones de Gobierno — arts. 55 y ss. de la Ley 40/2015), pero no la estructura <em>concreta y actual</em> del departamento del que depende el INE. Este complemento cierra exactamente ese hueco.</p>
+  </div>
+
+  <div class="howto">
+    <div class="kc-label">Por qué este punto es distinto al resto del Tema 3 — y cómo estudiarlo</div>
+    <p>El resto del Tema 3 (Gobierno, órganos superiores/directivos de la AGE, Administración periférica) se rige por la <mark>Ley 40/2015</mark>, una norma estable. La estructura concreta de un ministerio, en cambio, se fija por <b>Real Decreto</b> y cambia con cada reorganización de Gobierno — por eso no conviene memorizarla como si fuera artículo de ley, sino como una "foto" del organigrama vigente en el momento del examen.</p>
+    <p>Fuentes normativas de esta foto: el <mark>Real Decreto 829/2023</mark>, de 20 de noviembre (crea el Ministerio de Economía, Comercio y Empresa), el <mark>Real Decreto 1009/2023</mark>, de 5 de diciembre (fija los órganos superiores y directivos de todos los ministerios hasta Dirección General) y el <mark>Real Decreto 410/2024</mark>, de 23 de abril (desarrolla la estructura de este Ministerio en concreto, hasta subdirección general), con ajustes posteriores en 2025 y 2026 que no cambian el esquema básico.</p>
+    <p>La pregunta de examen más probable no es "enumera las 15 subdirecciones generales", sino: <b>¿qué Secretarías de Estado tiene el Ministerio?</b>, <b>¿de cuál depende el INE?</b> y <b>¿qué otros organismos cuelgan de la misma Secretaría de Estado que el INE?</b> — eso es lo que este documento prioriza.</p>
+  </div>
+
+  <div class="toc-wrap">
+    <div class="kc-label">Índice — 4 bloques</div>
+    <ol>
+      <li><a href="#bloque-1"><span class="toc-num">Bloque 1</span><span class="toc-title">El departamento: nombre, creación y titular actual</span></a></li>
+      <li><a href="#bloque-2"><span class="toc-num">Bloque 2</span><span class="toc-title">Órganos superiores y directivos: las dos Secretarías de Estado</span></a></li>
+      <li><a href="#bloque-3"><span class="toc-num">Bloque 3</span><span class="toc-title">Organismos públicos adscritos o vinculados — con foco en el INE</span></a></li>
+      <li><a href="#bloque-4"><span class="toc-num">Bloque 4</span><span class="toc-title">Encaje con la Ley 40/2015 y con la Ley 12/1989 (Tema 8)</span></a></li>
+    </ol>
+  </div>
+
+  <section class="bloque" id="bloque-1">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 1</span>
+      <h2 class="bloque-title">El departamento: nombre, creación y titular actual</h2>
+    </div>
+    <div class="norma-tag">RD 829/2023, de 20 de noviembre (reestructuración de ministerios) · RD 1009/2023, de 5 de diciembre</div>
+    <p class="tema-intro">El nombre exacto del ministerio es un clásico de pregunta corta — y ha cambiado varias veces en los últimos años, así que conviene fijar la denominación vigente y no la de convocatorias anteriores.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Denominación vigente</span> <span class="art-rubrica">— Ministerio de Economía, Comercio y Empresa</span></div>
+      <div class="art-body">
+        <p>Creado por el <b>Real Decreto 829/2023, de 20 de noviembre</b>, por el que se reestructuran los departamentos ministeriales (modificado por los RD 890/2023 y RD 1230/2023). Es el departamento de la AGE encargado de <b>la propuesta y ejecución de la política del Gobierno en materia económica y de reformas para la mejora de la competitividad, y de comercio</b>.</p>
+        <p>Este es el nombre <mark>actualmente vigente</mark>. En convocatorias o materiales anteriores puede aparecer como "Ministerio de Asuntos Económicos y Transformación Digital" (denominación previa a noviembre de 2023) — si el examen usa ese nombre, es porque el enunciado o la pregunta se refieren a un momento anterior; para efectos del temario 2022 conviene citar siempre el nombre vigente salvo que se pregunte explícitamente por un momento histórico.</p>
+      </div>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Titular</span> <span class="art-rubrica">— Vicepresidente Primero y Ministro de Economía, Comercio y Empresa</span></div>
+      <div class="art-body">
+        <p><b>Carlos Cuerpo Caballero</b> es ministro de Economía, Comercio y Empresa desde diciembre de 2023, y además Vicepresidente Primero del Gobierno desde marzo de 2026 (RD 258/2026). Como tal, preside la Comisión Delegada del Gobierno para Asuntos Económicos (CDGAE) y la Comisión Delegada del Gobierno para Asuntos de Inteligencia.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Los nombres de ministros y la composición exacta del Gobierno son datos que cambian con cada crisis de Gobierno — no es descartable que hayan variado entre la redacción de este documento y tu examen. Lo estructuralmente estable y con más valor de examen es el <b>esquema organizativo</b> (dos Secretarías de Estado, Subsecretaría, organismos adscritos), no el nombre de la persona.</p>
+      <div class="ine-tag">Comprueba el titular actual en <a href="https://www.lamoncloa.gob.es" target="_blank" rel="noopener">lamoncloa.gob.es</a> o <a href="https://portal.mineco.gob.es" target="_blank" rel="noopener">portal.mineco.gob.es</a> cerca de la fecha del examen.</div>
+    </div>
+    <a class="back-to-top" href="#top">↑ volver arriba</a>
+  </section>
+
+  <section class="bloque" id="bloque-2">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 2</span>
+      <h2 class="bloque-title">Órganos superiores y directivos: las dos Secretarías de Estado</h2>
+    </div>
+    <div class="norma-tag">RD 1009/2023, de 5 de diciembre · RD 410/2024, de 23 de abril</div>
+    <p class="tema-intro">Este es el esqueleto que hay que saber de memoria: el Ministerio se organiza en dos Secretarías de Estado, más la Subsecretaría. El INE cuelga de la primera.</p>
+
+    <div class="organigrama">
+      <p class="org-nivel"><span class="org-tag">Órgano superior</span><b>Ministro de Economía, Comercio y Empresa</b> (Vicepresidente Primero del Gobierno)</p>
+      <p class="org-nivel n2">↳ <b>Secretaría de Estado de Economía y Apoyo a la Empresa</b></p>
+      <p class="org-nivel n3">— Secretaría General del Tesoro y Financiación Internacional (rango de Subsecretaría) → Dirección General del Tesoro y Política Financiera; Dirección General de Financiación Internacional</p>
+      <p class="org-nivel n3">— Dirección General de Política Económica</p>
+      <p class="org-nivel n3">— Dirección General de Análisis Económico</p>
+      <p class="org-nivel n3">— Dirección General de Seguros y Fondos de Pensiones</p>
+      <p class="org-nivel n2">↳ <b>Secretaría de Estado de Comercio</b></p>
+      <p class="org-nivel n3">— Dirección General de Comercio Internacional e Inversiones</p>
+      <p class="org-nivel n3">— Dirección General de Política Comercial</p>
+      <p class="org-nivel n2">↳ <b>Subsecretaría de Economía, Comercio y Empresa</b> (depende directamente del Ministro)</p>
+      <p class="org-nivel n3">— Secretaría General Técnica</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 2 RD 410/2024</span> <span class="art-rubrica">— Funciones de la Secretaría de Estado de Economía y Apoyo a la Empresa</span></div>
+      <div class="art-body">
+        <p>Ejerce, entre otras, las funciones relativas a <b>tesorería del Estado, gestión de la deuda pública, política financiera y regulación de entidades financieras, mercados de capitales, seguros y fondos de pensiones, prevención del blanqueo de capitales</b>, y la <b>orientación, propuesta, coordinación y seguimiento de la política económica</b> (análisis y previsiones macroeconómicos).</p>
+        <p>Su titular forma parte de la Comisión Delegada del Gobierno para Asuntos Económicos (CDGAE) y ejerce su Secretaría.</p>
+      </div>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 9 RD 410/2024</span> <span class="art-rubrica">— Funciones de la Secretaría de Estado de Comercio</span></div>
+      <div class="art-body">
+        <p>Ejerce las funciones relativas a la <b>política comercial del Estado</b> (comercio exterior e interior, incluido el intracomunitario), la <b>estrategia de internacionalización</b>, las <b>inversiones exteriores</b> y la <b>promoción de la internacionalización de las empresas españolas</b>.</p>
+        <p>De ella depende, entre otros, <b>ICEX España Exportación e Inversiones, E.P.E.</b>, cuya presidencia ostenta la persona titular de esta Secretaría de Estado.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Regla mnemotécnica simple: <b>Economía y Apoyo a la Empresa = "hacia dentro"</b> (Tesoro, política económica, supervisión financiera, estadística) y <b>Comercio = "hacia fuera"</b> (comercio exterior, internacionalización, ICEX). El INE, por ser el órgano central de la producción estadística nacional, encaja naturalmente en la primera.</p>
+    </div>
+    <a class="back-to-top" href="#top">↑ volver arriba</a>
+  </section>
+
+  <section class="bloque" id="bloque-3">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 3</span>
+      <h2 class="bloque-title">Organismos públicos adscritos o vinculados — con foco en el INE</h2>
+    </div>
+    <div class="norma-tag">Art. 2.7 RD 410/2024 · RD 803/2022 (Estatuto del INE) · Ley 40/2015, Título II Cap. III Sec. 2ª (arts. 98-100, organismos autónomos)</div>
+    <p class="tema-intro">Este es el punto con más valor de examen del bloque: qué organismos cuelgan del Ministerio y, sobre todo, a través de qué Secretaría de Estado.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 2.7 RD 410/2024</span> <span class="art-rubrica">— Adscritos o vinculados a través de la Secretaría de Estado de Economía y Apoyo a la Empresa</span></div>
+      <div class="art-body">
+        <ul>
+          <li>El organismo autónomo <b>Instituto Nacional de Estadística (INE)</b></li>
+          <li>La entidad pública empresarial <b>Instituto de Crédito Oficial (ICO)</b></li>
+          <li>La <b>Comisión Nacional de los Mercados y la Competencia (CNMC)</b></li>
+          <li>La <b>Comisión Nacional del Mercado de Valores (CNMV)</b></li>
+          <li>La autoridad administrativa independiente <b>FROB</b> (Fondo de Reestructuración Ordenada Bancaria)</li>
+        </ul>
+        <p>La CNMC, la CNMV y el FROB se vinculan a esta Secretaría de Estado en los términos de los arts. 109 y 110 de la Ley 40/2015 (autoridades administrativas independientes), no como organismos autónomos ordinarios.</p>
+      </div>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Instituto Nacional de Estadística</span> <span class="art-rubrica">— naturaleza jurídica y adscripción exactas</span></div>
+      <div class="art-body">
+        <p>El INE es un <b>organismo autónomo de carácter administrativo</b>, con personalidad jurídica y patrimonio propio, <b>adscrito al Ministerio de Economía, Comercio y Empresa a través de la Secretaría de Estado de Economía y Apoyo a la Empresa</b>.</p>
+        <p>Se rige básicamente por la <b>Ley 12/1989, de 9 de mayo, de la Función Estadística Pública</b> (Tema 8) y por su <b>Estatuto, aprobado por Real Decreto 803/2022, de 4 de octubre</b>. Le es también de aplicación el <b>Reglamento (CE) 223/2009</b> del Parlamento Europeo y del Consejo, relativo a la estadística europea (Tema 10).</p>
+        <p>Jurídicamente, es uno de los organismos autónomos previstos en la <b>sección 2ª del capítulo III del título II de la Ley 40/2015</b> (arts. 98-100: organismos autónomos, régimen general).</p>
+      </div>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 6 RD 410/2024</span> <span class="art-rubrica">— Dirección General de Análisis Económico e interlocución con el INE</span></div>
+      <div class="art-body">
+        <p>Entre las funciones de esta Dirección General figura expresamente "<b>la interlocución con el INE en el desarrollo del Plan Estadístico Nacional</b> y en la propuesta de nuevas operaciones o mejora de las existentes" — el punto de contacto más directo, dentro del organigrama ministerial, entre la política económica y la actividad estadística del INE.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Encadenado de examen típico: <i>"¿A qué Ministerio está adscrito el INE y a través de qué órgano?"</i> → Ministerio de Economía, Comercio y Empresa, a través de la Secretaría de Estado de Economía y Apoyo a la Empresa. Y el "compañero de adscripción" que más se confunde en examen es la <b>CNMV</b> (Comisión Nacional del Mercado de Valores) — cuidado con no mezclarla con la CNMC (Competencia) ni asumir que dependen de la Secretaría de Estado de Comercio, que es el error más común.</p>
+    </div>
+    <a class="back-to-top" href="#top">↑ volver arriba</a>
+  </section>
+
+  <section class="bloque" id="bloque-4">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 4</span>
+      <h2 class="bloque-title">Encaje con la Ley 40/2015 y con la Ley 12/1989 (Tema 8)</h2>
+    </div>
+    <div class="norma-tag">Ley 40/2015, arts. 58-59 y 98-100 · Ley 12/1989, art. 26 y ss.</div>
+    <p class="tema-intro">Este bloque conecta el dato organizativo concreto con las dos normas generales que ya tienes muy trabajadas, para que puedas citarlas juntas si la pregunta lo exige.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 59.1 Ley 40/2015</span> <span class="art-rubrica">— Fundamento de la potestad para fijar la estructura ministerial</span></div>
+      <div class="art-body">
+        <p>El RD 410/2024 que desarrolla la estructura del Ministerio se dicta "en aplicación del artículo 59.1 de la Ley 40/2015" — es decir, la <b>Ley 40/2015 es la habilitación general</b> (creación, modificación y supresión de órganos administrativos mediante Real Decreto del Consejo de Ministros), mientras que el <b>Real Decreto concreto es el instrumento</b> que efectivamente fija el organigrama.</p>
+      </div>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 26 Ley 12/1989</span> <span class="art-rubrica">— El INE como servicio estadístico coordinador (recordatorio de Tema 8)</span></div>
+      <div class="art-body">
+        <p>La Ley 12/1989 atribuye al INE la <b>coordinación general de los servicios estadísticos de la AGE</b> y la formulación, junto con los servicios estadísticos de los Departamentos Ministeriales y las Comunidades Autónomas, del <b>Plan Estadístico Nacional</b>. Esto es lo que ya tienes cubierto en el Tema 8 — aquí simplemente se confirma que la naturaleza de organismo autónomo y su adscripción ministerial (Tema 3) no alteran esa función coordinadora general (Tema 8).</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Si el examen pregunta por el INE, comprueba primero <b>desde qué tema lo pregunta</b>: si es organización y adscripción → Tema 3 (este documento); si es función estadística, secreto estadístico o régimen sancionador → Tema 8; si es su régimen de protección de datos como responsable de tratamiento → Tema 9; si es su marco europeo → Tema 10. Es el mismo organismo citado desde cuatro ángulos distintos del temario.</p>
+    </div>
+    <a class="back-to-top" href="#top">↑ volver arriba</a>
+  </section>
+
+  <hr class="divider">
+
+  <p class="ine-tag" style="text-align:center; border-top:none; padding-top:0;">Fuentes: RD 829/2023, RD 1009/2023, RD 410/2024 y RD 803/2022 (BOE) · situación vigente a fecha de este documento — verifica cambios de Gobierno o de estructura orgánica antes del examen en <a href="https://www.boe.es" target="_blank" rel="noopener">boe.es</a>.</p>
+
+</div>
+
+</body>
+</html>

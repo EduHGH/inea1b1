@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complemento Tema 6 (completo) — TREBEP — INE A1</title>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --paper-deep:#EAE3D2;
+    --ink:#1F1B16;
+    --ink-soft:#4A443A;
+    --ink-faint:#8A8375;
+    --rule:#D9D1BE;
+    --highlight:#EFA07F;
+    --highlight-deep:#E88357;
+    --highlight-text:#4A2410;
+    --card:#FBF8F1;
+    --article-bg:#FFFEFB;
+    --article-border:#DCD3BC;
+
+    --art-num-bg:#FBE3D4;
+    --mark-bg:#F6D9C4;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+  }
+
+  .doc{
+    max-width:800px;
+    margin:0 auto;
+    padding:64px 28px 120px;
+  }
+
+  .masthead{
+    border-bottom:3px solid var(--ink);
+    padding-bottom:20px;
+    margin-bottom:32px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:10px;
+  }
+  h1.title{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:36px;
+    line-height:1.1;
+    letter-spacing:-.01em;
+    margin:0 0 8px;
+  }
+  .subtitle{
+    font-size:16px;
+    color:var(--ink-soft);
+    max-width:64ch;
+  }
+
+  .howto{
+    background:var(--paper-deep);
+    border-radius:6px;
+    padding:18px 20px;
+    margin:24px 0 40px;
+  }
+  .howto .kc-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+  }
+  .howto p{margin:0 0 8px; font-size:14.5px;}
+  .howto p:last-child{margin-bottom:0;}
+
+  section.bloque{margin-bottom:56px; scroll-margin-top:24px;}
+  .bloque-head{display:flex; align-items:baseline; gap:14px; margin-bottom:6px;}
+  .bloque-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--highlight-deep);
+    border:1px solid var(--highlight-deep);
+    border-radius:100px;
+    padding:2px 10px;
+  }
+  .bloque-title{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:23px;
+    margin:0;
+  }
+  .norma-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+    margin:6px 0 14px;
+  }
+  .tema-intro{
+    font-size:15px;
+    color:var(--ink-soft);
+    max-width:68ch;
+    margin-bottom:8px;
+  }
+
+  .articulo{
+    background:var(--article-bg);
+    border:1px solid var(--article-border);
+    border-radius:8px;
+    padding:20px 22px;
+    margin:22px 0 0;
+  }
+  .art-head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:8px;
+    margin-bottom:10px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--rule);
+  }
+  .art-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:14px;
+    color:var(--highlight-text);
+    background:var(--art-num-bg);
+    padding:2px 9px;
+    border-radius:4px;
+  }
+  .art-rubrica{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16.5px;
+    color:var(--ink);
+  }
+  .art-body p{margin:0 0 10px; font-size:15px;}
+  .art-body p:last-child{margin-bottom:0;}
+  .art-body b{color:var(--ink);}
+  mark{
+    background:var(--mark-bg);
+    color:var(--highlight-text);
+    padding:0 3px;
+    border-radius:2px;
+  }
+
+  .comentario{
+    background:var(--card);
+    border-left:3px solid var(--highlight-deep);
+    border-radius:0 6px 6px 0;
+    padding:16px 20px;
+    margin:0 0 8px;
+  }
+  .c-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--highlight-deep);
+    margin-bottom:8px;
+  }
+  .comentario p{margin:0 0 8px; font-size:14.5px; color:var(--ink-soft);}
+  .comentario p:last-child{margin-bottom:0;}
+  .ine-tag{
+    font-size:13.5px;
+    color:var(--ink-faint);
+    font-style:italic;
+    border-top:1px dashed var(--rule);
+    padding-top:8px;
+    margin-top:8px;
+  }
+
+  table.cuadro{
+    width:100%;
+    border-collapse:collapse;
+    margin:18px 0 8px;
+    font-size:13.5px;
+  }
+  table.cuadro th, table.cuadro td{
+    border:1px solid var(--rule);
+    padding:8px 10px;
+    text-align:left;
+    vertical-align:top;
+  }
+  table.cuadro th{
+    background:var(--paper-deep);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+  }
+
+  .divider{border:none; border-top:2px solid var(--ink); margin:56px 0;}
+
+  /* --- Reglas adicionales de partes posteriores (variantes de tabla) --- */
+
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --paper-deep:#EAE3D2;
+    --ink:#1F1B16;
+    --ink-soft:#4A443A;
+    --ink-faint:#8A8375;
+    --rule:#D9D1BE;
+    --highlight:#7FA8EF;
+    --highlight-deep:#5783E8;
+    --highlight-text:#132C6E;
+    --card:#F7F9FE;
+    --article-bg:#FFFEFB;
+    --article-border:#DCD3BC;
+  }
+
+
+  .tabla-wrap{margin:22px 0 0;}
+
+  table.faltas{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--article-bg);
+    border:1px solid var(--article-border);
+    border-radius:8px;
+    overflow:hidden;
+    font-size:14px;
+  }
+
+  table.faltas th{
+    background:var(--paper-deep);
+    text-align:left;
+    padding:9px 12px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--article-border);
+  }
+
+  table.faltas td{
+    padding:9px 12px;
+    border-bottom:1px solid var(--rule);
+    vertical-align:top;
+  }
+
+  table.faltas tr:last-child td{border-bottom:none;}
+
+  table.faltas td.num{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--highlight-text);
+    white-space:nowrap;
+    width:60px;
+  }
+
+
+  .tabla-comparativa{
+    width:100%;
+    border-collapse:collapse;
+    margin:10px 0 4px;
+    font-size:14px;
+  }
+
+  .tabla-comparativa th, .tabla-comparativa td{
+    border:1px solid var(--article-border);
+    padding:8px 10px;
+    text-align:left;
+    vertical-align:top;
+  }
+
+  .tabla-comparativa th{
+    background:var(--paper-deep);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  .tabla-comparativa td:first-child{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    white-space:nowrap;
+  }
+
+  /* --- Estilos añadidos para el documento unificado --- */
+  .toc-wrap{
+    background:var(--card);
+    border:1px solid var(--article-border);
+    border-radius:4px;
+    padding:28px 32px;
+    margin:0 0 56px;
+  }
+  .toc-wrap .kc-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 16px;
+  }
+  .toc-wrap ol{
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  .toc-wrap li{
+    margin:0;
+    border-top:1px dashed var(--rule);
+  }
+  .toc-wrap li:first-child{border-top:none;}
+  .toc-wrap a{
+    display:flex;
+    gap:14px;
+    align-items:baseline;
+    padding:10px 4px;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .toc-wrap a:hover .toc-title{color:var(--highlight-deep);}
+  .toc-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--ink-faint);
+    white-space:nowrap;
+    min-width:64px;
+  }
+  .toc-title{
+    font-family:'Fraunces', serif;
+    font-size:15.5px;
+    line-height:1.35;
+  }
+  .doc-part{
+    scroll-margin-top:24px;
+  }
+  .part-flag{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    background:var(--paper-deep);
+    border:1px solid var(--rule);
+    border-radius:20px;
+    padding:4px 14px;
+    margin:0 0 20px;
+  }
+  hr.part-divider{
+    border:none;
+    border-top:3px double var(--ink);
+    margin:80px 0 56px;
+  }
+
+  /* --- Paletas de color por parte (algunas fichas usan azul en vez de naranja) --- */
+  #parte-1{
+    --highlight:#7FA8EF;
+    --highlight-deep:#5783E8;
+    --highlight-text:#132C6E;
+    --card:#F7F9FE;
+    --art-num-bg:#E1EAFB;
+    --mark-bg:#D9E5FA;
+  }
+  #parte-2{
+    --highlight:#7FA8EF;
+    --highlight-deep:#5783E8;
+    --highlight-text:#132C6E;
+    --card:#F7F9FE;
+    --art-num-bg:#E1EAFB;
+    --mark-bg:#D9E5FA;
+  }
+
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="masthead">
+    <div class="eyebrow">Complemento · Derecho Público INE A1 · Tema 6</div>
+    <h1 class="title">TREBEP — Complemento completo (Texto Refundido del Estatuto Básico del Empleado Público)</h1>
+    <p class="subtitle">Documento unificado con las 6 entregas del complemento al Tema 6: tipos de empleado público y derechos, acceso al empleo público, carrera y retribuciones, provisión de puestos y régimen disciplinario, Título Preliminar, situaciones administrativas (suspensión, reingreso y personal laboral), y deberes de los empleados públicos con el Código de Conducta.</p>
+  </div>
+
+  <div class="toc-wrap">
+    <div class="kc-label">Índice — 6 partes</div>
+    <ol>
+      <li><a href="#parte-1"><span class="toc-num">Parte 1</span><span class="toc-title">TREBEP — Tipos de empleado público y derechos de los empleados públicos</span></a></li>
+      <li><a href="#parte-2"><span class="toc-num">Parte 2</span><span class="toc-title">TREBEP — Acceso al empleo público</span></a></li>
+      <li><a href="#parte-3"><span class="toc-num">Parte 3</span><span class="toc-title">TREBEP — Carrera, retribuciones, provisión de puestos y régimen disciplinario</span></a></li>
+      <li><a href="#parte-4"><span class="toc-num">Parte 4</span><span class="toc-title">TREBEP — Título Preliminar y Régimen Disciplinario</span></a></li>
+      <li><a href="#parte-5"><span class="toc-num">Parte 5</span><span class="toc-title">TREBEP — Suspensión de funciones, reingreso al servicio activo y situaciones del personal laboral</span></a></li>
+      <li><a href="#parte-6"><span class="toc-num">Parte 6</span><span class="toc-title">TREBEP — Deberes de los empleados públicos y Código de Conducta</span></a></li>
+    </ol>
+  </div>
+
+<div class="doc-part" id="parte-1">
+  <div class="part-flag"><span>Parte 1 de 6</span></div>
+  <div class="masthead">
+    <div class="eyebrow">Complemento · Derecho Público INE A1 · Tema 6 · Parte 1</div>
+    <h1 class="title">TREBEP — Tipos de empleado público y derechos de los empleados públicos</h1>
+    <p class="subtitle">Primera entrega del complemento al Real Decreto Legislativo 5/2015 (TREBEP). Cubre el epígrafe "tipos de empleado público" del Tema 6 en su integridad (arts. 8-13) y el Capítulo I completo de derechos, individuales y ejercidos colectivamente (arts. 14-15).</p>
+  </div>
+
+  <div class="howto">
+    <div class="kc-label">Cómo encaja esto en tu documento</div>
+    <p>Tu documento cubre hoy solo los arts. 53-54 (código de conducta) y 78-80 (provisión de puestos). Esta Parte 1 añade el bloque que da nombre al propio epígrafe del Tema 6 — "tipos de empleado público" — con los arts. 8 a 13, y el catálogo completo de derechos de los arts. 14-15. El resto del temario (derechos colectivos de negociación 31-46, jornada/permisos/vacaciones 47-51, acceso al empleo 55-62, pérdida de la relación de servicio 63-68) se abordará en entregas sucesivas.</p>
+  </div>
+
+  <section class="bloque" id="p1-trebep-clases-personal">
+    <div class="bloque-head">
+      <span class="bloque-num">I·C</span>
+      <h2 class="bloque-title">Título II, Capítulo I — Clases de personal</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre — TREBEP (BOE-A-2015-11719) · Arts. 8-12</div>
+    <p class="tema-intro">El artículo que abre el catálogo de tipos de empleado público (art. 8) y el desarrollo de cada uno de los cuatro tipos: funcionarios de carrera, funcionarios interinos, personal laboral y personal eventual.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 8</span> <span class="art-rubrica">— Concepto y clases de empleados públicos</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Son empleados públicos quienes desempeñan funciones retribuidas en las Administraciones Públicas al servicio de los <mark>intereses generales</mark>.</p>
+        <p><b>2.</b> Los empleados públicos se clasifican en: <b>a)</b> <mark>Funcionarios de carrera</mark>. <b>b)</b> <mark>Funcionarios interinos</mark>. <b>c)</b> <mark>Personal laboral</mark>, ya sea fijo, por tiempo indefinido o temporal. <b>d)</b> <mark>Personal eventual</mark>.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Artículo de apertura y de memorización literal obligatoria: los <mark>cuatro tipos</mark> de empleado público, en este orden exacto, son la columna vertebral de todo el Título II. Cada uno se desarrolla en su propio artículo (9 a 12) y tiene un régimen jurídico sustancialmente distinto — el examen suele plantear supuestos que exigen identificar a cuál de los cuatro tipos pertenece una persona según las características descritas.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 9</span> <span class="art-rubrica">— Funcionarios de carrera</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Son funcionarios de carrera quienes, en virtud de <mark>nombramiento legal</mark>, están vinculados a una Administración Pública por una relación <mark>estatutaria</mark> regulada por el Derecho Administrativo para el desempeño de servicios profesionales retribuidos de carácter <mark>permanente</mark>.</p>
+        <p><b>2.</b> En todo caso, el ejercicio de las funciones que impliquen la participación directa o indirecta en el ejercicio de las <mark>potestades públicas</mark> o en la salvaguardia de los intereses generales del Estado y de las Administraciones Públicas corresponden <mark>exclusivamente</mark> a los funcionarios públicos [...].</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Tres notas definitorias que se repiten en cualquier definición de examen: <mark>nombramiento legal</mark> (no contrato), relación <mark>estatutaria</mark> —de Derecho Administrativo, no laboral— y carácter <mark>permanente</mark>. El apartado 2 es la base de la llamada "reserva funcionarial": las funciones que impliquen ejercicio de autoridad o potestades públicas no pueden encomendarse a personal laboral, solo a funcionarios — este principio conecta directamente con el reparto de tareas típico entre personal técnico-estadístico funcionario y personal de apoyo laboral en organismos como el INE.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 10</span> <span class="art-rubrica">— Funcionarios interinos</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Son funcionarios interinos los que, por razones expresamente justificadas de <mark>necesidad y urgencia</mark>, son nombrados como tales con carácter temporal para el desempeño de funciones propias de funcionarios de carrera, cuando se dé alguna de las siguientes circunstancias: <b>a)</b> Existencia de <mark>plazas vacantes</mark>, cuando no sea posible su cobertura por funcionarios de carrera, por un máximo de <mark>tres años</mark>. <b>b)</b> La <mark>sustitución transitoria</mark> de los titulares. <b>c)</b> La ejecución de <mark>programas de carácter temporal</mark>, máximo tres años, ampliable hasta doce meses más. <b>d)</b> El <mark>exceso o acumulación de tareas</mark> por plazo máximo de nueve meses, dentro de un periodo de dieciocho meses.</p>
+        <p><b>2.</b> [...] El nombramiento derivado de estos procedimientos de selección en <mark>ningún caso dará lugar</mark> al reconocimiento de la condición de funcionario de carrera.</p>
+        <p><b>4.</b> [...] transcurridos <mark>tres años</mark> desde el nombramiento del personal funcionario interino se producirá el fin de la relación de interinidad, y la vacante solo podrá ser ocupada por personal funcionario de carrera, salvo que el correspondiente proceso selectivo quede desierto [...].</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Las cuatro causas tasadas del apartado 1 son de memorización literal: vacante (máx. 3 años), sustitución transitoria (sin plazo tasado, "el tiempo estrictamente necesario"), programa temporal (3 años + 12 meses de ampliación) y exceso de tareas (9 de 18 meses). El dato más citado en examen es el límite de <mark>tres años</mark> para la interinidad por vacante del apartado 4 — una medida anti-temporalidad reforzada tras las reformas de 2021 en materia de estabilización de empleo temporal.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 11</span> <span class="art-rubrica">— Personal laboral</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Es personal laboral el que en virtud de <mark>contrato de trabajo</mark> formalizado por escrito, en cualquiera de las modalidades de contratación de personal previstas en la legislación laboral, presta servicios retribuidos por las Administraciones Públicas. En función de la duración del contrato éste podrá ser <mark>fijo, por tiempo indefinido o temporal</mark>.</p>
+        <p><b>3.</b> Los procedimientos de selección del personal laboral serán públicos, rigiéndose en todo caso por los principios de <mark>igualdad, mérito y capacidad</mark>. En el caso del personal laboral temporal se regirá igualmente por el principio de <mark>celeridad</mark> [...].</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La diferencia esencial con el funcionario (art. 9) es el título habilitante: <mark>contrato de trabajo</mark> (régimen laboral) frente a <mark>nombramiento legal</mark> (régimen estatutario administrativo). Aun así, comparten los mismos principios constitucionales de acceso —igualdad, mérito y capacidad— que rigen todo el empleo público, funcionarial o laboral.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 12</span> <span class="art-rubrica">— Personal eventual</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Es personal eventual el que, en virtud de <mark>nombramiento</mark> y con carácter <mark>no permanente</mark>, sólo realiza funciones expresamente calificadas como de <mark>confianza o asesoramiento especial</mark> [...].</p>
+        <p><b>3.</b> El <mark>nombramiento y cese serán libres</mark>. El cese tendrá lugar, en todo caso, cuando se produzca el de la autoridad a la que se preste la función de confianza o asesoramiento.</p>
+        <p><b>4.</b> La condición de personal eventual <mark>no podrá constituir mérito</mark> para el acceso a la Función Pública o para la promoción interna.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El rasgo distintivo del personal eventual, muy citado en examen, es la <mark>libre designación y libre cese</mark> (apartado 3) — es un régimen de máxima discrecionalidad, justificado porque su función es la confianza política o técnica de una autoridad concreta, no el ejercicio de funciones públicas ordinarias. El apartado 4 es la garantía anti-clientelismo que cierra el artículo: haber sido "asesor de confianza" no puntúa ni facilita después el acceso a una plaza de funcionario de carrera.</p>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <section class="bloque" id="p1-trebep-personal-directivo">
+    <div class="bloque-head">
+      <span class="bloque-num">I·C (cont.)</span>
+      <h2 class="bloque-title">Título II, Capítulo II — Personal directivo</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre — TREBEP (BOE-A-2015-11719) · Art. 13</div>
+    <p class="tema-intro">Un quinto perfil, distinto de los cuatro "tipos" del art. 8, que la ley regula aparte por su carácter funcional (no estatutario) y remite su desarrollo a normas específicas de cada Administración.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 13</span> <span class="art-rubrica">— Personal directivo profesional</span></div>
+      <div class="art-body">
+        <p>El Gobierno y los órganos de gobierno de las comunidades autónomas podrán establecer [...] el régimen jurídico específico del personal directivo [...], de acuerdo, entre otros, con los siguientes principios: <b>1.</b> Es personal directivo el que desarrolla <mark>funciones directivas profesionales</mark> en las Administraciones Públicas. <b>2.</b> Su designación atenderá a principios de <mark>mérito y capacidad</mark> y a criterios de idoneidad, mediante procedimientos que garanticen la <mark>publicidad y concurrencia</mark>. <b>3.</b> Estará sujeto a <mark>evaluación</mark> con arreglo a criterios de eficacia y eficiencia [...]. <b>4.</b> La determinación de sus condiciones de empleo <mark>no tendrá la consideración de materia objeto de negociación colectiva</mark> [...].</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El personal directivo no es un "quinto tipo" de empleado público en el sentido del art. 8 —no altera esa clasificación cuatripartita—, sino una categoría funcional transversal que puede recaer sobre funcionarios o, si reúne condición de personal laboral, quedar sometido a la relación laboral especial de <mark>alta dirección</mark> (apartado 4, in fine). El apartado 4 es un dato de examen relevante: sus condiciones de empleo quedan expresamente <mark>excluidas de la negociación colectiva</mark>, a diferencia del resto del personal.</p>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <section class="bloque" id="p1-trebep-derechos">
+    <div class="bloque-head">
+      <span class="bloque-num">I·C (cont.)</span>
+      <h2 class="bloque-title">Título III, Capítulo I — Derechos de los empleados públicos</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre — TREBEP (BOE-A-2015-11719) · Arts. 14-15</div>
+    <p class="tema-intro">El catálogo completo de derechos: los individuales del art. 14 (diecisiete letras) y los que, siendo también individuales, solo pueden ejercerse de forma colectiva (art. 15) — libertad sindical, negociación colectiva, huelga, conflicto colectivo y reunión.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 14</span> <span class="art-rubrica">— Derechos individuales</span></div>
+      <div class="art-body">
+        <p>Los empleados públicos tienen los siguientes derechos de carácter individual en correspondencia con la naturaleza jurídica de su relación de servicio:</p>
+        <p><b>a)</b> A la <mark>inamovilidad</mark> en la condición de funcionario de carrera. <b>b)</b> Al desempeño efectivo de las funciones propias de su condición profesional. <b>c)</b> A la <mark>progresión en la carrera profesional</mark> y promoción interna según igualdad, mérito y capacidad. <b>d)</b> A percibir las <mark>retribuciones</mark> e indemnizaciones por razón del servicio. <b>e)</b> A participar en la consecución de los objetivos de su unidad y a ser informado por sus superiores.</p>
+        <p><b>f)</b> A la <mark>defensa jurídica y protección</mark> de la Administración en los procedimientos que se sigan como consecuencia del ejercicio legítimo de sus funciones. <b>g)</b> A la <mark>formación continua</mark>, preferentemente en horario laboral. <b>h)</b> Al respeto de su intimidad, orientación e identidad sexual [...] y dignidad en el trabajo, especialmente frente al <mark>acoso</mark>. <b>i)</b> A la <mark>no discriminación</mark> por razón de nacimiento, origen racial o étnico, género, sexo, orientación sexual, religión, opinión, discapacidad, edad o cualquier otra condición.</p>
+        <p><b>j)</b> A medidas de <mark>conciliación</mark> de la vida personal, familiar y laboral. <b>k)</b> A la libertad de expresión dentro de los límites del ordenamiento. <b>l)</b> A recibir <mark>protección eficaz en materia de seguridad y salud</mark> en el trabajo. <b>m)</b> A las <mark>vacaciones, descansos, permisos y licencias</mark>. <b>n)</b> A la <mark>jubilación</mark>. <b>o)</b> A las prestaciones de la <mark>Seguridad Social</mark>. <b>p)</b> A la <mark>libre asociación profesional</mark>. <b>q)</b> A los demás derechos reconocidos por el ordenamiento jurídico.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Diecisiete letras que conviene organizar mentalmente por bloques temáticos en vez de memorizar como lista plana: <mark>carrera y retribución</mark> (a-e), <mark>garantías personales</mark> (f-i, incluyendo la reforma de 2018 que amplió expresamente la no discriminación a orientación e identidad sexual), <mark>tiempo de trabajo y protección social</mark> (j, l-o), y <mark>libertades</mark> (k, p). La letra a) —inamovilidad del funcionario de carrera— es el correlato directo del art. 9 ya visto: es precisamente esa garantía de permanencia la que distingue al funcionario de carrera del resto de tipos de empleado público.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 15</span> <span class="art-rubrica">— Derechos individuales ejercidos colectivamente</span></div>
+      <div class="art-body">
+        <p>Los empleados públicos tienen los siguientes derechos individuales que se ejercen de forma colectiva: <b>a)</b> A la <mark>libertad sindical</mark>. <b>b)</b> A la <mark>negociación colectiva</mark> y a la participación en la determinación de las condiciones de trabajo. <b>c)</b> Al ejercicio de la <mark>huelga</mark>, con la garantía del mantenimiento de los servicios esenciales de la comunidad. <b>d)</b> Al planteamiento de <mark>conflictos colectivos</mark> de trabajo. <b>e)</b> Al de <mark>reunión</mark>, en los términos del art. 46.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cinco derechos que, pese a ser formalmente "individuales" (titularidad de cada empleado), solo tienen sentido y solo pueden ejercitarse <mark>colectivamente</mark> — de ahí la categoría separada del art. 15 frente al catálogo general del art. 14. La letra c) conecta directamente con el art. 28.2 CE (derecho de huelga) y su límite constitucional de servicios esenciales; el resto desarrolla el marco de relaciones colectivas que se despliega en el Capítulo IV del propio TREBEP (arts. 31-46).</p>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <div class="comentario" style="border-left-color:var(--ink); margin-top:8px;">
+    <div class="c-label" style="color:var(--ink-soft);">Qué queda pendiente del Tema 6 tras esta Parte 1</div>
+    <p>Con esta primera entrega queda cubierto el epígrafe "tipos de empleado público" en su integridad (arts. 8-13) y el catálogo de derechos (arts. 14-15). Siguen pendientes, para las siguientes entregas y siguiendo el orden del TREBEP: <mark>arts. 16-30</mark> (carrera profesional, evaluación del desempeño y derechos retributivos), <mark>arts. 31-46</mark> (negociación colectiva, representación y participación institucional — Mesas de Negociación, Pactos y Acuerdos, Juntas de Personal), <mark>arts. 47-51</mark> (jornada de trabajo, teletrabajo, permisos y vacaciones), <mark>arts. 55-62</mark> (acceso al empleo público: principios rectores, requisitos, órganos de selección, sistemas selectivos — el otro epígrafe explícito del Tema 6, "acceso"), <mark>arts. 63-68</mark> (pérdida de la relación de servicio) y <mark>arts. 81-84</mark> (provisión de puestos y movilidad, más allá de los arts. 78-80 que tu documento ya cubre — el epígrafe "provisión" del Tema 6). Todos los artículos de esta ficha proceden del texto consolidado del BOE (BOE-A-2015-11719); antes del examen, contrasta contra la versión vigente en la fecha de la convocatoria.</p>
+  </div>
+</div>
+
+<hr class="part-divider">
+
+<div class="doc-part" id="parte-2">
+  <div class="part-flag"><span>Parte 2 de 6</span></div>
+  <div class="masthead">
+    <div class="eyebrow">Complemento · Derecho Público INE A1 · Tema 6 · Parte 2</div>
+    <h1 class="title">TREBEP — Acceso al empleo público</h1>
+    <p class="subtitle">Segunda entrega del complemento al TREBEP. Cubre íntegramente el epígrafe "acceso" del Tema 6: principios rectores, requisitos generales, órganos de selección, los sistemas selectivos (oposición, concurso-oposición, concurso) y los cuatro requisitos sucesivos para adquirir la condición de funcionario de carrera.</p>
+  </div>
+
+  <div class="howto">
+    <div class="kc-label">Cómo encaja esto en tu documento</div>
+    <p>Con la Parte 1 quedaron cubiertos los tipos de empleado público (arts. 8-13) y los derechos (arts. 14-15). Esta Parte 2 añade el Capítulo I del Título IV completo: arts. 55, 56, 60, 61 y 62 en su literalidad. Los arts. 57-59 (acceso de nacionales de otros Estados, de funcionarios de Organismos Internacionales, y personas con discapacidad) se resumen en el comentario del art. 56 por ser de contenido más específico y menor frecuencia de examen, pero quedan señalados para consulta directa en el BOE si tu temario los pide con detalle.</p>
+  </div>
+
+  <section class="bloque" id="p2-trebep-acceso">
+    <div class="bloque-head">
+      <span class="bloque-num">I·C (cont.)</span>
+      <h2 class="bloque-title">Título IV, Capítulo I — Acceso al empleo público y adquisición de la relación de servicio</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre — TREBEP (BOE-A-2015-11719) · Arts. 55-56, 60-62</div>
+    <p class="tema-intro">El bloque nuclear del epígrafe "acceso" del Tema 6: qué principios rigen la selección, qué requisitos debe reunir cualquier aspirante, cómo se componen los órganos de selección, qué sistemas selectivos existen y cómo se adquiere, formalmente, la condición de funcionario de carrera.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 55</span> <span class="art-rubrica">— Principios rectores</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Todos los ciudadanos tienen derecho al acceso al empleo público de acuerdo con los principios constitucionales de <mark>igualdad, mérito y capacidad</mark>, y de acuerdo con lo previsto en el presente Estatuto y en el resto del ordenamiento jurídico.</p>
+        <p><b>2.</b> Las Administraciones Públicas [...] seleccionarán a su personal funcionario y laboral mediante procedimientos en los que se garanticen los principios constitucionales antes expresados, así como los establecidos a continuación: <b>a)</b> <mark>Publicidad</mark> de las convocatorias y de sus bases. <b>b)</b> <mark>Transparencia</mark>. <b>c)</b> <mark>Imparcialidad y profesionalidad</mark> de los miembros de los órganos de selección. <b>d)</b> <mark>Independencia y discrecionalidad técnica</mark> en la actuación de los órganos de selección. <b>e)</b> <mark>Adecuación</mark> entre el contenido de los procesos selectivos y las funciones o tareas a desarrollar. <b>f)</b> <mark>Agilidad</mark>, sin perjuicio de la objetividad, en los procesos de selección.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El apartado 1 traduce directamente los arts. 23.2 y 103.3 CE al texto del TREBEP: igualdad, mérito y capacidad son los tres principios constitucionales de base, y el apartado 2 los desarrolla en seis principios operativos adicionales, de memorización literal recomendada. La letra e) —adecuación entre pruebas y funciones— es la que con más frecuencia se invoca en recursos contra convocatorias de oposición cuando se alega que un ejercicio no guarda relación con las tareas reales del puesto.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 56</span> <span class="art-rubrica">— Requisitos generales</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Para poder participar en los procesos selectivos será necesario reunir los siguientes requisitos: <b>a)</b> Tener la <mark>nacionalidad española</mark>, sin perjuicio de lo dispuesto en el artículo siguiente. <b>b)</b> Poseer la <mark>capacidad funcional</mark> para el desempeño de las tareas. <b>c)</b> Tener cumplidos <mark>dieciséis años</mark> y no exceder, en su caso, de la edad máxima de jubilación forzosa. Sólo por ley podrá establecerse otra edad máxima, distinta de la edad de jubilación forzosa. <b>d)</b> <mark>No haber sido separado</mark> mediante expediente disciplinario del servicio de cualquier Administración Pública, ni hallarse en inhabilitación absoluta o especial para empleos o cargos públicos. <b>e)</b> Poseer la <mark>titulación exigida</mark>.</p>
+        <p><b>2.</b> Las Administraciones Públicas [...] deberán prever la selección de empleados públicos debidamente capacitados para cubrir los puestos de trabajo en las Comunidades Autónomas que gocen de <mark>dos lenguas oficiales</mark>.</p>
+        <p><b>3.</b> Podrá exigirse el cumplimiento de otros <mark>requisitos específicos</mark> que guarden relación objetiva y proporcionada con las funciones asumidas [...]. En todo caso, habrán de establecerse de manera <mark>abstracta y general</mark>.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Las cinco letras del apartado 1 son de memorización literal obligatoria — dato de examen muy citado: la edad mínima es <mark>16 años</mark> (no 18), y el límite superior es la edad de jubilación forzosa, no una cifra fija. La letra a) remite al art. 57, que regula el acceso de nacionales de otros Estados miembros de la UE y de terceros países bajo ciertas condiciones — dato relevante pero de detalle, no reproducido aquí íntegro. El apartado 3 fija un límite importante a los requisitos "a medida": deben formularse de forma <mark>abstracta y general</mark>, nunca diseñados para favorecer a un candidato concreto.</p>
+      <p class="ine-tag">↳ Los arts. 57 (acceso de nacionales de otros Estados de la UE, con condiciones), 58 (funcionarios españoles de Organismos Internacionales que pueden participar en promoción interna) y 59 (reserva mínima del 7% de las plazas para personas con discapacidad, con adaptaciones y medios de las pruebas) desarrollan matices específicos de este bloque; consúltalos en el BOE si tu convocatoria los exige con detalle.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 60</span> <span class="art-rubrica">— Órganos de selección</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los órganos de selección serán <mark>colegiados</mark> y su composición deberá ajustarse a los principios de <mark>imparcialidad y profesionalidad</mark> de sus miembros, y se tenderá, asimismo, a la <mark>paridad</mark> entre mujer y hombre.</p>
+        <p><b>2.</b> El personal de elección o de designación política, los <mark>funcionarios interinos</mark> y el <mark>personal eventual</mark> no podrán formar parte de los órganos de selección.</p>
+        <p><b>3.</b> La pertenencia a los órganos de selección será siempre a <mark>título individual</mark>, no pudiendo ostentarse ésta en representación o por cuenta de nadie.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El apartado 2 conecta directamente con el art. 9.2 (reserva funcionarial vista en la Parte 1): solo funcionarios de carrera pueden integrar un órgano de selección — quedan excluidos el personal eventual, los funcionarios interinos y el personal de designación política, precisamente para blindar la imparcialidad técnica del proceso. El apartado 3 —actuación a título individual— es la garantía de que ningún miembro del tribunal representa intereses ajenos a su propio criterio técnico.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 61</span> <span class="art-rubrica">— Sistemas selectivos</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los procesos selectivos tendrán carácter <mark>abierto</mark> y garantizarán la libre concurrencia [...]. Los órganos de selección velarán por el cumplimiento del principio de <mark>igualdad de oportunidades entre sexos</mark>.</p>
+        <p><b>3.</b> Los procesos selectivos que incluyan, además de las preceptivas pruebas de capacidad, la <mark>valoración de méritos</mark> de los aspirantes sólo podrán otorgar a dicha valoración una puntuación proporcionada que <mark>no determinará, en ningún caso, por sí misma</mark> el resultado del proceso selectivo.</p>
+        <p><b>6.</b> Los sistemas selectivos de funcionarios de carrera serán los de <mark>oposición</mark> y <mark>concurso-oposición</mark> que deberán incluir, en todo caso, una o varias pruebas para determinar la capacidad de los aspirantes. Sólo en virtud de <mark>ley</mark> podrá aplicarse, con carácter excepcional, el sistema de <mark>concurso</mark>, que consistirá únicamente en la valoración de méritos.</p>
+        <p><b>7.</b> Los sistemas selectivos de personal laboral fijo serán los de oposición, concurso-oposición, o <mark>concurso de valoración de méritos</mark>.</p>
+        <p><b>8.</b> Los órganos de selección no podrán proponer el acceso a la condición de funcionario de un número superior de aprobados al de <mark>plazas convocadas</mark>, excepto cuando así lo prevea la propia convocatoria.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El apartado 6 es el corazón del artículo y el más preguntado: para <mark>funcionarios de carrera</mark>, la regla general son solo dos sistemas —oposición y concurso-oposición—, y el concurso puro (solo méritos, sin prueba de capacidad) es <mark>excepcional</mark> y exige habilitación por ley. En cambio, para <mark>personal laboral fijo</mark> (apartado 7), el concurso de valoración de méritos sí es una vía ordinaria más, sin necesidad de habilitación legal especial — es la asimetría clave entre ambos regímenes. El apartado 8 fija la regla de "no exceder plazas convocadas", con la única excepción de que la propia convocatoria prevea una bolsa adicional.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 62</span> <span class="art-rubrica">— Adquisición de la condición de funcionario de carrera</span></div>
+      <div class="art-body">
+        <p><b>1.</b> La condición de funcionario de carrera se adquiere por el <mark>cumplimiento sucesivo</mark> de los siguientes requisitos: <b>a)</b> <mark>Superación del proceso selectivo</mark>. <b>b)</b> <mark>Nombramiento</mark> por el órgano o autoridad competente, que será publicado en el Diario Oficial correspondiente. <b>c)</b> Acto de <mark>acatamiento</mark> de la Constitución y, en su caso, del Estatuto de Autonomía correspondiente y del resto del Ordenamiento Jurídico. <b>d)</b> <mark>Toma de posesión</mark> dentro del plazo que se establezca.</p>
+        <p><b>2.</b> [...] no podrán ser funcionarios [...] quienes no acrediten, una vez superado el proceso selectivo, que reúnen los requisitos y condiciones exigidos en la convocatoria.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Las cuatro letras del apartado 1 —superación, nombramiento, acatamiento, toma de posesión— son de memorización literal obligatoria y en <mark>ese orden exacto</mark>, porque cada una es presupuesto de la siguiente: no hay nombramiento sin haber superado el proceso, no hay acatamiento sin nombramiento, y no hay toma de posesión sin haber acatado. Aprobar la oposición no equivale, por sí solo, a ser funcionario de carrera — es un error de examen muy común confundir "superar el proceso selectivo" con "adquirir la condición".</p>
+      <p class="ine-tag">↳ Cierra el ciclo de acceso: art. 55 (principios) → art. 56 (requisitos generales de los aspirantes) → art. 60 (quién compone el órgano que selecciona) → art. 61 (qué sistema se usa) → art. 62 (cómo se formaliza, al final, la condición de funcionario).</p>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <div class="comentario" style="border-left-color:var(--ink); margin-top:8px;">
+    <div class="c-label" style="color:var(--ink-soft);">Qué queda pendiente del Tema 6 tras esta Parte 2</div>
+    <p>Con las Partes 1 y 2 quedan cubiertos los dos epígrafes explícitos del Tema 6 mencionados en tu auditoría original: "tipos de empleado público" (arts. 8-13) y "acceso" (arts. 55-56, 60-62), más el catálogo de derechos (arts. 14-15). Siguen pendientes, para entregas sucesivas y en orden de rentabilidad de examen: <mark>arts. 63-68</mark> (pérdida de la relación de servicio: causas, renuncia, pérdida de nacionalidad, inhabilitación, jubilación), <mark>arts. 81-84</mark> (movilidad del personal funcionario — el resto del epígrafe "provisión", más allá de los arts. 78-80 ya cubiertos en tu documento), <mark>arts. 16-30</mark> (carrera profesional, evaluación del desempeño y derechos retributivos) y <mark>arts. 31-51</mark> (negociación colectiva, representación, jornada, permisos y vacaciones — bloque extenso y menos preguntado en su literalidad completa, salvo los principios generales del art. 31). Todos los artículos de esta ficha proceden del texto consolidado del BOE (BOE-A-2015-11719); antes del examen, contrasta contra la versión vigente en la fecha de la convocatoria.</p>
+  </div>
+</div>
+
+<hr class="part-divider">
+
+<div class="doc-part" id="parte-3">
+  <div class="part-flag"><span>Parte 3 de 6</span></div>
+  <div class="masthead">
+    <div class="eyebrow">Complemento · Derecho Público INE A1 · Tema 6 · Parte 3</div>
+    <h1 class="title">TREBEP — Carrera, retribuciones, provisión de puestos y régimen disciplinario</h1>
+    <p class="subtitle">Tercera entrega del complemento al TREBEP. Cierra los dos epígrafes oficiales del Tema 6 que quedaban sin desarrollar en su literalidad: "los derechos y deberes de los funcionarios públicos" (carrera profesional y retribuciones) y "acceso, promoción y provisión de puestos de trabajo" (planificación, estructuración del empleo público, provisión y movilidad), y añade las situaciones administrativas y el régimen disciplinario — el desenlace lógico de toda relación de servicio.</p>
+  </div>
+
+  <div class="howto">
+    <div class="kc-label">Cómo encaja esto en tu documento</div>
+    <p>Con las Partes 1 y 2 quedaron cubiertos los tipos de empleado público (8-15) y el acceso al empleo público en su integridad (55-62). Esta Parte 3 añade cinco bloques nuevos: carrera profesional y evaluación del desempeño (16-20), derechos retributivos (21-30), pérdida de la relación de servicio (63-68), planificación y provisión de puestos (69-84) y, cerrando el ciclo vital del empleado público, situaciones administrativas (85-92) y régimen disciplinario (93-98). Quedan fuera, por menor frecuencia de examen y mayor densidad de detalle de cuantías y plazos, los huecos de negociación colectiva no vistos aún (32-46), parte del bloque de jornada (48-49, 51) y la cooperación entre Administraciones Públicas (99-100), que se remiten al texto consolidado del BOE.</p>
+  </div>
+
+  <section class="bloque" id="p3-trebep-carrera">
+    <div class="bloque-head">
+      <span class="bloque-num">I·C (cont.)</span>
+      <h2 class="bloque-title">Título III, Cap. II — Derecho a la carrera profesional y a la promoción interna</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre — TREBEP (BOE-A-2015-11719) · Arts. 16-17, 20</div>
+    <p class="tema-intro">Uno de los bloques que el propio epígrafe oficial del Tema 6 nombra expresamente ("promoción"): las dos modalidades de carrera profesional que reconoce el TREBEP y el mecanismo, novedoso respecto al régimen anterior, de la evaluación del desempeño.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 16</span> <span class="art-rubrica">— Carrera profesional</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los funcionarios de carrera tendrán derecho a la promoción profesional.</p>
+        <p><b>2.</b> Las Leyes de Función Pública que se dicten en desarrollo de este Estatuto regularán la carrera profesional aplicable en cada ámbito que podrán consistir, entre otras, en la aplicación aislada o simultánea de alguna o algunas de las siguientes modalidades: <b>a)</b> <mark>Carrera horizontal</mark>, que consiste en la progresión de grado, categoría, escalón u otros conceptos análogos, sin necesidad de cambiar de puesto de trabajo y de conformidad con lo establecido en el artículo 17. <b>b)</b> <mark>Carrera vertical</mark>, que consiste en el ascenso en la estructura de puestos de trabajo por los procedimientos de provisión establecidos en el Capítulo III del presente Título. <b>c)</b> Promoción interna vertical [...] <b>d)</b> Promoción interna horizontal [...].</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La distinción entre carrera <mark>horizontal</mark> (letra a) y <mark>vertical</mark> (letra b) es la más preguntada de este bloque: la horizontal permite progresar económica y profesionalmente <mark>sin cambiar de puesto de trabajo</mark> — reconociendo la trayectoria y el desempeño en el mismo puesto —, mientras que la vertical exige necesariamente concursar y obtener un puesto distinto, normalmente de mayor responsabilidad. La carrera horizontal fue una de las grandes novedades del EBEP de 2007 frente al sistema funcionarial clásico, centrado casi solo en el cambio de puesto.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 17</span> <span class="art-rubrica">— Carrera horizontal de los funcionarios de carrera</span></div>
+      <div class="art-body">
+        <p>Las Leyes de Función Pública que se dicten en desarrollo de este Estatuto regularán la carrera horizontal de los funcionarios de carrera, consistente en la progresión de grado, categoría, escalón u otros conceptos análogos, sin necesidad de cambiar de puesto de trabajo, y podrán aplicar, entre otros, los siguientes criterios: <b>a)</b> La conjugación del <mark>nivel de la carrera profesional</mark> alcanzado por el empleado con el puesto de trabajo desempeñado. <b>b)</b> La <mark>valoración de la trayectoria</mark> y actuación profesional, la calidad de los trabajos realizados, los conocimientos adquiridos y el resultado de la <mark>evaluación del desempeño</mark>. <b>c)</b> La progresión de la carrera será <mark>rotatoria</mark> o continuada, previa la evaluación correspondiente [...].</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Conecta directamente con el art. 20 (evaluación del desempeño): la progresión en la carrera horizontal <mark>no es automática por antigüedad</mark>, sino que se vincula a criterios de valoración de la trayectoria profesional — un rasgo que la diferencia radicalmente del antiguo sistema de trienios "por el mero paso del tiempo" y que introduce, al menos sobre el papel, un componente de mérito continuado.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 20</span> <span class="art-rubrica">— Evaluación del desempeño</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Las Administraciones Públicas establecerán sistemas que permitan la <mark>evaluación del desempeño</mark> de sus empleados. La evaluación del desempeño es el procedimiento mediante el cual se mide y valora la conducta profesional y el rendimiento o el logro de resultados.</p>
+        <p><b>2.</b> Los sistemas de evaluación del desempeño se adecuarán, en todo caso, a criterios de <mark>transparencia, objetividad, imparcialidad y no discriminación</mark> y se aplicarán sin menoscabo de los derechos de los empleados públicos.</p>
+        <p><b>3.</b> Las Administraciones Públicas determinarán los efectos de la evaluación en la carrera profesional horizontal, la formación, la provisión de puestos de trabajo y en la percepción de las retribuciones complementarias previstas en el artículo 24 [...].</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El apartado 3 es el dato de examen: la evaluación del desempeño <mark>no es un fin en sí misma</mark>, sino que tiene efectos jurídicos concretos y transversales — impacta en la carrera horizontal, en la formación, en la provisión de puestos y en las retribuciones complementarias (productividad). Es la pieza que conecta este artículo con casi todo el resto del Título III.</p>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <section class="bloque" id="p3-trebep-retribuciones">
+    <div class="bloque-head">
+      <span class="bloque-num">I·C (cont.)</span>
+      <h2 class="bloque-title">Título III, Cap. III — Derechos retributivos</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre — TREBEP (BOE-A-2015-11719) · Arts. 22-24</div>
+    <p class="tema-intro">La estructura básica de las nóminas de los funcionarios: la distinción entre retribuciones básicas y complementarias, que es la clasificación de examen más citada de todo este capítulo.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 22</span> <span class="art-rubrica">— Retribuciones de los funcionarios de carrera</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Las retribuciones de los funcionarios de carrera se clasifican en <mark>básicas y complementarias</mark>.</p>
+        <p><b>2.</b> Las retribuciones básicas son las que retribuyen al funcionario según la adscripción de su cuerpo o escala a un determinado subgrupo o grupo de clasificación profesional [...] y de su antigüedad en el mismo. Dentro de este concepto están comprendidos los <mark>trienios</mark> [...].</p>
+        <p><b>3.</b> Las retribuciones complementarias son las que retribuyen las características de los puestos de trabajo, la carrera profesional o el desempeño, rendimiento o resultados alcanzados por el funcionario.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La dicotomía <mark>básicas / complementarias</mark> del apartado 1 es la clave de bóveda de todo el sistema retributivo funcionarial: las básicas dependen del grupo de clasificación y la antigüedad (son prácticamente iguales para todo el grupo, con independencia del puesto concreto), mientras que las complementarias sí varían según el puesto específico, el desempeño y los resultados — es donde entra en juego, entre otros, el efecto de la evaluación del desempeño del art. 20.3.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 23</span> <span class="art-rubrica">— Retribuciones básicas</span></div>
+      <div class="art-body">
+        <p>Las retribuciones básicas, que se fijarán en las Leyes de Presupuestos Generales del Estado, son las siguientes: <b>a)</b> El <mark>sueldo</mark> asignado a cada Subgrupo o Grupo de clasificación profesional, en el supuesto de que éste no tenga Subgrupo. <b>b)</b> Los <mark>trienios</mark>, que consisten en una cantidad, que será igual para cada Subgrupo o Grupo de clasificación profesional, en el supuesto de que éste no tenga Subgrupo, por cada tres años de servicio.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Confirma que las retribuciones básicas <mark>se fijan en la Ley de Presupuestos Generales del Estado</mark> cada año — enlaza directamente con el Tema 7 de tu temario. La cantidad del trienio es <mark>igual para todo el Subgrupo</mark>, con independencia del puesto concreto que ocupe cada funcionario dentro de él; solo depende de la antigüedad computada en múltiplos de tres años.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 24</span> <span class="art-rubrica">— Retribuciones complementarias</span></div>
+      <div class="art-body">
+        <p>La cuantía y estructura de las retribuciones complementarias de los funcionarios se establecerán por las correspondientes Leyes de cada Administración Pública atendiendo, entre otros, a los siguientes factores: <b>a)</b> La <mark>progresión</mark> alcanzada por el funcionario dentro del sistema de carrera profesional. <b>b)</b> La <mark>especial dificultad técnica, responsabilidad, dedicación</mark>, incompatibilidad exigible para el desempeño de determinados puestos de trabajo o las condiciones en que se desarrolla el trabajo. <b>c)</b> El <mark>grado de interés, iniciativa o esfuerzo</mark> con que el funcionario desempeña su trabajo y el rendimiento o resultados obtenidos. <b>d)</b> Los <mark>servicios extraordinarios</mark> prestados fuera de la jornada normal de trabajo.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Estos cuatro factores se corresponden, en la práctica administrativa, con los tres grandes complementos retributivos que verás desarrollados en la normativa de cada Administración: el complemento de <mark>destino</mark> (ligado a la progresión de carrera, letra a), el complemento <mark>específico</mark> (ligado a las características del puesto, letra b) y el complemento de <mark>productividad</mark> (ligado al rendimiento, letra c). La letra d) es la base de las gratificaciones por servicios extraordinarios, distintas de la productividad ordinaria.</p>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <section class="bloque" id="p3-trebep-perdida">
+    <div class="bloque-head">
+      <span class="bloque-num">I·C (cont.)</span>
+      <h2 class="bloque-title">Título IV, Cap. II — Pérdida de la relación de servicio</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre — TREBEP (BOE-A-2015-11719) · Arts. 63, 67-68</div>
+    <p class="tema-intro">Cierra el Título IV que la Parte 2 dejó a medias: las causas tasadas por las que se pierde la condición de funcionario de carrera, y la vía para recuperarla.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 63</span> <span class="art-rubrica">— Causas de pérdida de la condición de funcionario</span></div>
+      <div class="art-body">
+        <p>Son causas de pérdida de la condición de funcionario de carrera las siguientes: <b>a)</b> La <mark>renuncia</mark> a la condición de funcionario. <b>b)</b> La <mark>pérdida de la nacionalidad</mark> española o la de cualquier otro Estado miembro de la Unión Europea. <b>c)</b> La <mark>jubilación total</mark> del funcionario. <b>d)</b> La <mark>sanción disciplinaria</mark> de separación del servicio que tuviere carácter firme. <b>e)</b> La <mark>pena principal o accesoria</mark> de inhabilitación absoluta o especial para cargo público que tuviere carácter firme.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cinco causas tasadas, de memorización literal recomendada: obsérvese que solo dos de ellas —separación del servicio (letra d) e inhabilitación (letra e)— tienen carácter <mark>sancionador o punitivo</mark>; las otras tres (renuncia, pérdida de nacionalidad, jubilación) son situaciones neutras o voluntarias. Esta lista conecta directamente con el art. 96 (faltas muy graves), donde la separación del servicio aparece como la sanción máxima del régimen disciplinario.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 67</span> <span class="art-rubrica">— Renuncia</span></div>
+      <div class="art-body">
+        <p><b>1.</b> La renuncia a la condición de funcionario habrá de ser <mark>manifestada por escrito</mark> y será aceptada expresamente por la Administración, salvo lo establecido en el apartado siguiente.</p>
+        <p><b>2.</b> La renuncia <mark>no inhabilita</mark> para el ingreso de nuevo en la Administración Pública a través del sistema de acceso libre.</p>
+        <p><b>3.</b> No podrá aceptarse la renuncia cuando el funcionario esté sujeto a <mark>expediente disciplinario</mark> o haya sido dictado en su contra auto de procesamiento o de apertura de juicio oral por la comisión de algún delito.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El apartado 3 es el dato más citado: la renuncia es un derecho del funcionario, pero <mark>no puede usarse para eludir</mark> un expediente disciplinario o un proceso penal ya abierto — no se puede "renunciar a tiempo" para escapar de una posible separación del servicio. El apartado 2 aclara que renunciar no es una condena; el funcionario puede volver a opositar libremente en el futuro.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 68</span> <span class="art-rubrica">— Rehabilitación</span></div>
+      <div class="art-body">
+        <p>Corresponde al <mark>Gobierno</mark>, a los Órganos de Gobierno de las Comunidades Autónomas [...] y a los Plenos de las Corporaciones Locales el acordar, con carácter excepcional, la <mark>rehabilitación</mark>, a petición del interesado, de quien hubiera perdido la condición de funcionario de carrera por haber sido condenado a la pena principal o accesoria de inhabilitación, atendiendo a las circunstancias y entidad del delito cometido.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La rehabilitación tiene <mark>carácter excepcional</mark> y se limita expresamente a un único supuesto: la pérdida de la condición por inhabilitación penal — no cabe rehabilitación para quien perdió la condición por separación disciplinaria del servicio, cuya reincorporación exigiría en su caso un nuevo proceso selectivo, no una simple rehabilitación de la Administración.</p>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <section class="bloque" id="p3-trebep-provision">
+    <div class="bloque-head">
+      <span class="bloque-num">I·C (cont.)</span>
+      <h2 class="bloque-title">Título V — Ordenación de la actividad profesional: planificación, estructuración y provisión</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre — TREBEP (BOE-A-2015-11719) · Arts. 69-70, 75-76, 81</div>
+    <p class="tema-intro">El epígrafe explícito "provisión de puestos de trabajo" del Tema 6: cómo se planifican las necesidades de personal, cómo se agrupan los funcionarios en cuerpos y escalas, y las dos vías principales para asignar un puesto concreto a un funcionario.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 69</span> <span class="art-rubrica">— Planificación de recursos humanos</span></div>
+      <div class="art-body">
+        <p><b>1.</b> La planificación de los recursos humanos en las Administraciones Públicas tendrá como objetivo contribuir a la consecución de la <mark>eficacia</mark> en la prestación de los servicios y de la <mark>eficiencia</mark> en la utilización de los recursos económicos disponibles [...].</p>
+        <p><b>2.</b> Las Administraciones Públicas podrán elaborar <mark>planes para la ordenación de sus recursos humanos</mark> que contribuyan a alcanzar la eficacia en la prestación de sus respectivos servicios y la eficiencia en la utilización de los recursos económicos disponibles.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Fija el binomio <mark>eficacia / eficiencia</mark> como los dos objetivos que justifican toda la política de recursos humanos del sector público — eficacia en el resultado del servicio, eficiencia en el uso de los recursos económicos para lograrlo. Es un artículo de principios, poco preguntado en su literalidad pero frecuente como enunciado de contexto en preguntas sobre planes de ordenación.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 70</span> <span class="art-rubrica">— Oferta de empleo público</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Cuando la Administración General del Estado [...] hayan de proceder a la <mark>incorporación de nuevo personal</mark> [...], la necesidad de la misma [...] deberá materializarse a través de la <mark>Oferta de empleo público</mark>, o a través de otro instrumento similar de gestión de la provisión de las necesidades de personal [...]. La Oferta de empleo público [...] será aprobada por los respectivos órganos de Gobierno [...] y deberá ser publicada en el respectivo Diario Oficial.</p>
+        <p><b>2.</b> La Oferta de empleo público [...] podrá contener medidas derivadas de la planificación de los recursos humanos.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La <mark>Oferta de Empleo Público (OEP)</mark> es el instrumento jurídico obligatorio previo a cualquier proceso selectivo de nuevo ingreso: no se puede convocar una oposición sin plaza previamente incluida en una OEP debidamente aprobada y publicada en el diario oficial correspondiente — es la conexión directa con el propio proceso selectivo del INE que estás preparando (BOE-A-2022-2725, que tú mismo estás estudiando).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 75</span> <span class="art-rubrica">— Cuerpos y escalas de funcionarios</span></div>
+      <div class="art-body">
+        <p>Los funcionarios de carrera se agrupan en <mark>cuerpos, escalas, especialidades u otros sistemas</mark> que incorporen competencias, capacidades y conocimientos comunes acreditados a través de un proceso selectivo.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Base legal directa de tu propia situación como opositor: el <mark>Cuerpo Superior de Estadísticos del Estado</mark> al que aspiras es exactamente uno de estos "cuerpos" — una agrupación de funcionarios que comparten competencias y conocimientos comunes acreditados mediante el proceso selectivo (BOE-A-2022-2725) que estás preparando ahora mismo.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 76</span> <span class="art-rubrica">— Grupos de clasificación profesional</span></div>
+      <div class="art-body">
+        <p>Los cuerpos y escalas se clasifican, de acuerdo con la titulación exigida para el acceso a los mismos, en los siguientes grupos: <b>Grupo A</b>, dividido en dos Subgrupos A1 y A2, para cuyo acceso se exigirá estar en posesión del <mark>título universitario de Grado</mark>. <b>Grupo B</b>, para cuyo acceso se exigirá estar en posesión del título de <mark>Técnico Superior</mark>. <b>Grupo C</b>, dividido en dos Subgrupos, C1 y C2, según la titulación exigida sea de <mark>Bachiller o Técnico</mark>, o de <mark>Graduado en Educación Secundaria Obligatoria</mark>, respectivamente.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El dato de examen directo para tu propia oposición: el Cuerpo Superior de Estadísticos del Estado es, por su exigencia de <mark>titulación universitaria de Grado</mark>, un cuerpo del <mark>Subgrupo A1</mark> — el subgrupo de mayor nivel de clasificación dentro de la estructura del art. 76. Nota que el Grupo B (Técnico Superior) aún está pendiente de desarrollo pleno en la función pública española y convive con la estructura tradicional A-B-C-D-E mediante disposiciones transitorias no citadas aquí.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 81</span> <span class="art-rubrica">— Concurso y libre designación</span></div>
+      <div class="art-body">
+        <p><b>1.</b> El <mark>concurso</mark>, que consistirá en la valoración de los méritos y capacidades y, en su caso, aptitudes de los candidatos por órganos colegiados de carácter técnico, será el sistema normal de provisión de puestos de trabajo.</p>
+        <p><b>2.</b> Los sistemas de provisión de puestos de trabajo mediante <mark>concurso</mark> [...] se regularán en las normas que regulan la función pública [...]. La <mark>libre designación</mark> [...] consiste en la apreciación discrecional por el órgano competente de la idoneidad de los candidatos en relación con los requisitos exigidos para el desempeño del puesto.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La contraposición <mark>concurso (sistema normal)</mark> frente a <mark>libre designación (excepcional)</mark> del apartado 1 es la más preguntada de todo el bloque de provisión: el concurso valora méritos objetivos mediante un órgano técnico colegiado, mientras que la libre designación se reserva —por su carácter discrecional— a puestos de especial responsabilidad (subdirecciones, jefaturas de gabinete y similares) expresamente identificados como tales en las relaciones de puestos de trabajo.</p>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <section class="bloque" id="p3-trebep-situaciones">
+    <div class="bloque-head">
+      <span class="bloque-num">I·C (cont.)</span>
+      <h2 class="bloque-title">Título VI — Situaciones administrativas</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre — TREBEP (BOE-A-2015-11719) · Arts. 85-87, 89</div>
+    <p class="tema-intro">El catálogo cerrado de situaciones en las que puede encontrarse un funcionario de carrera sin perder su condición como tal, aunque no esté ejerciendo funciones en su puesto habitual.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 85</span> <span class="art-rubrica">— Situaciones administrativas</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los funcionarios de carrera se hallarán en algunas de las siguientes situaciones: <b>a)</b> <mark>Servicio activo</mark>. <b>b)</b> <mark>Servicios especiales</mark>. <b>c)</b> <mark>Servicio en otras Administraciones Públicas</mark>. <b>d)</b> <mark>Excedencia</mark>. <b>e)</b> <mark>Suspensión de funciones</mark>.</p>
+        <p><b>2.</b> Las Leyes de Función Pública que se dicten en desarrollo de este Estatuto podrán regular otras situaciones administrativas de los funcionarios de carrera, en los supuestos [...] previstos en aquéllas, cuando concurran, entre otras, las siguientes circunstancias: [...] cuando por razones organizativas, de reestructuración interna o exceso de personal, resulten necesarias medidas de gestión de personal.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cinco situaciones básicas de memorización literal — el examen suele pedir asociarlas con su definición correcta o con un supuesto de hecho concreto. La clave conceptual es que todas ellas presuponen que el funcionario <mark>conserva su condición</mark> de tal; lo que varía es si está o no prestando servicio activo y en qué puesto o Administración.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 86</span> <span class="art-rubrica">— Servicio activo</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los funcionarios de carrera se encuentran en situación de servicio activo cuando prestan servicios en su condición de funcionario público, cualquiera que sea la Administración o entidad del sector público en la que se preste el servicio, sea o no la de su pertenencia [...].</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El servicio activo es la situación <mark>normal y ordinaria</mark> del funcionario de carrera; todas las demás situaciones del art. 85 son, en distinta medida, apartamientos temporales o excepcionales de esa normalidad.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 87</span> <span class="art-rubrica">— Servicios especiales</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los funcionarios de carrera se declararán en situación de servicios especiales, entre otros supuestos, cuando: <b>a)</b> Sean designados <mark>miembros del Gobierno</mark> o de los órganos de gobierno de las Comunidades Autónomas y Ciudades de Ceuta y Melilla [...]. <b>b)</b> Sean autorizados para realizar una <mark>misión por período determinado superior a seis meses</mark> en organismos internacionales, Gobiernos o Estados extranjeros, o en programas de cooperación internacional. <b>c)</b> Sean elegidos por las Cortes Generales para formar parte de los órganos constitucionales u otros cuya elección corresponda a las Cámaras.</p>
+        <p><b>2.</b> Quienes se encuentren en situación de servicios especiales percibirán las retribuciones del puesto o cargo efectivo que desempeñen y no las que les correspondan como funcionarios de carrera, sin perjuicio del cómputo de <mark>antigüedad</mark> a todos los efectos.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El apartado 2 es el dato más preguntado: en servicios especiales, el funcionario cobra por el <mark>cargo que efectivamente desempeña</mark> (ministro, diputado, alto cargo internacional), no por su plaza de funcionario — pero conserva íntegramente su <mark>derecho a la plaza y a la antigüedad</mark>, y al cesar en ese cargo tiene derecho a reingresar automáticamente en su puesto o uno equivalente, a diferencia de lo que ocurre en la excedencia voluntaria.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 89</span> <span class="art-rubrica">— Excedencia</span></div>
+      <div class="art-body">
+        <p><b>1.</b> La excedencia de los funcionarios de carrera podrá adoptar las siguientes modalidades: <b>a)</b> <mark>Excedencia voluntaria por interés particular</mark>. <b>b)</b> <mark>Excedencia voluntaria por agrupación familiar</mark>. <b>c)</b> <mark>Excedencia por cuidado de familiares</mark>. <b>d)</b> <mark>Excedencia por razón de violencia de género</mark>. <b>e)</b> Excedencia por razón de violencia sexual.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Distingue la excedencia <mark>voluntaria</mark> (letras a y b, iniciativa e interés del propio funcionario, sin reserva de plaza en la modalidad "por interés particular") de las excedencias <mark>por circunstancias sobrevenidas</mark> (letras c, d y e), que suelen llevar aparejada reserva del puesto de trabajo y cómputo de antigüedad por razones de protección social o familiar — un matiz que el examen combina con frecuencia con los permisos y conciliación que verás también en el Tema 12 (Políticas de Igualdad de Género) de tu temario.</p>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <section class="bloque" id="p3-trebep-disciplinario">
+    <div class="bloque-head">
+      <span class="bloque-num">I·C (cont.)</span>
+      <h2 class="bloque-title">Título VII — Régimen disciplinario</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre — TREBEP (BOE-A-2015-11719) · Arts. 93, 95-96</div>
+    <p class="tema-intro">El cierre lógico del ciclo del empleado público: los principios de la responsabilidad disciplinaria, remitiendo a los principios generales de la potestad sancionadora ya vistos en la Ley 40/2015 (Tema 5, Parte 5), y el catálogo de faltas muy graves — el más citado del bloque.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 93</span> <span class="art-rubrica">— Responsabilidad disciplinaria</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los funcionarios públicos y el personal laboral quedan sujetos al régimen disciplinario establecido en el presente Título y en las normas que las Leyes de Función Pública dicten en desarrollo de este Estatuto.</p>
+        <p><b>2.</b> Los funcionarios públicos que indujeren a otros a la realización de actos o conductas constitutivos de falta disciplinaria incurrirán en la misma responsabilidad que éstos. Igualmente incurrirán en responsabilidad los funcionarios públicos que <mark>encubrieren</mark> las faltas consumadas muy graves o graves, cuando de dichos actos se derive daño grave para la Administración o los ciudadanos.</p>
+        <p><b>3.</b> El régimen disciplinario podrá ser objeto de adecuación a las condiciones específicas del ejercicio de las funciones públicas en los distintos ámbitos de la Administración General del Estado, de las Comunidades Autónomas y de las Entidades Locales, así como de las Entidades y Organismos Públicos dependientes o vinculados a las mismas.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El apartado 2 extiende la responsabilidad disciplinaria más allá del autor material del hecho: <mark>inducir</mark> a otro a cometer una falta acarrea la misma responsabilidad que cometerla, y <mark>encubrir</mark> una falta muy grave o grave ya consumada también es sancionable, siempre que de ese encubrimiento se derive un daño grave — un matiz que distingue el mero conocimiento pasivo de la ocultación activa dañosa.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 95</span> <span class="art-rubrica">— Faltas disciplinarias</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Las faltas disciplinarias pueden ser <mark>muy graves, graves y leves</mark>.</p>
+        <p><b>2.</b> Son faltas muy graves: [remisión al listado del artículo siguiente, art. 95.2 letras a) a q), no reproducido aquí en su literalidad completa].</p>
+        <p><b>3.</b> Las faltas graves serán establecidas por Ley de las Cortes Generales o de la Asamblea Legislativa de la correspondiente Comunidad Autónoma [...], atendiendo a las siguientes circunstancias: el grado en que se haya vulnerado la legalidad, la gravedad de los daños causados al interés público, servicios o ciudadanos y la reincidencia.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es la <mark>única</mark> de las tres categorías (muy graves, graves, leves) cuyo catálogo está tasado directamente por el propio TREBEP con carácter básico y de aplicación a todas las Administraciones (art. 95.2, ver siguiente artículo): las faltas <mark>graves</mark> exigen desarrollo posterior por ley autonómica o estatal específica, y las <mark>leves</mark> se remiten enteramente a esa normativa de desarrollo — el TREBEP no fija ningún listado cerrado de faltas leves.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 96</span> <span class="art-rubrica">— Sanciones</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Por razón de las faltas cometidas podrán imponerse las siguientes sanciones: <b>a)</b> <mark>Separación del servicio</mark> de los funcionarios [...]. <b>b)</b> <mark>Despido disciplinario</mark> del personal laboral [...]. <b>c)</b> <mark>Suspensión firme de funciones</mark>, o de empleo y sueldo en el caso del personal laboral, con una duración máxima de 6 años. <b>d)</b> <mark>Traslado forzoso</mark>, con o sin cambio de localidad de residencia, por el período que en cada caso se establezca. <b>e)</b> <mark>Demérito</mark>, que consistirá en la penalización a efectos de carrera, promoción o movilidad voluntaria. <b>f)</b> <mark>Apercibimiento</mark>.</p>
+        <p><b>2.</b> Procederá el <mark>reingreso al servicio activo</mark> del funcionario separado o del que perdió su relación de servicio como consecuencia de despido disciplinario, cuando, cumplida la sanción [...] o rehabilitado en las condiciones del art. 68, así lo solicite [...].</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El listado del apartado 1 es de memorización recomendada, de mayor a menor gravedad: <mark>separación del servicio</mark> es la sanción máxima y equivale, en sus efectos, a una de las causas de pérdida de la condición de funcionario ya vista en el art. 63.d). El apartado 2 cierra el círculo con el art. 68 (rehabilitación): quien fue separado del servicio por sanción disciplinaria puede reingresar si es rehabilitado conforme a ese artículo, con el mismo carácter excepcional ya comentado.</p>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <div class="comentario" style="border-left-color:var(--ink); margin-top:8px;">
+    <div class="c-label" style="color:var(--ink-soft);">Balance del Tema 6 tras las tres partes</div>
+    <p>Con esta Parte 3 el Tema 6 completa, en su literalidad, los dos epígrafes que el propio BOE-A-2022-2725 nombra de forma expresa: "los derechos y deberes de los funcionarios públicos" (carrera profesional 16-17 y 20, retribuciones 22-24, derechos ya vistos 14-15, deberes 52-54) y "acceso, promoción y provisión de puestos de trabajo" (acceso 55-62 ya cubierto en la Parte 2; provisión: planificación 69-70, cuerpos y escalas 75-76, concurso y libre designación 81). Se añade además el ciclo final de la relación de servicio: pérdida (63, 67-68), situaciones administrativas (85-87, 89) y régimen disciplinario (93, 95-96). Sumando las tres partes, el Tema 6 cubre: tipos de empleado público en su integridad (8-15), carrera y evaluación del desempeño (16-17, 20), retribuciones básicas y complementarias (22-24), negociación colectiva (9, 31), jornada y permisos (47, 50), deberes y código de conducta (52-54), acceso al empleo público completo (55-62), pérdida de la relación de servicio (63, 67-68), planificación y provisión (69-70, 75-76, 78-81), situaciones administrativas (85-87, 89) y régimen disciplinario (93, 95-96). Quedan deliberadamente fuera, por menor frecuencia de examen y mayor densidad de cuantías y plazos de detalle, el resto de la negociación colectiva (32-46), parte del bloque de jornada (48-49, 51), el resto de estructuración del empleo público (72-74, 77), movilidad de detalle (82-84), el resto de situaciones administrativas (88, 90-92), el resto del régimen disciplinario (94, 97-98) y la cooperación entre Administraciones Públicas (99-100), que se remiten al texto consolidado del BOE. Todos los artículos de esta ficha proceden del texto consolidado del BOE (BOE-A-2015-11719); antes del examen, contrasta contra la versión vigente en la fecha de la convocatoria.</p>
+  </div>
+</div>
+
+<hr class="part-divider">
+
+<div class="doc-part" id="parte-4">
+  <div class="part-flag"><span>Parte 4 de 6</span></div>
+  <div class="masthead">
+    <div class="eyebrow">Complemento · Derecho Público INE A1 · Tema 6</div>
+    <h1 class="title">TREBEP — Título Preliminar y Régimen Disciplinario</h1>
+    <p class="subtitle">Cuarto bloque de artículos faltantes del TREBEP (RDLeg 5/2015): el Título Preliminar completo (arts. 1-7, objeto, ámbito de aplicación, personal excluido) y el Título VII completo (arts. 93-98, régimen disciplinario) — dos bloques que no figuraban en ninguno de los tres complementos anteriores y que están entre los más preguntados de toda la ley.</p>
+  </div>
+
+  <div class="howto">
+    <div class="kc-label">Cómo encaja esto en tu documento</div>
+    <p>Tus complementos del Tema 6 ya cubren arts. 8-24 (personal, derechos, evaluación del desempeño), 55-63 (acceso y provisión), 67-70, 75-76, 81, 85-87, 89, 93 y 95-96 (situaciones y disciplinario parcial). Faltaba por completo el <mark>Título Preliminar (arts. 1-7)</mark> — la base conceptual de la ley, con los 12 fundamentos de actuación del art. 1 que caen casi todos los años — y el <mark>Título VII íntegro (arts. 93-98)</mark>, régimen disciplinario, del que solo tenías 93, 95 y 96 sueltos sin el 94 (principios de la potestad disciplinaria) ni el 97-98 (prescripción y procedimiento), que cierran el bloque y son tan preguntados como el listado de faltas.</p>
+  </div>
+
+  <section class="bloque" id="p4-trebep-preliminar">
+    <div class="bloque-head">
+      <span class="bloque-num">VI (cont.)</span>
+      <h2 class="bloque-title">Título Preliminar — Objeto y ámbito de aplicación</h2>
+    </div>
+    <div class="norma-tag">RDLeg 5/2015, de 30 de octubre (BOE-A-2015-11719) · Arts. 1-7</div>
+    <p class="tema-intro">La puerta de entrada a toda la ley: qué regula el TREBEP, a quién se aplica directamente, a quién solo supletoriamente, y qué colectivos quedan fuera. El art. 1.3 (los doce fundamentos de actuación) es, junto con el listado de faltas muy graves del art. 95, el artículo más memorizado literalmente de todo el temario de función pública.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 1</span> <span class="art-rubrica">— Objeto</span></div>
+      <div class="art-body">
+        <p><b>1.</b> El presente Estatuto tiene por objeto establecer las bases del régimen estatutario de los funcionarios públicos incluidos en su ámbito de aplicación.</p>
+        <p><b>2.</b> Asimismo tiene por objeto determinar las normas aplicables al personal laboral al servicio de las Administraciones Públicas.</p>
+        <p><b>3.</b> Este Estatuto refleja, del mismo modo, los siguientes <mark>fundamentos de actuación</mark>:</p>
+        <p><b>a)</b> Servicio a los ciudadanos y a los intereses generales.</p>
+        <p><b>b)</b> Igualdad, mérito y capacidad en el acceso y en la promoción profesional.</p>
+        <p><b>c)</b> Sometimiento pleno a la ley y al Derecho.</p>
+        <p><b>d)</b> Igualdad de trato entre mujeres y hombres.</p>
+        <p><b>e)</b> Objetividad, profesionalidad e imparcialidad en el servicio garantizadas con la inamovilidad en la condición de funcionario de carrera.</p>
+        <p><b>f)</b> Eficacia en la planificación y gestión de los recursos humanos.</p>
+        <p><b>g)</b> Desarrollo y cualificación profesional permanente de los empleados públicos.</p>
+        <p><b>h)</b> Transparencia.</p>
+        <p><b>i)</b> Evaluación y responsabilidad en la gestión.</p>
+        <p><b>j)</b> Jerarquía en la atribución, ordenación y desempeño de las funciones y tareas.</p>
+        <p><b>k)</b> Negociación colectiva y participación, a través de los representantes, en la determinación de las condiciones de empleo.</p>
+        <p><b>l)</b> Cooperación entre las Administraciones Públicas en la regulación y gestión del empleo público.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Doce letras, doce fundamentos, orden fijo de la a) a la l). Regla mnemotécnica útil: agrúpalos en cuatro bloques de tres — <mark>a servicio del ciudadano</mark> (a, b, c: a quién sirve, cómo se accede, a qué está sometida la actuación), <mark>igualdad y calidad técnica</mark> (d, e, f: género, inamovilidad, eficacia), <mark>desarrollo y control</mark> (g, h, i: formación, transparencia, evaluación) y <mark>organización y diálogo social</mark> (j, k, l: jerarquía, negociación, cooperación interadministrativa). El apartado 1 fija el objeto principal (bases del régimen <i>estatutario</i>, es decir, de los funcionarios); el apartado 2 es la extensión al personal laboral, que en el TREBEP siempre aparece como una capa añadida sobre el núcleo funcionarial, nunca como el régimen general.</p>
+      <p class="ine-tag">↳ Distínguelo del art. 103.3 CE, que reserva a la ley el "estatuto de los funcionarios públicos": el TREBEP es precisamente esa ley de bases, y el art. 1 es su desarrollo directo.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 2</span> <span class="art-rubrica">— Ámbito de aplicación</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Este Estatuto se aplica al personal funcionario y, en lo que proceda, al personal laboral al servicio de las siguientes Administraciones Públicas:</p>
+        <p>— La Administración General del Estado.</p>
+        <p>— Las Administraciones de las Comunidades Autónomas y de las Ciudades de Ceuta y Melilla.</p>
+        <p>— Las Administraciones de las Entidades Locales.</p>
+        <p>— Los Organismos Públicos, Agencias y demás Entidades de derecho público con personalidad jurídica propia, vinculadas o dependientes de cualquiera de las Administraciones Públicas.</p>
+        <p>— Las Universidades Públicas.</p>
+        <p><b>2.</b> En la aplicación de este Estatuto al personal investigador se podrán dictar normas singulares para adecuarlo a sus peculiaridades.</p>
+        <p><b>3.</b> El personal docente y el personal estatutario de los Servicios de Salud se regirán por la legislación específica dictada por el Estado y por las Comunidades Autónomas en el ámbito de sus respectivas competencias y por lo previsto en el presente Estatuto, excepto el Capítulo II del Título III, salvo el artículo 20, y los artículos 22.3, 24 y 84.</p>
+        <p><b>4.</b> Cada vez que este Estatuto haga mención al personal funcionario de carrera se entenderá comprendido el personal estatutario de los Servicios de Salud.</p>
+        <p><b>5.</b> El presente Estatuto tiene carácter <mark>supletorio</mark> para todo el personal de las Administraciones Públicas no incluido en su ámbito de aplicación.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cinco niveles de Administración cubiertos de forma directa (ap. 1) frente a dos regímenes de aplicación matizada: el personal investigador (ap. 2, normas singulares posibles) y el personal docente/estatutario sanitario (ap. 3, aplicación parcial con exclusiones concretas del Capítulo II del Título III de carrera profesional). La cláusula de cierre del apartado 5 —carácter supletorio para todo el personal no incluido— es la que conecta este artículo con el art. 4 siguiente: lo que un colectivo no tenga regulado en su normativa específica, lo llena el TREBEP.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 3</span> <span class="art-rubrica">— Personal funcionario de las Entidades Locales</span></div>
+      <div class="art-body">
+        <p><b>1.</b> El personal funcionario de las Entidades Locales se rige por la legislación estatal que resulte de aplicación, de la que forma parte este Estatuto, y por la legislación de las Comunidades Autónomas, con respeto a la autonomía local.</p>
+        <p><b>2.</b> Los Cuerpos de Policía Local se rigen también por este Estatuto y por la legislación de las Comunidades Autónomas, excepto en lo establecido para ellos en la Ley Orgánica 2/1986, de 13 de marzo, de Fuerzas y Cuerpos de Seguridad.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La Policía Local queda a caballo entre dos regímenes: TREBEP + legislación autonómica como regla general, pero con la <mark>Ley Orgánica 2/1986</mark> desplazando al TREBEP en todo lo que ella misma regule específicamente para este colectivo (organización, régimen estatutario particular de los cuerpos de seguridad).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 4</span> <span class="art-rubrica">— Personal con legislación específica propia</span></div>
+      <div class="art-body">
+        <p>Las disposiciones de este Estatuto sólo se aplicarán directamente cuando así lo disponga su legislación específica al siguiente personal:</p>
+        <p><b>a)</b> Personal funcionario de las Cortes Generales y de las Asambleas Legislativas de las Comunidades Autónomas.</p>
+        <p><b>b)</b> Personal funcionario de los demás Órganos Constitucionales del Estado y de los Órganos Estatutarios de las Comunidades Autónomas.</p>
+        <p><b>c)</b> Jueces, Magistrados, Fiscales y demás personal funcionario al servicio de la Administración de Justicia.</p>
+        <p><b>d)</b> Personal militar de las Fuerzas Armadas.</p>
+        <p><b>e)</b> Personal de las Fuerzas y Cuerpos de Seguridad.</p>
+        <p><b>f)</b> Personal retribuido por arancel.</p>
+        <p><b>g)</b> Personal del Centro Nacional de Inteligencia.</p>
+        <p><b>h)</b> Personal del Banco de España y Fondos de Garantía de Depósitos en Entidades de Crédito.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La lógica es inversa a la del art. 2: aquí el TREBEP <mark>no se aplica directamente</mark>, sino solo cuando la legislación específica de cada colectivo lo remita expresamente. Ocho letras a memorizar por bloques: poder legislativo (a-b), poder judicial (c), fuerzas armadas y de seguridad (d-e), profesiones con régimen singular (f: registradores, notarios), inteligencia (g) y entidades financieras públicas (h). El truco de examen habitual es confundir este artículo con el art. 2.5 (aplicación supletoria): aquí es al revés — la aplicación es la excepción, no la regla, y depende de que la norma sectorial "llame" al TREBEP.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 5</span> <span class="art-rubrica">— Personal de la Sociedad Estatal Correos y Telégrafos</span></div>
+      <div class="art-body">
+        <p>El personal funcionario de la Sociedad Estatal Correos y Telégrafos se regirá por sus normas específicas y supletoriamente por lo dispuesto en este Estatuto.</p>
+        <p>Su personal laboral se regirá por la legislación laboral y demás normas convencionalmente aplicables.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Único artículo de la ley dedicado a un ente concreto: separa con nitidez las dos plantillas de Correos — el personal funcionario (normas propias + TREBEP supletorio) y el personal laboral (legislación laboral pura, sin referencia al TREBEP salvo lo que este disponga expresamente para el personal laboral en general).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 6</span> <span class="art-rubrica">— Leyes de Función Pública</span></div>
+      <div class="art-body">
+        <p>En desarrollo de este Estatuto, las Cortes Generales y las Asambleas Legislativas de las Comunidades Autónomas aprobarán, en el ámbito de sus competencias, las Leyes reguladoras de la Función Pública de la Administración General del Estado y de las Comunidades Autónomas.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Confirma la naturaleza de <mark>legislación básica</mark> del TREBEP: no agota la materia, sino que reenvía a leyes de desarrollo estatales y autonómicas. Es la base de por qué el TREBEP habla constantemente de "las Leyes de Función Pública que se dicten en desarrollo de este Estatuto" en artículos como el 16 o el 18 ya vistos en otro complemento.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 7</span> <span class="art-rubrica">— Personal laboral</span></div>
+      <div class="art-body">
+        <p>El personal laboral al servicio de las Administraciones Públicas se rige, además de por la legislación laboral y por las demás normas convencionalmente aplicables, por los preceptos de este Estatuto que así lo dispongan.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el Título Preliminar con la regla general para el personal laboral: legislación laboral común como base, y TREBEP solo en aquello que expresamente se le declare aplicable (p. ej. principios de acceso, incompatibilidades, algunos derechos del art. 14). No hay aplicación supletoria automática del TREBEP al personal laboral como sí ocurre con otros colectivos del art. 2.5 — aquí hace falta remisión expresa artículo por artículo.</p>
+      <p class="ine-tag">↳ Con esto se cierra el Título Preliminar (arts. 1-7). El siguiente bloque de la ley, Título I (arts. 8-13, clases de personal), ya está cubierto en tu complemento Tema 6 Parte 1.</p>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <section class="bloque" id="p4-trebep-disciplinario">
+    <div class="bloque-head">
+      <span class="bloque-num">VI (cont.)</span>
+      <h2 class="bloque-title">Título VII — Régimen disciplinario</h2>
+    </div>
+    <div class="norma-tag">RDLeg 5/2015, de 30 de octubre (BOE-A-2015-11719) · Arts. 93-98</div>
+    <p class="tema-intro">Bloque completo del régimen disciplinario. Ya tenías sueltos los arts. 93, 95 y 96; aquí se añade el art. 94 (los cinco principios que rigen la potestad disciplinaria) y se cierra con el 97 (prescripción) y el 98 (procedimiento y medidas provisionales), que son los dos artículos con más datos numéricos de todo el título.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 93</span> <span class="art-rubrica">— Responsabilidad disciplinaria</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los funcionarios públicos y el personal laboral quedan sujetos al régimen disciplinario establecido en el presente título y en las normas que las leyes de Función Pública dicten en desarrollo de este Estatuto.</p>
+        <p><b>2.</b> Los funcionarios públicos o el personal laboral que indujeren a otros a la realización de actos o conductas constitutivos de falta disciplinaria incurrirán en la misma responsabilidad que éstos.</p>
+        <p><b>3.</b> Igualmente, incurrirán en responsabilidad los funcionarios públicos o personal laboral que encubrieren las faltas consumadas muy graves o graves, cuando de dichos actos se derive <mark>daño grave</mark> para la Administración o los ciudadanos.</p>
+        <p><b>4.</b> El régimen disciplinario del personal laboral se regirá, en lo no previsto en el presente título, por la legislación laboral.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Tres figuras de responsabilidad ampliada más allá del autor directo: inducción (ap. 2, sin condición adicional, misma responsabilidad siempre) y encubrimiento (ap. 3, solo si la falta encubierta es muy grave o grave <i>y además</i> se deriva daño grave — dos requisitos acumulativos, no uno). El apartado 4 marca la doble fuente aplicable al personal laboral: TREBEP primero, legislación laboral con carácter supletorio.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 94</span> <span class="art-rubrica">— Ejercicio de la potestad disciplinaria</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Las Administraciones Públicas corregirán disciplinariamente las infracciones del personal a su servicio señalado en el artículo anterior cometidas en el ejercicio de sus funciones o cargos, sin perjuicio de la responsabilidad patrimonial o penal que pudiera derivarse de tales infracciones.</p>
+        <p><b>2.</b> La potestad disciplinaria se ejercerá de acuerdo con los siguientes principios:</p>
+        <p><b>a)</b> Principio de <mark>legalidad y tipicidad</mark> de las faltas y sanciones, a través de la predeterminación normativa o, en el caso de personal laboral, de los convenios colectivos.</p>
+        <p><b>b)</b> Principio de <mark>irretroactividad</mark> de las disposiciones sancionadoras no favorables y de retroactividad de las favorables al presunto infractor.</p>
+        <p><b>c)</b> Principio de <mark>proporcionalidad</mark>, aplicable tanto a la clasificación de las infracciones y sanciones como a su aplicación.</p>
+        <p><b>d)</b> Principio de <mark>culpabilidad</mark>.</p>
+        <p><b>e)</b> Principio de <mark>presunción de inocencia</mark>.</p>
+        <p><b>3.</b> Cuando de la instrucción de un procedimiento disciplinario resulte la existencia de indicios fundados de criminalidad, se suspenderá su tramitación poniéndolo en conocimiento del Ministerio Fiscal. Los hechos declarados probados por resoluciones judiciales firmes vinculan a la Administración.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cinco principios, calcados de los principios generales del Derecho sancionador administrativo que ya viste en la Ley 40/2015 (legalidad, tipicidad, irretroactividad, proporcionalidad) más dos que allí no aparecían explícitos como tales: culpabilidad y presunción de inocencia. El apartado 3 introduce la <mark>prejudicialidad penal</mark>: si aparecen indicios de delito, el expediente disciplinario se paraliza y se traslada al Ministerio Fiscal — y cuando la vía penal termine con sentencia firme, los hechos probados judicialmente vinculan a la Administración (no puede la Administración declarar probado algo distinto de lo que fijó el juez).</p>
+      <p class="ine-tag">↳ Compara con el art. 27 de la Ley 40/2015 (principios de la potestad sancionadora general): mismo esquema, aplicado aquí específicamente a empleados públicos.</p>
+    </div>
+
+    <div class="tabla-wrap">
+      <table class="faltas">
+        <thead>
+          <tr><th>Art.</th><th>Contenido</th><th>Detalle clave</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">95.1</td><td>Clasificación de faltas</td><td>Muy graves, graves y leves</td></tr>
+          <tr><td class="num">95.2</td><td>Faltas muy graves</td><td>Tipificadas <mark>directamente en el TREBEP</mark> (letras a-p, ver detalle abajo)</td></tr>
+          <tr><td class="num">95.3</td><td>Faltas graves</td><td>Remisión a ley de Cortes/Asamblea autonómica o convenio colectivo</td></tr>
+          <tr><td class="num">95.4</td><td>Faltas leves</td><td>Remisión a leyes de Función Pública de desarrollo</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Dato de examen recurrente: <mark>solo las faltas muy graves están tipificadas directamente en el TREBEP</mark>; las graves y las leves se remiten siempre a normativa de desarrollo (estatal, autonómica o convencional). El listado del art. 95.2 (17 letras, de la a a la p) incluye entre las más citadas: incumplimiento del deber de respeto a la Constitución y Estatutos de Autonomía (a); discriminación y acoso —racial, religioso, por discapacidad, edad, orientación sexual, y acoso moral, sexual o por razón de sexo— (b); abandono del servicio (c); publicación o uso indebido de información reservada por razón del cargo (e); desobediencia abierta a un superior, salvo que la orden sea manifiestamente ilegal (i); obstaculización de derechos sindicales o del derecho de huelga (k-l); incumplimiento de servicios esenciales en huelga (m); incomparecencia injustificada en Comisiones de Investigación parlamentarias (ñ); y acoso laboral (o). La letra p) es la cláusula de cierre que remite a leyes sectoriales o convenios para ampliar el catálogo de muy graves.</p>
+      <p class="ine-tag">↳ Trampa clásica de test: preguntar por una conducta del listado de faltas <i>graves</i> del Reglamento de Régimen Disciplinario de 1986 (aún supletoriamente vigente) haciéndola pasar por "según el art. 95 TREBEP" — el TREBEP nunca tipifica directamente faltas graves ni leves, solo remite a ellas.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 96</span> <span class="art-rubrica">— Sanciones</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Por razón de las faltas cometidas podrán imponerse las siguientes sanciones:</p>
+        <p><b>a)</b> Separación del servicio de los funcionarios, que en el caso de los funcionarios interinos comportará la revocación de su nombramiento, y que <mark>sólo podrá sancionar la comisión de faltas muy graves</mark>.</p>
+        <p><b>b)</b> Despido disciplinario del personal laboral, que sólo podrá sancionar la comisión de faltas muy graves y comportará la inhabilitación para ser titular de un nuevo contrato con funciones similares a las que desempeñaban.</p>
+        <p><b>c)</b> Suspensión firme de funciones, o de empleo y sueldo en el caso del personal laboral, con una duración máxima de <mark>6 años</mark>.</p>
+        <p><b>d)</b> Traslado forzoso, con o sin cambio de localidad de residencia, por el período que en cada caso se establezca.</p>
+        <p><b>e)</b> Demérito, que consistirá en la penalización a efectos de carrera, promoción o movilidad voluntaria.</p>
+        <p><b>f)</b> Apercibimiento.</p>
+        <p><b>g)</b> Cualquier otra que se establezca por ley.</p>
+        <p><b>2.</b> Procederá la readmisión del personal laboral fijo cuando sea declarado improcedente el despido acordado como consecuencia de la incoación de un expediente disciplinario por la comisión de una falta muy grave.</p>
+        <p><b>3.</b> El alcance de cada sanción se establecerá teniendo en cuenta el grado de intencionalidad, descuido o negligencia que se revele en la conducta, el daño al interés público, la <mark>reiteración</mark> (cometer la misma falta) o <mark>reincidencia</mark> (cometer el mismo tipo de falta), así como el grado de participación.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Siete sanciones tasadas, de mayor a menor gravedad: solo separación del servicio (a) y despido disciplinario (b) exigen falta muy grave; el resto (suspensión, traslado forzoso, demérito, apercibimiento) puede aplicarse a distintos niveles de gravedad según lo desarrolle la norma correspondiente. Dato numérico ancla: la <mark>suspensión firme tiene un máximo de 6 años</mark> — no la confundas con la suspensión provisional cautelar del art. 98.3, cuyo límite es de 6 meses. El apartado 3 distingue con precisión dos conceptos que el examen suele confundir: reiteración es repetir la <i>misma</i> falta, reincidencia es repetir el <i>mismo tipo</i> de falta (aunque no sea idéntica).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 97</span> <span class="art-rubrica">— Prescripción de las faltas y sanciones</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Las infracciones muy graves prescribirán a los <mark>tres años</mark>, las graves a los <mark>dos años</mark> y las leves a los <mark>seis meses</mark>; las sanciones impuestas por faltas muy graves prescribirán a los tres años, las impuestas por faltas graves a los dos años y las impuestas por faltas leves al año.</p>
+        <p><b>2.</b> El plazo de prescripción de las faltas comenzará a contarse desde que se hubieran cometido, y desde el cese de su comisión cuando se trate de faltas continuadas. El de las sanciones, desde la firmeza de la resolución sancionadora.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La "doble cadena" que hay que memorizar sin cruzar: <mark>faltas → 3 años / 2 años / 6 meses</mark> (muy grave / grave / leve) frente a <mark>sanciones → 3 años / 2 años / 1 año</mark>. Coinciden en muy graves y graves (3 y 2 años en ambos casos) pero divergen en leves: 6 meses para la falta, 1 año para la sanción ya impuesta. El apartado 2 fija dos "días cero" distintos: para la falta, el día de comisión (o el cese, si es continuada); para la sanción, la firmeza de la resolución que la impone — no la fecha en que se dictó, sino cuando ya no cabe recurso contra ella.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 98</span> <span class="art-rubrica">— Procedimiento disciplinario y medidas provisionales</span></div>
+      <div class="art-body">
+        <p><b>1.</b> No podrá imponerse sanción por la comisión de faltas muy graves o graves sino mediante el procedimiento previamente establecido. La imposición de sanciones por faltas leves se llevará a cabo por <mark>procedimiento sumario</mark> con audiencia al interesado.</p>
+        <p><b>2.</b> El procedimiento disciplinario que se establezca en el desarrollo de este Estatuto se estructurará atendiendo a los principios de eficacia, celeridad y economía procesal, con pleno respeto a los derechos y garantías de defensa del presunto responsable. En el procedimiento quedará establecida la debida <mark>separación entre la fase instructora y la sancionadora</mark>, encomendándose a órganos distintos.</p>
+        <p><b>3.</b> Cuando así esté previsto en las normas que regulen los procedimientos sancionadores, se podrá adoptar mediante resolución motivada medidas de carácter provisional que aseguren la eficacia de la resolución final que pudiera recaer. La <mark>suspensión provisional</mark> como medida cautelar en la tramitación de un expediente disciplinario no podrá exceder de <mark>6 meses</mark>, salvo en caso de paralización del procedimiento imputable al interesado. La suspensión provisional podrá acordarse también durante la tramitación de un procedimiento judicial, y se mantendrá por el tiempo a que se extienda la prisión provisional u otras medidas decretadas por el juez que determinen la imposibilidad de desempeñar el puesto de trabajo. En este caso, si la suspensión provisional excediera de seis meses no supondrá pérdida del puesto de trabajo. El funcionario suspenso provisional tendrá derecho a percibir durante la suspensión las retribuciones básicas y, en su caso, las prestaciones familiares por hijo a cargo.</p>
+        <p><b>4.</b> Cuando la suspensión provisional se eleve a definitiva, el funcionario deberá devolver lo percibido durante el tiempo de duración de aquélla. Si la suspensión provisional no llegara a convertirse en sanción definitiva, la Administración deberá restituir al funcionario la diferencia entre los haberes realmente percibidos y los que hubiera debido percibir si se hubiera encontrado con plenitud de derechos. El tiempo de permanencia en suspensión provisional será de abono para el cumplimiento de la suspensión firme.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el título con las garantías procedimentales y la pieza más preguntada del bloque: la <mark>suspensión provisional cautelar (máximo 6 meses)</mark> frente a la <mark>suspensión firme como sanción (máximo 6 años)</mark> del art. 96.1.c — dos figuras homónimas en su nombre pero de naturaleza y duración completamente distintas que el examen tipo test explota sistemáticamente. El apartado 2 exige separación orgánica entre quien instruye y quien sanciona (garantía de imparcialidad, eco del principio de imparcialidad de la Ley 39/2015). El apartado 4 resuelve la liquidación económica: si la cautelar se confirma como sanción, el funcionario devuelve lo cobrado de más; si se levanta sin sanción, la Administración le restituye la diferencia — y en ambos casos el tiempo en cautelar cuenta para el cumplimiento de la suspensión firme, evitando que se "pague dos veces" el mismo período.</p>
+      <p class="ine-tag">↳ Con esto se cierra el Título VII completo (arts. 93-98). El Título VIII (arts. 99-100, cooperación entre Administraciones) queda fuera del estricto epígrafe del Tema 6 según el BOE de la convocatoria, que se detiene en "acceso, promoción y provisión de puestos de trabajo" — pero si tu temario lo incluye igualmente, avísame y lo añado en una próxima entrega.</p>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <div class="comentario" style="border-left-color:var(--ink); margin-top:8px;">
+    <div class="c-label" style="color:var(--ink-soft);">Qué queda pendiente del Tema 6</div>
+    <p>Con este complemento, el TREBEP queda cubierto en: Título Preliminar completo (1-7), Título I (8-13), gran parte del Título III (14-24), Títulos de acceso y provisión (55-63), situaciones administrativas parciales (67-70, 75-76, 81, 85-87, 89) y Título VII completo (93-98). Siguen pendientes, siguiendo el orden de la ley: <mark>arts. 25-46</mark> (retribuciones íntegras y negociación colectiva — bloque extenso, de menor peso relativo en el epígrafe estricto de "derechos y deberes, acceso y provisión"), <mark>arts. 48-51</mark> (permisos y vacaciones, con datos numéricos como los 22 días hábiles del art. 50), <mark>arts. 71-74 y 82-84</mark> (excedencias específicas, movilidad y reingreso) y <mark>arts. 90-92</mark> (suspensión de funciones como situación administrativa —distinta de la sanción del art. 96— y situaciones del personal laboral). Todos los artículos de esta ficha proceden del texto consolidado del BOE (BOE-A-2015-11719); antes del examen, contrasta contra la versión vigente en la fecha de la convocatoria, ya que el art. 95.2 ha recibido ampliaciones puntuales desde 2015 (p. ej. sobre fraude en contratación temporal) que conviene verificar.</p>
+  </div>
+</div>
+
+<hr class="part-divider">
+
+<div class="doc-part" id="parte-5">
+  <div class="part-flag"><span>Parte 5 de 6</span></div>
+  <div class="masthead">
+    <div class="eyebrow">Complemento · Derecho Público INE A1 · Tema 6</div>
+    <h1 class="title">TREBEP — Suspensión de funciones, reingreso al servicio activo y situaciones del personal laboral</h1>
+    <p class="subtitle">Cierra el Título VI ("Situaciones administrativas") del TREBEP: la última de las situaciones administrativas de los funcionarios de carrera (art. 90), el mecanismo de vuelta al servicio activo desde cualquiera de ellas (art. 91), y la remisión al régimen aplicable al personal laboral (art. 92).</p>
+  </div>
+
+  <div class="howto">
+    <div class="kc-label">Cómo encaja esto en tu documento</div>
+    <p>Este bloque cierra el <mark>Título VI</mark> completo. Ya tenías cubiertos servicio activo, servicios especiales, servicio en otras Administraciones Públicas y excedencia (arts. 86-89); este complemento añade la <mark>suspensión de funciones</mark> (art. 90) —la única situación administrativa con origen sancionador o penal, no voluntaria—, el <mark>reingreso al servicio activo</mark> (art. 91) —la puerta de vuelta desde cualquiera de las situaciones anteriores— y el art. 92, que cierra el título remitiendo el régimen del personal laboral a su normativa propia. Con esto, el Título VI queda íntegro (arts. 85-92) y puedes enlazar directamente con el Título VII (Régimen disciplinario, arts. 93-98) que ya tenías resuelto en tu parte4.</p>
+  </div>
+
+  <section class="bloque" id="p5-trebep-suspension-reingreso">
+    <div class="bloque-head">
+      <span class="bloque-num">II·A (cont.)</span>
+      <h2 class="bloque-title">Título VI — Situaciones administrativas (cierre)</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre — TREBEP (BOE-A-2015-11719) · Arts. 90-92</div>
+    <p class="tema-intro">La suspensión de funciones es la única situación administrativa de origen represivo: priva al funcionario del ejercicio de sus funciones y, según su duración, incluso del puesto de trabajo. El art. 91 regula el reingreso desde cualquier situación administrativa, y el art. 92 remite el régimen del personal laboral a su normativa específica.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 90</span> <span class="art-rubrica">— Suspensión de funciones</span></div>
+      <div class="art-body">
+        <p><b>1.</b> El funcionario declarado en la situación de suspensión quedará privado durante el tiempo de permanencia en la misma del ejercicio de sus funciones y de todos los derechos inherentes a la condición. La suspensión determinará la <mark>pérdida del puesto de trabajo</mark> cuando exceda de <mark>seis meses</mark>.</p>
+        <p><b>2.</b> La suspensión <mark>firme</mark> se impondrá en virtud de sentencia dictada en causa criminal o en virtud de sanción disciplinaria. La suspensión firme por sanción disciplinaria no podrá exceder de <mark>seis años</mark>.</p>
+        <p><b>3.</b> El funcionario declarado en la situación de suspensión de funciones <mark>no podrá prestar servicios</mark> en ninguna Administración Pública ni en los organismos públicos, agencias, o entidades de derecho público dependientes o vinculadas a ellas durante el tiempo de cumplimiento de la pena o sanción.</p>
+        <p><b>4.</b> Podrá acordarse la suspensión de funciones con carácter <mark>provisional</mark> con ocasión de la tramitación de un procedimiento judicial o expediente disciplinario, en los términos establecidos en este Estatuto.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El artículo distingue dos modalidades que el examen tipo test explota sistemáticamente: la <mark>suspensión firme</mark> (apartado 2), que nace de una sentencia penal firme o de una sanción disciplinaria ya consolidada, con un tope de <mark>seis años</mark> —coincide exactamente con el límite fijado en el art. 96.1.c) para la sanción de suspensión firme como tal, porque son la misma figura vista desde dos ángulos—; y la <mark>suspensión provisional</mark> (apartado 4), que es una medida cautelar mientras se tramita el procedimiento judicial o disciplinario, y que remite al art. 98.3 para su régimen completo (máximo <mark>seis meses</mark>, salvo paralización imputable al interesado). El dato numérico que más se pregunta es precisamente ese cruce: <mark>seis meses</mark> es el umbral que determina si la suspensión firme conlleva pérdida del puesto de trabajo (apartado 1) — no es lo mismo que el límite máximo de duración de la sanción (seis años). El apartado 3 añade una prohibición absoluta: mientras dure la suspensión, ni siquiera cambiando de Administración se puede prestar servicio en el sector público.</p>
+      <p class="ine-tag">↳ Conecta directamente con el art. 96.1.c) (sanciones: suspensión firme de funciones, máximo 6 años) y con el art. 98.3-4 (medidas provisionales del procedimiento disciplinario: suspensión provisional, máximo 6 meses, con derecho a retribuciones básicas y liquidación posterior según el resultado del expediente) — ambos ya cubiertos en tu parte4.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 91</span> <span class="art-rubrica">— Reingreso al servicio activo</span></div>
+      <div class="art-body">
+        <p>Reglamentariamente se regularán los plazos, procedimientos y condiciones, según las situaciones administrativas de procedencia, para solicitar el <mark>reingreso al servicio activo</mark> de los funcionarios de carrera, con respeto al <mark>derecho a la reserva del puesto de trabajo</mark> en los casos en que proceda conforme al presente Estatuto.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Artículo breve, de remisión reglamentaria, pero clave para conectar todo el Título VI entre sí: es la "puerta de salida" común desde cualquier situación administrativa —excedencia, servicios especiales, servicio en otras Administraciones o suspensión ya cumplida— de vuelta al servicio activo. El matiz que suele aparecer en examen es que el TREBEP <mark>no fija aquí</mark> los plazos y procedimientos concretos (los remite a desarrollo reglamentario, en el ámbito estatal al Real Decreto 365/1995), pero sí consagra directamente en la ley el principio de que el reingreso debe respetar el <mark>derecho a la reserva de puesto</mark> en los casos en que este derecho exista —lo que exige tener claro, de la excedencia ya vista en tu documento, cuáles de sus modalidades llevan reserva de puesto y cuáles no—.</p>
+      <p class="ine-tag">↳ Repasa el cuadro de excedencias (art. 89, ya cubierto): solo las modalidades con reserva de puesto (cuidado de familiares y víctimas de violencia de género, dentro de sus plazos) permiten un reingreso directo al mismo puesto; el resto exige participar en convocatorias de provisión o adscripción provisional a puesto vacante.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 92</span> <span class="art-rubrica">— Situaciones del personal laboral</span></div>
+      <div class="art-body">
+        <p>El personal laboral se regirá por el <mark>Estatuto de los Trabajadores</mark> y por los Convenios Colectivos que le sean de aplicación en materia de suspensión e interrupción de la relación laboral. Los citados convenios podrán determinar la aplicación a este personal de este Capítulo en lo que no se oponga a la normativa laboral.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el Título VI con una remisión explícita: mientras que todo lo visto en los arts. 85-91 (servicio activo, servicios especiales, servicio en otras Administraciones, excedencia, suspensión y reingreso) es <mark>régimen propio y exclusivo de los funcionarios de carrera</mark>, el personal laboral no se rige por este capítulo, sino por el <mark>Estatuto de los Trabajadores</mark> y por los convenios colectivos aplicables —salvo que esos mismos convenios decidan expresamente extenderle, en lo compatible, el régimen del TREBEP—. Es una trampa clásica de test: preguntar "¿qué situación administrativa corresponde al personal laboral en excedencia por cuidado de hijos?" cuando, técnicamente, el personal laboral no está en "situación administrativa" en sentido TREBEP, sino en una situación de suspensión del contrato de trabajo regulada por el ET.</p>
+      <p class="ine-tag">↳ Compárese con el art. 7 del propio TREBEP (ya cubierto en tu Título Preliminar): principio general de que el personal laboral se rige por la legislación laboral salvo en los preceptos del Estatuto que expresamente se lo apliquen — el art. 92 es una aplicación concreta de ese principio general al Título VI.</p>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <div class="comentario" style="border-left-color:var(--ink); margin-top:8px;">
+    <div class="c-label" style="color:var(--ink-soft);">Qué queda pendiente del Tema 6</div>
+    <p>Con este complemento, el <mark>Título VI queda íntegro</mark> (arts. 85-92). Siguen pendientes, siguiendo el orden del TREBEP: <mark>arts. 21, 25-46</mark> (retribuciones complementarias detalladas y todo el Capítulo IV de negociación colectiva, representación y participación institucional — bloque extenso, de menor peso relativo en el epígrafe estricto de "derechos y deberes, acceso y provisión"), <mark>arts. 47-51</mark> (jornada de trabajo, permisos y vacaciones, con datos numéricos como los 22 días hábiles de vacaciones del art. 50 y los distintos permisos por nacimiento, adopción y cuidado del art. 49), <mark>arts. 57-59</mark> (acceso al empleo público de nacionales de otros Estados, de funcionarios de Organismos Internacionales y de personas con discapacidad), <mark>arts. 64-66</mark> (renuncia, pérdida de nacionalidad, inhabilitación) y <mark>arts. 71-74, 77-80</mark> (registros de personal, estructuración del empleo público y provisión de puestos: concurso y libre designación). Todos los artículos de esta ficha proceden del texto consolidado del BOE (BOE-A-2015-11719); antes del examen, contrasta contra la versión vigente en la fecha de la convocatoria.</p>
+  </div>
+</div>
+
+<hr class="part-divider">
+
+<div class="doc-part" id="parte-6">
+  <div class="part-flag"><span>Parte 6 de 6</span></div>
+  <div class="masthead">
+    <div class="eyebrow">Complemento · Derecho Público INE A1 · Tema 6</div>
+    <h1 class="title">TREBEP — Deberes de los empleados públicos y Código de Conducta</h1>
+    <p class="subtitle">El Capítulo VI del Título III, completo: el catálogo de principios que inspira el Código de Conducta (art. 52), los principios éticos que rigen la actuación de fondo del empleado público (art. 53) y los principios de conducta que rigen su comportamiento cotidiano (art. 54) — la base normativa directa del régimen disciplinario.</p>
+  </div>
+
+  <div class="howto">
+    <div class="kc-label">Cómo encaja esto en tu documento</div>
+    <p>Este bloque cierra el <mark>Título III</mark> (Derechos y deberes. Código de conducta de los empleados públicos), justo después del Capítulo V de jornada, permisos y vacaciones. Es uno de los contenidos con mayor densidad memorística de todo el TREBEP: tres artículos, tres catálogos distintos —principios que inspiran el Código de Conducta (art. 52), principios <i>éticos</i> (art. 53, doce apartados) y principios de <i>conducta</i> (art. 54, once apartados)— que el examen tipo test explota preguntando "¿este principio es ético o de conducta?". La distinción de fondo que conviene fijar antes de leer el articulado: los principios <b>éticos</b> (art. 53) son de naturaleza más abstracta y orientadora —imparcialidad, lealtad, abstención en conflictos de interés—; los principios de <b>conducta</b> (art. 54) son reglas de comportamiento más concretas y operativas —trato respetuoso, cumplimiento de horario, rechazo de regalos—. Además, este Capítulo VI es la base directa del régimen disciplinario: el propio art. 52 dice expresamente que estos principios "informarán la interpretación y aplicación del régimen disciplinario", así que conecta directamente con los arts. 93-98 que ya tienes cubiertos en tu parte4.</p>
+  </div>
+
+  <section class="bloque" id="p6-trebep-deberes-codigo-conducta">
+    <div class="bloque-head">
+      <span class="bloque-num">II·A (cont.)</span>
+      <h2 class="bloque-title">Título III, Capítulo VI — Deberes de los empleados públicos. Código de Conducta</h2>
+    </div>
+    <div class="norma-tag">Real Decreto Legislativo 5/2015, de 30 de octubre — TREBEP (BOE-A-2015-11719) · Arts. 52-54</div>
+    <p class="tema-intro">El deber genérico de diligencia y sujeción al ordenamiento jurídico (art. 52), desarrollado en dos catálogos complementarios: los principios éticos que orientan la actuación de fondo del empleado público (art. 53) y los principios de conducta que rigen su comportamiento diario (art. 54).</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 52</span> <span class="art-rubrica">— Deberes de los empleados públicos. Código de Conducta</span></div>
+      <div class="art-body">
+        <p>Los empleados públicos deberán desempeñar con <mark>diligencia</mark> las tareas que tengan asignadas y velar por los intereses generales con sujeción y observancia de la Constitución y del resto del ordenamiento jurídico, y deberán actuar con arreglo a los siguientes principios: <mark>objetividad, integridad, neutralidad, responsabilidad, imparcialidad, confidencialidad, dedicación al servicio público, transparencia, ejemplaridad, austeridad, accesibilidad, eficacia, honradez, promoción del entorno cultural y medioambiental, y respeto a la igualdad entre mujeres y hombres</mark>, que inspiran el Código de Conducta de los empleados públicos configurado por los principios éticos y de conducta regulados en los artículos siguientes.</p>
+        <p>Los principios y reglas establecidos en este capítulo <mark>informarán la interpretación y aplicación del régimen disciplinario</mark> de los empleados públicos.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Este artículo funciona como <mark>pórtico</mark> del capítulo: no añade obligaciones nuevas por sí mismo, sino que enuncia el catálogo de quince principios que "inspiran" el Código de Conducta, cuyo contenido normativo concreto se desarrolla después en los arts. 53 y 54. El dato de examen más citado es la <mark>función interpretativa</mark> del segundo párrafo: estos principios no son meramente programáticos, sino que la ley les atribuye expresamente una función de canon interpretativo del régimen disciplinario — es decir, a la hora de calificar una falta (art. 95) o graduar una sanción (art. 96.3), el órgano competente debe interpretar esas normas a la luz de estos principios éticos y de conducta.</p>
+      <p class="ine-tag">↳ Memorización útil por bloques temáticos, no en orden literal: valores de actuación (objetividad, integridad, imparcialidad, honradez), valores de servicio (dedicación al servicio público, accesibilidad, eficacia), valores institucionales (transparencia, ejemplaridad, austeridad, responsabilidad, confidencialidad, neutralidad) y valores transversales (promoción del entorno cultural y medioambiental, igualdad entre mujeres y hombres).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 53</span> <span class="art-rubrica">— Principios éticos</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los empleados públicos <mark>respetarán la Constitución</mark> y el resto de normas que integran el ordenamiento jurídico.</p>
+        <p><b>2.</b> Su actuación perseguirá la satisfacción de los intereses generales de los ciudadanos y se fundamentará en consideraciones objetivas orientadas hacia la <mark>imparcialidad y el interés común</mark>, al margen de cualquier otro factor que exprese posiciones personales, familiares, corporativas, clientelares o cualesquiera otras que puedan colisionar con este principio.</p>
+        <p><b>3.</b> Ajustarán su actuación a los principios de <mark>lealtad y buena fe</mark> con la Administración en la que presten sus servicios, y con sus superiores, compañeros, subordinados y con los ciudadanos.</p>
+        <p><b>4.</b> Su conducta se basará en el respeto de los derechos fundamentales y libertades públicas, evitando toda actuación que pueda producir <mark>discriminación</mark> alguna por razón de nacimiento, origen racial o étnico, género, sexo, orientación sexual, religión o convicciones, opinión, discapacidad, edad o cualquier otra condición o circunstancia personal o social.</p>
+        <p><b>5.</b> Se <mark>abstendrán</mark> en aquellos asuntos en los que tengan un interés personal, así como de toda actividad privada o interés que pueda suponer un riesgo de plantear conflictos de intereses con su puesto público.</p>
+        <p><b>6.</b> No contraerán <mark>obligaciones económicas</mark> ni intervendrán en operaciones financieras, obligaciones patrimoniales o negocios jurídicos con personas o entidades cuando pueda suponer un conflicto de intereses con las obligaciones de su puesto público.</p>
+        <p><b>7.</b> No aceptarán ningún trato de favor o situación que implique <mark>privilegio o ventaja injustificada</mark>, por parte de personas físicas o entidades privadas.</p>
+        <p><b>8.</b> Actuarán de acuerdo con los principios de <mark>eficacia, economía y eficiencia</mark>, y vigilarán la consecución del interés general y el cumplimiento de los objetivos de la organización.</p>
+        <p><b>9.</b> No influirán en la agilización o resolución de trámite o procedimiento administrativo <mark>sin justa causa</mark> y, en ningún caso, cuando ello comporte un privilegio en beneficio de los titulares de los cargos públicos o su entorno familiar y social inmediato o cuando suponga un menoscabo de los intereses de terceros.</p>
+        <p><b>10.</b> Cumplirán con <mark>diligencia</mark> las tareas que les correspondan o se les encomienden y, en su caso, resolverán dentro de plazo los procedimientos o expedientes de su competencia.</p>
+        <p><b>11.</b> Ejercerán sus atribuciones según el principio de <mark>dedicación al servicio público</mark> absteniéndose no solo de conductas contrarias al mismo, sino también de cualesquiera otras que comprometan la neutralidad en el ejercicio de los servicios públicos.</p>
+        <p><b>12.</b> Guardarán <mark>secreto</mark> de las materias clasificadas u otras cuya difusión esté prohibida legalmente, y mantendrán la debida discreción sobre aquellos asuntos que conozcan por razón de su cargo, sin que puedan hacer uso de la información obtenida para beneficio propio o de terceros, o en perjuicio del interés público.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Doce apartados que conviene agrupar en tres bloques funcionales para memorizar con criterio, no de carrerilla: <b>(a) sujeción y objetividad</b> — respeto a la Constitución (1), imparcialidad e interés común (2), lealtad y buena fe (3), no discriminación (4); <b>(b) prevención de conflictos de interés</b> — abstención en asuntos con interés personal (5), no contraer obligaciones económicas conflictivas (6), no aceptar tratos de favor (7), no influir indebidamente en trámites (9); <b>(c) desempeño y reserva</b> — eficacia/economía/eficiencia (8), diligencia y cumplimiento de plazos (10), dedicación y neutralidad (11), secreto y discreción (12). El apartado 5 es el más citado en examen porque es la <mark>base legal genérica</mark> de la abstención del empleado público por conflicto de intereses — distinta, aunque emparentada, de la abstención reglada del art. 23 de la Ley 40/2015 (procedimiento administrativo con causas tasadas), aquí formulada como principio ético de alcance más amplio y no limitado a un procedimiento concreto.</p>
+      <p class="ine-tag">↳ Trampa de test frecuente: atribuir al art. 53 contenidos que en realidad están en el art. 54 (por ejemplo, "trato respetuoso a los ciudadanos" es principio de <i>conducta</i>, no ético) o viceversa. La clave mnemotécnica: el art. 53 mira hacia dentro —cómo se posiciona el empleado frente a sus propios intereses y los del servicio—; el art. 54 mira hacia fuera —cómo se comporta día a día con ciudadanos, superiores y compañeros—.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 54</span> <span class="art-rubrica">— Principios de conducta</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Tratarán con <mark>atención y respeto</mark> a los ciudadanos, a sus superiores y a los restantes empleados públicos.</p>
+        <p><b>2.</b> El desempeño de las tareas correspondientes a su puesto de trabajo se realizará de forma <mark>diligente</mark> y cumpliendo la <mark>jornada y el horario</mark> establecidos.</p>
+        <p><b>3.</b> Obedecerán las instrucciones y órdenes profesionales de los superiores, salvo que constituyan una <mark>infracción manifiesta del ordenamiento jurídico</mark>, en cuyo caso las pondrán inmediatamente en conocimiento de los órganos de inspección procedentes.</p>
+        <p><b>4.</b> Informarán a los ciudadanos sobre aquellas materias o asuntos que tengan derecho a conocer, y facilitarán el ejercicio de sus derechos y el cumplimiento de sus obligaciones.</p>
+        <p><b>5.</b> Administrarán los recursos y bienes públicos con <mark>austeridad</mark>, y no utilizarán los mismos en provecho propio o de personas allegadas. Tendrán, asimismo, el deber de velar por su conservación.</p>
+        <p><b>6.</b> Se rechazará cualquier <mark>regalo, favor o servicio</mark> en condiciones ventajosas que vaya más allá de los usos habituales, sociales y de cortesía, sin perjuicio de lo establecido en el Código Penal.</p>
+        <p><b>7.</b> Garantizarán la <mark>constancia y permanencia</mark> de los documentos para su transmisión y entrega a sus posteriores responsables.</p>
+        <p><b>8.</b> Mantendrán actualizada su <mark>formación y cualificación</mark>.</p>
+        <p><b>9.</b> Observarán las normas sobre <mark>seguridad y salud laboral</mark>.</p>
+        <p><b>10.</b> Pondrán en conocimiento de sus superiores o de los órganos competentes las <mark>propuestas de mejora</mark> que consideren adecuadas para el desarrollo de las funciones de la unidad en la que estén destinados.</p>
+        <p><b>11.</b> Garantizarán la <mark>atención al ciudadano en la lengua</mark> que lo solicite siempre que sea oficial en el territorio.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Once apartados de naturaleza más operativa que el art. 53: son reglas de comportamiento concreto, verificables en el día a día. El apartado más preguntado es el <mark>3</mark>, sobre obediencia jerárquica: la regla general es obedecer las instrucciones de los superiores, pero con una excepción tasada —cuando constituyan una <mark>infracción manifiesta</mark> del ordenamiento jurídico—, en cuyo caso el deber no es simplemente desobedecer sin más, sino <mark>ponerlo inmediatamente en conocimiento de los órganos de inspección</mark>. Esta regla enlaza con el art. 23.2.a) de la Ley 40/2015 (ya visto): un funcionario que ejecuta una orden manifiestamente ilegal sin cuestionarla no queda exento de responsabilidad. El apartado 6 (rechazo de regalos) es la base ética de numerosas faltas disciplinarias del art. 95, y el apartado 11 (atención en lengua cooficial) conecta con el derecho constitucional a usar las lenguas cooficiales en las Comunidades Autónomas con más de un idioma oficial.</p>
+      <p class="ine-tag">↳ Tabla de referencia rápida: distinción principios éticos (art. 53) vs. principios de conducta (art. 54).</p>
+      <table class="tabla-comparativa">
+        <tr><th>Aspecto</th><th>Principios éticos (art. 53)</th><th>Principios de conducta (art. 54)</th></tr>
+        <tr><td>Nº apartados</td><td>12</td><td>11</td></tr>
+        <tr><td>Orientación</td><td>Hacia dentro: posición frente a intereses propios y del servicio</td><td>Hacia fuera: comportamiento con ciudadanos, superiores y compañeros</td></tr>
+        <tr><td>Ejemplos clave</td><td>Imparcialidad, abstención por conflicto de intereses, secreto profesional</td><td>Trato respetuoso, obediencia jerárquica con límites, rechazo de regalos</td></tr>
+        <tr><td>Naturaleza</td><td>Más abstracta y orientadora</td><td>Más concreta y operativa</td></tr>
+      </table>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <div class="comentario" style="border-left-color:var(--ink); margin-top:8px;">
+    <div class="c-label" style="color:var(--ink-soft);">Qué queda pendiente del Tema 6</div>
+    <p>Con este complemento, el <mark>Título III queda completo</mark> (arts. 14-54), incluyendo ahora el Capítulo VI de deberes y Código de Conducta. Siguen pendientes, siguiendo el orden del TREBEP: <mark>arts. 21, 25-46</mark> (retribuciones complementarias detalladas y todo el Capítulo IV de negociación colectiva, representación y participación institucional), <mark>arts. 47-51</mark> (jornada de trabajo, permisos y vacaciones, con datos numéricos relevantes como los 22 días hábiles del art. 50), <mark>arts. 57-59</mark> (acceso al empleo público de nacionales de otros Estados, funcionarios de Organismos Internacionales y personas con discapacidad), <mark>arts. 64-66</mark> (renuncia, pérdida de nacionalidad, inhabilitación) y <mark>arts. 71-74, 77-80</mark> (registros de personal, estructuración del empleo público y provisión de puestos: concurso y libre designación). Todos los artículos de esta ficha proceden del texto consolidado del BOE (BOE-A-2015-11719); antes del examen, contrasta contra la versión vigente en la fecha de la convocatoria.</p>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

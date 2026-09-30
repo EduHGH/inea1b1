@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Derecho · Mapa de probabilidad de examen</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --ink:#241F17;
+    --ink-soft:#6b6252;
+    --line:#dcd4c2;
+    --der:#2E5266;
+    --der-soft:#DCE6EB;
+    --der-glow:rgba(46,82,102,.18);
+    --glass:rgba(255,255,255,.55);
+
+    --hot:#8B3A3A;
+    --hot-soft:#F3DEDE;
+    --hot-glow:rgba(139,58,58,.20);
+    --warm:#966A24;
+    --warm-soft:#F1E4CB;
+    --cold:#3E6B4F;
+    --cold-soft:#DEEBE2;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(36,31,23,.07) 1px, transparent 0) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    padding:48px 20px 80px;
+  }
+
+  .wrap{max-width:880px; margin:0 auto;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:38px 36px 32px;
+    border-radius:20px;
+    background:var(--glass);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -24px rgba(36,31,23,.25);
+    overflow:hidden;
+    margin-bottom:28px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:-40% -20% auto auto;
+    width:340px; height:340px;
+    background:radial-gradient(circle, var(--der-glow), transparent 70%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--der);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--der);}
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(26px, 4vw, 38px);
+    line-height:1.1;
+    margin:0 0 10px;
+    letter-spacing:-.01em;
+  }
+  .hero p{
+    margin:0;
+    max-width:62ch;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.6;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-top:22px;
+  }
+  .meta-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.55);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 12px;
+  }
+
+  /* LEGEND */
+  .legend{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-bottom:30px;
+  }
+  .legend-item{
+    display:flex; align-items:center; gap:7px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 13px 6px 8px;
+  }
+  .legend-dot{width:9px; height:9px; border-radius:3px; flex:none;}
+  .legend-dot.hot{background:var(--hot);}
+  .legend-dot.warm{background:var(--warm);}
+  .legend-dot.cold{background:var(--cold);}
+
+  /* SECTION HEAD */
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+    margin:44px 0 16px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+  }
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .section-count{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+  }
+
+  /* TEMA CARD */
+  .list{display:flex; flex-direction:column; gap:14px; margin-bottom:8px;}
+  .tema{
+    position:relative;
+    padding:22px 24px;
+    border-radius:14px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -20px rgba(36,31,23,.3);
+  }
+  .tema.nivel-hot{border-color:rgba(139,58,58,.35);}
+  .tema.nivel-warm{border-color:rgba(150,106,36,.3);}
+
+  .tema-top{
+    display:flex; gap:16px; align-items:flex-start; margin-bottom:6px;
+  }
+  .num{
+    flex:none;
+    width:40px; height:40px;
+    border-radius:11px;
+    background:var(--der-soft);
+    color:var(--der);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:17px;
+  }
+  .tema.nivel-hot .num{background:var(--hot-soft); color:var(--hot);}
+  .tema.nivel-warm .num{background:var(--warm-soft); color:var(--warm);}
+
+  .tema-heading{flex:1; min-width:0;}
+  .tema-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:17px;
+    line-height:1.3;
+    margin:0 0 4px;
+    color:var(--ink);
+  }
+  .tema-stats{
+    display:flex; flex-wrap:wrap; gap:8px;
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:5px;
+    border-radius:100px;
+    padding:3px 10px;
+    font-weight:700;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    font-size:9.5px;
+    flex:none;
+    white-space:nowrap;
+  }
+  .badge.hot{background:var(--hot-soft); color:var(--hot);}
+  .badge.warm{background:var(--warm-soft); color:var(--warm);}
+  .badge.cold{background:var(--cold-soft); color:var(--cold);}
+
+  .veredicto{
+    margin:12px 0 14px;
+    font-size:13px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    padding:10px 14px;
+    background:rgba(255,255,255,.4);
+    border-left:2px solid var(--line);
+    border-radius:0 8px 8px 0;
+  }
+  .tema.nivel-hot .veredicto{border-left-color:var(--hot);}
+  .tema.nivel-warm .veredicto{border-left-color:var(--warm);}
+  .tema.nivel-cold .veredicto{border-left-color:var(--cold);}
+
+  .epigrafes{
+    list-style:none;
+    margin:14px 0 0;
+    padding:14px 0 0;
+    border-top:1px dashed var(--line);
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .epigrafe{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .ep-badge{
+    flex:none;
+    margin-top:2px;
+    width:8px; height:8px;
+    border-radius:2px;
+  }
+  .ep-badge.hot{background:var(--hot);}
+  .ep-badge.warm{background:var(--warm);}
+  .ep-badge.cold{background:var(--cold);}
+  .ep-body{flex:1; min-width:0;}
+  .ep-title{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--ink);
+    margin:0 0 2px;
+  }
+  .ep-title-text{flex:1 1 auto; min-width:0;}
+  .ep-tag{
+    flex:none;
+    display:inline-block;
+    white-space:nowrap;
+    font-family:'Space Mono', monospace;
+    font-size:9px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    font-weight:700;
+    padding:2px 8px;
+    border-radius:100px;
+  }
+  .ep-tag.hot{background:var(--hot-soft); color:var(--hot);}
+  .ep-tag.warm{background:var(--warm-soft); color:var(--warm);}
+  .ep-tag.cold{background:var(--cold-soft); color:var(--cold);}
+  .ep-nota{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--ink-soft);
+    margin:0;
+  }
+
+  .foot{
+    margin-top:46px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-size:11.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+  .foot b{color:var(--ink);}
+
+  /* RETORICA */
+  .retorica-intro{
+    font-size:13.5px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    max-width:68ch;
+    margin:0 0 22px;
+  }
+
+  .patron-grid{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-bottom:8px;
+  }
+  .patron-card{
+    padding:20px 22px;
+    border-radius:14px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -20px rgba(36,31,23,.3);
+  }
+  .patron-head{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    margin-bottom:10px;
+  }
+  .patron-num{
+    flex:none;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:100px;
+    padding:3px 10px;
+  }
+  .patron-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16px;
+    color:var(--ink);
+    margin:0;
+  }
+  .patron-desc{
+    font-size:13px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    margin:0 0 14px;
+  }
+  .patron-ejemplos{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .patron-ej{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    padding:10px 12px;
+    background:rgba(255,255,255,.45);
+    border-radius:8px;
+    border-left:2px solid var(--der-soft);
+  }
+  .patron-ej .yr{
+    flex:none;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:6px;
+    padding:2px 7px;
+    margin-top:1px;
+  }
+  .patron-ej-text{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--ink);
+  }
+  .patron-ej-text i{color:var(--ink-soft); font-style:italic;}
+
+  .lexico-box{
+    margin-top:26px;
+    padding:22px 24px;
+    border-radius:14px;
+    background:var(--der-soft);
+    border:1px solid rgba(46,82,102,.2);
+  }
+  .lexico-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    color:var(--der);
+    margin:0 0 12px;
+  }
+  .lexico-cols{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  @media (max-width:560px){
+    .lexico-cols{grid-template-columns:1fr;}
+  }
+  .lexico-col h4{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--der);
+    margin:0 0 8px;
+  }
+  .lexico-col ul{
+    margin:0; padding:0 0 0 16px;
+    font-size:12.5px;
+    line-height:1.7;
+    color:var(--ink);
+  }
+  .lexico-col li b{color:var(--der);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dot"></span>Derecho · Temario INE A1 · Mapa de probabilidad</div>
+    <h1>Qué falta por preguntar, y dónde es más probable que caiga</h1>
+    <p>Cruce de los 14 temas del bloque de Derecho con las preguntas reales de las últimas cuatro convocatorias (2023-2026) para localizar los epígrafes que el tribunal todavía no ha tocado y estimar qué probabilidad tienen de aparecer en la próxima.</p>
+    <div class="hero-meta">
+      <span class="meta-chip">14 temas</span>
+      <span class="meta-chip">15 preguntas registradas</span>
+      <span class="meta-chip">5 temas sin preguntar aún</span>
+      <span class="meta-chip">+ análisis retórico de enunciados</span>
+      <span class="meta-chip">Fuente: BOE-A-2025-26900</span>
+    </div>
+  </div>
+
+  <div class="legend">
+    <span class="legend-item"><span class="legend-dot hot"></span>Probabilidad alta</span>
+    <span class="legend-item"><span class="legend-dot warm"></span>Probabilidad media</span>
+    <span class="legend-item"><span class="legend-dot cold"></span>Probabilidad baja / ya muy trabajado</span>
+  </div>
+
+  <!-- ============ PRIORIDAD 1 ============ -->
+  <div class="section-head">
+    <h2>Prioridad 1 — Temas sin ninguna pregunta registrada</h2>
+    <span class="section-count">5 temas</span>
+  </div>
+  <div class="list">
+
+    <div class="tema nivel-hot">
+      <div class="tema-top">
+        <div class="num">2</div>
+        <div class="tema-heading">
+          <h3 class="tema-title">La Corona. Las Cortes Generales</h3>
+          <div class="tema-stats"><span class="badge hot">0 preguntas en 4 años</span></div>
+        </div>
+      </div>
+      <p class="veredicto">Tema constitucional clásico que nunca ha salido en las últimas cuatro convocatorias. Estadísticamente es de los que "tocan": cualquiera de sus dos epígrafes es un candidato serio, y por extensión y detalle normativo (arts. 56-78 CE) da mucho juego para una pregunta de desarrollo.</div>
+      <ul class="epigrafes">
+        <li class="epigrafe"><span class="ep-badge hot"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Régimen de funcionamiento y atribuciones de la Corona</span><span class="ep-tag hot">Alta</span></p><p class="ep-nota">Sucesión, refrendo y funciones del Rey (art. 62 CE) son el bloque con más "preguntas tipo test" de manuales; en desarrollo suele pedirse "funciones del Rey" o "el refrendo y sus excepciones".</p></div></li>
+        <li class="epigrafe"><span class="ep-badge hot"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Composición y funcionamiento de las Cámaras</span><span class="ep-tag hot">Alta</span></p><p class="ep-nota">El bicameralismo imperfecto y la composición de Congreso/Senado es material muy citable con números concretos (350 diputados, 4 senadores por provincia): encaja con el estilo de pregunta "enumerar y explicar" que usa este tribunal.</p></div></li>
+      </ul>
+    </div>
+
+    <div class="tema nivel-hot">
+      <div class="tema-top">
+        <div class="num">4</div>
+        <div class="tema-heading">
+          <h3 class="tema-title">La organización territorial del Estado</h3>
+          <div class="tema-stats"><span class="badge hot">0 preguntas en 4 años</span></div>
+        </div>
+      </div>
+      <p class="veredicto">Otro tema nunca preguntado. La distribución competencial Estado-CC.AA. tiene una conexión directa con la competencia estadística (art. 149.1.31ª CE), un cruce que el tribunal ya ha demostrado que le gusta hacer entre temas (ver Tema 14).</p>
+      <ul class="epigrafes">
+        <li class="epigrafe"><span class="ep-badge hot"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Delimitación de competencias Estado – CC.AA.</span><span class="ep-tag hot">Alta</span></p><p class="ep-nota">El art. 149.1 CE con la competencia estadística estatal explícita (149.1.31ª) es un gancho casi perfecto para un tribunal de estadísticos: probable pregunta tipo "competencias exclusivas del Estado en materia de X, con mención al régimen estadístico".</p></div></li>
+        <li class="epigrafe"><span class="ep-badge warm"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Administración local: competencias de Municipios y Provincias</span><span class="ep-tag warm">Media</span></p><p class="ep-nota">Muy reglado (LBRL) pero menos conectado con el perfil estadístico del cuerpo; posible como pregunta de "competencias propias del municipio" pero menos prioritario que el epígrafe anterior.</p></div></li>
+      </ul>
+    </div>
+
+    <div class="tema nivel-hot">
+      <div class="tema-top">
+        <div class="num">7</div>
+        <div class="tema-heading">
+          <h3 class="tema-title">Los Presupuestos Generales del Estado</h3>
+          <div class="tema-stats"><span class="badge hot">0 preguntas en 4 años</span></div>
+        </div>
+      </div>
+      <p class="veredicto">Tema corto (solo dos epígrafes) y nunca preguntado: cuando salga, probablemente sea uno de los dos completo, no un recorte. Las clasificaciones del gasto son el contenido más "listable" y encaja con el patrón de pregunta de enumeración que repite el tribunal.</p>
+      <ul class="epigrafes">
+        <li class="epigrafe"><span class="ep-badge hot"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Estructura del presupuesto: clasificación de los gastos</span><span class="ep-tag hot">Alta</span></p><p class="ep-nota">Tres clasificaciones (orgánica, económica, funcional) muy fáciles de convertir en pregunta de "explicar las clasificaciones del gasto público y poner un ejemplo de cada una".</p></div></li>
+        <li class="epigrafe"><span class="ep-badge warm"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">El control interno: la IGAE</span><span class="ep-tag warm">Media</span></p><p class="ep-nota">Función interventora y reparo son conceptos técnicos que también podrían salir solos, tipo "explicar la función interventora de la IGAE".</p></div></li>
+      </ul>
+    </div>
+
+    <div class="tema nivel-hot">
+      <div class="tema-top">
+        <div class="num">10</div>
+        <div class="tema-heading">
+          <h3 class="tema-title">Reglamento 223/2009 (estadística europea)</h3>
+          <div class="tema-stats"><span class="badge hot">0 preguntas en 4 años</span></div>
+        </div>
+      </div>
+      <p class="veredicto">Nunca preguntado y con vínculo explícito al Tema 16 del bloque de Producción Estadística (Código de Buenas Prácticas): es de los temas con más "doble rentabilidad" para el tribunal, porque permite evaluar Derecho y Producción Estadística con una sola pregunta bien planteada.</p>
+      <ul class="epigrafes">
+        <li class="epigrafe"><span class="ep-badge hot"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Principios estadísticos</span><span class="ep-tag hot">Alta</span></p><p class="ep-nota">Los principios del art. 2 (independencia profesional, imparcialidad, secreto estadístico) son el contenido con más cruce directo con Producción Estadística — el ángulo favorito de este tribunal.</p></div></li>
+        <li class="epigrafe"><span class="ep-badge warm"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Gobernanza estadística (Eurostat, CSEE)</span><span class="ep-tag warm">Media</span></p><p class="ep-nota">Pregunta plausible tipo "órganos del Sistema Estadístico Europeo y sus funciones", en la línea de las preguntas ya hechas sobre el Consejo Superior de Estadística (Tema 8) o el Consejo de Transparencia (Tema 13).</p></div></li>
+        <li class="epigrafe"><span class="ep-badge cold"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Definición de estadísticas europeas</span><span class="ep-tag cold">Baja</span></p><p class="ep-nota">Contenido más descriptivo y menos "preguntable" de forma aislada; probable que aparezca como introducción de una pregunta más amplia, no como pregunta en sí misma.</p></div></li>
+      </ul>
+    </div>
+
+    <div class="tema nivel-hot">
+      <div class="tema-top">
+        <div class="num">12</div>
+        <div class="tema-heading">
+          <h3 class="tema-title">Políticas de Igualdad de Género</h3>
+          <div class="tema-stats"><span class="badge hot">0 preguntas en 4 años</span></div>
+        </div>
+      </div>
+      <p class="veredicto">El quinto y último tema nunca preguntado. Es un tema "de actualidad normativa" (LO 4/2023 es reciente), lo cual históricamente hace que los tribunales lo incluyan pronto tras su aprobación para comprobar que está actualizado.</p>
+      <ul class="epigrafes">
+        <li class="epigrafe"><span class="ep-badge warm"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Políticas de promoción de la igualdad (LO 3/2007)</span><span class="ep-tag warm">Media</span></p><p class="ep-nota">Norma marco y de más recorrido, con planes de igualdad en la AGE: contenido clásico de examen de este tipo.</p></div></li>
+        <li class="epigrafe"><span class="ep-badge warm"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Igualdad de trato de las personas LGTBI (Ley 4/2023)</span><span class="ep-tag warm">Media</span></p><p class="ep-nota">Al ser la norma más reciente del temario, es una candidata típica para "estrenarse" en la próxima convocatoria.</p></div></li>
+        <li class="epigrafe"><span class="ep-badge cold"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Conciliación y violencia de género</span><span class="ep-tag cold">Baja</span></p><p class="ep-nota">Contenido más operativo (permisos, excedencias); menos probable como pregunta autónoma de desarrollo.</p></div></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ============ PRIORIDAD 2 ============ -->
+  <div class="section-head">
+    <h2>Prioridad 2 — Un solo epígrafe ya preguntado, el resto del tema sigue abierto</h2>
+    <span class="section-count">3 temas</span>
+  </div>
+  <div class="list">
+
+    <div class="tema nivel-warm">
+      <div class="tema-top">
+        <div class="num">6</div>
+        <div class="tema-heading">
+          <h3 class="tema-title">Los funcionarios al servicio de las AA.PP.</h3>
+          <div class="tema-stats"><span class="badge warm">2 preguntas (2023, 2024)</span></div>
+        </div>
+      </div>
+      <p class="veredicto">Ya preguntado en dos convocatorias seguidas (principios de conducta 2023, clases de empleado público 2024), lo que hace algo menos probable que repita por tercer año consecutivo — aunque el Tema 5 demuestra que este tribunal sí repite literalmente. El epígrafe de acceso y provisión de puestos sigue completamente virgen.</p>
+      <ul class="epigrafes">
+        <li class="epigrafe"><span class="ep-badge hot"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Acceso, promoción y provisión de puestos de trabajo</span><span class="ep-tag hot">Alta</span></p><p class="ep-nota">Único epígrafe del tema sin preguntar. Oposición vs. concurso, promoción interna y carrera horizontal/vertical son contenido muy "enumerable" — encaja con el patrón de pregunta de este bloque.</p></div></li>
+        <li class="epigrafe"><span class="ep-badge cold"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Derechos y deberes de los funcionarios</span><span class="ep-tag cold">Baja</span></p><p class="ep-nota">Los principios de conducta (parte de este epígrafe) ya se preguntaron en 2023; el resto (derechos individuales, régimen disciplinario) podría salir pero es menos prioritario.</p></div></li>
+      </ul>
+    </div>
+
+    <div class="tema nivel-warm">
+      <div class="tema-top">
+        <div class="num">9</div>
+        <div class="tema-heading">
+          <h3 class="tema-title">Protección de Datos</h3>
+          <div class="tema-stats"><span class="badge warm">1 pregunta (2023)</span></div>
+        </div>
+      </div>
+      <p class="veredicto">Solo se ha preguntado una vez, y de forma genérica ("tres derechos de los ciudadanos"). El epígrafe con más conexión directa al perfil estadístico —el régimen especial de tratamiento con fines estadísticos— nunca ha salido, y es justo el tipo de cruce (Derecho + función estadística) que este tribunal repite en otros temas.</p>
+      <ul class="epigrafes">
+        <li class="epigrafe"><span class="ep-badge hot"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Régimen especial en el ámbito de la función estadística pública</span><span class="ep-tag hot">Alta</span></p><p class="ep-nota">Cruce directo con el secreto estadístico (Tema 8): la limitación de derechos ARCO por fines estadísticos es un contenido muy específico del perfil INE, todavía sin preguntar.</p></div></li>
+        <li class="epigrafe"><span class="ep-badge warm"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">La Agencia Española de Protección de Datos</span><span class="ep-tag warm">Media</span></p><p class="ep-nota">Naturaleza, potestades de investigación y régimen sancionador siguen el mismo patrón que preguntas ya hechas sobre otros organismos (Consejo Superior de Estadística, Consejo de Transparencia): "naturaleza y funciones de un órgano concreto".</p></div></li>
+        <li class="epigrafe"><span class="ep-badge cold"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Principios de protección de datos</span><span class="ep-tag cold">Baja</span></p><p class="ep-nota">Muy solapado con la pregunta de 2023 sobre derechos; probabilidad baja de repetirse en un ángulo tan cercano.</p></div></li>
+      </ul>
+    </div>
+
+    <div class="tema nivel-warm">
+      <div class="tema-top">
+        <div class="num">13</div>
+        <div class="tema-heading">
+          <h3 class="tema-title">La Gobernanza Pública</h3>
+          <div class="tema-stats"><span class="badge warm">1 pregunta (2023)</span></div>
+        </div>
+      </div>
+      <p class="veredicto">Solo se preguntó una vez sobre el Consejo de Transparencia. El resto del tema —gobierno abierto y la Ley 19/2013 en su conjunto— sigue sin explorarse, y la Ley de Transparencia tiene mucho contenido "titulable" (publicidad activa, derecho de acceso, buen gobierno) que aún no ha aparecido.</p>
+      <ul class="epigrafes">
+        <li class="epigrafe"><span class="ep-badge hot"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Ley 19/2013, de transparencia</span><span class="ep-tag hot">Alta</span></p><p class="ep-nota">Sus tres títulos (publicidad activa, derecho de acceso, buen gobierno) nunca se han preguntado como tal, solo el órgano de control derivado de ella. Muy probable como pregunta "los tres títulos de la Ley 19/2013" o "el derecho de acceso a la información pública: límites".</p></div></li>
+        <li class="epigrafe"><span class="ep-badge warm"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Marco jurídico y planes de gobierno abierto</span><span class="ep-tag warm">Media</span></p><p class="ep-nota">Menos desarrollado en el índice, pero con un componente internacional (OGP) que le da cierto interés como pregunta de cultura general del bloque.</p></div></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ============ PRIORIDAD 3 ============ -->
+  <div class="section-head">
+    <h2>Prioridad 3 — Temas ya trabajados por el tribunal, pero con huecos concretos</h2>
+    <span class="section-count">2 temas</span>
+  </div>
+  <div class="list">
+
+    <div class="tema nivel-warm">
+      <div class="tema-top">
+        <div class="num">5</div>
+        <div class="tema-heading">
+          <h3 class="tema-title">El Derecho Administrativo</h3>
+          <div class="tema-stats"><span class="badge hot">3 preguntas (2023, 2025, 2026)</span></div>
+        </div>
+      </div>
+      <p class="veredicto">Es el tema más "caliente" en frecuencia histórica: ha salido en tres de las últimas cuatro convocatorias, y la terminación del procedimiento se repitió literalmente en 2025 y 2026. Precisamente por eso, y aunque suene contraintuitivo, hay dos lecturas posibles: o el tribunal vuelve a repetir el mismo enunciado (ya ha demostrado que lo hace), o rota hacia el único epígrafe que aún no ha tocado del todo.</p>
+      <ul class="epigrafes">
+        <li class="epigrafe"><span class="ep-badge warm"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Fuentes del Derecho Administrativo</span><span class="ep-tag warm">Media</span></p><p class="ep-nota">Único epígrafe de este tema que nunca ha sido objeto de pregunta directa (jerarquía normativa, reglamento, inderogabilidad singular). Con tres preguntas ya hechas sobre los otros dos epígrafes, es el hueco lógico si el tribunal decide "completar" el tema.</p></div></li>
+        <li class="epigrafe"><span class="ep-badge cold"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Fase de terminación del procedimiento</span><span class="ep-tag cold">Baja (aunque repetida)</span></p><p class="ep-nota">Preguntada dos años seguidos de forma casi idéntica. Tenerla muy trabajada por si repite una tercera vez, pero no es donde más rentabilidad de estudio queda.</p></div></li>
+        <li class="epigrafe"><span class="ep-badge cold"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Recursos administrativos (alzada/reposición/revisión)</span><span class="ep-tag cold">Baja</span></p><p class="ep-nota">Ya preguntado en 2023 con el mismo enfoque comparativo; margen bajo de que vuelva a salir con el mismo planteamiento.</p></div></li>
+      </ul>
+    </div>
+
+    <div class="tema nivel-warm">
+      <div class="tema-top">
+        <div class="num">8</div>
+        <div class="tema-heading">
+          <h3 class="tema-title">Ley 12/1989, Función Estadística Pública</h3>
+          <div class="tema-stats"><span class="badge hot">5 preguntas (2023-2025)</span></div>
+        </div>
+      </div>
+      <p class="veredicto">El tema más preguntado del bloque con diferencia: cinco preguntas en cuatro convocatorias, con dos solo en 2025. Es el "tema estrella" del cuerpo, así que aunque ya esté muy explotado, es el que con más seguridad va a volver a aparecer de una forma u otra — solo queda decidir qué ángulo exacto.</p>
+      <ul class="epigrafes">
+        <li class="epigrafe"><span class="ep-badge hot"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Otros servicios estadísticos y coordinación estadística</span><span class="ep-tag hot">Alta</span></p><p class="ep-nota">Único epígrafe de este tema que nunca ha tenido pregunta propia. Con todo lo demás ya preguntado (secreto, PEN, infracciones, INE, Consejo Superior, recursos económicos), es el hueco más evidente: "la función de coordinación estadística del INE" encaja perfectamente con el estilo de preguntas ya vistas.</p></div></li>
+        <li class="epigrafe"><span class="ep-badge cold"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Secreto estadístico, PEN, infracciones, INE, recursos económicos</span><span class="ep-tag cold">Baja (ya cubiertos)</span></p><p class="ep-nota">Los cinco ángulos ya preguntados de este tema. Mantenerlos repasados por si el tribunal reformula alguno, pero no son la prioridad de estudio nuevo.</p></div></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ============ PRIORIDAD 4 ============ -->
+  <div class="section-head">
+    <h2>Prioridad 4 — Temas ya cubiertos casi por completo</h2>
+    <span class="section-count">4 temas</span>
+  </div>
+  <div class="list">
+
+    <div class="tema nivel-cold">
+      <div class="tema-top">
+        <div class="num">1</div>
+        <div class="tema-heading">
+          <h3 class="tema-title">La Constitución Española</h3>
+          <div class="tema-stats"><span class="badge cold">Sin registro directo, pero muy troncal</span></div>
+        </div>
+      </div>
+      <p class="veredicto">No hay ninguna pregunta registrada sobre este tema en concreto, lo cual en principio lo situaría como prioritario — pero al ser el tema más introductorio y transversal del bloque (principios básicos, derechos fundamentales, Defensor del Pueblo), sus contenidos aparecen con frecuencia mezclados dentro de preguntas de otros temas más aplicados. Aun así, merece revisión activa: el Defensor del Pueblo, en concreto, encaja con el patrón de "naturaleza y funciones de un órgano" que el tribunal repite mucho.</p>
+      <ul class="epigrafes">
+        <li class="epigrafe"><span class="ep-badge warm"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">El Defensor del Pueblo</span><span class="ep-tag warm">Media</span></p><p class="ep-nota">Sigue el mismo patrón de pregunta "naturaleza, designación y funciones de un órgano" que ya se ha usado para el Consejo Superior de Estadística y el Consejo de Transparencia.</p></div></li>
+        <li class="epigrafe"><span class="ep-badge cold"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Principios básicos y derechos fundamentales</span><span class="ep-tag cold">Baja como pregunta autónoma</span></p><p class="ep-nota">Contenido muy troncal que suele servir de base a otras preguntas más que ser objeto de pregunta en sí mismo.</p></div></li>
+      </ul>
+    </div>
+
+    <div class="tema nivel-cold">
+      <div class="tema-top">
+        <div class="num">3</div>
+        <div class="tema-heading">
+          <h3 class="tema-title">El Gobierno y la Administración Pública</h3>
+          <div class="tema-stats"><span class="badge cold">Sin registro directo</span></div>
+        </div>
+      </div>
+      <p class="veredicto">Igual que el Tema 1, no aparece preguntado directamente en el histórico, pero su contenido más específico (estructura ministerial y organismos adscritos al INE) tiende a variar entre legislaturas, lo que suele desanimar a los tribunales a preguntarlo literalmente en años de cambio de gobierno.</p>
+      <ul class="epigrafes">
+        <li class="epigrafe"><span class="ep-badge warm"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Administración periférica del Estado</span><span class="ep-tag warm">Media</span></p><p class="ep-nota">Delegados y Subdelegados del Gobierno es contenido estable (no depende de la estructura ministerial concreta), lo que lo hace más "seguro" de preguntar que el resto del tema.</p></div></li>
+        <li class="epigrafe"><span class="ep-badge cold"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Estructura del Ministerio y organismos adscritos</span><span class="ep-tag cold">Baja</span></p><p class="ep-nota">El propio índice avisa de que la denominación ministerial varía por legislatura; es un contenido inestable que el tribunal probablemente evite preguntar de forma literal.</p></div></li>
+      </ul>
+    </div>
+
+    <div class="tema nivel-cold">
+      <div class="tema-top">
+        <div class="num">11</div>
+        <div class="tema-heading">
+          <h3 class="tema-title">La Administración electoral española</h3>
+          <div class="tema-stats"><span class="badge hot">3 preguntas (2023, 2024, 2026)</span></div>
+        </div>
+      </div>
+      <p class="veredicto">Tema muy trabajado por el tribunal, con tres preguntas en cuatro años cubriendo censo electoral, OCE y Consejo de Empadronamiento. Solo queda un hueco claro.</p>
+      <ul class="epigrafes">
+        <li class="epigrafe"><span class="ep-badge warm"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Acceso a los datos censales y padronales</span><span class="ep-tag warm">Media</span></p><p class="ep-nota">Único bloque de este tema sin preguntar directamente: régimen de cesión de copias del censo a partidos y protección de datos padronales, con conexión a la LO 3/2018 (Tema 9).</p></div></li>
+        <li class="epigrafe"><span class="ep-badge cold"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Censo Electoral, OCE, Consejo de Empadronamiento</span><span class="ep-tag cold">Baja (ya cubiertos)</span></p><p class="ep-nota">Los tres ángulos con pregunta ya registrada; revisar pero no como prioridad de estudio nuevo.</p></div></li>
+      </ul>
+    </div>
+
+    <div class="tema nivel-cold">
+      <div class="tema-top">
+        <div class="num">14</div>
+        <div class="tema-heading">
+          <h3 class="tema-title">La administración TIC de la AGE</h3>
+          <div class="tema-stats"><span class="badge warm">1 pregunta (2026, tema nuevo)</span></div>
+        </div>
+      </div>
+      <p class="veredicto">Tema de incorporación reciente al temario (solo pudo preguntarse en la convocatoria de 2026, y ya salió, con un enfoque muy exigente que cruzaba ENS + secreto estadístico). Al ser nuevo y ya haber debutado con una pregunta compleja, es de esperar que el tribunal siga explotándolo, probablemente por un ángulo distinto.</p>
+      <ul class="epigrafes">
+        <li class="epigrafe"><span class="ep-badge hot"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">El expediente electrónico y las Normas Técnicas de Interoperabilidad</span><span class="ep-tag hot">Alta</span></p><p class="ep-nota">Contenido concreto y no tocado por la pregunta de 2026 (centrada en el ENS); "qué es el expediente electrónico y qué garantiza el índice electrónico" encaja con el estilo de pregunta de definición legal exacta que repite este tribunal.</p></div></li>
+        <li class="epigrafe"><span class="ep-badge cold"></span><div class="ep-body"><p class="ep-title"><span class="ep-title-text">Esquema Nacional de Seguridad</span><span class="ep-tag cold">Baja (recién preguntado)</span></p><p class="ep-nota">Ya fue objeto de la única pregunta de este tema, y de forma muy detallada; poco probable que se repita en la próxima convocatoria inmediata.</p></div></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ============ ANÁLISIS RETÓRICO ============ -->
+  <div class="section-head">
+    <h2>Cómo escribe el tribunal — análisis retórico de los enunciados</h2>
+    <span class="section-count">15 preguntas, 2023-2026</span>
+  </div>
+  <p class="retorica-intro">Más allá del contenido, las 15 preguntas registradas comparten una forma de redactar muy reconocible. No es solo qué pregunta el tribunal, sino cómo lo pregunta: los verbos que elige, la manera de acotar el alcance de la respuesta y el tipo de trampa que tiende cada enunciado. Detectar el patrón lingüístico ayuda tanto a anticipar la forma de una pregunta nueva como a no perder puntos por responder al contenido correcto de la forma equivocada.</p>
+
+  <div class="patron-grid">
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 1</span>
+        <h3 class="patron-title">El verbo "explicar" pide desarrollo causal, no listado</h3>
+      </div>
+      <p class="patron-desc">Cuando el enunciado usa <b>"explicar"</b> (frente a "exponer" o "definir"), el tribunal espera una respuesta que conecte causas, normativa y efectos — no una simple enumeración. Es el verbo que abre las preguntas más "caras" en extensión de las cuatro convocatorias.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">2025 · 2026</span><span class="patron-ej-text">"<b>Explicar</b> las formas de terminación del procedimiento administrativo (...), indicando normativa aplicable, principales características y efectos jurídicos." <i>— tres subtareas encadenadas dentro de un solo verbo: qué es, con qué norma, y qué efectos produce.</i></span></div>
+        <div class="patron-ej"><span class="yr">2023</span><span class="patron-ej-text">"<b>Explicar</b> qué es el secreto estadístico y a quiénes obliga." <i>— el verbo va acompañado casi siempre de un "y" que añade una segunda exigencia oculta (aquí, el ámbito subjetivo).</i></span></div>
+        <div class="patron-ej"><span class="yr">2026</span><span class="patron-ej-text">"<b>Explicar</b> cómo se aplica el Esquema Nacional de Seguridad (...) y qué medidas deben adoptarse." <i>— de nuevo el "y qué" final, que en la práctica es la mitad de la nota.</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 2</span>
+        <h3 class="patron-title">"Exponer" busca una enumeración acotada por un número mínimo</h3>
+      </div>
+      <p class="patron-desc">Cuando aparece <b>"exponer"</b>, casi siempre viene acompañado de una cuantificación explícita ("tres", "al menos tres", "los tipos de..."). Es la trampa más fácil de detectar y, a la vez, la más común: responder con dos ejemplos donde se piden tres, o con una lista sin las diferencias que también se piden, es la forma más habitual de perder puntos en este tipo de pregunta.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">2023</span><span class="patron-ej-text">"<b>Exponer</b> al menos tres principios de conducta que deben presidir la actuación de un empleado público." <i>— el número exacto ("al menos tres") es parte del enunciado, no una sugerencia.</i></span></div>
+        <div class="patron-ej"><span class="yr">2023</span><span class="patron-ej-text">"<b>Exponer</b> tres derechos de los ciudadanos recogidos en dicha ley." <i>— mismo patrón numérico, aplicado a la LO 3/2018.</i></span></div>
+        <div class="patron-ej"><span class="yr">2023</span><span class="patron-ej-text">"<b>Exponer</b> los tipos de recursos administrativos (...) y las principales diferencias entre ellos." <i>— aquí el número no se da, pero la palabra "diferencias" exige comparación explícita, no una lista en paralelo.</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 3</span>
+        <h3 class="patron-title">Los enunciados nominales ("Definición de...", "Funciones de...") son más peligrosos de lo que parecen</h3>
+      </div>
+      <p class="patron-desc">Casi un tercio de las preguntas no tienen verbo: son un sintagma nominal seco ("Definición de...", "Competencias de...", "Infracciones graves y muy graves..."). Da la falsa sensación de pregunta corta y directa, pero el índice de "así lo ha preguntado el tribunal" avisa en varios de estos casos de que el enunciado escueto esconde varias partes obligatorias que se suelen olvidar.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">2024</span><span class="patron-ej-text">"<b>Definición</b>, contenido y duración del Plan Estadístico Nacional." <i>— tres sustantivos coordinados = tres apartados obligatorios en la respuesta, cada uno evaluado por separado.</i></span></div>
+        <div class="patron-ej"><span class="yr">2026</span><span class="patron-ej-text">"El Consejo de Empadronamiento. <b>Adscripción, composición y funciones</b>." <i>— mismo patrón de tres sustantivos; el propio análisis del tribunal señala que suelen olvidarse porque el foco del tema está en otro sitio.</i></span></div>
+        <div class="patron-ej"><span class="yr">2025</span><span class="patron-ej-text">"<b>Infracciones graves y muy graves</b> en materia estadística." <i>— el enunciado nominal más corto de las cuatro convocatorias es, precisamente, el que exige más disciplina de estructura: dos categorías, no una lista mezclada.</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 4</span>
+        <h3 class="patron-title">La pregunta cerrada ("¿es obligatoria...?") exige postura y fundamento, no descripción</h3>
+      </div>
+      <p class="patron-desc">Es el formato menos frecuente (solo dos casos en cuatro años) pero el que más penaliza responder "de memoria" sin razonar: el tribunal formula una pregunta de sí/no o de coste concreto, y espera que la respuesta se construya alrededor de esa pregunta puntual, no que se recite el tema entero alrededor de ella.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">2023</span><span class="patron-ej-text">"¿Es obligatoria la inscripción en el Censo Electoral? <b>Razonar</b> la respuesta." <i>— el verbo "razonar" es la clave: exige citar el fundamento legal exacto, no solo contestar "sí".</i></span></div>
+        <div class="patron-ej"><span class="yr">2025</span><span class="patron-ej-text">"¿Cuáles son los <b>recursos económicos</b> de que dispone el Instituto Nacional de Estadística (...)?" <i>— pregunta de foco muy estrecho (financiación), dentro de un tema mucho más amplio; responder sobre las funciones generales del INE no contesta lo que se pide.</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 5</span>
+        <h3 class="patron-title">"De conformidad con..." ancla la respuesta a una norma concreta, no al tema en general</h3>
+      </div>
+      <p class="patron-desc">Cuatro de las quince preguntas empiezan citando la norma exacta antes de formular la pregunta. Es una instrucción implícita: la respuesta debe apoyarse en esa ley con su nombre y número, no en una explicación genérica del concepto aunque sea correcta.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">2023</span><span class="patron-ej-text">"<b>De conformidad con</b> el RDLeg 5/2015 (TREBEP), exponer al menos tres principios de conducta (...)." <i>— citar el TREBEP por su nombre en la respuesta no es adorno, es lo que se está pidiendo explícitamente.</i></span></div>
+        <div class="patron-ej"><span class="yr">2023</span><span class="patron-ej-text">"<b>De conformidad con</b> la Ley 12/1989 (...), explicar qué es el secreto estadístico." <i>— mismo mecanismo: ancla la respuesta a la definición legal, no a una paráfrasis de manual.</i></span></div>
+        <div class="patron-ej"><span class="yr">2023</span><span class="patron-ej-text">"<b>De conformidad con</b> la LO 5/1985 (LOREG), ¿es obligatoria (...)?" <i>— el patrón 4 y el patrón 5 se combinan aquí: pregunta cerrada + norma citada.</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 6</span>
+        <h3 class="patron-title">Las preguntas más recientes (2025-2026) cruzan dos temas en un solo enunciado</h3>
+      </div>
+      <p class="patron-desc">Es la evolución más clara del estilo del tribunal en las últimas dos convocatorias: en vez de preguntar un tema de forma aislada, construye el enunciado para que solo se pueda responder bien si se conectan dos bloques distintos del temario. Es el patrón que más debería influir en cómo se prioriza el repaso de los temas de Prioridad 1 y 2 de este documento.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">2026</span><span class="patron-ej-text">"Explicar cómo se aplica el <b>Esquema Nacional de Seguridad</b> a la producción estadística oficial (...)." <i>— obliga a cruzar el Tema 14 (ENS) con el secreto estadístico del Tema 8 y con Producción Estadística; no basta con describir el ENS en abstracto.</i></span></div>
+        <div class="patron-ej"><span class="yr">2025</span><span class="patron-ej-text">"Funciones del <b>Consejo Superior de Estadística</b>." <i>— exige no confundirlo con el propio INE ni con la coordinación estadística, es decir, distinguirlo de otros órganos del mismo tema.</i></span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lexico-box">
+    <h3 class="lexico-title">Guía rápida: qué exige cada verbo del enunciado</h3>
+    <div class="lexico-cols">
+      <div class="lexico-col">
+        <h4>Verbos vistos en examen</h4>
+        <ul>
+          <li><b>Explicar</b> → desarrollo con causa, norma y efecto; casi siempre trae un "y" con una segunda exigencia.</li>
+          <li><b>Exponer</b> → enumeración con número mínimo marcado o con diferencias explícitas entre ítems.</li>
+          <li><b>Definir / Definición de</b> → concepto exacto de la norma, no una paráfrasis libre.</li>
+          <li><b>Razonar</b> → postura justificada con cita del fundamento legal, no solo la respuesta.</li>
+          <li><b>Enunciado nominal sin verbo</b> → cada sustantivo coordinado ("adscripción, composición y funciones") es un apartado que se evalúa por separado.</li>
+        </ul>
+      </div>
+      <div class="lexico-col">
+        <h4>Señales de alcance a vigilar</h4>
+        <ul>
+          <li><b>"De conformidad con..."</b> → la respuesta debe citar esa norma por su nombre y número.</li>
+          <li><b>Cifras en el enunciado ("tres", "al menos")</b> → son requisito de mínimos, no una orientación de estilo.</li>
+          <li><b>Coordinación con "y"</b> → casi nunca es adorno: introduce una segunda tarea tan evaluable como la primera.</li>
+          <li><b>Nombre de un órgano concreto</b> → pide distinguirlo de otros órganos similares del mismo tema, no describir la ley que lo crea.</li>
+          <li><b>Referencia a "aplicar" un concepto a un caso</b> → exige trasladarlo al ámbito estadístico/INE, no explicarlo en abstracto.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <b>Cómo se ha construido esta estimación:</b> se ha cruzado el subíndice de cada uno de los 14 temas del bloque de Derecho con las preguntas reales registradas en las últimas cuatro convocatorias del primer ejercicio del turno libre (2022-2025, exámenes de 2023 a 2026). La probabilidad "alta" se asigna a epígrafes de temas nunca preguntados o al único hueco pendiente de un tema muy repetido; "media" a contenidos con conexión temática a preguntas ya hechas en otros temas; "baja" a epígrafes que ya fueron objeto de pregunta directa en alguna de las cuatro convocatorias recientes. Es una estimación orientativa de dónde concentrar el repaso, no una predicción cerrada: el tribunal puede repetir enunciados literales (como demuestra el Tema 5 en 2025-2026) o introducir ángulos nuevos sobre contenido ya preguntado.
+    <br><br>
+    <b>Fuente del temario:</b> Resolución de 22 de diciembre de 2025, de la Subsecretaría (Ministerio de Economía, Comercio y Empresa) — BOE núm. 313, de 29/12/2025, Anexo I, Programa, apartado A.VI «Derecho». Ref. BOE-A-2025-26900.
+    <br><br>
+    <b>Sobre el análisis retórico:</b> los patrones lingüísticos se han extraído de las 15 preguntas literales registradas en las cuatro convocatorias (2023-2026), reformuladas y resumidas por el INE en su material de apoyo a la oposición, no de una transcripción oficial palabra por palabra. Sirve para reconocer el tipo de exigencia que suele acompañar a cada verbo, no como garantía de que una pregunta futura repetirá exactamente esa estructura.
+  </div>
+
+</div>
+</body>
+</html>

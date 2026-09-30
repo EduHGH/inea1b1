@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Huecos reales de la Ley 39/2015 — Complemento en orden BOE — INE A1</title>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --paper-deep:#EAE3D2;
+    --ink:#1F1B16;
+    --ink-soft:#4A443A;
+    --ink-faint:#8A8375;
+    --rule:#D9D1BE;
+    --highlight:#EFA07F;
+    --highlight-deep:#E88357;
+    --highlight-text:#4A2410;
+    --card:#FBF8F1;
+    --article-bg:#FFFEFB;
+    --article-border:#DCD3BC;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+  }
+
+  .doc{
+    max-width:800px;
+    margin:0 auto;
+    padding:64px 28px 120px;
+  }
+
+  .masthead{
+    border-bottom:3px solid var(--ink);
+    padding-bottom:20px;
+    margin-bottom:32px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:10px;
+  }
+  h1.title{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:36px;
+    line-height:1.1;
+    letter-spacing:-.01em;
+    margin:0 0 8px;
+  }
+  .subtitle{
+    font-size:16px;
+    color:var(--ink-soft);
+    max-width:64ch;
+  }
+
+  .howto{
+    background:var(--paper-deep);
+    border-radius:6px;
+    padding:18px 20px;
+    margin:24px 0 40px;
+  }
+  .howto .kc-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+  }
+  .howto p{margin:0 0 8px; font-size:14.5px;}
+  .howto p:last-child{margin-bottom:0;}
+
+  section.bloque{margin-bottom:56px; scroll-margin-top:24px;}
+  .bloque-head{display:flex; align-items:baseline; gap:14px; margin-bottom:6px;}
+  .bloque-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--highlight-deep);
+    border:1px solid var(--highlight-deep);
+    border-radius:100px;
+    padding:2px 10px;
+  }
+  .bloque-title{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:23px;
+    margin:0;
+  }
+  .norma-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+    margin:6px 0 14px;
+  }
+  .tema-intro{
+    font-size:15px;
+    color:var(--ink-soft);
+    max-width:68ch;
+    margin-bottom:8px;
+  }
+
+  .articulo{
+    background:var(--article-bg);
+    border:1px solid var(--article-border);
+    border-radius:8px;
+    padding:20px 22px;
+    margin:22px 0 0;
+  }
+  .art-head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:8px;
+    margin-bottom:10px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--rule);
+  }
+  .art-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:14px;
+    color:var(--highlight-text);
+    background:#FBE3D4;
+    padding:2px 9px;
+    border-radius:4px;
+  }
+  .art-rubrica{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16.5px;
+    color:var(--ink);
+  }
+  .art-body p{margin:0 0 10px; font-size:15px;}
+  .art-body p:last-child{margin-bottom:0;}
+  .art-body b{color:var(--ink);}
+  mark{
+    background:#F6D9C4;
+    color:var(--highlight-text);
+    padding:0 3px;
+    border-radius:2px;
+  }
+
+  .comentario{
+    background:var(--card);
+    border-left:3px solid var(--highlight-deep);
+    border-radius:0 6px 6px 0;
+    padding:16px 20px;
+    margin:0 0 8px;
+  }
+  .c-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--highlight-deep);
+    margin-bottom:8px;
+  }
+  .comentario p{margin:0 0 8px; font-size:14.5px; color:var(--ink-soft);}
+  .comentario p:last-child{margin-bottom:0;}
+  .ine-tag{
+    font-size:13.5px;
+    color:var(--ink-faint);
+    font-style:italic;
+    border-top:1px dashed var(--rule);
+    padding-top:8px;
+    margin-top:8px;
+  }
+
+  .divider{border:none; border-top:2px solid var(--ink); margin:56px 0;}
+
+  .toc-wrap{
+    background:var(--card);
+    border:1px solid var(--article-border);
+    border-radius:4px;
+    padding:28px 32px;
+    margin:0 0 56px;
+  }
+  .toc-wrap .kc-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 16px;
+  }
+  .toc-wrap ol{
+    list-style:none;
+    margin:0;
+    padding:0;
+    counter-reset:toc;
+  }
+  .toc-wrap li{
+    margin:0;
+    border-top:1px dashed var(--rule);
+  }
+  .toc-wrap li:first-child{border-top:none;}
+  .toc-wrap a{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    padding:9px 0;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .toc-wrap a:hover .toc-title{color:var(--highlight-deep);}
+  .toc-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+    flex-shrink:0;
+    width:64px;
+  }
+  .toc-title{font-size:14.5px;}
+
+  .part-flag{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    background:var(--paper-deep);
+    border:1px solid var(--rule);
+    border-radius:20px;
+    padding:4px 14px;
+    margin:0 0 20px;
+  }
+  hr.part-divider{
+    border:none;
+    border-top:3px double var(--ink);
+    margin:80px 0 56px;
+  }
+  .back-to-top{
+    display:inline-block;
+    margin-top:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:.04em;
+    color:var(--ink-faint);
+    text-decoration:none;
+    border-bottom:1px dashed var(--ink-faint);
+  }
+  .back-to-top:hover{color:var(--highlight-deep); border-color:var(--highlight-deep);}
+
+  table.cuadro{
+    width:100%;
+    border-collapse:collapse;
+    margin:18px 0 8px;
+    font-size:13.5px;
+  }
+  table.cuadro th, table.cuadro td{
+    border:1px solid var(--rule);
+    padding:8px 10px;
+    text-align:left;
+    vertical-align:top;
+  }
+  table.cuadro th{
+    background:var(--paper-deep);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+  }
+
+</style>
+</head>
+<body>
+<div class="doc" id="top">
+
+  <div class="masthead">
+    <div class="eyebrow">Complemento · Derecho Público INE A1 · Tema 5 · Ley 39/2015</div>
+    <h1 class="title">Los huecos reales de la Ley 39/2015 — artículos que faltan, en orden BOE</h1>
+    <p class="subtitle">Contrastados los tres archivos previos del Tema 5 contra el índice oficial consolidado del BOE, estos son los artículos de la Ley 39/2015 que no estaban cubiertos por ningún documento anterior. Se presentan en el mismo orden del articulado oficial, agrupados por título y capítulo, para insertarlos donde corresponde en tu documento maestro.</p>
+  </div>
+
+  <div class="howto">
+    <div class="kc-label">Qué cubre exactamente este complemento</div>
+    <p>27 artículos repartidos en cuatro bloques: (1) <mark>Sección 2ª y 3ª del Cap. II, Título IV</mark> — cierre de la iniciación de oficio y a solicitud del interesado (arts. 64, 65, 67, 68, 69); (2) <mark>Capítulo III, Título IV</mark> — ordenación del procedimiento (arts. 72, 73, 74); (3) piezas sueltas de instrucción, participación, finalización y ejecución (arts. 78, 79, 81, 85, 86, 91, 92, 97, 98, 101, 102, 104, 105); y (4) el <mark>Título VI íntegro</mark> — iniciativa legislativa y potestad reglamentaria (arts. 127-133). No se repite el art. 70, 71, 76, 77, 80, 82-84, 87-90, 93-96, 99-100, 103 ni 106 en adelante porque ya constan como cubiertos en tu revisión.</p>
+  </div>
+
+  <div class="toc-wrap">
+    <div class="kc-label">Índice — 4 bloques</div>
+    <ol>
+      <li><a href="#bloque-1"><span class="toc-num">Bloque 1</span><span class="toc-title">Título IV, Cap. II — Cierre de la iniciación de oficio y a solicitud del interesado (arts. 64, 65, 67, 68, 69)</span></a></li>
+      <li><a href="#bloque-2"><span class="toc-num">Bloque 2</span><span class="toc-title">Título IV, Cap. III — Ordenación del procedimiento (arts. 72, 73, 74)</span></a></li>
+      <li><a href="#bloque-3"><span class="toc-num">Bloque 3</span><span class="toc-title">Instrucción, participación, finalización y ejecución (arts. 78, 79, 81, 85, 86, 91, 92, 97, 98, 101, 102, 104, 105)</span></a></li>
+      <li><a href="#bloque-4"><span class="toc-num">Bloque 4</span><span class="toc-title">Título VI íntegro — Iniciativa legislativa y potestad reglamentaria (arts. 127-133)</span></a></li>
+    </ol>
+  </div>
+
+  <section class="bloque" id="bloque-1">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 1</span>
+      <h2 class="bloque-title">Título IV, Cap. II, Secciones 2ª y 3ª — Cierre de la iniciación</h2>
+    </div>
+    <div class="norma-tag">Ley 39/2015, de 1 de octubre (BOE-A-2015-10565) · Arts. 64, 65, 67, 68, 69</div>
+    <p class="tema-intro">Cierra el Capítulo II (Iniciación del procedimiento): las dos especialidades que quedaban sueltas de la iniciación de oficio —sancionadora y responsabilidad patrimonial— y las tres piezas que cierran la iniciación a solicitud del interesado —contenido de la reclamación patrimonial, subsanación y declaración responsable—.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 64</span> <span class="art-rubrica">— Acuerdo de iniciación en los procedimientos de naturaleza sancionadora</span></div>
+      <div class="art-body">
+        <p><b>1.</b> El acuerdo de iniciación se comunicará al instructor del procedimiento, con traslado de cuantas actuaciones existan al respecto, y se notificará a los interesados, entendiendo en todo caso por tal al inculpado. Asimismo, la incoación se comunicará al denunciante cuando las normas reguladoras del procedimiento así lo prevean.</p>
+        <p><b>2.</b> El acuerdo de iniciación deberá contener al menos: <b>a)</b> Identificación de la persona o personas presuntamente responsables. <b>b)</b> Los hechos que motivan la incoación del procedimiento, su posible calificación y las sanciones que pudieran corresponder, sin perjuicio de lo que resulte de la instrucción. <b>c)</b> Identificación del instructor y, en su caso, Secretario del procedimiento, con expresa indicación del régimen de recusación de los mismos. <b>d)</b> Órgano competente para la resolución del procedimiento y norma que le atribuya tal competencia, indicando la posibilidad de que el presunto responsable pueda <mark>reconocer voluntariamente su responsabilidad</mark>, con los efectos previstos en el artículo 85. <b>e)</b> Medidas de carácter provisional que se hayan acordado por el órgano competente. <b>f)</b> Indicación del derecho a formular alegaciones y a la audiencia, y de que, en caso de no efectuar alegaciones sobre el contenido del acuerdo de iniciación, éste podrá ser considerado propuesta de resolución cuando contenga un pronunciamiento preciso acerca de la responsabilidad imputada.</p>
+        <p><b>3.</b> Excepcionalmente, cuando en el momento de dictar el acuerdo de iniciación no existan elementos suficientes para la calificación inicial de los hechos, ésta podrá realizarse en una fase posterior mediante la elaboración de un <mark>Pliego de cargos</mark>, que deberá ser notificado a los interesados.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La letra d) es la más citada: el acuerdo de iniciación debe advertir de la posibilidad de reconocimiento voluntario porque de eso depende la reducción de <mark>al menos el 20%</mark> del art. 85. La letra f) introduce una regla que suele generar confusión: el silencio del interesado ante el acuerdo de iniciación NO equivale a allanamiento, pero SÍ permite que ese mismo acuerdo se convierta directamente en propuesta de resolución si ya contenía un pronunciamiento preciso sobre la responsabilidad — ahorrando así el trámite separado de propuesta de resolución del art. 89.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 65</span> <span class="art-rubrica">— Especialidades en el inicio de oficio de los procedimientos de responsabilidad patrimonial</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Cuando las Administraciones Públicas decidan iniciar de oficio un procedimiento de responsabilidad patrimonial será necesario que <mark>no haya prescrito</mark> el derecho a la reclamación del interesado al que se refiere el artículo 67.</p>
+        <p><b>2.</b> El acuerdo de iniciación del procedimiento se notificará a los particulares presuntamente lesionados, concediéndoles un plazo de <mark>diez días</mark> para que aporten cuantas alegaciones, documentos o información estimen conveniente a su derecho y propongan cuantas pruebas sean pertinentes para el reconocimiento del mismo.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>A diferencia del procedimiento sancionador —que solo puede iniciarse de oficio—, el de responsabilidad patrimonial admite ambas vías: de oficio (este artículo) o a solicitud del interesado (arts. 66-67, ya cubiertos salvo el 67). El único requisito específico para la vía de oficio es que el plazo de prescripción de un año del art. 67 no haya vencido todavía, lo cual es lógico: si la Administración pudiera abrir de oficio un procedimiento ya prescrito, estaría burlando la prescripción que protege también su propia seguridad jurídica.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 67</span> <span class="art-rubrica">— Solicitudes de iniciación en los procedimientos de responsabilidad patrimonial</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los interesados sólo podrán solicitar el inicio de un procedimiento de responsabilidad patrimonial cuando no haya prescrito su derecho a reclamar. El derecho a reclamar prescribirá <mark>al año</mark> de producido el hecho o el acto que motive la indemnización o se manifieste su efecto lesivo. En caso de daños de carácter físico o psíquico a las personas, el plazo empezará a computarse desde la <mark>curación o la determinación del alcance de las secuelas</mark>. En los casos en que proceda reconocer derecho a indemnización por anulación de un acto o disposición de carácter general, el derecho a reclamar prescribirá al año de haberse notificado la resolución administrativa o la sentencia definitiva. En los casos de responsabilidad patrimonial por inconstitucionalidad de una norma o su carácter contrario al Derecho de la UE, el derecho a reclamar prescribirá al año de la publicación de la sentencia en el BOE o en el DOUE.</p>
+        <p><b>2.</b> Además de lo previsto en el artículo 66, la solicitud deberá especificar las <mark>lesiones producidas</mark>, la presunta relación de causalidad entre éstas y el funcionamiento del servicio público, la evaluación económica de la responsabilidad patrimonial si fuera posible, y el momento en que la lesión efectivamente se produjo, acompañada de cuantas alegaciones, documentos y pruebas se estimen oportunos.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es el artículo de referencia sobre el <mark>plazo de prescripción de la acción de responsabilidad patrimonial</mark>, distinto y frecuentemente confundido con el plazo de caducidad del procedimiento (seis meses, art. 91.3). El dato que más se pregunta es la regla especial para daños físicos o psíquicos: el "día inicial" no es el del accidente, sino el de la <mark>curación o estabilización de secuelas</mark> — la llamada doctrina de la "actio nata", que impide que el plazo corra mientras el alcance real del daño todavía se desconoce.</p>
+      <p class="ine-tag">↳ Enlaza con el art. 65 (inicio de oficio, mismo plazo de prescripción) y con el art. 91 (especialidades de la resolución, plazo de caducidad de seis meses).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 68</span> <span class="art-rubrica">— Subsanación y mejora de la solicitud</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Si la solicitud de iniciación no reúne los requisitos del artículo 66, y en su caso del 67, se requerirá al interesado para que, en un plazo de <mark>diez días</mark>, subsane la falta o acompañe los documentos preceptivos, con indicación de que si así no lo hiciera se le tendrá por <mark>desistido</mark> de su petición, previa resolución dictada en los términos del artículo 21.</p>
+        <p><b>2.</b> Fuera de procedimientos selectivos o de concurrencia competitiva, este plazo podrá ampliarse prudencialmente hasta cinco días, a petición del interesado o de oficio, cuando la aportación de documentos presente dificultades especiales.</p>
+        <p><b>3.</b> En los procedimientos iniciados a solicitud de los interesados, el órgano competente podrá recabar del solicitante la <mark>modificación o mejora voluntarias</mark> de los términos de aquélla, levantándose acta sucinta que se incorporará al procedimiento.</p>
+        <p><b>4.</b> Si alguno de los sujetos obligados a relacionarse electrónicamente (art. 14.2 y 14.3) presenta su solicitud presencialmente, se le requerirá para que la subsane a través de su presentación electrónica, considerándose como fecha de presentación aquella en que se realice la subsanación.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Consagra el principio de <mark>preclusión con subsanación</mark>: la Administración no puede rechazar de plano una solicitud defectuosa, debe dar diez días para corregirla. La consecuencia del incumplimiento no es la inadmisión sino el <mark>desistimiento</mark> (y siempre mediante resolución expresa, nunca automáticamente). El apartado 4 es la pieza de "administración electrónica" del artículo: quien está obligado a relacionarse electrónicamente y presenta en papel no se le rechaza el trámite, se le trata como un defecto subsanable más.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 69</span> <span class="art-rubrica">— Declaración responsable y comunicación</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Se entiende por <mark>declaración responsable</mark> el documento suscrito por un interesado en el que manifiesta, bajo su responsabilidad, que cumple los requisitos establecidos para obtener el reconocimiento de un derecho o facultad, que dispone de la documentación que lo acredita y que se compromete a mantener su cumplimiento durante el periodo de tiempo inherente al mismo. Los requisitos deberán constar de manera expresa, clara y precisa en la propia declaración.</p>
+        <p><b>2.</b> Se entiende por <mark>comunicación</mark> aquel documento mediante el que los interesados ponen en conocimiento de la Administración sus datos identificativos o cualquier otro dato relevante para el inicio de una actividad o el ejercicio de un derecho.</p>
+        <p><b>3.</b> Ambas figuras permitirán el reconocimiento o ejercicio de un derecho o el inicio de una actividad, <mark>desde el día de su presentación</mark>, sin perjuicio de las facultades de comprobación, control e inspección de la Administración.</p>
+        <p><b>4.</b> La inexactitud, falsedad u omisión de carácter esencial en cualquier dato de la declaración responsable o comunicación, o la no presentación de la documentación requerida, determinará la <mark>imposibilidad de continuar</mark> con el ejercicio del derecho o actividad afectada desde que se tenga constancia de tales hechos, sin perjuicio de las responsabilidades penales, civiles o administrativas a que hubiera lugar.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es la pieza clave de la técnica de intervención administrativa "a posteriori": el control se desplaza del momento previo al inicio de la actividad hacia la comprobación posterior. La diferencia entre las dos figuras se pregunta con frecuencia: la declaración responsable afirma el <mark>cumplimiento de requisitos</mark> de fondo, mientras que la comunicación se limita a poner datos en conocimiento de la Administración, sin ese compromiso de cumplimiento sustantivo. El apartado 4 es el que más se pregunta en su vertiente sancionadora: la consecuencia no es una sanción automática, sino la <mark>imposibilidad de continuar</mark> la actividad, sin perjuicio de las responsabilidades que además pudieran exigirse.</p>
+    </div>
+    <div style="text-align:right;"><a href="#top" class="back-to-top">↑ volver arriba</a></div>
+  </section>
+
+  <section class="bloque" id="bloque-2">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 2</span>
+      <h2 class="bloque-title">Título IV, Capítulo III — Ordenación del procedimiento</h2>
+    </div>
+    <div class="norma-tag">Ley 39/2015, de 1 de octubre (BOE-A-2015-10565) · Arts. 72, 73, 74</div>
+    <p class="tema-intro">Cierra el Capítulo III (Ordenación), del que tu documento ya cubría el art. 70 (expediente administrativo) y el 71 (impulso de oficio). Faltan las tres piezas que desarrollan el principio de simplificación administrativa y la respuesta al incumplimiento de trámites por los interesados.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 72</span> <span class="art-rubrica">— Concentración de trámites</span></div>
+      <div class="art-body">
+        <p><b>1.</b> De acuerdo con el principio de <mark>simplificación administrativa</mark>, se acordarán en un solo acto todos los trámites que, por su naturaleza, admitan un impulso simultáneo y no sea obligado su cumplimiento sucesivo.</p>
+        <p><b>2.</b> Al solicitar los trámites que deban ser cumplidos por otros órganos, deberá consignarse en la comunicación cursada el <mark>plazo legal establecido</mark> al efecto.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Aplicación directa del principio de eficacia: si dos trámites no dependen el uno del resultado del otro, no hay razón para tramitarlos en serie —se acumulan en un único acto para no dilatar el procedimiento—. Conviene distinguirlo de la <mark>acumulación de procedimientos</mark> del art. 57 (que junta expedientes distintos con conexión entre sí): aquí se trata de trámites dentro de un mismo procedimiento, no de procedimientos completos.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 73</span> <span class="art-rubrica">— Cumplimiento de trámites</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los trámites que deban ser cumplimentados por los interesados deberán realizarse en el plazo de <mark>diez días</mark> a partir del siguiente al de la notificación del correspondiente acto, salvo que la norma fije plazo distinto.</p>
+        <p><b>2.</b> En cualquier momento del procedimiento, cuando la Administración considere que alguno de los actos de los interesados no reúne los requisitos necesarios, lo pondrá en conocimiento de su autor, concediéndole un plazo de diez días para cumplimentarlo.</p>
+        <p><b>3.</b> A los interesados que no cumplan lo dispuesto en los apartados anteriores se les podrá declarar <mark>decaídos en su derecho al trámite correspondiente</mark>. No obstante, se admitirá la actuación del interesado y producirá sus efectos legales si se produce antes o dentro del día en que se notifique la resolución en la que se tenga por transcurrido el plazo.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Consagra el principio de <mark>preclusión de trámites</mark>: cada actuación tiene su plazo (diez días si la norma no dice otra cosa) y su incumplimiento provoca decaimiento en ese trámite concreto —nunca en el procedimiento entero—. La cláusula final del apartado 3 es la que más se pregunta: existe un "colchón" hasta que se <mark>notifique la resolución de decaimiento</mark>; si el interesado actúa antes de esa notificación, aunque ya hubiera vencido el plazo, su actuación es válida. Compárese con el art. 68 (subsanación de solicitudes), que también da diez días pero cuya consecuencia es el desistimiento del procedimiento completo, no solo de un trámite.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 74</span> <span class="art-rubrica">— Cuestiones incidentales</span></div>
+      <div class="art-body">
+        <p>Las cuestiones incidentales que se susciten en el procedimiento, incluso las que se refieran a la <mark>nulidad de actuaciones</mark>, no suspenderán la tramitación del mismo, salvo la recusación.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Regla de continuidad frente a incidentes: ni siquiera una alegación de nulidad de actuaciones detiene el procedimiento principal —se resolverá en su momento, pero el expediente sigue avanzando—. La <mark>única excepción expresa</mark> es la recusación de la autoridad o el personal al servicio de la Administración, que si suspende la tramitación mientras se resuelve por el superior jerárquico (enlaza con el art. 22.2.c) sobre suspensión del plazo máximo para resolver, ya cubierto en tu documento).</p>
+    </div>
+    <div style="text-align:right;"><a href="#top" class="back-to-top">↑ volver arriba</a></div>
+  </section>
+
+  <section class="bloque" id="bloque-3">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 3</span>
+      <h2 class="bloque-title">Instrucción, participación, finalización y ejecución</h2>
+    </div>
+    <div class="norma-tag">Ley 39/2015, de 1 de octubre (BOE-A-2015-10565) · Arts. 78, 79, 81, 85, 86, 91, 92, 97, 98, 101, 102, 104, 105</div>
+    <p class="tema-intro">Trece artículos sueltos repartidos entre cuatro capítulos del Título IV que ya tenías mayoritariamente cubiertos: la práctica de la prueba y la petición de informes (Cap. IV), la terminación sancionadora y convencional (Cap. V, Sección 1ª), las especialidades de resolución en responsabilidad patrimonial (Cap. V, Sección 2ª) y cinco de los nueve artículos del Capítulo VII sobre ejecución forzosa.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 78</span> <span class="art-rubrica">— Práctica de prueba</span></div>
+      <div class="art-body">
+        <p><b>1.</b> La Administración comunicará a los interesados, con antelación suficiente, el inicio de las actuaciones necesarias para la realización de las pruebas que hayan sido admitidas.</p>
+        <p><b>2.</b> En la notificación se consignará el <mark>lugar, fecha y hora</mark> en que se practicará la prueba, con la advertencia, en su caso, de que el interesado puede nombrar técnicos para que le asistan.</p>
+        <p><b>3.</b> Cuando, a petición del interesado, deban efectuarse pruebas cuya realización implique gastos que no deba soportar la Administración, ésta podrá exigir el <mark>anticipo</mark> de los mismos, a reserva de la liquidación definitiva una vez practicada la prueba.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Desarrolla, junto al art. 77 (ya cubierto), los principios de <mark>contradicción</mark> (audiencia a la otra parte) y de <mark>audiencia</mark> (nadie puede ser condenado sin ser oído) que informan el ejercicio del derecho de defensa de los arts. 24 y 105 CE. La comunicación no es un mero trámite informativo: su finalidad es permitir que el interesado se persone en el acto de la prueba, por lo que debe ser completa (lugar, fecha y hora) y no queda al arbitrio del instructor omitirla ni restringirla.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 79</span> <span class="art-rubrica">— Petición (de informes)</span></div>
+      <div class="art-body">
+        <p><b>1.</b> A efectos de la resolución del procedimiento, se solicitarán aquellos informes que sean <mark>preceptivos por las disposiciones legales</mark>, y los que se juzguen necesarios para resolver, citándose el precepto que los exija o fundamentando, en su caso, la conveniencia de reclamarlos.</p>
+        <p><b>2.</b> En la petición de informe se concretará el extremo o extremos acerca de los que se solicita.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Abre la Sección 3ª de informes, cuya regla general de emisión (facultativos, no vinculantes, plazo de diez días) está en el art. 80, ya cubierto en tu documento. Este artículo distingue entre informes <mark>preceptivos</mark> (los exige una disposición legal) e informes simplemente convenientes a juicio del instructor —ambos deben pedirse motivadamente, señalando el extremo concreto sobre el que se pregunta, para no convertir el trámite en una consulta genérica.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 81</span> <span class="art-rubrica">— Solicitud de informes y dictámenes en los procedimientos de responsabilidad patrimonial</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Será preceptivo solicitar informe al <mark>servicio cuyo funcionamiento haya ocasionado</mark> la presunta lesión indemnizable, sin que su emisión pueda exceder de diez días.</p>
+        <p><b>2.</b> Cuando las indemnizaciones reclamadas sean de cuantía igual o superior a <mark>50.000 euros</mark> —o la que establezca la legislación autonómica—, así como en los casos que disponga la Ley Orgánica del Consejo de Estado, será preceptivo solicitar dictamen del <mark>Consejo de Estado</mark> u órgano consultivo autonómico equivalente. A tal efecto, el órgano instructor, en el plazo de diez días desde la finalización del trámite de audiencia, remitirá una propuesta de resolución ajustada al art. 91. El dictamen se emitirá en el plazo de <mark>dos meses</mark> y deberá pronunciarse sobre la existencia o no de relación de causalidad, y en su caso sobre la valoración del daño y la cuantía de la indemnización.</p>
+        <p><b>3.</b> En reclamaciones por funcionamiento anormal de la Administración de Justicia, será preceptivo el informe del <mark>Consejo General del Poder Judicial</mark>, evacuado en el plazo máximo de dos meses.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El dato numérico más preguntado de todo el bloque de responsabilidad patrimonial: dictamen preceptivo del Consejo de Estado cuando la reclamación alcanza <mark>50.000 €</mark>. Conviene retener la secuencia completa: informe del servicio causante (10 días) → trámite de audiencia (ya cubierto, art. 82) → propuesta de resolución (10 días desde que acaba la audiencia) → dictamen del Consejo de Estado si procede (2 meses). Este dictamen es el único de los tres informes de este artículo que resulta verdaderamente "externo" a la Administración instructora.</p>
+      <p class="ine-tag">↳ Conecta directamente con el art. 67 (plazo de prescripción de la acción) y con el art. 91 (contenido de la resolución final y plazo de caducidad de seis meses).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 85</span> <span class="art-rubrica">— Terminación en los procedimientos sancionadores</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Iniciado un procedimiento sancionador, si el infractor <mark>reconoce su responsabilidad</mark>, se podrá resolver el procedimiento con la imposición de la sanción que proceda.</p>
+        <p><b>2.</b> Cuando la sanción tenga carácter únicamente pecuniario, o quepa una pecuniaria y otra no pecuniaria pero se justifique la improcedencia de ésta última, el <mark>pago voluntario</mark> por el presunto responsable, en cualquier momento anterior a la resolución, implicará la terminación del procedimiento, salvo en lo relativo a la reposición de la situación alterada o a la indemnización de daños y perjuicios.</p>
+        <p><b>3.</b> En ambos casos, cuando la sanción sea únicamente pecuniaria, el órgano competente aplicará reducciones de, al menos, el <mark>20%</mark> sobre el importe de la sanción propuesta, siendo éstas acumulables entre sí.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Las dos reducciones —por reconocimiento de responsabilidad y por pago voluntario anticipado— son <mark>acumulables entre sí</mark>: un 20% por cada una, hasta el 40% si concurren ambas. El Tribunal Supremo ha precisado (STS 18/02/2021) que la renuncia a acciones o recursos que exige el apartado 3 para consolidar la reducción se limita a la <mark>vía administrativa</mark>, sin cerrar el acceso a la vía contencioso-administrativa posterior.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 86</span> <span class="art-rubrica">— Terminación convencional</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Las Administraciones Públicas podrán celebrar <mark>acuerdos, pactos, convenios o contratos</mark> con personas de Derecho público o privado, siempre que no sean contrarios al ordenamiento jurídico ni versen sobre materias no susceptibles de transacción, y tengan por objeto satisfacer el interés público encomendado. Pueden ser finalizadores del procedimiento o insertarse en él con carácter previo, vinculante o no, a la resolución.</p>
+        <p><b>2.</b> Deberán establecer como contenido mínimo la identificación de las partes, el ámbito personal, funcional y territorial, y el <mark>plazo de vigencia</mark>.</p>
+        <p><b>3.</b> Requerirán la aprobación expresa del <mark>Consejo de Ministros</mark> u órgano equivalente autonómico los acuerdos que versen sobre materias de su competencia directa.</p>
+        <p><b>4.</b> Los acuerdos no alterarán las competencias de los órganos administrativos ni las responsabilidades de autoridades y funcionarios.</p>
+        <p><b>5.</b> En procedimientos de responsabilidad patrimonial, el acuerdo deberá fijar la cuantía y modo de indemnización conforme a los criterios del art. 34 de la Ley 40/2015.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es una técnica de terminación de naturaleza <mark>bilateral</mark> —negocio jurídico entre Administración e interesado—, frente a la naturaleza unilateral de la resolución ordinaria. No tiene aplicación automática: exige que una disposición específica la prevea para el procedimiento de que se trate. El apartado 5 es el punto de conexión con la responsabilidad patrimonial: la terminación convencional es una alternativa a la resolución expresa del art. 91, y ambas deben fijar la indemnización con los mismos criterios de la Ley 40/2015.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 91</span> <span class="art-rubrica">— Especialidades de la resolución en los procedimientos de responsabilidad patrimonial</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Una vez recibido el dictamen del art. 81, o transcurrido el plazo para su emisión, el órgano competente resolverá o someterá el acuerdo con el interesado a la aprobación del órgano competente.</p>
+        <p><b>2.</b> Además de lo previsto en el art. 88, la resolución deberá pronunciarse sobre la existencia o no de <mark>relación de causalidad</mark> entre el funcionamiento del servicio público y la lesión producida, y en su caso sobre la valoración del daño, la cuantía y el modo de la indemnización, según los criterios del art. 34 de la Ley 40/2015.</p>
+        <p><b>3.</b> Transcurridos <mark>seis meses</mark> desde el inicio del procedimiento sin que haya recaído y se notifique resolución expresa —o se haya formalizado el acuerdo—, podrá entenderse que la resolución es contraria a la indemnización del particular.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El apartado 3 es el dato que confirma que en responsabilidad patrimonial el <mark>silencio administrativo es desestimatorio</mark> (coherente con lo ya visto en el art. 24.1, procedimientos que puedan dañar la Hacienda Pública). Nótese la diferencia entre el plazo de prescripción de la acción (un año, art. 67) y este plazo de caducidad-silencio del procedimiento ya iniciado (seis meses) — dos plazos de naturaleza distinta que suelen confundirse en el examen.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 92</span> <span class="art-rubrica">— Competencia para la resolución de los procedimientos de responsabilidad patrimonial</span></div>
+      <div class="art-body">
+        <p>En el ámbito de la <mark>Administración General del Estado</mark>, los procedimientos de responsabilidad patrimonial se resolverán por el <mark>Ministro respectivo</mark> o por el Consejo de Ministros en los casos del art. 32.3 de la Ley 40/2015 (responsabilidad patrimonial del Estado legislador y afines) o cuando una ley así lo disponga. En el ámbito autonómico y local, se resolverán por los órganos correspondientes de las Comunidades Autónomas o de las Entidades Locales. En el caso de Entidades de Derecho Público, sus normas reguladoras podrán establecer el órgano competente; en su defecto, se aplican las reglas de este artículo.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Regla de competencia jerárquica: en la AGE, la resolución de responsabilidad patrimonial nunca corresponde al órgano que causó el daño ni a su superior inmediato, sino que se eleva siempre al <mark>Ministro</mark> —o al Consejo de Ministros en los supuestos más singulares del art. 32.3 de la Ley 40/2015—. Es una garantía adicional de imparcialidad frente al conflicto de interés que supondría que el propio servicio causante decidiera sobre su responsabilidad.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 97</span> <span class="art-rubrica">— Título (de la ejecución forzosa)</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Las Administraciones Públicas no iniciarán ninguna actuación material de ejecución de resoluciones que limite derechos de los particulares sin que previamente haya sido <mark>adoptada la resolución</mark> que le sirva de fundamento jurídico.</p>
+        <p><b>2.</b> El órgano que ordene un acto de ejecución material de resoluciones estará obligado a <mark>notificar</mark> al particular interesado la resolución que autorice la actuación administrativa.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Abre el Capítulo VII (Ejecución) exigiendo que toda actuación material de ejecución cuente con un título jurídico previo y notificado: sin resolución no hay ejecución, y sin notificación al interesado la ejecución es ilegítima. Es la garantía frente a la llamada <mark>"vía de hecho"</mark> — actuación material sin cobertura jurídica— que conecta con la nulidad radical del art. 47.1.e).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 98</span> <span class="art-rubrica">— Ejecutoriedad</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los actos de las Administraciones Públicas sujetos al Derecho administrativo serán <mark>inmediatamente ejecutivos</mark>, salvo que: <b>a)</b> Se produzca la suspensión de la ejecución del acto. <b>b)</b> Se trate de una resolución de un procedimiento de naturaleza sancionadora contra la que quepa algún recurso en vía administrativa, incluido el <mark>potestativo de reposición</mark>. <b>c)</b> Una disposición establezca lo contrario.</p>
+        <p><b>2.</b> Cuando de una resolución administrativa, o de cualquier otra forma de finalización del procedimiento, nazca una obligación de pago derivada de una sanción pecuniaria, multa o cualquier otro derecho a abonar a la Hacienda Pública, se efectuará preferentemente por medios electrónicos.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>La letra b) del apartado 1 es la excepción más preguntada: en materia sancionadora, la ejecutoriedad queda <mark>suspendida "ope legis"</mark> mientras quepa recurso en vía administrativa, incluido el potestativo de reposición — algo que la Ley 30/1992 no preveía con esta claridad. Enlaza directamente con el art. 90.3 (especialidades de la resolución sancionadora, ya cubierto), que desarrolla la misma excepción desde el lado de la resolución.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 101</span> <span class="art-rubrica">— Apremio sobre el patrimonio</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Si en virtud de acto administrativo hubiera de satisfacerse <mark>cantidad líquida</mark>, se seguirá el procedimiento previsto en las normas reguladoras del procedimiento de apremio.</p>
+        <p><b>2.</b> En cualquier caso, no podrá imponerse a los administrados una obligación pecuniaria que no estuviese establecida con arreglo a una <mark>norma de rango legal</mark>.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El primero de los cinco medios de ejecución forzosa del art. 100 (ya cubierto): se aplica cuando la deuda es líquida (importe exacto y conocido) y se ejecuta mediante embargo de bienes del deudor, sin intervención judicial. El apartado 2 es la garantía de reserva de ley: ninguna obligación pecuniaria puede imponerse por vía reglamentaria u ordenanza, siempre debe tener respaldo en una norma con rango legal.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 102</span> <span class="art-rubrica">— Ejecución subsidiaria</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Habrá lugar a la ejecución subsidiaria cuando se trate de actos que, por <mark>no ser personalísimos</mark>, puedan ser realizados por sujeto distinto del obligado.</p>
+        <p><b>2.</b> Las Administraciones Públicas realizarán el acto, por sí o a través de las personas que determinen, <mark>a costa del obligado</mark>.</p>
+        <p><b>3.</b> El importe de los gastos, daños y perjuicios se exigirá conforme a lo dispuesto en el artículo anterior (apremio sobre el patrimonio).</p>
+        <p><b>4.</b> Dicho importe podrá liquidarse de forma <mark>provisional</mark> y realizarse antes de la ejecución, a reserva de la liquidación definitiva.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Se aplica a obligaciones de hacer que no requieren la intervención personal del obligado (p. ej. demoler una construcción ilegal): un tercero designado por la Administración realiza el acto, y el coste se repercute después mediante apremio. Es considerado el medio de ejecución forzosa <mark>más proporcionado</mark> de los cinco del art. 100, porque no añade ninguna carga nueva al obligado más allá de la que ya tenía impuesta en el acto original.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 104</span> <span class="art-rubrica">— Compulsión sobre las personas</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Los actos administrativos que impongan una obligación personalísima de <mark>no hacer o soportar</mark> podrán ser ejecutados por compulsión directa sobre las personas en los casos en que la ley expresamente lo autorice, y dentro siempre del respeto debido a su dignidad y a los derechos reconocidos en la Constitución.</p>
+        <p><b>2.</b> Si, tratándose de obligaciones personalísimas de hacer, no se realizase la prestación, el obligado deberá <mark>resarcir los daños y perjuicios</mark>, a cuya liquidación y cobro se procederá en vía administrativa.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El medio de ejecución forzosa más extremo del ordenamiento, reservado a obligaciones estrictamente personalísimas que ningún tercero puede cumplir en lugar del obligado, y exige siempre <mark>habilitación legal expresa</mark> —no basta con que lo prevea un reglamento—. Cuando la obligación personalísima es de hacer (no de soportar) y el obligado se resiste, la Ley no permite forzar físicamente la prestación: la única vía es la indemnización de daños y perjuicios, liquidada y cobrada por vía administrativa (enlazando de nuevo con el apremio del art. 101).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 105</span> <span class="art-rubrica">— Prohibición de acciones posesorias</span></div>
+      <div class="art-body">
+        <p>No se admitirán a trámite <mark>acciones posesorias</mark> contra las actuaciones de los órganos administrativos realizadas en materia de su competencia y de acuerdo con el procedimiento legalmente establecido.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Cierra el Capítulo VII con el llamado <mark>"privilegio de prohibición de interdictos"</mark>, fundamentado en la presunción de validez y legalidad de los actos administrativos (autotutela). La prohibición solo opera cuando la Administración ha actuado dentro de su competencia y respetando el procedimiento: si prescinde total y absolutamente de éste, entra en juego la llamada "vía de hecho", que sí permite al particular acudir a los interdictos posesorios en sede civil o a la jurisdicción contencioso-administrativa. La conexión con el art. 47.1.b) y e) —incompetencia manifiesta y prescindir del procedimiento— es directa.</p>
+    </div>
+    <div style="text-align:right;"><a href="#top" class="back-to-top">↑ volver arriba</a></div>
+  </section>
+
+  <section class="bloque" id="bloque-4">
+    <div class="bloque-head">
+      <span class="bloque-num">Bloque 4</span>
+      <h2 class="bloque-title">Título VI — De la iniciativa legislativa y de la potestad para dictar reglamentos y otras disposiciones</h2>
+    </div>
+    <div class="norma-tag">Ley 39/2015, de 1 de octubre (BOE-A-2015-10565) · Arts. 127-133 (título íntegro)</div>
+    <p class="tema-intro">El único título que faltaba por completo. Regula quién ejerce la iniciativa legislativa y la potestad reglamentaria, los principios de buena regulación, la publicidad de las normas, la planificación normativa y la participación ciudadana en su elaboración. Importante: varios de estos artículos fueron parcialmente anulados por la STC 55/2018 al invadir competencias autonómicas — se señala en cada caso.</p>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 127</span> <span class="art-rubrica">— Iniciativa legislativa y potestad para dictar normas con rango de ley</span></div>
+      <div class="art-body">
+        <p>El <mark>Gobierno de la Nación</mark> ejercerá la iniciativa legislativa prevista en la Constitución mediante la elaboración y aprobación de los anteproyectos de Ley y su ulterior remisión de los proyectos de ley a las Cortes Generales. La iniciativa legislativa se ejercerá por los órganos de gobierno de las Comunidades Autónomas en los términos de la Constitución y sus Estatutos de Autonomía. Asimismo, el Gobierno de la Nación podrá aprobar <mark>reales decretos-leyes y reales decretos legislativos</mark> en los términos previstos en la Constitución. Los respectivos órganos de gobierno autonómicos podrán aprobar normas equivalentes en su ámbito territorial.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Abre el Título VI reiterando mandatos ya conocidos de los arts. 87.1, 88, 86 y 82-85 de la Constitución: no crea derecho nuevo, sino que sistematiza en la ley ordinaria del procedimiento administrativo la titularidad de la iniciativa legislativa y de las disposiciones con rango de ley (decretos-leyes y decretos legislativos).</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 128</span> <span class="art-rubrica">— Potestad reglamentaria</span></div>
+      <div class="art-body">
+        <p><b>1.</b> El ejercicio de la potestad reglamentaria corresponde al <mark>Gobierno de la Nación</mark>, a los órganos de Gobierno de las Comunidades Autónomas y a los órganos de gobierno locales, de acuerdo con la Constitución, los Estatutos de Autonomía y la legislación de régimen local.</p>
+        <p><b>2.</b> Los reglamentos y disposiciones administrativas no podrán vulnerar la Constitución ni las leyes, ni regular materias reservadas a las Cortes Generales o Asambleas Legislativas autonómicas. Sin perjuicio de su función de desarrollo, no podrán <mark>tipificar delitos, faltas o infracciones administrativas</mark>, establecer penas o sanciones, ni tributos, exacciones parafiscales u otras cargas o prestaciones personales o patrimoniales de carácter público.</p>
+        <p><b>3.</b> Las disposiciones administrativas se ajustarán al <mark>orden de jerarquía</mark> que establezcan las leyes. Ninguna disposición administrativa podrá vulnerar los preceptos de otra de rango superior.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>El apartado 2 es el de mayor recorrido práctico: consagra el principio de <mark>reserva de ley</mark> en materia sancionadora y tributaria — un reglamento puede desarrollar o colaborar con la ley, pero nunca crear ex novo un tipo infractor, una pena o un tributo. El apartado 3 (jerarquía normativa) es el complemento lógico del principio de inderogabilidad singular de los reglamentos, ya visto en el art. 37 de tu documento base.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 129</span> <span class="art-rubrica">— Principios de buena regulación</span></div>
+      <div class="art-body">
+        <p><b>1.</b> En el ejercicio de la iniciativa legislativa y la potestad reglamentaria, las Administraciones Públicas actuarán con arreglo a los principios de <mark>necesidad, eficacia, proporcionalidad, seguridad jurídica, transparencia y eficiencia</mark>, justificando su adecuación en la exposición de motivos o el preámbulo.</p>
+        <p><b>2-3.</b> Necesidad y eficacia exigen que la norma esté justificada por interés general y sea el instrumento más adecuado para sus fines; proporcionalidad exige la regulación imprescindible, descartando medidas menos restrictivas.</p>
+        <p><b>4.</b> Seguridad jurídica exige coherencia con el resto del ordenamiento nacional y de la UE. Cuando la norma establezca trámites adicionales a los de esta Ley, deberán justificarse por la singularidad de la materia.</p>
+        <p><b>5-6.</b> Transparencia exige acceso sencillo a la normativa y participación de los destinatarios; eficiencia exige evitar cargas administrativas innecesarias.</p>
+        <p><b>7.</b> Cuando la iniciativa afecte a gastos o ingresos públicos, deberán cuantificarse sus repercusiones y supeditarse a la <mark>estabilidad presupuestaria</mark>.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Los <mark>seis principios</mark> (necesidad, eficacia, proporcionalidad, seguridad jurídica, transparencia, eficiencia) son la lista literal más preguntada de todo el título. Importante para el examen: la <mark>STC 55/2018</mark> declaró contrarios al orden constitucional de competencias este artículo (salvo parte del apartado 4) y los arts. 130, 132 y 133 — por invadir la potestad de autoorganización de las Comunidades Autónomas al imponerles un procedimiento estatal de elaboración normativa. Se mantienen vigentes para la Administración General del Estado.</p>
+      <p class="ine-tag">↳ Dato de examen: si preguntan "¿qué artículos del Título VI han sido declarados inconstitucionales total o parcialmente?", la respuesta son los arts. 129 (parcial), 130, 132 y 133 (parcial), por la STC 55/2018 de 24 de mayo.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 130</span> <span class="art-rubrica">— Evaluación normativa y adaptación de la normativa vigente a los principios de buena regulación</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Las Administraciones Públicas revisarán periódicamente su normativa vigente para adaptarla a los principios de buena regulación y comprobar si las normas en vigor han conseguido los objetivos previstos y si el coste y las cargas impuestas estaban justificados y correctamente cuantificados. El resultado se plasmará en un <mark>informe público</mark>.</p>
+        <p><b>2.</b> Las Administraciones cooperarán para promover el análisis económico en la elaboración de normas y evitar restricciones injustificadas o desproporcionadas a la actividad económica.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Introduce la evaluación <mark>"ex post"</mark> como complemento de los principios de buena regulación del art. 129, que operan "ex ante" (antes de aprobar la norma). Como se ha señalado, este artículo completo fue declarado contrario al orden competencial por la STC 55/2018, por lo que su aplicación queda limitada a la AGE.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 131</span> <span class="art-rubrica">— Publicidad de las normas</span></div>
+      <div class="art-body">
+        <p>Las normas con rango de ley, los reglamentos y disposiciones administrativas habrán de <mark>publicarse en el diario oficial correspondiente</mark> para que entren en vigor y produzcan efectos jurídicos. Adicionalmente, y de manera facultativa, las Administraciones podrán establecer otros medios de publicidad complementarios. La publicación en sedes electrónicas tendrá los mismos efectos que la edición impresa. La publicación del <mark>«BOE» en su sede electrónica</mark> tendrá carácter oficial y auténtico.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Es uno de los pocos artículos del título que no fue afectado por la STC 55/2018 y que aplica plenamente a todas las Administraciones. El dato relevante: la publicación electrónica del BOE tiene desde esta Ley <mark>el mismo valor oficial y auténtico</mark> que la antigua edición impresa en papel, algo que conecta con el giro hacia la "Administración sin papel" que inspira toda la Ley 39/2015.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 132</span> <span class="art-rubrica">— Planificación normativa</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Anualmente, las Administraciones Públicas harán público un <mark>Plan Normativo</mark> con las iniciativas legales o reglamentarias que vayan a elevarse para su aprobación en el año siguiente.</p>
+        <p><b>2.</b> Una vez aprobado, el Plan Anual Normativo se publicará en el <mark>Portal de la Transparencia</mark> de la Administración correspondiente.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Instrumento de planificación normativa "ex ante" que persigue la <mark>predictibilidad del ordenamiento</mark>. Igual que el art. 130, fue declarado contrario al orden constitucional de competencias por la STC 55/2018 en su integridad, por lo que solo resulta plenamente exigible en el ámbito de la Administración General del Estado.</p>
+    </div>
+
+    <div class="articulo">
+      <div class="art-head"><span class="art-num">Art. 133</span> <span class="art-rubrica">— Participación de los ciudadanos en el procedimiento de elaboración de normas con rango de Ley y reglamentos</span></div>
+      <div class="art-body">
+        <p><b>1.</b> Con carácter previo a la elaboración del proyecto o anteproyecto, se sustanciará una <mark>consulta pública</mark> a través del portal web, recabando la opinión sobre: los problemas que se pretenden solucionar, la necesidad y oportunidad de la norma, sus objetivos y las posibles soluciones alternativas.</p>
+        <p><b>2.</b> Cuando la norma afecte a derechos e intereses legítimos, se publicará el texto para dar <mark>audiencia</mark> a los ciudadanos afectados y recabar aportaciones, pudiendo recabarse también la opinión de asociaciones representativas.</p>
+        <p><b>3.</b> Deberán ponerse a disposición los documentos necesarios, claros y concisos.</p>
+        <p><b>4.</b> Podrá prescindirse de estos trámites en normas presupuestarias u organizativas, o cuando concurran razones graves de interés público. Cuando la propuesta no tenga impacto significativo en la actividad económica, no imponga obligaciones relevantes o regule aspectos parciales, podrá omitirse la <mark>consulta pública</mark> previa.</p>
+      </div>
+    </div>
+    <div class="comentario">
+      <div class="c-label">Comentario</div>
+      <p>Distingue dos trámites de participación con momentos distintos: la <mark>consulta pública</mark> previa a redactar el texto (apartado 1, sobre el "qué" y el "por qué" de la norma) y la <mark>audiencia e información pública</mark> posterior, ya con el texto redactado (apartado 2). La STC 55/2018 declaró contrario al orden competencial este artículo salvo el inciso inicial del apartado 1 (la obligación de sustanciar consulta pública) y el primer párrafo del apartado 4 — el resto solo es exigible en la AGE.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <div class="comentario" style="border-left-color:var(--ink); margin-top:8px;">
+    <div class="c-label" style="color:var(--ink-soft);">Nota sobre la numeración original</div>
+    <p>Tu primera revisión incluía por error los arts. 64-65 y 67-68 como "inexistentes" y los situaba, junto al 69, en el bloque de "Ordenación" (arts. 70-74). La numeración real del BOE es la que se sigue en este documento: 64-65 y 67-69 pertenecen al <mark>Capítulo II, Secciones 2ª y 3ª</mark> (iniciación), mientras que 72-74 sí pertenecen al <mark>Capítulo III</mark> (ordenación), junto a los arts. 70-71 que ya tenías cubiertos. Con este complemento y el resto de tus documentos, la Ley 39/2015 queda cubierta en su práctica totalidad, salvo el detalle puramente enumerativo de artículos ya mencionados de pasada en comentarios de otras entregas (arts. 21, 22, 24, 34-35, 39, 47, 57, 61, 66, 70-71, 75-77, 80, 82-84, 87-90, 93-96, 99-100, 103, 106-126) que no se repiten aquí por no ser huecos reales.</p>
+  </div>
+
+</div>
+</body>
+</html>

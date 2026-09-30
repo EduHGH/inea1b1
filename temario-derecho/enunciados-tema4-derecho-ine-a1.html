@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 4 · Enunciados probables de examen — La organización territorial del Estado</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;500;700&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --ink:#241F17;
+    --ink-soft:#6b6252;
+    --ink-faint:#9a9082;
+    --line:#dcd4c2;
+    --der:#2E5266;
+    --der-soft:#DCE6EB;
+    --der-glow:rgba(46,82,102,.18);
+    --glass:rgba(255,255,255,.6);
+    --card:#FBF8F1;
+
+    --hot:#8B3A3A;
+    --hot-soft:#F3DEDE;
+    --warm:#966A24;
+    --warm-soft:#F1E4CB;
+    --cold:#3E6B4F;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(36,31,23,.07) 1px, transparent 0) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    padding:48px 20px 90px;
+    line-height:1.6;
+  }
+
+  .wrap{max-width:840px; margin:0 auto;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:38px 36px 32px;
+    border-radius:20px;
+    background:var(--glass);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -24px rgba(36,31,23,.25);
+    overflow:hidden;
+    margin-bottom:30px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:-40% -20% auto auto;
+    width:340px; height:340px;
+    background:radial-gradient(circle, var(--der-glow), transparent 70%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.1em;
+    color:var(--der);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--der);}
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(24px, 4vw, 35px);
+    line-height:1.14;
+    margin:0 0 10px;
+    letter-spacing:-.01em;
+  }
+  .hero p{
+    margin:0;
+    max-width:64ch;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.65;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:9px;
+    margin-top:20px;
+  }
+  .meta-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.55);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 12px;
+  }
+
+  /* NOTA ESTRUCTURAL */
+  .nota-estructura{
+    background:var(--der-soft);
+    border-radius:14px;
+    padding:18px 22px;
+    margin-bottom:32px;
+    font-size:13.5px;
+    color:#26414d;
+    line-height:1.6;
+  }
+  .nota-estructura b{color:var(--der);}
+
+  /* SECTION HEADS */
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:14px;
+    margin:44px 0 6px;
+    padding-bottom:10px;
+    border-bottom:2px solid var(--ink);
+  }
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0;
+    letter-spacing:-.005em;
+  }
+  .section-count{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-faint);
+    white-space:nowrap;
+  }
+  .section-lead{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    max-width:66ch;
+    margin:12px 0 22px;
+  }
+
+  /* ENUNCIADO CARD */
+  .enunciado{
+    position:relative;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:4px solid var(--der);
+    border-radius:4px;
+    padding:20px 24px 20px 22px;
+    margin-bottom:16px;
+  }
+  .enunciado.hot{border-left-color:var(--hot);}
+  .enunciado.warm{border-left-color:var(--warm);}
+  .enunciado.cold{border-left-color:var(--cold);}
+
+  .en-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:10px;
+    flex-wrap:wrap;
+  }
+  .en-num{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:#fff;
+    background:var(--der);
+    border-radius:100px;
+    padding:3px 10px;
+    flex:none;
+  }
+  .en-num.hot{background:var(--hot);}
+  .en-num.warm{background:var(--warm);}
+  .en-num.cold{background:var(--cold);}
+  .en-tag{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.04em;
+    color:var(--ink-faint);
+    background:rgba(0,0,0,.04);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:3px 9px;
+  }
+
+  .en-enunciado{
+    font-family:'Fraunces', serif;
+    font-size:17.5px;
+    font-weight:500;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 12px;
+  }
+  .en-enunciado mark{
+    background:transparent;
+    color:var(--der);
+    font-weight:600;
+  }
+
+  .en-porque{
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.6;
+    border-top:1px dashed var(--line);
+    padding-top:11px;
+  }
+  .en-porque b{color:var(--ink);}
+
+  /* LEXICO */
+  .lexico-box{
+    margin-top:40px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:26px 28px;
+  }
+  .lexico-box h3{
+    font-family:'Fraunces', serif;
+    font-size:17px;
+    font-weight:600;
+    margin:0 0 14px;
+  }
+  .lexico-box ul{
+    margin:0;
+    padding-left:20px;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .lexico-box li{margin-bottom:7px;}
+  .lexico-box b{color:var(--ink);}
+
+  .foot{
+    margin-top:44px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-size:12px;
+    color:var(--ink-faint);
+    line-height:1.7;
+  }
+  .foot b{color:var(--ink-soft);}
+
+  @media(max-width:600px){
+    .hero{padding:28px 22px 24px;}
+    .enunciado{padding:18px 18px 18px 16px;}
+    .en-enunciado{font-size:16.5px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dot"></span>INE A1 · CUERPO SUPERIOR DE ESTADÍSTICOS · BLOQUE DE DERECHO</div>
+    <h1>Tema 4 — La organización territorial del Estado</h1>
+    <p>Enunciados probables de examen para el primer ejercicio (desarrollo escrito), construidos sobre el Título VIII de la Constitución (arts. 137-150 CE) y la Ley 7/1985, Reguladora de las Bases del Régimen Local (arts. 25, 26, 31 y 36). El bloque de Derecho no tiene segundo ejercicio: se evalúa únicamente en el primer ejercicio del turno libre.</p>
+    <div class="hero-meta">
+      <span class="meta-chip">0 preguntas registradas en 4 años</span>
+      <span class="meta-chip">Prioridad 1 — probabilidad alta</span>
+      <span class="meta-chip">arts. 137-150 CE</span>
+      <span class="meta-chip">Ley 7/1985 (LBRL)</span>
+      <span class="meta-chip">Solo primer ejercicio</span>
+    </div>
+  </div>
+
+  <div class="nota-estructura">
+    <b>Por qué este tema es candidato serio.</b> Igual que el Tema 2, el Tema 4 no registra ninguna pregunta propia en las últimas cuatro convocatorias (2023-2026), pese a tener una conexión casi perfecta con el perfil del cuerpo: el art. 149.1.31ª CE consagra la <b>"Estadística para fines estatales"</b> como competencia exclusiva del Estado, y es literalmente el fundamento constitucional de la Ley 12/1989 y de la existencia del INE. El mapa de probabilidad marca el epígrafe de competencias Estado-CCAA en probabilidad <b>alta</b> —precisamente por ese gancho estadístico— y el de Administración local en probabilidad <b>media</b>, al estar más alejado del perfil del cuerpo. Los enunciados siguientes no son transcripción de ningún examen real: son construcciones propias por analogía con el estilo retórico documentado en las 15 preguntas literales de las últimas cuatro convocatorias.
+  </div>
+
+  <!-- ============ BLOQUE A: COMPETENCIAS ESTADO-CCAA ============ -->
+  <div class="section-head">
+    <h2>Bloque A — Delimitación de competencias Estado — Comunidades Autónomas</h2>
+    <span class="section-count">arts. 137-150 CE</span>
+  </div>
+  <p class="section-lead">El epígrafe con más valor de examen específico para este cuerpo: el sistema de reparto competencial del Título VIII culmina en el art. 149.1.31ª, la norma constitucional que sostiene toda la función estadística pública. Es también el epígrafe donde el tribunal ya ha demostrado que le gusta cruzar temas (ver el precedente del ENS en 2026).</p>
+
+  <div class="enunciado hot">
+    <div class="en-head">
+      <span class="en-num hot">A·1</span>
+      <span class="en-tag">verbo: explicar</span>
+      <span class="en-tag">cruce con Tema 8</span>
+      <span class="en-tag">patrón 6</span>
+    </div>
+    <p class="en-enunciado">Explicar el fundamento constitucional de la competencia estatal en materia de estadística conforme al artículo 149.1.31ª CE, e indicar qué ley ordinaria desarrolla esa competencia y con qué finalidad la delimita dicho artículo.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> es el "gancho casi perfecto" que señala explícitamente el mapa de probabilidad para un tribunal de estadísticos; cruza el Título VIII con la Ley 12/1989 (Tema 8), que se dicta expresamente al amparo de este precepto — mismo tipo de conexión entre bloques que ya usó el tribunal en 2026 para el Esquema Nacional de Seguridad.</p>
+  </div>
+
+  <div class="enunciado hot">
+    <div class="en-head">
+      <span class="en-num hot">A·2</span>
+      <span class="en-tag">verbo: exponer</span>
+      <span class="en-tag">patrón 2</span>
+    </div>
+    <p class="en-enunciado">Exponer al menos cuatro materias sobre las que el artículo 149.1 CE atribuye competencia exclusiva al Estado, incluida la relativa a la estadística para fines estatales.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> el patrón "al menos N" con cifra explícita ya se ha usado literalmente en 2023 para los principios de conducta del TREBEP; obligar a incluir la materia 31.ª entre las citadas impide "esquivar" el contenido más específico del tema con una respuesta genérica sobre otras competencias más manidas (defensa, relaciones internacionales).</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">A·3</span>
+      <span class="en-tag">verbo: razonar</span>
+      <span class="en-tag">patrón 4</span>
+    </div>
+    <p class="en-enunciado">¿Puede una Comunidad Autónoma elaborar sus propias estadísticas? Razonar la respuesta distinguiendo la competencia estatal sobre "estadística para fines estatales" (art. 149.1.31ª CE) de la posible competencia autonómica sobre estadística de interés propio.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> pregunta cerrada de fundamento legal exacto, en la línea de las ya hechas sobre el Censo Electoral (2023) o el veto del Senado; la clave de la respuesta es que ambas competencias coexisten sin excluirse —el Estado no tiene el monopolio de toda actividad estadística, solo de la que sirve a "fines estatales"— matiz que se pierde fácilmente si no se cita el artículo con precisión.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">A·4</span>
+      <span class="en-tag">definición</span>
+    </div>
+    <p class="en-enunciado">Definir la cláusula residual y la cláusula de supletoriedad del derecho estatal previstas en el artículo 149.3 CE, y explicar la relación entre ambas dentro del sistema de reparto competencial.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> es el precepto de cierre de todo el sistema competencial, con dos reglas que suelen confundirse entre sí (residualidad: lo no atribuido al Estado puede ir a las CCAA vía Estatuto; supletoriedad: el derecho estatal se aplica siempre como red de seguridad interpretativa) — tipo de matiz que separa una respuesta memorística de una razonada.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">A·5</span>
+      <span class="en-tag">enunciado nominal</span>
+      <span class="en-tag">patrón 3</span>
+    </div>
+    <p class="en-enunciado">Las leyes marco, de transferencia o delegación y de armonización del artículo 150 CE: mecanismo, mayoría exigida y sentido del movimiento competencial que produce cada una.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> tres sustantivos coordinados (ley marco, ley de transferencia/delegación, ley de armonización) que corresponden a los tres apartados del mismo artículo, cada uno con requisitos y efectos distintos — encaja con el patrón de enunciado nominal que suele esconder varias partes obligatorias.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">A·6</span>
+      <span class="en-tag">verbo: exponer</span>
+      <span class="en-tag">patrón 2</span>
+    </div>
+    <p class="en-enunciado">Exponer la diferencia entre las materias que las Comunidades Autónomas pueden asumir conforme al artículo 148.1 CE y las reservadas en exclusiva al Estado por el artículo 149.1 CE, señalando qué ocurre transcurridos cinco años desde la aprobación del Estatuto de Autonomía.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> contraste estructural entre los dos artículos que vertebran todo el Título VIII, con un dato temporal muy citable (cinco años, ampliación de competencias mediante reforma del Estatuto) que funciona como la segunda exigencia característica del patrón "exponer + señalar".</p>
+  </div>
+
+  <!-- ============ BLOQUE B: ADMINISTRACIÓN LOCAL ============ -->
+  <div class="section-head">
+    <h2>Bloque B — Administración local: competencias de Municipios y Provincias</h2>
+    <span class="section-count">Ley 7/1985 (LBRL), arts. 25, 26, 31, 36</span>
+  </div>
+  <p class="section-lead">Epígrafe muy reglado (LBRL) pero, según el propio mapa de probabilidad, menos conectado con el perfil estadístico del cuerpo que el Bloque A — probabilidad media, no alta. Aun así, es terreno clásico de examen por su estructura en listas y umbrales de población, muy fácil de convertir en pregunta de enumeración.</p>
+
+  <div class="enunciado warm">
+    <div class="en-head">
+      <span class="en-num warm">B·1</span>
+      <span class="en-tag">verbo: exponer</span>
+      <span class="en-tag">patrón 2</span>
+    </div>
+    <p class="en-enunciado">Exponer las competencias propias del Municipio conforme al artículo 25 de la Ley 7/1985, indicando al menos cuatro materias sobre las que ejercerá en todo caso competencias propias.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> el mapa de probabilidad lo cita explícitamente como pregunta plausible ("competencias propias del municipio"); el listado del art. 25.2 se presta de forma natural al patrón "al menos N" ya usado por el tribunal, y su matiz técnico (desde la reforma de 2013, solo son "propias" las que atribuya expresamente la legislación sectorial) es el tipo de precisión que distingue una respuesta completa.</p>
+  </div>
+
+  <div class="enunciado warm">
+    <div class="en-head">
+      <span class="en-num warm">B·2</span>
+      <span class="en-tag">verbo: explicar</span>
+      <span class="en-tag">patrón 1</span>
+    </div>
+    <p class="en-enunciado">Explicar los servicios mínimos que todo Municipio debe prestar en todo caso conforme al artículo 26 de la Ley 7/1985, y cómo varía ese catálogo obligatorio en función del número de habitantes.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> estructura muy citable "por escalones de población" (todos los municipios / más de 20.000 / más de 50.000 habitantes) que combina un listado con una lógica de proporcionalidad — el tipo de "y cómo varía" que añade la segunda exigencia propia del verbo "explicar" en este tribunal.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">B·3</span>
+      <span class="en-tag">definición</span>
+    </div>
+    <p class="en-enunciado">Definir la Provincia como entidad local según el artículo 141 CE y el artículo 31 de la Ley 7/1985, precisando el fin específico que le atribuye esta última norma frente a los Municipios que la integran.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> conecta el concepto constitucional (agrupación de municipios, división territorial para el cumplimiento de actividades del Estado) con su desarrollo legal (garantía de solidaridad y equilibrio intermunicipal) — tipo de pregunta que exige citar dos normas de rango distinto sobre un mismo concepto, como ya se ha visto en otros temas de este bloque.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">B·4</span>
+      <span class="en-tag">verbo: exponer</span>
+      <span class="en-tag">patrón 2</span>
+    </div>
+    <p class="en-enunciado">Exponer las competencias propias de la Diputación Provincial conforme al artículo 36 de la Ley 7/1985, distinguiéndolas de las que puede recibir por delegación de la Comunidad Autónoma.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> el propio articulado subraya esta distinción como algo que "conviene" no confundir (competencias propias del art. 36 frente a las delegadas del art. 37, régimen jurídico distinto) — mismo patrón "tipos + diferencias" que ya ha usado el tribunal con los recursos administrativos y que se repite en otros temas de este bloque de Derecho.</p>
+  </div>
+
+  <div class="enunciado">
+    <div class="en-head">
+      <span class="en-num">B·5</span>
+      <span class="en-tag">verbo: razonar</span>
+      <span class="en-tag">patrón 4</span>
+    </div>
+    <p class="en-enunciado">¿Está la Diputación Provincial obligada a garantizar los servicios de secretaría e intervención en todos los municipios de su provincia? Razonar la respuesta con referencia al artículo 36.1.b) de la Ley 7/1985.</p>
+    <p class="en-porque"><b>Por qué es probable:</b> pregunta cerrada sobre un umbral concreto (la garantía reforzada opera solo en municipios de menos de 1.000 habitantes, no en todos) — mismo formato de pregunta cerrada de detalle normativo ya visto en el Tema 2 sobre el veto del Senado.</p>
+  </div>
+
+  <div class="lexico-box">
+    <h3>Cómo leer estos enunciados</h3>
+    <ul>
+      <li><b>Estos once enunciados no son transcripción de ningún examen real.</b> El Tema 4 no registra preguntas propias en las últimas cuatro convocatorias del primer ejercicio (2023-2026); son construcciones propias que aplican al contenido de los arts. 137-150 CE y de la Ley 7/1985 los patrones lingüísticos detectados en las 15 preguntas literales de esas convocatorias.</li>
+      <li><b>El Bloque A pesa más que el Bloque B.</b> El mapa de probabilidad marca el epígrafe de competencias Estado-CCAA como prioridad alta —por su conexión directa con el art. 149.1.31ª y la estadística— y el de Administración local como prioridad media, al estar más alejado del perfil estadístico del cuerpo. Si el tiempo de repaso es limitado, el Bloque A rinde más.</li>
+      <li><b>Etiquetas de patrón:</b> remiten al mismo análisis retórico ya usado en los Temas 2 y 3 ("explicar" = desarrollo causal con doble exigencia; "exponer" = enumeración con número mínimo o diferencias; enunciado nominal = varios apartados evaluables; cruce de temas = exige conectar dos bloques distintos del temario, aquí sobre todo con el Tema 8, Ley 12/1989).</li>
+      <li><b>Solo primer ejercicio.</b> El bloque de Derecho de la convocatoria INE A1 se evalúa exclusivamente en el primer ejercicio del turno libre; el segundo ejercicio lo excluye expresamente.</li>
+    </ul>
+  </div>
+
+  <div class="foot">
+    <b>Fuentes:</b> articulado y comentarios del Tema 4 (arts. 137, 140, 148, 149, 150 CE; Ley 7/1985, arts. 25, 26, 31 y 36) tomados del documento base de Derecho articulado INE A1; alcance exacto del subíndice oficial del tema, del índice de temario de Derecho; estimación de probabilidad ("Prioridad 1 — 0 preguntas en 4 años", epígrafe de competencias Estado-CCAA en probabilidad alta y Administración local en probabilidad media), del mapa de probabilidad de examen construido sobre las 15 preguntas literales registradas del primer ejercicio del turno libre en las convocatorias 2022-2025 (exámenes 2023-2026), tal como las publica el INE en su material de apoyo a la oposición.
+    <br><br>
+    Los once enunciados de este documento son elaboración propia de apoyo al estudio, construidos por analogía con el estilo real del tribunal — no son transcripción literal de ningún examen. Antes de la convocatoria, contrasta siempre contra el texto constitucional y legal vigente.
+  </div>
+
+</div>
+</body>
+</html>

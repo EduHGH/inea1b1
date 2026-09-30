@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 10 · Reglamento 223/2009 · Enunciados posibles</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --ink:#241F17;
+    --ink-soft:#6b6252;
+    --line:#dcd4c2;
+    --der:#2E5266;
+    --der-soft:#DCE6EB;
+    --der-glow:rgba(46,82,102,.18);
+    --glass:rgba(255,255,255,.55);
+
+    --hot:#8B3A3A;
+    --hot-soft:#F3DEDE;
+    --warm:#966A24;
+    --warm-soft:#F1E4CB;
+    --cold:#3E6B4F;
+    --cold-soft:#DEEBE2;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(36,31,23,.07) 1px, transparent 0) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    padding:48px 20px 80px;
+  }
+
+  .wrap{max-width:880px; margin:0 auto;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:38px 36px 32px;
+    border-radius:20px;
+    background:var(--glass);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -24px rgba(36,31,23,.25);
+    overflow:hidden;
+    margin-bottom:28px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:-40% -20% auto auto;
+    width:340px; height:340px;
+    background:radial-gradient(circle, var(--der-glow), transparent 70%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--der);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--der);}
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(26px, 4vw, 38px);
+    line-height:1.1;
+    margin:0 0 10px;
+    letter-spacing:-.01em;
+  }
+  .hero p{
+    margin:0;
+    max-width:64ch;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.6;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-top:22px;
+  }
+  .meta-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.55);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 12px;
+  }
+
+  .aviso{
+    margin-top:20px;
+    padding:12px 16px;
+    background:rgba(255,255,255,.4);
+    border-left:2px solid var(--der);
+    border-radius:0 8px 8px 0;
+    font-size:12.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+  .aviso b{color:var(--ink);}
+
+  /* SECTION HEAD */
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+    margin:44px 0 16px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+  }
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .section-count{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    flex:none;
+  }
+  .section-intro{
+    font-size:13.5px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    max-width:68ch;
+    margin:0 0 20px;
+  }
+
+  /* BLOQUE (epígrafe del tema) */
+  .bloque-epi{margin-bottom:6px;}
+  .bloque-epi-head{
+    display:flex; gap:14px; align-items:flex-start;
+    margin-bottom:16px;
+  }
+  .bloque-epi-num{
+    flex:none;
+    width:34px; height:34px;
+    border-radius:10px;
+    background:var(--der-soft);
+    color:var(--der);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+  }
+  .bloque-epi-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:17px;
+    line-height:1.3;
+    margin:0 0 3px;
+    color:var(--ink);
+  }
+  .bloque-epi-sub{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin:0;
+  }
+
+  /* ENUNCIADO CARD */
+  .list{display:flex; flex-direction:column; gap:12px; margin-bottom:36px;}
+  .enun{
+    position:relative;
+    padding:20px 22px;
+    border-radius:14px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -20px rgba(36,31,23,.3);
+  }
+  .enun.nivel-hot{border-color:rgba(139,58,58,.35);}
+  .enun.nivel-warm{border-color:rgba(150,106,36,.3);}
+
+  .enun-top{
+    display:flex; gap:12px; align-items:flex-start; justify-content:space-between;
+    margin-bottom:10px;
+  }
+  .enun-tags{display:flex; flex-wrap:wrap; gap:6px;}
+  .tag{
+    display:inline-flex; align-items:center; gap:5px;
+    border-radius:100px;
+    padding:3px 10px;
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    font-size:9px;
+    flex:none;
+    white-space:nowrap;
+  }
+  .tag.hot{background:var(--hot-soft); color:var(--hot);}
+  .tag.warm{background:var(--warm-soft); color:var(--warm);}
+  .tag.cold{background:var(--cold-soft); color:var(--cold);}
+  .tag.norma{background:var(--der-soft); color:var(--der);}
+
+  .enun-art{
+    flex:none;
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+
+  .enun-text{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:16.5px;
+    line-height:1.45;
+    color:var(--ink);
+    margin:0 0 12px;
+  }
+  .enun-text i{color:var(--der); font-style:normal; font-weight:600;}
+
+  .enun-nota{
+    font-size:12.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    padding-top:10px;
+    border-top:1px dashed var(--line);
+    margin:0;
+  }
+  .enun-nota b{color:var(--ink);}
+
+  /* RETORICA (nota de patrón aplicado) */
+  .patron-ref{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'Space Mono', monospace;
+    font-size:9.5px;
+    letter-spacing:.03em;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:100px;
+    padding:3px 9px;
+    margin-bottom:10px;
+  }
+
+  .foot{
+    margin-top:46px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-size:11.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+  .foot b{color:var(--ink);}
+
+  .legend{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-bottom:8px;
+  }
+  .legend-item{
+    display:flex; align-items:center; gap:7px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 13px 6px 8px;
+  }
+  .legend-dot{width:9px; height:9px; border-radius:3px; flex:none;}
+  .legend-dot.hot{background:var(--hot);}
+  .legend-dot.warm{background:var(--warm);}
+  .legend-dot.cold{background:var(--cold);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dot"></span>Derecho · Tema 10 · INE A1 · Turno libre</div>
+    <h1>Enunciados posibles: Reglamento (CE) 223/2009, la estadística europea</h1>
+    <p>Este tema no tiene segundo ejercicio (es exclusivo del primer ejercicio, tipo desarrollo escrito). Los 18 enunciados de abajo no son transcripciones de exámenes reales — el Tema 10 nunca ha sido preguntado en las últimas cuatro convocatorias (2023-2026) — sino formulaciones construidas aplicando al contenido real del tema los seis patrones retóricos que el tribunal repite con otros temas de Derecho: el verbo elegido, la cuantificación, los enunciados nominales, las preguntas cerradas, el anclaje a la norma y el cruce entre temas.</p>
+    <div class="hero-meta">
+      <span class="meta-chip">Reglamento (CE) 223/2009 · mod. Reglamento (UE) 2015/759</span>
+      <span class="meta-chip">Solo primer ejercicio</span>
+      <span class="meta-chip">18 enunciados construidos</span>
+    </div>
+    <div class="aviso"><b>Cómo usar este documento:</b> no son preguntas oficiales ni filtradas — son un ejercicio de anticipación basado en el propio articulado del tema y en el estilo probado del tribunal. Sirven para practicar la estructura de respuesta, no para memorizar un enunciado exacto que vaya a caer así.</div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot hot"></span>Probabilidad alta — contenido nuclear, nunca preguntado</div>
+    <div class="legend-item"><span class="legend-dot warm"></span>Probabilidad media — plausible, contenido más secundario</div>
+    <div class="legend-item"><span class="legend-dot cold"></span>Cruce con otro tema</div>
+  </div>
+
+  <!-- ============ BLOQUE 1: DEFINICIÓN ============ -->
+  <div class="bloque-epi">
+    <div class="bloque-epi-head">
+      <div class="bloque-epi-num">1</div>
+      <div>
+        <h3 class="bloque-epi-title">Definición de estadísticas europeas</h3>
+        <p class="bloque-epi-sub">Objeto del Reglamento · estadísticas europeas · Sistema Estadístico Europeo (SEE)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="list">
+
+    <div class="enun nivel-hot">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 1 y 3.1</span></div>
+        <span class="enun-art">Patrón 3 · nominal</span>
+      </div>
+      <p class="enun-text"><i>Definición</i> de estadísticas europeas y del Sistema Estadístico Europeo.</p>
+      <p class="enun-nota">Formato calcado del que ya usó el tribunal en 2024 con el Plan Estadístico Nacional ("Definición, contenido y duración"): dos sustantivos coordinados sin verbo, cada uno evaluado por separado. Aquí exige distinguir «estadísticas europeas» (art. 3.1) del propio SEE (art. 4) sin fundirlos en una sola definición.</p>
+    </div>
+
+    <div class="enun nivel-hot">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 1</span></div>
+        <span class="enun-art">Patrón 5 · norma citada</span>
+      </div>
+      <p class="enun-text">De conformidad con el Reglamento (CE) 223/2009, <i>exponer</i> el objeto del Reglamento y su relación con el Sistema Estadístico Europeo.</p>
+      <p class="enun-nota">El "de conformidad con..." obliga a citar el Reglamento por su nombre y número en la respuesta, no a describir el SEE de forma genérica. Conecta directamente con el art. 4 de la Ley 12/1989 (Tema 8), que cita este mismo Reglamento como referencia normativa.</p>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 4</span></div>
+        <span class="enun-art">Patrón 1 · explicar</span>
+      </div>
+      <p class="enun-text"><i>Explicar</i> qué es el Sistema Estadístico Europeo y qué organismos lo integran.</p>
+      <p class="enun-nota">El "y qué" final es la segunda tarea oculta: no basta con definir el SEE, hay que enumerar sus integrantes (Eurostat + autoridades estadísticas nacionales + otros organismos nacionales del art. 4), igual que en 2023 se pidió el secreto estadístico "y a quiénes obliga".</p>
+    </div>
+
+  </div>
+
+  <!-- ============ BLOQUE 2: PRINCIPIOS ESTADÍSTICOS ============ -->
+  <div class="bloque-epi">
+    <div class="bloque-epi-head">
+      <div class="bloque-epi-num">2</div>
+      <div>
+        <h3 class="bloque-epi-title">Principios estadísticos</h3>
+        <p class="bloque-epi-sub">Art. 2 · seis principios profesionales · relación con el Código de Buenas Prácticas</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="list">
+
+    <div class="enun nivel-hot">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 2.1</span></div>
+        <span class="enun-art">Patrón 2 · exponer + número</span>
+      </div>
+      <p class="enun-text"><i>Exponer</i> los seis principios estadísticos recogidos en el artículo 2 del Reglamento 223/2009.</p>
+      <p class="enun-nota">Es el contenido más citable de todo el tema — la propia guía de estudio lo marca como "el más citado del temario de estadística". El número exacto (seis) es parte del enunciado: dar cinco o siete es la forma más probable de perder puntos aquí, igual que ocurrió en 2023 con "al menos tres" principios de conducta.</p>
+    </div>
+
+    <div class="enun nivel-hot">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 2 vs Ley 12/1989 art. 4.2</span></div>
+        <span class="enun-art">Patrón 6 · cruce de temas</span>
+      </div>
+      <p class="enun-text"><i>Exponer</i> los principios estadísticos del Reglamento 223/2009 y sus diferencias con los principios de la Ley 12/1989.</p>
+      <p class="enun-nota">Es el cruce más evidente del tema: seis principios europeos frente a nueve españoles, que se solapan pero no coinciden literalmente (la ley española añade transparencia, especialidad y proporcionalidad). Sigue el mismo patrón de "diferencias explícitas" que ya usó el tribunal en 2023 con los recursos administrativos.</p>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 2.1.e</span></div>
+        <span class="enun-art">Patrón 1 · explicar</span>
+      </div>
+      <p class="enun-text"><i>Explicar</i> en qué consiste el principio de secreto estadístico del Reglamento 223/2009 y qué prohíbe expresamente.</p>
+      <p class="enun-nota">Variante de foco estrecho sobre un único principio, en la línea de la pregunta de 2023 sobre el secreto estadístico de la Ley 12/1989 — aquí exige distinguir la formulación europea (protección de datos confidenciales, prohibición de fines no estadísticos y de revelación ilegal) de la española.</p>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 2.1.f</span></div>
+        <span class="enun-art">Patrón 4 · pregunta cerrada</span>
+      </div>
+      <p class="enun-text">¿Qué exige el principio de rentabilidad (relación coste-eficacia) recogido en el Reglamento 223/2009? <i>Razonar</i> la respuesta.</p>
+      <p class="enun-nota">Formato de foco muy estrecho, similar al de "recursos económicos del INE" de 2025: no se pide el tema entero, sino un único principio, y "razonar" exige apoyarse en el texto del artículo, no solo enunciar el nombre del principio.</p>
+    </div>
+
+    <div class="enun nivel-cold">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag cold">Cruce Tema 16</span><span class="tag norma">Art. 2</span></div>
+        <span class="enun-art">Patrón 6 · cruce de temas</span>
+      </div>
+      <p class="enun-text"><i>Explicar</i> la relación entre los principios estadísticos del Reglamento 223/2009 y el Código de Buenas Prácticas de las Estadísticas Europeas.</p>
+      <p class="enun-nota">El cruce "de doble rentabilidad" que señala el propio análisis de prioridades del bloque: permite evaluar Derecho (Tema 10) y Producción Estadística (Tema 16) con una sola pregunta. Es el tipo de enunciado que más ha crecido en las convocatorias de 2025-2026.</p>
+    </div>
+
+  </div>
+
+  <!-- ============ BLOQUE 3: GOBERNANZA ESTADÍSTICA ============ -->
+  <div class="bloque-epi">
+    <div class="bloque-epi-head">
+      <div class="bloque-epi-num">3</div>
+      <div>
+        <h3 class="bloque-epi-title">Gobernanza estadística</h3>
+        <p class="bloque-epi-sub">Eurostat · Comité del Sistema Estadístico Europeo (CSEE) · institutos nacionales de estadística</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="list">
+
+    <div class="enun nivel-hot">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 5</span></div>
+        <span class="enun-art">Patrón 3 · nominal</span>
+      </div>
+      <p class="enun-text">Los institutos nacionales de estadística en el Reglamento 223/2009. <i>Designación, funciones y relación con Eurostat.</i></p>
+      <p class="enun-nota">Estructura idéntica a la del Consejo de Empadronamiento en 2026 ("Adscripción, composición y funciones"): tres sustantivos coordinados = tres apartados que se evalúan por separado. El riesgo típico es centrarse solo en el INE español y olvidar la figura genérica de "interlocutor único ante Eurostat" que define el propio artículo.</p>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 6-7</span></div>
+        <span class="enun-art">Patrón 2 · exponer + diferencias</span>
+      </div>
+      <p class="enun-text"><i>Exponer</i> los órganos de gobernanza estadística europea (Eurostat y Comité del Sistema Estadístico Europeo) y las diferencias entre sus funciones.</p>
+      <p class="enun-nota">Sigue el patrón "los tipos de... y las principales diferencias entre ellos" de 2023 sobre recursos administrativos: no basta con nombrar Eurostat y el CSEE, hay que distinguir que uno elabora las estadísticas y el otro asesora y coordina.</p>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 5.1</span></div>
+        <span class="enun-art">Patrón 4 · pregunta cerrada</span>
+      </div>
+      <p class="enun-text">¿Puede un Estado miembro tener más de un organismo que actúe ante Eurostat en cuestiones estadísticas? <i>Razonar</i> la respuesta con base en el artículo 5 del Reglamento.</p>
+      <p class="enun-nota">Pregunta cerrada de foco muy concreto, en la línea de "¿es obligatoria la inscripción en el Censo Electoral?" de 2023: la respuesta correcta exige citar la figura del "interlocutor único" del art. 5.1, no describir el sistema estadístico en general.</p>
+    </div>
+
+    <div class="enun nivel-cold">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag cold">Cruce Tema 8</span><span class="tag norma">Art. 5 · Ley 12/1989 art. 24</span></div>
+        <span class="enun-art">Patrón 6 · cruce de temas</span>
+      </div>
+      <p class="enun-text"><i>Explicar</i> cómo se articula la condición de "autoridad estadística nacional" del INE en el Reglamento 223/2009 con su naturaleza jurídica de organismo autónomo según la Ley 12/1989.</p>
+      <p class="enun-nota">Cruza dos temas del mismo bloque VI (Tema 8 y Tema 10) siguiendo el patrón dominante de 2025-2026: la doble condición del INE — organismo autónomo por la ley española, autoridad estadística nacional por el Reglamento europeo — solo se responde bien si se conectan ambas normas.</p>
+    </div>
+
+  </div>
+
+  <!-- ============ BLOQUE 4: ELABORACIÓN Y DIFUSIÓN ============ -->
+  <div class="bloque-epi">
+    <div class="bloque-epi-head">
+      <div class="bloque-epi-num">4</div>
+      <div>
+        <h3 class="bloque-epi-title">Elaboración y difusión de estadísticas europeas</h3>
+        <p class="bloque-epi-sub">Programa estadístico europeo · fuentes de datos · acceso a datos confidenciales con fines científicos · secreto estadístico (art. 20)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="list">
+
+    <div class="enun nivel-hot">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 20</span></div>
+        <span class="enun-art">Patrón 1 · explicar</span>
+      </div>
+      <p class="enun-text"><i>Explicar</i> la protección de datos confidenciales que establece el artículo 20 del Reglamento 223/2009, indicando a quiénes obliga y durante cuánto tiempo.</p>
+      <p class="enun-nota">Réplica casi literal de la pregunta de 2023 sobre el secreto estadístico ("qué es y a quiénes obliga"), aplicada aquí al art. 20: la clave que suele olvidarse es que la obligación de confidencialidad del apartado 5 se mantiene incluso tras cesar en el puesto — el mismo matiz que el art. 17 de la Ley 12/1989.</p>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 3.7</span></div>
+        <span class="enun-art">Patrón 3 · nominal</span>
+      </div>
+      <p class="enun-text"><i>Definición</i> de dato confidencial según el Reglamento 223/2009.</p>
+      <p class="enun-nota">Enunciado nominal corto (como "Infracciones graves y muy graves" en 2025), que esconde un matiz técnico fácil de pasar por alto: no exige identificación directa por nombre, basta con que un tercero pudiera identificar indirectamente a la unidad estadística combinando información — el mismo estándar de reidentificación que maneja el secreto estadístico español.</p>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Considerandos y arts. relativos a fuentes</span></div>
+        <span class="enun-art">Patrón 2 · exponer + número</span>
+      </div>
+      <p class="enun-text"><i>Exponer</i> al menos dos tipos de fuentes de datos que puede utilizar la producción estadística europea según el Reglamento 223/2009, indicando cuál se prioriza.</p>
+      <p class="enun-nota">Sigue el patrón numérico de 2023 ("exponer al menos tres..."): encuestas estadísticas, registros administrativos u otras fuentes, con prioridad expresa a las fuentes administrativas para reducir la carga de los informantes — ese matiz de "cuál se prioriza" es la parte que más se suele olvidar.</p>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Programa estadístico europeo</span></div>
+        <span class="enun-art">Patrón 3 · nominal</span>
+      </div>
+      <p class="enun-text">El programa estadístico europeo. <i>Naturaleza, contenido y periodicidad.</i></p>
+      <p class="enun-nota">Mismo patrón de tres sustantivos coordinados que "Definición, contenido y duración del Plan Estadístico Nacional" de 2024 — es casi un calco directo del enunciado ya utilizado, trasladado del plan nacional al marco plurianual europeo.</p>
+    </div>
+
+    <div class="enun nivel-cold">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag cold">Cruce Tema 9</span><span class="tag norma">Art. 20 · LOPDGDD</span></div>
+        <span class="enun-art">Patrón 6 · cruce de temas</span>
+      </div>
+      <p class="enun-text"><i>Explicar</i> el régimen de acceso a datos confidenciales con fines científicos que prevé el Reglamento 223/2009 y su relación con la protección de datos personales.</p>
+      <p class="enun-nota">Conecta el acceso a microdatos confidenciales del Reglamento con el régimen especial de protección de datos en el ámbito estadístico que ya vio el Tema 9 (LOPDGDD) — el mismo tipo de cruce con "régimen especial en el ámbito de la función estadística pública" que la Prioridad 2 señalaba como hueco pendiente en Protección de Datos.</p>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Reglamento (UE) 2015/759</span></div>
+        <span class="enun-art">Patrón 4 · pregunta cerrada</span>
+      </div>
+      <p class="enun-text">¿Qué modificación introdujo el Reglamento (UE) 2015/759 sobre el Reglamento 223/2009? <i>Razonar</i> brevemente su alcance.</p>
+      <p class="enun-nota">Pregunta de foco muy estrecho sobre la norma modificadora citada en la cabecera del propio tema — un dato fácil de pasar por alto porque no está en el cuerpo de los artículos principales, solo en el encabezado de la norma, y por eso es justo el tipo de detalle que un enunciado cerrado puede aprovechar.</p>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <b>Por qué el Tema 10 no tiene segundo ejercicio:</b> en la estructura de la convocatoria, el segundo ejercicio (caso práctico/supuesto) se reserva a materias con contenido aplicado — informática, estadística, metodología —, mientras que el bloque de Derecho, incluido este tema, se evalúa únicamente en el primer ejercicio (desarrollo escrito).
+    <br><br>
+    <b>Cómo se han construido estos 18 enunciados:</b> partiendo del articulado real del Reglamento (CE) 223/2009 (arts. 1 a 20, más su modificación por el Reglamento (UE) 2015/759) y del subíndice del Tema 10, se ha aplicado a cada bloque de contenido uno o más de los seis patrones retóricos que el tribunal repite en las 15 preguntas registradas del bloque de Derecho entre 2023 y 2026: el verbo "explicar" (desarrollo causal), "exponer" (enumeración con número mínimo), el enunciado nominal sin verbo, la pregunta cerrada con "razonar", el anclaje "de conformidad con..." a una norma concreta, y el cruce entre dos temas en un solo enunciado. Ninguno de los 18 es una pregunta de examen real: son hipótesis de estudio construidas por analogía formal con enunciados ya vistos en otros temas del mismo bloque.
+    <br><br>
+    <b>Fuente del temario:</b> Resolución de 22 de diciembre de 2025, de la Subsecretaría (Ministerio de Economía, Comercio y Empresa) — BOE núm. 313, de 29/12/2025, Anexo I, Programa, apartado A.VI «Derecho». Ref. BOE-A-2025-26900. Texto del Reglamento (CE) 223/2009 y su modificación por el Reglamento (UE) 2015/759, consolidado en EUR-Lex.
+  </div>
+
+</div>
+</body>
+</html>

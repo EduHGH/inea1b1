@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 5 · Enunciados posibles de examen — Derecho INE A1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --ink:#241F17;
+    --ink-soft:#6b6252;
+    --line:#dcd4c2;
+    --der:#2E5266;
+    --der-soft:#DCE6EB;
+    --der-glow:rgba(46,82,102,.18);
+    --glass:rgba(255,255,255,.55);
+
+    --hot:#8B3A3A;
+    --hot-soft:#F3DEDE;
+    --hot-glow:rgba(139,58,58,.20);
+    --warm:#966A24;
+    --warm-soft:#F1E4CB;
+    --cold:#3E6B4F;
+    --cold-soft:#DEEBE2;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(36,31,23,.07) 1px, transparent 0) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    padding:48px 20px 80px;
+  }
+
+  .wrap{max-width:880px; margin:0 auto;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:38px 36px 32px;
+    border-radius:20px;
+    background:var(--glass);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -24px rgba(36,31,23,.25);
+    overflow:hidden;
+    margin-bottom:28px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:-40% -20% auto auto;
+    width:340px; height:340px;
+    background:radial-gradient(circle, var(--der-glow), transparent 70%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--der);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--der);}
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(26px, 4vw, 38px);
+    line-height:1.1;
+    margin:0 0 10px;
+    letter-spacing:-.01em;
+  }
+  .hero p{
+    margin:0;
+    max-width:64ch;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.6;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-top:22px;
+  }
+  .meta-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.55);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 12px;
+  }
+
+  /* LEGEND */
+  .legend{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-bottom:30px;
+  }
+  .legend-item{
+    display:flex; align-items:center; gap:7px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 13px 6px 8px;
+  }
+  .legend-dot{width:9px; height:9px; border-radius:3px; flex:none;}
+  .legend-dot.hot{background:var(--hot);}
+  .legend-dot.warm{background:var(--warm);}
+  .legend-dot.cold{background:var(--cold);}
+
+  /* TOC */
+  .toc-wrap{
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:22px 26px;
+    margin:0 0 40px;
+  }
+  .toc-label{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--der);
+    margin-bottom:10px;
+  }
+  .toc-wrap ol{margin:0; padding:0 0 0 18px;}
+  .toc-wrap li{font-size:13px; line-height:1.9;}
+  .toc-wrap a{color:var(--ink); text-decoration:none; border-bottom:1px dotted var(--line);}
+  .toc-wrap a:hover{color:var(--der); border-bottom-color:var(--der);}
+
+  /* SECTION HEAD (epígrafe) */
+  .epigrafe-head{
+    margin:52px 0 6px;
+    padding-bottom:14px;
+    border-bottom:2px solid var(--ink);
+  }
+  .epigrafe-eyebrow{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    margin-bottom:8px;
+  }
+  .epigrafe-num{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    font-weight:700;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:100px;
+    padding:3px 11px;
+  }
+  .epigrafe-tag{
+    font-family:'Space Mono', monospace;
+    font-size:9.5px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    font-weight:700;
+    padding:3px 10px;
+    border-radius:100px;
+  }
+  .epigrafe-tag.hot{background:var(--hot-soft); color:var(--hot);}
+  .epigrafe-tag.warm{background:var(--warm-soft); color:var(--warm);}
+  .epigrafe-tag.cold{background:var(--cold-soft); color:var(--cold);}
+  .epigrafe-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:23px;
+    line-height:1.25;
+    margin:0 0 8px;
+    color:var(--ink);
+  }
+  .epigrafe-desc{
+    font-size:13.5px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    max-width:70ch;
+    margin:0;
+  }
+
+  .subgrupo-head{
+    margin:30px 0 14px;
+    display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;
+  }
+  .subgrupo-head h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:14.5px;
+    letter-spacing:.01em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    margin:0;
+  }
+  .subgrupo-count{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+  }
+
+  /* ENUNCIADO CARD */
+  .enunciados{display:flex; flex-direction:column; gap:14px; margin-bottom:8px;}
+  .enunciado{
+    position:relative;
+    padding:22px 24px;
+    border-radius:14px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -20px rgba(36,31,23,.3);
+  }
+  .enunciado.nivel-hot{border-color:rgba(139,58,58,.35);}
+  .enunciado.nivel-warm{border-color:rgba(150,106,36,.3);}
+  .enunciado.nivel-cold{border-color:rgba(62,107,79,.3);}
+
+  .enunciado-top{
+    display:flex; gap:14px; align-items:flex-start; margin-bottom:10px;
+  }
+  .enum-num{
+    flex:none;
+    width:34px; height:34px;
+    border-radius:10px;
+    background:var(--der-soft);
+    color:var(--der);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    font-size:13px;
+  }
+  .enunciado.nivel-hot .enum-num{background:var(--hot-soft); color:var(--hot);}
+  .enunciado.nivel-warm .enum-num{background:var(--warm-soft); color:var(--warm);}
+  .enunciado.nivel-cold .enum-num{background:var(--cold-soft); color:var(--cold);}
+
+  .enum-body{flex:1; min-width:0;}
+  .enum-tags{
+    display:flex; flex-wrap:wrap; gap:6px;
+    margin-bottom:8px;
+  }
+  .tag{
+    font-family:'Space Mono', monospace;
+    font-size:9px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    font-weight:700;
+    padding:2.5px 9px;
+    border-radius:100px;
+    white-space:nowrap;
+  }
+  .tag.hot{background:var(--hot-soft); color:var(--hot);}
+  .tag.warm{background:var(--warm-soft); color:var(--warm);}
+  .tag.cold{background:var(--cold-soft); color:var(--cold);}
+  .tag.norma{background:var(--der-soft); color:var(--der);}
+  .tag.patron{background:rgba(255,255,255,.6); color:var(--ink-soft); border:1px solid var(--line);}
+
+  .enum-text{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:15.5px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 10px;
+  }
+  .enum-text b{font-weight:700;}
+
+  .enum-nota{
+    font-size:12.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    padding:10px 14px;
+    background:rgba(255,255,255,.4);
+    border-left:2px solid var(--line);
+    border-radius:0 8px 8px 0;
+    margin:0;
+  }
+  .enunciado.nivel-hot .enum-nota{border-left-color:var(--hot);}
+  .enunciado.nivel-warm .enum-nota{border-left-color:var(--warm);}
+  .enunciado.nivel-cold .enum-nota{border-left-color:var(--cold);}
+
+  .precedente{
+    margin-top:10px;
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    display:flex; align-items:center; gap:6px;
+  }
+  .precedente .yr{
+    font-weight:700; color:var(--der);
+    background:var(--der-soft);
+    border-radius:100px;
+    padding:1.5px 8px;
+  }
+
+  .foot{
+    margin-top:46px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-size:11.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+  .foot b{color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dot"></span>Derecho · Tema 5 · INE A1 · Primer ejercicio (sin segundo ejercicio en Derecho)</div>
+    <h1>Enunciados posibles del Tema 5 — El Derecho Administrativo</h1>
+    <p>Banco de enunciados de examen construido artículo por artículo a partir del articulado completo del Tema 5 (Ley 39/2015 y Ley 40/2015) y de los tres complementos que rellenan sus huecos. Organizado por los tres epígrafes oficiales del programa y por los seis patrones retóricos con los que este tribunal ha formulado sus quince preguntas reales de 2023 a 2026.</p>
+    <div class="hero-meta">
+      <span class="meta-chip">3 epígrafes oficiales</span>
+      <span class="meta-chip">102+ artículos articulados</span>
+      <span class="meta-chip">Tema salido 3/4 años (2023 · 2025 · 2026)</span>
+      <span class="meta-chip">Fuente: BOE-A-2025-26900</span>
+    </div>
+  </div>
+
+  <div class="legend">
+    <span class="legend-item"><span class="legend-dot hot"></span>Probabilidad alta — hueco histórico o artículo "clave de examen"</span>
+    <span class="legend-item"><span class="legend-dot warm"></span>Probabilidad media — conexión con lo ya preguntado</span>
+    <span class="legend-item"><span class="legend-dot cold"></span>Probabilidad baja — ya preguntado, repetible</span>
+  </div>
+
+  <div class="toc-wrap">
+    <div class="toc-label">Índice — 3 epígrafes oficiales</div>
+    <ol>
+      <li><a href="#ep1">Epígrafe 1 · Fuentes del Derecho Administrativo</a> — el único sin preguntar aún</li>
+      <li><a href="#ep2">Epígrafe 2 · El procedimiento administrativo: fases</a></li>
+      <li><a href="#ep3">Epígrafe 3 · Revisión de actos administrativos: los recursos administrativos</a></li>
+    </ol>
+  </div>
+
+  <!-- ============ EPÍGRAFE 1 — FUENTES ============ -->
+  <div class="epigrafe-head" id="ep1">
+    <div class="epigrafe-eyebrow">
+      <span class="epigrafe-num">Epígrafe 1 de 3</span>
+      <span class="epigrafe-tag hot">Nunca preguntado en 2023-2026</span>
+    </div>
+    <h2>Fuentes del Derecho Administrativo</h2>
+    <p class="epigrafe-desc">Jerarquía normativa, el reglamento como fuente propia, principio de legalidad e inderogabilidad singular, y fuentes subsidiarias (costumbre, principios generales, jurisprudencia). Es el único de los tres epígrafes del Tema 5 que el tribunal no ha tocado directamente en ninguna de las últimas cuatro convocatorias, pese a que el tema en su conjunto es el más repetido del bloque de Derecho — es, con diferencia, el candidato más sólido de todo el Tema 5 para la próxima convocatoria.</p>
+  </div>
+
+  <div class="subgrupo-head"><h3>Jerarquía normativa, reglamento e inderogabilidad singular</h3><span class="subgrupo-count">Constitución · art. 97 CE · art. 37 Ley 39/2015</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">1</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 97 CE · art. 37 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> el principio de jerarquía normativa en el Derecho Administrativo español, indicando la posición que ocupa el reglamento respecto de la Constitución y la ley, y qué consecuencias tiene su vulneración.</p>
+          <p class="enum-nota">Sigue el patrón "Explicar + y qué" ya detectado en el tribunal: pide la jerarquía en abstracto y, además, sus consecuencias — que conecta directamente con la nulidad de pleno derecho del art. 47.2 (disposiciones que vulneran normas de rango superior), un cruce típico de las convocatorias 2025-2026.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">2</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 37 Ley 39/2015</span><span class="tag patron">Patrón 3 · Nominal</span></div>
+          <p class="enum-text"><b>El principio de inderogabilidad singular de los reglamentos.</b> Concepto y fundamento.</p>
+          <p class="enum-nota">Enunciado nominal corto, el formato que el propio análisis retórico señala como más engañoso: exige no solo la definición sino el fundamento (ni siquiera el órgano que dictó el reglamento puede excepcionarlo para un caso concreto sin modificarlo antes) — dos apartados evaluables en una frase aparentemente simple.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">3</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 9 CE · art. 37 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Puede un Ministro exceptuar, mediante una resolución singular, la aplicación de un reglamento que él mismo aprobó? <b>Razonar</b> la respuesta.</p>
+          <p class="enum-nota">Pregunta cerrada con "razonar", el formato que exige fundamento legal exacto y no una descripción genérica. La respuesta correcta es negativa: tendría que modificar el reglamento siguiendo el procedimiento correspondiente, no excepcionarlo para un caso — es la aplicación práctica más citada del art. 37.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subgrupo-head"><h3>Potestad reglamentaria e iniciativa legislativa (Título VI, arts. 127-133)</h3><span class="subgrupo-count">Ley 39/2015 · STC 55/2018</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">4</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 129 Ley 39/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> los seis principios de buena regulación a los que deben ajustarse las Administraciones Públicas en el ejercicio de la iniciativa legislativa y la potestad reglamentaria.</p>
+          <p class="enum-nota">El listado literal más citado de todo el Título VI (necesidad, eficacia, proporcionalidad, seguridad jurídica, transparencia y eficiencia). Sigue el patrón "Exponer + número cerrado" — responder con cinco o con siete sería el error típico si no se memoriza la lista exacta.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">5</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 128 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> el principio de reserva de ley en materia sancionadora y tributaria en relación con la potestad reglamentaria, y qué puede y qué no puede hacer un reglamento en estas materias.</p>
+          <p class="enum-nota">El "y qué" final es la segunda mitad de la nota: un reglamento puede desarrollar o colaborar con la ley, pero nunca crear ex novo un tipo infractor, una sanción o un tributo. Conecta con el principio de tipicidad del art. 27 de la Ley 40/2015 (epígrafe de procedimiento, bloque sancionador).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">6</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Arts. 129, 130, 132, 133 · STC 55/2018</span><span class="tag patron">Patrón 4 · Pregunta cerrada</span></div>
+          <p class="enum-text">¿Qué artículos del Título VI de la Ley 39/2015 han sido declarados contrarios al orden constitucional de distribución de competencias? <b>Razonar</b> la respuesta y su alcance actual.</p>
+          <p class="enum-nota">Marcado explícitamente como "dato de examen" en el propio material de apoyo del complemento: la STC 55/2018 (24 de mayo) declaró inconstitucionales los arts. 129 (parcial), 130, 132 y 133 (parcial) por invadir la potestad de autoorganización de las CC.AA. — quedan vigentes en plenitud solo para la AGE. Pregunta de detalle jurisprudencial poco trabajada por ser reciente y poco intuitiva.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">7</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 133 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> los dos trámites de participación ciudadana en el procedimiento de elaboración de normas con rango de ley y reglamentos, distinguiendo sus momentos y su finalidad.</p>
+          <p class="enum-nota">Distingue la consulta pública previa a redactar el texto (qué y por qué de la norma) de la audiencia e información pública posterior, ya con el texto redactado — dos trámites que el examen suele confundir en su orden temporal.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-cold">
+      <div class="enunciado-top">
+        <div class="enum-num">8</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag cold">Baja-media</span><span class="tag norma">Art. 131 Ley 39/2015</span><span class="tag patron">Patrón 3 · Nominal</span></div>
+          <p class="enum-text"><b>La publicidad de las normas.</b> El valor de la edición electrónica del BOE.</p>
+          <p class="enum-nota">Uno de los pocos artículos del Título VI no afectado por la STC 55/2018 y de aplicación plena a todas las Administraciones. Dato citable: la publicación electrónica del BOE tiene desde esta ley el mismo valor oficial y auténtico que la antigua edición impresa.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subgrupo-head"><h3>Costumbre, principios generales y jurisprudencia como fuentes subsidiarias</h3><span class="subgrupo-count">Temario oficial · Código Civil art. 1</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">9</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Fuentes subsidiarias</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> las fuentes subsidiarias e interpretativas del Derecho Administrativo, indicando su distinto peso según la materia.</p>
+          <p class="enum-nota">Costumbre, principios generales del Derecho y jurisprudencia. Al ser el epígrafe más breve y menos desarrollado en los documentos de complemento, es también el que más fácilmente se responde de forma incompleta si no se ha memorizado como bloque cerrado de tres fuentes.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ EPÍGRAFE 2 — PROCEDIMIENTO ============ -->
+  <div class="epigrafe-head" id="ep2">
+    <div class="epigrafe-eyebrow">
+      <span class="epigrafe-num">Epígrafe 2 de 3</span>
+      <span class="epigrafe-tag warm">3/4 años, con repetición literal 2025-2026</span>
+    </div>
+    <h2>El procedimiento administrativo: fases</h2>
+    <p class="epigrafe-desc">Iniciación, ordenación e instrucción, terminación y silencio administrativo (Ley 39/2015), más los bloques transversales de garantías del interesado, invalidez de los actos, ejecución forzosa, potestad sancionadora y responsabilidad patrimonial, y organización administrativa (Ley 40/2015) que el tribunal cruza habitualmente con esta materia. Es el epígrafe más extenso del tema y el que reúne casi todos los artículos "clave de examen" señalados en los complementos.</p>
+  </div>
+
+  <div class="subgrupo-head"><h3>Iniciación del procedimiento</h3><span class="subgrupo-count">Arts. 54, 58-69 Ley 39/2015</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">10</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Arts. 54, 58 Ley 39/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> las clases de iniciación del procedimiento administrativo y, dentro de la iniciación de oficio, las cuatro vías por las que puede producirse.</p>
+          <p class="enum-nota">Dicotomía básica (oficio / a solicitud del interesado) que el material señala como "habitual puerta de entrada" antes de entrar en detalle. Las cuatro vías —propia iniciativa, orden superior, petición razonada, denuncia— suelen preguntarse como enumeración cerrada y en ese orden exacto.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">11</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Arts. 60, 61 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Vincula al órgano competente una petición razonada de otro órgano para iniciar un procedimiento? <b>Razonar</b> la respuesta y diferenciar este supuesto del inicio por orden superior.</p>
+          <p class="enum-nota">El matiz más citado: la petición razonada nunca vincula (el órgano puede no iniciar, motivando y comunicándolo), a diferencia de la orden superior, que exige relación de jerarquía y sí vincula. Pregunta clásica de "distinga entre dos figuras próximas".</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">12</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 62 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> la denuncia como vía de iniciación del procedimiento administrativo, y si el denunciante adquiere por ello la condición de interesado.</p>
+          <p class="enum-nota">Dato de examen más citado del artículo: denunciar no equivale a convertirse en interesado — son estatutos jurídicos distintos y el denunciante no adquiere derechos procedimentales como la audiencia. Paralelismo directo con la información pública del art. 83 (comparecer tampoco da la condición de interesado).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">13</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 63 Ley 39/2015 · art. 25 CE</span><span class="tag patron">Patrón 3 · Nominal</span></div>
+          <p class="enum-text"><b>Especialidades en el inicio de los procedimientos de naturaleza sancionadora.</b></p>
+          <p class="enum-nota">Enunciado nominal corto que exige dos garantías constitucionales concretas: nunca a instancia de parte —siempre de oficio— y separación orgánica entre instructor y órgano que sanciona, garantía de imparcialidad equivalente a la separación juez-acusación del proceso penal.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">14</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 68 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> qué ocurre cuando una solicitud de iniciación presenta defectos, y qué consecuencia tiene no subsanarlos en plazo.</p>
+          <p class="enum-nota">Principio de preclusión con subsanación: la Administración debe dar diez días para corregir, no puede rechazar de plano. El incumplimiento produce desistimiento — nunca inadmisión automática — y siempre mediante resolución expresa.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-cold">
+      <div class="enunciado-top">
+        <div class="enum-num">15</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag cold">Baja-media</span><span class="tag norma">Art. 69 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Qué diferencia hay entre una declaración responsable y una comunicación como técnicas de intervención administrativa? <b>Razonar</b> la respuesta.</p>
+          <p class="enum-nota">La declaración responsable afirma el cumplimiento de requisitos de fondo; la comunicación solo pone datos en conocimiento de la Administración, sin ese compromiso sustantivo. El incumplimiento no genera sanción automática, sino imposibilidad de continuar la actividad.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subgrupo-head"><h3>Ámbito de aplicación, interesados y garantías del procedimiento</h3><span class="subgrupo-count">Arts. 1-5, 53, 66 Ley 39/2015</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">16</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 4 Ley 39/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> las distintas vías por las que se puede adquirir la condición de interesado en un procedimiento administrativo.</p>
+          <p class="enum-nota">Tres vías de mayor a menor intensidad de vínculo: promotor directo, titular de derechos afectados aunque no lo inició (la más citada en supuestos prácticos) y quien tiene solo intereses legítimos y decide personarse antes de la resolución.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">17</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Arts. 13, 53 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Son los mismos los derechos que la ley reconoce a cualquier persona en sus relaciones con la Administración y los derechos del interesado en un procedimiento concreto? <b>Razonar</b> la respuesta.</p>
+          <p class="enum-nota">Pareja de artículos que el examen suele confrontar: derechos generales del art. 13 (cualquier persona con capacidad de obrar) frente a los derechos reforzados del art. 53, reservados a quien ya es interesado — compatibles entre sí, dice el propio artículo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">18</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 53.1.c-d Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> el principio de no exigencia de documentos que ya obran en poder de la Administración, indicando su fundamento y su conexión con la interoperabilidad de registros.</p>
+          <p class="enum-nota">Letras c) y d) del art. 53: un ciudadano no está obligado a aportar de nuevo lo que la Administración ya tiene, sea o no la misma que tramita — es la propia Administración quien debe recabarlo internamente. Base jurídica directa de la interoperabilidad de registros entre organismos.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subgrupo-head"><h3>Ordenación, instrucción y prueba</h3><span class="subgrupo-count">Arts. 70-80 Ley 39/2015</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">19</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Arts. 71, 72, 73 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> los principios de impulso de oficio, concentración de trámites y cumplimiento de trámites en la ordenación del procedimiento administrativo.</p>
+          <p class="enum-nota">Tres artículos con lógica común de eficacia (art. 103 CE) que el examen cruza con frecuencia: el orden riguroso de incoación del art. 71 tiene consecuencia disciplinaria expresa si se salta sin motivación; el art. 73 introduce el "colchón" hasta la notificación de la resolución de decaimiento, dato muy preguntado.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">20</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 76 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿En qué momento del procedimiento pueden formularse alegaciones? <b>Razonar</b> la respuesta distinguiendo el régimen ordinario del referido a defectos de tramitación.</p>
+          <p class="enum-nota">Dos derechos de alegación distintos: el ordinario, limitado hasta el trámite de audiencia, y el relativo a defectos del propio procedimiento, que puede ejercerse "en todo momento" por no versar sobre el fondo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">21</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 77 Ley 39/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> los plazos del período de prueba en el procedimiento administrativo común, ordinario y extraordinario, y el estándar de motivación exigido para rechazar una prueba propuesta.</p>
+          <p class="enum-nota">Dos cifras que se confunden con frecuencia: período ordinario de 10 a 30 días; extraordinario, hasta 10 días adicionales a petición de los interesados. Para rechazar pruebas no basta con no considerarlas útiles: deben ser "manifiestamente" improcedentes o innecesarias.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">22</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 80 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> el régimen de los informes en el procedimiento administrativo: cuándo son facultativos y no vinculantes, y en qué casos pasan a ser preceptivos o vinculantes.</p>
+          <p class="enum-nota">La regla general —facultativos y no vinculantes— es el punto de partida; el examen suele preguntar por la excepción, que exige acudir en cada caso a la norma reguladora del procedimiento concreto. Plazo por defecto de emisión: diez días.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">23</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 82 Ley 39/2015 · art. 24, 105.c CE</span><span class="tag patron">Patrón 6 · Cruce</span></div>
+          <p class="enum-text"><b>El trámite de audiencia.</b> Explicar su fundamento constitucional, plazo, momento procedimental y la excepción del apartado 4.</p>
+          <p class="enum-nota">Traducción procedimental del art. 24 CE y el art. 105.c) CE. Dos cifras a memorizar: plazo de 10 a 15 días, inmediatamente antes de la propuesta de resolución. La salvedad más preguntada: si el expediente no contiene más hechos ni alegaciones que los del propio interesado, dar audiencia sería un formalismo vacío y puede omitirse — conecta con la nulidad de pleno derecho del art. 47.1.e) si se omite indebidamente.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subgrupo-head"><h3>Terminación del procedimiento</h3><span class="subgrupo-count">Arts. 83-96 Ley 39/2015 · repetido en 2025 y 2026</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-cold">
+      <div class="enunciado-top">
+        <div class="enum-num">24</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag cold">Baja (aunque repetible)</span><span class="tag norma">Art. 84 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> las formas de terminación del procedimiento administrativo, indicando normativa aplicable, principales características y efectos jurídicos.</p>
+          <p class="enum-nota">Es prácticamente el enunciado literal registrado en 2025 y 2026 — tres subtareas encadenadas en un solo verbo: qué es cada forma, con qué norma, y qué efectos produce. Máxima prioridad de memorización pese a su probabilidad estadística más baja, precisamente porque ya ha demostrado repetirse dos años seguidos.</p>
+          <div class="precedente"><span class="yr">2025 · 2026</span> registrado casi literalmente en ambas convocatorias</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">25</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Arts. 93, 94 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Qué diferencia hay entre desistir y renunciar como formas de terminación del procedimiento? <b>Razonar</b> la respuesta e indicar quién puede ejercer cada una.</p>
+          <p class="enum-nota">Distinción clásica: desistir es abandonar esta solicitud concreta sin renunciar al derecho de fondo (se puede volver a pedir); renunciar es abandonar el derecho mismo, con efectos más definitivos. El desistimiento del art. 93 es de la propia Administración en procedimientos de oficio; el del art. 94, del interesado.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">26</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 95 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Equivale la caducidad del procedimiento a la prescripción de la acción? <b>Razonar</b> la respuesta indicando el plazo de caducidad por paralización imputable al interesado.</p>
+          <p class="enum-nota">Uno de los artículos más rentables de memorizar: plazo de tres meses de paralización imputable al interesado, con previo apercibimiento. La caducidad del procedimiento no arrastra automáticamente la prescripción de la acción de fondo — el interesado podría iniciar un nuevo procedimiento si su derecho no ha prescrito.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">27</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 96 Ley 39/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> las principales características de la tramitación simplificada del procedimiento administrativo común, con sus plazos y la excepción al trámite de audiencia.</p>
+          <p class="enum-nota">Dos cifras memorizables: se resuelve en 30 días (frente a los 3 meses supletorios del ordinario) y las alegaciones iniciales se conceden en 5 días. Excepción más citada al art. 82: en tramitación simplificada, la audiencia solo es obligatoria si la resolución va a ser desfavorable.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">28</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Arts. 88, 89 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> el principio de congruencia de la resolución administrativa y su relación con la prohibición de la reformatio in peius.</p>
+          <p class="enum-nota">La Administración no puede aprovechar la resolución de "lo pedido" para empeorar la situación de quien lo pidió; si detecta algo que exigiría un empeoramiento, debe abrir un procedimiento nuevo y separado, con sus propias garantías. Reaparece de forma idéntica en la resolución de recursos (art. 119.3).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">29</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 83 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿En qué se diferencia el trámite de información pública del trámite de audiencia? <b>Razonar</b> la respuesta indicando plazos y ámbito subjetivo de cada uno.</p>
+          <p class="enum-nota">La información pública está abierta a cualquier persona (frente a los interesados ya identificados de la audiencia), con plazo mínimo de veinte días (frente a 10-15). Comparecer no da la condición de interesado — mismo paralelismo que la denuncia del art. 62.5.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subgrupo-head"><h3>Silencio administrativo</h3><span class="subgrupo-count">Arts. 24-25 Ley 39/2015</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-cold">
+      <div class="enunciado-top">
+        <div class="enum-num">30</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag cold">Baja (base muy trabajada)</span><span class="tag norma">Art. 24 Ley 39/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> el régimen del silencio administrativo en los procedimientos iniciados a solicitud del interesado: regla general y supuestos de silencio desestimatorio.</p>
+          <p class="enum-nota">Artículo más rentable de todo el bloque: la regla general es la estimación (silencio positivo); las cuatro excepciones desestimatorias del apartado 1 se memorizan con la regla mnemotécnica "PDMR" (Petición, Dominio/servicio público, Medio ambiente, Responsabilidad patrimonial).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">31</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Arts. 24.2, 25 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Puede la Administración resolver en sentido contrario después de que se haya producido el silencio administrativo? <b>Razonar</b> la respuesta distinguiendo silencio positivo y negativo, y el régimen específico de los procedimientos iniciados de oficio.</p>
+          <p class="enum-nota">El silencio positivo es un acto en firme que la Administración solo puede confirmar después; el negativo es una ficción procesal que abre la vía del recurso, así que puede resolverse después en cualquier sentido. En los procedimientos de oficio nunca hay silencio positivo: o desestima (art. 25.a) o caduca y obliga a archivar (art. 25.b), la de mayor recorrido práctico en sancionador.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subgrupo-head"><h3>Nulidad y anulabilidad de los actos administrativos</h3><span class="subgrupo-count">Arts. 47-52 Ley 39/2015 · el bloque más preguntado de toda la ley</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">32</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 47 Ley 39/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> las causas de nulidad de pleno derecho de los actos administrativos.</p>
+          <p class="enum-nota">Con diferencia, el artículo más preguntado de toda la Ley 39/2015. Las siete letras del apartado 1 son de memorización literal obligatoria, en orden: amparo constitucional, incompetencia manifiesta, contenido imposible, infracción penal, prescindir total y absolutamente del procedimiento (causa "estrella" en supuestos prácticos), adquisición de derechos sin requisitos esenciales, y cláusula de cierre por ley.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">33</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Arts. 47, 48 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Cuál es la regla general del sistema de invalidez en el Derecho Administrativo: la nulidad o la anulabilidad? <b>Razonar</b> la respuesta.</p>
+          <p class="enum-nota">La regla general es la anulabilidad: cualquier infracción del ordenamiento que no encaje en alguna de las siete letras del art. 47.1 es anulable, no nula. Un defecto de forma o incumplimiento de plazo solo vician el acto si producen indefensión real o si la naturaleza del plazo lo exige.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">34</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Arts. 50, 51 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> el principio de conservación de actos y trámites y la técnica de la conversión de actos viciados.</p>
+          <p class="enum-nota">La invalidez no se contagia automáticamente: declarar la nulidad de una parte del expediente no obliga a repetir todo el procedimiento. La conversión es una técnica de aprovechamiento: si un acto viciado reúne los elementos esenciales de otro acto distinto y válido, produce los efectos de este último sin necesidad de anularlo y empezar de nuevo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">35</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 52 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> la convalidación de actos administrativos: qué actos son convalidables, sus efectos en el tiempo, y dos ejemplos de vicio convalidable.</p>
+          <p class="enum-nota">Clave de examen: solo son convalidables los actos anulables, nunca los nulos de pleno derecho. Efecto ex nunc (desde la convalidación, no retroactivo) como regla general, distinto del efecto ex tunc de la revisión de oficio. Ejemplos típicos: incompetencia jerárquica (la convalida el superior) y falta de autorización (la otorga quien deba).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">36</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Arts. 34, 35 Ley 39/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> los supuestos en los que un acto administrativo debe ser motivado.</p>
+          <p class="enum-nota">La Administración no está obligada a motivar todos sus actos, solo los tasados en el art. 35.1 (letras a-i): actos desfavorables, actos de revisión, incidencias procedimentales, terminaciones anómalas, sancionador y responsabilidad patrimonial, y —la más citada en supuestos prácticos— el ejercicio de potestad discrecional, como contrapeso frente a la arbitrariedad del art. 9.3 CE.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subgrupo-head"><h3>Eficacia de los actos, plazos y notificaciones</h3><span class="subgrupo-count">Arts. 29-46 Ley 39/2015</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">37</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Arts. 30, 32, 33 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Cómo se computan los plazos administrativos tras la Ley 39/2015 y en qué se diferencia la ampliación de plazos de la tramitación de urgencia? <b>Razonar</b> la respuesta.</p>
+          <p class="enum-nota">Novedad histórica muy citada: el sábado pasa a ser inhábil, unificando el criterio con el ámbito judicial. Contraste de examen: la ampliación alarga los plazos hasta la mitad (10 días → máximo 5 más); la urgencia los reduce a la mitad — mecanismos simétricos y opuestos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">38</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 39 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> el principio de eficacia inmediata de los actos administrativos y sus excepciones, incluida la retroactividad.</p>
+          <p class="enum-nota">Tres reglas encadenadas: eficacia inmediata desde que el acto se dicta (regla general), demora hasta la notificación o publicación (excepción habitual), y retroactividad excepcional y tasada a solo dos supuestos: sustitución de un acto anulado, o efecto favorable al interesado sin lesionar a terceros. Nunca hay retroactividad de oficio en perjuicio del administrado.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">39</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Arts. 40, 44, 45 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> el régimen de notificación infructuosa y publicación de los actos administrativos, y qué actos se publican en lugar de notificarse individualmente.</p>
+          <p class="enum-nota">El BOE es la vía subsidiaria única y obligatoria cuando fracasan los intentos de notificación personal. Los actos de procedimientos selectivos o de concurrencia competitiva —listas de admitidos, resultados de oposiciones— se publican siempre, nunca se notifican uno por uno, por la pluralidad de interesados.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-cold">
+      <div class="enunciado-top">
+        <div class="enum-num">40</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag cold">Baja-media</span><span class="tag norma">Art. 43 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Qué diferencia hay entre la puesta a disposición y la práctica efectiva de una notificación electrónica? <b>Razonar</b> la respuesta indicando el plazo tras el cual se entiende rechazada.</p>
+          <p class="enum-nota">Diferencia crucial: puesta a disposición (el acto ya está subido a la sede) frente a práctica efectiva (exige el acceso real al contenido). Transcurridos diez días naturales sin acceder, opera una ficción de rechazo con plenos efectos, aunque el interesado nunca haya llegado a leer la notificación.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">41</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 14 Ley 39/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> los sujetos obligados a relacionarse electrónicamente con las Administraciones Públicas.</p>
+          <p class="enum-nota">Para las personas físicas rige la libertad de elección; la obligación tasada alcanza a personas jurídicas, entidades sin personalidad, profesionales colegiados obligatoriamente (con mención expresa a notarios y registradores), representantes de un obligado y empleados públicos en su condición de tales.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subgrupo-head"><h3>Ejecución forzosa de los actos administrativos</h3><span class="subgrupo-count">Arts. 97-105 Ley 39/2015</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">42</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Arts. 38, 99 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> el principio de autotutela ejecutiva de la Administración y sus límites.</p>
+          <p class="enum-nota">A diferencia de un particular, que necesita acudir a un juez, la Administración puede ejecutar sus propios actos por sí misma, sin intervención judicial previa. Dos límites expresos: que el acto esté suspendido, o que la Constitución o una ley exijan intervención judicial (típicamente, la entrada en domicilio).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">43</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 100 Ley 39/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> los medios de ejecución forzosa de los actos administrativos y el criterio de elección entre ellos.</p>
+          <p class="enum-nota">Los cuatro medios son de memorización literal frecuente. Criterio de elección cuando hay varios posibles: siempre el menos restrictivo de la libertad, en aplicación directa del principio de proporcionalidad. Excepción a la autotutela ejecutiva más preguntada: la entrada en domicilio exige consentimiento del afectado o autorización judicial.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">44</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 103 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Es compatible una multa coercitiva con una sanción por el mismo incumplimiento, o vulnera el principio non bis in idem? <b>Razonar</b> la respuesta.</p>
+          <p class="enum-nota">La multa coercitiva no es una sanción, sino un medio de constreñimiento para lograr el cumplimiento de una obligación; puede imponerse de forma reiterada y es compatible con una sanción que castigue el incumplimiento en sí mismo, porque persiguen finalidades distintas.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-cold">
+      <div class="enunciado-top">
+        <div class="enum-num">45</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag cold">Baja-media</span><span class="tag norma">Arts. 101, 102, 104 Ley 39/2015</span><span class="tag patron">Patrón 3 · Nominal</span></div>
+          <p class="enum-text"><b>El apremio sobre el patrimonio, la ejecución subsidiaria y la compulsión sobre las personas.</b> Diferencias entre los tres medios.</p>
+          <p class="enum-nota">Tres sustantivos coordinados = tres apartados evaluados por separado. El apremio exige deuda líquida; la ejecución subsidiaria se aplica a obligaciones de hacer no personalísimas (un tercero puede realizarlas); la compulsión, el medio más extremo, exige habilitación legal expresa y se reserva a obligaciones estrictamente personalísimas.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subgrupo-head"><h3>Principios de la potestad sancionadora</h3><span class="subgrupo-count">Arts. 25-31 Ley 40/2015 · uno de los bloques más preguntados</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">46</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Arts. 25-27 Ley 40/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> los principios de legalidad, irretroactividad y tipicidad de la potestad sancionadora de las Administraciones Públicas.</p>
+          <p class="enum-nota">Reserva de ley en materia sancionadora (reflejo del "nullum crimen sine lege" penal), irretroactividad salvo norma más favorable —incluso ya impuesta pero no cumplida— y clasificación tripartita de infracciones (leves, graves, muy graves), idéntica a la del TREBEP (Tema 6) y a la Ley 12/1989 (Tema 8).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">47</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 30 Ley 40/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> los plazos de prescripción de las infracciones y sanciones administrativas según su calificación.</p>
+          <p class="enum-nota">Tabla de plazos que se pregunta literalmente, en pares infracción/sanción: muy graves 3/3 años, graves 2/2 años, leves 6 meses/1 año — única asimetría en las leves. Son plazos supletorios, aplicables solo si la ley sectorial (como la Ley 12/1989 para infracciones estadísticas) no fija los suyos propios.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">48</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 29 Ley 40/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Puede una sanción administrativa implicar privación de libertad, siquiera de forma subsidiaria por impago? <b>Razonar</b> la respuesta.</p>
+          <p class="enum-nota">Dato absoluto de examen: ninguna sanción administrativa puede conllevar privación de libertad, ni siquiera subsidiaria por impago — es la línea roja que separa la potestad sancionadora administrativa de la potestad punitiva penal.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">49</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 31 Ley 40/2015 · art. 25 CE</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> el principio non bis in idem en el Derecho Administrativo sancionador y el test de la triple identidad.</p>
+          <p class="enum-nota">Fundamento último en el art. 25 CE, aunque no aparezca nombrado. El test de sujeto, hecho y fundamento debe cumplirse en su totalidad: si falta cualquiera de los tres elementos, no hay vulneración y cabe una doble sanción (por ejemplo, penal y disciplinaria por los mismos hechos si el fundamento de protección es distinto).</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subgrupo-head"><h3>Responsabilidad patrimonial de las Administraciones Públicas</h3><span class="subgrupo-count">Arts. 32-37 Ley 40/2015 · arts. 65-67, 81, 90-92 Ley 39/2015</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">50</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 32 Ley 40/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Es necesaria la culpa o negligencia de un funcionario concreto para que exista responsabilidad patrimonial de la Administración? <b>Razonar</b> la respuesta.</p>
+          <p class="enum-nota">Dato de examen más repetido: la responsabilidad patrimonial en España es de carácter objetivo — cubre el funcionamiento normal y el anormal del servicio, sin necesidad de culpa. Lo relevante es si el daño es real, cuantificable y el particular no tenía el deber jurídico de soportarlo, requisito que excluye las cargas generales.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">51</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 67 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> el plazo de prescripción de la acción de responsabilidad patrimonial y la regla especial para daños físicos o psíquicos.</p>
+          <p class="enum-nota">Plazo general de un año. Regla especial para daños físicos o psíquicos: el día inicial no es el del accidente, sino el de la curación o estabilización de secuelas — doctrina de la "actio nata", que impide que el plazo corra mientras el alcance real del daño se desconoce.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">52</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 36 Ley 40/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Puede un particular perjudicado demandar directamente al funcionario responsable del daño? <b>Razonar</b> la respuesta explicando el mecanismo de la acción de repetición.</p>
+          <p class="enum-nota">El particular nunca demanda directamente al funcionario, siempre a la Administración (garantía de solvencia para la víctima). Solo después, y si hubo dolo, culpa o negligencia graves —no basta la culpa leve—, la Administración puede repetir contra su propio personal.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-cold">
+      <div class="enunciado-top">
+        <div class="enum-num">53</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag cold">Baja-media</span><span class="tag norma">Art. 81 Ley 39/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> la tramitación de un procedimiento de responsabilidad patrimonial cuando la reclamación exige dictamen del Consejo de Estado, indicando la cuantía a partir de la cual es preceptivo.</p>
+          <p class="enum-nota">Dato numérico más preguntado del bloque: dictamen preceptivo del Consejo de Estado cuando la reclamación alcanza 50.000 €. Secuencia: informe del servicio causante (10 días) → audiencia → propuesta de resolución (10 días) → dictamen del Consejo de Estado si procede (2 meses).</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subgrupo-head"><h3>Órganos administrativos y técnicas de traslado de la competencia</h3><span class="subgrupo-count">Arts. 5-14 Ley 40/2015</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">54</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 8 Ley 40/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> el principio de irrenunciabilidad de la competencia y las excepciones legalmente previstas a este principio.</p>
+          <p class="enum-nota">Lista cerrada de cinco excepciones (delegación, avocación, encomienda de gestión, delegación de firma, suplencia) que evita confundirlas entre sí, porque cada una traslada una cosa distinta: el ejercicio, la firma, o la mera actividad material.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">55</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Arts. 9, 10, 11, 12 Ley 40/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Qué diferencia hay entre delegación de competencias, avocación, encomienda de gestión y delegación de firma? <b>Razonar</b> la respuesta indicando qué se traslada exactamente en cada figura.</p>
+          <p class="enum-nota">Es la pregunta de cruce más citada del bloque de organización: la delegación traslada el ejercicio (las resoluciones se consideran dictadas por el delegante); la avocación es el movimiento inverso (el superior recupera un asunto ya en trámite, y su acuerdo no es recurrible de forma autónoma); la encomienda traslada solo la actividad material, nunca la competencia jurídica; la delegación de firma traslada únicamente el acto material de firmar.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">56</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Arts. 9.4, 12, 13 Ley 40/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Puede un órgano delegar la resolución de un recurso interpuesto contra sus propios actos? <b>Razonar</b> la respuesta y diferenciar la delegación de la suplencia.</p>
+          <p class="enum-nota">Respuesta negativa: delegarlo vaciaría de garantía al recurso, porque el delegado actuaría por cuenta del mismo órgano cuyo acto se recurre. La suplencia, a diferencia de la delegación, responde a causas personales y temporales (vacante, ausencia, enfermedad) y no requiere publicación.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-cold">
+      <div class="enunciado-top">
+        <div class="enum-num">57</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag cold">Baja-media</span><span class="tag norma">Art. 5 Ley 40/2015</span><span class="tag patron">Patrón 3 · Nominal</span></div>
+          <p class="enum-text"><b>El órgano administrativo.</b> Criterio de identificación y requisitos para su existencia jurídica.</p>
+          <p class="enum-nota">El criterio del apartado 1 es funcional, no orgánico: es "órgano" cualquier unidad cuyos actos produzcan efectos jurídicos frente a terceros o cuya intervención sea obligatoria en un procedimiento. Tres requisitos cerrados: dependencia jerárquica definida, funciones delimitadas y dotación presupuestaria.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subgrupo-head"><h3>Órganos colegiados y abstención/recusación</h3><span class="subgrupo-count">Arts. 15-24 Ley 40/2015</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">58</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 17.4 Ley 40/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> el quórum de constitución de un órgano colegiado y sus dos requisitos simultáneos.</p>
+          <p class="enum-nota">El dato más preguntado de todo el bloque de órganos colegiados: el quórum exige simultáneamente la presencia de Presidente y Secretario (o sus sustitutos) y al menos la mitad de los miembros. Faltando cualquiera de las dos condiciones, la sesión no está válidamente constituida y cualquier acuerdo sería impugnable.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">59</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 18 Ley 40/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> el contenido mínimo del acta de un órgano colegiado y el régimen de su aprobación.</p>
+          <p class="enum-nota">Clásico material de memorización literal: asistentes, orden del día, circunstancias de lugar y tiempo, puntos principales de las deliberaciones y contenido de los acuerdos. La grabación de la sesión es opcional, no obligatoria, y puede sustituir a la recogida escrita de los puntos principales de las deliberaciones.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">60</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 23 Ley 40/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Vicia automáticamente un acto administrativo el hecho de que un funcionario incurso en causa de abstención no se haya abstenido? <b>Razonar</b> la respuesta indicando los grados de parentesco que dan lugar a la abstención.</p>
+          <p class="enum-nota">Clave de examen más citada: a diferencia de lo que sugiere la intuición, no se vicia automáticamente el acto — es una infracción del deber personal del funcionario, sancionable disciplinariamente, salvo que además concurra causa de nulidad o anulabilidad conforme a los arts. 47-48. Grados a memorizar: cuarto de consanguinidad (hasta primos, incluyendo tíos-sobrinos) y segundo de afinidad (cuñados, no primos políticos).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-cold">
+      <div class="enunciado-top">
+        <div class="enum-num">61</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag cold">Baja-media</span><span class="tag norma">Art. 19 Ley 40/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> el reparto de funciones entre presidente, secretario y miembros de un órgano colegiado de la Administración General del Estado.</p>
+          <p class="enum-nota">El presidente convoca, dirime empates con voto de calidad y visa; el secretario asiste con voz pero sin voto (salvo que sea miembro), convoca por orden del presidente, y redacta y certifica. Orden de sustitución del presidente, de memorización literal frecuente: vicepresidente → miembro de mayor jerarquía → mayor antigüedad → mayor edad.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subgrupo-head"><h3>Principios generales de la Ley 40/2015 y convenios</h3><span class="subgrupo-count">Arts. 1-4, 47-48 Ley 40/2015</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">62</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Arts. 1, 2 Ley 39/2015 y 40/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Qué distingue el objeto de la Ley 39/2015 del objeto de la Ley 40/2015, siendo dos leyes nacidas de la misma reforma de 2015? <b>Razonar</b> la respuesta.</p>
+          <p class="enum-nota">La distinción de manual que el examen pregunta con más frecuencia sobre estas dos leyes gemelas: la Ley 39/2015 regula las relaciones "ad extra" (Administración-ciudadano) — procedimiento común, incluido el sancionador y el de responsabilidad—; la Ley 40/2015 regula el funcionamiento "ad intra" — organización interna, órganos, y principios de responsabilidad y potestad sancionadora cuyo desarrollo procedimental está en la otra ley.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">63</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 2 Ley 40/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Es lo mismo "sector público" que "Administración Pública" a efectos de la Ley 40/2015? <b>Razonar</b> la respuesta e indicar en qué apartado del art. 2 encaja el INE.</p>
+          <p class="enum-nota">Distinción de examen fundamental: "sector público" es el concepto más amplio, que engloba también a entidades de derecho privado dependientes; "Administración Pública" en sentido estricto excluye precisamente a esas entidades y a las sociedades mercantiles estatales. El INE, como organismo autónomo dependiente de la AGE, tiene la consideración plena de Administración Pública.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">64</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Arts. 47, 48 Ley 40/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> qué es un convenio administrativo, la distinción con el contrato administrativo, y los requisitos de validez y eficacia de los convenios.</p>
+          <p class="enum-nota">Línea divisoria más preguntada: si lo que se busca es en realidad una prestación propia de un contrato (obra, suministro, servicio remunerado en términos de mercado), debe tramitarse como contrato, no disfrazarse de convenio. Los convenios se perfeccionan por el simple consentimiento pero solo despliegan eficacia plena frente a terceros tras su inscripción y publicación.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-cold">
+      <div class="enunciado-top">
+        <div class="enum-num">65</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag cold">Baja-media</span><span class="tag norma">Art. 49.h Ley 40/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Cuál es la duración máxima de un convenio administrativo? <b>Razonar</b> la respuesta.</p>
+          <p class="enum-nota">Dato numérico que se pregunta con más frecuencia de este bloque: plazo máximo de cuatro años, prorrogable unánimemente por otros cuatro adicionales como máximo, salvo que una norma prevea expresamente un plazo superior — regla de cierre que evita convenios de duración indefinida sin control periódico.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ EPÍGRAFE 3 — RECURSOS ============ -->
+  <div class="epigrafe-head" id="ep3">
+    <div class="epigrafe-eyebrow">
+      <span class="epigrafe-num">Epígrafe 3 de 3</span>
+      <span class="epigrafe-tag cold">Preguntado en 2023 con enfoque comparativo</span>
+    </div>
+    <h2>Revisión de actos administrativos: los recursos administrativos</h2>
+    <p class="epigrafe-desc">Revisión de oficio (nulidad y lesividad), y los tres recursos administrativos: alzada, potestativo de reposición y extraordinario de revisión. Ya preguntado en 2023 con un planteamiento comparativo entre recursos, lo que hace más probable que una repetición venga con un ángulo distinto — un artículo concreto en detalle, o un cruce con la revisión de oficio, en vez del cuadro comparativo genérico.</p>
+  </div>
+
+  <div class="subgrupo-head"><h3>Revisión de oficio</h3><span class="subgrupo-count">Arts. 106-111 Ley 39/2015</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">66</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Arts. 106, 107 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Puede la propia Administración revocar directamente un acto anulable y favorable al interesado, del mismo modo que puede revisar de oficio un acto nulo de pleno derecho? <b>Razonar</b> la respuesta explicando el procedimiento de declaración de lesividad.</p>
+          <p class="enum-nota">Distinción de examen clásica: los actos nulos de pleno derecho pueden revisarse directamente por la propia Administración, sin plazo de prescripción. Los actos anulables y favorables no puede revocarlos la propia Administración por sí sola —sería contrario a la seguridad jurídica—, por lo que debe declararlos lesivos y acudir después a los tribunales. Tres plazos a memorizar: 4 años para declarar la lesividad, 6 meses para no caducar ese procedimiento, y la declaración no es recurrible, solo notificable.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">67</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 109 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Es lo mismo la revocación de un acto que la rectificación de errores materiales? <b>Razonar</b> la respuesta indicando sobre qué tipo de actos puede operar cada figura.</p>
+          <p class="enum-nota">Dos figuras que el examen suele confundir a propósito: la revocación solo cabe sobre actos desfavorables al particular —nunca sobre favorables, para eso está la lesividad— y tiene límites materiales expresos. La rectificación de errores es más simple: corrige errores puramente materiales o aritméticos, no reabre el fondo, y puede hacerse en cualquier momento, sin plazo de prescripción.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-cold">
+      <div class="enunciado-top">
+        <div class="enum-num">68</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag cold">Baja-media</span><span class="tag norma">Art. 111 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> la regla de competencia para la revisión de oficio en la Administración General del Estado, aplicándola al caso del INE.</p>
+          <p class="enum-nota">Regla mnemotécnica sencilla: la competencia para revisar de oficio recae siempre un escalón por encima de quien dictó el acto, nunca en el propio autor — misma lógica jerárquica que rige el recurso de alzada. Aplicado al INE: la revisión de oficio de los actos del Presidente correspondería al órgano ministerial de adscripción, salvo norma específica en contrario.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">69</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Arts. 108, 110 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> los límites de la revisión de oficio y el régimen de suspensión del acto revisado.</p>
+          <p class="enum-nota">Cláusula de cierre de todo el capítulo: aunque un acto sea técnicamente nulo o anulable, la Administración no puede revisarlo si hacerlo resultaría contrario a la buena fe o a la equidad por el paso del tiempo — manifestación del principio de seguridad jurídica frente a la propia autotutela. La suspensión no es automática, sino facultad condicionada a un perjuicio de difícil o imposible reparación.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subgrupo-head"><h3>Principios generales de los recursos administrativos</h3><span class="subgrupo-count">Arts. 112-120 Ley 39/2015</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-cold">
+      <div class="enunciado-top">
+        <div class="enum-num">70</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag cold">Baja (preguntado 2023)</span><span class="tag norma">Art. 112 Ley 39/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> los tipos de recursos administrativos regulados en la Ley 39/2015 y las principales diferencias entre ellos.</p>
+          <p class="enum-nota">Formulación registrada en 2023 con enfoque comparativo, incluyendo la palabra "diferencias" que exige comparación explícita, no una lista en paralelo. Menor probabilidad estadística por ya haber salido, pero es la formulación de referencia que hay que dominar antes de entrar en el detalle de cada recurso.</p>
+          <div class="precedente"><span class="yr">2023</span> preguntado con planteamiento comparativo</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">71</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 116 Ley 39/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> las causas de inadmisión de un recurso administrativo.</p>
+          <p class="enum-nota">Cinco causas tasadas, de memorización literal recomendada por su brevedad: incompetencia del órgano (con remisión obligatoria al competente, no simple rechazo), falta de legitimación, acto no recurrible, extemporaneidad y falta manifiesta de fundamento.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">72</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 115 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">Si un ciudadano califica erróneamente el recurso que interpone, ¿debe la Administración rechazarlo por ese motivo? <b>Razonar</b> la respuesta.</p>
+          <p class="enum-nota">Consagra el principio antiformalista del error en la calificación del recurso: si el contenido revela una naturaleza distinta a la del nombre que le dio el recurrente, la Administración debe tramitarlo según su verdadera naturaleza, no rechazarlo por el nombre equivocado.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">73</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 117 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Suspende automáticamente la ejecución de un acto la mera interposición de un recurso administrativo? <b>Razonar</b> la respuesta indicando la excepción del silencio positivo especial en materia de suspensión.</p>
+          <p class="enum-nota">La regla de partida es la ejecutividad y la autotutela: recurrir no suspende automáticamente. Excepción muy citada: si se pide la suspensión y transcurre un mes sin respuesta expresa, opera un silencio positivo especial que suspende el acto — distinto del régimen general de silencio del art. 24. Alegar una causa de nulidad radical facilita obtener la suspensión.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-cold">
+      <div class="enunciado-top">
+        <div class="enum-num">74</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag cold">Baja-media</span><span class="tag norma">Art. 118 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Es siempre necesario abrir un nuevo trámite de audiencia al resolver un recurso administrativo? <b>Razonar</b> la respuesta.</p>
+          <p class="enum-nota">Es el "art. 82 de los recursos": mismo plazo (10-15 días), aplicado solo cuando aparecen elementos que no estaban en el expediente original — si todo lo que se valora ya figuraba en él, no hace falta repetir la audiencia. El propio recurso o los informes internos no cuentan como "documentos nuevos".</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subgrupo-head"><h3>Alzada, reposición y revisión extraordinaria: régimen específico</h3><span class="subgrupo-count">Arts. 121-126 Ley 39/2015</span></div>
+  <div class="enunciados">
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">75</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Arts. 114, 121-124 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Qué diferencia hay entre el recurso de alzada y el recurso potestativo de reposición en cuanto a órgano competente, obligatoriedad y plazos? <b>Razonar</b> la respuesta con detalle de las cifras de cada uno.</p>
+          <p class="enum-nota">La alzada procede cuando el acto no agota la vía administrativa y se dirige al superior jerárquico; es obligatoria antes de la vía judicial. La reposición se interpone ante el mismo órgano que dictó el acto (que ya agotó la vía) y es potestativa. Contraste de plazos muy citado: alzada, un mes para recurrir / tres meses para resolver (silencio negativo); reposición, un mes para ambos — más rápida en los dos sentidos por diseño.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-hot">
+      <div class="enunciado-top">
+        <div class="enum-num">76</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 125 Ley 39/2015</span><span class="tag patron">Patrón 2 · Exponer</span></div>
+          <p class="enum-text"><b>Exponer</b> las causas tasadas del recurso extraordinario de revisión y sus plazos de interposición.</p>
+          <p class="enum-nota">Uno de los artículos más preguntados de toda la ley, con paralelismo directo con los motivos de revisión civil y penal: error de hecho documental, documentos esenciales sobrevenidos, falsedad documental o testifical declarada judicialmente, y delito en la génesis del acto. Asimetría de plazos muy citada: 4 años para la causa de error de hecho, 3 meses para las otras tres, que exigen sentencia judicial firme previa.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">77</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 113 Ley 39/2015</span><span class="tag patron">Patrón 4 · Razonar</span></div>
+          <p class="enum-text">¿Contra qué tipo de actos cabe el recurso extraordinario de revisión, y basta con estar en desacuerdo con el acto para interponerlo? <b>Razonar</b> la respuesta.</p>
+          <p class="enum-nota">Solo cabe contra actos ya firmes —cuando ningún otro recurso ordinario es posible— y solo por las cuatro causas tasadas del art. 125.1, nunca por disconformidad general con el acto. Es el recurso de carácter más restrictivo de los tres.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-cold">
+      <div class="enunciado-top">
+        <div class="enum-num">78</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag cold">Baja-media</span><span class="tag norma">Art. 119 Ley 39/2015</span><span class="tag patron">Patrón 1 · Explicar</span></div>
+          <p class="enum-text"><b>Explicar</b> la técnica de la retroacción de actuaciones en la resolución de un recurso administrativo.</p>
+          <p class="enum-nota">Técnica específica para vicios de forma que no ameritan anular todo el fondo: se retrotrae el procedimiento justo al punto donde se cometió el defecto, no se empieza de cero. El apartado 3 repite, en sede de recursos, la misma prohibición de reformatio in peius del art. 88.2 sobre el contenido de la resolución.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enunciado nivel-warm">
+      <div class="enunciado-top">
+        <div class="enum-num">79</div>
+        <div class="enum-body">
+          <div class="enum-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 121 Ley 39/2015 · art. 31 Ley 12/1989</span><span class="tag patron">Patrón 6 · Cruce</span></div>
+          <p class="enum-text">Aplicar el régimen del recurso de alzada a una resolución del Instituto Nacional de Estadística en materia técnico-estadística. ¿Ante qué órgano se recurre?</p>
+          <p class="enum-nota">Pregunta de cruce entre temas, el patrón más reciente del tribunal (2025-2026): la regla general es que los actos del INE se recurren en alzada ante el Ministro de adscripción — salvo cuando el acto verse sobre materia técnico-estadística o secreto estadístico, supuesto en que la resolución del propio Presidente del INE ya agota la vía administrativa, sin alzada posible.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lexico-box">
+    <h3 class="lexico-title">Guía rápida: qué exige cada patrón de enunciado</h3>
+    <div class="lexico-cols">
+      <div class="lexico-col">
+        <h4>Verbos y formatos usados en este documento</h4>
+        <ul>
+          <li><b>Explicar</b> → desarrollo con causa, norma y efecto; casi siempre trae una segunda exigencia encadenada.</li>
+          <li><b>Exponer</b> → enumeración con número cerrado (los "cuatro supuestos", las "siete letras") o con diferencias explícitas entre ítems.</li>
+          <li><b>Razonar</b> → pregunta cerrada (sí/no, "¿es lo mismo...?") que exige postura justificada con cita del fundamento legal, no solo la respuesta.</li>
+          <li><b>Enunciado nominal sin verbo</b> → cada sustantivo coordinado es un apartado evaluado por separado.</li>
+          <li><b>Cruce entre temas</b> → aplicar la figura general al INE o conectarla con otro tema del programa (Tema 6, Tema 8, Tema 14).</li>
+        </ul>
+      </div>
+      <div class="lexico-col">
+        <h4>Dónde se concentra el riesgo de respuesta incompleta</h4>
+        <ul>
+          <li><b>Listas cerradas con orden fijo</b> (art. 47.1, art. 58, art. 100) → el examen suele pedir el orden exacto, no solo el contenido.</li>
+          <li><b>Cifras que se confunden entre sí</b> (plazos de alzada vs. reposición, ampliación vs. urgencia, prescripción vs. caducidad) → conviene fijarlas siempre en pareja contrastada.</li>
+          <li><b>Distinción de dos figuras próximas</b> (delegación/avocación/encomienda, revocación/rectificación, desistimiento/renuncia) → es el formato de pregunta más repetido de todo el Tema 5.</li>
+          <li><b>Aplicación al INE</b> → cuando el enunciado nombra al Instituto o a un procedimiento estadístico, la respuesta debe trasladar la figura a ese ámbito, no quedarse en la explicación abstracta.</li>
+          <li><b>Artículos marcados como "más preguntados"</b> en los complementos (arts. 47, 24, 82, 112-126, 8-12, 17.4, 25-31, 32) → son los primeros candidatos si el tribunal decide repetir enunciado o rotar dentro del mismo epígrafe.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <b>Cómo se ha construido este banco de enunciados:</b> se ha recorrido el articulado completo del Tema 5 —documento base más los tres complementos de huecos de la Ley 39/2015 y la Ley 40/2015— y se ha aplicado a cada artículo o bloque de artículos el patrón retórico con el que este tribunal ha formulado sus quince preguntas reales registradas entre 2023 y 2026 (Explicar, Exponer, enunciado nominal, pregunta cerrada con Razonar, y el cruce entre temas propio de las últimas dos convocatorias). La probabilidad "alta" se asigna a los artículos señalados expresamente como "más preguntados" o "clave de examen" en los documentos de complemento, o al epígrafe de Fuentes por no haber sido preguntado nunca en las cuatro últimas convocatorias; "media", a artículos con distinciones de examen citadas pero de detalle más fino; "baja", a formulaciones ya registradas de forma prácticamente literal (terminación del procedimiento, cuadro comparativo de recursos), que se mantienen por su capacidad probada de repetirse.
+    <br><br>
+    <b>Fuente del temario:</b> Resolución de 22 de diciembre de 2025, de la Subsecretaría (Ministerio de Economía, Comercio y Empresa) — BOE núm. 313, de 29/12/2025, Anexo I, Programa, apartado A.VI «Derecho», Tema 5. Ref. BOE-A-2025-26900. Articulado de referencia: Ley 39/2015, de 1 de octubre (BOE-A-2015-10565) y Ley 40/2015, de 1 de octubre (BOE-A-2015-10566).
+    <br><br>
+    <b>Sobre el carácter de los enunciados:</b> son enunciados construidos, no transcripciones de examen — con la única excepción de la terminación del procedimiento (epígrafe 2), reproducida casi literalmente porque así consta registrada en 2025 y 2026, y del cuadro comparativo de recursos (epígrafe 3), formulado igual que en 2023. El resto se ha redactado aplicando a cada artículo el patrón retórico y el nivel de detalle que el tribunal ha demostrado usar, no como garantía de que el enunciado futuro será exactamente ese, sino como guía de qué figuras y qué matices conviene tener preparados con ese nivel de precisión.
+  </div>
+
+</div>
+</body>
+</html>

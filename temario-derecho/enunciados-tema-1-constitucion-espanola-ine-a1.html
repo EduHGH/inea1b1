@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enunciados posibles · Tema 1 · La Constitución Española · INE A1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --ink:#241F17;
+    --ink-soft:#6b6252;
+    --line:#dcd4c2;
+    --der:#2E5266;
+    --der-soft:#DCE6EB;
+    --der-glow:rgba(46,82,102,.18);
+    --glass:rgba(255,255,255,.55);
+
+    --hot:#8B3A3A;
+    --hot-soft:#F3DEDE;
+    --warm:#966A24;
+    --warm-soft:#F1E4CB;
+    --cold:#3E6B4F;
+    --cold-soft:#DEEBE2;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(36,31,23,.07) 1px, transparent 0) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    padding:48px 20px 80px;
+  }
+
+  .wrap{max-width:900px; margin:0 auto;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:38px 36px 32px;
+    border-radius:20px;
+    background:var(--glass);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -24px rgba(36,31,23,.25);
+    overflow:hidden;
+    margin-bottom:26px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:-40% -20% auto auto;
+    width:340px; height:340px;
+    background:radial-gradient(circle, var(--der-glow), transparent 70%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--der);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--der);}
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(26px, 4vw, 38px);
+    line-height:1.1;
+    margin:0 0 10px;
+    letter-spacing:-.01em;
+  }
+  .hero p{
+    margin:0;
+    max-width:64ch;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.6;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-top:22px;
+  }
+  .meta-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.55);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 12px;
+  }
+
+  /* LEYENDA */
+  .leyenda{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-bottom:24px;
+  }
+  .leyenda-item{
+    display:flex; align-items:center; gap:7px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 13px 6px 8px;
+  }
+  .sw{width:9px; height:9px; border-radius:3px; display:inline-block;}
+  .sw.hot{background:var(--hot);}
+  .sw.warm{background:var(--warm);}
+  .sw.cold{background:var(--cold);}
+
+  /* TOC */
+  .toc{
+    display:flex; flex-wrap:wrap; gap:8px;
+    margin-bottom:30px;
+  }
+  .toc a{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.02em;
+    color:var(--der);
+    text-decoration:none;
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:7px 13px;
+    transition:background .15s ease, border-color .15s ease;
+  }
+  .toc a:hover{background:var(--der-soft); border-color:var(--der);}
+
+  /* EPÍGRAFE BLOCK */
+  .epigrafe{
+    padding:26px 30px 24px;
+    border-radius:16px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -20px rgba(36,31,23,.3);
+    margin-bottom:20px;
+    scroll-margin-top:24px;
+  }
+  .epi-head{
+    display:flex; align-items:flex-start; gap:12px;
+    margin-bottom:6px;
+    flex-wrap:wrap;
+  }
+  .epi-num{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:6px;
+    padding:2px 8px;
+    flex:none;
+    margin-top:3px;
+  }
+  h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:21px;
+    line-height:1.3;
+    margin:0;
+    color:var(--ink);
+    flex:1;
+    min-width:200px;
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:5px;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    font-weight:700;
+    border-radius:100px;
+    padding:4px 10px;
+    flex:none;
+    margin-top:3px;
+  }
+  .badge .dot{width:6px; height:6px; border-radius:50%;}
+  .badge.hot{background:var(--hot-soft); color:var(--hot);}
+  .badge.hot .dot{background:var(--hot);}
+  .badge.warm{background:var(--warm-soft); color:var(--warm);}
+  .badge.warm .dot{background:var(--warm);}
+  .badge.cold{background:var(--cold-soft); color:var(--cold);}
+  .badge.cold .dot{background:var(--cold);}
+
+  .lead{
+    color:var(--ink-soft);
+    font-size:13.5px;
+    line-height:1.6;
+    margin:8px 0 18px;
+  }
+
+  h3{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:.03em;
+    color:var(--der);
+    margin:20px 0 10px;
+    padding-top:14px;
+    border-top:1px dashed var(--line);
+    display:flex; align-items:center; gap:8px;
+  }
+  .epigrafe > h3:first-of-type{border-top:none; padding-top:0; margin-top:4px;}
+  h3 .n{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    color:var(--ink-soft);
+    font-weight:400;
+    letter-spacing:0;
+  }
+
+  /* ENUNCIADO CARD */
+  .enun{
+    margin:0 0 12px;
+    padding:14px 16px;
+    background:rgba(255,255,255,.55);
+    border-left:3px solid var(--der);
+    border-radius:0 10px 10px 0;
+  }
+  .enun:last-child{margin-bottom:0;}
+  .enun-tag{
+    display:inline-flex; align-items:center; gap:5px;
+    font-family:'Space Mono', monospace;
+    font-size:9.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:100px;
+    padding:2px 8px;
+    margin-bottom:8px;
+  }
+  .enun-txt{
+    font-size:14px;
+    line-height:1.6;
+    color:var(--ink);
+    margin:0 0 6px;
+  }
+  .enun-txt b{font-weight:600;}
+  .enun-nota{
+    font-size:12px;
+    line-height:1.5;
+    color:var(--ink-soft);
+    margin:0;
+  }
+
+  /* NO 2º EJERCICIO NOTICE */
+  .sin-practica{
+    margin-top:18px;
+    padding:14px 16px;
+    border-radius:11px;
+    background:rgba(107,98,82,.08);
+    border:1px solid rgba(107,98,82,.22);
+  }
+  .sin-practica-head{
+    display:flex; align-items:center; gap:7px;
+    margin-bottom:6px;
+  }
+  .sin-practica-head svg{width:15px; height:15px; color:var(--ink-soft); flex:none;}
+  .sin-practica-head span{
+    font-family:'Space Mono', monospace;
+    font-size:9.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    font-weight:700;
+  }
+  .sin-practica p{font-size:12.5px; line-height:1.55; margin:0; color:var(--ink-soft);}
+
+  /* RESUMEN chips */
+  .resumen{
+    margin-top:18px;
+    padding-top:14px;
+    border-top:1px dashed var(--line);
+  }
+  .resumen-label{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+    display:block;
+  }
+  .chips{display:flex; flex-wrap:wrap; gap:6px;}
+  .chip{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--der);
+    background:transparent;
+    border:1px solid var(--der-soft);
+    border-radius:100px;
+    padding:4px 10px;
+  }
+
+  /* MÉTODO block */
+  .metodo{
+    padding:22px 26px;
+    border-radius:16px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -20px rgba(36,31,23,.3);
+    margin-bottom:20px;
+  }
+  .metodo h2{font-size:18px; margin-bottom:10px;}
+  .metodo p{
+    font-size:13px; line-height:1.65; color:var(--ink-soft); margin:0 0 10px;
+  }
+  .metodo p:last-child{margin-bottom:0;}
+  .metodo b{color:var(--ink); font-weight:600;}
+
+  /* LÉXICO reference (compact) */
+  .lexico-box{
+    margin-bottom:20px;
+    padding:20px 22px;
+    border-radius:14px;
+    background:var(--der-soft);
+    border:1px solid rgba(46,82,102,.2);
+  }
+  .lexico-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    color:var(--der);
+    margin:0 0 12px;
+  }
+  .lexico-cols{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  @media (max-width:560px){
+    .lexico-cols{grid-template-columns:1fr;}
+  }
+  .lexico-col h4{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--der);
+    margin:0 0 8px;
+  }
+  .lexico-col ul{
+    margin:0; padding:0 0 0 16px;
+    font-size:12.5px;
+    line-height:1.7;
+    color:var(--ink);
+  }
+  .lexico-col li b{color:var(--der);}
+
+  /* FOOTER */
+  .foot{
+    margin-top:26px;
+    padding:16px 20px;
+    border-radius:12px;
+    border:1px dashed var(--line);
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    line-height:1.7;
+    color:var(--ink-soft);
+  }
+  .foot b{color:var(--ink);}
+
+  @media (max-width:640px){
+    .hero{padding:28px 22px 24px;}
+    .epigrafe{padding:20px 18px 18px;}
+    .metodo{padding:18px 18px;}
+    .lexico-box{padding:18px 18px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dot"></span>Cuerpo Superior de Estadísticos del Estado · Enunciados posibles</div>
+    <h1>Tema 1 — La Constitución Española</h1>
+    <p>Enunciados probables para el primer ejercicio (preguntas cortas) sobre este tema, construidos epígrafe a epígrafe a partir del articulado constitucional, del análisis de huecos del bloque de Derecho y del patrón retórico con que este tribunal ha formulado sus preguntas conocidas (2023-2026). No hay enunciados reales registrados para este tema en concreto en las cuatro últimas convocatorias: todo lo aquí recogido son formulaciones de estudio, redactadas con el mismo molde de verbo, extensión y estructura que este tribunal ha usado en otros temas del bloque.</p>
+    <div class="hero-meta">
+      <span class="meta-chip">BOE-A-2025-26900 · A.VI · Tema 1</span>
+      <span class="meta-chip">Solo 1er ejercicio — sin 2º ejercicio en Derecho</span>
+      <span class="meta-chip">0 preguntas reales registradas en este tema</span>
+    </div>
+  </div>
+
+  <div class="leyenda">
+    <div class="leyenda-item"><span class="sw hot"></span>Probabilidad alta</div>
+    <div class="leyenda-item"><span class="sw warm"></span>Probabilidad media</div>
+    <div class="leyenda-item"><span class="sw cold"></span>Probabilidad baja</div>
+  </div>
+
+  <div class="toc">
+    <a href="#s1">1 · Estructura básica</a>
+    <a href="#s2">2 · Título preliminar</a>
+    <a href="#s3">3 · Derechos fundamentales</a>
+    <a href="#s4">4 · Garantías y protección</a>
+    <a href="#s5">5 · El Defensor del Pueblo</a>
+    <a href="#lexico">Guía de verbos de este bloque</a>
+    <a href="#metodo">Cómo se han construido estos enunciados</a>
+  </div>
+
+  <div class="lexico-box" id="lexico">
+    <h3 class="lexico-title">Guía rápida: qué exige cada verbo en el bloque de Derecho</h3>
+    <div class="lexico-cols">
+      <div class="lexico-col">
+        <h4>Verbos vistos en examen (otros temas del bloque)</h4>
+        <ul>
+          <li><b>Explicar</b> → desarrollo con causa, norma y efecto; casi siempre trae un «y» con una segunda exigencia.</li>
+          <li><b>Exponer</b> → enumeración con número mínimo marcado o con diferencias explícitas entre ítems.</li>
+          <li><b>Definir / Definición de</b> → concepto exacto de la norma, no una paráfrasis libre.</li>
+          <li><b>Razonar</b> → postura justificada con cita del fundamento legal, no solo la respuesta.</li>
+          <li><b>Enunciado nominal sin verbo</b> → cada sustantivo coordinado («naturaleza, designación y funciones») es un apartado que se evalúa por separado.</li>
+        </ul>
+      </div>
+      <div class="lexico-col">
+        <h4>Señales de alcance a vigilar</h4>
+        <ul>
+          <li><b>«De conformidad con...»</b> → la respuesta debe citar esa norma por su nombre y número exacto (aquí: la propia Constitución, artículo por artículo).</li>
+          <li><b>Cifras en el enunciado («tres», «al menos»)</b> → son requisito de mínimos, no una orientación de estilo.</li>
+          <li><b>Coordinación con «y»</b> → casi nunca es adorno: introduce una segunda tarea tan evaluable como la primera.</li>
+          <li><b>Nombre de un órgano concreto</b> → pide distinguirlo de otros órganos similares, no describir la norma que lo crea.</li>
+          <li><b>Sin segundo ejercicio en Derecho:</b> ningún enunciado de este tema puede formularse como cuestión práctica del 2º ejercicio, que el bloque excluye expresamente.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- EPÍGRAFE 1 -->
+  <div class="epigrafe" id="s1">
+    <div class="epi-head">
+      <span class="epi-num">1</span>
+      <h2>Estructura básica de la Constitución</h2>
+      <span class="badge cold"><span class="dot"></span>Probabilidad baja como pregunta autónoma</span>
+    </div>
+    <p class="lead">Contenido muy formal (número de artículos, partes del texto) que rara vez sostiene una pregunta corta por sí solo; más plausible como parte introductoria de una pregunta más amplia sobre el resto del tema.</p>
+
+    <h3>Estructura formal</h3>
+    <div class="enun">
+      <span class="enun-tag">exponer</span>
+      <p class="enun-txt">Exponer la estructura formal de la Constitución Española de 1978, indicando sus partes y el número de artículos que la componen.</p>
+      <p class="enun-nota">Preámbulo, título preliminar, diez títulos, disposiciones adicionales, transitorias, derogatoria y final; 169 artículos.</p>
+    </div>
+
+    <h3>Rigidez constitucional</h3>
+    <div class="enun">
+      <span class="enun-tag">explicar</span>
+      <p class="enun-txt">Explicar en qué consiste la rigidez constitucional y qué artículos regulan el procedimiento de reforma de la Constitución Española.</p>
+      <p class="enun-nota">Arts. 167 y 168 CE: dos procedimientos agravados distintos según la materia afectada por la reforma —el 168 exige el procedimiento más severo, reservado a la revisión total o a la reforma del título preliminar, la Corona o los derechos fundamentales de la Sección 1ª—.</p>
+    </div>
+    <div class="enun">
+      <span class="enun-tag">¿en qué se diferencian?</span>
+      <p class="enun-txt">¿En qué se diferencia el procedimiento de reforma constitucional del artículo 167 del previsto en el artículo 168?</p>
+      <p class="enun-nota">Contraste de dos procedimientos afines: el molde de pregunta que este tribunal ha repetido en otros bloques (recursos administrativos, formas de terminación del procedimiento) aplicado aquí a los dos procedimientos de reforma.</p>
+    </div>
+
+    <div class="sin-practica">
+      <div class="sin-practica-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg><span>Sobre el 2º ejercicio</span></div>
+      <p>El bloque de Derecho se evalúa exclusivamente en el primer ejercicio del turno libre; el segundo ejercicio lo excluye de forma expresa. Ningún epígrafe de este tema puede, por tanto, formularse como cuestión práctica o numérica.</p>
+    </div>
+
+    <div class="resumen">
+      <span class="resumen-label">Enunciados de este epígrafe, en una frase</span>
+      <div class="chips">
+        <span class="chip">estructura formal: 169 artículos</span>
+        <span class="chip">rigidez: arts. 167 y 168 CE</span>
+        <span class="chip">167 vs. 168: procedimiento agravado según materia</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EPÍGRAFE 2 -->
+  <div class="epigrafe" id="s2">
+    <div class="epi-head">
+      <span class="epi-num">2</span>
+      <h2>Título preliminar: principios básicos</h2>
+      <span class="badge warm"><span class="dot"></span>Probabilidad media</span>
+    </div>
+    <p class="lead">Contenido muy troncal que suele servir de base a otras preguntas más que ser objeto de pregunta en sí mismo, según el propio análisis de huecos del bloque — pero varios de sus artículos contienen listas cerradas y contrastes de conceptos afines que encajan bien en el molde retórico dominante de este tribunal.</p>
+
+    <h3>Artículo 1: fórmula política del Estado</h3>
+    <div class="enun">
+      <span class="enun-tag">exponer</span>
+      <p class="enun-txt">Exponer el contenido del artículo 1 de la Constitución Española: modelo de Estado, titular de la soberanía y forma de gobierno.</p>
+      <p class="enun-nota">Tres apartados que se preguntan por separado: Estado social y democrático de Derecho con sus cuatro valores superiores (libertad, justicia, igualdad, pluralismo político); soberanía nacional residente en el pueblo; Monarquía parlamentaria como forma política.</p>
+    </div>
+    <div class="enun">
+      <span class="enun-tag">enunciado nominal</span>
+      <p class="enun-txt">Los valores superiores del ordenamiento jurídico español según el artículo 1.1 de la Constitución.</p>
+    </div>
+
+    <h3>Artículo 2: unidad, autonomía y solidaridad</h3>
+    <div class="enun">
+      <span class="enun-tag">explicar</span>
+      <p class="enun-txt">Explicar cómo concilia el artículo 2 de la Constitución la unidad de la Nación española con el derecho a la autonomía de las nacionalidades y regiones.</p>
+      <p class="enun-nota">Los tres conceptos en tensión deliberada: unidad (indisoluble, de la Nación), autonomía (derecho de nacionalidades y regiones) y solidaridad (entre todas ellas) — la clave de bóveda del modelo territorial que despliega después el Título VIII.</p>
+    </div>
+
+    <h3>Artículo 3: oficialidad lingüística</h3>
+    <div class="enun">
+      <span class="enun-tag">¿en qué se diferencian?</span>
+      <p class="enun-txt">¿En qué se diferencia el régimen de oficialidad del castellano del de las demás lenguas españolas, según el artículo 3 de la Constitución?</p>
+      <p class="enun-nota">Distinción clásica: el castellano es oficial en todo el Estado y genera deber de conocimiento además de derecho de uso; las demás lenguas son oficiales solo en su Comunidad Autónoma y solo generan derecho de uso.</p>
+    </div>
+
+    <h3>Artículos 6, 7 y 8: partidos, sindicatos y Fuerzas Armadas</h3>
+    <div class="enun">
+      <span class="enun-tag">¿en qué se parecen y en qué se diferencian?</span>
+      <p class="enun-txt">¿En qué se parecen y en qué se diferencian los artículos 6 y 7 de la Constitución, relativos a los partidos políticos y a los sindicatos y asociaciones empresariales?</p>
+      <p class="enun-nota">Ambos comparten la misma estructura de doble libertad —creación y actividad libres, dentro del respeto a la Constitución y la ley— y exigen estructura y funcionamiento internos democráticos; se diferencian en el sujeto regulado y en su función constitucional (expresión del pluralismo político frente a defensa de intereses económicos y sociales).</p>
+    </div>
+    <div class="enun">
+      <span class="enun-tag">enumerar</span>
+      <p class="enun-txt">Enumerar las misiones que el artículo 8 de la Constitución atribuye a las Fuerzas Armadas.</p>
+      <p class="enun-nota">Lista cerrada de cuatro misiones: garantizar la soberanía e independencia de España, defender su integridad territorial y defender el ordenamiento constitucional.</p>
+    </div>
+
+    <h3>Artículo 9: legalidad y jerarquía normativa</h3>
+    <div class="enun">
+      <span class="enun-tag">enumerar</span>
+      <p class="enun-txt">Enumerar los principios que garantiza el artículo 9.3 de la Constitución Española.</p>
+      <p class="enun-nota">Lista cerrada de seis principios, que conviene memorizar en el orden exacto del texto: legalidad, jerarquía normativa, publicidad de las normas, irretroactividad de las disposiciones sancionadoras no favorables, seguridad jurídica e interdicción de la arbitrariedad de los poderes públicos.</p>
+    </div>
+    <div class="enun">
+      <span class="enun-tag">explicar</span>
+      <p class="enun-txt">Explicar qué relación existe entre el artículo 9.2 de la Constitución y el concepto de «Estado social» del artículo 1.1.</p>
+      <p class="enun-nota">El art. 9.2 es la plasmación operativa del Estado social: no basta la igualdad formal, los poderes públicos deben remover obstáculos para lograr una igualdad real y efectiva — fundamento constitucional de toda política de acción positiva.</p>
+    </div>
+
+    <div class="sin-practica">
+      <div class="sin-practica-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg><span>Sobre el 2º ejercicio</span></div>
+      <p>Como en el resto del tema, ningún epígrafe del título preliminar tiene recorrido en el 2º ejercicio: el bloque de Derecho se evalúa íntegramente en el primer ejercicio.</p>
+    </div>
+
+    <div class="resumen">
+      <span class="resumen-label">Enunciados de este epígrafe, en una frase</span>
+      <div class="chips">
+        <span class="chip">art. 1: modelo de Estado + soberanía + forma de gobierno</span>
+        <span class="chip">art. 2: unidad, autonomía y solidaridad</span>
+        <span class="chip">art. 3: castellano vs. demás lenguas</span>
+        <span class="chip">arts. 6-7: partidos vs. sindicatos</span>
+        <span class="chip">art. 8: 4 misiones de las Fuerzas Armadas</span>
+        <span class="chip">art. 9.3: 6 principios (orden exacto)</span>
+        <span class="chip">art. 9.2 ↔ Estado social del art. 1.1</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EPÍGRAFE 3 -->
+  <div class="epigrafe" id="s3">
+    <div class="epi-head">
+      <span class="epi-num">3</span>
+      <h2>Derechos Fundamentales y Libertades Públicas</h2>
+      <span class="badge hot"><span class="dot"></span>Probabilidad alta</span>
+    </div>
+    <p class="lead">El epígrafe con más densidad de contenido examinable de todo el tema: el Título I combina listas cerradas de garantías procesales, distinciones de nivel de protección entre secciones, y varios pares de artículos que se prestan a confusión deliberada —el molde retórico más repetido por este tribunal en el resto del bloque.</p>
+
+    <h3>Estructura del Título I y niveles de protección</h3>
+    <div class="enun">
+      <span class="enun-tag">exponer</span>
+      <p class="enun-txt">Exponer la estructura del Título I de la Constitución Española y los distintos niveles de protección que otorga a cada uno de sus capítulos y secciones.</p>
+      <p class="enun-nota">Cinco capítulos (españoles y extranjeros; derechos y libertades; principios rectores; garantías; suspensión); dentro del Capítulo II, la Sección 1ª (arts. 15-29) con máxima protección, la Sección 2ª (arts. 30-38) con protección intermedia, y el Capítulo III (arts. 39-52) sin exigibilidad directa.</p>
+    </div>
+    <div class="enun">
+      <span class="enun-tag">¿en qué se diferencian?</span>
+      <p class="enun-txt">¿En qué se diferencia el nivel de protección de los derechos de la Sección 1ª del Capítulo II respecto de los de la Sección 2ª?</p>
+      <p class="enun-nota">Reserva de ley orgánica y recurso de amparo para la Sección 1ª frente a reserva de ley ordinaria sin amparo directo para la Sección 2ª — con la excepción expresa de la objeción de conciencia del art. 30.2, a la que el art. 53.2 sí extiende el amparo.</p>
+    </div>
+    <div class="enun">
+      <span class="enun-tag">explicar</span>
+      <p class="enun-txt">Explicar por qué el artículo 14 de la Constitución goza de la máxima protección pese a no estar formalmente incluido en la Sección 1ª del Capítulo II.</p>
+      <p class="enun-nota">El art. 14 abre el Capítulo II pero queda fuera de la Sección 1ª en sentido estricto; aun así, goza de recurso de amparo por remisión expresa del art. 53.2 — matiz que se pregunta con frecuencia según el propio articulado.</p>
+    </div>
+
+    <h3>El catálogo de derechos: listas cerradas y pares de contraste</h3>
+    <div class="enun">
+      <span class="enun-tag">enumerar</span>
+      <p class="enun-txt">Enumerar las garantías procesales que reconoce el artículo 24.2 de la Constitución Española.</p>
+      <p class="enun-nota">Lista cerrada muy citable: juez ordinario predeterminado por la ley, defensa y asistencia de letrado, información de la acusación, proceso público sin dilaciones indebidas y con todas las garantías, prueba pertinente, no autoincriminación, no confesión de culpabilidad y presunción de inocencia.</p>
+    </div>
+    <div class="enun">
+      <span class="enun-tag">¿en qué se diferencian?</span>
+      <p class="enun-txt">¿En qué se diferencian la libertad sindical del artículo 28.1 y el reconocimiento general de los sindicatos del artículo 7, ambos de la Constitución Española?</p>
+      <p class="enun-nota">El art. 7 (título preliminar) regula la existencia institucional del sindicato; el art. 28.1 (Título I, Sección 1ª, con amparo) consagra el derecho individual del trabajador a afiliarse — dos preceptos que, según el propio articulado, «se preguntan a menudo como si fueran uno solo» pese a regular planos distintos.</p>
+    </div>
+    <div class="enun">
+      <span class="enun-tag">exponer</span>
+      <p class="enun-txt">Exponer los derechos reconocidos en el artículo 20.1 de la Constitución Española y la diferencia entre el derecho a la información y el resto de derechos del mismo artículo.</p>
+      <p class="enun-nota">Cuatro derechos agrupados (expresión, creación, cátedra, información); el adjetivo «veraz» solo califica al derecho a comunicar o recibir información (letra d), no a la libertad de expresión (letra a).</p>
+    </div>
+    <div class="enun">
+      <span class="enun-tag">razonar</span>
+      <p class="enun-txt">¿Puede una asociación ser disuelta o suspendida por decisión de una autoridad administrativa? Razonar la respuesta conforme al artículo 22 de la Constitución.</p>
+      <p class="enun-nota">Molde «sí/no razonado» que este tribunal ya ha usado en otros temas del bloque (inscripción en el Censo Electoral, 2023): la respuesta exige citar que solo una resolución judicial motivada puede disolver o suspender una asociación.</p>
+    </div>
+    <div class="enun">
+      <span class="enun-tag">explicar</span>
+      <p class="enun-txt">Explicar el contenido del artículo 18.4 de la Constitución Española y su relevancia como fundamento de la legislación de protección de datos.</p>
+      <p class="enun-nota">Es la habilitación constitucional expresa que la LOPDGDD cita literalmente como su fundamento — conexión directa con el Tema 9 del propio bloque de Derecho, en la línea de las preguntas más recientes que cruzan dos temas en un solo enunciado.</p>
+    </div>
+
+    <h3>Principios rectores de la política social y económica (Capítulo III)</h3>
+    <div class="enun">
+      <span class="enun-tag">explicar</span>
+      <p class="enun-txt">Explicar qué valor jurídico tienen los principios rectores de la política social y económica recogidos en el Capítulo III del Título I de la Constitución.</p>
+      <p class="enun-nota">Informan la legislación positiva, la práctica judicial y la actuación de los poderes públicos, pero no son directamente exigibles sin desarrollo legal — a diferencia de los derechos de la Sección 1ª, tutelables mediante amparo.</p>
+    </div>
+
+    <div class="sin-practica">
+      <div class="sin-practica-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg><span>Sobre el 2º ejercicio</span></div>
+      <p>El catálogo de derechos fundamentales es contenido puramente normativo y de memorización de listas cerradas; no tiene, ni podría tener, formulación como cuestión práctica del 2º ejercicio en este bloque.</p>
+    </div>
+
+    <div class="resumen">
+      <span class="resumen-label">Enunciados de este epígrafe, en una frase</span>
+      <div class="chips">
+        <span class="chip">estructura del Título I + niveles de protección</span>
+        <span class="chip">Sección 1ª vs. Sección 2ª</span>
+        <span class="chip">art. 14: fuera de la Sección 1ª pero con amparo</span>
+        <span class="chip">art. 24.2: garantías procesales (lista cerrada)</span>
+        <span class="chip">art. 28.1 vs. art. 7: sindicación individual vs. institucional</span>
+        <span class="chip">art. 20.1: veracidad solo en el derecho a informar</span>
+        <span class="chip">art. 22: disolución de asociaciones, solo por vía judicial</span>
+        <span class="chip">art. 18.4: fundamento de la protección de datos</span>
+        <span class="chip">Capítulo III: principios rectores, no exigibles directamente</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EPÍGRAFE 4 -->
+  <div class="epigrafe" id="s4">
+    <div class="epi-head">
+      <span class="epi-num">4</span>
+      <h2>Instrumentos para la garantía y protección de los derechos</h2>
+      <span class="badge hot"><span class="dot"></span>Probabilidad alta</span>
+    </div>
+    <p class="lead">Los artículos 53 y 55 concentran distinciones muy citables (reserva de ley, contenido esencial, dos regímenes de suspensión) que encajan de forma directa en el patrón de contraste que domina las preguntas ya conocidas de este bloque.</p>
+
+    <h3>El artículo 53: reserva de ley y contenido esencial</h3>
+    <div class="enun">
+      <span class="enun-tag">explicar</span>
+      <p class="enun-txt">Explicar las dos garantías que introduce el artículo 53.1 de la Constitución Española para la regulación del ejercicio de los derechos y libertades del Capítulo II.</p>
+      <p class="enun-nota">Reserva de ley (solo por ley puede regularse su ejercicio) y respeto al contenido esencial (límite infranqueable que ni siquiera el legislador puede rebasar) — dos garantías que, según el propio articulado, «se piden con frecuencia por separado».</p>
+    </div>
+    <div class="enun">
+      <span class="enun-tag">¿en qué se diferencian?</span>
+      <p class="enun-txt">¿En qué se diferencia la tutela que el artículo 53.2 de la Constitución dispensa a los derechos de la Sección 1ª de la que el artículo 53.3 otorga a los principios rectores del Capítulo III?</p>
+    </div>
+
+    <h3>Tutela judicial ordinaria y recurso de amparo</h3>
+    <div class="enun">
+      <span class="enun-tag">exponer</span>
+      <p class="enun-txt">Exponer los mecanismos de tutela judicial ordinaria y de recurso de amparo previstos en el artículo 53.2 de la Constitución para la defensa de los derechos fundamentales.</p>
+      <p class="enun-nota">Procedimiento basado en los principios de preferencia y sumariedad ante los tribunales ordinarios, y recurso de amparo ante el Tribunal Constitucional, que protege los derechos de los artículos 14 a 30 (con matices sobre el propio art. 14, que solo se protege en relación con otro derecho del catálogo).</p>
+    </div>
+
+    <h3>Suspensión general e individual de derechos (art. 55)</h3>
+    <div class="enun">
+      <span class="enun-tag">¿en qué se diferencian?</span>
+      <p class="enun-txt">¿En qué se diferencian la suspensión general de derechos del artículo 55.1 y la suspensión individual del artículo 55.2 de la Constitución Española?</p>
+      <p class="enun-nota">La suspensión general está ligada a los estados de excepción y sitio y afecta a todos los ciudadanos del territorio afectado; la suspensión individual se dirige a personas determinadas en investigaciones antiterroristas, exige ley orgánica específica, intervención judicial y control parlamentario como contrapesos obligatorios.</p>
+    </div>
+    <div class="enun">
+      <span class="enun-tag">enumerar</span>
+      <p class="enun-txt">Enumerar los derechos susceptibles de suspensión general conforme al artículo 55.1 de la Constitución en caso de declaración del estado de excepción o de sitio.</p>
+    </div>
+
+    <h3>Reserva de ley orgánica (art. 81)</h3>
+    <div class="enun">
+      <span class="enun-tag">definir</span>
+      <p class="enun-txt">Definición de ley orgánica conforme al artículo 81 de la Constitución Española, indicando su criterio material y su criterio procedimental de aprobación.</p>
+      <p class="enun-nota">Uno de los artículos más rentables del temario según el propio articulado: por materia (desarrollo de los derechos fundamentales de la Sección 1ª, Estatutos de Autonomía, régimen electoral general, y las demás previstas en la Constitución) y por procedimiento (mayoría absoluta del Congreso en votación final de conjunto, solo en el Congreso).</p>
+    </div>
+
+    <div class="sin-practica">
+      <div class="sin-practica-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg><span>Sobre el 2º ejercicio</span></div>
+      <p>Sin recorrido en el 2º ejercicio, como el resto del bloque. Este epígrafe es, no obstante, uno de los que más se presta a preguntas de contraste de conceptos, el molde retórico más repetido en el primer ejercicio.</p>
+    </div>
+
+    <div class="resumen">
+      <span class="resumen-label">Enunciados de este epígrafe, en una frase</span>
+      <div class="chips">
+        <span class="chip">art. 53.1: reserva de ley + contenido esencial</span>
+        <span class="chip">art. 53.2 vs. 53.3: amparo vs. mera orientación</span>
+        <span class="chip">tutela judicial ordinaria + recurso de amparo</span>
+        <span class="chip">suspensión general (55.1) vs. individual (55.2)</span>
+        <span class="chip">art. 81: ley orgánica, materia + procedimiento</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EPÍGRAFE 5 -->
+  <div class="epigrafe" id="s5">
+    <div class="epi-head">
+      <span class="epi-num">5</span>
+      <h2>El Defensor del Pueblo</h2>
+      <span class="badge warm"><span class="dot"></span>Probabilidad media</span>
+    </div>
+    <p class="lead">Sin registro directo en las cuatro últimas convocatorias, pero sigue exactamente el patrón de pregunta «naturaleza, designación y funciones de un órgano» que este tribunal ya ha repetido con el Consejo Superior de Estadística (2025) y el Consejo de Transparencia y Buen Gobierno (2023) — el propio análisis de huecos del bloque lo señala como el epígrafe de este tema con más números de aparecer.</p>
+
+    <h3>Naturaleza y designación</h3>
+    <div class="enun">
+      <span class="enun-tag">enunciado nominal</span>
+      <p class="enun-txt">El Defensor del Pueblo: naturaleza, designación y funciones.</p>
+      <p class="enun-nota">Formulación nominal sin verbo, el molde exacto ya usado en 2026 para el Consejo de Empadronamiento («adscripción, composición y funciones»): cada sustantivo coordinado es un apartado que se evalúa por separado, y ninguno debe omitirse.</p>
+    </div>
+    <div class="enun">
+      <span class="enun-tag">definir</span>
+      <p class="enun-txt">Definición del Defensor del Pueblo conforme al artículo 54 de la Constitución Española.</p>
+      <p class="enun-nota">Tres datos que se piden con frecuencia según el propio articulado: es un alto comisionado de las Cortes Generales (no del Gobierno ni del Rey), su función es supervisar la actividad de la Administración, y rinde cuentas ante las Cortes, no ante el Ejecutivo.</p>
+    </div>
+    <div class="enun">
+      <span class="enun-tag">explicar</span>
+      <p class="enun-txt">Explicar por qué la institución del Defensor del Pueblo requiere ley orgánica para su regulación, y qué ley orgánica la desarrolla.</p>
+      <p class="enun-nota">Ley Orgánica 3/1981, de 6 de abril: desarrolla su estatuto, funciones y procedimiento de actuación, incluida su legitimación para interponer recurso de amparo y recurso de inconstitucionalidad.</p>
+    </div>
+    <div class="enun">
+      <span class="enun-tag">enumerar</span>
+      <p class="enun-txt">Enumerar las facultades de legitimación procesal que la Ley Orgánica 3/1981 reconoce al Defensor del Pueblo.</p>
+      <p class="enun-nota">Legitimación para interponer recurso de amparo ante el Tribunal Constitucional y recurso de inconstitucionalidad — variante de profundización más allá de la mera definición del art. 54 CE.</p>
+    </div>
+
+    <div class="sin-practica">
+      <div class="sin-practica-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg><span>Sobre el 2º ejercicio</span></div>
+      <p>Sin recorrido en el 2º ejercicio, como el resto del bloque de Derecho.</p>
+    </div>
+
+    <div class="resumen">
+      <span class="resumen-label">Enunciados de este epígrafe, en una frase</span>
+      <div class="chips">
+        <span class="chip">naturaleza + designación + funciones</span>
+        <span class="chip">art. 54: comisionado de las Cortes, supervisa la Administración</span>
+        <span class="chip">LO 3/1981: desarrollo del estatuto</span>
+        <span class="chip">legitimación: amparo + inconstitucionalidad</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MÉTODO -->
+  <div class="metodo" id="metodo">
+    <h2>Cómo se han construido estos enunciados</h2>
+    <p><b>Base de contenido:</b> cada enunciado parte de un artículo, definición o contraste que aparece explícitamente en el articulado constitucional y en el índice de epígrafes del bloque de Derecho, nunca de contenido inventado fuera de esas fuentes. Las citas de artículos y sus apartados corresponden a la Constitución Española de 1978 (BOE-A-1978-31229).</p>
+    <p><b>Molde retórico:</b> a diferencia del bloque de Almacenamiento y modelos de datos —donde el tribunal usa casi siempre «defina» o «enumere» junto a la interrogativa directa—, el bloque de Derecho emplea un léxico propio: «explicar» (desarrollo con causa, norma y efecto), «exponer» (enumeración con diferencias explícitas), «definir» (concepto exacto de la norma), «razonar» (postura justificada con cita legal) y el enunciado nominal sin verbo, donde cada sustantivo coordinado es un apartado independiente. Este documento reproduce esos cinco moldes tal como los recoge el análisis retórico del propio bloque, en vez de trasladar el léxico del bloque de Almacenamiento.</p>
+    <p><b>Priorización por hueco:</b> a diferencia de otros temas del bloque de Derecho, el Tema 1 no tiene ninguna pregunta real registrada en las cuatro últimas convocatorias. El propio análisis de huecos lo sitúa en la prioridad más baja de estudio nuevo por ser un tema «muy troncal y transversal» cuyo contenido tiende a aparecer mezclado dentro de preguntas de otros temas más aplicados —salvo el Defensor del Pueblo, que sigue un patrón de pregunta («naturaleza, designación y funciones de un órgano») ya repetido en otros temas del bloque con el Consejo Superior de Estadística y el Consejo de Transparencia—. Por eso este documento concentra la mayor densidad de enunciados en los Derechos Fundamentales (epígrafe 3) y en los Instrumentos de garantía (epígrafe 4), que son los subepígrafes con más listas cerradas y pares de contraste explícitos en el propio articulado, y trata el Defensor del Pueblo como el hueco de mayor probabilidad relativa dentro de un tema, en conjunto, de baja prioridad.</p>
+    <p><b>Sin ejercicios prácticos:</b> el bloque de Derecho se evalúa exclusivamente en el primer ejercicio del turno libre; el segundo ejercicio lo excluye de forma expresa, según recoge la propia fuente del índice. Por eso este documento, a diferencia de los equivalentes del bloque de Almacenamiento y modelos de datos, no incluye ninguna propuesta de ejercicio numérico o práctico: sería una extrapolación sin ningún apoyo normativo en la propia convocatoria.</p>
+  </div>
+
+  <div class="foot">
+    <b>Fuentes:</b> articulado de <i>derecho-articulado-ine-a1</i> (Constitución Española, BOE-A-1978-31229), índice de epígrafes de <i>Derecho · Temario INE A1</i> y análisis de huecos de <i>Qué falta por preguntar, y dónde es más probable que caiga</i> (mismo bloque, mismas cuatro convocatorias 2022-2025, exámenes 2023-2026). No hay enunciados marcados como «reales» en este documento porque no se ha localizado ninguna pregunta registrada sobre el Tema 1 en concreto en las fuentes consultadas: todos los enunciados aquí recogidos son formulaciones de estudio, no preguntas reales del INE.
+    <br><br>
+    <b>Alcance y limitación:</b> este documento cubre íntegramente el Tema 1 (estructura básica, título preliminar, derechos fundamentales, garantías y Defensor del Pueblo); no incluye enunciados de los Temas 2, 3 o 4 del mismo bloque constitucional (la Corona, las Cortes Generales, el Gobierno y la Administración Pública, la organización territorial del Estado), que se articulan también sobre la Constitución Española pero corresponden a epígrafes distintos del BOE. La ausencia de registro real específico para este tema es una limitación de la muestra disponible (14 preguntas documentadas en cuatro convocatorias para 14 temas), no una garantía de que el tema no vaya a preguntarse.
+  </div>
+
+</div>
+</body>
+</html>

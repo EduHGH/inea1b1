@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Derecho · Temario INE A1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --ink:#241F17;
+    --ink-soft:#6b6252;
+    --line:#dcd4c2;
+    --der:#2E5266;
+    --der-soft:#DCE6EB;
+    --der-glow:rgba(46,82,102,.18);
+    --glass:rgba(255,255,255,.55);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(36,31,23,.07) 1px, transparent 0) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    padding:48px 20px 80px;
+  }
+
+  .wrap{max-width:880px; margin:0 auto;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:38px 36px 32px;
+    border-radius:20px;
+    background:var(--glass);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -24px rgba(36,31,23,.25);
+    overflow:hidden;
+    margin-bottom:34px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:-40% -20% auto auto;
+    width:340px; height:340px;
+    background:radial-gradient(circle, var(--der-glow), transparent 70%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--der);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--der);}
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(28px, 4vw, 40px);
+    line-height:1.08;
+    margin:0 0 10px;
+    letter-spacing:-.01em;
+  }
+  .hero p{
+    margin:0;
+    max-width:58ch;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.6;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-top:22px;
+  }
+  .meta-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.55);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 12px;
+  }
+
+  /* LIST */
+  .list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:8px;
+  }
+  .tema{
+    position:relative;
+    display:flex;
+    gap:20px;
+    align-items:flex-start;
+    padding:20px 22px;
+    border-radius:14px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -20px rgba(36,31,23,.3);
+    transition:transform .18s cubic-bezier(.34,1.56,.64,1), border-color .18s ease, box-shadow .18s ease;
+  }
+  .tema:hover{
+    transform:translateY(-2px);
+    border-color:var(--der);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 16px 30px -18px var(--der-glow);
+  }
+  .num{
+    flex:none;
+    width:44px; height:44px;
+    border-radius:12px;
+    background:var(--der-soft);
+    color:var(--der);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:19px;
+  }
+  .body{flex:1; min-width:0;}
+  .tema-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:18px;
+    line-height:1.3;
+    margin:0 0 6px;
+    color:var(--ink);
+  }
+  .tema-desc{
+    margin:0;
+    font-size:13.5px;
+    line-height:1.55;
+    color:var(--ink-soft);
+  }
+  .tema-tags{
+    display:flex; flex-wrap:wrap; gap:6px;
+    margin-top:12px;
+  }
+  .tag{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.04em;
+    color:var(--der);
+    background:transparent;
+    border:1px solid var(--der-soft);
+    border-radius:100px;
+    padding:3px 9px;
+  }
+
+  /* SUBINDICE */
+  .subindice{
+    list-style:none;
+    margin:12px 0 0;
+    padding:12px 0 0;
+    border-top:1px dashed var(--line);
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+  }
+  .subindice li{
+    position:relative;
+    padding-left:16px;
+    font-size:12.5px;
+    line-height:1.5;
+    color:var(--ink-soft);
+    cursor:default;
+  }
+  .subindice li::before{
+    content:'';
+    position:absolute;
+    left:2px; top:7px;
+    width:5px; height:5px;
+    border-radius:1px;
+    background:var(--der);
+    opacity:.55;
+  }
+  .subindice li b{
+    font-weight:600;
+    color:var(--ink);
+  }
+  .sub-toggle{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    margin-left:8px;
+    font-family:'Space Mono', monospace;
+    font-size:9.5px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--der);
+    background:var(--der-soft);
+    border:none;
+    border-radius:100px;
+    padding:2px 8px 2px 7px;
+    cursor:pointer;
+    vertical-align:middle;
+    transition:background .15s ease;
+  }
+  .sub-toggle:hover{background:#c8d9e1;}
+  .sub-toggle .chev{
+    display:inline-block;
+    transition:transform .18s cubic-bezier(.34,1.56,.64,1);
+    font-size:8px;
+  }
+  .sub-toggle.open .chev{transform:rotate(90deg);}
+
+  .conceptos{
+    display:none;
+    margin:8px 0 4px;
+    padding:12px 14px;
+    background:rgba(255,255,255,.5);
+    border-left:2px solid var(--der);
+    border-radius:0 8px 8px 0;
+  }
+  .conceptos.open{display:block;}
+  .concepto{
+    padding:7px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .concepto:last-child{border-bottom:none; padding-bottom:0;}
+  .concepto:first-child{padding-top:0;}
+  .c-nombre{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:600;
+    font-size:12px;
+    color:var(--ink);
+    display:block;
+    margin-bottom:3px;
+  }
+  .c-nota{
+    display:block;
+    font-size:11px;
+    color:var(--ink-soft);
+    margin-top:2px;
+    line-height:1.45;
+  }
+  .c-norma{
+    display:inline-block;
+    font-family:'Space Mono', monospace;
+    font-size:9.5px;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:4px;
+    padding:1px 6px;
+    margin-top:3px;
+  }
+
+  /* EXAMEN REAL */
+  .examen{
+    margin-top:14px;
+    padding:13px 15px;
+    border-radius:11px;
+    background:rgba(46,82,102,.08);
+    border:1px solid rgba(46,82,102,.28);
+  }
+  .examen-head{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    margin-bottom:9px;
+  }
+  .examen-head .ico{
+    width:16px; height:16px;
+    flex:none;
+    color:#2E5266;
+  }
+  .examen-head span{
+    font-family:'Space Mono', monospace;
+    font-size:9.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#2E5266;
+    font-weight:700;
+  }
+  .examen-item{
+    margin:0 0 8px;
+    padding-left:0;
+    font-size:12.5px;
+    line-height:1.5;
+    color:var(--ink);
+  }
+  .examen-item:last-child{margin-bottom:0;}
+  .examen-item .yr{
+    display:inline-block;
+    font-family:'Space Mono', monospace;
+    font-size:9.5px;
+    color:#2E5266;
+    background:rgba(46,82,102,.14);
+    border-radius:4px;
+    padding:1px 5px;
+    margin-right:6px;
+    transform:translateY(-1px);
+  }
+  .examen-item .patron{
+    font-style:italic;
+    color:var(--ink-soft);
+  }
+
+  /* GROUP HEADERS */
+  .group-head{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin:34px 0 14px;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--line);
+  }
+  .group-head:first-of-type{margin-top:0;}
+  .group-num{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    color:var(--der);
+    background:var(--der-soft);
+    width:26px; height:26px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    flex:none;
+  }
+  .group-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:17px;
+    margin:0;
+    color:var(--ink);
+    flex:1;
+  }
+  .group-count{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    color:var(--ink-soft);
+    letter-spacing:.04em;
+  }
+
+  /* FOOTER NOTE */
+  .foot{
+    margin-top:30px;
+    padding:16px 20px;
+    border-radius:12px;
+    border:1px dashed var(--line);
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    line-height:1.7;
+    color:var(--ink-soft);
+  }
+  .foot b{color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dot"></span>Cuerpo Superior de Estadísticos del Estado · Anexo I</div>
+    <h1>Bloque VI — Derecho</h1>
+    <p>Índice de los catorce temas de Derecho del temario común, tal como figuran en el Anexo I (Programa) del BOE&nbsp;313, de 29 de diciembre de 2025. Este bloque solo se examina en el primer ejercicio (preguntas cortas); el segundo ejercicio del turno libre queda expresamente excluido de la materia de Derecho.</p>
+    <div class="hero-meta">
+      <span class="meta-chip">BOE-A-2025-26900</span>
+      <span class="meta-chip">Resolución de 22 dic. 2025</span>
+      <span class="meta-chip">A. Materias comunes · VI</span>
+      <span class="meta-chip">14 temas</span>
+      <span class="meta-chip">Solo 1er ejercicio</span>
+    </div>
+  </div>
+
+  <div class="list">
+
+    <div class="tema">
+      <div class="num">1</div>
+      <div class="body">
+        <h2 class="tema-title">La Constitución Española</h2>
+        <p class="tema-desc">Estructura básica. Título preliminar: principios básicos. Los Derechos Fundamentales y Libertades Públicas. Instrumentos para su garantía y protección. El Defensor del Pueblo.</p>
+        <ul class="subindice">
+          <li><b>Estructura básica</b> de la Constitución
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Estructura formal</span><span class="c-nota">Preámbulo, título preliminar, diez títulos, disposiciones adicionales, transitorias, derogatoria y final. 169 artículos.</span></div>
+              <div class="concepto"><span class="c-nombre">Rigidez constitucional</span><span class="c-nota">Procedimientos de reforma agravados (arts. 167 y 168 CE), distintos según la materia afectada.</span></div>
+            </div>
+          </li>
+          <li><b>Título preliminar:</b> principios básicos
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">España como Estado social y democrático de Derecho</span><span class="c-nota">Art. 1 CE. Valores superiores: libertad, justicia, igualdad y pluralismo político.</span></div>
+              <div class="concepto"><span class="c-nombre">Soberanía nacional y monarquía parlamentaria</span><span class="c-nota">Art. 1.2 y 1.3 CE.</span></div>
+              <div class="concepto"><span class="c-nombre">Unidad de la Nación y derecho a la autonomía</span><span class="c-nota">Art. 2 CE: nacionalidades y regiones.</span></div>
+              <div class="concepto"><span class="c-nombre">Oficialidad del castellano y demás lenguas</span><span class="c-nota">Art. 3 CE.</span></div>
+              <div class="concepto"><span class="c-nombre">Partidos políticos, sindicatos y Fuerzas Armadas</span><span class="c-nota">Arts. 6, 7 y 8 CE.</span></div>
+              <div class="concepto"><span class="c-nombre">Principio de legalidad y jerarquía normativa</span><span class="c-nota">Art. 9 CE: sujeción de poderes públicos y ciudadanos a la Constitución y al resto del ordenamiento jurídico.</span></div>
+            </div>
+          </li>
+          <li><b>Derechos Fundamentales</b> y Libertades Públicas
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Título I: "De los derechos y deberes fundamentales"</span><span class="c-nota">Estructura en cinco capítulos: españoles y extranjeros; derechos y libertades; principios rectores; garantías; suspensión.</span></div>
+              <div class="concepto"><span class="c-nombre">Sección 1ª (arts. 15-29): derechos fundamentales y libertades públicas en sentido estricto</span><span class="c-nota">Máxima protección: reserva de ley orgánica, recurso de amparo, procedimiento agravado de reforma.</span></div>
+              <div class="concepto"><span class="c-nombre">Sección 2ª (arts. 30-38): derechos y deberes de los ciudadanos</span><span class="c-nota">Protección intermedia: reserva de ley pero sin recurso de amparo directo.</span></div>
+              <div class="concepto"><span class="c-nombre">Capítulo III (arts. 39-52): principios rectores de la política social y económica</span><span class="c-nota">Informan la legislación positiva, la práctica judicial y la actuación de los poderes públicos, pero no son directamente exigibles sin desarrollo legal.</span></div>
+            </div>
+          </li>
+          <li><b>Instrumentos</b> para su garantía y protección
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Tutela judicial ordinaria</span><span class="c-nota">Art. 53.2 CE: procedimiento basado en los principios de preferencia y sumariedad.</span></div>
+              <div class="concepto"><span class="c-nombre">Recurso de amparo ante el Tribunal Constitucional</span><span class="c-nota">Protege los derechos de los arts. 14 a 30 CE (con matices sobre el 14, que solo se protege en relación con otro derecho del catálogo).</span></div>
+              <div class="concepto"><span class="c-nombre">Reserva de ley orgánica</span><span class="c-nota">Art. 81 CE: el desarrollo de los derechos fundamentales y libertades públicas requiere ley orgánica.</span></div>
+            </div>
+          </li>
+          <li><b>El Defensor del Pueblo</b>
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Naturaleza y designación</span><span class="c-nota">Art. 54 CE. Alto comisionado de las Cortes Generales, designado por éstas para la defensa de los derechos del Título I; supervisa la actividad de la Administración.</span></div>
+              <div class="concepto"><span class="c-nombre">Ley Orgánica 3/1981, de 6 de abril</span><span class="c-nota">Desarrolla su estatuto, funciones y procedimiento de actuación (legitimación para interponer recurso de amparo y de inconstitucionalidad).</span></div>
+            </div>
+          </li>
+        </ul>
+        <div class="tema-tags"><span class="tag">derechos fundamentales</span><span class="tag">Defensor del Pueblo</span></div>
+      </div>
+    </div>
+
+    <div class="tema">
+      <div class="num">2</div>
+      <div class="body">
+        <h2 class="tema-title">La Corona. Las Cortes Generales</h2>
+        <p class="tema-desc">Régimen de funcionamiento y atribuciones principales de la Corona. Composición y funcionamiento de las Cámaras.</p>
+        <ul class="subindice">
+          <li><b>Régimen de funcionamiento</b> y atribuciones de la Corona
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">La Corona en el Título II CE</span><span class="c-nota">Art. 56 CE: el Rey es Jefe del Estado, símbolo de su unidad y permanencia; arbitra y modera el funcionamiento regular de las instituciones.</span></div>
+              <div class="concepto"><span class="c-nombre">Sucesión y regencia</span><span class="c-nota">Arts. 57-59 CE: orden regular de sucesión (primogenitura y representación, preferencia de línea/grado/sexo/edad); regencia en caso de minoría de edad o inhabilitación.</span></div>
+              <div class="concepto"><span class="c-nombre">Funciones del Rey</span><span class="c-nota">Art. 62 CE: sancionar y promulgar leyes, convocar y disolver Cortes, proponer candidato a Presidente del Gobierno, expedir decretos, mando supremo de las Fuerzas Armadas, alto patronazgo de las Reales Academias, entre otras.</span></div>
+              <div class="concepto"><span class="c-nombre">Refrendo</span><span class="c-nota">Art. 64 CE: los actos del Rey serán refrendados por el Presidente del Gobierno y, en su caso, por los Ministros competentes; sin refrendo carecen de validez, salvo excepciones tasadas.</span></div>
+              <div class="concepto"><span class="c-nombre">Irresponsabilidad regia</span><span class="c-nota">Art. 56.3 CE: la persona del Rey es inviolable y no está sujeta a responsabilidad; sus actos estarán siempre refrendados.</span></div>
+            </div>
+          </li>
+          <li><b>Composición</b> y funcionamiento de las Cámaras
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Bicameralismo imperfecto</span><span class="c-nota">Título III CE: Congreso de los Diputados (representación proporcional, circunscripción provincial) y Senado (cámara de representación territorial, mayoritariamente por circunscripción provincial más designación autonómica).</span></div>
+              <div class="concepto"><span class="c-nombre">Composición del Congreso</span><span class="c-nota">Art. 68 CE: entre 300 y 400 diputados (actualmente 350), elegidos por sufragio universal, libre, igual, directo y secreto, para un mandato de cuatro años.</span></div>
+              <div class="concepto"><span class="c-nombre">Composición del Senado</span><span class="c-nota">Art. 69 CE: senadores de elección provincial (4 por provincia peninsular, con variantes insulares y de Ceuta/Melilla) más senadores designados por las Asambleas legislativas de las Comunidades Autónomas.</span></div>
+              <div class="concepto"><span class="c-nombre">Funcionamiento: Pleno, Comisiones y Diputación Permanente</span><span class="c-nota">Arts. 75-78 CE. Las Cámaras funcionan en Pleno y por Comisiones; existe una Diputación Permanente en cada Cámara para los periodos entre legislaturas o de disolución.</span></div>
+              <div class="concepto"><span class="c-nombre">Funciones de las Cortes Generales</span><span class="c-nota">Art. 66 CE: representan al pueblo español, ejercen la potestad legislativa del Estado, aprueban los Presupuestos, controlan la acción del Gobierno.</span></div>
+              <div class="concepto"><span class="c-nombre">Inviolabilidad e inmunidad parlamentaria</span><span class="c-nota">Art. 71 CE: los diputados y senadores gozan de inviolabilidad por las opiniones manifestadas en el ejercicio de sus funciones, y de inmunidad frente a detención salvo flagrante delito.</span></div>
+            </div>
+          </li>
+        </ul>
+        <div class="tema-tags"><span class="tag">Corona</span><span class="tag">Cortes Generales</span></div>
+      </div>
+    </div>
+
+    <div class="tema">
+      <div class="num">3</div>
+      <div class="body">
+        <h2 class="tema-title">El Gobierno y la Administración Pública</h2>
+        <p class="tema-desc">Composición y funciones del Gobierno. Organización de la Administración Pública: órganos superiores y directivos. La estructura y funciones de la Administración periférica del Estado. Estructura del Ministerio de Asuntos Económicos y Transformación Digital y Organismos públicos adscritos.</p>
+        <ul class="subindice">
+          <li><b>Composición y funciones</b> del Gobierno
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Composición del Gobierno</span><span class="c-nota">Art. 98 CE y art. 1 Ley 50/1997, del Gobierno: Presidente, Vicepresidente(s), en su caso, y Ministros; puede haber otros miembros que la ley establezca.</span></div>
+              <div class="concepto"><span class="c-nombre">Funciones del Gobierno</span><span class="c-nota">Art. 97 CE: dirige la política interior y exterior, la Administración civil y militar y la defensa del Estado; ejerce la función ejecutiva y la potestad reglamentaria.</span></div>
+              <div class="concepto"><span class="c-nombre">Investidura y cese</span><span class="c-nota">Arts. 99 y 101 CE: el Presidente es investido por el Congreso; el Gobierno cesa tras elecciones generales, pérdida de confianza parlamentaria, dimisión o fallecimiento del Presidente.</span></div>
+              <div class="concepto"><span class="c-nombre">Ley 40/2015, de Régimen Jurídico del Sector Público</span><span class="c-nota">Marco general de organización y funcionamiento del sector público institucional, complementario de la Ley 50/1997.</span></div>
+            </div>
+          </li>
+          <li><b>Organización de la Administración Pública:</b> órganos superiores y directivos
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Órganos superiores</span><span class="c-nota">Ministros y Secretarios de Estado (art. 55 Ley 40/2015): fijan los planes de actuación e impulsan la organización.</span></div>
+              <div class="concepto"><span class="c-nombre">Órganos directivos</span><span class="c-nota">Subsecretarios, Secretarios Generales, Secretarios Generales Técnicos, Directores Generales y Subdirectores Generales (art. 55 Ley 40/2015): desarrollan y ejecutan la acción del Gobierno bajo la dirección de los órganos superiores.</span></div>
+              <div class="concepto"><span class="c-nombre">Principio de jerarquía y desconcentración</span><span class="c-nota">Los órganos administrativos se ordenan jerárquicamente y pueden desconcentrarse en otros de rango inferior.</span></div>
+            </div>
+          </li>
+          <li><b>Administración periférica</b> del Estado
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Delegados del Gobierno</span><span class="c-nota">Representan al Gobierno en el territorio de la Comunidad Autónoma; dirigen la Administración periférica del Estado en dicho territorio.</span></div>
+              <div class="concepto"><span class="c-nombre">Subdelegados del Gobierno</span><span class="c-nota">Bajo la dirección del Delegado, representan a la Administración General del Estado en la provincia.</span></div>
+              <div class="concepto"><span class="c-nombre">Directores Insulares</span><span class="c-nota">En las islas, en representación del Delegado o Subdelegado, cuando existan.</span></div>
+            </div>
+          </li>
+          <li><b>Estructura del Ministerio</b> de Asuntos Económicos y Transformación Digital y organismos adscritos
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Real Decreto de estructura orgánica básica</span><span class="c-nota">Norma reglamentaria (actualizada tras cada reorganización ministerial) que fija los órganos superiores y directivos del departamento y los organismos públicos adscritos a través de sus distintas Secretarías de Estado.</span></div>
+              <div class="concepto"><span class="c-nombre">Organismos adscritos vía Secretaría de Estado de Economía</span><span class="c-nota">Entre otros, el Instituto Nacional de Estadística (INE), organismo autónomo adscrito al departamento responsable de estadística.</span></div>
+              <div class="concepto"><span class="c-nombre">Nota de nomenclatura</span><span class="c-nota">La denominación exacta del departamento (Economía, Comercio y Empresa; Asuntos Económicos y Transformación Digital, etc.) varía según la organización ministerial vigente en cada legislatura; conviene comprobar la denominación y estructura vigentes al momento del examen.</span></div>
+            </div>
+          </li>
+        </ul>
+        <div class="tema-tags"><span class="tag">Gobierno</span><span class="tag">estructura ministerial</span></div>
+      </div>
+    </div>
+
+    <div class="tema">
+      <div class="num">4</div>
+      <div class="body">
+        <h2 class="tema-title">La organización territorial del Estado</h2>
+        <p class="tema-desc">Delimitación de competencias entre el Estado y las Comunidades Autónomas. La Administración local: competencias de los Municipios y Provincias.</p>
+        <ul class="subindice">
+          <li><b>Delimitación de competencias</b> Estado – Comunidades Autónomas
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Título VIII CE: organización territorial</span><span class="c-nota">Estado, Comunidades Autónomas, provincias y municipios (art. 137 CE).</span></div>
+              <div class="concepto"><span class="c-nombre">Competencias exclusivas del Estado</span><span class="c-nota">Art. 149.1 CE: relaciones internacionales, defensa, Administración de Justicia, Hacienda general, régimen estadístico para fines estatales (149.1.31ª), entre otras.</span></div>
+              <div class="concepto"><span class="c-nombre">Competencias de las Comunidades Autónomas</span><span class="c-nota">Art. 148 CE: pueden asumirlas en su Estatuto (ordenación del territorio, agricultura, estadística de interés de la CA, etc.); cláusula residual del art. 149.3.</span></div>
+              <div class="concepto"><span class="c-nombre">Estatutos de Autonomía</span><span class="c-nota">Norma institucional básica de cada Comunidad Autónoma, aprobada como ley orgánica.</span></div>
+              <div class="concepto"><span class="c-nombre">Principio dispositivo y cláusula de cierre</span><span class="c-nota">Art. 149.3 CE: las materias no atribuidas expresamente al Estado pueden corresponder a las CC.AA. en virtud de sus Estatutos; el derecho estatal es supletorio.</span></div>
+            </div>
+          </li>
+          <li><b>Administración local:</b> competencias de Municipios y Provincias
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Autonomía local</span><span class="c-nota">Arts. 137, 140 y 141 CE: garantía constitucional de la autonomía de municipios y provincias para la gestión de sus intereses respectivos.</span></div>
+              <div class="concepto"><span class="c-nombre">Ley 7/1985, reguladora de las Bases del Régimen Local</span><span class="c-nota">Desarrolla la organización y competencias de municipios, provincias e islas.</span></div>
+              <div class="concepto"><span class="c-nombre">Órganos necesarios del Municipio</span><span class="c-nota">Alcalde, Tenientes de Alcalde y Pleno; Junta de Gobierno Local en municipios de cierto tamaño o con este régimen.</span></div>
+              <div class="concepto"><span class="c-nombre">Competencias propias del Municipio</span><span class="c-nota">Art. 25 LBRL: urbanismo, medio ambiente urbano, abastecimiento de agua, seguridad en espacios públicos, tráfico, protección civil, entre otras.</span></div>
+              <div class="concepto"><span class="c-nombre">La Provincia como entidad local</span><span class="c-nota">Art. 141 CE: agrupación de municipios, división territorial para el cumplimiento de las actividades del Estado; gobernada por la Diputación Provincial (o entes equivalentes en CC.AA. uniprovinciales o insulares).</span></div>
+              <div class="concepto"><span class="c-nombre">Competencias propias de la Provincia</span><span class="c-nota">Art. 36 LBRL: coordinación de servicios municipales, asistencia y cooperación jurídica, económica y técnica a los municipios, prestación de servicios supramunicipales.</span></div>
+            </div>
+          </li>
+        </ul>
+        <div class="tema-tags"><span class="tag">Comunidades Autónomas</span><span class="tag">Administración local</span></div>
+      </div>
+    </div>
+
+    <div class="tema">
+      <div class="num">5</div>
+      <div class="body">
+        <h2 class="tema-title">El Derecho Administrativo</h2>
+        <p class="tema-desc">Fuentes del Derecho Administrativo. El procedimiento administrativo: fases. Revisión de actos administrativos: los recursos administrativos.</p>
+        <ul class="subindice">
+          <li><b>Fuentes</b> del Derecho Administrativo
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Jerarquía normativa</span><span class="c-nota">Constitución, ley (orgánica y ordinaria), reglamento; principio de jerarquía y de competencia entre normas.</span></div>
+              <div class="concepto"><span class="c-nombre">El reglamento como fuente propia del Derecho Administrativo</span><span class="c-nota">Norma jurídica de rango inferior a la ley, dictada por la Administración en ejercicio de la potestad reglamentaria (art. 97 CE).</span></div>
+              <div class="concepto"><span class="c-nombre">Principio de legalidad e inderogabilidad singular de los reglamentos</span><span class="c-nota">Un reglamento no puede excepcionarse para un caso concreto, aunque provenga de un órgano de rango superior al que lo dictó.</span></div>
+              <div class="concepto"><span class="c-nombre">Costumbre, principios generales del Derecho y jurisprudencia</span><span class="c-nota">Fuentes subsidiarias e interpretativas, con distinto peso según la materia.</span></div>
+            </div>
+          </li>
+          <li><b>El procedimiento administrativo:</b> fases
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Ley 39/2015, del Procedimiento Administrativo Común</span><span class="c-nota">Norma general que regula el procedimiento administrativo aplicable a todas las Administraciones Públicas.</span></div>
+              <div class="concepto"><span class="c-nombre">Fase de iniciación</span><span class="c-nota">De oficio (por la propia Administración, orden superior, petición razonada o denuncia) o a solicitud del interesado.</span></div>
+              <div class="concepto"><span class="c-nombre">Fase de ordenación e instrucción</span><span class="c-nota">Impulso de oficio, actos de instrucción (alegaciones, prueba, informes, trámite de audiencia) necesarios para la determinación, conocimiento y comprobación de los hechos.</span></div>
+              <div class="concepto"><span class="c-nombre">Fase de terminación</span><span class="c-nota">Formas normales (resolución) y anormales: desistimiento, renuncia, caducidad, imposibilidad material de continuar, terminación convencional (arts. 84-95 Ley 39/2015).</span></div>
+              <div class="concepto"><span class="c-nombre">Silencio administrativo</span><span class="c-nota">Estimatorio o desestimatorio según los casos; efectos de la falta de resolución expresa en plazo.</span></div>
+            </div>
+          </li>
+          <li><b>Revisión de actos administrativos:</b> los recursos administrativos
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Revisión de oficio</span><span class="c-nota">Arts. 106-107 Ley 39/2015: declaración de nulidad de pleno derecho, declaración de lesividad de actos anulables, revocación de actos de gravamen, rectificación de errores materiales.</span></div>
+              <div class="concepto"><span class="c-nombre">Recurso de alzada</span><span class="c-nota">Art. 121-122 Ley 39/2015: contra resoluciones que no ponen fin a la vía administrativa, ante el órgano superior jerárquico.</span></div>
+              <div class="concepto"><span class="c-nombre">Recurso potestativo de reposición</span><span class="c-nota">Art. 123-124 Ley 39/2015: contra actos que ponen fin a la vía administrativa, ante el mismo órgano que dictó el acto; su interposición impide acudir a la vía contencioso-administrativa hasta su resolución o desestimación presunta.</span></div>
+              <div class="concepto"><span class="c-nombre">Recurso extraordinario de revisión</span><span class="c-nota">Art. 125-126 Ley 39/2015: contra actos firmes en vía administrativa, solo por motivos tasados (error de hecho, documentos nuevos, prevaricación, etc.) y ante el mismo órgano que dictó el acto.</span></div>
+              <div class="concepto"><span class="c-nombre">Diferencias entre alzada, reposición y revisión</span><span class="c-nota">El eje de comparación habitual en examen: qué actos recurren, ante quién, plazos, carácter potestativo u obligatorio, y motivos tasados o generales.</span></div>
+            </div>
+          </li>
+        </ul>
+        <div class="tema-tags"><span class="tag">procedimiento administrativo</span><span class="tag">recursos administrativos</span></div>
+        <div class="examen">
+          <div class="examen-head"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/></svg><span>Así lo ha preguntado el tribunal</span></div>
+          <p class="examen-item"><span class="yr">2023</span>Exponer los tipos de recursos administrativos que el interesado puede interponer contra actos de la Administración, y las principales diferencias entre ellos. <span class="patron">— pide un cuadro comparativo (alzada, reposición, revisión), no describir un único recurso aislado.</span></p>
+          <p class="examen-item"><span class="yr">2025</span>Explicar las formas de terminación del procedimiento administrativo en el Derecho administrativo español, indicando normativa aplicable, principales características y efectos jurídicos. <span class="patron">— exige cubrir tanto la terminación normal (resolución) como las anormales (desistimiento, renuncia, caducidad, etc.), citando la Ley 39/2015 como norma de referencia.</span></p>
+          <p class="examen-item"><span class="yr">2026</span>Explicar las formas de terminación del procedimiento administrativo en el Derecho administrativo español, indicando normativa aplicable, sus principales características y efectos jurídicos. <span class="patron">— pregunta prácticamente idéntica a la de la convocatoria anterior: es de las más repetidas del bloque de Derecho, conviene tenerla muy trabajada.</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tema">
+      <div class="num">6</div>
+      <div class="body">
+        <h2 class="tema-title">Los funcionarios al servicio de las Administraciones Públicas</h2>
+        <p class="tema-desc">Tipos de empleado público. Los derechos y deberes de los funcionarios públicos. Acceso, promoción y provisión de puestos de trabajo.</p>
+        <ul class="subindice">
+          <li><b>Tipos</b> de empleado público
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">RDLeg 5/2015, Estatuto Básico del Empleado Público (TREBEP)</span><span class="c-nota">Norma básica de referencia para toda la materia de función pública.</span></div>
+              <div class="concepto"><span class="c-nombre">Funcionarios de carrera</span><span class="c-nota">Art. 9 TREBEP: vinculados por una relación estatutaria regulada por el Derecho Administrativo, con nombramiento legal para servicios profesionales de carácter permanente.</span></div>
+              <div class="concepto"><span class="c-nombre">Funcionarios interinos</span><span class="c-nota">Art. 10 TREBEP: nombrados por razones de necesidad y urgencia (plazas vacantes, sustitución transitoria, ejecución de programas de carácter temporal, exceso o acumulación de tareas).</span></div>
+              <div class="concepto"><span class="c-nombre">Personal laboral</span><span class="c-nota">Art. 11 TREBEP: fijo, por tiempo indefinido o temporal, contratado según la legislación laboral.</span></div>
+              <div class="concepto"><span class="c-nombre">Personal directivo y personal eventual</span><span class="c-nota">Arts. 12-13 TREBEP: el eventual desempeña funciones de confianza o asesoramiento especial, no reservadas a funcionarios de carrera; cesa automáticamente con quien lo nombró.</span></div>
+            </div>
+          </li>
+          <li><b>Derechos y deberes</b> de los funcionarios públicos
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Derechos individuales</span><span class="c-nota">Arts. 14-15 TREBEP: carrera profesional, remuneración, formación continua, negociación colectiva, protección eficaz en materia de seguridad y salud, entre otros.</span></div>
+              <div class="concepto"><span class="c-nombre">Derechos individuales ejercidos colectivamente</span><span class="c-nota">Art. 15 TREBEP: libertad sindical, negociación colectiva, huelga (con matices en servicios esenciales).</span></div>
+              <div class="concepto"><span class="c-nombre">Deberes y código de conducta</span><span class="c-nota">Arts. 52-54 TREBEP: principios éticos y de conducta (objetividad, integridad, neutralidad, responsabilidad, imparcialidad, transparencia, ejemplaridad, austeridad, accesibilidad, eficacia, honradez, promoción del entorno cultural y medioambiental, respeto a la igualdad).</span></div>
+              <div class="concepto"><span class="c-nombre">Régimen disciplinario</span><span class="c-nota">Arts. 93-98 TREBEP: faltas muy graves, graves y leves; sanciones proporcionales (separación del servicio, suspensión de funciones, traslado, apercibimiento).</span></div>
+            </div>
+          </li>
+          <li><b>Acceso, promoción</b> y provisión de puestos de trabajo
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Principios de acceso al empleo público</span><span class="c-nota">Art. 55 TREBEP: igualdad, mérito y capacidad; publicidad de las convocatorias y sus bases.</span></div>
+              <div class="concepto"><span class="c-nombre">Sistemas selectivos</span><span class="c-nota">Art. 61 TREBEP: oposición, concurso-oposición o concurso, con carácter general la oposición o el concurso-oposición.</span></div>
+              <div class="concepto"><span class="c-nombre">Promoción interna</span><span class="c-nota">Arts. 18-19 TREBEP: acceso desde un cuerpo o escala de grupo/subgrupo inferior a otro superior, cumpliendo requisitos de titulación y antigüedad.</span></div>
+              <div class="concepto"><span class="c-nombre">Provisión de puestos de trabajo</span><span class="c-nota">Arts. 78-80 TREBEP: concurso (mérito) y libre designación (con convocatoria pública), como procedimientos ordinarios.</span></div>
+              <div class="concepto"><span class="c-nombre">Carrera profesional</span><span class="c-nota">Arts. 16-17 TREBEP: horizontal (progresión de grado sin cambio de puesto) y vertical (ascenso mediante provisión de puestos superiores).</span></div>
+            </div>
+          </li>
+        </ul>
+        <div class="tema-tags"><span class="tag">TREBEP</span><span class="tag">empleado público</span></div>
+        <div class="examen">
+          <div class="examen-head"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/></svg><span>Así lo ha preguntado el tribunal</span></div>
+          <p class="examen-item"><span class="yr">2023</span>De conformidad con el RDLeg 5/2015 (TREBEP), exponer al menos tres principios de conducta que deben presidir la actuación de un empleado público. <span class="patron">— pide principios concretos (objetividad, integridad, neutralidad...), no una descripción genérica del código ético.</span></p>
+          <p class="examen-item"><span class="yr">2024</span>Definición de empleado público y enumeración de las clases recogidas en el RDLeg 5/2015 (TREBEP). <span class="patron">— exige distinguir las cuatro clases (funcionarios de carrera, interinos, personal laboral, personal eventual) y no solo definir "empleado público" en abstracto.</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tema">
+      <div class="num">7</div>
+      <div class="body">
+        <h2 class="tema-title">Los Presupuestos Generales del Estado</h2>
+        <p class="tema-desc">Estructura del presupuesto: clasificación de los gastos. El control interno: la Intervención General de la Administración del Estado.</p>
+        <ul class="subindice">
+          <li><b>Estructura del presupuesto:</b> clasificación de los gastos
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Fundamento constitucional y legal</span><span class="c-nota">Art. 134 CE; Ley 47/2003, General Presupuestaria (LGP), como norma de referencia del ciclo presupuestario estatal.</span></div>
+              <div class="concepto"><span class="c-nombre">Clasificación orgánica</span><span class="c-nota">Distribuye el gasto según el órgano, organismo o entidad que lo gestiona (secciones, servicios).</span></div>
+              <div class="concepto"><span class="c-nombre">Clasificación económica</span><span class="c-nota">Distingue por la naturaleza económica del gasto: operaciones corrientes, de capital, financieras (capítulos 1 a 9: personal, gastos corrientes, gastos financieros, transferencias corrientes, inversiones, transferencias de capital, activos y pasivos financieros).</span></div>
+              <div class="concepto"><span class="c-nombre">Clasificación funcional o por programas</span><span class="c-nota">Agrupa el gasto según la finalidad u objetivo de la política pública a la que se destina (áreas de gasto, políticas de gasto, programas).</span></div>
+              <div class="concepto"><span class="c-nombre">Principios presupuestarios</span><span class="c-nota">Unidad, universalidad, especialidad (cualitativa, cuantitativa y temporal), anualidad, con las excepciones legalmente previstas (créditos plurianuales, ampliables, etc.).</span></div>
+            </div>
+          </li>
+          <li><b>El control interno:</b> la Intervención General de la Administración del Estado
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">IGAE</span><span class="c-nota">Órgano encargado del control interno de la gestión económico-financiera del sector público estatal, adscrito al Ministerio de Hacienda.</span></div>
+              <div class="concepto"><span class="c-nombre">Función interventora</span><span class="c-nota">Control previo de todo acto, documento o expediente que dé lugar al reconocimiento de derechos u obligaciones de contenido económico, o gastos de fondos públicos.</span></div>
+              <div class="concepto"><span class="c-nombre">Control financiero permanente y auditoría pública</span><span class="c-nota">Modalidades de control posterior sobre la gestión económico-financiera, complementarias de la función interventora.</span></div>
+              <div class="concepto"><span class="c-nombre">Reparo</span><span class="c-nota">Manifestación formal de disconformidad del interventor con un acto, documento o expediente, con efectos suspensivos sobre su tramitación.</span></div>
+            </div>
+          </li>
+        </ul>
+        <div class="tema-tags"><span class="tag">presupuestos</span><span class="tag">IGAE</span></div>
+      </div>
+    </div>
+
+    <div class="tema">
+      <div class="num">8</div>
+      <div class="body">
+        <h2 class="tema-title">La Ley 12/1989, de 9 de mayo, de la Función Estadística Pública</h2>
+        <p class="tema-desc">Principios Generales. Secreto estadístico. Infracciones y sanciones. Los Servicios estadísticos del Estado: el Instituto Nacional de Estadística. Los otros servicios estadísticos de la Administración del Estado. La coordinación estadística.</p>
+        <ul class="subindice">
+          <li><b>Principios Generales</b>
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Objeto de la Ley</span><span class="c-nota">Regula la función estadística que desarrolla la Administración del Estado para fines estatales, así como el Plan Estadístico Nacional.</span></div>
+              <div class="concepto"><span class="c-nombre">Plan Estadístico Nacional (PEN)</span><span class="c-nota">Instrumento de ordenación de la actividad estadística de la Administración General del Estado; carácter cuatrienal, aprobado por Real Decreto y desarrollado mediante programas anuales.</span></div>
+              <div class="concepto"><span class="c-nombre">Estadísticas para fines estatales</span><span class="c-nota">Las que sirven a los fines de la Administración General del Estado o de sus Organismos Autónomos, encomendadas en exclusiva al Estado por el art. 149.1.31ª CE.</span></div>
+              <div class="concepto"><span class="c-nombre">Obligación de colaboración estadística</span><span class="c-nota">Deber de las personas físicas y jurídicas de facilitar los datos requeridos en las estadísticas para fines estatales que tengan carácter obligatorio.</span></div>
+            </div>
+          </li>
+          <li><b>Secreto estadístico</b>
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Concepto</span><span class="c-nota">Garantía de que los datos individuales recogidos para fines estadísticos no puedan ser utilizados para ninguna finalidad distinta de la estadística, ni servir de fundamento a actuaciones administrativas o judiciales de carácter sancionador.</span></div>
+              <div class="concepto"><span class="c-nombre">A quién obliga</span><span class="c-nota">A todo el personal que, por razón de sus funciones, tenga conocimiento de los datos amparados por el secreto estadístico, incluso una vez concluida su relación con el servicio estadístico.</span></div>
+              <div class="concepto"><span class="c-nombre">Alcance de la protección</span><span class="c-nota">Cubre tanto los datos personales o comerciales como cualquier otro que permita identificar directa o indirectamente a las personas o entidades encuestadas.</span></div>
+            </div>
+          </li>
+          <li><b>Infracciones y sanciones</b>
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Infracciones muy graves</span><span class="c-nota">Vulneración del secreto estadístico y otras conductas de máxima gravedad tipificadas en la Ley.</span></div>
+              <div class="concepto"><span class="c-nombre">Infracciones graves</span><span class="c-nota">Incumplimientos relevantes de la obligación de colaboración o del deber de suministrar datos, entre otras conductas tipificadas.</span></div>
+              <div class="concepto"><span class="c-nombre">Infracciones leves</span><span class="c-nota">Incumplimientos de menor entidad de las obligaciones estadísticas.</span></div>
+              <div class="concepto"><span class="c-nombre">Sanciones</span><span class="c-nota">Proporcionadas a la gravedad de la infracción; graduación según criterios de reincidencia, naturaleza de los perjuicios causados, etc.</span></div>
+            </div>
+          </li>
+          <li><b>Los Servicios estadísticos del Estado:</b> el Instituto Nacional de Estadística
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Naturaleza del INE</span><span class="c-nota">Organismo autónomo de carácter administrativo, con personalidad jurídica y patrimonio propios, adscrito al Ministerio competente en materia económica.</span></div>
+              <div class="concepto"><span class="c-nombre">Funciones del INE</span><span class="c-nota">Elaboración de estadísticas para fines estatales de especial trascendencia (Censos, Padrón, Contabilidad Nacional, Índices de Precios), gestión del Censo Electoral, coordinación de los servicios estadísticos.</span></div>
+              <div class="concepto"><span class="c-nombre">Recursos económicos del INE</span><span class="c-nota">Consignaciones de los Presupuestos Generales del Estado, ingresos propios por prestación de servicios, y otros recursos que legalmente puedan corresponderle.</span></div>
+              <div class="concepto"><span class="c-nombre">Consejo Superior de Estadística</span><span class="c-nota">Órgano consultivo de la Administración estadística del Estado; entre sus funciones, informar el Plan Estadístico Nacional y sus programas anuales, y asesorar en materia estadística.</span></div>
+            </div>
+          </li>
+          <li><b>Otros servicios estadísticos</b> y la coordinación estadística
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Servicios estadísticos de otros departamentos</span><span class="c-nota">Unidades estadísticas de otros Ministerios u Organismos que elaboran estadísticas para fines estatales dentro de su ámbito competencial.</span></div>
+              <div class="concepto"><span class="c-nombre">Coordinación estadística</span><span class="c-nota">Función atribuida al INE para evitar duplicidades, homogeneizar metodologías y garantizar la coherencia del conjunto de estadísticas para fines estatales.</span></div>
+            </div>
+          </li>
+        </ul>
+        <div class="tema-tags"><span class="tag">Ley 12/1989</span><span class="tag">secreto estadístico</span></div>
+        <div class="examen">
+          <div class="examen-head"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/></svg><span>Así lo ha preguntado el tribunal</span></div>
+          <p class="examen-item"><span class="yr">2023</span>De conformidad con la Ley 12/1989, de la Función Estadística Pública, explicar qué es el secreto estadístico y a quiénes obliga. <span class="patron">— la pregunta clásica del bloque de Derecho: conviene tener muy fijada la definición legal exacta, no una paráfrasis genérica de confidencialidad.</span></p>
+          <p class="examen-item"><span class="yr">2024</span>Definición, contenido y duración del Plan Estadístico Nacional. <span class="patron">— pide los tres elementos por separado: qué es, qué contiene y su periodo de vigencia (cuatrienal), no solo una descripción general.</span></p>
+          <p class="examen-item"><span class="yr">2025</span>Infracciones graves y muy graves en materia estadística. <span class="patron">— exige distinguir ambos niveles de gravedad con sus conductas tipificadas, no una enumeración conjunta indiferenciada.</span></p>
+          <p class="examen-item"><span class="yr">2025</span>Funciones del Consejo Superior de Estadística. <span class="patron">— órgano consultivo que se preguntó por primera vez en estas convocatorias recientes; conviene no confundirlo con el propio INE ni con la coordinación estadística.</span></p>
+          <p class="examen-item"><span class="yr">2025</span>¿Cuáles son los recursos económicos de que dispone el Instituto Nacional de Estadística para el cumplimiento de sus funciones conforme a la Ley 12/1989? <span class="patron">— pregunta específica sobre financiación del organismo, un ángulo distinto al de sus funciones o su naturaleza jurídica.</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tema">
+      <div class="num">9</div>
+      <div class="body">
+        <h2 class="tema-title">Protección de Datos</h2>
+        <p class="tema-desc">La Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales. Objeto de la ley. Principios de protección de datos. Derechos de las personas. Ejercicio de derechos. Régimen especial del tratamiento de datos en el ámbito de la función estadística pública. La Agencia Española de Protección de Datos. Potestades de investigación. Régimen sancionador.</p>
+        <ul class="subindice">
+          <li><b>Objeto</b> de la ley
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">LO 3/2018 y su relación con el RGPD</span><span class="c-nota">Adapta el ordenamiento español al Reglamento (UE) 2016/679 (RGPD) y completa sus disposiciones; garantiza los derechos digitales al amparo del art. 18.4 CE.</span></div>
+              <div class="concepto"><span class="c-nombre">Ámbito de aplicación</span><span class="c-nota">Tratamiento total o parcialmente automatizado de datos personales, y tratamiento no automatizado cuando los datos formen parte de un fichero.</span></div>
+            </div>
+          </li>
+          <li><b>Principios</b> de protección de datos
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Principios del art. 5 RGPD</span><span class="c-nota">Licitud, lealtad y transparencia; limitación de la finalidad; minimización de datos; exactitud; limitación del plazo de conservación; integridad y confidencialidad; responsabilidad proactiva (accountability).</span></div>
+              <div class="concepto"><span class="c-nombre">Categorías especiales de datos</span><span class="c-nota">Datos relativos a origen étnico, opiniones políticas, convicciones religiosas, salud, orientación sexual, etc.; régimen de tratamiento reforzado (art. 9 RGPD).</span></div>
+            </div>
+          </li>
+          <li><b>Derechos</b> de las personas y su ejercicio
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Derecho de acceso</span><span class="c-nota">Art. 13 LO 3/2018: obtener confirmación de si se tratan datos propios y acceder a ellos.</span></div>
+              <div class="concepto"><span class="c-nombre">Derecho de rectificación</span><span class="c-nota">Art. 14 LO 3/2018: corregir datos inexactos o incompletos.</span></div>
+              <div class="concepto"><span class="c-nombre">Derecho de supresión ("al olvido")</span><span class="c-nota">Art. 15 LO 3/2018: solicitar la eliminación de los datos cuando ya no sean necesarios o se retire el consentimiento.</span></div>
+              <div class="concepto"><span class="c-nombre">Derecho a la limitación del tratamiento, portabilidad y oposición</span><span class="c-nota">Arts. 16-18 LO 3/2018.</span></div>
+              <div class="concepto"><span class="c-nombre">Derechos digitales</span><span class="c-nota">Título X LO 3/2018: neutralidad de Internet, seguridad digital, derecho al olvido en redes sociales, derecho a la desconexión digital, testamento digital, entre otros.</span></div>
+            </div>
+          </li>
+          <li><b>Régimen especial</b> en el ámbito de la función estadística pública
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Compatibilidad con el secreto estadístico</span><span class="c-nota">El tratamiento de datos con fines estadísticos oficiales se rige, además de por la normativa general de protección de datos, por las garantías específicas de la Ley 12/1989 (secreto estadístico).</span></div>
+              <div class="concepto"><span class="c-nombre">Limitación de derechos por fines estadísticos</span><span class="c-nota">Los derechos de acceso, rectificación, limitación y oposición pueden restringirse cuando el ejercicio pudiera hacer imposible o dificultar gravemente el cumplimiento de fines estadísticos, siempre que los datos se mantengan bajo las garantías del secreto estadístico.</span></div>
+            </div>
+          </li>
+          <li><b>La Agencia Española de Protección de Datos</b>
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Naturaleza</span><span class="c-nota">Autoridad administrativa independiente de ámbito estatal, encargada de supervisar la aplicación del RGPD y la LO 3/2018.</span></div>
+              <div class="concepto"><span class="c-nombre">Potestades de investigación</span><span class="c-nota">Requerir información a responsables y encargados del tratamiento, realizar auditorías, acceder a instalaciones y equipos de tratamiento de datos.</span></div>
+              <div class="concepto"><span class="c-nombre">Régimen sancionador</span><span class="c-nota">Infracciones muy graves, graves y leves, con sanciones que pueden alcanzar hasta 20 millones de euros o el 4% del volumen de negocio anual global, según el RGPD.</span></div>
+            </div>
+          </li>
+        </ul>
+        <div class="tema-tags"><span class="tag">LO 3/2018</span><span class="tag">RGPD</span></div>
+        <div class="examen">
+          <div class="examen-head"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/></svg><span>Así lo ha preguntado el tribunal</span></div>
+          <p class="examen-item"><span class="yr">2023</span>De conformidad con la LO 3/2018, de Protección de Datos Personales y garantía de los derechos digitales, exponer tres derechos de los ciudadanos recogidos en dicha ley. <span class="patron">— exige nombrar derechos concretos (acceso, rectificación, supresión, portabilidad, derechos digitales...), no describir la ley en abstracto.</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tema">
+      <div class="num">10</div>
+      <div class="body">
+        <h2 class="tema-title">El Reglamento 223/2009 del Parlamento Europeo y del Consejo, de 11 de marzo, relativo a la estadística europea</h2>
+        <p class="tema-desc">Definición de estadísticas europeas. Principios estadísticos. Gobernanza estadística. Elaboración y difusión de estadísticas europeas.</p>
+        <ul class="subindice">
+          <li><b>Definición</b> de estadísticas europeas
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Objeto del Reglamento</span><span class="c-nota">Marco jurídico para el desarrollo, elaboración y difusión de las estadísticas europeas, base del Sistema Estadístico Europeo (SEE).</span></div>
+              <div class="concepto"><span class="c-nombre">Estadísticas europeas</span><span class="c-nota">Las desarrolladas, elaboradas y difundidas por Eurostat y las autoridades estadísticas nacionales de los Estados miembros de acuerdo con el programa estadístico europeo.</span></div>
+              <div class="concepto"><span class="c-nombre">Sistema Estadístico Europeo (SEE)</span><span class="c-nota">Asociación entre la autoridad estadística de la Unión (Eurostat) y las autoridades estadísticas nacionales, así como otros organismos nacionales responsables de estadísticas europeas.</span></div>
+            </div>
+          </li>
+          <li><b>Principios estadísticos</b>
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Principios profesionales</span><span class="c-nota">Art. 2 del Reglamento: independencia profesional, imparcialidad, objetividad, fiabilidad, secreto estadístico y relación coste-eficacia; recogidos también en el Código de Buenas Prácticas de las Estadísticas Europeas.</span></div>
+              <div class="concepto"><span class="c-nombre">Relación con el Tema 16 del bloque de Producción Estadística</span><span class="c-nota">Estos principios son la base normativa europea de la que deriva el Código de Buenas Prácticas de las Estadísticas Europeas.</span></div>
+            </div>
+          </li>
+          <li><b>Gobernanza estadística</b>
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Eurostat</span><span class="c-nota">Autoridad estadística de la Unión, responsable de la elaboración de las estadísticas europeas de acuerdo con los principios establecidos.</span></div>
+              <div class="concepto"><span class="c-nombre">Comité del Sistema Estadístico Europeo (CSEE)</span><span class="c-nota">Órgano de asesoramiento profesional al SEE, compuesto por representantes de los Estados miembros; asiste a la Comisión en la coordinación del programa estadístico.</span></div>
+              <div class="concepto"><span class="c-nombre">Autoridades estadísticas nacionales</span><span class="c-nota">En España, el INE y los demás servicios estadísticos del Estado, responsables de aplicar el Reglamento en el ámbito nacional.</span></div>
+            </div>
+          </li>
+          <li><b>Elaboración y difusión</b> de estadísticas europeas
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Programa estadístico europeo</span><span class="c-nota">Marco plurianual que fija los principales ámbitos y objetivos de las acciones previstas en materia de estadísticas europeas.</span></div>
+              <div class="concepto"><span class="c-nombre">Acceso a datos confidenciales con fines científicos</span><span class="c-nota">El Reglamento regula condiciones específicas de acceso a microdatos confidenciales por parte de investigadores, bajo garantías de confidencialidad.</span></div>
+              <div class="concepto"><span class="c-nombre">Fuentes de datos</span><span class="c-nota">Encuestas estadísticas, registros administrativos u otras fuentes; se prioriza el uso de fuentes administrativas para reducir la carga sobre los informantes.</span></div>
+            </div>
+          </li>
+        </ul>
+        <div class="tema-tags"><span class="tag">Reglamento 223/2009</span><span class="tag">SEE</span></div>
+      </div>
+    </div>
+
+    <div class="tema">
+      <div class="num">11</div>
+      <div class="body">
+        <h2 class="tema-title">La Administración electoral española</h2>
+        <p class="tema-desc">La Ley Orgánica 5/1985, de 19 de junio, de Régimen Electoral General: Organización y competencias de la Oficina del Censo Electoral. El Censo Electoral: Inscripción, formación y rectificación. Acceso a los datos censales. La ley 7/1985, de 2 de abril, reguladora de las Bases de Régimen Local: Qué es el padrón municipal, inscripción, formación y gestión. El Consejo de Empadronamiento. Acceso a los datos del padrón municipal.</p>
+        <ul class="subindice">
+          <li><b>LOREG:</b> organización y competencias de la Oficina del Censo Electoral
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Naturaleza de la Oficina del Censo Electoral (OCE)</span><span class="c-nota">Art. 29 LOREG: órgano encargado de la formación del Censo Electoral, bajo la dirección de la Junta Electoral Central, dependiente funcionalmente de esta y orgánicamente del INE.</span></div>
+              <div class="concepto"><span class="c-nombre">Competencias de la OCE</span><span class="c-nota">Art. 30 LOREG: dirección y coordinación de los trabajos de formación del Censo Electoral; resolución de las reclamaciones sobre inclusión, exclusión o rectificación de datos; expedición de certificaciones censales, entre otras.</span></div>
+              <div class="concepto"><span class="c-nombre">Delegaciones Provinciales de la OCE</span><span class="c-nota">Con sede en las Delegaciones de Economía y Estadística, coordinan la formación del censo en su ámbito territorial.</span></div>
+            </div>
+          </li>
+          <li><b>El Censo Electoral:</b> inscripción, formación y rectificación
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Concepto del Censo Electoral</span><span class="c-nota">Art. 31 LOREG: contiene la inscripción de quienes reúnen los requisitos para ser elector y no se hallen privados, definitiva o temporalmente, del derecho de sufragio.</span></div>
+              <div class="concepto"><span class="c-nombre">Inscripción obligatoria y de oficio</span><span class="c-nota">Art. 32 LOREG: la inscripción en el Censo Electoral es obligatoria, y se realiza de oficio a partir de los datos del Padrón municipal y de otros registros públicos.</span></div>
+              <div class="concepto"><span class="c-nombre">Formación y actualización permanente</span><span class="c-nota">El Censo se actualiza mensualmente y se cierra para cada proceso electoral en la fecha de la convocatoria.</span></div>
+              <div class="concepto"><span class="c-nombre">Rectificación</span><span class="c-nota">Procedimiento de reclamaciones ante la Delegación Provincial de la OCE para corregir errores o indebidas inclusiones/exclusiones.</span></div>
+            </div>
+          </li>
+          <li><b>Acceso</b> a los datos censales
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Copias del censo para partidos y candidaturas</span><span class="c-nota">Acceso restringido y regulado a copias del censo vigente para los fines estrictamente electorales previstos en la LOREG.</span></div>
+              <div class="concepto"><span class="c-nombre">Consulta individual</span><span class="c-nota">Cualquier persona puede consultar su propia inscripción en el censo durante el periodo de exposición al público.</span></div>
+            </div>
+          </li>
+          <li><b>Ley 7/1985:</b> el padrón municipal
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Concepto de padrón municipal</span><span class="c-nota">Art. 16 LBRL: registro administrativo donde constan los vecinos de un municipio; sus datos constituyen prueba de la residencia y del domicilio habitual.</span></div>
+              <div class="concepto"><span class="c-nombre">Inscripción, formación y gestión</span><span class="c-nota">Competencia municipal, bajo la coordinación del INE; actualización continua (altas, bajas, modificaciones y renovaciones periódicas de residentes extranjeros no comunitarios sin autorización de residencia permanente).</span></div>
+              <div class="concepto"><span class="c-nombre">Cifras oficiales de población</span><span class="c-nota">Se obtienen de la explotación estadística del padrón municipal, con revisión anual referida al 1 de enero.</span></div>
+            </div>
+          </li>
+          <li><b>El Consejo de Empadronamiento</b>
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Adscripción</span><span class="c-nota">Órgano de colaboración entre la Administración General del Estado y las Entidades Locales en materia de gestión del padrón municipal; adscrito al INE.</span></div>
+              <div class="concepto"><span class="c-nombre">Composición</span><span class="c-nota">Presidencia y vocales en representación del INE, de la Administración Local (FEMP) y de la Dirección General de Cooperación con la Administración Local.</span></div>
+              <div class="concepto"><span class="c-nombre">Funciones</span><span class="c-nota">Informar las cuestiones relativas a la formación, mantenimiento, revisión y custodia del padrón municipal; resolver discrepancias entre los Ayuntamientos y el INE; proponer criterios técnicos de gestión padronal.</span></div>
+            </div>
+          </li>
+          <li><b>Acceso</b> a los datos del padrón municipal
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Carácter de los datos padronales</span><span class="c-nota">Protegidos y de uso exclusivamente administrativo y estadístico, con cesión regulada a otras Administraciones Públicas para el ejercicio de sus competencias, en los términos de la normativa de protección de datos.</span></div>
+              <div class="concepto"><span class="c-nombre">Certificaciones y volantes de empadronamiento</span><span class="c-nota">Los interesados pueden obtener certificación acreditativa de sus datos de inscripción padronal.</span></div>
+            </div>
+          </li>
+        </ul>
+        <div class="tema-tags"><span class="tag">Censo Electoral</span><span class="tag">padrón municipal</span></div>
+        <div class="examen">
+          <div class="examen-head"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/></svg><span>Así lo ha preguntado el tribunal</span></div>
+          <p class="examen-item"><span class="yr">2023</span>De conformidad con la LO 5/1985 (LOREG), ¿es obligatoria la inscripción en el Censo Electoral? Razonar la respuesta. <span class="patron">— pregunta de sí/no razonado, no una descripción general del censo: hay que citar el fundamento legal exacto de la obligatoriedad.</span></p>
+          <p class="examen-item"><span class="yr">2024</span>Competencias de la Oficina del Censo Electoral previstas en el artículo 30 de la LOREG. <span class="patron">— exige enumerar competencias concretas del artículo citado, no la organización general de la Administración electoral.</span></p>
+          <p class="examen-item"><span class="yr">2026</span>El Consejo de Empadronamiento. Adscripción, composición y funciones. <span class="patron">— los tres apartados exigidos por el enunciado (a qué está adscrito, quién lo compone, qué funciones tiene) suelen olvidarse porque el foco habitual del tema está en el Censo Electoral, no en el padrón.</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tema">
+      <div class="num">12</div>
+      <div class="body">
+        <h2 class="tema-title">Políticas de Igualdad de Género</h2>
+        <p class="tema-desc">La incorporación de la mujer al mercado de trabajo. Especial referencia a las Administraciones Públicas. Políticas de promoción de la igualdad de género. La conciliación de la vida personal, familiar y laboral. Políticas contra la violencia de género. Igualdad de trato y no discriminación de las personas LGTBI.</p>
+        <ul class="subindice">
+          <li><b>Incorporación de la mujer</b> al mercado de trabajo
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Marco constitucional</span><span class="c-nota">Art. 14 CE: igualdad ante la ley sin discriminación por razón de sexo; art. 9.2 CE: mandato a los poderes públicos de promover la igualdad real y efectiva.</span></div>
+              <div class="concepto"><span class="c-nombre">Especial referencia a las Administraciones Públicas</span><span class="c-nota">Planes de igualdad en el empleo público; medidas de acción positiva para corregir situaciones de infrarrepresentación.</span></div>
+            </div>
+          </li>
+          <li><b>Políticas de promoción</b> de la igualdad de género
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">LO 3/2007, para la igualdad efectiva de mujeres y hombres</span><span class="c-nota">Norma marco: principio de transversalidad de género, planes de igualdad en las empresas y en la Administración, composición equilibrada en órganos y cargos de responsabilidad.</span></div>
+              <div class="concepto"><span class="c-nombre">Planes de Igualdad en la AGE</span><span class="c-nota">Instrumentos periódicos que fijan objetivos y medidas concretas de igualdad en el ámbito de la Administración General del Estado y sus organismos.</span></div>
+            </div>
+          </li>
+          <li><b>Conciliación</b> de la vida personal, familiar y laboral
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Permisos y excedencias</span><span class="c-nota">Regulados en el TREBEP para empleados públicos y en el Estatuto de los Trabajadores para el ámbito laboral: permisos por nacimiento, cuidado de menores o familiares, excedencia por cuidado de hijos.</span></div>
+              <div class="concepto"><span class="c-nombre">Corresponsabilidad</span><span class="c-nota">Principio que orienta el reparto equilibrado de las responsabilidades familiares entre hombres y mujeres.</span></div>
+            </div>
+          </li>
+          <li><b>Políticas</b> contra la violencia de género
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">LO 1/2004, de Medidas de Protección Integral contra la Violencia de Género</span><span class="c-nota">Enfoque integral: prevención, sensibilización, tutela institucional, tutela penal y tutela judicial.</span></div>
+              <div class="concepto"><span class="c-nombre">Derechos laborales y de Seguridad Social de las víctimas</span><span class="c-nota">Reducción o reordenación del tiempo de trabajo, movilidad geográfica, suspensión de la relación laboral con reserva de puesto.</span></div>
+            </div>
+          </li>
+          <li><b>Igualdad de trato</b> y no discriminación de las personas LGTBI
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Ley 4/2023, para la igualdad real y efectiva de las personas trans y para la garantía de los derechos de las personas LGTBI</span><span class="c-nota">Marco estatal de protección frente a la discriminación por orientación sexual, identidad de género, expresión de género o características sexuales.</span></div>
+              <div class="concepto"><span class="c-nombre">Principio de no discriminación</span><span class="c-nota">Aplicable, entre otros ámbitos, al empleo público y al acceso a bienes y servicios.</span></div>
+            </div>
+          </li>
+        </ul>
+        <div class="tema-tags"><span class="tag">igualdad de género</span><span class="tag">conciliación</span></div>
+      </div>
+    </div>
+
+    <div class="tema">
+      <div class="num">13</div>
+      <div class="body">
+        <h2 class="tema-title">La Gobernanza Pública</h2>
+        <p class="tema-desc">La gobernanza pública y el gobierno abierto. Concepto y principios informadores del gobierno abierto: colaboración, participación, transparencia y rendición de cuentas. Datos abiertos y reutilización. El marco jurídico y los planes de gobierno abierto en España. La Ley 19/2013, de 9 de diciembre, de transparencia, acceso a la información pública y buen gobierno. El Consejo de Transparencia y Buen Gobierno: Real Decreto 919/2014, de 31 de octubre, por el que se aprueba su estatuto. Funciones.</p>
+        <ul class="subindice">
+          <li><b>Gobernanza pública</b> y gobierno abierto
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Gobernanza pública</span><span class="c-nota">Forma de dirección y gestión de los asuntos públicos basada en la interacción entre el Estado, el mercado y la sociedad civil, más allá de la jerarquía administrativa tradicional.</span></div>
+              <div class="concepto"><span class="c-nombre">Gobierno abierto (Open Government)</span><span class="c-nota">Modelo de relación entre gobernantes y ciudadanía basado en la transparencia, la participación y la colaboración.</span></div>
+            </div>
+          </li>
+          <li><b>Principios informadores:</b> colaboración, participación, transparencia y rendición de cuentas
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Colaboración</span><span class="c-nota">Implicación de la ciudadanía, sociedad civil y sector privado en el diseño y ejecución de políticas públicas.</span></div>
+              <div class="concepto"><span class="c-nombre">Participación</span><span class="c-nota">Mecanismos que permiten a la ciudadanía intervenir en la toma de decisiones públicas (consultas, audiencia pública, iniciativa legislativa popular).</span></div>
+              <div class="concepto"><span class="c-nombre">Transparencia</span><span class="c-nota">Publicidad activa de la información pública y facilitación del acceso a la misma.</span></div>
+              <div class="concepto"><span class="c-nombre">Rendición de cuentas (accountability)</span><span class="c-nota">Obligación de los responsables públicos de justificar sus decisiones y someterse al escrutinio ciudadano.</span></div>
+            </div>
+          </li>
+          <li><b>Datos abiertos</b> y reutilización
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Open Data</span><span class="c-nota">Datos públicos puestos a disposición en formatos abiertos, reutilizables y accesibles, sin restricciones técnicas o legales innecesarias.</span></div>
+              <div class="concepto"><span class="c-nombre">Ley 37/2007, sobre reutilización de la información del sector público</span><span class="c-nota">Marco normativo específico de la reutilización de datos públicos, complementario a la Ley de Transparencia.</span></div>
+            </div>
+          </li>
+          <li><b>Marco jurídico</b> y planes de gobierno abierto en España
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Alianza para el Gobierno Abierto (Open Government Partnership)</span><span class="c-nota">Iniciativa internacional a la que España está adherida, que exige la elaboración periódica de Planes de Gobierno Abierto.</span></div>
+              <div class="concepto"><span class="c-nombre">Planes de Gobierno Abierto de España</span><span class="c-nota">Instrumentos plurianuales con compromisos concretos en materia de transparencia, participación y rendición de cuentas.</span></div>
+            </div>
+          </li>
+          <li><b>Ley 19/2013,</b> de transparencia, acceso a la información pública y buen gobierno
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Publicidad activa</span><span class="c-nota">Título I de la Ley: obligación de los sujetos incluidos en su ámbito de aplicación de publicar de forma periódica y actualizada la información cuyo conocimiento sea relevante.</span></div>
+              <div class="concepto"><span class="c-nombre">Derecho de acceso a la información pública</span><span class="c-nota">Título II de la Ley: reconocido a todas las personas, sin necesidad de motivar la solicitud, con límites tasados (seguridad, defensa, intereses económicos y comerciales, protección de datos, entre otros).</span></div>
+              <div class="concepto"><span class="c-nombre">Buen gobierno</span><span class="c-nota">Título III de la Ley: principios éticos y de actuación de los altos cargos, con su correspondiente régimen sancionador.</span></div>
+            </div>
+          </li>
+          <li><b>El Consejo de Transparencia y Buen Gobierno</b>
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Naturaleza</span><span class="c-nota">Organismo público independiente, con personalidad jurídica propia, adscrito al Ministerio competente, encargado de promover la transparencia y garantizar el derecho de acceso a la información pública.</span></div>
+              <div class="concepto"><span class="c-nombre">RD 919/2014, Estatuto del Consejo</span><span class="c-nota">Regula su organización (Presidencia y Comisión de Transparencia y Buen Gobierno) y funcionamiento.</span></div>
+              <div class="concepto"><span class="c-nombre">Funciones</span><span class="c-nota">Resolver las reclamaciones frente a resoluciones expresas o presuntas en materia de acceso a la información; adoptar recomendaciones; promover la elaboración de códigos de buenas prácticas; asesorar en materia de transparencia; controlar el cumplimiento de las obligaciones de publicidad activa.</span></div>
+            </div>
+          </li>
+        </ul>
+        <div class="tema-tags"><span class="tag">transparencia</span><span class="tag">gobierno abierto</span></div>
+        <div class="examen">
+          <div class="examen-head"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/></svg><span>Así lo ha preguntado el tribunal</span></div>
+          <p class="examen-item"><span class="yr">2023</span>Explicar cuáles son los principales objetivos del Consejo de Transparencia y Buen Gobierno. <span class="patron">— pide los objetivos/funciones del órgano en concreto, no una descripción general de la Ley 19/2013.</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tema">
+      <div class="num">14</div>
+      <div class="body">
+        <h2 class="tema-title">La administración TIC de la AGE</h2>
+        <p class="tema-desc">Modelos de gobernanza TIC. Organización e instrumentos operativos de las tecnologías de la información y las comunicaciones en la Administración General del Estado y sus organismos públicos. La transformación digital de la Administración General del Estado. El expediente electrónico. Normas Técnicas de Interoperabilidad. El Esquema Nacional de Seguridad.</p>
+        <ul class="subindice">
+          <li><b>Modelos de gobernanza TIC</b>
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Gobernanza TIC en la AGE</span><span class="c-nota">Modelo de coordinación y dirección estratégica de las tecnologías de la información, con órganos colegiados de coordinación (Comisión de Estrategia TIC y similares).</span></div>
+            </div>
+          </li>
+          <li><b>Organización e instrumentos operativos</b> de las TIC en la AGE
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Unidades TIC departamentales</span><span class="c-nota">Cada Ministerio dispone de su propia estructura de tecnologías de la información, coordinada a nivel de la AGE.</span></div>
+              <div class="concepto"><span class="c-nombre">Estrategia TIC de la AGE</span><span class="c-nota">Instrumento de planificación plurianual que fija los objetivos y proyectos comunes en materia de administración electrónica.</span></div>
+            </div>
+          </li>
+          <li><b>Transformación digital</b> de la Administración General del Estado
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Ley 39/2015 y Ley 40/2015</span><span class="c-nota">Consagran la tramitación electrónica como actuación administrativa ordinaria, no como una alternativa a la tramitación en papel.</span></div>
+              <div class="concepto"><span class="c-nombre">RD 203/2021, Reglamento de actuación y funcionamiento del sector público por medios electrónicos</span><span class="c-nota">Desarrolla los aspectos organizativos y técnicos de la Administración electrónica.</span></div>
+            </div>
+          </li>
+          <li><b>El expediente electrónico</b>
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Concepto</span><span class="c-nota">Conjunto ordenado de documentos y actuaciones que sirven de antecedente y fundamento a la resolución administrativa, así como las diligencias encaminadas a ejecutarla, en formato electrónico.</span></div>
+              <div class="concepto"><span class="c-nombre">Índice electrónico</span><span class="c-nota">Garantiza la integridad del expediente electrónico y permite su recuperación cuando sea preciso.</span></div>
+            </div>
+          </li>
+          <li><b>Normas Técnicas de Interoperabilidad (NTI)</b>
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Esquema Nacional de Interoperabilidad (ENI)</span><span class="c-nota">Conjunto de criterios y recomendaciones que garantizan el intercambio de información entre Administraciones y con la ciudadanía.</span></div>
+              <div class="concepto"><span class="c-nombre">NTI concretas</span><span class="c-nota">Desarrollan aspectos específicos del ENI: expediente electrónico, documento electrónico, digitalización de documentos, catálogo de estándares, política de firma electrónica, entre otras.</span></div>
+            </div>
+          </li>
+          <li><b>El Esquema Nacional de Seguridad (ENS)</b>
+            <button class="sub-toggle" type="button" onclick="toggleSub(this)"><span class="chev">▶</span>Ver conceptos</button>
+            <div class="conceptos">
+              <div class="concepto"><span class="c-nombre">Objeto del ENS</span><span class="c-nota">Conjunto de principios básicos y requisitos mínimos para una protección adecuada de la información tratada y los servicios prestados por las entidades del sector público, mediante medidas para garantizar la seguridad de sistemas, datos, comunicaciones y servicios electrónicos.</span></div>
+              <div class="concepto"><span class="c-nombre">Dimensiones de seguridad</span><span class="c-nota">Disponibilidad, integridad, confidencialidad, autenticidad y trazabilidad de la información y los servicios.</span></div>
+              <div class="concepto"><span class="c-nombre">Categorización de sistemas</span><span class="c-nota">Básica, media o alta, según el impacto potencial sobre las dimensiones de seguridad; determina las medidas de seguridad exigibles.</span></div>
+              <div class="concepto"><span class="c-nombre">Aplicación a la producción estadística oficial</span><span class="c-nota">Los organismos estadísticos, al gestionar información especialmente sensible (datos amparados por el secreto estadístico), deben aplicar medidas de seguridad reforzadas coherentes con la categorización de sus sistemas bajo el ENS.</span></div>
+            </div>
+          </li>
+        </ul>
+        <div class="tema-tags"><span class="tag">Esquema Nacional de Seguridad</span><span class="tag">expediente electrónico</span></div>
+        <div class="examen">
+          <div class="examen-head"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/></svg><span>Así lo ha preguntado el tribunal</span></div>
+          <p class="examen-item"><span class="yr">2026</span>Explicar cómo se aplica el Esquema Nacional de Seguridad (ENS) a la producción estadística oficial y qué medidas deben adoptarse para garantizar la integridad, confidencialidad y disponibilidad de los datos manejados por un organismo estadístico. <span class="patron">— cruza este tema con el secreto estadístico (Tema 8) y con el control del secreto estadístico del bloque de Producción Estadística: no basta describir el ENS en general, hay que aplicarlo al caso concreto de un organismo estadístico.</span></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <b>Fuente del temario:</b> Resolución de 22 de diciembre de 2025, de la Subsecretaría (Ministerio de Economía, Comercio y Empresa) — BOE núm. 313, de 29/12/2025, Anexo I, Programa, apartado A.VI «Derecho». Ref. <b>BOE-A-2025-26900</b>. Los conceptos, artículos y remisiones normativas de cada epígrafe son elaboración propia de apoyo al estudio a partir de la normativa citada, y no forman parte literal del texto del BOE. La normativa reglamentaria de estructura ministerial (Tema 3) y las denominaciones exactas de los departamentos pueden variar entre legislaturas; conviene verificar la redacción vigente en el momento del examen.
+    <br><br>
+    <b>Fuente de "Así lo ha preguntado el tribunal":</b> primer ejercicio del turno libre al Cuerpo Superior de Estadísticos del Estado, últimas cuatro convocatorias de oferta pública de empleo: 2022, 2023, 2024 y 2025 (exámenes celebrados en 2023, 2024, 2025 y 2026 respectivamente), tal como los publica el INE en su página de material de apoyo a la oposición. El bloque de Derecho solo se evalúa en el primer ejercicio; el segundo ejercicio del turno libre lo excluye expresamente. Las preguntas se reformulan y resumen; no son transcripción literal del enunciado oficial. Algunos temas (2, 4, 7, 10, 12) no registran preguntas propias en estas cuatro convocatorias y por tanto no llevan sección de examen.
+  </div>
+
+</div>
+
+<script>
+  function toggleSub(btn){
+    var box = btn.nextElementSibling;
+    var open = box.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    var label = open ? 'Ocultar' : (btn.dataset.label || 'Ver conceptos');
+    if(!btn.dataset.label){ btn.dataset.label = btn.textContent.replace('▶','').trim(); }
+    btn.innerHTML = '<span class="chev">▶</span>' + (open ? 'Ocultar' : btn.dataset.label);
+  }
+</script>
+</body>
+</html>

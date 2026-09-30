@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 11 · Administración electoral · Enunciados posibles</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --ink:#241F17;
+    --ink-soft:#6b6252;
+    --line:#dcd4c2;
+    --der:#2E5266;
+    --der-soft:#DCE6EB;
+    --der-glow:rgba(46,82,102,.18);
+    --glass:rgba(255,255,255,.55);
+
+    --hot:#8B3A3A;
+    --hot-soft:#F3DEDE;
+    --warm:#966A24;
+    --warm-soft:#F1E4CB;
+    --cold:#3E6B4F;
+    --cold-soft:#DEEBE2;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(36,31,23,.07) 1px, transparent 0) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    padding:48px 20px 80px;
+  }
+
+  .wrap{max-width:880px; margin:0 auto;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:38px 36px 32px;
+    border-radius:20px;
+    background:var(--glass);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -24px rgba(36,31,23,.25);
+    overflow:hidden;
+    margin-bottom:28px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:-40% -20% auto auto;
+    width:340px; height:340px;
+    background:radial-gradient(circle, var(--der-glow), transparent 70%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--der);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--der);}
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(26px, 4vw, 38px);
+    line-height:1.1;
+    margin:0 0 10px;
+    letter-spacing:-.01em;
+  }
+  .hero p{
+    margin:0;
+    max-width:64ch;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.6;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-top:22px;
+  }
+  .meta-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.55);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 12px;
+  }
+
+  .aviso{
+    margin-top:20px;
+    padding:12px 16px;
+    background:rgba(255,255,255,.4);
+    border-left:2px solid var(--der);
+    border-radius:0 8px 8px 0;
+    font-size:12.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+  .aviso b{color:var(--ink);}
+
+  /* YA PREGUNTADO — banda de precedentes */
+  .precedentes{
+    margin-bottom:28px;
+    padding:20px 22px;
+    border-radius:14px;
+    background:var(--der-soft);
+    border:1px solid rgba(46,82,102,.2);
+  }
+  .precedentes-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    color:var(--der);
+    margin:0 0 12px;
+  }
+  .prec-item{
+    display:flex; gap:12px; align-items:flex-start;
+    padding:8px 0;
+    border-top:1px dashed rgba(46,82,102,.2);
+  }
+  .prec-item:first-of-type{border-top:none;}
+  .prec-yr{
+    flex:none;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    color:var(--der);
+    background:rgba(255,255,255,.6);
+    border-radius:6px;
+    padding:2px 8px;
+    margin-top:1px;
+  }
+  .prec-text{font-size:12.5px; line-height:1.55; color:var(--ink);}
+  .prec-text i{color:var(--ink-soft); font-style:italic;}
+
+  /* SECTION HEAD */
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+    margin:44px 0 16px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+  }
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .section-count{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    flex:none;
+  }
+
+  /* BLOQUE (epígrafe del tema) */
+  .bloque-epi{margin-bottom:6px;}
+  .bloque-epi-head{
+    display:flex; gap:14px; align-items:flex-start;
+    margin-bottom:16px;
+  }
+  .bloque-epi-num{
+    flex:none;
+    width:34px; height:34px;
+    border-radius:10px;
+    background:var(--der-soft);
+    color:var(--der);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+  }
+  .bloque-epi-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:17px;
+    line-height:1.3;
+    margin:0 0 3px;
+    color:var(--ink);
+  }
+  .bloque-epi-sub{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin:0;
+  }
+
+  /* ENUNCIADO CARD */
+  .list{display:flex; flex-direction:column; gap:12px; margin-bottom:36px;}
+  .enun{
+    position:relative;
+    padding:20px 22px;
+    border-radius:14px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -20px rgba(36,31,23,.3);
+  }
+  .enun.nivel-hot{border-color:rgba(139,58,58,.35);}
+  .enun.nivel-warm{border-color:rgba(150,106,36,.3);}
+
+  .enun-top{
+    display:flex; gap:12px; align-items:flex-start; justify-content:space-between;
+    margin-bottom:10px;
+  }
+  .enun-tags{display:flex; flex-wrap:wrap; gap:6px;}
+  .tag{
+    display:inline-flex; align-items:center; gap:5px;
+    border-radius:100px;
+    padding:3px 10px;
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    font-size:9px;
+    flex:none;
+    white-space:nowrap;
+  }
+  .tag.hot{background:var(--hot-soft); color:var(--hot);}
+  .tag.warm{background:var(--warm-soft); color:var(--warm);}
+  .tag.cold{background:var(--cold-soft); color:var(--cold);}
+  .tag.norma{background:var(--der-soft); color:var(--der);}
+
+  .enun-art{
+    flex:none;
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+
+  .enun-text{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:16.5px;
+    line-height:1.45;
+    color:var(--ink);
+    margin:0 0 12px;
+  }
+  .enun-text i{color:var(--der); font-style:normal; font-weight:600;}
+
+  .enun-nota{
+    font-size:12.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    padding-top:10px;
+    border-top:1px dashed var(--line);
+    margin:0;
+  }
+  .enun-nota b{color:var(--ink);}
+
+  .foot{
+    margin-top:46px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-size:11.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+  .foot b{color:var(--ink);}
+
+  .legend{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-bottom:8px;
+  }
+  .legend-item{
+    display:flex; align-items:center; gap:7px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 13px 6px 8px;
+  }
+  .legend-dot{width:9px; height:9px; border-radius:3px; flex:none;}
+  .legend-dot.hot{background:var(--hot);}
+  .legend-dot.warm{background:var(--warm);}
+  .legend-dot.cold{background:var(--cold);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dot"></span>Derecho · Tema 11 · INE A1 · Turno libre</div>
+    <h1>Enunciados posibles: la Administración electoral española</h1>
+    <p>Tampoco tiene segundo ejercicio (solo primer ejercicio, desarrollo escrito). A diferencia del Tema 10, este es el tema más "trabajado" del bloque: tres preguntas reales en cuatro convocatorias (2023, 2024, 2026). Eso cambia el enfoque — los enunciados de abajo no parten de cero, sino que distinguen entre el único hueco que sigue sin preguntarse (acceso a datos censales y padronales) y variantes plausibles sobre los tres ángulos ya tocados, aplicando los mismos seis patrones retóricos del tribunal.</p>
+    <div class="hero-meta">
+      <span class="meta-chip">LOREG (LO 5/1985) · Ley 7/1985 (LBRL)</span>
+      <span class="meta-chip">Solo primer ejercicio</span>
+      <span class="meta-chip">3 preguntas reales registradas</span>
+    </div>
+    <div class="aviso"><b>Cómo usar este documento:</b> las tres preguntas de la banda superior sí son las registradas por el tribunal (reformuladas por el material de apoyo, no transcripción palabra por palabra). El resto son enunciados construidos por analogía formal, no preguntas oficiales — sirven para practicar estructura de respuesta, no para memorizar un enunciado exacto.</div>
+  </div>
+
+  <div class="precedentes">
+    <h3 class="precedentes-title">Lo que ya ha caído — para no repasarlo como si fuera nuevo</h3>
+    <div class="prec-item">
+      <span class="prec-yr">2023</span>
+      <span class="prec-text">"De conformidad con la LO 5/1985 (LOREG), ¿es obligatoria la inscripción en el Censo Electoral? Razonar la respuesta." <i>— pregunta cerrada + norma citada (patrones 4+5).</i></span>
+    </div>
+    <div class="prec-item">
+      <span class="prec-yr">2024</span>
+      <span class="prec-text">"Competencias de la Oficina del Censo Electoral previstas en el artículo 30 de la LOREG." <i>— enunciado nominal anclado a un artículo concreto (patrones 3+5).</i></span>
+    </div>
+    <div class="prec-item">
+      <span class="prec-yr">2026</span>
+      <span class="prec-text">"El Consejo de Empadronamiento. Adscripción, composición y funciones." <i>— tres sustantivos coordinados = tres apartados evaluados por separado (patrón 3).</i></span>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot hot"></span>Hueco sin preguntar — probabilidad alta</div>
+    <div class="legend-item"><span class="legend-dot warm"></span>Ángulo ya tocado — variante plausible</div>
+    <div class="legend-item"><span class="legend-dot cold"></span>Cruce con otro tema</div>
+  </div>
+
+  <!-- ============ BLOQUE 1: ACCESO A DATOS CENSALES Y PADRONALES ============ -->
+  <div class="bloque-epi">
+    <div class="bloque-epi-head">
+      <div class="bloque-epi-num">1</div>
+      <div>
+        <h3 class="bloque-epi-title">Acceso a los datos censales y padronales</h3>
+        <p class="bloque-epi-sub">Único bloque del tema sin pregunta registrada · cesión a partidos · consulta individual · certificaciones</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="list">
+
+    <div class="enun nivel-hot">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag hot">Alta</span><span class="tag norma">LOREG, régimen de copias</span></div>
+        <span class="enun-art">Patrón 2 · exponer + diferencias</span>
+      </div>
+      <p class="enun-text"><i>Exponer</i> quiénes pueden acceder a copias del Censo Electoral y con qué finalidad, y las diferencias con la consulta individual de la propia inscripción.</p>
+      <p class="enun-nota">Es el hueco que el propio análisis de prioridades marca como el único bloque de este tema sin preguntar directamente. Distingue dos regímenes de acceso muy distintos: la cesión regulada a partidos y candidaturas para fines electorales, frente al derecho de cualquier persona a consultar su propia inscripción durante el periodo de exposición al público.</p>
+    </div>
+
+    <div class="enun nivel-hot">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag hot">Alta</span><span class="tag norma">Carácter de los datos padronales</span></div>
+        <span class="enun-art">Patrón 1 · explicar</span>
+      </div>
+      <p class="enun-text"><i>Explicar</i> el carácter de los datos del Padrón municipal y en qué condiciones pueden cederse a otras Administraciones Públicas.</p>
+      <p class="enun-nota">Cubre el segundo tramo del mismo hueco: los datos padronales son protegidos y de uso administrativo y estadístico, con cesión regulada — pero no libre — a otras Administraciones para el ejercicio de sus propias competencias. El "y en qué condiciones" es la segunda tarea que suele olvidarse.</p>
+    </div>
+
+    <div class="enun nivel-hot">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag hot">Alta</span><span class="tag norma">Certificaciones y volantes</span></div>
+        <span class="enun-art">Patrón 3 · nominal</span>
+      </div>
+      <p class="enun-text">Certificaciones y volantes de empadronamiento. <i>Naturaleza y valor acreditativo.</i></p>
+      <p class="enun-nota">Enunciado nominal corto sobre un contenido muy concreto y aún virgen: qué acreditan estos documentos (residencia y domicilio habitual, art. 16 LBRL) y qué los distingue entre sí, en la línea del enunciado ya visto sobre el Consejo de Empadronamiento (2026).</p>
+    </div>
+
+    <div class="enun nivel-hot">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag hot">Alta</span><span class="tag norma">LOREG vs LBRL, régimen de acceso</span></div>
+        <span class="enun-art">Patrón 6 · cruce interno</span>
+      </div>
+      <p class="enun-text"><i>Exponer</i> las diferencias entre el régimen de acceso a los datos del Censo Electoral y el régimen de acceso a los datos del Padrón municipal.</p>
+      <p class="enun-nota">Cruza los dos registros dentro del propio tema — algo que el tribunal aún no ha hecho en las tres preguntas registradas, todas centradas en un solo registro. Exige distinguir la finalidad estrictamente electoral del censo frente al uso administrativo y estadístico general del padrón.</p>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">LOPDGDD, art. 20</span></div>
+        <span class="enun-art">Patrón 6 · cruce Tema 9</span>
+      </div>
+      <p class="enun-text"><i>Explicar</i> la protección de los datos del Padrón municipal y su relación con el régimen de protección de datos de la LO 3/2018.</p>
+      <p class="enun-nota">Cruce señalado ya en el propio documento de prioridades: conecta el carácter protegido de los datos padronales con el Tema 9 (LOPDGDD). Sigue el patrón dominante de 2025-2026 de preguntas que solo se responden bien conectando dos bloques distintos del temario.</p>
+    </div>
+
+  </div>
+
+  <!-- ============ BLOQUE 2: OFICINA DEL CENSO ELECTORAL ============ -->
+  <div class="bloque-epi">
+    <div class="bloque-epi-head">
+      <div class="bloque-epi-num">2</div>
+      <div>
+        <h3 class="bloque-epi-title">LOREG — la Oficina del Censo Electoral</h3>
+        <p class="bloque-epi-sub">Naturaleza y encuadramiento (art. 29) · competencias (art. 30, ya preguntado en 2024) · Delegaciones Provinciales</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="list">
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 29</span></div>
+        <span class="enun-art">Patrón 3 · nominal</span>
+      </div>
+      <p class="enun-text">La Oficina del Censo Electoral. <i>Naturaleza, encuadramiento orgánico y dirección funcional.</i></p>
+      <p class="enun-nota">A diferencia de la pregunta de 2024 (centrada en las competencias del art. 30), este enunciado se centra en el art. 29: la doble dependencia de la OCE — orgánica del INE, funcional de la Junta Electoral Central — es "el matiz que más distingue este órgano de una simple unidad estadística más" según el propio articulado, y aún no ha sido objeto de pregunta directa.</p>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 30.f</span></div>
+        <span class="enun-art">Patrón 4 · pregunta cerrada</span>
+      </div>
+      <p class="enun-text">¿Cabe recurso de alzada contra las resoluciones de la Oficina del Censo Electoral en materia de reclamaciones? <i>Razonar</i> la respuesta.</p>
+      <p class="enun-nota">Variante de foco muy estrecho sobre el mismo artículo ya preguntado en 2024 (art. 30), pero desde un ángulo distinto: las resoluciones de la OCE agotan la vía administrativa (art. 30.f), por lo que solo cabe recurso contencioso-administrativo directo, con un plazo de cinco días — un matiz que la pregunta de 2024 no exigía.</p>
+    </div>
+
+    <div class="enun nivel-cold">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag cold">Baja</span><span class="tag norma">Art. 30</span></div>
+        <span class="enun-art">Patrón 3 · nominal (repetición)</span>
+      </div>
+      <p class="enun-text">Competencias de la Oficina del Censo Electoral previstas en el artículo 30 de la LOREG.</p>
+      <p class="enun-nota">Enunciado ya caído en 2024, tal cual. El Tema 5 demuestra que este tribunal repite enunciados literales de una convocatoria a otra, así que no se descarta del todo — pero conviene priorizar el resto del tema antes que este ángulo concreto.</p>
+    </div>
+
+  </div>
+
+  <!-- ============ BLOQUE 3: EL CENSO ELECTORAL ============ -->
+  <div class="bloque-epi">
+    <div class="bloque-epi-head">
+      <div class="bloque-epi-num">3</div>
+      <div>
+        <h3 class="bloque-epi-title">El Censo Electoral: inscripción, formación y rectificación</h3>
+        <p class="bloque-epi-sub">Concepto (art. 31) · inscripción obligatoria y de oficio (art. 32) · actualización mensual (art. 34) · rectificación</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="list">
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Arts. 31 y 34</span></div>
+        <span class="enun-art">Patrón 1 · explicar</span>
+      </div>
+      <p class="enun-text"><i>Explicar</i> qué es el Censo Electoral y cómo se mantiene actualizado.</p>
+      <p class="enun-nota">El "y cómo" final exige el dato más citado del bloque: el censo no se elabora desde cero para cada elección, es un registro permanente con actualización mensual (art. 34), que se "cierra" en una fotografía fija solo al convocarse cada proceso electoral concreto (art. 39).</p>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 32</span></div>
+        <span class="enun-art">Patrón 4 · pregunta cerrada (variante)</span>
+      </div>
+      <p class="enun-text">¿Es necesario solicitar expresamente la inscripción en el Censo Electoral? <i>Razonar</i> la respuesta de conformidad con la LOREG.</p>
+      <p class="enun-nota">Variante del mismo patrón de la pregunta de 2023, pero desplazada del "es obligatoria" al "es de oficio": la inscripción se practica automáticamente a partir de los datos del padrón municipal y otros registros públicos, sin necesidad de solicitud del interesado (art. 32).</p>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Rectificación</span></div>
+        <span class="enun-art">Patrón 3 · nominal</span>
+      </div>
+      <p class="enun-text">El procedimiento de rectificación del Censo Electoral. <i>Órgano competente y plazo.</i></p>
+      <p class="enun-nota">Contenido colindante con la pregunta de 2023 (obligatoriedad de la inscripción) pero centrado en el trámite inverso: cómo se corrige una inclusión o exclusión indebida, ante qué Delegación Provincial de la OCE y en qué plazo.</p>
+    </div>
+
+  </div>
+
+  <!-- ============ BLOQUE 4: EL PADRÓN MUNICIPAL ============ -->
+  <div class="bloque-epi">
+    <div class="bloque-epi-head">
+      <div class="bloque-epi-num">4</div>
+      <div>
+        <h3 class="bloque-epi-title">Ley 7/1985: el padrón municipal</h3>
+        <p class="bloque-epi-sub">Concepto (art. 15/16) · gestión municipal y resolución de discrepancias por el INE (art. 17) · cifras oficiales de población</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="list">
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 15</span></div>
+        <span class="enun-art">Patrón 5 · norma citada</span>
+      </div>
+      <p class="enun-text">De conformidad con la Ley 7/1985, Reguladora de las Bases del Régimen Local, <i>explicar</i> qué es el Padrón municipal y quiénes están obligados a inscribirse.</p>
+      <p class="enun-nota">Contenido básico del bloque, todavía no preguntado directamente (las tres preguntas reales se centraron en censo y Consejo de Empadronamiento, no en el concepto del padrón en sí). La obligación alcanza a toda persona residente en España, con independencia de su nacionalidad — a diferencia del censo, reservado a quienes tienen derecho de sufragio.</p>
+    </div>
+
+    <div class="enun nivel-hot">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag hot">Alta</span><span class="tag norma">Art. 17.3</span></div>
+        <span class="enun-art">Patrón 1 · explicar</span>
+      </div>
+      <p class="enun-text"><i>Explicar</i> qué papel desempeña el Presidente del Instituto Nacional de Estadística en la gestión del Padrón municipal.</p>
+      <p class="enun-nota">Contenido con conexión directa al perfil INE, todavía sin preguntar: aunque la gestión diaria del padrón es municipal, la resolución de discrepancias entre Ayuntamientos y la propuesta al Gobierno de las cifras oficiales de población corresponden al Presidente del INE (art. 17.3) — el fundamento legal exacto de una función que el Instituto publica cada año.</p>
+    </div>
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Cifras oficiales de población</span></div>
+        <span class="enun-art">Patrón 3 · nominal</span>
+      </div>
+      <p class="enun-text">Las cifras oficiales de población de los municipios españoles. <i>Origen, periodicidad y efectos.</i></p>
+      <p class="enun-nota">Tres sustantivos coordinados sobre un contenido con efectos jurídicos propios (reparto de fondos, número de concejales) que el propio articulado destaca como "no una estadística más entre otras" — encaja con el estilo de enunciado nominal de tres partes que repite el tribunal.</p>
+    </div>
+
+  </div>
+
+  <!-- ============ BLOQUE 5: EL CONSEJO DE EMPADRONAMIENTO ============ -->
+  <div class="bloque-epi">
+    <div class="bloque-epi-head">
+      <div class="bloque-epi-num">5</div>
+      <div>
+        <h3 class="bloque-epi-title">El Consejo de Empadronamiento</h3>
+        <p class="bloque-epi-sub">Adscripción, composición y funciones (art. 17.4) · ya preguntado en 2026</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="list">
+
+    <div class="enun nivel-warm">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag warm">Media</span><span class="tag norma">Art. 17.4, funciones</span></div>
+        <span class="enun-art">Patrón 2 · exponer + número</span>
+      </div>
+      <p class="enun-text"><i>Exponer</i> al menos dos funciones del Consejo de Empadronamiento distintas de la resolución de discrepancias.</p>
+      <p class="enun-nota">Variante de foco más estrecho que la pregunta de 2026 (que pedía adscripción, composición y funciones en conjunto): aquí se aísla solo el listado de funciones y se excluye deliberadamente la más conocida (resolución de discrepancias), obligando a citar también informar sobre gestión padronal y proponer criterios técnicos.</p>
+    </div>
+
+    <div class="enun nivel-cold">
+      <div class="enun-top">
+        <div class="enun-tags"><span class="tag cold">Baja</span><span class="tag norma">Art. 17.4</span></div>
+        <span class="enun-art">Patrón 3 · nominal (repetición)</span>
+      </div>
+      <p class="enun-text">El Consejo de Empadronamiento. Adscripción, composición y funciones.</p>
+      <p class="enun-nota">Enunciado ya caído literalmente en 2026. Menor prioridad de repaso como pregunta nueva, aunque no descartable del todo si el tribunal repite formato en la próxima convocatoria inmediata.</p>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <b>Por qué el Tema 11 no tiene segundo ejercicio:</b> igual que el resto del bloque de Derecho, se evalúa únicamente en el primer ejercicio (desarrollo escrito); el segundo ejercicio se reserva a materias de contenido aplicado como informática, estadística o metodología.
+    <br><br>
+    <b>Cómo se han construido estos enunciados:</b> las tres preguntas de la banda de precedentes son las registradas por el tribunal entre 2023 y 2026 (reformuladas por el material de apoyo a la oposición, no transcripción oficial palabra por palabra). Los 14 enunciados restantes se han construido a partir del articulado real de la LOREG (arts. 29-34) y de la Ley 7/1985 (arts. 15-17), aplicando a cada bloque uno o más de los seis patrones retóricos ya identificados en el análisis del bloque de Derecho: "explicar" (desarrollo causal), "exponer" (enumeración con número mínimo), el enunciado nominal sin verbo, la pregunta cerrada con "razonar", el anclaje "de conformidad con..." y el cruce entre dos temas. Se ha priorizado el único hueco señalado como sin preguntar (acceso a datos censales y padronales) y se han marcado en gris los ángulos que, aunque plausibles, coinciden casi literalmente con una pregunta ya caída.
+    <br><br>
+    <b>Fuente del temario:</b> Resolución de 22 de diciembre de 2025, de la Subsecretaría (Ministerio de Economía, Comercio y Empresa) — BOE núm. 313, de 29/12/2025, Anexo I, Programa, apartado A.VI «Derecho». Ref. BOE-A-2025-26900. Textos consolidados de la Ley Orgánica 5/1985 (LOREG, BOE-A-1985-11672) y la Ley 7/1985, Reguladora de las Bases del Régimen Local (BOE-A-1985-5392).
+  </div>
+
+</div>
+</body>
+</html>

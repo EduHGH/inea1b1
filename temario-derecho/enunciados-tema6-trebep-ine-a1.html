@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 6 · Enunciados probables de examen — Derecho INE A1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --ink:#241F17;
+    --ink-soft:#6b6252;
+    --line:#dcd4c2;
+    --der:#2E5266;
+    --der-soft:#DCE6EB;
+    --der-glow:rgba(46,82,102,.18);
+    --glass:rgba(255,255,255,.55);
+
+    --hot:#8B3A3A;
+    --hot-soft:#F3DEDE;
+    --hot-glow:rgba(139,58,58,.20);
+    --warm:#966A24;
+    --warm-soft:#F1E4CB;
+    --cold:#3E6B4F;
+    --cold-soft:#DEEBE2;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(36,31,23,.07) 1px, transparent 0) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    padding:48px 20px 80px;
+  }
+
+  .wrap{max-width:880px; margin:0 auto;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:38px 36px 32px;
+    border-radius:20px;
+    background:var(--glass);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -24px rgba(36,31,23,.25);
+    overflow:hidden;
+    margin-bottom:28px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:-40% -20% auto auto;
+    width:340px; height:340px;
+    background:radial-gradient(circle, var(--der-glow), transparent 70%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--der);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--der);}
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(26px, 4vw, 38px);
+    line-height:1.1;
+    margin:0 0 10px;
+    letter-spacing:-.01em;
+  }
+  .hero p{
+    margin:0;
+    max-width:64ch;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.6;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-top:22px;
+  }
+  .meta-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.55);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 12px;
+  }
+
+  /* NOTICE — no hay segundo ejercicio */
+  .notice{
+    display:flex; gap:12px; align-items:flex-start;
+    padding:14px 18px;
+    margin-bottom:30px;
+    border-radius:12px;
+    background:var(--der-soft);
+    border:1px solid rgba(46,82,102,.2);
+  }
+  .notice svg{flex:none; color:var(--der); margin-top:2px;}
+  .notice p{
+    margin:0;
+    font-size:13px;
+    line-height:1.55;
+    color:var(--ink);
+  }
+  .notice b{color:var(--der);}
+
+  /* LEGEND */
+  .legend{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-bottom:30px;
+  }
+  .legend-item{
+    display:flex; align-items:center; gap:7px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 13px 6px 8px;
+  }
+  .legend-dot{width:9px; height:9px; border-radius:3px; flex:none;}
+  .legend-dot.hot{background:var(--hot);}
+  .legend-dot.warm{background:var(--warm);}
+  .legend-dot.cold{background:var(--cold);}
+
+  /* SECTION HEAD */
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+    margin:44px 0 16px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+  }
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .section-count{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+  }
+  .section-intro{
+    font-size:13.5px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    max-width:68ch;
+    margin:0 0 18px;
+  }
+
+  /* EPIGRAFE GROUP CARD */
+  .list{display:flex; flex-direction:column; gap:16px; margin-bottom:8px;}
+  .epi-card{
+    position:relative;
+    padding:22px 24px;
+    border-radius:14px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -20px rgba(36,31,23,.3);
+  }
+  .epi-card.nivel-hot{border-color:rgba(139,58,58,.35);}
+  .epi-card.nivel-warm{border-color:rgba(150,106,36,.3);}
+  .epi-card.nivel-cold{border-color:rgba(62,107,79,.28);}
+
+  .epi-top{
+    display:flex; gap:14px; align-items:flex-start; margin-bottom:4px;
+  }
+  .epi-icon{
+    flex:none;
+    width:38px; height:38px;
+    border-radius:10px;
+    background:var(--der-soft);
+    color:var(--der);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .epi-card.nivel-hot .epi-icon{background:var(--hot-soft); color:var(--hot);}
+  .epi-card.nivel-warm .epi-icon{background:var(--warm-soft); color:var(--warm);}
+  .epi-card.nivel-cold .epi-icon{background:var(--cold-soft); color:var(--cold);}
+  .epi-icon svg{width:18px; height:18px;}
+
+  .epi-heading{flex:1; min-width:0;}
+  .epi-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16.5px;
+    line-height:1.3;
+    margin:0 0 4px;
+    color:var(--ink);
+  }
+  .epi-stats{
+    display:flex; flex-wrap:wrap; gap:8px;
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:5px;
+    border-radius:100px;
+    padding:3px 10px;
+    font-weight:700;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    font-size:9.5px;
+    flex:none;
+    white-space:nowrap;
+  }
+  .badge.hot{background:var(--hot-soft); color:var(--hot);}
+  .badge.warm{background:var(--warm-soft); color:var(--warm);}
+  .badge.cold{background:var(--cold-soft); color:var(--cold);}
+
+  .veredicto{
+    margin:12px 0 14px;
+    font-size:13px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    padding:10px 14px;
+    background:rgba(255,255,255,.4);
+    border-left:2px solid var(--line);
+    border-radius:0 8px 8px 0;
+  }
+  .epi-card.nivel-hot .veredicto{border-left-color:var(--hot);}
+  .epi-card.nivel-warm .veredicto{border-left-color:var(--warm);}
+  .epi-card.nivel-cold .veredicto{border-left-color:var(--cold);}
+
+  /* ENUNCIADOS */
+  .enunciados{
+    list-style:none;
+    margin:14px 0 0;
+    padding:14px 0 0;
+    border-top:1px dashed var(--line);
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .enunciado{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    padding:12px 14px;
+    background:rgba(255,255,255,.45);
+    border-radius:9px;
+    border-left:3px solid var(--der-soft);
+  }
+  .enunciado.hot{border-left-color:var(--hot);}
+  .enunciado.warm{border-left-color:var(--warm);}
+  .enunciado.cold{border-left-color:var(--cold);}
+  .en-num{
+    flex:none;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:6px;
+    padding:3px 8px;
+    margin-top:1px;
+  }
+  .en-body{flex:1; min-width:0;}
+  .en-text{
+    font-size:13.5px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:0 0 5px;
+    font-weight:500;
+  }
+  .en-nota{
+    font-size:12px;
+    line-height:1.55;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .en-tags{
+    display:flex; flex-wrap:wrap; gap:6px;
+    margin-top:7px;
+  }
+  .en-tag{
+    display:inline-block;
+    font-family:'Space Mono', monospace;
+    font-size:9px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    font-weight:700;
+    padding:2px 8px;
+    border-radius:100px;
+    background:var(--der-soft);
+    color:var(--der);
+  }
+  .en-tag.hot{background:var(--hot-soft); color:var(--hot);}
+  .en-tag.warm{background:var(--warm-soft); color:var(--warm);}
+
+  /* PATRONES / RETORICA (reutilizado del análisis general) */
+  .retorica-intro{
+    font-size:13.5px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    max-width:68ch;
+    margin:0 0 22px;
+  }
+  .patron-grid{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-bottom:8px;
+  }
+  .patron-card{
+    padding:20px 22px;
+    border-radius:14px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -20px rgba(36,31,23,.3);
+  }
+  .patron-head{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    margin-bottom:10px;
+  }
+  .patron-num{
+    flex:none;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:100px;
+    padding:3px 10px;
+  }
+  .patron-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16px;
+    color:var(--ink);
+    margin:0;
+  }
+  .patron-desc{
+    font-size:13px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    margin:0 0 14px;
+  }
+  .patron-ejemplos{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .patron-ej{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    padding:10px 12px;
+    background:rgba(255,255,255,.45);
+    border-radius:8px;
+    border-left:2px solid var(--der-soft);
+  }
+  .patron-ej .yr{
+    flex:none;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    color:var(--der);
+    background:var(--der-soft);
+    border-radius:6px;
+    padding:2px 7px;
+    margin-top:1px;
+  }
+  .patron-ej-text{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--ink);
+  }
+  .patron-ej-text i{color:var(--ink-soft); font-style:italic;}
+
+  /* CHECKLIST FINAL */
+  .checklist-box{
+    margin-top:26px;
+    padding:22px 24px;
+    border-radius:14px;
+    background:var(--der-soft);
+    border:1px solid rgba(46,82,102,.2);
+  }
+  .checklist-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    color:var(--der);
+    margin:0 0 12px;
+  }
+  .checklist-cols{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  @media (max-width:560px){
+    .checklist-cols{grid-template-columns:1fr;}
+  }
+  .checklist-col h4{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--der);
+    margin:0 0 8px;
+  }
+  .checklist-col ul{
+    margin:0; padding:0 0 0 16px;
+    font-size:12.5px;
+    line-height:1.7;
+    color:var(--ink);
+  }
+  .checklist-col li b{color:var(--der);}
+
+  .foot{
+    margin-top:46px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-size:11.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+  .foot b{color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dot"></span>Derecho · Temario INE A1 · Tema 6</div>
+    <h1>Enunciados probables de examen — Los funcionarios al servicio de las Administraciones Públicas</h1>
+    <p>Enunciados de desarrollo verosímiles para el primer ejercicio (Derecho no tiene segundo ejercicio), construidos cruzando el subíndice oficial del Tema 6, el articulado completo del TREBEP y los seis patrones retóricos que repite este tribunal en las últimas cuatro convocatorias (2023-2026).</p>
+    <div class="hero-meta">
+      <span class="meta-chip">3 epígrafes del temario</span>
+      <span class="meta-chip">2 preguntas ya registradas (2023, 2024)</span>
+      <span class="meta-chip">18 enunciados propuestos</span>
+      <span class="meta-chip">Fuente: BOE-A-2025-26900 + TREBEP (BOE-A-2015-11719)</span>
+    </div>
+  </div>
+
+  <div class="notice">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><circle cx="12" cy="16" r="0.6" fill="currentColor"/></svg>
+    <p><b>Solo primer ejercicio.</b> El bloque de Derecho del Cuerpo Superior de Estadísticos del Estado únicamente se evalúa en el primer ejercicio del turno libre (desarrollo escrito de temas). El segundo ejercicio (caso práctico) no incluye contenido de Derecho, por lo que todos los enunciados de este documento están pensados exclusivamente para ese formato: exposición escrita y oral de un tema a partir de un enunciado de desarrollo.</p>
+  </div>
+
+  <div class="legend">
+    <span class="legend-item"><span class="legend-dot hot"></span>Muy probable</span>
+    <span class="legend-item"><span class="legend-dot warm"></span>Probable</span>
+    <span class="legend-item"><span class="legend-dot cold"></span>Posible pero ya trabajado</span>
+  </div>
+
+  <!-- ============ EPÍGRAFE 1 ============ -->
+  <div class="section-head">
+    <h2>Epígrafe 1 — Tipos de empleado público</h2>
+    <span class="section-count">Preguntado en 2024</span>
+  </div>
+  <p class="section-intro">La clasificación de los arts. 8-13 TREBEP ya fue objeto de pregunta directa en 2024 ("definición de empleado público y enumeración de las clases"). Sigue siendo terreno fértil porque el tribunal puede reformular el mismo contenido pidiendo un ángulo distinto: comparar dos clases entre sí, o centrarse solo en una de ellas con más profundidad.</p>
+  <div class="list">
+
+    <div class="epi-card nivel-warm">
+      <div class="epi-top">
+        <div class="epi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="epi-heading">
+          <h3 class="epi-title">Clases de personal al servicio de las AA.PP. (arts. 8-13 TREBEP)</h3>
+          <div class="epi-stats"><span class="badge warm">Ya preguntado en 2024, con otro enfoque probable</span></div>
+        </div>
+      </div>
+      <p class="veredicto">La pregunta de 2024 exigía definir "empleado público" y enumerar sus cuatro clases. Si el tribunal repite el epígrafe, lo más probable —siguiendo el Patrón 6 de cruce y el Patrón 2 de comparación— es que lo haga pidiendo distinguir dos clases concretas entre sí, en vez de la enumeración completa ya usada.</p>
+      <ul class="enunciados">
+        <li class="enunciado warm">
+          <span class="en-num">01</span>
+          <div class="en-body">
+            <p class="en-text">"Diferencias entre funcionario de carrera y funcionario interino según el RDLeg 5/2015 (TREBEP): supuestos de nombramiento y régimen jurídico aplicable."</p>
+            <p class="en-nota">Sigue el Patrón 2 (comparación explícita) aplicado a las dos clases más cercanas entre sí del art. 9-10; sin apenas solapamiento con la pregunta ya hecha en 2024, que fue una enumeración general.</p>
+            <div class="en-tags"><span class="en-tag warm">comparación</span><span class="en-tag">Patrón 2</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">02</span>
+          <div class="en-body">
+            <p class="en-text">"El personal eventual: concepto, funciones que puede desempeñar y régimen de cese, de conformidad con el art. 12 TREBEP."</p>
+            <p class="en-nota">Aísla la clase menos desarrollada en la pregunta de 2024 y la ancla a un artículo concreto (Patrón 5): exige explicar el cese automático ligado al cargo de confianza, dato muy citable y poco repetido hasta ahora.</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 5</span></div>
+          </div>
+        </li>
+        <li class="enunciado cold">
+          <span class="en-num">03</span>
+          <div class="en-body">
+            <p class="en-text">"Definición de empleado público y enumeración de las clases recogidas en el RDLeg 5/2015 (TREBEP)."</p>
+            <p class="en-nota">Enunciado literal ya usado en 2024. Bajo margen de repetición inmediata, pero el Tema 5 demuestra que este tribunal sí repite enunciados de un año para otro — conviene tenerlo tan trabajado como el resto.</p>
+            <div class="en-tags"><span class="en-tag">ya preguntado</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ============ EPÍGRAFE 2 ============ -->
+  <div class="section-head">
+    <h2>Epígrafe 2 — Derechos y deberes de los funcionarios públicos</h2>
+    <span class="section-count">Preguntado en 2023 (parcialmente)</span>
+  </div>
+  <p class="section-intro">Solo los principios de conducta (arts. 52-54) han salido, en 2023. Los derechos individuales (arts. 14-15) y el régimen disciplinario (arts. 93-98) siguen enteros sin preguntar, y son justo el tipo de contenido "enumerable" que este tribunal prefiere.</p>
+  <div class="list">
+
+    <div class="epi-card nivel-hot">
+      <div class="epi-top">
+        <div class="epi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></div>
+        <div class="epi-heading">
+          <h3 class="epi-title">Derechos individuales de los empleados públicos (arts. 14-15 TREBEP)</h3>
+          <div class="epi-stats"><span class="badge hot">Sin preguntar directamente</span></div>
+        </div>
+      </div>
+      <p class="veredicto">El catálogo de derechos (carrera, remuneración, formación, negociación colectiva...) nunca ha sido objeto de pregunta directa: solo se ha preguntado el código de conducta, que es un deber, no un derecho. Es contenido muy "listable" y encaja con el patrón de enumeración con cifra mínima ya visto en otros temas.</p>
+      <ul class="enunciados">
+        <li class="enunciado hot">
+          <span class="en-num">04</span>
+          <div class="en-body">
+            <p class="en-text">"Enumerar y explicar, al menos, cinco derechos individuales de los empleados públicos reconocidos en el art. 14 del RDLeg 5/2015 (TREBEP)."</p>
+            <p class="en-nota">Reproduce el mismo esquema que la pregunta de 2023 sobre principios de conducta ("exponer al menos tres..."), pero trasladado al epígrafe de derechos, todavía virgen. Cifra mínima marcada: requisito de mínimos, no de estilo.</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 3</span></div>
+          </div>
+        </li>
+        <li class="enunciado hot">
+          <span class="en-num">05</span>
+          <div class="en-body">
+            <p class="en-text">"Los derechos individuales ejercidos colectivamente por los funcionarios públicos: libertad sindical, negociación colectiva y derecho de huelga, según el art. 15 TREBEP."</p>
+            <p class="en-nota">Enunciado nominal sin verbo (Patrón 3): cada sustantivo coordinado con "y" es un apartado evaluable por separado, incluidos los matices sobre servicios esenciales que limitan la huelga.</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 3</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">06</span>
+          <div class="en-body">
+            <p class="en-text">"¿Tienen los funcionarios públicos derecho a la negociación colectiva? Razonar la respuesta con base en el RDLeg 5/2015 (TREBEP)."</p>
+            <p class="en-nota">Combina el Patrón 4 (pregunta cerrada que exige postura razonada) con el Patrón 5 (norma citada): no basta un "sí", hay que fundamentar con el artículo exacto y sus límites.</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 4+5</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="epi-card nivel-hot">
+      <div class="epi-top">
+        <div class="epi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c1.5 0 2.91.37 4.15 1.02"/><path d="M21 5 12 14l-3-3"/></svg></div>
+        <div class="epi-heading">
+          <h3 class="epi-title">Régimen disciplinario: faltas y sanciones (arts. 93-98 TREBEP)</h3>
+          <div class="epi-stats"><span class="badge hot">Sin preguntar directamente</span></div>
+        </div>
+      </div>
+      <p class="veredicto">El propio índice del Tema 6 lo señala como epígrafe explícito y nunca ha salido en las cuatro últimas convocatorias. Es el tipo de contenido con clasificación cerrada (muy grave / grave / leve) que ya ha funcionado en otros temas del bloque, como las infracciones estadísticas del Tema 8 ("infracciones graves y muy graves").</p>
+      <ul class="enunciados">
+        <li class="enunciado hot">
+          <span class="en-num">07</span>
+          <div class="en-body">
+            <p class="en-text">"Faltas muy graves de los funcionarios públicos según el RDLeg 5/2015 (TREBEP)."</p>
+            <p class="en-nota">Réplica directa del enunciado nominal corto ya usado en el Tema 8 para "infracciones graves y muy graves" (2025): el tribunal ha demostrado que reutiliza esta estructura entre temas distintos.</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 3</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">08</span>
+          <div class="en-body">
+            <p class="en-text">"El régimen disciplinario de los funcionarios públicos: clases de faltas y sanciones aplicables, de conformidad con el Título VII del RDLeg 5/2015 (TREBEP)."</p>
+            <p class="en-nota">Versión más amplia del enunciado anterior, exigiendo relacionar cada categoría de falta con su sanción proporcional (separación del servicio, suspensión, traslado, apercibimiento): más margen para desarrollo largo.</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 5</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">09</span>
+          <div class="en-body">
+            <p class="en-text">"Explicar la relación entre los principios éticos y de conducta del art. 52 TREBEP y el régimen disciplinario regulado en su Título VII."</p>
+            <p class="en-nota">Cruce entre lo ya preguntado (principios de conducta, 2023) y lo no preguntado (régimen sancionador): sigue el Patrón 6, exigiendo conectar dos bloques del mismo epígrafe en vez de tratarlos por separado.</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 6</span></div>
+          </div>
+        </li>
+        <li class="enunciado cold">
+          <span class="en-num">10</span>
+          <div class="en-body">
+            <p class="en-text">"De conformidad con el RDLeg 5/2015 (TREBEP), exponer al menos tres principios de conducta que deben presidir la actuación de un empleado público."</p>
+            <p class="en-nota">Enunciado literal ya preguntado en 2023. Repaso obligatorio por si repite, pero es la parte de este epígrafe con menor rentabilidad de estudio nuevo.</p>
+            <div class="en-tags"><span class="en-tag">ya preguntado</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ============ EPÍGRAFE 3 ============ -->
+  <div class="section-head">
+    <h2>Epígrafe 3 — Acceso, promoción y provisión de puestos de trabajo</h2>
+    <span class="section-count">Completamente virgen — máxima prioridad del tema</span>
+  </div>
+  <p class="section-intro">Es el único epígrafe del Tema 6 que nunca ha tenido pregunta propia en las cuatro últimas convocatorias, pese a ser el más extenso y "preguntable" por su contenido enumerativo (principios de acceso, sistemas selectivos, carrera horizontal/vertical, concurso vs. libre designación). Máxima prioridad de repaso de todo el tema.</p>
+  <div class="list">
+
+    <div class="epi-card nivel-hot">
+      <div class="epi-top">
+        <div class="epi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></div>
+        <div class="epi-heading">
+          <h3 class="epi-title">Principios de acceso y sistemas selectivos (arts. 55, 61 TREBEP)</h3>
+          <div class="epi-stats"><span class="badge hot">Nunca preguntado</span></div>
+        </div>
+      </div>
+      <p class="veredicto">Los seis principios operativos del art. 55.2 (publicidad, transparencia, imparcialidad, independencia, adecuación, agilidad) y la distinción oposición/concurso-oposición/concurso del art. 61.6 son de los contenidos más "listables" del TREBEP, con cifra concreta de elementos coordinados — el formato favorito de este tribunal.</p>
+      <ul class="enunciados">
+        <li class="enunciado hot">
+          <span class="en-num">11</span>
+          <div class="en-body">
+            <p class="en-text">"Principios rectores del acceso al empleo público según el art. 55 del RDLeg 5/2015 (TREBEP)."</p>
+            <p class="en-nota">Enunciado nominal (Patrón 3): exige distinguir los tres principios constitucionales de base (igualdad, mérito, capacidad) de los seis principios operativos adicionales (publicidad, transparencia, imparcialidad, independencia, adecuación, agilidad), sin mezclarlos en una sola lista.</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 3</span></div>
+          </div>
+        </li>
+        <li class="enunciado hot">
+          <span class="en-num">12</span>
+          <div class="en-body">
+            <p class="en-text">"Sistemas selectivos de los funcionarios de carrera y del personal laboral fijo: oposición, concurso-oposición y concurso, de conformidad con el art. 61 TREBEP."</p>
+            <p class="en-nota">Pide explícitamente la asimetría entre ambos regímenes: para funcionarios de carrera el concurso puro es excepcional y exige ley habilitante, mientras que para personal laboral fijo es una vía ordinaria más — matiz muy citado como "trampa" de examen.</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 5</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">13</span>
+          <div class="en-body">
+            <p class="en-text">"¿Puede una Administración Pública seleccionar funcionarios de carrera únicamente por el sistema de concurso de méritos? Razonar la respuesta de conformidad con el TREBEP."</p>
+            <p class="en-nota">Pregunta cerrada (Patrón 4) que exige responder "solo excepcionalmente y por ley", citando el art. 61.6 — penaliza gravemente a quien conteste "sí" o "no" sin matizar la excepcionalidad.</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 4</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="epi-card nivel-hot">
+      <div class="epi-top">
+        <div class="epi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div class="epi-heading">
+          <h3 class="epi-title">Requisitos, órganos de selección y adquisición de la condición de funcionario (arts. 56, 60, 62 TREBEP)</h3>
+          <div class="epi-stats"><span class="badge hot">Nunca preguntado</span></div>
+        </div>
+      </div>
+      <p class="veredicto">Los cuatro requisitos secuenciales del art. 62 (superación, nombramiento, acatamiento, toma de posesión) son de memorización literal y en orden exacto, un formato de "cuatro fases sucesivas" que encaja perfectamente con el patrón de enumeración cerrada.</p>
+      <ul class="enunciados">
+        <li class="enunciado hot">
+          <span class="en-num">14</span>
+          <div class="en-body">
+            <p class="en-text">"Requisitos para la adquisición de la condición de funcionario de carrera, según el art. 62 del RDLeg 5/2015 (TREBEP)."</p>
+            <p class="en-nota">Exige los cuatro pasos en su orden exacto (superación del proceso selectivo, nombramiento, acatamiento de la Constitución, toma de posesión); error de examen frecuente: confundir "aprobar la oposición" con "ser ya funcionario de carrera".</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 3</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">15</span>
+          <div class="en-body">
+            <p class="en-text">"Composición de los órganos de selección en los procesos de acceso al empleo público: ¿pueden los funcionarios interinos formar parte de ellos? Razonar la respuesta con base en el art. 60 TREBEP."</p>
+            <p class="en-nota">Combina descripción (composición colegiada, paridad) con pregunta cerrada razonada (Patrón 4): la respuesta correcta es "no", porque el art. 60.2 excluye expresamente a interinos, personal eventual y de designación política.</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 4</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">16</span>
+          <div class="en-body">
+            <p class="en-text">"Requisitos generales de acceso al empleo público según el art. 56 del RDLeg 5/2015 (TREBEP), y consecuencias de no acreditarlos tras superar el proceso selectivo."</p>
+            <p class="en-nota">Verbo "explicar" implícito con doble exigencia (Patrón 1: causa + efecto): además de listar los cinco requisitos, pide razonar qué ocurre si no se acreditan pese a haber aprobado — la segunda parte del enunciado no es opcional.</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 1</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="epi-card nivel-hot">
+      <div class="epi-top">
+        <div class="epi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+        <div class="epi-icon" style="display:none;"></div>
+        <div class="epi-heading">
+          <h3 class="epi-title">Provisión de puestos: concurso y libre designación (art. 81 TREBEP)</h3>
+          <div class="epi-stats"><span class="badge hot">Nunca preguntado</span></div>
+        </div>
+      </div>
+      <p class="veredicto">La contraposición concurso (sistema normal, méritos objetivos, órgano técnico colegiado) frente a libre designación (excepcional, discrecional, reservada a puestos de especial responsabilidad) es el contenido más preguntado de todo el bloque de provisión en los manuales de referencia, y aquí sigue completamente sin explotar.</p>
+      <ul class="enunciados">
+        <li class="enunciado hot">
+          <span class="en-num">17</span>
+          <div class="en-body">
+            <p class="en-text">"Explicar las diferencias entre el concurso y la libre designación como procedimientos de provisión de puestos de trabajo, de conformidad con el art. 81 del RDLeg 5/2015 (TREBEP)."</p>
+            <p class="en-nota">Patrón 2 (comparación explícita) sobre el contenido más citable del epígrafe: concurso como sistema normal frente a libre designación como excepción reservada a puestos de especial responsabilidad.</p>
+            <div class="en-tags"><span class="en-tag hot">Alta</span><span class="en-tag">Patrón 2</span></div>
+          </div>
+        </li>
+        <li class="enunciado warm">
+          <span class="en-num">18</span>
+          <div class="en-body">
+            <p class="en-text">"Carrera profesional horizontal y vertical de los funcionarios de carrera: concepto y diferencias, según el RDLeg 5/2015 (TREBEP)."</p>
+            <p class="en-nota">Cruza el subepígrafe "acceso, promoción y provisión" con el de carrera profesional (arts. 16-17): progresión de grado sin cambio de puesto (horizontal) frente a ascenso mediante provisión de puestos superiores (vertical) — comparación de manual, aún sin preguntar.</p>
+            <div class="en-tags"><span class="en-tag warm">Media</span><span class="en-tag">Patrón 2</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ============ RETÓRICA ============ -->
+  <div class="section-head">
+    <h2>Cómo se ha construido cada enunciado</h2>
+    <span class="section-count">6 patrones</span>
+  </div>
+  <p class="retorica-intro">Cada enunciado propuesto sigue, de forma deliberada, uno de los seis patrones retóricos que este tribunal repite en las quince preguntas reales de Derecho registradas entre 2023 y 2026. Se listan aquí para poder identificar, ya en el examen, qué exige realmente el verbo o la estructura del enunciado que toque.</p>
+  <div class="patron-grid">
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 1</span>
+        <h3 class="patron-title">"Explicar" trae casi siempre una segunda exigencia unida con "y"</h3>
+      </div>
+      <p class="patron-desc">El verbo "explicar" no pide una descripción libre: suele venir acompañado de una segunda tarea coordinada con "y" que es tan evaluable como la primera, y que con frecuencia obliga a aplicar el concepto a un caso o a otro tema del temario.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 16</span><span class="patron-ej-text">"Requisitos generales de acceso [...] <b>y</b> consecuencias de no acreditarlos tras superar el proceso selectivo." <i>— la segunda mitad de la frase no es un añadido opcional, es la parte que distingue una respuesta completa de una incompleta.</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 2</span>
+        <h3 class="patron-title">La comparación explícita entre dos figuras es uno de los formatos favoritos</h3>
+      </div>
+      <p class="patron-desc">Cuando el temario ofrece dos figuras jurídicas cercanas (dos clases de personal, dos sistemas de provisión, dos tipos de carrera), el tribunal tiende a pedir la diferencia entre ambas en vez de describirlas por separado.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 17</span><span class="patron-ej-text">"Diferencias entre el <b>concurso</b> y la <b>libre designación</b> como procedimientos de provisión [...]." <i>— exige contraponer expresamente ambos, no desarrollar cada uno de forma aislada.</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 3</span>
+        <h3 class="patron-title">El enunciado nominal sin verbo convierte cada sustantivo coordinado en un apartado evaluable</h3>
+      </div>
+      <p class="patron-desc">Un título seco, sin verbo explícito ("Faltas muy graves...", "Principios rectores..."), no es una pregunta más fácil: cada elemento coordinado con comas o con "y" se evalúa como un apartado independiente, y omitir uno cuenta como respuesta incompleta.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 07</span><span class="patron-ej-text">"Faltas muy graves de los funcionarios públicos según el RDLeg 5/2015 (TREBEP)." <i>— exige el catálogo cerrado del Título VII, no una explicación genérica del régimen disciplinario.</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 4</span>
+        <h3 class="patron-title">La pregunta cerrada ("¿es...?", "¿puede...?") exige postura y fundamento, no descripción</h3>
+      </div>
+      <p class="patron-desc">El formato menos frecuente pero el que más penaliza responder "de memoria" sin razonar: el verbo "razonar" obliga a fundamentar la respuesta con el artículo exacto, no solo a contestar sí o no.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 13</span><span class="patron-ej-text">"¿Puede [...] seleccionar funcionarios de carrera únicamente por el sistema de <b>concurso de méritos</b>? Razonar la respuesta [...]." <i>— la respuesta correcta matiza la excepcionalidad, no se limita a "no".</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 5</span>
+        <h3 class="patron-title">"De conformidad con..." ancla la respuesta a una norma concreta, no al tema en general</h3>
+      </div>
+      <p class="patron-desc">Citar el TREBEP por su nombre y número al empezar el enunciado no es adorno: es la instrucción implícita de que la respuesta debe apoyarse en esa norma exacta, con sus artículos, y no en una paráfrasis genérica del concepto.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 08</span><span class="patron-ej-text">"[...] <b>de conformidad con</b> el Título VII del RDLeg 5/2015 (TREBEP)." <i>— exige responder con la estructura legal exacta del régimen disciplinario, no una descripción libre de "qué pasa si un funcionario comete una falta".</i></span></div>
+      </div>
+    </div>
+
+    <div class="patron-card">
+      <div class="patron-head">
+        <span class="patron-num">Patrón 6</span>
+        <h3 class="patron-title">Las preguntas más recientes cruzan dos bloques en un solo enunciado</h3>
+      </div>
+      <p class="patron-desc">La evolución más clara del estilo del tribunal en 2025-2026: el enunciado solo se responde bien si se conectan dos contenidos distintos, aunque estén dentro del mismo tema o incluso del mismo epígrafe.</p>
+      <div class="patron-ejemplos">
+        <div class="patron-ej"><span class="yr">Ej. 09</span><span class="patron-ej-text">"[...] relación entre los <b>principios éticos y de conducta</b> [...] y el <b>régimen disciplinario</b> [...]." <i>— une lo ya preguntado (2023) con lo no preguntado, exigiendo conectar ambos en vez de tratarlos por separado.</i></span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="checklist-box">
+    <h3 class="checklist-title">Checklist de repaso rápido antes del examen</h3>
+    <div class="checklist-cols">
+      <div class="checklist-col">
+        <h4>Datos de memorización literal</h4>
+        <ul>
+          <li><b>Art. 55.2</b> — seis principios operativos de acceso (publicidad, transparencia, imparcialidad y profesionalidad, independencia y discrecionalidad técnica, adecuación, agilidad).</li>
+          <li><b>Art. 56.1</b> — cinco requisitos generales de acceso (nacionalidad, capacidad funcional, 16 años, no separado por disciplinario, titulación).</li>
+          <li><b>Art. 61.6-7</b> — oposición y concurso-oposición como regla para funcionarios de carrera; concurso puro excepcional y solo por ley.</li>
+          <li><b>Art. 62.1</b> — las cuatro fases en orden exacto: superación, nombramiento, acatamiento, toma de posesión.</li>
+          <li><b>Art. 81</b> — concurso como sistema normal de provisión; libre designación como excepción discrecional.</li>
+        </ul>
+      </div>
+      <div class="checklist-col">
+        <h4>Cruces con otros temas a vigilar</h4>
+        <ul>
+          <li><b>Con el Tema 8</b> — el formato "faltas graves y muy graves" ya se usó para infracciones estadísticas; muy trasladable al régimen disciplinario del TREBEP.</li>
+          <li><b>Con el Tema 12</b> — excedencia por cuidado de familiares o por violencia de género conecta con las políticas de igualdad e conciliación.</li>
+          <li><b>Con la propia oposición</b> — Cuerpo Superior de Estadísticos del Estado como ejemplo real de "cuerpo" (art. 75) y de Subgrupo A1 (art. 76).</li>
+          <li><b>Órgano de selección</b> — recordar quién NO puede formar parte de él (interinos, eventuales, cargos de designación política), dato muy citado en preguntas cerradas.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <b>Cómo se han construido estos enunciados:</b> se ha cruzado el subíndice oficial del Tema 6 (BOE-A-2025-26900) con el articulado completo del TREBEP (RDLeg 5/2015, BOE-A-2015-11719) recogido en el material de complemento del tema, y con los seis patrones retóricos identificados en las quince preguntas reales de Derecho de las últimas cuatro convocatorias (2023-2026). Los enunciados marcados como "ya preguntado" son los dos registrados oficialmente por el INE para este tema; el resto son formulaciones verosímiles construidas a partir de huecos reales del temario y del estilo documentado del tribunal — no transcripciones de exámenes reales ni garantía de que vayan a aparecer tal cual.
+    <br><br>
+    <b>Fuente del temario:</b> Resolución de 22 de diciembre de 2025, de la Subsecretaría (Ministerio de Economía, Comercio y Empresa) — BOE núm. 313, de 29/12/2025, Anexo I, Programa, apartado A.VI «Derecho». Ref. BOE-A-2025-26900.
+    <br><br>
+    <b>Fuente normativa:</b> Real Decreto Legislativo 5/2015, de 30 de octubre, por el que se aprueba el texto refundido de la Ley del Estatuto Básico del Empleado Público (BOE-A-2015-11719), texto consolidado. Contrastar contra la versión vigente en la fecha de la convocatoria.
+    <br><br>
+    <b>Sobre el primer y segundo ejercicio:</b> el bloque de Derecho del turno libre al Cuerpo Superior de Estadísticos del Estado solo se evalúa en el primer ejercicio (exposición de un tema de desarrollo elegido por sorteo); el segundo ejercicio (resolución de un caso o supuesto práctico) no incluye contenido de esta materia, por lo que no existen enunciados de "segundo ejercicio" para el Tema 6.
+  </div>
+
+</div>
+</body>
+</html>

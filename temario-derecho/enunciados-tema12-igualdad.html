@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 12 · Enunciados probables · Derecho INE A1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    --paper:#F4EFE4;
+    --ink:#241F17;
+    --ink-soft:#6b6252;
+    --line:#dcd4c2;
+    --der:#2E5266;
+    --der-soft:#DCE6EB;
+    --der-glow:rgba(46,82,102,.18);
+    --glass:rgba(255,255,255,.55);
+
+    --hot:#8B3A3A;
+    --hot-soft:#F3DEDE;
+    --hot-glow:rgba(139,58,58,.20);
+    --warm:#966A24;
+    --warm-soft:#F1E4CB;
+    --cold:#3E6B4F;
+    --cold-soft:#DEEBE2;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(36,31,23,.07) 1px, transparent 0) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    padding:48px 20px 80px;
+  }
+
+  .wrap{max-width:880px; margin:0 auto;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:38px 36px 32px;
+    border-radius:20px;
+    background:var(--glass);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -24px rgba(36,31,23,.25);
+    overflow:hidden;
+    margin-bottom:28px;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:-40% -20% auto auto;
+    width:340px; height:340px;
+    background:radial-gradient(circle, var(--der-glow), transparent 70%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--der);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--der);}
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(26px, 4vw, 38px);
+    line-height:1.12;
+    margin:0 0 10px;
+    letter-spacing:-.01em;
+  }
+  .hero p{
+    margin:0;
+    max-width:64ch;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.65;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-top:22px;
+  }
+  .meta-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.55);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:6px 12px;
+  }
+
+  /* AVISO ESTRUCTURAL */
+  .aviso{
+    display:flex; gap:14px;
+    padding:18px 22px;
+    border-radius:14px;
+    background:var(--der-soft);
+    border:1px solid rgba(46,82,102,.25);
+    margin-bottom:32px;
+  }
+  .aviso .ico{flex:none; width:20px; height:20px; margin-top:2px; color:var(--der);}
+  .aviso p{margin:0; font-size:13.5px; line-height:1.6; color:var(--ink);}
+  .aviso b{color:var(--der);}
+
+  /* SECTION HEAD */
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:12px;
+    margin:40px 0 16px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+  }
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:21px;
+    margin:0;
+    letter-spacing:-.005em;
+  }
+  .section-count{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  .section-intro{
+    font-size:13.5px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    margin:0 0 22px;
+    max-width:68ch;
+  }
+
+  /* EPIGRAFE ORIGEN — small reference chips */
+  .origen-row{
+    display:flex; flex-wrap:wrap; gap:8px;
+    margin-bottom:26px;
+  }
+  .origen-chip{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.03em;
+    color:var(--der);
+    background:rgba(255,255,255,.5);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:5px 10px;
+  }
+
+  /* PREGUNTA CARD */
+  .preguntas{
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .pregunta{
+    position:relative;
+    padding:20px 22px 20px 22px;
+    border-radius:16px;
+    background:var(--glass);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 10px 24px -18px rgba(36,31,23,.3);
+  }
+  .pregunta-top{
+    display:flex; align-items:flex-start; justify-content:space-between;
+    gap:14px;
+    margin-bottom:10px;
+  }
+  .pregunta-badges{display:flex; flex-wrap:wrap; gap:6px;}
+  .badge{
+    font-family:'Space Mono', monospace;
+    font-size:9.5px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    border-radius:100px;
+    padding:3px 9px;
+    white-space:nowrap;
+  }
+  .badge.hot{background:var(--hot-soft); color:var(--hot);}
+  .badge.warm{background:var(--warm-soft); color:var(--warm);}
+  .badge.cold{background:var(--cold-soft); color:var(--cold);}
+  .badge.tipo{background:var(--der-soft); color:var(--der);}
+  .pregunta-num{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    flex:none;
+  }
+  .enunciado{
+    font-family:'Fraunces', serif;
+    font-size:17px;
+    font-weight:500;
+    line-height:1.42;
+    margin:0 0 12px;
+    letter-spacing:-.003em;
+  }
+  .enunciado i{font-style:italic; color:var(--der);}
+  .pregunta-meta{
+    display:flex; flex-wrap:wrap; gap:8px 18px;
+    margin-bottom:10px;
+  }
+  .meta-item{
+    font-size:12px;
+    color:var(--ink-soft);
+    display:flex; align-items:center; gap:5px;
+  }
+  .meta-item b{color:var(--ink); font-weight:600;}
+  .porque{
+    font-size:13px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    margin:0;
+    padding-top:10px;
+    border-top:1px dashed var(--line);
+  }
+  .porque b{color:var(--ink);}
+  .porque mark{
+    background:none;
+    color:var(--der);
+    font-weight:600;
+  }
+
+  /* TABLE OF ORIGIN TAG inline in enunciado meta */
+  .fuente-tag{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--der);
+  }
+
+  /* GUIDANCE / CONSEJOS BOX */
+  .consejos-box{
+    margin-top:44px;
+    padding:26px 28px;
+    border-radius:18px;
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.55) inset, 0 14px 30px -22px rgba(36,31,23,.28);
+  }
+  .consejos-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:19px;
+    margin:0 0 16px;
+  }
+  .consejos-list{margin:0; padding:0; list-style:none;}
+  .consejos-list li{
+    display:flex; gap:12px;
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    padding:10px 0;
+    border-top:1px solid var(--line);
+  }
+  .consejos-list li:first-child{border-top:none; padding-top:0;}
+  .consejos-list b{color:var(--ink);}
+  .consejos-num{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--der);
+    flex:none;
+    padding-top:1px;
+  }
+
+  /* FOOT */
+  .foot{
+    margin-top:40px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-size:11.5px;
+    line-height:1.7;
+    color:var(--ink-soft);
+  }
+  .foot b{color:var(--ink);}
+
+  @media (max-width:600px){
+    body{padding:28px 14px 60px;}
+    .hero{padding:28px 22px 24px;}
+    .pregunta{padding:18px 16px;}
+    .section-head{flex-direction:column; align-items:flex-start; gap:4px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dot"></span>Derecho · Tema 12 · Primer ejercicio</div>
+    <h1>Enunciados probables: Políticas de Igualdad de Género</h1>
+    <p>Preguntas de desarrollo que razonablemente puede formular el tribunal sobre el Tema 12, construidas a partir de su subíndice oficial y del articulado de la LO 3/2007, replicando los verbos y patrones retóricos que ese mismo tribunal ha usado en las últimas cuatro convocatorias del primer ejercicio.</p>
+    <div class="hero-meta">
+      <span class="meta-chip">0 preguntas registradas 2023-2026</span>
+      <span class="meta-chip">sin segundo ejercicio</span>
+      <span class="meta-chip">LO 3/2007 · LO 1/2004 · Ley 4/2023</span>
+    </div>
+  </div>
+
+  <div class="aviso">
+    <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+    <p><b>Estos enunciados son simulacros, no preguntas de examen reales.</b> El Tema 12 no registra ninguna pregunta propia en las convocatorias 2022-2025 (exámenes 2023-2026), a diferencia de otros temas del bloque de Derecho. Se han redactado siguiendo la forma exacta en que este tribunal construye sus enunciados — mismos verbos, misma manera de acotar el alcance, mismas trampas de coordinación con "y" — para servir de entrenamiento realista. Recuerda también que el bloque de Derecho <b>solo se examina en el primer ejercicio</b> (preguntas cortas de desarrollo); el segundo ejercicio del turno libre lo excluye expresamente, así que este tema no tiene enunciados de segundo ejercicio.</p>
+  </div>
+
+  <!-- ============ EPÍGRAFE 1 ============ -->
+  <div class="section-head">
+    <h2>1 · La incorporación de la mujer al mercado de trabajo</h2>
+    <span class="section-count">3 enunciados</span>
+  </div>
+  <p class="section-intro">Epígrafe introductorio y de fundamento constitucional. El tribunal, cuando pregunta por un anclaje constitucional, suele exigir distinguir dos artículos que se citan juntos pero significan cosas distintas — el patrón ya visto en el Tema 1 con los principios del art. 9.3 CE.</p>
+  <div class="origen-row">
+    <span class="origen-chip">Art. 14 CE</span>
+    <span class="origen-chip">Art. 9.2 CE</span>
+    <span class="origen-chip">Art. 1 LO 3/2007</span>
+  </div>
+
+  <div class="preguntas">
+
+    <div class="pregunta">
+      <div class="pregunta-top">
+        <div class="pregunta-badges"><span class="badge hot">Alta</span><span class="badge tipo">Patrón 1 · explicar</span></div>
+        <span class="pregunta-num">12.1 — A</span>
+      </div>
+      <p class="enunciado">Explicar el fundamento constitucional de la igualdad efectiva entre mujeres y hombres, <i>distinguiendo</i> el papel del artículo 14 y del artículo 9.2 de la Constitución Española.</p>
+      <div class="pregunta-meta">
+        <span class="meta-item">Verbo: <b>explicar + distinguir</b></span>
+        <span class="meta-item">Extensión: <b>media</b></span>
+        <span class="meta-item">Fuente: <b>Art. 1 LO 3/2007</b></span>
+      </div>
+      <p class="porque"><b>Por qué es probable:</b> replica el patrón 1 ("explicar" + segunda exigencia oculta tras un conector) con un contraste que el propio articulado subraya como clave de examen: <mark>igualdad formal (art. 14)</mark> frente a <mark>igualdad real y mandato de acción positiva (art. 9.2)</mark>. Responder solo citando los dos artículos sin explicar la diferencia de alcance dejaría la pregunta a medias.</p>
+    </div>
+
+    <div class="pregunta">
+      <div class="pregunta-top">
+        <div class="pregunta-badges"><span class="badge warm">Media</span><span class="badge tipo">Patrón 3 · nominal</span></div>
+        <span class="pregunta-num">12.1 — B</span>
+      </div>
+      <p class="enunciado">La incorporación de la mujer al mercado de trabajo. Especial referencia a las Administraciones Públicas.</p>
+      <div class="pregunta-meta">
+        <span class="meta-item">Verbo: <b>ninguno (nominal)</b></span>
+        <span class="meta-item">Extensión: <b>media-alta</b></span>
+        <span class="meta-item">Fuente: <b>epígrafe oficial íntegro</b></span>
+      </div>
+      <p class="porque"><b>Por qué es probable:</b> es la transcripción literal de la primera línea del programa oficial (BOE-A-2022-2725), y el propio subíndice del temario separa expresamente esta rúbrica en dos partes — mercado de trabajo en general y Administraciones Públicas —, exactamente el mismo mecanismo de "enunciado nominal con dos apartados obligatorios" que ya se ha preguntado con el Consejo de Empadronamiento (2026).</p>
+    </div>
+
+    <div class="pregunta">
+      <div class="pregunta-top">
+        <div class="pregunta-badges"><span class="badge cold">Baja</span><span class="badge tipo">Patrón 2 · exponer</span></div>
+        <span class="pregunta-num">12.1 — C</span>
+      </div>
+      <p class="enunciado">Exponer al menos dos medidas de acción positiva que pueden adoptar las Administraciones Públicas para corregir situaciones de infrarrepresentación de la mujer en el empleo público.</p>
+      <div class="pregunta-meta">
+        <span class="meta-item">Verbo: <b>exponer</b></span>
+        <span class="meta-item">Extensión: <b>corta</b></span>
+        <span class="meta-item">Fuente: <b>subíndice · Especial referencia a las AAPP</b></span>
+      </div>
+      <p class="porque"><b>Por qué es probable:</b> sigue el patrón 2 (cuantificación explícita, "al menos dos"), pero es de probabilidad baja porque el contenido de acción positiva en el empleo público se solapa casi por completo con el epígrafe 51 de igualdad en el empleo público — el tribunal tiende a no fragmentar en dos preguntas contenido que ya cubre un epígrafe más amplio.</p>
+    </div>
+
+  </div>
+
+  <!-- ============ EPÍGRAFE 2 ============ -->
+  <div class="section-head">
+    <h2>2 · Políticas de promoción de la igualdad de género</h2>
+    <span class="section-count">3 enunciados</span>
+  </div>
+  <p class="section-intro">El núcleo normativo del tema: la LO 3/2007 como "ley código". Es el epígrafe con mayor conexión directa al perfil profesional del INE, por el art. 20 de adecuación de estadísticas — el ángulo que el tribunal ya ha usado en otros temas para cruzar Derecho con Producción Estadística (Reglamento 223/2009, secreto estadístico).</p>
+  <div class="origen-row">
+    <span class="origen-chip">LO 3/2007, art. 1</span>
+    <span class="origen-chip">LO 3/2007, art. 20</span>
+    <span class="origen-chip">Planes de Igualdad AGE</span>
+  </div>
+
+  <div class="preguntas">
+
+    <div class="pregunta">
+      <div class="pregunta-top">
+        <div class="pregunta-badges"><span class="badge hot">Alta</span><span class="badge tipo">Patrón 6 · cruce de temas</span></div>
+        <span class="pregunta-num">12.2 — A</span>
+      </div>
+      <p class="enunciado">De conformidad con la Ley Orgánica 3/2007, explicar las obligaciones que impone a los poderes públicos en la elaboración de estadísticas y estudios, y qué se entiende por "discriminación múltiple".</p>
+      <div class="pregunta-meta">
+        <span class="meta-item">Verbo: <b>explicar + "y qué"</b></span>
+        <span class="meta-item">Extensión: <b>media</b></span>
+        <span class="meta-item">Fuente: <b>Art. 20 LO 3/2007</b></span>
+      </div>
+      <p class="porque"><b>Por qué es probable:</b> combina el patrón 5 ("de conformidad con" ancla la respuesta a la norma exacta) con el patrón 6 (cruce de temas): es el enunciado con más probabilidad de todo el tema porque el propio material de estudio señala el art. 20 como <mark>el artículo con conexión más directa al perfil profesional de todo el Tema 12</mark> — obliga al INE a desagregar por sexo y a explotar la "discriminación múltiple" desde el diseño muestral, no como recomendación sino como mandato legal ("deberán... incluir sistemáticamente").</p>
+    </div>
+
+    <div class="pregunta">
+      <div class="pregunta-top">
+        <div class="pregunta-badges"><span class="badge warm">Media</span><span class="badge tipo">Patrón 2 · exponer</span></div>
+        <span class="pregunta-num">12.2 — B</span>
+      </div>
+      <p class="enunciado">Exponer tres obligaciones que el artículo 20 de la Ley Orgánica 3/2007 impone a los poderes públicos en materia de estadísticas y estudios.</p>
+      <div class="pregunta-meta">
+        <span class="meta-item">Verbo: <b>exponer</b></span>
+        <span class="meta-item">Extensión: <b>corta</b></span>
+        <span class="meta-item">Fuente: <b>Art. 20 LO 3/2007, letras a-e</b></span>
+      </div>
+      <p class="porque"><b>Por qué es probable:</b> variante de foco más estrecho del mismo artículo, replicando literalmente el patrón ya usado en 2023 ("exponer al menos tres principios de conducta..."); al ser un artículo con cinco letras (a-e) es especialmente apto para esta fórmula de cuantificación explícita.</p>
+    </div>
+
+    <div class="pregunta">
+      <div class="pregunta-top">
+        <div class="pregunta-badges"><span class="badge warm">Media</span><span class="badge tipo">Patrón 3 · nominal</span></div>
+        <span class="pregunta-num">12.2 — C</span>
+      </div>
+      <p class="enunciado">El Plan para la Igualdad entre mujeres y hombres en la Administración General del Estado. Aprobación, objeto y negociación.</p>
+      <div class="pregunta-meta">
+        <span class="meta-item">Verbo: <b>ninguno (nominal)</b></span>
+        <span class="meta-item">Extensión: <b>corta-media</b></span>
+        <span class="meta-item">Fuente: <b>Art. 64 LO 3/2007</b></span>
+      </div>
+      <p class="porque"><b>Por qué es probable:</b> el material de estudio ya señala este artículo como candidato marcado por el propio análisis normativo ("norma más reciente" del bloque, tema de "actualidad normativa"); tres sustantivos coordinados (quién lo aprueba, qué fija, con quién se negocia) siguen el mismo patrón 3 que en 2026 hizo olvidar un apartado en la pregunta del Consejo de Empadronamiento.</p>
+    </div>
+
+  </div>
+
+  <!-- ============ EPÍGRAFE 3 ============ -->
+  <div class="section-head">
+    <h2>3 · La conciliación de la vida personal, familiar y laboral</h2>
+    <span class="section-count">2 enunciados</span>
+  </div>
+  <p class="section-intro">Contenido más operativo y, según el propio análisis de probabilidad del material de estudio, el de menor probabilidad como pregunta autónoma de desarrollo — pero no descartable, porque conecta con el TREBEP (Tema 6), ya preguntado en convocatorias anteriores.</p>
+  <div class="origen-row">
+    <span class="origen-chip">LO 3/2007, art. 44</span>
+    <span class="origen-chip">TREBEP</span>
+    <span class="origen-chip">Corresponsabilidad</span>
+  </div>
+
+  <div class="preguntas">
+
+    <div class="pregunta">
+      <div class="pregunta-top">
+        <div class="pregunta-badges"><span class="badge cold">Baja</span><span class="badge tipo">Patrón 1 · explicar</span></div>
+        <span class="pregunta-num">12.3 — A</span>
+      </div>
+      <p class="enunciado">Explicar el principio de corresponsabilidad en los derechos de conciliación de la vida personal, familiar y laboral, y cómo se plasma en el reconocimiento del permiso de paternidad.</p>
+      <div class="pregunta-meta">
+        <span class="meta-item">Verbo: <b>explicar + "y cómo"</b></span>
+        <span class="meta-item">Extensión: <b>media</b></span>
+        <span class="meta-item">Fuente: <b>Art. 44 LO 3/2007</b></span>
+      </div>
+      <p class="porque"><b>Por qué es probable:</b> sigue el patrón 1 con segunda exigencia encadenada, apoyándose en la idea que el propio comentario normativo destaca como principio rector: la conciliación no es "beneficio de la madre" sino corresponsabilidad repartida, con el permiso de paternidad como derecho autónomo y no como extensión del de maternidad.</p>
+    </div>
+
+    <div class="pregunta">
+      <div class="pregunta-top">
+        <div class="pregunta-badges"><span class="badge cold">Baja</span><span class="badge tipo">Patrón 2 · exponer</span></div>
+        <span class="pregunta-num">12.3 — B</span>
+      </div>
+      <p class="enunciado">Exponer los principales permisos y excedencias reconocidos a los empleados públicos por razón de conciliación de la vida personal, familiar y laboral.</p>
+      <div class="pregunta-meta">
+        <span class="meta-item">Verbo: <b>exponer</b></span>
+        <span class="meta-item">Extensión: <b>media</b></span>
+        <span class="meta-item">Fuente: <b>TREBEP + subíndice epígrafe 3</b></span>
+      </div>
+      <p class="porque"><b>Por qué es probable:</b> es el enunciado más "listable" del epígrafe, pero de probabilidad baja según el propio material de estudio, al ser contenido operativo que ya remite en gran parte al TREBEP del Tema 6 — el tribunal podría preferir preguntarlo directamente en ese tema en lugar de aquí.</p>
+    </div>
+
+  </div>
+
+  <!-- ============ EPÍGRAFE 4 ============ -->
+  <div class="section-head">
+    <h2>4 · Políticas contra la violencia de género</h2>
+    <span class="section-count">3 enunciados</span>
+  </div>
+  <p class="section-intro">La LO 1/2004 no forma parte del articulado extraído de la LO 3/2007, pero el propio comentario advierte de que son dos leyes distintas que conviene no confundir — un contraste que encaja perfectamente con el estilo de pregunta "distinguir" que ya usa el tribunal.</p>
+  <div class="origen-row">
+    <span class="origen-chip">LO 1/2004</span>
+    <span class="origen-chip">LO 3/2007, art. 66</span>
+    <span class="origen-chip">Derechos laborales de las víctimas</span>
+  </div>
+
+  <div class="preguntas">
+
+    <div class="pregunta">
+      <div class="pregunta-top">
+        <div class="pregunta-badges"><span class="badge hot">Alta</span><span class="badge tipo">Patrón 1 · explicar</span></div>
+        <span class="pregunta-num">12.4 — A</span>
+      </div>
+      <p class="enunciado">Explicar el enfoque integral de la Ley Orgánica 1/2004, de Medidas de Protección Integral contra la Violencia de Género, y distinguirlo del tratamiento de la violencia de género en la Ley Orgánica 3/2007.</p>
+      <div class="pregunta-meta">
+        <span class="meta-item">Verbo: <b>explicar + distinguir</b></span>
+        <span class="meta-item">Extensión: <b>media-alta</b></span>
+        <span class="meta-item">Fuente: <b>LO 1/2004 · Art. 66 LO 3/2007</b></span>
+      </div>
+      <p class="porque"><b>Por qué es probable:</b> el propio comentario normativo señala explícitamente esta distinción como algo que "conviene no confundir" — la LO 3/2007 es la "ley código" general de igualdad, mientras que la LO 1/2004 desarrolla en sustancia la violencia de género (definición, protección, tutela judicial). Cuando un comentario de estudio marca una distinción como fuente de confusión, suele ser indicio de pregunta de examen tipo "distinguir X de Y".</p>
+    </div>
+
+    <div class="pregunta">
+      <div class="pregunta-top">
+        <div class="pregunta-badges"><span class="badge warm">Media</span><span class="badge tipo">Patrón 3 · nominal</span></div>
+        <span class="pregunta-num">12.4 — B</span>
+      </div>
+      <p class="enunciado">Enfoque integral de la Ley Orgánica 1/2004: prevención, sensibilización, tutela institucional, tutela penal y tutela judicial.</p>
+      <div class="pregunta-meta">
+        <span class="meta-item">Verbo: <b>ninguno (nominal)</b></span>
+        <span class="meta-item">Extensión: <b>media</b></span>
+        <span class="meta-item">Fuente: <b>subíndice epígrafe 4</b></span>
+      </div>
+      <p class="porque"><b>Por qué es probable:</b> el subíndice oficial ya enumera los cinco ejes literalmente ("prevención, sensibilización, tutela institucional, tutela penal y tutela judicial"); cinco sustantivos coordinados sin verbo son el formato de mayor riesgo de omisión según el patrón 3 — perder uno de los cinco ejes es la forma más probable de perder puntos.</p>
+    </div>
+
+    <div class="pregunta">
+      <div class="pregunta-top">
+        <div class="pregunta-badges"><span class="badge warm">Media</span><span class="badge tipo">Patrón 2 · exponer</span></div>
+        <span class="pregunta-num">12.4 — C</span>
+      </div>
+      <p class="enunciado">Exponer al menos tres derechos laborales y de Seguridad Social reconocidos a las víctimas de violencia de género.</p>
+      <div class="pregunta-meta">
+        <span class="meta-item">Verbo: <b>exponer</b></span>
+        <span class="meta-item">Extensión: <b>corta</b></span>
+        <span class="meta-item">Fuente: <b>subíndice epígrafe 4</b></span>
+      </div>
+      <p class="porque"><b>Por qué es probable:</b> reproduce con exactitud el patrón numérico ya visto en 2023 ("exponer al menos tres..."), aplicado al concepto expresamente listado en el subíndice: reducción o reordenación del tiempo de trabajo, movilidad geográfica, suspensión con reserva de puesto.</p>
+    </div>
+
+  </div>
+
+  <!-- ============ EPÍGRAFE 5 ============ -->
+  <div class="section-head">
+    <h2>5 · Igualdad de trato y no discriminación de las personas LGTBI</h2>
+    <span class="section-count">3 enunciados</span>
+  </div>
+  <p class="section-intro">La norma más reciente de todo el bloque de Derecho. El propio material de estudio la marca como candidata típica para "estrenarse" en la próxima convocatoria, precisamente por esa actualidad normativa.</p>
+  <div class="origen-row">
+    <span class="origen-chip">Ley 4/2023</span>
+    <span class="origen-chip">Principio de no discriminación</span>
+    <span class="origen-chip">Empleo público</span>
+  </div>
+
+  <div class="preguntas">
+
+    <div class="pregunta">
+      <div class="pregunta-top">
+        <div class="pregunta-badges"><span class="badge hot">Alta</span><span class="badge tipo">Patrón 3 · nominal</span></div>
+        <span class="pregunta-num">12.5 — A</span>
+      </div>
+      <p class="enunciado">Objeto y ámbito de protección de la Ley 4/2023, para la igualdad real y efectiva de las personas trans y para la garantía de los derechos de las personas LGTBI.</p>
+      <div class="pregunta-meta">
+        <span class="meta-item">Verbo: <b>ninguno (nominal)</b></span>
+        <span class="meta-item">Extensión: <b>media</b></span>
+        <span class="meta-item">Fuente: <b>Ley 4/2023</b></span>
+      </div>
+      <p class="porque"><b>Por qué es probable:</b> es la norma con mayor probabilidad marcada de todo el tema según el material de estudio, al ser la más reciente del temario completo de Derecho; una pregunta de "objeto y ámbito" es la fórmula estándar con la que el tribunal suele estrenar una norma nueva en el programa (mismo patrón usado con la Ley 12/1989 y la LOPDGDD en convocatorias previas).</p>
+    </div>
+
+    <div class="pregunta">
+      <div class="pregunta-top">
+        <div class="pregunta-badges"><span class="badge warm">Media</span><span class="badge tipo">Patrón 2 · exponer</span></div>
+        <span class="pregunta-num">12.5 — B</span>
+      </div>
+      <p class="enunciado">Exponer los ámbitos de aplicación del principio de no discriminación por orientación sexual, identidad de género, expresión de género o características sexuales reconocidos por la Ley 4/2023.</p>
+      <div class="pregunta-meta">
+        <span class="meta-item">Verbo: <b>exponer</b></span>
+        <span class="meta-item">Extensión: <b>media</b></span>
+        <span class="meta-item">Fuente: <b>Ley 4/2023 · subíndice epígrafe 5</b></span>
+      </div>
+      <p class="porque"><b>Por qué es probable:</b> el subíndice ya cita expresamente el empleo público y el acceso a bienes y servicios como ámbitos "entre otros" de aplicación — coordinación abierta que invita a una pregunta de enumeración con foco en el sector público, el ángulo que más interesa a un tribunal de acceso a la función pública.</p>
+    </div>
+
+    <div class="pregunta">
+      <div class="pregunta-top">
+        <div class="pregunta-badges"><span class="badge warm">Media</span><span class="badge tipo">Patrón 4 · pregunta cerrada</span></div>
+        <span class="pregunta-num">12.5 — C</span>
+      </div>
+      <p class="enunciado">De conformidad con la Ley 4/2023, ¿resulta aplicable el principio de no discriminación al acceso al empleo público? Razonar la respuesta.</p>
+      <div class="pregunta-meta">
+        <span class="meta-item">Verbo: <b>razonar</b></span>
+        <span class="meta-item">Extensión: <b>corta</b></span>
+        <span class="meta-item">Fuente: <b>Ley 4/2023 · subíndice epígrafe 5</b></span>
+      </div>
+      <p class="porque"><b>Por qué es probable:</b> combina el patrón 4 (pregunta cerrada de sí/no que exige fundamento, no descripción) con el patrón 5 ("de conformidad con" ancla la respuesta a la norma exacta), replicando de forma casi literal la estructura ya usada en 2023 sobre la obligatoriedad del Censo Electoral.</p>
+    </div>
+
+  </div>
+
+  <div class="consejos-box">
+    <p class="consejos-title">Cómo usar esta simulación</p>
+    <ul class="consejos-list">
+      <li><span class="consejos-num">01</span><span><b>Prioriza el epígrafe 2 y el epígrafe 5.</b> El art. 20 (conexión directa con el perfil estadístico) y la Ley 4/2023 (norma más reciente del bloque) son, según el propio material de estudio, los dos puntos de mayor probabilidad de todo el tema.</span></li>
+      <li><span class="consejos-num">02</span><span><b>No confundas LO 3/2007 con LO 1/2004.</b> Es la trampa de contenido más citada en los comentarios normativos de este bloque: una es la "ley código" general de igualdad, la otra desarrolla en sustancia la violencia de género.</span></li>
+      <li><span class="consejos-num">03</span><span><b>Vigila los enunciados sin verbo.</b> Tres de los once simulacros son nominales — cada sustantivo coordinado ("prevención, sensibilización, tutela institucional...") es un apartado que se evalúa por separado, y es donde históricamente se pierden más puntos por omisión.</span></li>
+      <li><span class="consejos-num">04</span><span><b>Recuerda: sin segundo ejercicio.</b> Todo lo anterior es material exclusivo del primer ejercicio (preguntas cortas de desarrollo); no dediques tiempo a preparar Derecho para un segundo ejercicio que no lo incluye.</span></li>
+    </ul>
+  </div>
+
+  <div class="foot">
+    <b>Naturaleza de este documento:</b> los once enunciados son simulacros de elaboración propia, no preguntas de examen oficiales — el Tema 12 no registra pregunta real en las convocatorias 2022-2025 (exámenes 2023-2026). Se han construido replicando los seis patrones retóricos identificados en las 15 preguntas reales del tribunal (verbos "explicar", "exponer", "razonar"; enunciados nominales coordinados; anclaje "de conformidad con"; cruce de temas), aplicados al contenido del subíndice oficial del Tema 12 y al articulado de la LO 3/2007 recogido en el documento de referencia de Derecho.
+    <br><br>
+    <b>Fuente del temario:</b> Resolución de 22 de diciembre de 2025, de la Subsecretaría (Ministerio de Economía, Comercio y Empresa) — BOE núm. 313, de 29/12/2025, Anexo I, Programa, apartado A.VI «Derecho». Ref. BOE-A-2025-26900. Estructura del proceso selectivo: el bloque de Derecho se evalúa únicamente en el primer ejercicio del turno libre; el segundo ejercicio queda expresamente excluido de esta materia.
+    <br><br>
+    <b>Antes del examen:</b> contrasta siempre el contenido normativo (LO 3/2007, LO 1/2004, Ley 4/2023) contra el texto consolidado vigente en el BOE en el momento de la convocatoria.
+  </div>
+
+</div>
+</body>
+</html>
