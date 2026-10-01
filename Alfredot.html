@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alfredot</title>
+<style>
+:root{--bg:#F4F1FF;--card:#fff;--fg:#1B1440;--mut:#645C8C;--soft:#C5BDE8;--line:#E2DCF7;--surf:#ECE7FF;--ink:#17132B;
+--blue:#1E9BFF;--yel:#FFC41F;--mag:#E23FDB;--lim:#A6E82B;--vio:#7A5CFF;--teal:#10C7A0;--cor:#FF5A4E;--amb:#FF9F1C;--cya:#19C6EE;
+--acc:var(--yel);--on-acc:var(--ink);--ok:#0FA968;--warn:#E08600;--bad:#E5384F;--r:16px;
+--hf:ui-rounded,"SF Pro Rounded",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color-scheme:light dark;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#120D2B;--card:#1D1745;--fg:#F0EDFF;--mut:#B2A9DC;--soft:#5E5496;--line:#33295F;--surf:#272055;--ok:#3EE0A0;--warn:#FFB84D;--bad:#FF7A8C}}
+:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#120D2B;--card:#1D1745;--fg:#F0EDFF;--mut:#B2A9DC;--soft:#5E5496;--line:#33295F;--surf:#272055;--ok:#3EE0A0;--warn:#FFB84D;--bad:#FF7A8C}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:1rem/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+main{max-width:720px;margin:0 auto;padding:16px 16px 80px}
+h1{font:800 1.625rem/1.15 var(--hf);margin:0;letter-spacing:-.01em}
+h2{font:700 1rem var(--hf);margin:24px 0 8px}
+small,.sub{font-size:.875rem;color:var(--mut)}
+.sub{margin:0}
+:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+nav{display:flex;gap:8px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:8px 0;z-index:2}
+nav button{flex:1;min-height:42px;padding:8px 16px;border:1.5px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;font:600 .875rem var(--hf);cursor:pointer}
+nav button.tg{flex:none;width:42px;padding:0;display:grid;place-items:center}
+nav button.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:8px 0}
+.card.cm{border-left:8px solid var(--c)}
+.card .t{font:700 1rem var(--hf)}
+.card small{display:block}
+.chip{display:inline-block;margin-top:4px;padding:1px 10px;border-radius:999px;font-size:.8125rem;font-weight:600;color:var(--fg);background:var(--surf);background:color-mix(in srgb,var(--c) 24%,transparent)}
+.btns{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.ctl{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.b{min-height:42px;padding:8px 18px;border-radius:999px;border:1.5px solid var(--soft);background:var(--card);color:var(--fg);font:600 .875rem var(--hf);cursor:pointer}
+.b:hover{background:var(--surf)}
+.b.p,.b.p:hover{background:var(--yel);border-color:var(--yel);color:var(--ink)}
+.b.ok,.b.ok:hover{background:var(--lim);border-color:var(--lim);color:var(--ink)}
+.b.bl,.b.bl:hover{background:var(--blue);border-color:var(--blue);color:var(--ink)}
+.b.p:hover,.b.ok:hover,.b.bl:hover{filter:brightness(1.06)}
+.mini{min-height:38px;padding:4px 14px}
+.empty{color:var(--mut);padding:16px;border:1.5px dashed var(--soft);border-radius:var(--r)}
+.bar{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--line);margin-top:10px}
+.bar i{display:block}
+.seg{display:flex;gap:3px;height:14px;margin-top:12px}
+.seg i{display:block;border-radius:7px;overflow:hidden;min-width:5px;background:var(--line);background:color-mix(in srgb,var(--c) 22%,var(--line))}
+.seg b{display:block;height:100%;background:var(--c);transition:width .25s}
+.mat{background:var(--card);border:1px solid var(--line);border-left:8px solid var(--c);border-radius:var(--r);margin:10px 0;overflow:hidden}
+.mh{display:block;width:100%;text-align:left;background:transparent;border:0;padding:14px 16px 14px;font:inherit;color:var(--fg);cursor:pointer}
+.mh:hover{background:var(--surf)}
+.mh .top{display:flex;align-items:center;gap:10px}
+.mt{flex:1;min-width:0;font:700 1.0625rem/1.25 var(--hf)}
+.cnt{flex:none;font:700 .8125rem var(--hf);font-variant-numeric:tabular-nums;padding:2px 10px;border-radius:999px;background:var(--surf);background:color-mix(in srgb,var(--c) 26%,transparent)}
+.mat.full .cnt{background:var(--c);color:var(--ink)}
+.chev{flex:none;transition:transform .15s}
+[aria-expanded="true"]>.top>.chev,[aria-expanded="true"]>.chev{transform:rotate(90deg)}
+.pb{display:block;height:8px;border-radius:4px;background:var(--line);background:color-mix(in srgb,var(--c) 18%,var(--line));margin-top:10px;overflow:hidden}
+.pb i{display:block;height:100%;background:var(--c);border-radius:4px;transition:width .25s}
+.mb{padding:0 12px 10px 12px;border-top:1px solid var(--line)}
+.gr{border-bottom:1px solid var(--line)}
+.gr:last-child{border-bottom:0}
+.gh{display:flex;align-items:center;min-height:48px}
+.gck{flex:none;display:grid;place-items:center;padding:11px;cursor:pointer}
+.tt{flex:1;min-width:0;display:flex;align-items:center;gap:8px;min-height:44px;padding:6px 4px;text-align:left;background:transparent;border:0;border-radius:10px;font:inherit;color:var(--fg);cursor:pointer}
+.tt:hover{background:var(--surf)}
+.gn{flex:1;min-width:0;font-weight:600}
+.gc{flex:none;font-size:.8125rem;font-weight:700;color:var(--mut);font-variant-numeric:tabular-nums}
+.gh.lf{cursor:pointer}
+.gh.lf .tt{cursor:pointer}
+.gr.done .gn{color:var(--mut)}
+.gi{padding:0 0 8px 34px}
+label.it{display:flex;gap:10px;align-items:flex-start;padding:8px 8px;min-height:42px;cursor:pointer;border-radius:10px}
+label.it:hover{background:var(--surf)}
+label.it .tx{flex:1;min-width:0;line-height:1.4}
+label.it small{display:block}
+label.it.on .tx{color:var(--mut);text-decoration:line-through;text-decoration-thickness:1px}
+.c{flex:none;margin-top:1px;padding:0 7px;border-radius:6px;font:700 .75rem/1.6 var(--hf);font-variant-numeric:tabular-nums;color:var(--mut);background:var(--surf)}
+.ck{-webkit-appearance:none;appearance:none;flex:none;width:22px;height:22px;margin:1px 0 0;border:2px solid var(--soft);border-radius:7px;background:var(--card);cursor:pointer}
+.ck:checked{border-color:var(--c);background:var(--c) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='%2317132B' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/15px no-repeat}
+.ck:indeterminate{border-color:var(--c);background:var(--c) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8h8' fill='none' stroke='%2317132B' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") center/14px no-repeat}
+.gr.sr .gn{font-weight:500;color:var(--mut)}
+.rows{padding:0 4px}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid var(--line)}
+.nm{flex:1 1 180px;cursor:text}
+.pill{font-size:.8125rem;font-weight:600;padding:0 10px;border-radius:999px;border:1.5px solid var(--soft);color:var(--mut)}
+.s1{background:var(--blue);border-color:var(--blue);color:var(--ink)}
+.s2{background:var(--vio);border-color:var(--vio);color:#fff}
+.s3{background:var(--lim);border-color:var(--lim);color:var(--ink)}
+input[type=date]{font:inherit;font-size:.875rem;min-height:42px;padding:8px 12px;border-radius:var(--r);border:1.5px solid var(--soft);background:var(--card);color:var(--fg)}
+.sem{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:8px 0}
+.sem:before{content:"";flex:none;width:14px;height:14px;border-radius:50%;margin-top:5px;background:var(--dot,var(--soft))}
+.sem.g{--dot:var(--ok)}.sem.y{--dot:var(--warn)}.sem.r{--dot:var(--bad)}
+.sem small{display:block}
+.mr{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:.9375rem}
+.mr:before{content:"";flex:none;width:12px;height:12px;border-radius:4px;background:var(--c)}
+.mr span{flex:1;min-width:0}
+.mr b{font-variant-numeric:tabular-nums;color:var(--mut);font-size:.875rem}
+.heat{display:grid;grid-template-rows:repeat(7,1fr);grid-auto-flow:column;gap:4px}
+.heat i{aspect-ratio:1;border-radius:4px;background:var(--line);min-width:8px}
+.heat i.l1{background:var(--blue);opacity:.45}.heat i.l2{background:var(--vio);opacity:.8}.heat i.l3{background:var(--mag)}
+.hd{display:flex;gap:16px;align-items:center;margin:8px 0}
+.hc{min-width:0}
+#mas{flex:none;width:104px;height:104px;cursor:pointer;overflow:visible;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+#mas:focus-visible{outline:2px solid var(--fg);outline-offset:4px;border-radius:var(--r)}
+#sh{fill:var(--fg);opacity:.14}
+.say{display:flex;align-items:center;min-height:36px;margin-top:8px;padding:8px 12px;background:var(--card);border:1.5px solid var(--soft);border-radius:var(--r);font-size:.875rem;font-weight:500}
+.say[hidden]{display:none}
+.say u{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--mag);margin-right:4px;text-decoration:none;animation:bob 1s infinite}
+.say u:nth-child(2){animation-delay:.15s}.say u:nth-child(3){animation-delay:.3s}
+@keyframes bob{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+@media (prefers-reduced-motion:reduce){.say u{animation:none}.chev,.seg b,.pb i{transition:none}}
+.foot{margin-top:32px;display:flex;gap:8px;flex-wrap:wrap;color:var(--mut);font-size:.875rem;align-items:center}
+</style>
+</head>
+<body>
+<main>
+<div class="hd"><svg id="mas" viewBox="0 0 120 120" role="button" tabindex="0" aria-label="Alfredot, tu mascota de estudio. Púlsala para jugar">
+<defs>
+<filter id="fur" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" xChannelSelector="R" yChannelSelector="G"/></filter>
+<filter id="grain" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="9" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.3 -.66" result="s"/><feComposite in="s" in2="SourceGraphic" operator="in"/></filter>
+<radialGradient id="rg" cx=".35" cy=".3" r=".85"><stop offset="0" stop-color="#fff" stop-opacity=".38"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></radialGradient>
+</defs>
+<ellipse id="sh" cx="60" cy="112" rx="26" ry="4"/>
+<g id="gr">
+<g filter="url(#fur)"><path id="bd"/><path id="sd" fill="url(#rg)"/><path id="gn" filter="url(#grain)"/></g>
+<g id="a0" opacity="0"><g id="e0" fill="#17171c"><ellipse id="e0l" cx="-9" cy="3" rx="2.6" ry="4.4"/><ellipse id="e0r" cx="9" cy="3" rx="2.6" ry="4.4"/></g><g transform="rotate(-10)" fill="#17171c"><path d="M-24 -22C-29 -33 -8 -43 12 -39 26 -36 28 -25 18 -23 7 -20 -13 -15 -24 -22Z"/><circle cx="9" cy="-43" r="2.4"/></g></g>
+<g id="a1" opacity="0"><g fill="none" stroke="#17171c" stroke-width="2.6" stroke-linecap="round"><circle cx="-12" cy="4" r="9.5"/><circle cx="12" cy="4" r="9.5"/><path d="M-2.5 3Q0 1 2.5 3"/><path d="M-17 5Q-12 10 -7 5M7 5Q12 10 17 5" stroke-width="2"/></g></g>
+<g id="a2" opacity="0"><circle cx="-11" cy="1" r="9" fill="#17171c"/><circle cx="11" cy="1" r="9" fill="#17171c"/><path d="M-3 -1Q0 -3 3 -1" stroke="#17171c" stroke-width="2.4" fill="none"/><path d="M-16 -3l4-2" stroke="#fff" stroke-opacity=".5" stroke-width="1.6" stroke-linecap="round"/></g>
+<g id="a3" opacity="0"><ellipse id="w3l" cx="-17" cy="-14" rx="8.8" ry="8.8" fill="#fff"/><ellipse id="w3r" cx="17" cy="-14" rx="8.8" ry="8.8" fill="#fff"/><circle id="p3l" cx="-17" cy="-14" r="4.8" fill="#17171c"/><circle id="p3r" cx="17" cy="-14" r="4.8" fill="#17171c"/></g>
+<g id="dr" opacity="0"><path d="M0 -6C4 0 6 4 6 7A6 6 0 0 1 -6 7C-6 4 -4 0 0 -6Z" fill="#8fd8ff"/></g>
+</g></svg>
+<div class="hc"><h1>Alfredot</h1><p class="sub" id="sub"></p>
+<div class="say" id="say" aria-live="polite" hidden></div></div></div>
+<nav id="nav"></nav>
+<div id="v"></div>
+<div class="foot">Tus datos se guardan en este navegador.
+<button class="b mini" data-a="copy">Copiar copia</button>
+<button class="b mini" data-a="paste">Pegar copia</button></div>
+</main>
+<script>
+const K='alfredot.v1',IV=[1,3,7,21,45,90],LBL=['Sin ver','Visto','Repasado','Dominado'];
+const seq=(p,n)=>Array.from({length:n},(_,i)=>p+(i+1));
+const seed=[
+['I','Producción estadística',seq('Tema ',16)],
+['I','Muestreo probabilístico',['Población y espacio de muestras','Diseño muestral','Probabilidades de inclusión','Estimador de Horvitz-Thompson','Varianza del estimador HT','Tamaño de muestra necesario','Los dos niveles: diseño y estimador']],
+['I','Demografía',['Principios del análisis demográfico','Mortalidad','Natalidad y fecundidad','Migraciones']],
+['I','Cuentas nacionales (SEC 2010)',['Evolución histórica y rasgos del SEC','Unidades y conjuntos de unidades','Flujos y stocks','Sucesión de cuentas','Cuentas corrientes y de acumulación','Balances y resto del mundo']],
+['I','Almacenamiento y modelos de datos',['Representación y almacenamiento','Hardware','Sistemas operativos','Bases de datos']],
+['II','Fiscal',['Impuesto sobre Sociedades','IVA','IRPF','Tributos locales','Impuestos especiales']],
+['II','Contabilidad financiera',seq('Tema ',8)],
+['II','Economía (ejercicios)',seq('S0',6)],
+['II','Macroeconomía (MacroDex)',['Oferta y demanda agregadas','IS-LM','Mundell-Fleming']]];
+const iso=d=>new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const today=()=>iso(new Date());
+const add=n=>{const d=new Date();d.setDate(d.getDate()+n);return iso(d)};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function fresh(){return{exam:'',cur:seed.map(([b,m,ts],i)=>({b,m,ts:ts.map((n,j)=>({id:'m'+i+'t'+j,n}))})),p:{},log:{},ck:{}}}
+let S=null;try{S=JSON.parse(localStorage.getItem(K))}catch(e){}
+if(!S||!S.cur)S=fresh();
+if(!S.ck)S.ck={};
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const IDX=[{"id":"prod","m":"Producción estadística","g":[{"id":"t1","n":"Tema 1. Introducción a las encuestas, objetivos y marcos","items":[{"n":"Introducción a las encuestas y formulación de objetivos y marcos"},{"n":"Esquema general de una encuesta"},{"n":"Muestreo probabilístico"},{"n":"Marco muestral"},{"n":"Marco de áreas y otros marcos"},{"n":"Población marco y población objetivo"},{"n":"Planificación de una encuesta"},{"n":"Diseño global de una encuesta"}]},{"id":"t2","n":"Tema 2. Estimación en muestreo probabilístico","items":[{"n":"Ideas básicas sobre estimación en muestreo probabilístico"},{"n":"Diseño muestral"},{"n":"Probabilidades de inclusión"},{"n":"La noción de estadístico"},{"n":"Indicadores de pertenencia a la muestra"},{"n":"Estimadores y sus propiedades básicas"},{"n":"El estimador Horvitz-Thompson (estimador π) y sus propiedades"},{"n":"Muestreo con reemplazamiento"},{"n":"Efecto de diseño"},{"n":"Intervalos de confianza"}]},{"id":"t3","n":"Tema 3. Muestreo de Bernoulli y aleatorio simple","items":[{"n":"Estimación insesgada en diseños muestrales sobre unidades elementales I. Muestreo de Bernoulli: definición, estimadores, varianza y estimador de la varianza"},{"n":"Muestreo aleatorio simple: sin y con reemplazamiento: definición, estimadores, varianza y estimador de la varianza"}]},{"id":"t4","n":"Tema 4. Muestreo sistemático","items":[{"n":"Estimación insesgada en diseños muestrales sobre unidades elementales II. Muestreo sistemático: definición, estimadores, varianza del estimador"},{"n":"Problemática de la estimación de la varianza"},{"n":"La eficiencia del muestreo sistemático"}]},{"id":"t5","n":"Tema 5. Muestreo de Poisson y con probabilidades proporcionales al tamaño","items":[{"n":"Estimación insesgada en diseños muestrales sobre unidades elementales III. Muestreo de Poisson: definición, estimadores, varianza y estimador de la varianza"},{"n":"Muestreo con probabilidades proporcionales al tamaño: muestreo sin reemplazamiento y con reemplazamiento"}]},{"id":"t6","n":"Tema 6. Muestreo estratificado","items":[{"n":"Estimación insesgada en diseños muestrales sobre unidades elementales IV. Muestreo estratificado: definición, estimadores, varianza y estimador de la varianza"},{"n":"Afijación muestral óptima"},{"n":"Otras afijaciones bajo muestreo aleatorio simple"}]},{"id":"t7","n":"Tema 7. Muestreo por conglomerados sin submuestreo","items":[{"n":"Estimación insesgada en diseños muestrales por conglomerados I. Muestreo por conglomerados sin submuestreo: definición, estimadores, varianza y estimador de la varianza"}]},{"id":"t8","n":"Tema 8. Métodos y gestión de la recogida de datos","items":[{"n":"Introducción"},{"n":"Métodos de recogida de datos básicos"},{"n":"Recogida de datos asistida por ordenador"},{"n":"Otros métodos de recogida"},{"n":"Implementación de la encuesta"},{"n":"Gestión activa del trabajo de campo"},{"n":"Paradatos"},{"n":"Monitorización de la calidad de la respuesta"},{"n":"Monitorización del proceso de producción de una encuesta"},{"n":"Evaluación de la encuesta y el informe de calidad"}]},{"id":"t9","n":"Tema 9. Depuración e imputación","items":[{"n":"Introducción a la depuración e imputación de datos estadísticos"},{"n":"Depuración e imputación en el proceso estadístico"},{"n":"Datos, errores, datos ausentes y controles (edits)"},{"n":"Métodos básicos para la depuración e imputación"},{"n":"Estrategia de depuración e imputación"},{"n":"El enfoque de imputación completa"},{"n":"El enfoque combinado"},{"n":"El enfoque de reponderación completa"},{"n":"Imputación por reglas estadísticas"}]},{"id":"t10","n":"Tema 10. Estimación en presencia de falta de respuesta","items":[{"n":"Introducción a la estimación en presencia de falta de respuesta"},{"n":"Errores debidos al muestreo y a la falta de respuesta"},{"n":"Error cuadrático medio y sus componentes bajo falta de respuesta"},{"n":"Estimadores simples y sus sesgos debidos a la falta de respuesta"}]},{"id":"t11","n":"Tema 11. Control del secreto estadístico","items":[{"n":"Conceptos y definiciones: control del secreto estadístico, datos tabulares, microdatos, riesgo y utilidad"},{"n":"Un enfoque al control del secreto estadístico: por qué la protección de la confidencialidad es importante, características clave y usos de los datos, riesgos contra los que la protección es necesaria, métodos de control del secreto, implementación"}]},{"id":"t12","n":"Tema 12. Difusión de datos","items":[{"n":"Difusión de datos: Presentación de estadísticas"},{"n":"Introducción"},{"n":"Transmitir el mensaje"},{"n":"Visualización de las estadísticas"},{"n":"Tablas"},{"n":"Gráficos"},{"n":"Mapas"},{"n":"Técnicas de visualización emergentes"},{"n":"Cuestiones de accesibilidad"}]},{"id":"t13","n":"Tema 13. Record linkage","items":[{"n":"Introducción"},{"n":"Visión de conjunto de los métodos"},{"n":"Preparación de los datos"}]},{"id":"t14","n":"Tema 14. GSBPM","items":[{"n":"Metadatos de la producción estadística"},{"n":"I. Introducción al GSBPM. El modelo"},{"n":"Relaciones con otros modelos y estándares"},{"n":"Niveles 1 y 2 del GSBPM. Descripciones de fases y subprocesos"},{"n":"Procesos generales"},{"n":"Otros usos del GSBPM"}]},{"id":"t15","n":"Tema 15. GSIM","items":[{"n":"Metadatos de la producción estadística"},{"n":"II. GSIM. Introducción"},{"n":"Alcance"},{"n":"¿Qué es el GSIM? Beneficios del GSIM para la organización como un todo"},{"n":"GSIM y GSBPM. ¿Qué implica para el estadístico?: puntos de vista del negocio y de la tecnología de la información"},{"n":"SDMX, DDI y otros estándares"}]},{"id":"t16","n":"Tema 16. Calidad y Código de Buenas Prácticas","items":[{"n":"La calidad en la estadística oficial y el Código de Buenas Prácticas de las Estadísticas Europeas"},{"n":"El concepto de calidad en la estadística oficial"},{"n":"El Código de Buenas Prácticas de las Estadísticas Europeas"},{"n":"El marco de garantía de la calidad del Sistema Estadístico Europeo"},{"n":"La calidad en los productos y en los procesos estadísticos"},{"n":"Sistemas de evaluación global de la calidad: auditorías, autoevaluación y revisiones por homólogos en las oficinas de Estadística"}]}]},{"id":"mues","m":"Muestreo probabilístico","g":[{"id":"t2","n":"Tema 2. Fundamentos","items":[{"n":"Población y espacio de muestras","c":"1"},{"n":"Diseño muestral","c":"2"},{"n":"Probabilidades de inclusión","c":"3"},{"n":"El estimador de Horvitz-Thompson","c":"4"},{"n":"Varianza del estimador HT","c":"5"},{"n":"Tamaño de muestra necesario","c":"6"},{"n":"Los dos niveles que no hay que confundir","c":"7"}]},{"id":"t3","n":"Tema 3. MAS y Bernoulli","items":[{"n":"Muestreo aleatorio simple (MAS) sin reemplazamiento","c":"1"},{"n":"Muestreo con reemplazamiento y el estimador Hansen-Hurwitz","c":"2"},{"n":"Muestreo de Bernoulli","c":"3"}]},{"id":"t4","n":"Tema 4. Sistemático","items":[{"n":"Mecanismo de selección","c":"1"},{"n":"Por qué no existe un estimador insesgado sencillo de la varianza","c":"2"},{"n":"Comportamiento según el orden del marco muestral","c":"3"}]},{"id":"t5","n":"Tema 5. Poisson y pps","items":[{"n":"Muestreo de Poisson","c":"1"},{"n":"Muestreo con probabilidades proporcionales al tamaño (pps)","c":"2"}]},{"id":"t6","n":"Tema 6. Estratificado","items":[{"n":"Definición y estructura","c":"1"},{"n":"Estimador y varianza","c":"2"},{"n":"Afijación: cómo repartir n entre estratos","c":"3"},{"n":"Muestras autoponderadas","c":"4"}]},{"id":"t7","n":"Tema 7. Conglomerados","items":[{"n":"Definición y motivación","c":"1"},{"n":"Estimador y probabilidades de inclusión","c":"2"},{"n":"Varianza — caso de conglomerados de igual tamaño","c":"3"},{"n":"Nota aparte — falta de respuesta (fuera del núcleo de diseño muestral)","c":"4"}]}]},{"id":"demo","m":"Demografía","g":[{"id":"t1","n":"Tema 1. La demografía. Principios del análisis demográfico","items":[{"n":"La demografía"},{"n":"Principios del análisis demográfico"},{"n":"Esquema de Lexis"},{"n":"Análisis longitudinal y análisis trasversal"},{"n":"Indicadores demográficos: tasas, cocientes, proporciones"}]},{"id":"t2","n":"Tema 2. Mortalidad","items":[{"n":"Análisis de la mortalidad: tasas brutas y tasas específicas"},{"n":"Mortalidad infantil"},{"n":"Tablas de mortalidad"},{"n":"Tablas completas y abreviadas"},{"n":"Esperanza de vida"},{"n":"Tablas tipo de mortalidad"},{"n":"La mortalidad por causas y morbilidad"}]},{"id":"t3","n":"Tema 3. Natalidad y fecundidad","items":[{"n":"Tasas"},{"n":"Intensidad y calendario"},{"n":"Descendencia e índice sintético de fecundidad"},{"n":"Edad media a la maternidad, curva de fecundidad"},{"n":"Reproducción y reemplazo"},{"n":"Relación entre fecundidad y nupcialidad"}]},{"id":"t4","n":"Tema 4. Migraciones","items":[{"n":"Principales conceptos"},{"n":"Tipos de movilidad espacial"},{"n":"Migraciones interiores y exteriores"},{"n":"Tasas e indicadores asociados a los movimientos migratorios"}]},{"id":"t5","n":"Tema 5. Estructura y crecimiento de la población","items":[{"n":"Indicadores de estructura"},{"n":"Pirámides de población"},{"n":"Indicadores y tasas de crecimiento"},{"n":"El envejecimiento de la población"},{"n":"Población estacionaria y población estable"}]},{"id":"t6","n":"Tema 6. Proyecciones de población","items":[{"n":"Procedimientos matemáticos de estimación"},{"n":"El método de los componentes"},{"n":"Proyección de componentes"},{"n":"Estimadores intercensales de población"}]},{"id":"t7","n":"Tema 7. Hogares y formas de convivencia","items":[{"n":"Hogares: conceptos y tipología"},{"n":"Estructura de hogares"},{"n":"Dinámica de hogares"},{"n":"Proyecciones de hogares"}]},{"id":"t8","n":"Tema 8. Censos demográficos","items":[{"n":"Población, Viviendas y Edificios"},{"n":"Objetivos"},{"n":"Métodos de Recogida"},{"n":"Características investigadas"},{"n":"Diferencia con la población registrada en los padrones municipales"}]}]},{"id":"cuen","m":"Cuentas nacionales (SEC 2010)","g":[{"id":"t1","n":"Tema 1. SEC 2010","items":[{"n":"Evolución histórica de los sistemas de Cuentas Nacionales","c":"1"},{"n":"Rasgos fundamentales del SEC 2010","c":"2"},{"n":"Unidades y conjuntos de unidades","c":"3"}]},{"id":"t2","n":"Tema 2. Flujos y stocks","items":[{"n":"Flujos: definición y propiedades","c":"1"},{"n":"Stocks: tipos de activos y pasivos","c":"2"},{"n":"Stocks de población y empleo","c":"3"}]},{"id":"t3","n":"Tema 3. Sucesión de cuentas","items":[{"n":"La sucesión de cuentas: idea general","c":"1"},{"n":"Las cuentas corrientes","c":"2"},{"n":"Las cuentas de acumulación","c":"3"},{"n":"Los balances","c":"4"},{"n":"Cuentas del resto del mundo","c":"5"},{"n":"Cuenta de bienes y servicios","c":"6"},{"n":"Cuentas económicas integradas y principales agregados","c":"7"}]},{"id":"t4","n":"Tema 4. Input-output","items":[{"n":"El marco input-output: qué es y para qué sirve","c":"1"},{"n":"La tabla de origen (oferta)","c":"2"},{"n":"La tabla de destino (utilización)","c":"3"},{"n":"Las identidades que resuelven los problemas","c":"4"},{"n":"La tabla simétrica input-output","c":"5"},{"n":"Herramientas de análisis","c":"6"}]},{"id":"t5","n":"Tema 5. Precios y volumen","items":[{"n":"Campo de aplicación: por qué separar precio y volumen","c":"1"},{"n":"Principios generales","c":"2"},{"n":"Problemas concretos de medición","c":"3"},{"n":"Medición de la renta real para el total de la economía","c":"4"},{"n":"Índices de precio y volumen interespaciales","c":"5"}]},{"id":"t6","n":"Tema 6. Trim. y regional","items":[{"n":"Especificidades de las cuentas nacionales trimestrales","c":"1"},{"n":"Desagregación temporal y calibrado","c":"2"},{"n":"Ajuste estacional y de calendario","c":"3"},{"n":"Especificidades de las cuentas regionales","c":"4"}]},{"id":"t7","n":"Tema 7. Más allá del núcleo","items":[{"n":"Cuentas satélite: características y ejemplos","c":"1"},{"n":"Medidas de bienestar","c":"2"},{"n":"La globalización y el comercio internacional en términos de valor añadido","c":"3"}]},{"id":"examen","n":"Examen","items":[{"n":"Mapa: qué tema entra en qué pregunta","c":"1"},{"n":"Primer ejercicio","c":"2"},{"n":"Segundo ejercicio","c":"3"},{"n":"Qué hacer con esto: patrones de examen","c":"4"}]}]},{"id":"alma","m":"Almacenamiento y modelos de datos","g":[{"id":"t1","n":"Tema 1. Representación y almacenamiento de la información","items":[{"n":"Introducción: por qué representar información como bits","c":"1.1"},{"n":"Bits y bytes","c":"1.2"},{"n":"Organización de la memoria principal","c":"1.3"},{"n":"Representación de la información como cadenas de bits","c":"1.4"},{"n":"Inexistencia de «tipos» para los ficheros en disco","c":"1.5"}]},{"id":"t2","n":"Tema 2. Componentes principales del hardware de un sistema de computación","items":[{"n":"Introducción: el modelo de Von Neumann","c":"2.1"},{"n":"La Unidad Central de Proceso (CPU)","c":"2.2"},{"n":"La memoria: jerarquía y tipos","c":"2.3"},{"n":"Dispositivos de almacenamiento secundario","c":"2.4"},{"n":"Periféricos de entrada y salida","c":"2.5"},{"n":"Buses y comunicación entre componentes","c":"2.6"}]},{"id":"t3","n":"Tema 3. Introducción a los sistemas operativos","items":[{"n":"Qué hacen los sistemas operativos","c":"3.1"},{"n":"Organización y arquitectura de sistemas de computación","c":"3.2"},{"n":"Estructura de sistemas operativos","c":"3.3"},{"n":"Operaciones en sistemas operativos","c":"3.4"},{"n":"Gestión de procesos","c":"3.5"},{"n":"Gestión de memoria","c":"3.6"},{"n":"Gestión de almacenamiento","c":"3.7"},{"n":"Protección y seguridad","c":"3.8"},{"n":"Sistemas distribuidos","c":"3.9"},{"n":"Entornos de computación","c":"3.10"}]},{"id":"t4","n":"Tema 4. Bases de datos","items":[{"n":"Introducción","c":"4.1"},{"n":"Sistemas tradicionales basados en ficheros: descripción y limitaciones","c":"4.2"},{"n":"Base de datos, SGBD, programas de aplicación y componentes (generalidades)","c":"4.3"},{"n":"Ventajas y desventajas de los sistemas de gestión de bases de datos","c":"4.4"}]}]},{"id":"fisc","m":"Fiscal","g":[{"id":"f1","n":"Impuesto sobre Sociedades","items":[{"n":"Ejercicio 7","c":"01"},{"n":"Maquinaria industrial","c":"03"},{"n":"Pagos fraccionados","c":"04"},{"n":"Bodegas Peña Alta","c":"05"},{"n":"Ebanistería Solvarán","c":"10"}]},{"id":"f2","n":"IVA","items":[{"n":"Prorrata (Ej. 8)","c":"02"},{"n":"Costa Serena","c":"06"},{"n":"Lingua Plus","c":"07"},{"n":"Gestora Albaida","c":"08"}]},{"id":"f3","n":"IRPF","items":[{"n":"Rendimientos de Marta","c":"09"}]},{"id":"f4","n":"Tributos locales","items":[{"n":"Presupuestos y saldos","c":"11"},{"n":"La venta de los Ruiz","c":"12"}]},{"id":"f5","n":"IIEE y Renta de no Residentes","items":[{"n":"Bodegas Alto Duero","c":"13"}]}]},{"id":"fino","m":"Contabilidad financiera","g":[{"id":"f1","n":"Tema 1. Marco conceptual y ciclo contable","items":[{"n":"El primer año de Nazarí"}]},{"id":"f2","n":"Tema 2. Información financiera y cuentas anuales","items":[{"n":"¿En qué documento va cada partida?"}]},{"id":"f3","n":"Tema 3. Existencias","items":[{"n":"El almacén que cambia de precio"},{"n":"Cuando el almacén vale menos de lo que costó","d":"Existencias · Distribuciones Alpujarra"},{"n":"De la materia prima al producto a medio hacer","d":"Existencias · Talleres Guadalimar"}]},{"id":"f4","n":"Tema 4. IVA","items":[{"n":"Un negocio, dos actividades, tres IVAs distintos","d":"IVA · Clínica Dental y Óptica Vega, S.L."},{"n":"Una sola actividad, un solo IVA","d":"IVA · Ejercicio 7"}]},{"id":"f5","n":"Tema 5. Cuentas a cobrar y a pagar","items":[{"n":"Cuando un cliente deja de ser de fiar","d":"Cuentas a cobrar · Deterioro de créditos · Distribuciones Segura"},{"n":"Del anticipo a la letra: tres formas de deber lo mismo","d":"Cuentas a pagar · Ejercicio 8"}]},{"id":"f6","n":"Tema 6. Inmovilizado y arrendamientos","items":[{"n":"Un activo que no se puede tocar","d":"Inmovilizado · Intangible · Sistemas Rioja"},{"n":"Un edificio que no se usa, se alquila","d":"Inmovilizado · Inversión inmobiliaria · Inmobiliaria Verger"},{"n":"Comprar a plazos con nombre de alquiler","d":"Arrendamientos · Leasing financiero · Talleres Cazorla"},{"n":"El alquiler que sí es un alquiler","d":"Arrendamientos · Renting operativo"}]},{"id":"f7","n":"Tema 7. Instrumentos financieros","items":[{"n":"El interés que no se ve en el cupón","d":"Activos financieros · Coste amortizado · Inversiones Cantábrico"},{"n":"Pedir dinero prestado a mil personas a la vez","d":"Pasivos financieros · Empréstito a coste amortizado"},{"n":"Cuando el mercado pone el precio y cuando no","d":"Instrumentos de patrimonio · Valor razonable o coste"}]},{"id":"f8","n":"Tema 8. Patrimonio neto","items":[{"n":"Prometer capital y pagarlo poco a poco","d":"Patrimonio neto · Constitución y dividendo pasivo"},{"n":"Cobrar más de lo que vale el papel","d":"Patrimonio neto · Prima de emisión"},{"n":"Achicar el número para que diga la verdad","d":"Patrimonio neto · Reducción de capital"},{"n":"Repartir un beneficio en tres cajones, en movimiento","d":"Patrimonio neto · Aplicación del resultado · Bodegas Sarriá"}]}]},{"id":"econ","m":"Economía (ejercicios)","g":[{"id":"s1","n":"Sesión 1","items":[{"n":"Elección intertemporal","c":"S01E01"},{"n":"Balanza de pagos","c":"S01E02"}]},{"id":"s2","n":"Sesión 2","items":[{"n":"Consumo intertemporal","c":"S02E01"},{"n":"Curva de Phillips","c":"S02E02"},{"n":"Flexibilización del despido y oferta agregada","c":"S02E03"}]},{"id":"s3","n":"Sesión 3","items":[{"n":"Costes de una planta","c":"S03E01"},{"n":"Modelo IS-LM","c":"S03E02"}]},{"id":"s4","n":"Sesión 4","items":[{"n":"Producción y costes","c":"S04E01"},{"n":"Curva de Phillips","c":"S04E02"},{"n":"Modelo de Solow","c":"S04E03"},{"n":"Contaminación y precios","c":"S04E04"}]},{"id":"s5","n":"Sesión 5","items":[{"n":"Modelo OA-DA: expansión monetaria y shock de costes","c":"S05E01"},{"n":"Estructuras de mercado","c":"S05E02"},{"n":"Modelo IS-LM con impuestos proporcionales","c":"S05E03"}]},{"id":"s6","n":"Sesión 6","items":[{"n":"Modelo renta-gasto (cruz keynesiana)","c":"S06E01"},{"n":"Mercado competitivo con intervención pública","c":"S06E02"},{"n":"Multiplicador monetario","c":"S06E03"},{"n":"Restricción presupuestaria del gobierno","c":"S06E04"},{"n":"Demanda de inversión","c":"S06E05"},{"n":"Desempleo — tipos y medición","c":"S06E06"},{"n":"Perturbaciones de oferta agregada","c":"S06E07"},{"n":"La inflación — medición y política antiinflacionista","c":"S06E08"},{"n":"Ciclos económicos","c":"S06E09"},{"n":"Desempleo — medición y modelo de flujos","c":"S06E10"},{"n":"Política fiscal keynesiana","c":"S06E11"},{"n":"Integración económica y monetaria europea I","c":"S06E12"}]}]},{"id":"macr","m":"Macroeconomía (MacroDex)","g":[{"id":"m9","n":"Tema 9. Oferta y Demanda Agregadas","items":[]},{"id":"m10","n":"Tema 10. El desempleo y el mercado de trabajo","items":[]},{"id":"m11","n":"Tema 11. Perturbaciones y efectos en la OA","items":[]},{"id":"m12","n":"Tema 12. La inflación","items":[]},{"id":"m13","n":"Tema 13. La curva de Phillips","items":[]},{"id":"m14","n":"Tema 14. El crecimiento económico","items":[]},{"id":"m15","n":"Tema 15. Los ciclos económicos","items":[]},{"id":"m16","n":"Tema 16. Balanza de pagos y tipo de cambio","items":[]},{"id":"m17","n":"Tema 17. La política monetaria","items":[]},{"id":"m18","n":"Tema 18. La política fiscal keynesiana","items":[]},{"id":"m19","n":"Tema 19. Política mixta y déficit","items":[]},{"id":"m21","n":"Tema 21. Integración económica y monetaria europea","items":[]},{"id":"m22","n":"Tema 22. El Banco Central Europeo","items":[]},{"id":"mex","n":"Tema Extra. El modelo Mundell-Fleming","items":[]}]}];
+const MC=['var(--blue)','var(--vio)','var(--teal)','var(--lim)','var(--yel)','var(--mag)','var(--cor)','var(--amb)','var(--cya)'];
+const LK={};
+IDX.forEach((m,i)=>m.g.forEach((g,j)=>{g.k=g.items.length?g.items.map((_,x)=>m.id+'.'+g.id+'.'+x):[m.id+'.'+g.id];g.k.forEach(k=>LK[k]={i,j})}));
+const ksOf=i=>IDX[i].g.flatMap(g=>g.k);
+const dn=ks=>ks.filter(k=>S.ck[k]).length;
+const blk=i=>(S.cur[i]&&S.cur[i].b)||(i<5?'I':'II');
+const CH='<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+
+let tab='hoy',op={};
+const $=s=>document.querySelector(s);
+const all=()=>S.cur.flatMap(m=>m.ts.map(t=>({...t,m})));
+const st=id=>{const p=S.p[id];return !p?0:p.n<=0?1:p.n<4?2:3};
+function rate(id,r){
+  const p=S.p[id],T=today();
+  if(r==='v'){S.p[id]={n:0,next:add(1),seen:T,last:T}}
+  else{const n=r==0?Math.max(0,p.n-1):p.n+1;
+    S.p[id]={...p,n,next:add(r==0?1:IV[Math.min(n,IV.length-1)]),last:T}}
+  S.log[T]=(S.log[T]||0)+1;save();render();
+  const d=Math.round((new Date(S.p[id].next+'T00:00')-new Date(T+'T00:00'))/864e5);
+  react(r,d);
+}
+let tm;
+function say(msg){const e=$('#say');e.hidden=false;e.innerHTML='<u></u><u></u><u></u>';clearTimeout(tm);tm=setTimeout(()=>{e.textContent=msg},650)}
+function react(r,d){
+  M.act(r==='v'?'saw':r==0?'sad':'hop');
+  say(r==='v'?'Visto. Mañana lo repasamos.':r==0?'Tranquilo, mañana lo volvemos a ver.':`¡Eso es! Este tema vuelve en ${d} días.`);
+}
+const rb=id=>`<button class="b" data-a="r" data-id="${id}" data-r="0">Me costó</button><button class="b ok" data-a="r" data-id="${id}" data-r="1">Lo sé</button>`;
+const nb=id=>`<button class="b bl" data-a="r" data-id="${id}" data-r="v">Lo he visto</button>`;
+function daysLeft(){if(!S.exam)return null;return Math.ceil((new Date(S.exam+'T00:00')-new Date(today()+'T00:00'))/864e5)}
+let more=false;
+function hoy(A){
+  const T=today();
+  const due=A.filter(t=>S.p[t.id]&&S.p[t.id].next<=T).sort((a,b)=>S.p[a.id].next<S.p[b.id].next?-1:1);
+  const nw=[];for(const m of S.cur){const t=m.ts.find(x=>!S.p[x.id]);if(t&&nw.length<3)nw.push({...t,m})}
+  const card=(t,btn)=>{const x=S.cur.indexOf(t.m);return `<div class="card cm" style="--c:${MC[x]||'var(--soft)'}"><div class="t">${esc(t.n)}</div><span class="chip" style="--c:${MC[x]||'var(--soft)'}">${esc(t.m.m)}</span><div class="btns">${btn(t.id)}</div></div>`};
+  let h=`<div class="card"><div class="t">${S.log[T]||0} temas trabajados hoy</div></div>`;
+  h+=`<h2>Repasar hoy (${due.length})</h2>`;
+  h+=due.length?(more?due:due.slice(0,5)).map(t=>card(t,rb)).join('')+(!more&&due.length>5?`<button class="b" data-a="more">Mostrar ${due.length-5} más</button>`:''):`<div class="empty">No tienes repasos pendientes.</div>`;
+  h+=`<h2>Tema nuevo</h2>`;
+  h+=nw.length?nw.map(t=>card(t,nb)).join(''):`<div class="empty">Has visto todos los temas. Ahora toca repasar.</div>`;
+  return h;
+}
+function bar(ts){
+  const c=[0,0,0,0];ts.forEach(t=>c[st(t.id)]++);const n=ts.length||1;
+  return `<div class="bar"><i style="width:${c[3]/n*100}%;background:var(--lim)"></i><i style="width:${c[2]/n*100}%;background:var(--vio)"></i><i style="width:${c[1]/n*100}%;background:var(--blue)"></i></div>`;
+}
+const seg=()=>`<div class="seg" role="img" aria-label="Progreso por materia">`+IDX.map((m,i)=>{const ks=ksOf(i),d=dn(ks);return `<i style="flex:${ks.length};--c:${MC[i]}" title="${esc(m.m)}: ${d}/${ks.length}"><b style="width:${d/ks.length*100}%"></b></i>`}).join('')+`</div>`;
+function sr(i){
+  const m=S.cur[i];if(!m)return '';
+  const o=op['r'+i],d=m.ts.filter(t=>st(t.id)==3).length;
+  let h=`<div class="gr sr"><button class="tt" data-a="gt" data-key="r${i}" aria-expanded="${!!o}"><span class="gn">Repaso espaciado</span><span class="gc">${d}/${m.ts.length} dominados</span>${CH}</button>`;
+  if(o)h+=`<div class="gi"><p class="sub">Toca el nombre de un tema para renombrarlo. Azul: visto, violeta: repasado, verde: dominado.</p>${bar(m.ts)}<div class="rows">`+m.ts.map(t=>{const s=st(t.id),p=S.p[t.id];
+    return `<div class="row"><span class="nm" data-a="ren" data-id="${t.id}">${esc(t.n)}</span><span class="pill s${s}">${LBL[s]}</span>${p?`<small style="color:var(--mut)">repaso ${p.next.slice(5)}</small>${rb(t.id)}`:nb(t.id)}</div>`}).join('')+`<div class="row"><button class="b mini" data-a="add" data-i="${i}">Añadir tema</button></div></div></div>`;
+  return h+'</div>';
+}
+function grp(i,j){
+  const g=IDX[i].g[j],k=g.k,d=dn(k),n=k.length,key=i+'.'+j;
+  if(!g.items.length)return `<div class="gr${d==n?' done':''}"><label class="gh lf"><span class="gck"><input type="checkbox" class="ck" data-a="ck" data-id="${k[0]}"${S.ck[k[0]]?' checked':''}></span><span class="tt"><span class="gn">${esc(g.n)}</span></span></label></div>`;
+  const o=op[key];
+  return `<div class="gr${d==n?' done':''}"><div class="gh"><label class="gck"><input type="checkbox" class="ck" data-a="gk" data-i="${i}" data-j="${j}" data-st="${d==n?2:d?1:0}" aria-label="Marcar todo: ${esc(g.n)}"${d==n?' checked':''}></label><button class="tt" data-a="gt" data-key="${key}" aria-expanded="${!!o}"><span class="gn">${esc(g.n)}</span><span class="gc">${d}/${n}</span>${CH}</button></div>`+
+    (o?`<div class="gi">`+g.items.map((it,x)=>`<label class="it${S.ck[k[x]]?' on':''}"><input type="checkbox" class="ck" data-a="ck" data-id="${k[x]}"${S.ck[k[x]]?' checked':''}>${it.c?`<span class="c">${esc(it.c)}</span>`:''}<span class="tx">${esc(it.n)}${it.d?`<small>${esc(it.d)}</small>`:''}</span></label>`).join('')+`</div>`:'')+`</div>`;
+}
+function mat(i){
+  const m=IDX[i],ks=ksOf(i),d=dn(ks),n=ks.length,o=op[i];
+  let h=`<section class="mat${d==n?' full':''}" style="--c:${MC[i]}"><button class="mh" data-a="tg" data-i="${i}" aria-expanded="${!!o}"><span class="top"><span class="mt">${esc(m.m)}</span><span class="cnt">${d}/${n}</span>${CH}</span><span class="pb"><i style="width:${n?d/n*100:0}%"></i></span></button>`;
+  if(o)h+=`<div class="mb">`+m.g.map((g,j)=>grp(i,j)).join('')+sr(i)+`</div>`;
+  return h+`</section>`;
+}
+function mapa(){
+  const all=IDX.flatMap((m,i)=>ksOf(i)),d=dn(all);
+  let h=`<div class="card"><div class="t">${d} de ${all.length} apartados marcados</div><small>Marca cada apartado cuando lo hayas estudiado.</small>${seg()}</div>`;
+  h+=`<div class="ctl"><button class="b mini" data-a="xall" data-id="open">Abrir todo</button><button class="b mini" data-a="xall" data-id="close">Cerrar todo</button></div>`;
+  for(const b of ['I','II']){h+=`<h2>Bloque ${b}</h2>`;IDX.forEach((m,i)=>{if(blk(i)===b)h+=mat(i)})}
+  return h;
+}
+function setCk(ks,v){
+  const L=LK[ks[0]],i=L.i,g=IDX[i].g[L.j],mk=ksOf(i);
+  const gb=g.k.every(k=>S.ck[k]),mb=mk.every(k=>S.ck[k]);
+  ks.forEach(k=>{if(v)S.ck[k]=1;else delete S.ck[k]});
+  const ga=g.k.every(k=>S.ck[k]),ma=mk.every(k=>S.ck[k]);
+  const a=document.activeElement,y=window.scrollY;let q='';
+  if(a&&a.dataset&&a.dataset.a)q='[data-a="'+a.dataset.a+'"]'+['id','i','j','key'].filter(x=>a.dataset[x]!=null).map(x=>'[data-'+x+'="'+a.dataset[x]+'"]').join('');
+  save();render();window.scrollTo(0,y);
+  if(q){const n=document.querySelector(q);if(n)n.focus({preventScroll:true})}
+  if(v&&ma&&!mb){M.act('hop');say('¡'+IDX[i].m+' completa!')}
+  else if(v&&ga&&!gb){M.act('hop');say('Completado: '+g.n)}
+  else if(v)M.act('nod');
+}
+function ritmo(A){
+  const T=today(),tot=A.length,seen=A.filter(t=>S.p[t.id]).length,dom=A.filter(t=>st(t.id)==3).length,rem=tot-seen;
+  const dl=daysLeft();
+  let h=`<h2>Fecha del examen</h2><input type="date" id="ex" value="${S.exam}" aria-label="Fecha del examen">`;
+  const rec=A.filter(t=>S.p[t.id]&&S.p[t.id].seen>=add(-14)).length/2;
+  if(dl===null)h+=`<p class="sub">Pon la fecha y Alfredot calculará si vas bien de ritmo.</p>`;
+  else if(dl<=0)h+=`<div class="sem r">La fecha ya ha pasado. Cámbiala si hay nueva convocatoria.</div>`;
+  else{
+    const need=rem/(dl/7);
+    const cls=rem==0?'g':need<=rec?'g':(need<=rec*1.5?'y':'r');
+    const msg={g:'Vas bien de ritmo.',y:'Vas justo: toca acelerar un poco.',r:'Vas tarde: necesitas subir bastante el ritmo.'}[cls];
+    h+=`<div class="sem ${cls}"><div>${msg}<small>Quedan ${dl} días y ${rem} temas por ver. Necesitas ${need.toFixed(1)} temas nuevos por semana; llevas ${rec.toFixed(1)}.</small></div></div>`;
+  }
+  h+=`<h2>Progreso</h2><div class="card"><div class="t">${dom} dominados de ${tot}</div><small>${seen} vistos, ${rem} sin empezar</small>${bar(A)}</div>`;
+  for(const b of ['I','II']){const ts=A.filter(t=>t.m.b===b);h+=`<div class="card"><div class="t">Bloque ${b}</div><small>${ts.filter(t=>st(t.id)==3).length} dominados de ${ts.length}</small>${bar(ts)}</div>`}
+  {const all=IDX.flatMap((m,i)=>ksOf(i));h+=`<h2>Índice del temario</h2><div class="card"><div class="t">${dn(all)} apartados marcados de ${all.length}</div>${seg()}<div style="margin-top:8px">`+IDX.map((m,i)=>{const ks=ksOf(i);return `<div class="mr" style="--c:${MC[i]}"><span>${esc(m.m)}</span><b>${dn(ks)}/${ks.length}</b></div>`}).join('')+`</div></div>`}
+  h+=`<h2>Constancia (8 semanas)</h2><div class="card"><div class="heat" style="grid-template-columns:repeat(8,1fr)">`;
+  let cells='';for(let i=55;i>=0;i--){const c=S.log[add(-i)]||0;cells+=`<i class="${c>5?'l3':c>2?'l2':c>0?'l1':''}" title="${add(-i)}: ${c}"></i>`}
+  return h+cells+'</div></div>';
+}
+function render(){
+  const A=all(),dl=daysLeft();
+  $('#sub').textContent=dl!==null&&dl>0?`Faltan ${dl} días para el examen`:'Seguimiento del estudio, bloques I y II del INE A1';
+  $('#nav').innerHTML=[['hoy','Hoy'],['mapa','Temario'],['ritmo','Ritmo']].map(([k,l])=>`<button data-a="tab" data-id="${k}" class="${tab==k?'on':''}">${l}</button>`).join('')+themeBtn();
+  $('#v').innerHTML=tab=='hoy'?hoy(A):tab=='mapa'?mapa():ritmo(A);
+  clearTimeout(tm);$('#say').hidden=true;
+  document.querySelectorAll('input[data-st="1"]').forEach(x=>{x.indeterminate=true});
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-a]');if(!b)return;
+  const a=b.dataset.a,id=b.dataset.id,i=b.dataset.i;
+  if(a=='tab'){tab=id;render()}
+  else if(a=='r')rate(id,b.dataset.r==='v'?'v':+b.dataset.r);
+  else if(a=='tg'){op[i]=!op[i];render()}
+  else if(a=='gt'){op[b.dataset.key]=!op[b.dataset.key];render()}
+  else if(a=='xall'){if(id=='open'){IDX.forEach((m,x)=>{op[x]=true;m.g.forEach((g,j)=>{if(g.items.length)op[x+'.'+j]=true})})}else op={};render()}
+  else if(a=='more'){more=true;render()}
+  else if(a=='theme'){const n=curTheme()==='dark'?'light':'dark';document.documentElement.dataset.theme=n;try{localStorage.setItem(TK,n)}catch(x){}render()}
+  else if(a=='ren'){const t=all().find(x=>x.id==id);const n=prompt('Nombre del tema',t.n);if(n&&n.trim()){S.cur.forEach(m=>m.ts.forEach(x=>{if(x.id==id)x.n=n.trim()}));save();render()}}
+  else if(a=='add'){const n=prompt('Nombre del nuevo tema');if(n&&n.trim()){S.cur[i].ts.push({id:'x'+Date.now(),n:n.trim()});save();render()}}
+  else if(a=='copy'){const s=JSON.stringify(S);(navigator.clipboard?navigator.clipboard.writeText(s):Promise.reject()).then(()=>alert('Copia guardada en el portapapeles.')).catch(()=>prompt('Copia este texto:',s))}
+  else if(a=='paste'){const s=prompt('Pega aquí tu copia');if(s){try{const o=JSON.parse(s);if(!o.cur)throw 0;S=o;if(!S.ck)S.ck={};save();render()}catch(x){alert('Ese texto no es una copia válida de Alfredot.')}}}
+});
+document.addEventListener('change',e=>{const t=e.target,a=t.dataset&&t.dataset.a;
+  if(t.id=='ex'){S.exam=t.value;save();render()}
+  else if(a=='ck')setCk([t.dataset.id],t.checked);
+  else if(a=='gk')setCk(IDX[t.dataset.i].g[t.dataset.j].k,t.checked);
+});
+const M=(()=>{
+const N=36,TAU=Math.PI*2,R0=34,cx=60,cy=64,el=id=>document.getElementById(id);
+const pol=f=>Array.from({length:N},(_,i)=>{const a=i/N*TAU,r=f(a);return[r*Math.sin(a),-r*Math.cos(a)]});
+const poly=a=>{const s=TAU/3,o=(a%s)-s/2;return Math.cos(Math.PI/3)/Math.cos(o)};
+const bump=(a,c)=>Math.exp(-(a-c)*(a-c)/.06);
+const SHP=[
+ pol(a=>1+.1*Math.cos(3*a+.5)+.05*Math.cos(5*a+1)),
+ pol(a=>.35+.65*poly(a)).map(([x,y])=>[x*1.1,y*.95+.12]),
+ Array.from({length:N},(_,i)=>{const t=i/N*TAU;return[16*Math.pow(Math.sin(t),3)/16.5,-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t)+2.5)/16.5]}),
+ pol(a=>.74*(1+.34*(bump(a,.85)+bump(a,TAU-.85)))).map(([x,y])=>[x*1.28,y+.08])];
+const COL=[[30,155,255],[255,196,31],[226,63,219],[166,232,43]];
+const SX=4,SY=5,OX=6,OY=7,EH=8,LX=9,LY=10,SW=11,L=12;
+const P=new Float64Array(L),V=new Float64Array(L),T=new Float64Array(L);
+let cur=1,jig=.035,blink=1,busy=0,lastPtr=0;
+const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const bd=el('bd'),sd=el('sd'),gn=el('gn'),gr=el('gr'),sh=el('sh'),acc=[0,1,2,3].map(k=>el('a'+k)),
+ e0=el('e0'),e0l=el('e0l'),e0r=el('e0r'),w3=[el('w3l'),el('w3r')],p3=[el('p3l'),el('p3r')],dr=el('dr'),svg=el('mas');
+const cl=x=>Math.max(0,Math.min(1,x)),n1=x=>x.toFixed(1);
+function set(c,o={}){for(let k=0;k<4;k++)T[k]=k==c?1:0;T[SX]=o.sx||1;T[SY]=o.sy||1;T[EH]=o.eh??1;T[SW]=o.sw||0;cur=c}
+const snap=()=>{jig=.035;P.set(T);draw(0)};
+function draw(t){
+  const sx=P[SX]*(1-.015*Math.sin(t*2)),sy=P[SY]*(1+.025*Math.sin(t*2)),pts=[];
+  for(let i=0;i<N;i++){let x=0,y=0;for(let k=0;k<4;k++){x+=P[k]*SHP[k][i][0];y+=P[k]*SHP[k][i][1]}
+    const a=i/N*TAU,f=R0*(1+jig*Math.sin(t*2.3+a*2)+jig*.6*Math.sin(t*3.3-a*3));pts.push([x*f*sx,y*f*sy])}
+  let d='M'+n1(pts[0][0])+' '+n1(pts[0][1]);
+  for(let i=0;i<N;i++){const p0=pts[(i+N-1)%N],p1=pts[i],p2=pts[(i+1)%N],p3=pts[(i+2)%N];
+    d+='C'+n1(p1[0]+(p2[0]-p0[0])/6)+' '+n1(p1[1]+(p2[1]-p0[1])/6)+' '+n1(p2[0]-(p3[0]-p1[0])/6)+' '+n1(p2[1]-(p3[1]-p1[1])/6)+' '+n1(p2[0])+' '+n1(p2[1])}
+  d+='Z';bd.setAttribute('d',d);sd.setAttribute('d',d);gn.setAttribute('d',d);
+  const w=[0,1,2,3].map(k=>cl(P[k])),s=(w[0]+w[1]+w[2]+w[3])||1,c=[0,0,0];
+  for(let k=0;k<4;k++)for(let j=0;j<3;j++)c[j]+=w[k]*COL[k][j]/s;
+  bd.style.fill='rgb('+c.map(Math.round).join(',')+')';
+  gr.setAttribute('transform','translate('+n1(cx+P[OX])+' '+n1(cy+P[OY])+') rotate('+n1(P[OX]*1.1)+')');
+  const sc='scale('+sx.toFixed(3)+' '+sy.toFixed(3)+')';
+  acc.forEach((a,k)=>{a.setAttribute('transform',sc);a.setAttribute('opacity',w[k].toFixed(2))});
+  e0.setAttribute('transform','translate('+n1(P[LX]*2)+' '+n1(P[LY]*1.5)+')');
+  const ry=4.4*Math.max(.12,blink*P[EH]);e0l.setAttribute('ry',n1(ry));e0r.setAttribute('ry',n1(ry));
+  const rw=8.8*Math.max(.12,blink);w3.forEach(e=>e.setAttribute('ry',n1(rw)));
+  p3.forEach((p,j)=>{const k=j?1:-1;p.setAttribute('cx',n1(k*17+P[LX]*3.2));p.setAttribute('cy',n1(-14+P[LY]*3));p.setAttribute('r',n1(4.8*Math.min(1,rw/8.8)))});
+  dr.setAttribute('transform','translate('+n1(22*sx)+' '+n1((-20+P[SW]*6)*sy)+')');dr.setAttribute('opacity',cl(P[SW]).toFixed(2));
+  sh.setAttribute('rx',n1(Math.max(12,26*(1+P[OY]/90))));
+}
+function tick(ts){
+  for(let k=0;k<L;k++){const K=k<4?.07:.1,D=k<4?.82:.8;V[k]+=(T[k]-P[k])*K;V[k]*=D;P[k]+=V[k]}
+  jig+=(.035-jig)*.03;draw(ts/1000);requestAnimationFrame(tick)
+}
+const hold=ms=>{busy=Date.now()+ms};
+const A={
+ hop(){set(2);V[OY]=-9;jig=.22;setTimeout(()=>{V[OY]=-7},520);hold(2200)},
+ sad(){set(0,{sx:1.16,sy:.84,eh:.7,sw:1});T[LY]=1;let n=0;const s=setInterval(()=>{V[OX]=n%2?-7:7;if(++n>4)clearInterval(s)},110);jig=.12;hold(2600)},
+ nod(){set(1,{sy:1.08});V[OY]=4;setTimeout(()=>{T[SY]=1},450);jig=.1;hold(1800)},
+ saw(){set(3);V[OY]=-6;jig=.1;hold(1600)},
+ poke(){let c;do c=Math.random()*4|0;while(c==cur);set(c,{sx:.85,sy:1.18});V[OY]=-7;jig=.25;setTimeout(()=>{T[SX]=1;T[SY]=1},350);hold(1800)}
+};
+const pokes=['¡Jajaja, cosquillas!','¡Eh! Que me deformo.','Hoy me siento otro, ¿te gusta?','¿Seguimos con el temario?'];
+function poke(){A.poke();if(rm){snap();setTimeout(snap,700)}say(pokes[Math.random()*pokes.length|0])}
+svg.addEventListener('click',poke);
+svg.addEventListener('keydown',e=>{if(e.key=='Enter'||e.key==' '){e.preventDefault();poke()}});
+set(1);P.set(T);draw(0);
+if(!rm){
+  window.addEventListener('pointermove',e=>{const r=svg.getBoundingClientRect();lastPtr=Date.now();
+    T[LX]=Math.max(-1,Math.min(1,(e.clientX-r.left-r.width/2)/250));T[LY]=Math.max(-1,Math.min(1,(e.clientY-r.top-r.height/2)/250))});
+  setInterval(()=>{if(Date.now()-lastPtr>3000&&Date.now()>busy){T[LX]=Math.random()*1.6-.8;T[LY]=Math.random()*.8-.4}},1600);
+  setInterval(()=>{if(Date.now()<busy)return;let c;do c=Math.random()*4|0;while(c==cur);set(c);if(Math.random()<.5)jig=.14;if(Math.random()<.35)V[OY]=-4},3800);
+  (function bl(){blink=0;setTimeout(()=>{blink=1},130);setTimeout(bl,2200+Math.random()*3000)})();
+  requestAnimationFrame(tick);
+}
+return{act(n){A[n]();if(rm){snap();setTimeout(snap,700)}}};
+})();
+const TK='alfredot.theme';
+try{const t=localStorage.getItem(TK);if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}
+const curTheme=()=>document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+const ICO='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
+const SUN=ICO+'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+const MOON=ICO+'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+const themeBtn=()=>{const d=curTheme()==='dark',l=d?'Cambiar a tema claro':'Cambiar a tema oscuro';return `<button class="tg" data-a="theme" aria-label="${l}" title="${l}">${d?SUN:MOON}</button>`};
+render();
+</script>
+</body>
+</html>
