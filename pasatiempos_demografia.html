@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pasatiempos de Demografía · exámenes reales CSE-INE</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F6FC;--card:#fff;--ink:#1B1F2A;--soft:#4A5163;--line:rgba(27,31,42,.14);--acc:#0B66D6;--accs:rgba(11,102,214,.10);--ok:#0F7A3A;--oks:rgba(30,158,79,.13);--err:#B3261E;--errs:rgba(217,48,37,.09);--pur:#8E2DA8;--sh:0 1px 2px rgba(20,40,90,.06),0 10px 28px rgba(20,40,90,.07);--fd:'Plus Jakarta Sans',system-ui,sans-serif;--fb:'Inter',system-ui,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1626;--card:#182138;--ink:#EAF0FF;--soft:#A9B4CC;--line:rgba(255,255,255,.16);--acc:#6FA8FF;--accs:rgba(111,168,255,.15);--ok:#5FD08F;--oks:rgba(95,208,143,.14);--err:#FF8A80;--errs:rgba(255,138,128,.13);--sh:0 10px 28px rgba(0,0,0,.35)}}
+:root[data-theme="dark"]{--bg:#0F1626;--card:#182138;--ink:#EAF0FF;--soft:#A9B4CC;--line:rgba(255,255,255,.16);--acc:#6FA8FF;--accs:rgba(111,168,255,.15);--ok:#5FD08F;--oks:rgba(95,208,143,.14);--err:#FF8A80;--errs:rgba(255,138,128,.13);--sh:0 10px 28px rgba(0,0,0,.35)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,color-mix(in srgb,var(--acc) 12%,var(--bg)) 0,var(--bg) 420px) fixed;color:var(--ink);font:16px/1.55 var(--fb)}
+main{max-width:760px;margin:0 auto;padding:20px 16px 48px}
+h1{font:700 clamp(26px,6vw,38px)/1.1 var(--fd);letter-spacing:-.025em;margin:0 0 6px;background:linear-gradient(90deg,var(--acc) 15%,var(--pur));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--soft);margin:0 0 14px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);padding:8px 0;z-index:5;display:flex;gap:6px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--line)}
+.bar button{font:600 13.5px var(--fb);border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:99px;cursor:pointer;min-height:36px}
+.bar button.on{background:var(--acc);color:var(--card);border-color:var(--acc);box-shadow:0 4px 12px color-mix(in srgb,var(--acc) 35%,transparent)}
+.pts{margin-left:auto;font-weight:700;color:var(--acc)}
+section{display:none;padding-top:16px}section.on{display:block}
+h2{font:700 22px var(--fd);letter-spacing:-.02em;margin:0 0 4px}
+h3{font:700 18px var(--fd);letter-spacing:-.02em;margin:24px 0 2px}
+.card{background:var(--card);border:1px solid rgba(20,40,90,.08);border-radius:20px;padding:16px;margin:10px 0;box-shadow:var(--sh)}
+.grid{display:grid;grid-template-columns:repeat(14,1fr);gap:3px;max-width:420px;margin:12px auto;user-select:none}
+.grid div{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font:600 clamp(12px,3.6vw,17px) var(--fb);background:var(--card);border:1px solid var(--line);border-radius:8px;cursor:pointer}
+.grid div.s{background:var(--accs);border-color:var(--acc)}.grid div.f{background:var(--ok);color:var(--card);border-color:var(--ok)}
+ul.cl{list-style:none;padding:0;margin:0}ul.cl li{padding:6px 0;border-bottom:1px dashed var(--line);font-size:14px}
+ul.cl li b{font-family:ui-monospace,monospace;letter-spacing:2px;color:var(--soft)}ul.cl li.d b{color:var(--ok)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cols button,.opt{font:inherit;font-size:14px;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:10px 12px;cursor:pointer;min-height:48px}
+.cols button.sel{border-color:var(--acc);background:var(--accs)}.cols button.ok{background:var(--oks);border-color:var(--ok);color:var(--ok);pointer-events:none}
+.cols button.bad,.bad{animation:sh .3s;border-color:var(--err)}
+@keyframes sh{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+input{font:inherit;width:120px;padding:8px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}
+input:focus-visible,button:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+input.ok{border-color:var(--ok);background:var(--oks);color:var(--ok);font-weight:600}
+.go{font:600 14px var(--fb);background:var(--acc);color:var(--card);border:0;border-radius:99px;padding:10px 18px;cursor:pointer;box-shadow:0 4px 12px color-mix(in srgb,var(--acc) 32%,transparent)}.go:disabled{opacity:.45;cursor:default;box-shadow:none}
+.msg{font-size:14px;margin-top:6px;color:var(--soft)}.msg.ok{color:var(--ok)}.msg.no{color:var(--err)}
+.vf{display:flex;gap:8px;margin-top:8px}.vf button{flex:1;text-align:center}
+.tag{display:inline-block;font:600 11.5px var(--fb);color:var(--acc);background:var(--accs);padding:2px 10px;border-radius:99px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--soft);font:600 11.5px var(--fb);text-transform:uppercase;letter-spacing:.07em}
+.src{font:600 12px var(--fb);color:var(--acc);letter-spacing:.04em}a{color:var(--acc)}.pa{color:var(--acc);font-weight:700}.pm{color:var(--soft);font-weight:600}.pb{color:var(--soft)}
+ul.pl{margin:6px 0 0;padding-left:18px;font-size:14px}ul.pl li{margin:4px 0}
+.th{color:var(--ink)!important;transition:transform .25s;margin-left:4px!important;width:38px;padding:0!important;display:inline-flex;align-items:center;justify-content:center;font-size:16px!important}
+</style></head><body><main>
+<h1>Pasatiempos de Demografía</h1>
+<p class="sub">Basados en las preguntas de Demografía que ya han caído en el Cuerpo Superior de Estadísticos (enunciados oficiales del INE, ejercicios de 2014, 2015, 2016, 2017, 2018, 2019, 2022, 2024, 2025 y 2026).</p>
+<div class="bar" id="tabs"></div>
+
+<section id="s0"><h2>Qué ha caído</h2><p class="sub">Todas las pruebas revisadas repiten los mismos bloques. Es el orden de prioridad.</p>
+<div class="card"><table><tr><th>Bloque</th><th>Dónde ha caído</th></tr>
+<tr><td>Diagrama de Lexis</td><td>1.º 2025 P23 · 1.º 2026 P23 · 2.º 2026 C4(f) · 1.º 2018 P39 · 1.º 2017 P43 · 1.º 2016 P48</td></tr>
+<tr><td>Tabla de mortalidad</td><td>1.º 2025 P24 (Lx) · 1.º 2026 P24 (completar tabla) · 1.º 2019 P22 (e0 y e65) · 2.º 2019 C9 (completar tabla) · 1.º 2018 P40 · 2.º 2018 C9 · 1.º 2016 P50 (esperanza de vida en buena salud) · 2.º 2016 (tabla y Sullivan)</td></tr>
+<tr><td>Fecundidad / natalidad</td><td>1.º 2025 P25 · 1.º 2026 P25 · 2.º 2025 C4 · 2.º 2026 C4 · 1.º 2019 P21 · 1.º 2018 P43 · 2.º 2018 C10 · 1.º 2017 P41</td></tr>
+<tr><td>Crecimiento y migración</td><td>1.º 2025 P26 · 1.º 2026 P26 · 1.º 2019 P23 · 2.º 2019 C10 (matriz de migración) · 1.º 2017 P42 · 1.º 2016 P51 · 2.º 2015 (migración exterior por edades) · 2.º 2014 (tabla de migración)</td></tr>
+<tr><td>Indicadores de estructura</td><td>1.º 2025 P27 · 1.º 2026 P27 · 1.º 2018 P41</td></tr></table>
+<p class="msg">«1.º» = primer ejercicio; «2.º» = segundo. Año = el que usa el INE en su página de exámenes. Fuente: <a href="https://www.ine.es/dyngs/FYE/index.htm?cid=259" target="_blank" rel="noopener">INE · material de apoyo</a>. Revisados: 2014, 2015, 2016, 2017, 2018, 2019, 2022, 2024, 2025 y 2026; el resto está en esa misma página.</p></div><div class="card"><div class="tag">Convocatorias anteriores</div><table><tr><th>Examen</th><th>Demografía</th></tr>
+<tr><td>2024 · 1.º</td><td>P23 Lexis · P24 mortalidad infantil · P25 tasas-tipo y población-tipo · P26 saldo y tasa de migración neta · P27 tasa de dependencia</td></tr>
+<tr><td>2024 · 2.º</td><td>C4 completar tabla de mortalidad (10 casillas; los datos van en imagen y no los incluyo)</td></tr>
+<tr><td>2022 · 1.º</td><td>C20 tiempo y Lexis · C21 descendencia final vs ISF · C22 método de las componentes · C23 e0 2019/2020</td></tr>
+<tr><td>2022 · 2.º</td><td>C5 tabla de mortalidad abreviada de 2019</td></tr>
+<tr><td>2019 · 1.º</td><td>P21 tasas específicas de fecundidad por edad y por generación (los datos van en una tabla que no se extrae del PDF y no los incluyo) · P22 e0 frente a e65 · P23 tasas parciales de emigración e inmigración</td></tr>
+<tr><td>2019 · 2.º</td><td>C9 completar tabla de mortalidad (l, L, d, e, q) · C10 matriz de migración: aloctonía, emigrantes, inmigrantes, intercambio y compensación</td></tr>
+<tr><td>2018 · 1.º</td><td>P39 áreas y líneas del Lexis en mortalidad (el esquema es una imagen y no lo incluyo) · P40 esperanza de vida a la edad x · P41 índice de envejecimiento y tasa de dependencia · P42 proyecciones de población del INE · P43 ISF · P44 mortalidad neonatal y neonatal precoz</td></tr>
+<tr><td>2018 · 2.º</td><td>C9 completar tabla de mortalidad (la tabla se extrae incompleta del PDF y no la incluyo) · C10 TBN, TGF, TEF, ISF y edad media a la maternidad</td></tr>
+<tr><td>2017 · 1.º</td><td>P39 gráfico de esperanza de vida por edades (imagen) · P40 mortalidad neonatal · P41 edad media a la maternidad · P42 tasa de migración bruta con el extranjero · P43 Lexis de Navarra y supervivientes de la generación 2013 · P44 proyecciones de población</td></tr>
+<tr><td>2017 · 4.º</td><td>El PDF del INE no tiene texto extraíble (parece escaneado) y no he podido leerlo</td></tr>
+<tr><td>2016 · 1.º</td><td>P48 Lexis con inmigrantes intermunicipales (Censo 2011 frente a variaciones residenciales) · P49 estandarización de la mortalidad · P50 esperanza de vida en buena salud · P51 migración neta directa e indirecta · P52 transición demográfica y epidemiológica · P53 dividendos demográficos · P54 Boletín Estadístico de Defunción</td></tr>
+<tr><td>2016 · 2.º</td><td>Problema: tabla de mortalidad 2011–2012 de la Región A y esperanza de vida en buena salud al nacer y a los 65 (la tabla de datos completa está en el PDF)</td></tr>
+<tr><td>2015 · 1.º</td><td>El texto que se extrae del PDF no muestra preguntas de Demografía (estadística y probabilidad)</td></tr>
+<tr><td>2015 · 2.º</td><td>Apartado 5, Demografía: tabla de migración exterior por edades (miles). 1) tasas de emigración al extranjero, probabilidades de migrar, sedentarios y otro parámetro de la tabla · 2) dos medidas agregadas · 3) intensidad inmigratoria exterior por edades, diferencias con la tabla de migración y sentido probabilístico · 4) evolución demográfica del periodo</td></tr>
+<tr><td>2014 · 1.º</td><td>El texto que se extrae del PDF no muestra preguntas de Demografía (estadística y probabilidad)</td></tr>
+<tr><td>2014 · 2.º</td><td>La tabla de datos (población femenina del año T: nacimientos por edad de la madre, defunciones, migraciones exteriores e interiores) se extrae del PDF, pero el texto de las preguntas no. Los retos «2.º 2014 · tabla» son cálculos míos sobre esa tabla, no el enunciado literal</td></tr></table>
+<p class="msg">El INE publica los ficheros de 2022 como «Año 2023», pero su libro de soluciones los data en 2022. El enunciado completo del examen de 2023 no he podido localizarlo. Para el Cuerpo Superior, la lista del INE salta de 2019 a «2023»: no hay enunciados de 2020 ni de 2021. En el turno libre de Diplomados, la convocatoria de 2022 agrupa las ofertas de empleo público de 2020, 2021 y 2022.</p></div></section>
+
+<section id="s1"><h2>Sopa de letras</h2><p class="sub">Toca la primera y la última letra. Vocabulario de las preguntas reales.</p>
+<div class="grid" id="g"></div><div class="card"><ul class="cl" id="cl"></ul></div></section>
+
+<section id="s2"><h2>Une la fórmula</h2><p class="sub">Fórmulas que había que usar en esos exámenes.</p><div class="cols" id="m"></div></section>
+
+<section id="s3"><h2>Retos de examen</h2><p class="sub">Mismos datos de los enunciados (algunas sumas ya hechas). Decimales con coma o punto.</p><div id="c"></div></section>
+
+<section id="s4"><h2>¿Verdadero o bulo?</h2><p class="sub">Conceptos preguntados en los apartados teóricos.</p><div id="v"></div></section>
+<section id="s5"><h2>Lo que aún no ha caído</h2>
+<p class="sub">Bloques y tipos de ejercicio de Demografía que no aparecen en los enunciados revisados (2014–2026). Prioridad según mi valoración, no es un dato oficial.</p>
+<div class="card"><div class="tag">Contenidos que no aparecen</div><table>
+<tr><th>Bloque</th><th>Qué podría preguntarse</th><th>Prioridad</th></tr>
+<tr><td>Nupcialidad y divorcialidad</td><td>Tabla de nupcialidad, tasa bruta, indicador coyuntural de nupcialidad y de primonupcialidad, edad media al primer matrimonio</td><td class="pa">Alta</td></tr>
+<tr><td>Hogares y familias</td><td>Tamaño medio, tipos de hogar, tasas de jefatura, proyección de hogares</td><td class="pa">Alta</td></tr>
+<tr><td>Población estable y estacionaria</td><td>Tasa neta de reproducción, tasa intrínseca de crecimiento, relación con la tabla de mortalidad</td><td class="pa">Alta</td></tr>
+<tr><td>Mortalidad por causas</td><td>Años potenciales de vida perdidos, mortalidad prematura, estandarización indirecta (razón de mortalidad estandarizada)</td><td class="pm">Media</td></tr>
+<tr><td>Fuentes</td><td>Padrón continuo, Movimiento Natural de la Población, conciliación entre fuentes (solo han salido el Boletín Estadístico de Defunción y el Censo 2011 con variaciones residenciales)</td><td class="pm">Media</td></tr>
+<tr><td>Calidad de los datos</td><td>Índices de Whipple y Myers, atracción por dígitos</td><td class="pb">Baja</td></tr>
+<tr><td>Teoría</td><td>Segunda transición demográfica, teorías de la migración</td><td class="pb">Baja</td></tr></table></div>
+<div class="card"><div class="tag">Tipos de ejercicio que no aparecen</div><ul class="pl">
+<li><b>Interpretar una pirámide</b> de población, más allá de calcular indicadores <span class="pm">(media)</span></li>
+<li><b>Proyección completa por cohortes y edades</b> con los datos en tabla. Las proyecciones han salido como concepto o como método (2022 C22) <span class="pm">(media)</span></li>
+<li><b>Graduar o ajustar una tabla</b> (Gompertz, Makeham, Brass) <span class="pb">(baja)</span></li>
+<li><b>Corregir el efecto calendario</b> de la fecundidad (Bongaarts-Feeney) <span class="pb">(baja)</span></li>
+<li><b>Tablas multiestado</b> o de decremento múltiple <span class="pb">(baja)</span></li></ul></div>
+<p class="msg">«No aparece» = no aparece en lo que se pudo leer: faltan los datos en imagen, el enunciado de 2023, los años 2020 y 2021, y el 4.º de 2017. No he podido contrastarlo con el texto oficial del temario; cruza la lista con el de tu convocatoria.</p>
+<h3>Reto 1 · Nupcialidad</h3><p class="sub">Datos inventados para practicar; el planteamiento es el de un examen.</p><div id="rn"></div>
+<h3>Reto 2 · Hogares</h3><p class="sub">Datos inventados. Tasa de jefatura = hogares cuya persona de referencia tiene la edad x / población de edad x.</p><div id="rh"></div>
+<h3>Reto 3 · Población estable y estacionaria</h3><p class="sub">Datos inventados. Duración media de la generación T = 30 años.</p><div id="re"></div>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);let pts=0,max=0;
+const names=['Qué ha caído','Sopa','Une','Retos','V / bulo','Lo que aún no ha caído'];
+function show(i){names.forEach((_,k)=>{$('s'+k).classList.toggle('on',k===i);$('tabs').children[k].classList.toggle('on',k===i)})}
+names.forEach((n,i)=>{const b=document.createElement('button');b.textContent=n;b.onclick=()=>show(i);$('tabs').appendChild(b)});
+const P=document.createElement('span');P.className='pts';$('tabs').appendChild(P);
+function sc(d){pts+=d;P.textContent=pts+' / '+max}
+// SOPA
+const W=[['LEXIS','Diagrama que pidieron dibujar en 1.º 2025 y 2026'],['GENERACION','Líneas diagonales del Lexis: ¿qué individuos quedan entre dos?'],['LONGITUDINAL','Análisis de una generación (1.º 2025 P25)'],['TRANSVERSAL','Análisis de un periodo; el ISF es de este tipo'],['MASCULINIDAD','Razón hombres/mujeres ×100 (P27 de ambos años)'],['ENVEJECIMIENTO','Índice: P65+/P0–14 ×100'],['DEPENDENCIA','Tasa: (jóvenes + mayores)/P15–64'],['NATALIDAD','Tasa bruta calculada en 2.º 2025 y 2026'],['REEMPLAZO','Nivel de 2,1 hijos por mujer (2.º 2026 C4)'],['SALDO','Migratorio: ΔP − (N − D) (1.º 2026 P26)'],['STOCK','En el Lexis se sitúa en segmentos verticales'],['NEONATAL','Mortalidad de menores de 28 días (1.º 2018 P44, 1.º 2017 P40)'],['SULLIVAN','Método para la esperanza de vida en buena salud (1.º 2016 P50)']];
+const N=14,D=[[1,0],[0,1],[1,1],[1,-1]];let cells=[],start=null,found=new Set();
+function build(){for(;;){const g=Array.from({length:N},()=>Array(N).fill('')),ok=[...W].sort((a,b)=>b[0].length-a[0].length).every(([w])=>{for(let t=0;t<400;t++){const[d0,d1]=D[Math.random()*4|0],x=Math.random()*N|0,y=Math.random()*N|0,ex=x+d0*(w.length-1),ey=y+d1*(w.length-1);if(ex<0||ex>=N||ey<0||ey>=N)continue;if([...w].every((c,i)=>!g[y+d1*i][x+d0*i]||g[y+d1*i][x+d0*i]===c)){[...w].forEach((c,i)=>g[y+d1*i][x+d0*i]=c);return true}}return false});if(ok)return g.map(r=>r.map(c=>c||'ABCDEFGHIJKLMNOPRSTUV'[Math.random()*21|0]))}}
+const G=build();
+G.forEach((r,y)=>r.forEach((c,x)=>{const d=document.createElement('div');d.textContent=c;d.onclick=()=>pick(x,y,d);$('g').appendChild(d);cells.push(d)}));
+W.forEach(([w,c])=>{const li=document.createElement('li');li.id='w'+w;li.innerHTML=c+' <b>'+'_ '.repeat(w.length).trim()+'</b>';$('cl').appendChild(li)});max+=W.length;
+function pick(x,y,d){if(!start){start={x,y,d};d.classList.add('s');return}
+const dx=x-start.x,dy=y-start.y;start.d.classList.remove('s');const n=Math.max(Math.abs(dx),Math.abs(dy))+1;
+if(dx&&dy&&Math.abs(dx)!==Math.abs(dy)){start=null;return}
+const sx=Math.sign(dx),sy=Math.sign(dy),idx=[];let s='';for(let i=0;i<n;i++){const X=start.x+sx*i,Y=start.y+sy*i;idx.push(Y*N+X);s+=G[Y][X]}
+const w=W.map(a=>a[0]).find(w=>!found.has(w)&&(w===s||w===[...s].reverse().join('')));
+if(w){found.add(w);idx.forEach(i=>cells[i].classList.add('f'));const li=$('w'+w);li.classList.add('d');li.querySelector('b').textContent=w;sc(1)}start=null}
+// EMPAREJAR
+const M=[['Saldo migratorio · 1.º 2026 P26','(P(t+n) − P(t)) − (N − D)'],['Índice de envejecimiento · P27','P65+ / P0–14 × 100'],['Tasa de dependencia · P27','(P0–14 + P65+) / P15–64 × 100'],['Razón de masculinidad · P27','Hombres / Mujeres × 100'],['ISF aproximado con TGF · 2.º 2026 C4','TGF × 35 (mujeres 15–49)'],['Años vividos Lx · 1.º 2025 P24','l(x+1) + a·dx'],['Esperanza de vida · P24','ex = Tx / lx'],['Tiempo por vivir · 1.º 2026 P24','Tx = T(x−1) − L(x−1)'],['Mortalidad infantil · 1.º 2024 P24','Def. <1 año / nacidos vivos × 1.000'],['Tasa de migración neta · 1.º 2024 P26','SM / población media × 1.000'],['nqx desde nmx · 2.º 2022 C5','n·nmx / (1 + (1−nax)·n·nmx)'],['Último intervalo abierto · 2.º 2022 C5','L = l / m'],
+['Tasa de emigración exterior por edad · 2.º 2015','Emigrantes de edad x / P̄x × 1.000'],
+['Probabilidad de emigrar al extranjero · 2.º 2015','Emigrantes de edad x / población a 1 de enero de edad x'],
+['Sedentarios respecto a la migración exterior · 2.º 2015','P inicial − emigrantes al extranjero'],
+['Saldo migratorio exterior · 2.º 2015','Inmigraciones − emigraciones'],
+['Nacimientos implícitos · 2.º 2015','ΔP + D − (I − E)'],
+['Supervivientes a x+1 · 2.º 2019 C9','l(x+1) = lx − dx'],
+['Riesgo de morir qx · 2.º 2019 C9','dx / lx (× 1.000 en ‰)'],
+['Edad media a la muerte · 1.º 2019 P22','x + ex (p. ej. 65 + e65)'],
+['Tasa de emigración parcial i→j · 1.º 2019 P23','Emigrantes de i a j / Pi × 1.000'],
+['Tasa de inmigración parcial i→j · 1.º 2019 P23','Inmigrantes en j desde i / Pj × 1.000'],
+['Índice de aloctonía · 2.º 2019 C10','No nativos / población actual'],
+['Proporción de emigrantes · 2.º 2019 C10','Nacidos en i que residen fuera / nacidos en i'],
+['Proporción de inmigrantes · 2.º 2019 C10','(Población actual − nativos) / población actual'],
+['Tasa bruta de intercambio · 2.º 2019 C10','(Mij + Mji) / (Pi + Pj) × 1.000'],
+['Tasa neta de intercambio · 2.º 2019 C10','(Mij − Mji) / (Pi + Pj) × 1.000'],
+['Índice de compensación · 2.º 2019 C10','(Mij − Mji) / (Mij + Mji)'],
+['Mortalidad neonatal · 1.º 2018 P44','Def. <28 días / nacidos vivos × 1.000'],
+['Mortalidad neonatal precoz · 1.º 2018 P44','Def. <7 días / nacidos vivos × 1.000'],
+['TGF · 2.º 2018 C10','Nacimientos / P̄ mujeres 15–49 × 1.000'],
+['TEF por edad · 2.º 2018 C10','Nacimientos de madres de edad x / P̄ mujeres de edad x × 1.000'],
+['ISF con grupos quinquenales · 2.º 2018 C10','5 · Σ TEF'],
+['Edad media a la maternidad · 1.º 2017 P41','Σ (marca de clase · TEF) / Σ TEF'],
+['Tasa de migración bruta con el extranjero · 1.º 2017 P42','(Inmigraciones + emigraciones) / población media × 1.000'],
+['Prob. de morir antes del año de una generación · 1.º 2017 P43','Def. <1 año de esa generación (en 2 años) / nacidos'],
+['Esperanza de vida en buena salud · 1.º 2016 P50','Σ (1 − % mala salud) · nLx / lx']];
+max+=M.length;let a=null;const L=[];
+const shuf=a=>a.map(v=>[Math.random(),v]).sort((p,q)=>p[0]-q[0]).map(v=>v[1]);
+const lc=document.createElement('div'),rc=document.createElement('div');$('m').append(lc,rc);
+shuf(M.map((p,i)=>i)).forEach(i=>{const b=document.createElement('button');b.textContent=M[i][0];b.style.marginBottom='8px';b.onclick=()=>{L.forEach(x=>x.classList.remove('sel'));b.classList.add('sel');a=[i,b]};lc.appendChild(b);L.push(b)});
+shuf(M.map((p,i)=>i)).forEach(i=>{const b=document.createElement('button');b.textContent=M[i][1];b.style.marginBottom='8px';b.onclick=()=>{if(!a)return;if(a[0]===i){a[1].className='ok';b.className='ok';a=null;sc(1)}else{b.classList.add('bad');setTimeout(()=>b.classList.remove('bad'),350)}};rc.appendChild(b)});
+// RETOS
+function num(t){t=t.trim().replace(/\s/g,'');if(/^-?\d{1,3}(\.\d{3})+$/.test(t))t=t.replace(/\./g,'');else if(t.includes(',')&&t.includes('.'))t=t.replace(/\./g,'').replace(',','.');else t=t.replace(',','.');return parseFloat(t)}
+const C=[
+['1.º 2026 · P26','Saldo migratorio 2017–2021. Población 1-ene-2017: 46.572.132; 1-ene-2022: 47.475.420. Nacimientos 2017–2021: 393.181 · 372.777 · 360.617 · 341.315 · 337.380. Defunciones: 424.523 · 427.721 · 418.703 · 493.776 · 450.744.',1313485,1,'SM = (P2022 − P2017) − (N − D)'],
+['1.º 2026 · P26','Tasa de migración neta del quinquenio, en ‰, con población media (P2017+P2022)/2.',27.93,.05,'TMN = SM / P̄ × 1.000'],
+['1.º 2026 · P24','Tabla 2024, edad 5: q5 = 0,09699 ‰. ¿p5 en ‰?',999.90301,.001,'p = 1.000 − q (en ‰)'],
+['1.º 2026 · P24','Con l5 = 99.640,14 y q5 = 0,09699 ‰, ¿defunciones teóricas d5?',9.66,.01,'dx = lx · qx'],
+['1.º 2026 · P24','T4 = 8.002.216,94; L4 = 99.648,78; l5 = 99.640,14. ¿Esperanza de vida a los 5 años?',79.31,.02,'T5 = T4 − L4; e5 = T5 / l5'],
+['1.º 2026 · P27','Nacidos en Marruecos (Madrid, 2025): 0–14 años 3.630; 15–64: 84.890; 65+: 12.419. ¿Índice de envejecimiento?',342.1,.2,'P65+ / P0–14 × 100'],
+['1.º 2026 · P27','Mismos datos de Marruecos: ¿tasa de dependencia (%)?',18.9,.1,'(3.630 + 12.419) / 84.890'],
+['1.º 2026 · P27','Colombia: hombres 89.917; mujeres 109.843. ¿Razón de masculinidad?',81.9,.1,'H / M × 100'],
+['1.º 2026 · P27','Colombia: 0–14 años 13.776; 65+: 12.214. ¿Índice de envejecimiento?',88.7,.1,'P65+ / P0–14 × 100'],
+['1.º 2025 · P27','Región: hombres 1.307.000; mujeres 1.408.000. ¿Razón de masculinidad?',92.8,.1,'H / M × 100'],
+['1.º 2025 · P27','Mismos datos: 0–15 años 314.000; 65+ 731.000. ¿Índice de envejecimiento?',232.8,.1,'P65+ / P0–15 × 100'],
+['1.º 2025 · P27','Con 15–64 años = 1.670.000: ¿tasa de dependencia (%)?',62.6,.1,'(314.000 + 731.000) / 1.670.000'],
+['1.º 2025 · P26','Natalidad 6 ‰, mortalidad 8 ‰, sin migración. ¿Crecimiento (‰)?',-2,.01,'Crecimiento vegetativo = TBN − TBM'],
+['1.º 2025 · P26','Para un crecimiento del 10 ‰ en esa población, ¿tasa de migración neta necesaria (‰)?',12,.01,'Crecimiento total = vegetativo + migración neta'],
+['2.º 2026 · C4','Nacimientos 151 (miles). Población 1-ene-2024: 24.080; 1-ene-2025: 24.350 (miles). ¿TBN en ‰?',6.24,.02,'TBN = N / P̄ × 1.000'],
+['2.º 2026 · C4','Mujeres 15–49: 5.570 y 5.630 (miles, inicio y fin). Con los 151 nacimientos, ¿TGF en ‰?',26.96,.1,'TGF = N / P̄ mujeres 15–49 × 1.000'],
+['2.º 2026 · C4','Suponiendo la TGF constante en las 35 edades de 15 a 49, ¿ISF aproximado?',.94,.01,'ISF ≈ TGF × 35'],
+['2.º 2026 · C4','Con ese ISF y el reemplazo de 2,1, ¿déficit de fecundidad?',1.16,.01,'2,1 − ISF'],
+['2.º 2026 · C4 (f)','Defunciones <1 año: 15 (nacidos 2024, en 2024), 10 (nacidos 2024, en 2025), 8 (nacidos 2023, en 2024), 7 (nacidos 2025, en 2025). ¿Cuántas entran en el numerador de la TMI de 2024?',23,.01,'TMI de 2024 = todas las <1 año ocurridas en 2024 (dos generaciones)'],
+['2.º 2026 · C4 (f)','Con los mismos datos, ¿qué numerador usa la probabilidad de morir antes del año de los nacidos en 2024?',25,.01,'Se siguen a la generación 2024 en 2024 y 2025'],
+['1.º 2024 · P24','900 defunciones de menores de 1 año (600 de menos de 28 días) y 330.000 nacidos vivos. ¿Tasa de mortalidad infantil en ‰?',2.73,.02,'TMI = D<1 / nacidos vivos × 1.000'],
+['1.º 2024 · P24','Con los mismos datos, ¿tasa de mortalidad neonatal (‰)?',1.82,.02,'600 / 330.000 × 1.000'],
+['1.º 2024 · P24','Con los mismos datos, ¿tasa de mortalidad posneonatal (‰)?',.91,.02,'(900 − 600) / 330.000 × 1.000'],
+['1.º 2024 · P26','Nacimientos 62.900; defunciones 78.800. Población 1-ene-t: 8.584.000; 1-ene-t+1: 8.511.000. ¿Saldo migratorio?',-57100,1,'SM = (P1 − P0) − (N − D)'],
+['1.º 2024 · P26','Con esos datos, ¿tasa de migración neta (‰) con población media?',-6.68,.02,'TMN = SM / ((P0+P1)/2) × 1.000'],
+['2.º 2022 · C5','Tasas 2019: 0m1 = 0,00431 y a0 = 0,1. ¿q0 en ‰?',4.29,.01,'q = n·m / (1 + (1−a)·n·m)'],
+['2.º 2022 · C5','Con l0 = 100.000 y q0 = 0,00429, ¿defunciones d0?',429.33,.05,'d0 = l0 · q0'],
+['2.º 2022 · C5','Con l1 = 99.570,67, d0 = 429,33 y a0 = 0,1, ¿L0?',99613.6,.1,'L0 = l1 + a0 · d0'],
+['2.º 2022 · C5','Grupo 5–19 (n = 15): m = 0,00013 y a = 0,5. ¿q en ‰?',1.95,.02,'q = 15·m / (1 + 0,5·15·m)'],
+['2.º 2022 · C5','Último intervalo: l95 = 7.851,10 y m = 0,29376. ¿L95+?',26726.24,.1,'L = l / m'],
+['2.º 2022 · C5','Con T0 = 8.237.126,14 y l0 = 100.000, ¿esperanza de vida al nacer?',82.37,.02,'e0 = T0 / l0'],
+['2.º 2019 · C9','Tabla de mortalidad: l8 = 99.671,017 y d8 = 6,022. ¿Supervivientes a los 9 años (l9)?',99664.995,.01,'l9 = l8 − d8'],
+['2.º 2019 · C9','Con l5 = 99.687,395, d4 = 10,262 y a4 = 0,504, ¿años vividos entre los 4 y los 5 años (L4)?',99692.567,.01,'L4 = l5 + a4 · d4'],
+['2.º 2019 · C9','Con q10 = 0,057 ‰ y l10 = 99.657,025, ¿defunciones teóricas d10?',5.68,.01,'d10 = q10 · l10 (0,057 ‰ = 0,000057)'],
+['2.º 2019 · C9','Con T5 = 7.820.325,081 y l5 = 99.687,395, ¿esperanza de vida a los 5 años?',78.45,.01,'e5 = T5 / l5'],
+['2.º 2019 · C9','Con d5 = 9,575 y l5 = 99.687,395, ¿riesgo de morir a los 5 años (q5) en ‰?',.09605,.0001,'q5 = d5 / l5 × 1.000'],
+['1.º 2019 · P22','Mujeres en 2018: e0 = 85,85 años y e65 = 23,07 años. ¿A qué edad media morirán las que llegan a los 65?',88.07,.01,'Edad = 65 + e65'],
+['2.º 2019 · C10','Matriz de migración. Región A: población actual 11.100, de los que 10.359 nacieron en A. ¿Índice de aloctonía de A, en %?',6.68,.02,'No nativos / población actual × 100'],
+['2.º 2019 · C10','Nacidos en B: 8.451 en total, de los que 8.250 viven en B. ¿Proporción de emigrantes de B (%)?',2.38,.02,'(8.451 − 8.250) / 8.451 × 100'],
+['2.º 2019 · C10','Región C: población actual 10.023, de los que 9.750 nacieron en C. ¿Proporción de inmigrantes de C (%)?',2.72,.02,'(10.023 − 9.750) / 10.023 × 100'],
+['2.º 2019 · C10','Nacidos en A que viven en B: 53. Nacidos en B que viven en A: 100. Población actual: A 11.100, B 8.465. ¿Tasa bruta de intercambio A–B (‰)?',7.82,.02,'(53 + 100) / (11.100 + 8.465) × 1.000'],
+['2.º 2019 · C10','Nacidos en B que viven en C: 22. Nacidos en C que viven en B: 15. Población actual: B 8.465, C 10.023. ¿Tasa neta de intercambio B–C (‰)?',.38,.01,'(22 − 15) / (8.465 + 10.023) × 1.000'],
+['2.º 2019 · C10','Con 53 (A→B) y 100 (B→A), ¿índice de compensación entre A y B?',-.307,.005,'(MAB − MBA) / (MAB + MBA)'],
+['1.º 2018 · P41','Población (miles): 0–15 años 6,9 · 16–24: 4,5 · 25–44: 13,0 · 45–64: 13,2 · más de 64: 8,9. ¿Índice de envejecimiento?',128.99,.2,'P65+ / P0–15 × 100'],
+['1.º 2018 · P41','Con los mismos datos, ¿tasa de dependencia (%)? (población activa: 16–64)',51.47,.1,'(6,9 + 8,9) / (4,5 + 13,0 + 13,2) × 100'],
+['2.º 2018 · C10','Nacimientos 2015: 420,1 (miles). Población 1-ene-2015: 46.450,0; 1-ene-2016: 46.440,0 (miles). ¿TBN en ‰?',9.05,.02,'TBN = N / P̄ × 1.000'],
+['2.º 2018 · C10','Mujeres 15–49: 10.804,1 (1-ene-2015) y 10.668,2 (1-ene-2016), en miles. Con los 420,1 nacimientos, ¿TGF en ‰?',39.13,.05,'TGF = N / P̄ mujeres 15–49 × 1.000'],
+['2.º 2018 · C10','Mujeres de 30–34: 1.627,1 y 1.549,0 (miles); nacimientos de madres de 30–34: 148,8 (miles). ¿TEF en ‰?',93.7,.05,'TEF = Nx / P̄x × 1.000'],
+['2.º 2018 · C10','Las TEF quinquenales (‰) son 7,79 · 26,43 · 57,88 · 93,70 · 65,43 · 15,96 · 1,09 (de 15–19 a 45–49). ¿ISF?',1.34,.01,'ISF = 5 · ΣTEF / 1.000'],
+['2.º 2018 · C10','Con esas TEF y marcas de clase 17,5 · 22,5 · … · 47,5, ¿edad media a la maternidad?',31.88,.05,'Σ x̄ · TEF / Σ TEF'],
+['1.º 2017 · P43','Navarra, generación 2013: 6.075 nacidos. Defunciones de esa generación: 52 (2013, edad 0) · 9 (2014, edad 0) · 6 (2014, edad 1) · 2 (2015, edad 1) · 0 (2015, edad 2). Sin migración, ¿cuántos viven el 1-ene-2016?',6006,.5,'Nacidos − defunciones de la generación'],
+['1.º 2017 · P43','Defunciones de 0 años en 2014: 39 (nacidos 2014) y 9 (nacidos 2013). Nacidos en 2014: 6.183. ¿Tasa de mortalidad infantil de 2014 en ‰?',7.76,.02,'TMI 2014 = todas las <1 año de 2014 / nacidos 2014 × 1.000'],
+['1.º 2017 · P43','Generación 2014: 39 defunciones <1 año en 2014 y 3 en 2015 (nacidos 6.183). ¿Probabilidad de morir antes del año, en ‰?',6.79,.02,'(39 + 3) / 6.183 × 1.000'],
+['2.º 2016 · Demografía','Grupo 50–54. Defunciones 2011: 1.102; 2012: 1.131. Población 1-ene-2011/12/13: 333.903 · 343.692 · 348.318. ¿Tasa central de mortalidad del bienio en ‰? (población-año = (P2011 + 2·P2012 + P2013)/2)',3.26,.01,'m = D / población-año × 1.000'],
+['2.º 2016 · Demografía','Con m(50–54) = 0,003261 y a = 0,5, ¿q (n = 5) en ‰?',16.17,.02,'q = 5m / (1 + 0,5·5·m)'],
+['2.º 2016 · Demografía','Tabla completa del bienio 2011–2012 (a0 = 0,1; a = 0,5 en el resto, 1–4 incluido; 85+: L = l/m). ¿Esperanza de vida al nacer? Mejor con hoja de cálculo.',82.09,.1,'e0 = T0 / l0'],
+['2.º 2016 · Demografía','Con esa tabla y el % de mala salud de la columna [12], ¿esperanza de vida en buena salud al nacer (Sullivan)?',76.19,.1,'Σ (1 − π) · nLx / l0'],
+['2.º 2016 · Demografía','Y a los 65 años, ¿esperanza de vida en buena salud?',15.93,.1,'Σ (1 − π) · nLx (x ≥ 65) / l65'],
+['2.º 2015 · Dem. 1a','Migración exterior (miles, año T). Grupo 30–39: población 1-ene 7.761,9; 31-dic 7.484,1; emigraciones al extranjero 163,9. ¿Tasa de emigración (‰) con población media?',21.5,.02,'Tasa = emigrantes / P̄ × 1.000, P̄ = (P1 + P2)/2'],
+['2.º 2015 · Dem. 1a','Grupo 20–29: población 5.343,3 (1-ene) y 5.121,9 (31-dic); emigraciones 125,7. ¿Tasa de emigración (‰)?',24.02,.02,'Emigrantes / P̄ × 1.000'],
+['2.º 2015 · Dem. 1b','Grupo 30–39 (población 1-ene 7.761,9; emigraciones 163,9). ¿Probabilidad de emigrar al extranjero (‰), sobre la población a 1 de enero?',21.12,.02,'q = emigrantes / población inicial × 1.000'],
+['2.º 2015 · Dem. 1b','Grupo 65 y más: población 1-ene 8.262,1; emigraciones 22,6. ¿Probabilidad de emigrar (‰)?',2.74,.02,'q = emigrantes / población inicial × 1.000'],
+['2.º 2015 · Dem. 1c','Grupo 30–39. Sedentarios respecto a la migración exterior = población a 1 de enero que no emigra al extranjero. ¿Cuántos (miles)?',7598.0,.1,'7.761,9 − 163,9'],
+['2.º 2015 · Dem. 3','Grupo 20–29: inmigraciones desde el extranjero 79,4; población 5.343,3 y 5.121,9. ¿Tasa de inmigración (‰) con población media?',15.17,.02,'Inmigrantes / P̄ del grupo de destino × 1.000'],
+['2.º 2015 · Dem. 2 y 4','Totales (miles): población 46.727,9 (1-ene) y 46.507,8 (31-dic); emigraciones 547,8; inmigraciones 291,1. ¿Saldo migratorio exterior?',-256.7,.1,'SM = I − E'],
+['2.º 2015 · Dem. 2 y 4','Con esos totales, ¿tasa de migración neta exterior (‰) con población media?',-5.51,.02,'(I − E) / P̄ × 1.000'],
+['2.º 2015 · Dem. 4','Con esos totales, ¿tasa de crecimiento total (‰) con población media?',-4.72,.02,'(P2 − P1) / P̄ × 1.000'],
+['2.º 2015 · Dem. 4','Con las 390,6 defunciones del año y los totales anteriores, ¿nacimientos implícitos (miles)? Los flujos entre provincias no alteran el total del país.',427.2,.1,'N = ΔP + D − (I − E)'],
+['2.º 2014 · tabla','Mujeres, año T (miles). Nacimientos: 206,6. Mujeres de 15–49: 11.197,1 el 1-ene y 10.977,3 el 31-dic. ¿TGF en ‰?',18.63,.05,'TGF = N / P̄ mujeres 15–49 × 1.000'],
+['2.º 2014 · tabla','Grupo 30–39: nacimientos 134,4; mujeres 3.795,6 (1-ene) y 3.681,0 (31-dic). ¿TEF en ‰?',35.95,.05,'TEF = Nx / P̄x × 1.000'],
+['2.º 2014 · tabla','TEF (‰): 15–19 = 4.12; 20–29 = 20.72; 30–39 = 35.95; 40–49 = 3.8. Con grupos de 5, 10, 10 y 10 años, ¿ISF aproximado?',0.625,.01,'ISF = Σ (amplitud · TEF) / 1.000'],
+['2.º 2014 · tabla','Emigraciones al extranjero: 239,2; inmigraciones: 146,1. ¿Saldo migratorio exterior (miles)?',-93.1,.1,'SM = I − E'],
+['2.º 2014 · tabla','Con ese saldo y población media 23.671,95 (miles), ¿tasa de migración neta exterior (‰)?',-3.93,.02,'TMN = SM / P̄ × 1.000']];
+max+=C.length;
+C.forEach(([tg,q,v,t,h],i)=>{const d=document.createElement('div');d.className='card';d.innerHTML='<div class="src">'+tg+' · reto '+(i+1)+'</div><p>'+q+'</p><input inputmode="decimal" aria-label="Respuesta"> <button class="go">Comprobar</button><div class="msg">Pista: '+h+'</div>';
+const inp=d.querySelector('input'),m=d.querySelector('.msg');let ok=false;
+d.querySelector('button').onclick=()=>{if(ok)return;const x=num(inp.value);if(Math.abs(x-v)<=t){ok=true;m.className='msg ok';m.textContent='✓ Correcto: '+v.toLocaleString('es-ES');sc(1)}else{m.className='msg no';m.textContent='✗ Aún no. '+h;inp.classList.add('bad');setTimeout(()=>inp.classList.remove('bad'),350)}};$('c').appendChild(d)});
+// V/F
+const V=[['1.º 2025 · P23','Entre dos diagonales paralelas del Lexis quedan los individuos de una misma generación.',1,'Las diagonales marcan generaciones (análisis longitudinal).'],['1.º 2026 · P23','Los stocks de población se sitúan en segmentos verticales del Lexis.',1,'Un stock se refiere a una fecha concreta: segmento vertical.'],['1.º 2026 · P23','Los flujos referidos a edades exactas se representan por segmentos horizontales.',1,'Sucesos a edad exacta x: segmento sobre la horizontal de esa edad.'],['1.º 2025 · P25','El ISF de un año es un indicador longitudinal.',0,'Es transversal. La descendencia final de una generación es el equivalente longitudinal.'],['1.º 2025 · P24','Lx se obtiene como lx+1 + a·dx, y ex = Lx/lx.',0,'La primera parte es correcta, pero ex = Tx/lx (Tx acumula los Lx).'],['1.º 2025 · P26','Con natalidad 6 ‰, mortalidad 8 ‰ y sin migración, la población crece un 2 ‰.',0,'Decrece 2 ‰: el crecimiento vegetativo es negativo.'],['1.º 2025 · P27','El índice de envejecimiento es la tasa de dependencia de mayores dividida por la de jóvenes (×100).',1,'Ambas comparten denominador (P15–64), que se simplifica.'],['1.º 2026 · P26','El saldo migratorio calculado como residuo absorbe también los errores de las otras componentes.',1,'SM = ΔP − (N − D): todo error de padrón o de movimiento natural cae ahí.'],
+['1.º 2024 · P23','Las 4.000 nacimientos del año t se sitúan en el segmento horizontal de edad 0, entre t y t+1.',1,'Nacimientos = flujo en edad 0.'],
+['1.º 2024 · P23','Las 3.900 personas de 2 años a 1 de enero de t+1 se sitúan en un segmento vertical sobre t+1, entre las edades exactas 2 y 3.',1,'Stock = vertical; 2 años cumplidos = edades 2 a 3.'],
+['1.º 2024 · P24','El denominador de la tasa de mortalidad infantil es la población menor de un año a mitad de año.',0,'Son los nacidos vivos del año.'],
+['1.º 2022 · C21','La descendencia final es un indicador longitudinal; el ISF, transversal.',1,'DF sigue a una generación; ISF es una generación ficticia de un periodo.'],
+['1.º 2022 · C23','Si la e0 masculina baja de 80,9 (2019) a 79,6 (2020), los nacidos en 2020 vivirán de media 1,3 años menos.',0,'La e0 es transversal: resume la mortalidad de un año, no la vida real de una generación.'],
+['1.º 2019 · P21','La tasa específica de fecundidad de 2010 a los 30 años y la de la generación 1980 en 2010 se refieren exactamente a las mismas mujeres.',0,'La primera es un cuadrado del Lexis (30 años cumplidos en 2010: generaciones 1979 y 1980); la segunda, un paralelogramo (generación 1980 con 29 y 30 años cumplidos). Solo comparten el triángulo de la generación 1980 con 30 años.'],
+['1.º 2019 · P22','Las mujeres de 65 años en 2018 (e65 = 23,07) tienen por delante más años de vida que las recién nacidas (e0 = 85,85).',0,'Tienen menos años por delante (23,07 < 85,85). Pero las que llegan a 65 mueren a una edad media mayor: 65 + 23,07 = 88,07 > 85,85.'],
+['1.º 2019 · P22','La esperanza de vida a los 65 años es una esperanza condicionada a haber sobrevivido hasta esa edad.',1,'ex = Tx / lx: se divide entre los supervivientes a la edad x, no entre los nacidos.'],
+['1.º 2019 · P23','La tasa de emigración parcial de i a j divide los emigrantes de i hacia j entre la población de j.',0,'El denominador es la población de origen (i), la expuesta al riesgo de emigrar. La de inmigración parcial usa la población de destino (j).'],
+['2.º 2019 · C9','Los supervivientes a la edad x+1 son los de x menos las defunciones teóricas del intervalo: l(x+1) = lx − dx.',1,'99.671,017 − 6,022 = 99.664,995 = l9, que coincide con l10 + d9.'],
+['2.º 2019 · C10','El índice de aloctonía de una región es la proporción de su población actual que no ha nacido en ella.',1,'Aloctonía = (población actual − nativos) / población actual.'],
+['2.º 2019 · C10','Con 53 nacidos en A que viven en B y 100 nacidos en B que viven en A, el índice de compensación entre A y B es positivo.',0,'(53 − 100) / (53 + 100) = −0,307: B envía a A más gente de la que recibe de A.'],
+['1.º 2018 · P41','Con 6,9 millones de menores de 16 y 8,9 de mayores de 64, el índice de envejecimiento supera 100.',1,'8,9 / 6,9 × 100 = 129: hay más mayores que jóvenes.'],
+['1.º 2018 · P43','Con tasas específicas por grupos quinquenales, el ISF es la suma de las TEF sin más.',0,'Hay que multiplicar por 5 (amplitud del grupo). Con edades simples sí es la suma.'],
+['1.º 2018 · P44','La tasa de mortalidad neonatal precoz usa las defunciones de menores de 7 días.',1,'Neonatal: menores de 28 días; neonatal precoz: menores de 7 días. Ambas sobre nacidos vivos.'],
+['1.º 2018 · P44','El denominador de la mortalidad neonatal es la población menor de 28 días a mitad de año.',0,'Son los nacidos vivos del año.'],
+['1.º 2017 · P41','La edad media a la maternidad pondera la edad (marca de clase) por las tasas específicas de fecundidad.',1,'Σ x̄ · TEF / Σ TEF.'],
+['1.º 2017 · P43','Las 39 + 9 defunciones de 0 años en 2014 forman un cuadrado del Lexis: edad 0 cumplida en el año 2014.',1,'Dos triángulos (nacidos 2014 y nacidos 2013) que suman el cuadrado; es el numerador de la TMI de 2014.'],
+['1.º 2017 · P43','Las defunciones de 0 años en 2014 de nacidos en 2013 y de nacidos en 2014 ocupan el mismo triángulo del Lexis.',0,'Son triángulos distintos: uno de cada generación.'],
+['1.º 2016 · P49','Para comparar la mortalidad de dos poblaciones con distinta estructura por edades conviene estandarizar por edad.',1,'Estandarización directa (población-tipo) o indirecta (tasas-tipo).'],
+['1.º 2016 · P50','En el método de Sullivan, la prevalencia de mala salud por edad se aplica a la población estacionaria nLx de cada intervalo.',1,'HLE = Σ (1 − π) · nLx / lx.'],
+['1.º 2016 · P51','Los métodos indirectos de migración neta la obtienen como residuo, mientras que los directos parten de registros de entradas y salidas.',1,'Ejemplo de indirecto: ecuación compensadora o supervivencia; directo: padrón, registros, encuestas.'],
+['1.º 2016 · P52','En la transición demográfica la natalidad empieza a descender antes que la mortalidad.',0,'Primero baja la mortalidad; la natalidad la sigue con retraso, y de ahí el crecimiento.'],
+['1.º 2016 · P53','El dividendo demográfico es el potencial de crecimiento económico que aparece cuando aumenta el peso de la población en edad de trabajar.',1,'Menor razón de dependencia y más población activa.'],
+['2.º 2015 · Dem. 3','La intensidad de la inmigración exterior por edades se mide con tasas sobre la población de destino, no con probabilidades de una tabla de migración.',1,'La población expuesta al riesgo de inmigrar está fuera del país: no hay denominador para una probabilidad.'],
+['2.º 2015 · Dem. 2','Los flujos de migración entre provincias modifican el saldo migratorio exterior del país.',0,'No: el saldo exterior es inmigraciones − emigraciones con el extranjero. Entre provincias, lo que sale de una entra en otra.']];
+max+=V.length;
+V.forEach(([tg,s,t,e])=>{const d=document.createElement('div');d.className='card';d.innerHTML='<div class="src">'+tg+'</div><p>'+s+'</p><div class="vf cols"><button>Verdadero</button><button>Bulo</button></div><div class="msg"></div>';
+const bs=d.querySelectorAll('button'),m=d.querySelector('.msg');let r=false;
+bs.forEach((b,k)=>b.onclick=()=>{if(r)return;r=true;const good=(k===0)===!!t;b.className=good?'ok':'bad';m.className='msg '+(good?'ok':'no');m.textContent=(good?'✓ ':'✗ ')+e;if(good)sc(1)});$('v').appendChild(d)});
+
+// AÚN NO HA CAÍDO · retos de práctica
+const R=[
+['n','Práctica · Nupcialidad','Se celebran 168.000 matrimonios en un año; población media: 47.000.000. ¿Tasa bruta de nupcialidad (‰)?',3.57,.02,'Matrimonios / población media × 1.000'],
+['n','Práctica · Nupcialidad','Tasas de primonupcialidad femenina por edad (‰; primeros matrimonios de mujeres de edad x / mujeres de edad x), de 15–19 a 45–49: 2 · 18 · 52 · 61 · 24 · 8 · 2. ¿Indicador coyuntural de primonupcialidad (primeros matrimonios por mujer)?',.835,.005,'5 · Σ tasas / 1.000 (grupos quinquenales)'],
+['n','Práctica · Nupcialidad','Con esas mismas tasas y marcas de clase 17,5 · 22,5 · … · 47,5, ¿edad media al primer matrimonio?',31.06,.05,'Σ marca de clase · tasa / Σ tasa'],
+['n','Práctica · Nupcialidad','Con ese indicador y sin mortalidad ni migración, ¿qué % de mujeres de la generación ficticia no se casaría nunca?',16.5,.1,'(1 − indicador) × 100'],
+['h','Práctica · Hogares','Hogares: 18.800 (miles). Población en hogares: 46.100 (miles). ¿Tamaño medio del hogar?',2.45,.01,'Población en hogares / hogares'],
+['h','Práctica · Hogares','Hogares unipersonales: 4.900 (miles) de los 18.800. ¿Qué % son unipersonales?',26.06,.05,'Unipersonales / hogares × 100'],
+['h','Práctica · Hogares','Hogares con persona de referencia de 30–34 años: 1.650 (miles). Población de 30–34 años: 3.300 (miles). ¿Tasa de jefatura (%)?',50,.1,'Hogares con referencia de edad x / población de edad x × 100'],
+['h','Práctica · Hogares','Proyección de hogares con tasas de jefatura constantes. Población proyectada de 65–79 años: 8.000 (miles), tasa 52 %; de 80 y más: 3.000 (miles), tasa 60 %. ¿Hogares proyectados con persona de referencia de 65 y más (miles)?',5960,1,'Σ población · tasa de jefatura'],
+['e','Práctica · Población estable','ISF = 1,30; 105 niños por cada 100 niñas al nacer; probabilidad de que una niña llegue viva a la edad media de la maternidad: 0,99. ¿Tasa neta de reproducción (hijas por mujer)?',.628,.005,'TNR ≈ ISF · (100/205) · p'],
+['e','Práctica · Población estable','Con esa TNR, ¿en qué % se reduce cada generación respecto a la anterior?',37.2,.1,'(1 − TNR) × 100'],
+['e','Práctica · Población estable','Con esa TNR y T = 30 años, ¿tasa intrínseca de crecimiento aproximada (‰)?',-15.52,.1,'r ≈ ln(TNR) / T, y × 1.000'],
+['e','Práctica · Población estable','Población estacionaria asociada a una tabla de mortalidad con e0 = 82,0 años. ¿Tasa bruta de mortalidad (‰)?',12.2,.05,'En la estacionaria TBM = TBN = 1 / e0'],
+['e','Práctica · Población estable','Una población estable con r = −15,5 ‰ anual, ¿en cuántos años se reduce a la mitad?',44.7,.2,'t = ln 2 / |r|']];
+max+=R.length;
+R.forEach(([k,tg,q,v,t,h],i)=>{const d=document.createElement('div');d.className='card';d.innerHTML='<div class="src">'+tg+' · reto '+(i+1)+'</div><p>'+q+'</p><input inputmode="decimal" aria-label="Respuesta"> <button class="go">Comprobar</button><div class="msg">Pista: '+h+'</div>';
+const inp=d.querySelector('input'),b=d.querySelector('button'),m=d.querySelector('.msg');let ok=false;
+b.onclick=()=>{if(ok)return;const x=num(inp.value);if(Math.abs(x-v)<=t){ok=true;inp.classList.add('ok');inp.readOnly=true;b.disabled=true;m.textContent='';m.className='msg';sc(1)}else{m.className='msg no';m.textContent='✗ Aún no. '+h;inp.classList.add('bad');setTimeout(()=>inp.classList.remove('bad'),350)}};
+inp.onkeydown=e=>{if(e.key==='Enter')b.click()};
+$('r'+k).appendChild(d)});
+sc(0);show(0);
+// TEMA claro / oscuro
+(function(){const R=document.documentElement,mq=matchMedia('(prefers-color-scheme: dark)');let t=null;try{t=localStorage.getItem('demo-theme')}catch(e){}
+function cur(){return R.dataset.theme||(mq.matches?'dark':'light')}
+const b=document.createElement('button');b.className='th';b.type='button';
+function ui(){const d=cur()==='dark';b.innerHTML='<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"/></svg>';b.style.transform=d?'rotate(180deg)':'none';b.setAttribute('aria-label',d?'Cambiar a modo claro':'Cambiar a modo oscuro');b.title=b.getAttribute('aria-label');document.querySelector('meta[name=theme-color]')&&0}
+if(t==='light'||t==='dark')R.dataset.theme=t;
+b.onclick=()=>{const n=cur()==='dark'?'light':'dark';R.dataset.theme=n;try{localStorage.setItem('demo-theme',n)}catch(e){}ui()};
+mq.addEventListener&&mq.addEventListener('change',ui);ui();$('tabs').appendChild(b)})();
+</script></body></html>
