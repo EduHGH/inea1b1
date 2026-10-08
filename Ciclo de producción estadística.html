@@ -1,0 +1,1132 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Ciclo de producción estadística</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* ESCOLAR WORKPILOT: ESCOLAR (pergamino + acento variable) con la piel WORKPILOT: paleta azulada, Plus Jakarta Sans con Inter, radios amplios y paneles con sombra suave.
+   Layout: barra de controles fija, tira de 8 fases con bucle y carriles transversales, fases desplegables con checks, vista script, autotest y temario BOE. */
+:root{
+  --paper:#F3F6FC; --paper-top:#E6EFFD; --paper-raised:#FFFFFF; --paper-alt:#E8EEF9;
+  --ink:#1B1F2A; --ink-soft:#4A5163; --ink-faint:#5A6176;
+  --line:rgba(27,31,42,.12); --line-strong:rgba(27,31,42,.24); --line-card:rgba(20,40,90,.08);
+  --b2:#0B66D6; --ok:#0F7A3A; --ok-soft:rgba(30,158,79,.13); --family:#B3261E; --amber:#8A5A00;
+  --pur:#8E2DA8; --lift:0%;
+  --shadow-1:0 1px 2px rgba(20,40,90,.06),0 10px 28px rgba(20,40,90,.07);
+  --f-display:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-data:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-code:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r-sm:12px; --r-md:20px; --r-lg:28px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1420; --paper-top:#16203A; --paper-raised:#171D2C; --paper-alt:#1F2840;
+    --ink:#E7EBF5; --ink-soft:#B0B8CC; --ink-faint:#8D95AC;
+    --line:rgba(231,235,245,.14); --line-strong:rgba(231,235,245,.28); --line-card:rgba(231,235,245,.10);
+    --b2:#6AA6FF; --ok:#4CC27F; --ok-soft:rgba(76,194,127,.15); --family:#FF8A80; --amber:#E0B25A;
+    --pur:#C77BE0; --lift:45%;
+    --shadow-1:0 1px 2px rgba(0,0,0,.45),0 10px 28px rgba(0,0,0,.35);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1420; --paper-top:#16203A; --paper-raised:#171D2C; --paper-alt:#1F2840;
+  --ink:#E7EBF5; --ink-soft:#B0B8CC; --ink-faint:#8D95AC;
+  --line:rgba(231,235,245,.14); --line-strong:rgba(231,235,245,.28); --line-card:rgba(231,235,245,.10);
+  --b2:#6AA6FF; --ok:#4CC27F; --ok-soft:rgba(76,194,127,.15); --family:#FF8A80; --amber:#E0B25A;
+  --pur:#C77BE0; --lift:45%;
+  --shadow-1:0 1px 2px rgba(0,0,0,.45),0 10px 28px rgba(0,0,0,.35);
+  color-scheme:dark;
+}
+
+/* Acento variable: un atributo data-accent re-tiñe todo el documento */
+[data-accent]{
+  --accent-soft:color-mix(in srgb,var(--accent) 10%,var(--paper-raised));
+  --accent-line:color-mix(in srgb,var(--accent) 36%,var(--paper-raised));
+  --accent-text:color-mix(in srgb,var(--accent),#fff var(--lift));
+}
+[data-accent="azul"]{--accent:#0B66D6}
+
+*{box-sizing:border-box}
+body{background:linear-gradient(180deg,var(--paper-top) 0,var(--paper) 420px) fixed,var(--paper);color:var(--ink);font:15px/1.6 var(--f-body)}
+::selection{background:var(--accent-soft)}
+h1,h2,h3{letter-spacing:-.025em}
+button{font:inherit;color:inherit}
+button:focus-visible,summary:focus-visible,.rv:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.app{max-width:1080px;margin-inline:auto;padding-inline:clamp(16px,4vw,32px);padding-block:36px 64px}
+
+/* Cabecera */
+header{max-width:760px}
+.eyebrow{font:600 12px var(--f-data);letter-spacing:.07em;text-transform:uppercase;color:var(--accent-text);margin:0 0 10px;display:flex;align-items:center;gap:10px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
+h1{font:600 clamp(30px,5.6vw,46px)/1.08 var(--f-display);margin:0 0 14px;text-wrap:balance}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--accent-text) 10%,var(--pur));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{margin:0;color:var(--ink-soft);font-size:16px;max-width:58ch}
+.meta-row{display:flex;flex-wrap:wrap;gap:20px;margin-top:26px;font:600 12px var(--f-data);letter-spacing:.07em;color:var(--ink-faint)}
+.meta-row strong{display:block;color:var(--ink);font:500 14.5px var(--f-display);letter-spacing:0;margin-top:3px}
+
+/* Barra de controles */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--paper) 82%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-block:10px;margin-block:26px 20px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.seg{display:inline-flex;gap:4px;padding:3px;border:1px solid var(--line-strong);border-radius:999px;background:var(--paper-raised)}
+.seg button{border:0;background:transparent;padding:7px 15px;border-radius:999px;font:600 13px var(--f-body);color:var(--ink-soft);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff;box-shadow:0 6px 16px color-mix(in srgb,var(--accent) 30%,transparent)}
+.prog{display:flex;align-items:center;gap:10px;flex:1;min-width:150px}
+.plabel{font:600 12px var(--f-data);color:var(--ink-soft);font-variant-numeric:tabular-nums;white-space:nowrap;margin:0}
+.track2{flex:1;height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+.track2 i{display:block;height:100%;width:0;background:var(--ok);transition:width .25s}
+
+/* Fuentes de entrada */
+.sources{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:16px}
+.sources small{color:var(--ink-faint);font-size:12.5px}
+.tag{font:600 12px var(--f-data);padding:4px 12px;border-radius:999px;background:var(--paper-raised);border:1px solid var(--line-strong);color:var(--ink-soft)}
+.lbl{font:600 11px var(--f-data);text-transform:uppercase;letter-spacing:.07em;color:var(--ink-faint);margin:0 0 8px}
+.sources .lbl{margin:0 4px 0 0}
+
+/* Tira de fases */
+.strip-scroll{overflow-x:auto;padding-bottom:8px;margin-bottom:6px}
+.strip-inner{min-width:960px}
+.strip{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px}
+.strip li{position:relative}
+.strip li:not(:last-child)::after{content:"›";position:absolute;right:-8px;top:42%;width:8px;text-align:center;color:var(--ink-faint);font-size:15px;line-height:1}
+.chip{width:100%;height:100%;text-align:left;cursor:pointer;background:var(--paper-raised);border:1px solid var(--line-card);border-radius:var(--r-md);box-shadow:var(--shadow-1);padding:11px 12px 15px;display:grid;gap:3px;align-content:start;position:relative;overflow:hidden}
+.chip:hover{border-color:var(--accent-line);background:var(--accent-soft)}
+.chip .n{font:600 11px var(--f-data);letter-spacing:.07em;color:var(--accent-text)}
+.chip .t{font:600 14.5px/1.2 var(--f-display)}
+.chip .f{font:400 10.5px var(--f-code);color:var(--ink-faint);overflow-wrap:anywhere}
+.chip .tr{position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--line)}
+.chip .tr i{display:block;height:100%;width:0;background:var(--ok);transition:width .25s}
+.loop{position:relative;height:14px;margin:8px 36px 0;border:1.5px solid var(--accent-line);border-top:0;border-radius:0 0 var(--r-sm) var(--r-sm)}
+.loop span{position:absolute;left:50%;top:calc(100% + 5px);transform:translateX(-50%);font:600 11px var(--f-data);letter-spacing:.04em;color:var(--ink-soft);white-space:nowrap}
+.lanes{display:grid;gap:6px;margin-top:36px}
+.lane{display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;background:var(--accent-soft);border:1px dashed var(--accent-line);border-radius:var(--r-sm);padding:8px 14px;font-size:13px;color:var(--ink-soft)}
+.lane:hover{border-style:solid}
+.lane b{font:600 12px var(--f-data);letter-spacing:.04em;color:var(--accent-text)}
+
+/* Cabecera de la lista de fases */
+.rowhead{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;margin:28px 0 14px}
+.rowhead h2{font:600 22px var(--f-display);margin:0}
+.rowhead .acts{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.hint{font:600 11.5px var(--f-data);letter-spacing:.04em;color:var(--ink-faint)}
+.btn{background:var(--paper-raised);border:1px solid var(--line-strong);border-radius:999px;padding:7px 16px;font:600 13px var(--f-body);color:var(--ink-soft);cursor:pointer}
+.btn:hover{border-color:var(--accent);color:var(--accent-text)}
+.btn.theme{margin-left:auto}
+
+/* Fases */
+.phases{display:grid;gap:12px}
+.phase{background:var(--paper-raised);border:1px solid var(--line-card);border-radius:var(--r-lg);box-shadow:var(--shadow-1);scroll-margin-top:84px}
+.phase>summary{list-style:none;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:14px;align-items:center;padding:16px 22px;cursor:pointer}
+.phase>summary::-webkit-details-marker{display:none}
+.phase .num{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:600 13px var(--f-data);background:var(--accent);color:#fff}
+.phase h3{font:600 19px/1.2 var(--f-display);margin:0 0 2px}
+.sig{font:400 12px/1.4 var(--f-code);color:var(--ink-soft);overflow-wrap:anywhere}
+.pill{font:600 11px var(--f-data);padding:3px 11px;border-radius:999px;background:var(--paper-raised);border:1px solid var(--line);color:var(--ink-faint);font-variant-numeric:tabular-nums}
+.pill.done{background:var(--ok-soft);border-color:transparent;color:var(--ok)}
+.chev{color:var(--ink-faint);transition:transform .2s}
+.phase[open] .chev{transform:rotate(180deg)}
+.body{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px 30px;padding:20px 22px 26px;border-top:1px solid var(--line)}
+.stack{display:grid;gap:20px;align-content:start;min-width:0}
+
+.subs{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.sub{display:grid;grid-template-columns:18px auto minmax(0,1fr);gap:3px 10px;align-items:baseline;padding:7px 8px;border-radius:var(--r-sm);cursor:pointer}
+.sub:hover{background:var(--paper-alt)}
+.sub input{margin:0;align-self:center;width:17px;height:17px;accent-color:var(--ok)}
+.sub .n{font:600 12px var(--f-data);color:var(--accent-text);font-variant-numeric:tabular-nums}
+.sub .tx{min-width:0}
+.sub input:checked~.tx{color:var(--ok)}
+.sub .fn{grid-column:3;font:400 11.5px var(--f-code);color:var(--ink-faint);overflow-wrap:anywhere}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.chips li{font:400 12.5px var(--f-data);padding:3px 11px;border-radius:999px;border:1px solid var(--line-strong);color:var(--ink-soft)}
+.terms{margin:0;display:grid;gap:12px}
+.term dt{font-weight:600;font-size:14px}
+.term dd{margin:2px 0 0;color:var(--ink-soft);font-size:14px}
+.norm{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:13.5px;color:var(--ink-soft)}
+.norm li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px}
+.norm li::before{content:"§";font:600 12px var(--f-data);color:var(--accent-text)}
+.qs{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.qs li{background:var(--paper-alt);border-radius:var(--r-md);padding:11px 14px}
+.q{margin:0;font-weight:600;font-size:14px}
+.a{margin:4px 0 0;font-size:13.5px;color:var(--ink-soft)}
+.a::before{content:"→ ";font:600 12px var(--f-data);color:var(--amber)}
+
+/* Autotest: lo que hay que recordar se difumina hasta que lo tocas */
+.quiz .rv{cursor:pointer}
+.quiz .rv .rv-b{filter:blur(6px);transition:filter .18s;user-select:none}
+.quiz .rv.on .rv-b{filter:none;user-select:auto}
+
+/* Detalle de subproceso */
+.subli{border-radius:var(--r-sm)}
+.det{margin:0 0 6px 36px}
+.det>summary{list-style:none;cursor:pointer;font:600 11.5px var(--f-data);letter-spacing:.04em;color:var(--accent-text);padding:2px 0;width:max-content}
+.det>summary::-webkit-details-marker{display:none}
+.det>summary::before{content:"+ "}
+.det[open]>summary::before{content:"− "}
+.dbody{display:grid;gap:10px;padding:8px 0 10px}
+.dbody p{margin:0;font-size:14px;color:var(--ink-soft)}
+.dbody .lbl{margin-bottom:6px}
+.dbody ol{margin:8px 0 0;padding-left:20px;font-size:13.5px;color:var(--ink-soft);display:grid;gap:3px}
+.dkey{font-size:13.5px;color:var(--ink-soft);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:var(--r-md);padding:11px 14px}
+.dkey b{font:600 11px var(--f-data);letter-spacing:.07em;text-transform:uppercase;color:var(--accent-text);margin-right:8px}
+.bchips{display:flex;flex-wrap:wrap;gap:6px}
+.bchip{font:600 11.5px var(--f-data);padding:3px 10px;border-radius:999px;background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--accent-text);cursor:help}
+
+/* Transversales */
+.transv{margin-top:36px}
+.transv h2{font:600 24px var(--f-display);margin:0 0 6px}
+.transv>p{margin:0 0 18px;color:var(--ink-soft);max-width:66ch}
+.tgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px 30px}
+.panel{background:var(--paper-raised);border:1px solid var(--line-card);border-radius:var(--r-lg);box-shadow:var(--shadow-1);padding:22px 24px}
+.tlist{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.titem{display:grid;grid-template-columns:18px minmax(0,1fr);gap:10px;padding:7px 8px;border-radius:var(--r-sm);cursor:pointer;align-items:start}
+.titem:hover{background:var(--paper-alt)}
+.titem input{margin:3px 0 0;width:17px;height:17px;accent-color:var(--ok)}
+.titem b{display:block;font-size:14.5px;font-weight:600}
+.titem input:checked~div b{color:var(--ok)}
+.titem span.d{display:block;font-size:13.5px;color:var(--ink-soft)}
+.titem.key b::after{content:"transversal clave";font:600 10px var(--f-data);text-transform:uppercase;letter-spacing:.07em;margin-left:8px;padding:2px 8px;border-radius:99px;background:var(--accent-soft);color:var(--accent-text);border:1px solid var(--accent-line);vertical-align:2px}
+.cop{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:6px}
+.cop h4{font:600 11px var(--f-data);text-transform:uppercase;letter-spacing:.07em;color:var(--accent-text);margin:0 0 8px}
+.cop ol{list-style:none;margin:0;padding:0;display:grid;gap:5px;font-size:13.5px}
+.cop li{display:grid;grid-template-columns:36px minmax(0,1fr);gap:4px}
+.cop li i{font:600 12px var(--f-data);font-style:normal;color:var(--ink-faint)}
+.cnote{margin:14px 0 0;font-size:12.5px;color:var(--ink-faint)}
+
+/* Temario BOE */
+.boe h2{font:600 24px var(--f-display);margin:0 0 6px}
+.boeintro{margin:0 0 10px;color:var(--ink-soft);max-width:70ch}
+.boeintro a{color:var(--b2)}
+.grp{font:600 11px var(--f-data);text-transform:uppercase;letter-spacing:.07em;color:var(--ink-faint);margin:24px 0 8px}
+.gnote{margin:-2px 0 10px;font-size:13px;color:var(--ink-soft)}
+.bgroup{display:grid;gap:12px}
+.blk{background:var(--paper-raised);border:1px solid var(--line-card);border-radius:var(--r-lg);box-shadow:var(--shadow-1)}
+.blk>summary{list-style:none;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:14px 22px;cursor:pointer}
+.blk>summary::-webkit-details-marker{display:none}
+.blk h3{font:600 17px/1.25 var(--f-display);margin:0}
+.blk[open] .chev{transform:rotate(180deg)}
+.bcode{font:600 12px var(--f-data);padding:3px 11px;border-radius:999px;background:var(--accent-soft);color:var(--accent-text);border:1px solid var(--accent-line)}
+.rows{list-style:none;margin:0;padding:8px 14px 16px;display:grid;gap:2px;border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:18px 26px minmax(0,1fr);gap:4px 10px;align-items:baseline;padding:9px 8px;border-radius:var(--r-sm);cursor:pointer}
+.row:hover{background:var(--paper-alt)}
+.row input{margin:0;align-self:center;width:17px;height:17px;accent-color:var(--ok)}
+.row .n{font:600 12px var(--f-data);color:var(--ink-faint);font-variant-numeric:tabular-nums}
+.row .bx{min-width:0;display:grid;gap:3px}
+.row .t{font-size:14.5px;font-weight:600}
+.row input:checked~.bx .t{color:var(--ok)}
+.row .c2{font-size:13px;color:var(--ink-soft)}
+.row .mp{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px}
+.mchip{font:600 11px var(--f-data);padding:2px 9px;border-radius:999px;border:1px solid var(--accent-line);background:var(--paper-raised);color:var(--accent-text);cursor:pointer}
+.mchip:hover{background:var(--accent-soft)}
+.mchip.fund{border-style:dashed;color:var(--ink-faint);border-color:var(--line-strong);cursor:default}
+
+/* Desarrollo de cada tema */
+.boebar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:0 0 4px}
+.dev{margin:2px 0 8px 36px}
+.dev>summary{list-style:none;cursor:pointer;font:600 11.5px var(--f-data);letter-spacing:.04em;color:var(--accent-text);padding:2px 0;width:max-content}
+.dev>summary::-webkit-details-marker{display:none}
+.dev>summary::before{content:"+ "}
+.dev[open]>summary::before{content:"− "}
+.devbody{display:grid;gap:16px;padding:10px 0 12px;max-width:78ch}
+.dres{margin:0;font-size:14.5px;font-weight:500;color:var(--ink)}
+.dsec h4{font:600 12px var(--f-data);text-transform:uppercase;letter-spacing:.07em;color:var(--ink-faint);margin:0 0 6px}
+.dsec ul{margin:0;padding-left:20px;display:grid;gap:4px;font-size:13.5px;color:var(--ink-soft)}
+.fxl{margin:0;display:grid;gap:10px}
+.fxl dt{font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-bottom:3px}
+.fxl dd{margin:0}
+.fx{display:block;font:400 13px/1.7 var(--f-code);background:var(--paper-alt);border:1px solid var(--line-card);border-radius:var(--r-sm);padding:8px 12px;overflow-x:auto;white-space:nowrap}
+.dkey ul{margin:6px 0 0;padding-left:18px;display:grid;gap:3px}
+.dkey b{display:block}
+
+/* Script */
+.script-intro{max-width:66ch;color:var(--ink-soft);margin:0 0 14px}
+.code{background:var(--paper-alt);border:1px solid var(--line-card);border-radius:var(--r-md);padding:20px;overflow-x:auto;font:400 12.5px/1.75 var(--f-code);margin:0;tab-size:4}
+.code .c{color:var(--ink-faint)}
+.code .k{color:var(--accent-text);font-weight:600}
+.code .d{color:var(--amber)}
+.code .f{color:var(--b2)}
+
+.foot{margin:36px 0 0;max-width:70ch;font-size:13px;color:var(--ink-faint)}
+
+@media (max-width:820px){
+  .body,.tgrid{grid-template-columns:minmax(0,1fr)}
+  .cop{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:520px){
+  .phase>summary{grid-template-columns:auto minmax(0,1fr) auto;gap:10px;padding:14px 16px}
+  .phase>summary .chev{display:none}
+  .body{padding:16px 16px 22px}
+  .panel{padding:18px 16px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:520px){.dev{margin-left:0}}
+.dop ol{margin:0;padding-left:22px;display:grid;gap:5px}
+.dop{background:var(--paper-alt);border:1px solid var(--line-card);border-radius:var(--r-md);padding:11px 14px;font-size:13.5px;color:var(--ink-soft)}
+.dop b{display:block;font:600 11px var(--f-data);letter-spacing:.07em;text-transform:uppercase;color:var(--accent-text);margin-bottom:6px}
+.dop ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.dop .yr{display:inline-block;font:600 11px var(--f-data);padding:1px 9px;border-radius:99px;background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--accent-text);margin-right:6px;white-space:nowrap}
+
+.dex,.dq{font-size:13.5px;color:var(--ink-soft);border-radius:var(--r-md);padding:11px 14px}
+.dex{background:var(--accent-soft);border:1px solid var(--accent-line)}
+.dq{background:var(--paper-alt)}
+.dex b,.dq b{display:block;font:600 11px var(--f-data);letter-spacing:.07em;text-transform:uppercase;color:var(--accent-text);margin-bottom:6px}
+.dq .q{margin:0}
+.ans>summary{list-style:none;cursor:pointer;font:600 11.5px var(--f-data);letter-spacing:.04em;color:var(--accent-text);padding:2px 0;width:max-content}
+.ans>summary::-webkit-details-marker{display:none}
+.ans>summary::before{content:"+ "}
+.ans[open]>summary::before{content:"− "}
+
+</style>
+
+<div class="app" id="app" data-accent="azul">
+  <header>
+    <p class="eyebrow"><span class="dot"></span>ESCOLAR WORKPILOT · INE A1 · Producción estadística</p>
+    <h1>Ciclo de producción <em>estadística</em></h1>
+    <p class="lede">Ocho fases que reciben datos y devuelven datos, con calidad y metadatos corriendo por debajo. Marca lo que ya dominas y usa el autotest para comprobarlo.</p>
+    <div class="meta-row">
+      <div>Fases<strong>8 + 10 transversales</strong></div>
+      <div>Subprocesos<strong>44 · GSBPM 5.1</strong></div>
+      <div>Temario BOE<strong>Bloque A-I · 16 temas</strong></div>
+    </div>
+  </header>
+
+  <div class="bar" role="toolbar" aria-label="Controles de la página">
+    <div class="seg" id="seg">
+      <button type="button" data-mode="map" aria-pressed="true">Mapa</button>
+      <button type="button" data-mode="quiz" aria-pressed="false">Autotest</button>
+      <button type="button" data-mode="script" aria-pressed="false">Script</button>
+      <button type="button" data-mode="boe" aria-pressed="false">Temario BOE</button>
+    </div>
+    <div class="prog"><span class="plabel" id="plabel">0 / 0</span><div class="track2"><i id="pfill"></i></div></div>
+    <button type="button" class="btn theme" id="themeBtn" aria-pressed="false"><span id="themeLbl">Modo oscuro</span></button>
+  </div>
+
+  <div id="view-map">
+    <div class="sources">
+      <p class="lbl">Fuentes de entrada</p>
+      <span class="tag">encuesta</span><span class="tag">registro administrativo</span><span class="tag">censo</span><span class="tag">fuente alternativa</span>
+      <small>entran en la fase 4 y se integran en 5.1</small>
+    </div>
+
+    <div class="strip-scroll">
+      <div class="strip-inner">
+        <ol class="strip" id="strip"></ol>
+        <div class="loop"><span>↺ 8.3 plan de acción → 1.1 determinar necesidades</span></div>
+        <div class="lanes">
+          <button type="button" class="lane" data-go="transversal"><b>@calidad</b> Gestión de la calidad, activa en todas las fases</button>
+          <button type="button" class="lane" data-go="transversal"><b>@metadatos</b> Gestión de metadatos, activa en todas las fases</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="rowhead">
+      <h2>Fase por fase</h2>
+      <div class="acts">
+        <span class="hint" id="hint" hidden>Toca un texto difuminado para ver la respuesta.</span>
+        <button type="button" class="btn" id="reset" hidden>Volver a ocultar</button>
+        <button type="button" class="btn" id="toggleDet">Abrir detalles</button>
+        <button type="button" class="btn" id="toggleAll">Desplegar todo</button>
+      </div>
+    </div>
+    <div class="phases" id="phases"></div>
+
+    <section class="transv" id="transversal" style="scroll-margin-top:84px">
+      <h2>Procesos transversales</h2>
+      <p>No son una fase: se ejecutan durante todo el ciclo. Son diez y los diez atraviesan todo el ciclo; empieza por calidad y metadatos, los dos con más peso en el temario.</p>
+      <div class="tgrid">
+        <div class="panel"><p class="lbl">Procesos transversales del GSBPM</p><ul class="tlist" id="tlist"></ul></div>
+        <div>
+          <div class="panel"><p class="lbl">Dimensiones de calidad (marco del SEE)</p><ul class="tlist" id="dlist"></ul></div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:16px">
+        <p class="lbl">Código de Buenas Prácticas de las Estadísticas Europeas</p>
+        <div class="cop" id="cop"></div>
+        <p class="cnote">Versión de 2017: 16 principios, contando el 1 bis. Tres pilares: contexto institucional, procesos estadísticos y productos estadísticos.</p>
+      </div>
+    </section>
+  </div>
+
+  <div id="view-boe" class="boe" hidden>
+    <h2>Temario del BOE</h2>
+    <p class="boeintro">Anexo I de la <a href="https://www.boe.es/boe/dias/2025/12/29/pdfs/BOE-A-2025-26900.pdf" target="_blank" rel="noopener">Resolución de 22 de diciembre de 2025 (BOE-A-2025-26900)</a>. Solo se incluye el bloque A-I, Producción Estadística Oficial. Cada tema lleva los subprocesos donde se aplica: pulsa uno para ir a su detalle. Cada tema se desarrolla en su desplegable. Los contenidos del BOE están resumidos; el texto literal es el del BOE.</p>
+    <div class="boebar"><p class="plabel" id="blabel">0 de 0 temas marcados</p><button type="button" class="btn" id="toggleDev">Abrir todos los desarrollos</button></div>
+    <div id="boe"></div>
+  </div>
+  <div id="view-script" hidden>
+    <p class="script-intro">El mismo ciclo escrito como programa. Cada función recibe lo que devolvió la anterior, y el bucle se cierra porque evaluar devuelve necesidades nuevas. Los decoradores marcan lo que corre en todas las fases.</p>
+    <pre class="code"><code id="code"></code></pre>
+  </div>
+
+  <p class="foot">Basado en el GSBPM (Generic Statistical Business Process Model), con la numeración de la versión 5.1, y en el Código de Buenas Prácticas de 2017. Contrasta numeración, términos y artículos con la versión que cita tu temario. La asignación de cada tema del BOE a un subproceso es una propuesta de estudio, no una clasificación oficial.</p>
+</div>
+
+<script>
+(function(){
+var PHASES=[
+{id:1,name:"Especificar necesidades",fn:"especificar",args:"necesidades",call:"necesidades",ret:"especificacion",
+ subs:[["1.1","Determinar necesidades","determinar_necesidades"],["1.2","Consultar y confirmar necesidades","consultar_y_confirmar"],["1.3","Establecer los objetivos de los productos","establecer_objetivos_de_salida"],["1.4","Identificar conceptos","identificar_conceptos"],["1.5","Comprobar la disponibilidad de datos","comprobar_disponibilidad_de_datos"],["1.6","Preparar y presentar el business case","presentar_business_case"]],
+ temas:["Plan Estadístico Nacional","Programas anuales","Demanda de usuarios y consulta","Demanda europea (reglamentos)","Registros administrativos como alternativa a la encuesta"],
+ terms:[["Relevancia","Dimensión de calidad: grado en que las estadísticas satisfacen las necesidades actuales y potenciales de los usuarios. Se decide aquí y se comprueba en la evaluación."],["Business case","Documento que justifica el proyecto antes de diseñarlo: necesidad, costes, beneficios y alternativas (subproceso 1.6)."],["Estadísticas para fines estatales","Las que forman parte del Plan Estadístico Nacional, de interés para el conjunto del Estado."]],
+ norma:["Ley 12/1989 de la Función Estadística Pública: Plan Estadístico Nacional y programas anuales","Reglamento (CE) 223/2009 sobre estadística europea: principios de la estadística europea (art. 2)","Código de Buenas Prácticas: principio 2 (mandato de recogida de datos) y principio 11 (relevancia)"],
+ qs:[["¿Qué dimensión de calidad se fija ya en la fase 1?","Relevancia: qué necesidades de los usuarios debe cubrir el producto."],["¿Dónde se comprueba si un registro administrativo puede sustituir a una encuesta?","En 1.5, comprobar la disponibilidad de datos."]]},
+
+{id:2,name:"Diseñar",fn:"disenar",args:"especificacion",call:"especificacion",ret:"diseno",
+ subs:[["2.1","Diseñar los productos (salidas)","disenar_salidas"],["2.2","Diseñar la descripción de variables","disenar_variables"],["2.3","Diseñar la metodología de recogida","disenar_metodo_de_recogida"],["2.4","Diseñar el marco y la metodología de muestreo","disenar_marco_y_muestra"],["2.5","Diseñar la metodología de procesamiento y análisis","disenar_metodo_de_procesamiento"],["2.6","Diseñar los sistemas y el flujo de producción","disenar_sistemas_y_flujo"]],
+ temas:["Muestreo probabilístico: MAS, estratificado, conglomerados, polietápico, sistemático, PPS","Afijación proporcional y de Neyman","Marco muestral y cobertura","Tamaño muestral y error de muestreo","Diseño del cuestionario","Clasificaciones: CNAE-2009, CNO-11, NUTS","Modos de recogida: CAPI, CATI, CAWI, PAPI"],
+ terms:[["Marco muestral","Lista o procedimiento que identifica las unidades de la población objetivo y desde el que se selecciona la muestra. Se diseña en 2.4 y se usa en 4.1."],["Efecto de diseño","Cociente entre la varianza de un estimador bajo el diseño real y bajo muestreo aleatorio simple con el mismo tamaño. Suele ser mayor que 1 con conglomerados y menor con buena estratificación."],["Afijación de Neyman","Reparto del tamaño muestral entre estratos proporcional a Nh·Sh, tamaño del estrato por su desviación típica. Minimiza la varianza con el tamaño total fijo."],["Error muestral y no muestral","El primero se debe a observar solo una muestra. El segundo (cobertura, no respuesta, medida, procesamiento) existe también en un censo."]],
+ norma:["Código de Buenas Prácticas: principio 7 (metodología sólida), 8 (procedimientos estadísticos apropiados) y 9 (carga no excesiva para los encuestados)"],
+ qs:[["¿En qué subproceso se diseña el plan de muestreo?","En 2.4. La selección efectiva de la muestra no es aquí, es 4.1."],["¿Qué principio del Código protege a los informantes de un exceso de peticiones?","El principio 9, carga no excesiva para los encuestados."]]},
+
+{id:3,name:"Construir",fn:"construir",args:"diseno",call:"diseno",ret:"sistema",
+ subs:[["3.1","Reutilizar o construir instrumentos de recogida","construir_instrumentos_de_recogida"],["3.2","Reutilizar o construir componentes de procesamiento y análisis","construir_componentes_de_proceso"],["3.3","Reutilizar o construir componentes de difusión","construir_componentes_de_difusion"],["3.4","Configurar los flujos de trabajo","configurar_flujos"],["3.5","Probar los sistemas de producción","probar_sistemas"],["3.6","Probar el proceso estadístico","probar_proceso_estadistico"],["3.7","Finalizar los sistemas de producción","finalizar_sistemas"]],
+ temas:["Informática y almacenamiento de datos","Bases de datos y almacenes de datos","Arquitectura de producción","Reutilización de componentes y estándares","Pruebas piloto","Seguridad de la información"],
+ terms:[["Prueba piloto","Ensayo del proceso completo a pequeña escala antes de la recogida real (3.6). El cuestionario se prueba antes, con pretest (2.3 y 3.1)."],["Reutilizar o construir","Criterio del modelo: antes de desarrollar un componente nuevo se comprueba si uno existente sirve."],["Flujo de trabajo","Secuencia configurada de tareas y sistemas que ejecuta el proceso de producción (3.4)."]],
+ norma:["Esquema Nacional de Seguridad (RD 311/2022): seguridad de los sistemas de información","Código de Buenas Prácticas: principio 10 (rentabilidad)"],
+ qs:[["¿Dónde se prueba el sistema antes de recoger datos reales?","En la fase 3: 3.5 prueba los sistemas y 3.6 el proceso estadístico completo."],["¿Qué principio del Código respalda reutilizar componentes?","El 10, rentabilidad: lograr los resultados con los recursos necesarios."]]},
+
+{id:4,name:"Recoger",fn:"recoger",args:"sistema, fuentes",call:"sistema, FUENTES",ret:"micro_crudos",
+ subs:[["4.1","Crear el marco y seleccionar la muestra","crear_marco_y_seleccionar_muestra"],["4.2","Preparar la recogida","preparar_recogida"],["4.3","Ejecutar la recogida","ejecutar_recogida"],["4.4","Finalizar la recogida","finalizar_recogida"]],
+ temas:["Encuestas y censos","Registros administrativos","Modos de recogida","No respuesta total y parcial","Errores de cobertura y de medida","Fuentes alternativas (datos masivos)","Carga de respuesta"],
+ terms:[["No respuesta total y parcial","Total: la unidad no responde nada. Parcial: responde pero omite ítems. La primera se corrige sobre todo con ponderación (5.6), la segunda con imputación (5.4)."],["Error de cobertura","Desajuste entre el marco y la población objetivo: subcobertura, sobrecobertura y duplicados."],["Registro administrativo","Datos que una administración recoge para sus propios fines y que se reutilizan con fines estadísticos."],["CAPI, CATI, CAWI","Entrevista personal, telefónica y web, asistidas por ordenador."]],
+ norma:["Ley 12/1989: deber de suministrar datos en las estadísticas de cumplimentación obligatoria y secreto estadístico (arts. 13 y ss.)","RGPD y Ley Orgánica 3/2018: protección de datos personales","Código de Buenas Prácticas: principio 2 (mandato y acceso a datos), 5 (secreto y protección de datos) y 9"],
+ qs:[["¿En qué subproceso se selecciona realmente la muestra?","En 4.1. En 2.4 solo se diseña el plan de muestreo."],["¿Qué fases tocan un registro administrativo?","La 1.5 comprueba que existe, la 4 lo recoge y la 5.1 lo integra con el resto."]]},
+
+{id:5,name:"Procesar",fn:"procesar",args:"micro_crudos",call:"micro_crudos",ret:"datos_procesados",
+ subs:[["5.1","Integrar datos","integrar_datos"],["5.2","Clasificar y codificar","clasificar_y_codificar"],["5.3","Revisar y validar","revisar_y_validar"],["5.4","Editar e imputar","editar_e_imputar"],["5.5","Derivar variables y unidades nuevas","derivar_variables_y_unidades"],["5.6","Calcular ponderaciones","calcular_ponderaciones"],["5.7","Calcular agregados","calcular_agregados"],["5.8","Finalizar los ficheros de datos","finalizar_ficheros"]],
+ temas:["Depuración: reglas de validación, errores y avisos","Imputación: hot-deck, regresión, vecino más próximo, media","Ponderación y factores de elevación","Calibración y poststratificación","Estimadores: Horvitz-Thompson, razón, regresión","Codificación automática","Integración de fuentes"],
+ terms:[["Edición","Detección y corrección de datos erróneos o incoherentes mediante reglas de validación."],["Imputación","Sustitución de valores ausentes o inválidos por valores plausibles (hot-deck, regresión, vecino más próximo, media)."],["Factor de elevación","Inverso de la probabilidad de inclusión, w = 1/π. Es el peso básico de diseño del estimador de Horvitz-Thompson."],["Calibración","Ajuste de los pesos para que reproduzcan totales poblacionales conocidos de variables auxiliares."],["Poststratificación","Caso simple de calibración: reponderar por celdas cuyo tamaño poblacional se conoce."]],
+ norma:["Código de Buenas Prácticas: principio 8 (procedimientos estadísticos apropiados) y 12 (exactitud y fiabilidad)"],
+ qs:[["¿La no respuesta total se corrige con imputación o con ponderación?","Sobre todo con ponderación (5.6). La parcial se trata con imputación (5.4)."],["¿En qué subproceso se calculan los factores de elevación?","En 5.6, calcular ponderaciones."]]},
+
+{id:6,name:"Analizar",fn:"analizar",args:"datos_procesados",call:"datos_procesados",ret:"salidas",
+ subs:[["6.1","Preparar los borradores de salidas","preparar_borradores"],["6.2","Validar las salidas","validar_salidas"],["6.3","Interpretar y explicar las salidas","interpretar_y_explicar"],["6.4","Aplicar el control de revelación estadística","aplicar_control_de_revelacion"],["6.5","Finalizar las salidas","finalizar_salidas"]],
+ temas:["Estimación, varianza, coeficiente de variación e intervalos de confianza","Series temporales y desestacionalización: TRAMO-SEATS, X-13ARIMA-SEATS","Números índice","Cuentas nacionales: SEC 2010, equilibrado y conciliación","Demografía: tasas e indicadores","Control de revelación y secreto estadístico"],
+ terms:[["Control de revelación estadística","Técnicas que impiden identificar a una unidad en los resultados: supresión de celdas, reglas de umbral y de dominancia, redondeo, perturbación."],["Secreto estadístico","Obligación de no difundir datos individualizados ni que permitan identificar a la unidad informante."],["Desestacionalización","Eliminar el componente estacional y los efectos de calendario para comparar periodos consecutivos."],["Coeficiente de variación","Error estándar relativo del estimador. Mide su precisión."]],
+ norma:["Ley 12/1989: secreto estadístico (arts. 13 y ss.)","Reglamento (CE) 223/2009: capítulo V, confidencialidad estadística","Reglamento (UE) 549/2013: SEC 2010","Código de Buenas Prácticas: principio 5 (secreto y protección de datos) y 12 (exactitud y fiabilidad)"],
+ qs:[["¿Dónde queda el control de revelación en el GSBPM 5.1?","En 6.4, dentro de Analizar y antes de difundir."],["¿Qué sale de la fase 6?","Salidas validadas, interpretadas y protegidas, listas para publicar."]]},
+
+{id:7,name:"Difundir",fn:"difundir",args:"salidas",call:"salidas",ret:"productos",
+ subs:[["7.1","Actualizar los sistemas de salida","actualizar_sistemas_de_salida"],["7.2","Producir los productos de difusión","producir_productos_de_difusion"],["7.3","Gestionar la publicación de los productos","gestionar_publicacion"],["7.4","Promocionar los productos","promocionar_productos"],["7.5","Gestionar el apoyo a los usuarios","atender_usuarios"]],
+ temas:["Calendario de difusión","Política de revisiones","Acceso a microdatos para investigación","Estándares de intercambio: SDMX","Tablas y notas de prensa: INEbase","Accesibilidad y claridad","Acceso igual y simultáneo a los datos"],
+ terms:[["Calendario de difusión","Fechas de publicación anunciadas con antelación. Sirve a la puntualidad y a la imparcialidad en el acceso."],["Política de revisiones","Reglas públicas y estables sobre cuándo y cómo se corrigen cifras ya publicadas."],["SDMX","Statistical Data and Metadata eXchange: estándar para intercambiar datos y metadatos estadísticos."],["Microdatos","Datos individuales anonimizados, accesibles para investigación bajo condiciones."]],
+ norma:["Código de Buenas Prácticas: principio 6 (imparcialidad y objetividad), 13 (oportunidad y puntualidad), 14 (coherencia y comparabilidad) y 15 (accesibilidad y claridad)"],
+ qs:[["¿Qué dimensión de calidad se juega al publicar según un calendario anunciado?","Oportunidad y puntualidad."],["¿Dónde se gestiona la publicación y la fecha de salida de los datos?","En 7.3, gestionar la publicación de los productos."]]},
+
+{id:8,name:"Evaluar",fn:"evaluar",args:"productos",call:"productos",ret:"plan_de_accion",
+ subs:[["8.1","Recopilar los insumos de la evaluación","recopilar_insumos"],["8.2","Realizar la evaluación","realizar_evaluacion"],["8.3","Acordar un plan de acción","acordar_plan_de_accion"]],
+ temas:["Informes de calidad","Auditorías de calidad internas y externas","Revisión por pares (peer review)","Indicadores de calidad: tasa de respuesta, CV, revisiones","Encuestas de satisfacción de usuarios","Mejora continua"],
+ terms:[["Informe de calidad","Describe el producto según las dimensiones de calidad, con indicadores como la tasa de respuesta o el coeficiente de variación."],["Revisión por pares","Evaluación externa del sistema estadístico frente al Código de Buenas Prácticas, hecha por expertos de otros institutos."],["Plan de acción","Medidas de mejora acordadas. Vuelven a la fase 1 como necesidades nuevas."]],
+ norma:["Reglamento (CE) 223/2009: art. 12, calidad de las estadísticas","Código de Buenas Prácticas: principio 4 (compromiso con la calidad)"],
+ qs:[["¿Evaluar es la auditoría del final del proceso?","No. Es un bucle: el plan de acción de 8.3 alimenta la fase 1 del siguiente ciclo."],["¿Dónde nace el plan de mejora?","En 8.3, acordar un plan de acción."]]}
+];
+
+var TRANSV=[
+["Gestión de la calidad","Evaluar y mejorar procesos y productos en todas las fases: Código de Buenas Prácticas, dimensiones, indicadores e informes.",true],
+["Gestión de metadatos","Documentar y hacer circular conceptos, variables, clasificaciones y métodos entre fases (ESMS, SDMX, DDI).",true],
+["Gestión del programa estadístico","Planificar y coordinar el conjunto de operaciones y sus recursos.",false],
+["Gestión del marco estadístico","Mantener conceptos, clasificaciones y estándares comunes.",false],
+["Gestión de datos","Gobernar los datos durante todo su ciclo de vida: almacenamiento, acceso, conservación y seguridad.",false],
+["Gestión de datos del proceso","Registrar cómo corre el proceso (tiempos, tasas de respuesta, incidencias) para controlarlo y mejorarlo.",false],
+["Gestión del conocimiento","Capturar y compartir la experiencia y las buenas prácticas de la organización.",false],
+["Gestión de informantes","Relación con quienes suministran los datos: reducir carga y favorecer la respuesta.",false],
+["Gestión de usuarios","Relación con los usuarios: consultas, atención y satisfacción.",false],
+["Gestión de recursos humanos","Personas, competencias y formación para operar el proceso.",false]
+];
+var DIMS=[
+["Relevancia","Grado en que la estadística responde a las necesidades actuales y potenciales de los usuarios."],
+["Exactitud y fiabilidad","Exactitud: cercanía de las estimaciones al valor real (sesgo, varianza, errores muestrales y no muestrales). Fiabilidad: cercanía entre estimaciones iniciales y posteriores, es decir, revisiones."],
+["Oportunidad y puntualidad","Oportunidad: tiempo entre el periodo de referencia y la publicación. Puntualidad: cumplir la fecha anunciada."],
+["Accesibilidad y claridad","Facilidad con que los usuarios obtienen y entienden los datos y los metadatos."],
+["Coherencia y comparabilidad","Coherencia: consistencia entre fuentes y estadísticas distintas. Comparabilidad: en el tiempo y entre territorios."]
+];
+var COP=[
+["Contexto institucional",[["1","Independencia profesional"],["1 bis","Coordinación y cooperación"],["2","Mandato de recogida de datos y acceso a los datos"],["3","Adecuación de recursos"],["4","Compromiso con la calidad"],["5","Secreto estadístico y protección de datos"],["6","Imparcialidad y objetividad"]]],
+["Procesos estadísticos",[["7","Metodología sólida"],["8","Procedimientos estadísticos apropiados"],["9","Carga no excesiva para los encuestados"],["10","Rentabilidad"]]],
+["Productos estadísticos",[["11","Relevancia"],["12","Exactitud y fiabilidad"],["13","Oportunidad y puntualidad"],["14","Coherencia y comparabilidad"],["15","Accesibilidad y claridad"]]]
+];
+
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+/* Detalle por subproceso: descripción, pasos y clave de estudio */
+var DET={
+"1.1":{d:"Identificar qué información estadística hace falta, a partir de los usuarios, del mandato legal y de la revisión de lo que ya se produce.",p:["Revisar demandas de usuarios y mandatos legales, nacionales y europeos","Detectar lagunas en la oferta estadística existente","Priorizar y encajar la necesidad en el Plan Estadístico Nacional y en el programa anual"],k:"La relevancia nace aquí: la necesidad del usuario es el punto de partida."},
+"1.2":{d:"Contrastar con los usuarios que la necesidad está bien entendida y acordar qué se necesita realmente.",p:["Consultar a los usuarios principales y a los órganos de coordinación","Concretar requisitos de contenido, detalle, periodicidad y plazo","Confirmar el alcance antes de seguir"],k:"Dejar los requisitos acordados por escrito sirve luego para evaluar (fase 8)."},
+"1.3":{d:"Fijar qué salidas deberá producir el proceso: indicadores, tablas, nivel de desagregación y calidad exigida.",p:["Definir las salidas y su desagregación territorial, temporal y por grupos","Fijar periodicidad y plazo de publicación","Fijar la precisión o calidad objetivo"],k:"El BOE abre el esquema de una encuesta con la formulación de objetivos y marcos (A-I·1)."},
+"1.4":{d:"Delimitar los conceptos estadísticos: unidades, población objetivo y variables, y su relación con definiciones estándar.",p:["Fijar unidades de observación y población objetivo","Listar los conceptos y variables necesarios","Alinear con definiciones y clasificaciones estándar, como las del SEC 2010"],k:"No confundir población objetivo con población marco (A-I·1)."},
+"1.5":{d:"Comprobar si los datos necesarios ya existen (registros administrativos, otras encuestas, censos) antes de recoger nada nuevo.",p:["Inventariar las fuentes disponibles y su cobertura","Evaluar su calidad, su oportunidad y las condiciones legales de acceso","Decidir si basta reutilizar, si hay que combinar fuentes con record linkage o si hay que recoger datos nuevos"],k:"Reutilizar fuentes reduce la carga sobre los informantes."},
+"1.6":{d:"Reunir lo anterior en una propuesta de proyecto que se presenta para su aprobación.",p:["Describir necesidad, objetivos y alternativas","Estimar costes, recursos y calendario","Presentar la propuesta y obtener la aprobación"],k:"El Plan Estadístico Nacional y los presupuestos condicionan qué proyectos salen adelante."},
+"2.1":{d:"Definir cómo serán los productos que verá el usuario: tablas, indicadores, microdatos y visualizaciones.",p:["Diseñar tablas, indicadores y ficheros de salida","Decidir formatos y niveles de detalle","Prever las restricciones de confidencialidad que afectarán a las tablas"],k:"Visualización mediante tablas, gráficos y mapas, con accesibilidad (A-I·12)."},
+"2.2":{d:"Describir cada variable: definición, tipo, clasificación, reglas de validación y metadatos asociados.",p:["Definir cada variable y su unidad de medida","Asociarla a una clasificación o lista de códigos","Documentar las relaciones y controles previstos entre variables"],k:"Los metadatos nacen aquí. Modelo GSIM y estándares SDMX y DDI en A-I·15."},
+"2.3":{d:"Elegir cómo se recogerán los datos: modo, instrumento, estrategia de contacto y seguimiento.",p:["Elegir el modo o modos: CAPI, CATI, CAWI, PAPI o registros","Diseñar el cuestionario y la estrategia de contacto","Planificar el seguimiento de la no respuesta y la gestión del trabajo de campo"],k:"A-I·8: recogida asistida por ordenador, paradatos y gestión activa del campo."},
+"2.4":{d:"Elegir el marco y el diseño muestral, y calcular tamaños, afijación y estimadores previstos.",p:["Elegir el marco y comprobar su cobertura","Elegir el diseño: aleatorio simple, sistemático, Poisson o PPS, estratificado, conglomerados","Calcular el tamaño muestral y la afijación por estratos","Definir los estimadores y la estimación de la varianza"],k:"Aquí solo se diseña. La extracción real de la muestra es 4.1."},
+"2.5":{d:"Definir cómo se limpiarán, ponderarán y analizarán los datos.",p:["Definir las reglas de edición y la estrategia de imputación","Definir el tratamiento de la no respuesta: reponderación y calibrado","Definir estimadores, varianzas y dominios de estimación","Definir los métodos de análisis y de control de revelación"],k:"A-I·9 a 11: depuración e imputación, falta de respuesta y secreto estadístico."},
+"2.6":{d:"Diseñar los sistemas informáticos y el flujo de trabajo que enlazarán todas las fases.",p:["Elegir arquitectura y almacenamiento de datos","Reutilizar componentes existentes cuando sea posible","Definir el flujo entre fases, los roles y la trazabilidad"],k:"El flujo se describe con el GSBPM (A-I·14)."},
+"3.1":{d:"Construir o reutilizar cuestionarios y herramientas de recogida.",p:["Programar el cuestionario electrónico o preparar el de papel","Incorporar controles y rutas","Probar el instrumento con usuarios y entrevistadores (pretest)"],k:"A-I·8: métodos y gestión de la recogida de datos, incluida la asistida por ordenador."},
+"3.2":{d:"Construir o reutilizar el software de depuración, imputación, ponderación y análisis.",p:["Implementar las reglas de edición y los módulos de imputación","Implementar el cálculo de pesos y estimadores","Preparar el almacenamiento y las consultas de datos"],k:"Aquí se programan las reglas de edición, la imputación y el cálculo de estimadores."},
+"3.3":{d:"Construir o reutilizar las herramientas con las que se publicarán los resultados.",p:["Preparar las bases de datos y sistemas de salida","Preparar plantillas de tablas, gráficos y mapas","Preparar el intercambio en formatos estándar como SDMX"],k:"SDMX y DDI aparecen en A-I·15."},
+"3.4":{d:"Configurar el orden de ejecución de tareas y sistemas para que el proceso corra de principio a fin.",p:["Encadenar los componentes en un flujo","Definir puntos de control y de intervención manual","Configurar el registro de incidencias y de paradatos"],k:"La idea del script: cada fase recibe lo que devolvió la anterior."},
+"3.5":{d:"Comprobar que cada sistema funciona por separado y en conjunto.",p:["Hacer pruebas de cada componente","Hacer pruebas de integración entre sistemas","Hacer pruebas de carga y de seguridad"],k:"Se prueba el sistema, con el cuestionario ya cargado. El ensayo del proceso completo es 3.6."},
+"3.6":{d:"Ensayar el proceso entero, con datos reales o simulados, para ver si produce lo esperado.",p:["Ejecutar un piloto o ensayo general a pequeña escala","Comprobar resultados y tiempos frente a lo previsto","Ajustar el diseño, los instrumentos o los sistemas"],k:"Aquí se ensaya el proceso completo (piloto). El pretest del cuestionario se hace antes, en 2.3 y 3.1."},
+"3.7":{d:"Dejar los sistemas listos para producción y documentados.",p:["Corregir lo detectado en las pruebas","Documentar y formar al personal","Dar el visto bueno para pasar a producción"],k:"Tras esto empieza la recogida real."},
+"4.1":{d:"Construir el marco actualizado y extraer la muestra con el diseño previsto.",p:["Actualizar el marco y revisar su cobertura","Ejecutar la selección según el diseño","Calcular y guardar las probabilidades de inclusión"],k:"Las probabilidades de inclusión darán los pesos de 5.6 (A-I·2)."},
+"4.2":{d:"Dejar lista la operación de campo antes de empezar a recoger.",p:["Preparar instrucciones y materiales","Formar y asignar a los entrevistadores","Enviar comunicaciones previas a los informantes"],k:"A-I·8: implementación y gestión del trabajo de campo."},
+"4.3":{d:"Recoger los datos y vigilar el avance de la recogida.",p:["Contactar y recoger por los modos previstos","Hacer seguimiento de los no respondientes","Monitorizar tasas de respuesta y calidad con paradatos"],k:"Gestión activa del trabajo de campo y paradatos (A-I·8)."},
+"4.4":{d:"Cerrar la recogida, entregar los datos brutos y documentar lo ocurrido.",p:["Cerrar el campo y consolidar los ficheros brutos","Calcular tasas de respuesta y cobertura","Redactar el informe de recogida y archivar de forma segura"],k:"La salida de la fase es micro_crudos."},
+"5.1":{d:"Unir datos de distintas fuentes y modos en un único conjunto de trabajo.",p:["Preparar y armonizar las variables entre fuentes","Enlazar registros (record linkage) cuando no hay identificador común","Comprobar el resultado del enlace: falsos enlaces y no enlaces"],k:"A-I·13: introducción, visión de conjunto de los métodos y preparación de los datos."},
+"5.2":{d:"Asignar códigos de las clasificaciones estándar a respuestas abiertas o a datos sin codificar.",p:["Preparar el diccionario o el modelo de codificación","Codificar de forma automática y revisar a mano lo dudoso","Medir la tasa de codificación y los errores"],k:"La codificación automática se apoya hoy en aprendizaje automático."},
+"5.3":{d:"Detectar datos sospechosos mediante controles, antes de corregirlos.",p:["Aplicar las reglas de edición a cada registro","Clasificar los fallos en errores y avisos","Revisar también a nivel agregado, buscando valores atípicos"],k:"Validar es detectar. Editar e imputar es corregir (A-I·9)."},
+"5.4":{d:"Corregir los datos erróneos y rellenar los ausentes con valores plausibles.",p:["Corregir con reglas deterministas o con revisión manual","Imputar los ausentes con reglas estadísticas, donantes o modelos","Aplicar la estrategia elegida: imputación completa, combinada o reponderación completa"],k:"A-I·9 describe esos tres enfoques."},
+"5.5":{d:"Calcular variables que no se recogieron directamente y crear unidades nuevas de análisis.",p:["Calcular variables derivadas: agregaciones, razones, indicadores","Construir unidades agregadas, como hogares a partir de personas","Documentar cada derivación"],k:"Ejemplo: construir hogares a partir de personas."},
+"5.6":{d:"Calcular los pesos que convierten la muestra en estimaciones de población.",p:["Partir del peso de diseño, que es 1/π","Corregir por no respuesta con reponderación","Calibrar con totales auxiliares conocidos"],k:"A-I·2: estimador de Horvitz-Thompson. A-I·10: estimación con falta de respuesta."},
+"5.7":{d:"Obtener las estimaciones y sus errores a partir de los microdatos y los pesos.",p:["Calcular totales, medias y razones con los pesos","Estimar la varianza: analítica, por linealización o por réplicas","Calcular errores de muestreo, coeficientes de variación e intervalos de confianza"],k:"A-I·3 a 7 dan estimadores y varianzas por diseño."},
+"5.8":{d:"Dejar los ficheros finales de datos listos para analizar y archivar.",p:["Congelar versiones y documentar el fichero","Aplicar la validación final","Archivar con sus metadatos"],k:"La salida de la fase son datos_procesados: microdatos finales y agregados."},
+"6.1":{d:"Producir las primeras tablas, indicadores y series.",p:["Generar las tablas e indicadores previstos en 2.1","Construir series temporales y comparaciones","Preparar cuentas o agregados cuando proceda"],k:"Aquí salen las primeras tablas, indicadores y series que se diseñaron en 2.1."},
+"6.2":{d:"Comprobar que los resultados son coherentes y razonables antes de aceptarlos.",p:["Comparar con periodos anteriores y con otras fuentes","Comprobar la coherencia interna: equilibrios y sumas","Revisar la precisión y los valores atípicos"],k:"En cuentas nacionales, el equilibrio entre oferta y utilización es un control clave."},
+"6.3":{d:"Analizar el significado de los resultados y preparar las explicaciones para los usuarios.",p:["Analizar tendencias, estacionalidad y causas","Aplicar modelos estadísticos cuando haga falta","Redactar la explicación de los cambios relevantes"],k:"Aquí se aplican los modelos estadísticos que hagan falta para explicar los cambios."},
+"6.4":{d:"Impedir que los resultados permitan identificar a una unidad informante.",p:["Evaluar el riesgo en tablas y en microdatos","Elegir y aplicar el método de control","Valorar la pérdida de utilidad frente a la reducción del riesgo"],k:"A-I·11: datos tabulares, microdatos, riesgo y utilidad. Va antes de difundir."},
+"6.5":{d:"Dar el visto bueno final a las salidas y pasarlas a difusión.",p:["Incorporar metadatos y notas metodológicas","Obtener la aprobación interna","Pasar los resultados al sistema de difusión"],k:"La salida de la fase es salidas validadas y protegidas."},
+"7.1":{d:"Cargar datos y metadatos en los repositorios desde los que se difunde.",p:["Cargar datos y metadatos en la base de difusión","Comprobar versiones y enlaces","Preparar el intercambio en formatos estándar como SDMX"],k:"SDMX y DDI (A-I·15)."},
+"7.2":{d:"Producir los productos finales para cada tipo de usuario.",p:["Elaborar tablas, gráficos, mapas y notas de prensa","Preparar microdatos y ficheros de uso público","Revisar la accesibilidad y la claridad"],k:"A-I·12: visualización y accesibilidad."},
+"7.3":{d:"Publicar en la fecha prevista y con acceso igual para todos los usuarios.",p:["Aplicar el calendario de difusión","Controlar el acceso previo y el embargo","Publicar y verificar la publicación"],k:"Se vincula con la puntualidad y con la imparcialidad."},
+"7.4":{d:"Dar a conocer los productos a sus audiencias.",p:["Difundir notas de prensa y redes","Atender a los medios","Dar a conocer los productos nuevos y la metodología"],k:"A-I·12: transmisión del mensaje."},
+"7.5":{d:"Atender a los usuarios y recoger su opinión.",p:["Responder las consultas de los usuarios","Gestionar las solicitudes de microdatos","Registrar las consultas frecuentes para la evaluación"],k:"Las consultas alimentan la fase 8."},
+"8.1":{d:"Reunir la información para evaluar: indicadores, paradatos y comentarios de usuarios y personal.",p:["Reunir indicadores de calidad y paradatos","Reunir opiniones de usuarios y del personal","Reunir los informes de cada fase"],k:"A-I·8: paradatos e informe de calidad."},
+"8.2":{d:"Valorar qué ha funcionado y qué no.",p:["Analizar los insumos frente a los objetivos de 1.3","Identificar puntos fuertes y problemas","Valorar con autoevaluación, auditoría o revisión por pares"],k:"A-I·16: auditorías, autoevaluación y revisión por homólogos."},
+"8.3":{d:"Acordar qué se mejorará y cómo.",p:["Priorizar las mejoras","Asignar responsables y plazos","Llevar las mejoras a la fase 1 del siguiente ciclo"],k:"Cierra el bucle del ciclo."}
+};
+
+/* Temario del BOE (Anexo I, convocatoria de 22-12-2025). Cada tema: [nº, título, contenidos, subprocesos donde se aplica]. T0 a T9 son los transversales. */
+var BLOCKS=[
+["A-I","Grupo A · Materias comunes","Producción Estadística Oficial",[
+ [1,"Encuestas, objetivos y marcos muestrales","Esquema general de una encuesta, muestreo probabilístico, marco muestral y marco de áreas, población marco frente a población objetivo, planificación y diseño global.","1.3 1.4 2.4 4.1"],
+ [2,"Estimación en muestreo probabilístico","Diseño muestral, probabilidades de inclusión, estimador Horvitz-Thompson, efecto de diseño e intervalos de confianza.","2.4 4.1 5.6 5.7"],
+ [3,"Estimación insesgada: Bernoulli y aleatorio simple","Con y sin reemplazamiento: estimadores, varianzas y estimadores de varianza.","2.4 4.1 5.7"],
+ [4,"Muestreo sistemático","Definición, estimadores, varianza, problemas de su estimación y eficiencia.","2.4 4.1 5.7"],
+ [5,"Muestreo de Poisson y con probabilidad proporcional al tamaño","Estimadores, varianza y estimador de varianza. PPS con y sin reemplazamiento.","2.4 4.1 5.7"],
+ [6,"Muestreo estratificado y afijación","Estimadores, varianza, afijación óptima y otras afijaciones bajo muestreo aleatorio simple.","2.4 4.1 5.7"],
+ [7,"Muestreo por conglomerados sin submuestreo","Estimadores, varianza y estimador de varianza.","2.4 4.1 5.7"],
+ [8,"Métodos y gestión de la recogida de datos","Métodos básicos, recogida asistida por ordenador, implementación, gestión activa del trabajo de campo, paradatos, monitorización de la calidad e informe de calidad.","2.3 3.1 3.6 4.2 4.3 4.4 8.1 T5"],
+ [9,"Depuración e imputación de datos","Errores, datos ausentes y controles (edits), estrategia de depuración e imputación, imputación completa, combinada y reponderación completa, reglas estadísticas.","2.5 5.3 5.4"],
+ [10,"Estimación con falta de respuesta","Errores por muestreo y por no respuesta, error cuadrático medio y sesgo de estimadores simples.","2.5 4.3 5.6 T7"],
+ [11,"Control del secreto estadístico","Datos tabulares y microdatos, riesgo y utilidad, métodos de control e implementación.","2.1 2.5 5.8 6.4"],
+ [12,"Difusión y visualización de estadísticas","Presentación, transmisión del mensaje, tablas, gráficos y mapas, técnicas emergentes y accesibilidad.","2.1 3.3 7.2 7.4"],
+ [13,"Vinculación de registros (record linkage)","Introducción, visión de conjunto de los métodos y preparación de los datos.","1.5 5.1"],
+ [14,"Metadatos I: modelo GSBPM","Relación con otros modelos y estándares, niveles 1 y 2, fases y subprocesos, procesos generales y otros usos.","2.6 3.4 T1"],
+ [15,"Metadatos II: GSIM y estándares","Alcance y beneficios de GSIM, relación con el GSBPM, implicaciones de negocio y tecnología, estándares SDMX y DDI.","1.4 2.2 3.3 6.5 7.1 T1 T3"],
+ [16,"Calidad en la estadística oficial","Concepto de calidad, Código de Buenas Prácticas, marco de garantía de calidad del SEE, calidad de productos y procesos, auditorías, autoevaluación y revisión por homólogos.","1.2 8.2 8.3 T0 T8"]
+]]
+];
+var TSHORT=["calidad","metadatos","programa","marco","datos","datos del proceso","conocimiento","informantes","usuarios","RR. HH."];
+
+/* Índices derivados: de cada subproceso o transversal a sus temas del BOE */
+var BY_SUB={},SUBT={};
+PHASES.forEach(function(p){p.subs.forEach(function(s){SUBT[s[0]]=s[1];});});
+BLOCKS.forEach(function(b){b[3].forEach(function(t){t[3].split(" ").forEach(function(k){
+  if(!k)return;
+  BY_SUB[k]=BY_SUB[k]||{};
+  BY_SUB[k][b[0]]=BY_SUB[k][b[0]]||[];
+  BY_SUB[k][b[0]].push([t[0],t[1]]);
+});});});
+function rng(a){
+  var out=[],i=0;
+  while(i<a.length){var j=i;while(j+1<a.length&&a[j+1]===a[j]+1)j++;out.push(j>i?a[i]+"–"+a[j]:""+a[i]);i=j+1;}
+  return out.join(", ");
+}
+function bchips(map){
+  return BLOCKS.filter(function(b){return map[b[0]];}).map(function(b){
+    var items=map[b[0]];
+    var tip=items.map(function(x){return b[0]+"·"+x[0]+" "+x[1];}).join("\n");
+    return '<span class="bchip" title="'+esc(tip)+'">'+b[0]+" · "+rng(items.map(function(x){return x[0];}))+"</span>";
+  }).join("");
+}
+function phaseMap(pid){
+  var m={};
+  Object.keys(BY_SUB).forEach(function(k){
+    if(k.indexOf(pid+".")!==0)return;
+    Object.keys(BY_SUB[k]).forEach(function(c){
+      m[c]=m[c]||[];
+      BY_SUB[k][c].forEach(function(x){if(!m[c].some(function(y){return y[0]===x[0];}))m[c].push(x);});
+    });
+  });
+  Object.keys(m).forEach(function(c){m[c].sort(function(a,b){return a[0]-b[0];});});
+  return m;
+}
+
+/* Desarrollo de los temas del bloque A-I. Notación: _{x} subíndice, ^{x} superíndice. */
+var DEV={
+"1":{res:"Una encuesta es el proceso completo que va de un objetivo de información a una estimación sobre una población, observando solo una parte de ella.",
+ sec:[
+ ["Esquema general de una encuesta",["Objetivos: qué parámetros estimar, para qué población, con qué precisión, con qué desglose y en qué plazo","Conceptos y variables: definiciones operativas y clasificaciones","Población objetivo, población marco y marco muestral","Diseño muestral: tipo de muestreo, tamaño, afijación y estimadores","Cuestionario y método de recogida","Recogida, depuración, imputación y ponderación","Estimación, cálculo de errores y difusión","Evaluación de la calidad y revisión del diseño para la siguiente edición"]],
+ ["Muestreo probabilístico",["Cada unidad de la población tiene una probabilidad de inclusión conocida y mayor que cero","Permite estimadores insesgados o consistentes y medir el error de muestreo","El muestreo no probabilístico (cuotas, intencional, por conveniencia) no permite medir ese error de forma objetiva"]],
+ ["Marco muestral",["Marco de listas: relación de unidades (registro de empresas, padrón). Debe ser completo, actualizado, sin duplicados y con información auxiliar para estratificar","Marco de áreas: la población se divide en áreas (secciones censales, segmentos) que se seleccionan, y dentro de ellas se listan o seleccionan las unidades. Útil cuando no hay lista de unidades finales","Marcos múltiples: combinación de varios marcos (por ejemplo lista y área) para mejorar la cobertura","Población objetivo: la que se quiere describir. Población marco: la realmente cubierta por el marco. La diferencia produce error de cobertura"]],
+ ["Errores del marco",["Subcobertura: unidades de la población objetivo que no están en el marco","Sobrecobertura: unidades del marco que no pertenecen a la población objetivo","Duplicados: una unidad aparece varias veces y tiene más probabilidad de ser elegida","Variables auxiliares mal clasificadas: estropean la estratificación"]],
+ ["Planificación y diseño global",["Se busca minimizar el error total con un presupuesto y un plazo dados","Las desagregaciones exigidas (territorio, sexo, edad, sector) condicionan el tamaño y la afijación","Se planifican a la vez los errores de muestreo y los no muestrales"]]],
+ fx:[],
+ ojo:["Población objetivo y población marco no son lo mismo","Un diseño probabilístico no garantiza ausencia de sesgo: la cobertura y la no respuesta pueden sesgarlo"]},
+
+"2":{res:"El diseño muestral asigna probabilidades de inclusión y el estimador de Horvitz-Thompson las usa como pesos: es insesgado con cualquier diseño probabilístico.",
+ sec:[
+ ["Diseño muestral",["Población U con N unidades; la muestra s es un subconjunto de U","El diseño p(s) da la probabilidad de cada muestra posible","Indicador de pertenencia: I_{k} = 1 si k ∈ s y 0 si no. Se cumple E(I_{k}) = π_{k}","Probabilidad de inclusión de primer orden π_{k} y de segundo orden π_{kl} (k y l juntas en la muestra)","Muestreo probabilístico exige π_{k} > 0 para todas las unidades. Para estimar la varianza de HT hace falta además π_{kl} > 0"]],
+ ["Propiedades de los estimadores",["Insesgado: E(θ̂) = θ","Error cuadrático medio: varianza más sesgo al cuadrado","Consistente: tiende al parámetro cuando crece la muestra","Las propiedades se evalúan sobre todas las muestras posibles del diseño"]],
+ ["Estimador de Horvitz-Thompson (π-estimador)",["Estima el total ponderando cada valor por 1/π_{k}","Es insesgado para cualquier diseño con π_{k} > 0","El peso de diseño d_{k} = 1/π_{k} indica cuántas unidades de la población representa cada unidad de la muestra"]],
+ ["Muestreo con reemplazamiento",["Una unidad puede salir varias veces y las extracciones son independientes","Estimador de Hansen-Hurwitz, con probabilidades de extracción p_{k}","La varianza se estima fácilmente con la variabilidad entre extracciones, sin necesitar π_{kl}"]],
+ ["Efecto de diseño",["Cociente entre la varianza del estimador bajo el diseño real y bajo muestreo aleatorio simple del mismo tamaño","Mayor que 1: el diseño pierde eficiencia. Menor que 1: gana","Tamaño muestral efectivo: n dividido por deff"]],
+ ["Intervalos de confianza",["Con muestras grandes el estimador es aproximadamente normal: estimación ± z · error estándar","Para el 95 % se usa z = 1,96","El error estándar es la raíz de la varianza estimada"]]],
+ fx:[["Estimador de HT del total","t̂_{π} = Σ_{k∈s} y_{k}/π_{k}"],["Varianza de HT","V(t̂_{π}) = Σ_{k∈U} Σ_{l∈U} (π_{kl} − π_{k}π_{l}) · (y_{k}/π_{k}) · (y_{l}/π_{l})"],["Varianza de Sen-Yates-Grundy (tamaño fijo)","V(t̂_{π}) = −½ Σ_{k≠l∈U} (π_{kl} − π_{k}π_{l}) · (y_{k}/π_{k} − y_{l}/π_{l})²"],["Estimador de la varianza de HT","V̂ = Σ_{k∈s} Σ_{l∈s} [(π_{kl} − π_{k}π_{l})/π_{kl}] · (y_{k}/π_{k}) · (y_{l}/π_{l})"],["Hansen-Hurwitz (m extracciones)","t̂_{pwr} = (1/m) Σ_{i=1..m} y_{i}/p_{i}"],["Efecto de diseño","deff = V_{p}(θ̂) / V_{MAS}(θ̂)"]],
+ ojo:["Si π_{kl} = 0 para algún par (por ejemplo en muestreo sistemático) no hay estimador insesgado de la varianza de HT","HT es insesgado pero no siempre eficiente: su varianza es alta si y_{k} no es proporcional a π_{k}"]},
+
+"3":{res:"Con unidades elementales e igual probabilidad, el muestreo de Bernoulli tiene tamaño aleatorio y el aleatorio simple tamaño fijo. En el aleatorio simple, el total se estima con N por la media muestral.",
+ sec:[
+ ["Muestreo de Bernoulli",["Cada unidad entra en la muestra de forma independiente con probabilidad π","El tamaño muestral es aleatorio: binomial de parámetros N y π","π_{k} = π para todo k y π_{kl} = π² para k ≠ l","Se usa poco en la práctica por la variabilidad del tamaño, pero es la base teórica del muestreo con tamaño aleatorio"]],
+ ["Muestreo aleatorio simple sin reemplazamiento",["Todas las muestras de tamaño n tienen la misma probabilidad","π_{k} = n/N = f (fracción de muestreo) y π_{kl} = n(n−1)/[N(N−1)]","Estimador del total: N por la media muestral. Estimador de la media: la media muestral","El factor (1−f) es la corrección por población finita"]],
+ ["Muestreo aleatorio simple con reemplazamiento",["Cada extracción es independiente y se hace sobre toda la población","Una unidad puede aparecer varias veces; n cuenta extracciones","Su varianza es mayor que sin reemplazamiento: no tiene el factor (1−f)"]],
+ ["Proporciones",["Una proporción es la media de una variable que vale 0 o 1","El estimador es p̂ = a/n, con a unidades de la muestra que cumplen la característica","La varianza es máxima cuando P = 0,5"]],
+ ["Tamaño muestral",["Para estimar una media con error absoluto e y confianza 1−α se parte de n₀","Con población finita se corrige n₀ por el tamaño de la población","Para una proporción sin información previa se toma P = 0,5"]]],
+ fx:[["Bernoulli: tamaño y estimador de HT","n_{s} ~ Bin(N, π) ; t̂_{π} = (1/π) Σ_{k∈s} y_{k} ; V(t̂_{π}) = ((1−π)/π) Σ_{k∈U} y_{k}²"],["MAS: total y varianza","t̂ = N ȳ ; V(t̂) = N² (1−f) S²_{y} / n ; f = n/N"],["MAS: varianza estimada","V̂(t̂) = N² (1−f) s²_{y} / n"],["Varianzas del tipo S² y s²","S²_{y} = Σ_{k∈U} (y_{k} − Ȳ)² / (N−1) ; s²_{y} = Σ_{k∈s} (y_{k} − ȳ)² / (n−1)"],["MAS con reemplazamiento","V(t̂) = N² σ² / n ; σ² = Σ_{k∈U} (y_{k} − Ȳ)² / N"],["Varianza estimada de una proporción","V̂(p̂) = (1−f) p̂ (1−p̂) / (n−1)"],["Tamaño muestral","n₀ = z² S² / e² ; n = n₀ / (1 + n₀/N)"]],
+ ojo:["En MAS el total se estima con N·ȳ, no con n·ȳ","Sin reemplazamiento la varianza es menor por el factor (1−f)","En Bernoulli el tamaño es aleatorio; en MAS es fijo"]},
+
+"4":{res:"El muestreo sistemático elige una unidad al azar y luego una de cada a unidades. Es sencillo y eficiente si el orden del marco aporta estratificación implícita, pero no admite un estimador insesgado de la varianza.",
+ sec:[
+ ["Definición",["Se ordena el marco, se fija el intervalo a ≈ N/n, se elige un arranque aleatorio r entre 1 y a y se toman las unidades r, r+a, r+2a, …","Con N = n·a hay exactamente a muestras posibles, todas de n unidades y probabilidad 1/a","π_{k} = 1/a para todas las unidades","Si N no es múltiplo de a, el tamaño puede variar entre muestras: se corrige con intervalo fraccionario o con muestreo sistemático circular"]],
+ ["Estimadores",["Total: a por la suma de los valores de la muestra (equivale a N·ȳ cuando N = n·a)","Media: la media de la muestra"]],
+ ["Problema de la varianza",["π_{kl} vale 1/a si las dos unidades están en la misma muestra sistemática y 0 si no. Como hay pares con π_{kl} = 0, no existe estimador insesgado de la varianza con una sola muestra","Soluciones habituales: tratar la muestra como MAS (conservador si el orden es aleatorio), estimadores de diferencias sucesivas, varias muestras sistemáticas independientes (arranques múltiples) o formar pseudoestratos"]],
+ ["Eficiencia",["Orden aleatorio: equivale a MAS","Orden con tendencia o por una variable relacionada con y: más eficiente que MAS (estratificación implícita)","Orden periódico con periodo igual al intervalo a o a un múltiplo: puede ser muy ineficiente","La varianza depende de la correlación intraclase ρ_{w} entre unidades de la misma muestra: si es negativa, mejor que MAS"]]],
+ fx:[["Estimador del total (N = n·a)","t̂ = a Σ_{k∈s} y_{k}"],["Varianza de la media","V(ȳ_{sy}) = (S²/n) · ((N−1)/N) · [1 + (n−1) ρ_{w}]"],["Estimador de diferencias sucesivas","V̂(ȳ_{sy}) = (1−f) / (2n(n−1)) · Σ_{i=2..n} (y_{i} − y_{i−1})²"]],
+ ojo:["Con un solo arranque no hay estimador insesgado de la varianza","Hay que vigilar periodicidades en el orden del marco"]},
+
+"5":{res:"El muestreo de Poisson extiende el de Bernoulli a probabilidades distintas por unidad. El PPS elige con probabilidad proporcional a una medida de tamaño y gana eficiencia cuando la variable de interés es casi proporcional a ese tamaño.",
+ sec:[
+ ["Muestreo de Poisson",["Cada unidad k entra de forma independiente con su propia probabilidad π_{k}","Tamaño muestral aleatorio con esperanza Σ π_{k}","π_{kl} = π_{k} π_{l} para k ≠ l","Generaliza el muestreo de Bernoulli y sirve de base teórica para analizar la no respuesta"]],
+ ["Muestreo con probabilidad proporcional al tamaño (PPS)",["Usa una variable auxiliar de tamaño x_{k} > 0 conocida para todo el marco","Probabilidades proporcionales a x_{k}: p_{k} = x_{k}/X, con X la suma de los x","Es eficiente cuando y_{k} es casi proporcional a x_{k}, porque entonces y_{k}/π_{k} es casi constante y la varianza baja"]],
+ ["PPS con reemplazamiento",["En cada extracción se elige k con probabilidad p_{k}, de forma independiente","Estimador de Hansen-Hurwitz: promedio de y_{k}/p_{k}","La varianza se estima sin dificultad con la variabilidad entre extracciones (m > 1)"]],
+ ["PPS sin reemplazamiento",["Probabilidades de inclusión π_{k} = n·p_{k}, que deben ser ≤ 1: las unidades muy grandes se incluyen con certeza y salen del sorteo","Procedimientos: sistemático PPS (con totales acumulados de x), Midzuno, Brewer, Sampford, Sunter","El sistemático PPS es sencillo pero comparte el problema de la varianza del sistemático","Se estima con HT y se calcula la varianza con Sen-Yates-Grundy"]]],
+ fx:[["Poisson: varianza de HT","V(t̂_{π}) = Σ_{k∈U} ((1−π_{k})/π_{k}) y_{k}²"],["PPS con reemplazamiento: estimador","t̂_{pwr} = (1/m) Σ_{i=1..m} y_{i}/p_{i}"],["PPS con reemplazamiento: varianza","V(t̂_{pwr}) = (1/m) Σ_{k∈U} p_{k} (y_{k}/p_{k} − t)²"],["PPS con reemplazamiento: varianza estimada","V̂(t̂_{pwr}) = [1/(m(m−1))] Σ_{i=1..m} (y_{i}/p_{i} − t̂_{pwr})²"],["PPS sin reemplazamiento: inclusión","π_{k} = n x_{k} / Σ_{j∈U} x_{j} ≤ 1"]],
+ ojo:["Si y/x no es aproximadamente constante, PPS puede ser peor que MAS","Las unidades con n·p_{k} > 1 se incluyen siempre"]},
+
+"6":{res:"Dividir la población en estratos homogéneos y muestrear dentro de cada uno reduce la varianza. La afijación decide cuántas unidades van a cada estrato.",
+ sec:[
+ ["Diseño",["Estratos: subpoblaciones disjuntas que cubren la población, con N_{h} unidades cada una (h = 1..H)","En cada estrato se extrae una muestra independiente, normalmente MAS, de tamaño n_{h}","Los estratos deben ser homogéneos por dentro, distintos entre sí y conocerse en el marco","También sirven para garantizar precisión en subpoblaciones y para tratar aparte a las unidades grandes"]],
+ ["Estimación",["El total es la suma de los totales estimados de los estratos","π_{k} = n_{h}/N_{h} para las unidades del estrato h","La varianza es la suma de las varianzas de los estratos (hay independencia entre estratos)","Solo cuenta la variabilidad dentro de los estratos"]],
+ ["Afijación",["Proporcional: n_{h} proporcional a N_{h}. La muestra resulta autoponderada","Óptima o de Neyman: n_{h} proporcional a N_{h}·S_{h}. Minimiza la varianza con n fijo","Óptima con costes: n_{h} proporcional a N_{h}·S_{h} dividido por la raíz del coste unitario","Uniforme: el mismo n_{h} en cada estrato, útil si interesan los estratos por igual","En la práctica se ajusta con tamaños mínimos y con inclusión forzosa de las unidades mayores"]],
+ ["Comparación",["Aproximadamente, V(Neyman) ≤ V(proporcional) ≤ V(MAS)","La ganancia crece cuanto más distintos son los estratos y más homogéneos por dentro"]]],
+ fx:[["Total estimado","t̂ = Σ_{h=1..H} N_{h} ȳ_{h}"],["Varianza","V(t̂) = Σ_{h} N_{h}² (1−f_{h}) S²_{h} / n_{h} ; f_{h} = n_{h}/N_{h}"],["Varianza estimada","V̂(t̂) = Σ_{h} N_{h}² (1−f_{h}) s²_{h} / n_{h}"],["Afijación proporcional","n_{h} = n N_{h} / N"],["Afijación de Neyman","n_{h} = n N_{h} S_{h} / Σ_{j} N_{j} S_{j}"],["Afijación con costes","n_{h} = n (N_{h} S_{h} / √c_{h}) / Σ_{j} (N_{j} S_{j} / √c_{j})"]],
+ ojo:["Neyman da más muestra a los estratos grandes y muy variables","La afijación óptima depende de la variable: con varias variables se busca un compromiso"]},
+
+"7":{res:"Se selecciona una muestra de conglomerados y se observan todas sus unidades. Es barato y cómodo, pero suele perder precisión por la correlación entre unidades del mismo conglomerado.",
+ sec:[
+ ["Diseño",["La población se divide en N_{I} conglomerados (áreas geográficas, viviendas, centros), cada uno con M_{i} unidades","Se seleccionan n_{I} conglomerados (por MAS o por PPS) y se observan todas las unidades de cada uno","Se usa cuando no hay lista de unidades finales o cuando recorrer el territorio es caro","Cada unidad hereda la probabilidad de su conglomerado"]],
+ ["Estimación con MAS de conglomerados",["Se trabaja con los totales de conglomerado t_{i}","El total se estima con N_{I}/n_{I} veces la suma de los totales de los conglomerados de la muestra","Si los tamaños M_{i} varían mucho, el estimador del total es muy variable: para medias se prefiere el estimador de razón, y para totales el PPS"]],
+ ["Efecto de diseño",["Con conglomerados de tamaño medio M y correlación intraclase ρ, deff es aproximadamente 1 + (M−1)ρ","La pérdida es mayor cuanto más grandes y más homogéneos son los conglomerados","Idea de diseño: muchos conglomerados pequeños mejor que pocos grandes"]]],
+ fx:[["Total","t̂ = (N_{I}/n_{I}) Σ_{i∈s} t_{i}"],["Varianza","V(t̂) = N_{I}² (1−f_{I}) S²_{t} / n_{I} ; f_{I} = n_{I}/N_{I} ; S²_{t} = varianza entre totales de conglomerado"],["Varianza estimada","V̂(t̂) = N_{I}² (1−f_{I}) s²_{t} / n_{I}"],["Estimador de razón de la media","ȳ̂ = Σ_{i∈s} t_{i} / Σ_{i∈s} M_{i}"],["Efecto de diseño aproximado","deff ≈ 1 + (M̄ − 1) ρ"]],
+ ojo:["Sin submuestreo se observan todas las unidades del conglomerado elegido","Con ρ > 0, deff > 1: el conglomerado pierde frente a un MAS con el mismo número de unidades"]},
+
+"8":{res:"La recogida combina métodos de captura de datos y una gestión activa del trabajo de campo, apoyada en paradatos, para maximizar la respuesta y la calidad con el coste previsto.",
+ sec:[
+ ["Métodos básicos",["Entrevista personal: en papel (PAPI) o asistida por ordenador (CAPI)","Entrevista telefónica (CATI)","Autocumplimentación en papel (correo) o por web (CAWI)","Fuentes sin cuestionario: registros administrativos, ficheros de empresas, datos de sensores o móviles","Modos mixtos (en secuencia o en paralelo) y encuestas de panel"]],
+ ["Recogida asistida por ordenador",["CAPI, CATI, CAWI y CASI: el cuestionario electrónico dirige las rutas, valida al momento y evita datos incoherentes","Ventajas: control de flujo, validación en línea, menos depuración posterior y paradatos automáticos","Riesgos: coste de programación, formación, fallos técnicos y efectos de modo"]],
+ ["Implementación",["Instrumento: cuestionario probado y manual de entrevista","Personal: selección, formación y supervisión de entrevistadores","Contactos: carta previa, incentivos, recordatorios, número de visitas y franjas horarias","Reparto de cargas de trabajo y control de costes"]],
+ ["Gestión activa del trabajo de campo",["Seguimiento diario de tasas de respuesta, contactos y rechazos mediante indicadores","Diseños adaptativos o responsivos: el esfuerzo cambia según el avance (más recordatorios, cambio de modo, incentivos)","Atención a la no respuesta: conversión de rechazos y submuestreo de no respondientes"]],
+ ["Paradatos",["Datos sobre el proceso de recogida: intentos, resultado de cada contacto, duración, hora, observaciones del entrevistador y registro de acciones en el cuestionario","Sirven para gestionar el campo, detectar problemas y modelizar la no respuesta"]],
+ ["Monitorización y evaluación",["Calidad de la respuesta: tasas de respuesta y de contacto, no respuesta parcial, inconsistencias, tiempos anómalos y falsificación","Calidad del proceso: coste, plazos y rendimiento por entrevistador","Informe de calidad de la recogida: documenta tasas, incidencias y lecciones aprendidas"]]],
+ fx:[["Tasa de respuesta simple (hay varias definiciones)","TR = n_{resp} / n_{elegibles}"]],
+ ojo:["Los paradatos son datos del proceso, no de los informantes","Los modos mixtos aumentan la respuesta y reducen costes, pero introducen efectos de modo"]},
+
+"9":{res:"Depurar es detectar y corregir datos erróneos o incoherentes. Imputar es sustituir valores ausentes o rechazados. Juntas forman la estrategia que deja un fichero completo y coherente.",
+ sec:[
+ ["Datos, errores y datos ausentes",["Error: valor observado distinto del verdadero. Puede ser aleatorio o sistemático","Tipos: de medida, de respuesta, de captura, de codificación y de procesamiento","Datos ausentes: no respuesta total (la unidad no responde) y parcial (omite ítems)","Valor atípico (outlier): válido pero extremo. No siempre es un error"]],
+ ["Controles (edits)",["Reglas de validez: rango, formato y dominio de códigos","Reglas de coherencia entre variables (edad y estado civil, ocupación e ingresos)","Reglas aritméticas o de balance (la suma de las partes es el total)","Se distinguen errores (fallo seguro) de avisos (valor sospechoso)","Fellegi-Holt: dado un conjunto de reglas, localiza el mínimo número de variables que hay que cambiar para que el registro las cumpla todas"]],
+ ["Métodos básicos",["Revisión manual o recontacto con el informante","Edición automática con reglas deterministas","Edición selectiva: se revisan solo los registros con más impacto en el resultado, mediante funciones de puntuación","Edición macro: se examinan totales y distribuciones y se vuelve a los registros causantes","Imputación determinista: el valor sale de una regla (por ejemplo, deducirlo de otras variables)"]],
+ ["Imputación estadística",["Media o razón dentro de clases de imputación","Regresión: valor predicho, con o sin residuo aleatorio","Donante (hot deck): se copia el valor de un respondiente similar. Cold deck usa una fuente externa","Vecino más próximo: el donante más cercano según una distancia","Imputación múltiple: varias imputaciones para reflejar la incertidumbre","Imputar un valor y tratarlo como real infravalora la varianza si no se corrige"]],
+ ["Estrategia de depuración e imputación",["Orden habitual: controles de validez y coherencia, localización de errores, corrección, imputación y comprobación final","Debe equilibrar calidad, plazo y coste, y se vigilan indicadores como las tasas de edición e imputación","Se evita sobreeditar: corregir en exceso consume recursos y puede introducir sesgo"]],
+ ["Enfoques ante la no respuesta",["Imputación completa: se imputa todo lo que falta, de unidad y de ítem, y se mantienen los pesos de diseño","Reponderación completa: se descartan los no respondientes y se ajustan los pesos de los respondientes","Enfoque combinado: reponderación para la no respuesta total e imputación para la parcial"]],
+ ["Imputación por reglas estadísticas",["Se imputa con modelos o regresiones que usan variables auxiliares, para conservar relaciones entre variables","La media conserva el total pero aplana la variabilidad. Donante o regresión con residuo aleatorio conservan mejor la distribución"]]],
+ fx:[],
+ ojo:["Reponderar para la no respuesta total e imputar para la parcial","Imputar por la media no mantiene la distribución ni la varianza"]},
+
+"10":{res:"La falta de respuesta añade un sesgo que no desaparece al aumentar la muestra. El error cuadrático medio suma la varianza y el sesgo al cuadrado, y el sesgo depende de la tasa de no respuesta y de cuánto difieren respondientes y no respondientes.",
+ sec:[
+ ["Error de muestreo y error por no respuesta",["Error de muestreo: se debe a observar solo una muestra","Error por no respuesta: se debe a no observar a todos los seleccionados","El segundo introduce sesgo; el primero solo varianza","Los estimadores se calculan sobre el conjunto de respondientes"]],
+ ["Error cuadrático medio",["ECM = varianza + sesgo²","Con tasa de respuesta baja el sesgo puede dominar aunque la muestra sea grande","La tasa de respuesta no mide por sí sola la calidad: importa el sesgo"]],
+ ["Sesgo de estimadores simples",["Usar la media de los respondientes como estimador de la media poblacional produce un sesgo proporcional a la proporción de no respondientes y a la diferencia entre las medias de respondientes y no respondientes","Si esa diferencia es cero, la no respuesta es ignorable y no hay sesgo","Si la no respuesta depende de variables auxiliares conocidas, se corrige con reponderación o calibrado. Si depende de la propia variable de interés, no se puede corregir sin supuestos"]],
+ ["Ideas de corrección",["Pesos corregidos por la probabilidad de respuesta estimada","Grupos de homogeneidad de respuesta","Poststratificación y calibrado con totales conocidos","Imputación para la no respuesta parcial","Submuestreo de no respondientes y seguimiento intensivo"]]],
+ fx:[["Error cuadrático medio","ECM(θ̂) = V(θ̂) + [sesgo(θ̂)]²"],["Sesgo de la media de respondientes (dos estratos)","sesgo(ȳ_{R}) = (N_{NR}/N) (Ȳ_{R} − Ȳ_{NR})"],["Estimador con ponderación por respuesta","t̂_{w} = Σ_{k∈r} y_{k} / (π_{k} θ̂_{k})"]],
+ ojo:["Alcance: según el programa de 2025, A-I·10 llega hasta los estimadores simples y sus sesgos. Calibración, grupos de homogeneidad, submuestreo y GREG son ampliación (especialidad I, temas 4 y 9)","Una tasa de respuesta alta no garantiza poco sesgo, ni una baja garantiza mucho","El sesgo no baja aumentando el tamaño muestral"]},
+
+"11":{res:"El control del secreto estadístico protege a las unidades informantes: se mide el riesgo de identificación, se aplican métodos que lo reducen y se vigila la pérdida de utilidad de la información.",
+ sec:[
+ ["Conceptos",["Datos tabulares: tablas de frecuencias o de magnitudes (totales, medias)","Microdatos: registros individuales anonimizados","Riesgo de revelación: identificación (reconocer a una unidad) o revelación de atributos (aprender un valor de alguien)","Utilidad: cuánta información analítica conserva el producto tras protegerlo","Intruso: quien intenta identificar. Se razona sobre su información y sus medios"]],
+ ["Importancia",["La confidencialidad sostiene la confianza de los informantes y, con ella, la tasa de respuesta","Marco: Ley de la Función Estadística Pública y Reglamento (CE) 223/2009, y es un principio del Código de Buenas Prácticas"]],
+ ["Tablas: celdas sensibles",["Reglas primarias: umbral (mínimo de unidades por celda), dominancia (n,k) y regla p %","Supresión secundaria: se ocultan más celdas para que las suprimidas no se recuperen por diferencia con los totales","Otros métodos: redondeo (controlado o aleatorio), ajuste controlado de tablas, recodificación de categorías y perturbación"]],
+ ["Microdatos",["Eliminar identificadores directos","Recodificación global (agrupar categorías, intervalos de edad), supresión local y topes en valores extremos (top-coding)","Perturbación: ruido, intercambio (swapping), microagregación y PRAM","Datos sintéticos o parcialmente sintéticos","Medidas de riesgo: unicidad en las variables clave, k-anonimato y probabilidad de reidentificación. Cuenta la unicidad en la población, no solo en la muestra","Acceso controlado: entornos seguros y ficheros de uso científico con acuerdo"]],
+ ["Implementación",["Se define el riesgo aceptable, se elige el método según el tipo de dato y el uso, se aplica con software especializado (por ejemplo τ-ARGUS y sdcMicro), se mide la pérdida de información y se documenta","La protección debe ser coherente entre tablas que comparten celdas o totales"]]],
+ fx:[["Regla de dominancia (n,k)","Celda sensible si la suma de las n mayores aportaciones supera el k % del total de la celda"],["Regla p %","Celda sensible si T − x_{1} − x_{2} < (p/100) · x_{1}, con x_{1} ≥ x_{2} ≥ … las aportaciones ordenadas y T el total de la celda"],["k-anonimato","Cada combinación de variables clave aparece al menos k veces en el fichero"]],
+ ojo:["Suprimir solo las celdas sensibles no basta: hay que cubrir la recuperación por diferencia con supresión secundaria","Proteger cada tabla por separado puede permitir deducir una celda comparando tablas"]},
+
+"12":{res:"Difundir es hacer llegar el mensaje correcto al usuario adecuado con tablas, gráficos y mapas claros, accesibles y fiables.",
+ sec:[
+ ["Presentación de estadísticas",["Conocer a los usuarios: público general, medios, investigadores y administraciones","Jerarquía: titular y cifras clave, tabla resumen, series y detalle, metodología","Productos: nota de prensa, tablas, bases de datos en línea, microdatos, informes y API","Metadatos visibles: definiciones, fuente, fecha de referencia, calidad y revisiones"]],
+ ["Transmisión del mensaje",["Mensaje claro, comparación relevante (con el periodo anterior y con el mismo periodo del año anterior) y lenguaje sencillo","Evitar interpretaciones que los datos no sostienen. Explicar los cambios y la incertidumbre","Coherencia y comparabilidad con publicaciones anteriores"]],
+ ["Visualización",["Tablas: cuando importan los valores exactos. Ordenar, redondear con criterio y poner unidades claras","Gráficos: líneas para series temporales, barras para comparar categorías, dispersión para relaciones y mapas de coropletas para el territorio","Buenas prácticas: ejes honestos (barras desde cero), pocos colores, etiquetas directas y sin efectos 3D ni decoración","Mapas: elegir bien las clases y la escala de color, normalizar por población u otra base y tener en cuenta que las áreas grandes dominan visualmente"]],
+ ["Técnicas emergentes",["Gráficos interactivos y cuadros de mando","Visualización de datos geográficos y de redes","Narración con datos y datos abiertos con API"]],
+ ["Accesibilidad",["Pautas WCAG: contraste suficiente, texto alternativo y navegación con teclado","No depender solo del color y usar formatos legibles por lectores de pantalla","Formatos abiertos y reutilizables"]]],
+ fx:[],
+ ojo:["Una visualización engañosa va contra la objetividad que exige el Código de Buenas Prácticas","Un gráfico de barras con eje truncado exagera las diferencias"]},
+
+"13":{res:"El enlace de registros identifica registros de distintas fuentes que se refieren a la misma entidad. Es determinista si hay un identificador fiable y probabilista si solo hay variables con errores.",
+ sec:[
+ ["Introducción",["Objetivos: integrar fuentes, evitar duplicados, construir registros longitudinales y enriquecer encuestas con registros","Los pares de registros pueden ser coincidencias (match) o no coincidencias (non-match)","Errores: falsos enlaces (falsos positivos) y enlaces perdidos (falsos negativos)"]],
+ ["Visión de conjunto de los métodos",["Determinista exacto: coincide un identificador único (DNI, NIF) o una clave combinada","Determinista por reglas escalonadas: se aplican reglas de más a menos estrictas","Probabilista (Fellegi-Sunter): compara variables, calcula un peso de coincidencia y clasifica en enlace, no enlace y posible enlace (revisión manual)","Con aprendizaje automático: clasificadores entrenados con pares etiquetados","Bloqueo (blocking): solo se comparan registros que coinciden en una clave de bloqueo, para reducir el número de pares candidatos"]],
+ ["Preparación de los datos",["Normalización: mayúsculas, quitar tildes y signos, abreviaturas y orden de nombre y apellidos","Análisis de calidad de las variables de enlace: completitud, errores y valores por defecto","Estandarización de direcciones y fechas","Funciones de comparación: igualdad exacta, distancia de Levenshtein, Jaro-Winkler y códigos fonéticos (Soundex)","Elección de las variables de bloqueo: equilibrio entre coste y pérdida de coincidencias"]],
+ ["Evaluación",["Precisión: enlaces correctos entre los realizados. Exhaustividad: coincidencias reales encontradas","Se evalúa con una muestra revisada a mano o con datos de referencia","Los errores de enlace sesgan los análisis posteriores"]]],
+ fx:[["Probabilidades m y u","m = P(coincide la variable | el par es match) ; u = P(coincide la variable | el par es non-match)"],["Peso de una variable","w_{acuerdo} = log₂(m/u) ; w_{desacuerdo} = log₂[(1−m)/(1−u)]"],["Peso total y clasificación","W = Σ_{j} w_{j} ; W ≥ T_{sup}: enlace ; W ≤ T_{inf}: no enlace ; entre ambos: revisión manual"],["Precisión y exhaustividad","precisión = VP / (VP + FP) ; exhaustividad = VP / (VP + FN)"]],
+ ojo:["El bloqueo reduce comparaciones pero puede dejar fuera coincidencias reales","Un identificador único no elimina los errores de enlace: puede estar mal capturado"]},
+
+"14":{res:"El GSBPM describe, en dos niveles, las fases y subprocesos de la producción de estadísticas oficiales. Sirve de lenguaje común, no de receta rígida.",
+ sec:[
+ ["Qué es",["Generic Statistical Business Process Model, mantenido por la UNECE con la participación de oficinas nacionales","Modelo descriptivo y genérico, no normativo: cada oficina lo adapta a sus operaciones","Permite comparar procesos, planificar, documentar y reutilizar componentes"]],
+ ["Niveles 1 y 2",["Nivel 1: las 8 fases (especificar necesidades, diseñar, construir, recoger, procesar, analizar, difundir, evaluar)","Nivel 2: los subprocesos de cada fase (44 en la versión 5.1)","Los niveles inferiores son descripciones locales de cada oficina"]],
+ ["Procesos generales",["Gestión del programa estadístico, de la calidad, de metadatos, del marco estadístico, de datos, de datos del proceso, del conocimiento, de informantes, de usuarios y de recursos humanos","Atraviesan todas las fases"]],
+ ["Relación con otros modelos y estándares",["GSIM: modelo de información, es decir, con qué objetos trabaja el proceso","GAMSO: modelo de actividades de la organización estadística, que incluye al GSBPM como actividad de producción","CSPA: arquitectura común para servicios compartidos","Marcos de calidad del Sistema Estadístico Europeo","SDMX y DDI para intercambio y documentación"]],
+ ["Otros usos",["Estructurar la documentación y los metadatos de cada operación","Organizar sistemas informáticos y flujos de trabajo","Servir de base a la evaluación de la calidad y a la comparación internacional"]]],
+ fx:[],
+ ojo:["El GSBPM no es lineal: hay iteración y bucles entre fases","La numeración varía entre versiones: comprueba la del temario"]},
+
+"15":{res:"El GSIM define el vocabulario de la información que circula en la producción estadística. SDMX y DDI estandarizan cómo se intercambian y documentan los datos y metadatos.",
+ sec:[
+ ["Qué es",["Generic Statistical Information Model","Modelo de referencia de los objetos de información (conceptos, variables, poblaciones, clasificaciones, conjuntos de datos, procesos) y de sus relaciones","Complementa al GSBPM: el GSBPM dice qué se hace y el GSIM con qué información"]],
+ ["Alcance y beneficios",["Lenguaje común dentro y entre oficinas","Reutilización de metadatos y servicios, con menos duplicación","Base para modernizar sistemas y para una gestión de metadatos activa","No impone una implementación concreta"]],
+ ["Estructura",["Grupos de objetos: negocio (business), intercambio (exchange), conceptos (concepts) y estructuras (structures)","Conceptos: conceptos, variables, poblaciones, unidades y clasificaciones","Estructuras: conjuntos de datos y su estructura","Intercambio: datos y metadatos que entran y salen, provisión y difusión","Negocio: reglas, métodos, procesos y roles"]],
+ ["Relación con el GSBPM",["Cada subproceso usa y produce objetos del GSIM, es decir, información de entrada y de salida","Permite asociar metadatos a cada fase de forma coherente"]],
+ ["Implicaciones para el estadístico",["Visión de negocio: documentar conceptos y reglas y reutilizar definiciones","Visión tecnológica: modelar sistemas, interfaces y repositorios sobre un modelo común"]],
+ ["Estándares",["SDMX (Statistical Data and Metadata eXchange): intercambio de datos y metadatos, sobre todo agregados. Incluye estructuras de datos (DSD), listas de códigos y flujos de datos. Es la norma ISO 17369","DDI (Data Documentation Initiative): documentación de microdatos y encuestas, con las versiones Codebook y Lifecycle","Otros: ESMS y ESQRS (metadatos de referencia e informes de calidad del SEE) y el modelo de terminología de Neuchâtel para clasificaciones"]]],
+ fx:[],
+ ojo:["GSIM no es un estándar de intercambio: lo son SDMX y DDI","SDMX se centra en datos agregados y DDI en microdatos y encuestas"]},
+
+"16":{res:"La calidad en estadística oficial es la adecuación al uso, medida en varias dimensiones y garantizada con un código, un marco de aseguramiento y evaluaciones periódicas.",
+ sec:[
+ ["Concepto de calidad",["Adecuación al uso: responde a lo que los usuarios necesitan, con criterios compartidos","Calidad de los productos (resultados) y calidad de los procesos (cómo se producen)","Enfoque de error total de la encuesta: suma de errores de muestreo y no muestrales"]],
+ ["Dimensiones de calidad del SEE (agrupan los criterios del Reglamento 223/2009, art. 12)",["Relevancia","Exactitud y fiabilidad","Oportunidad y puntualidad","Accesibilidad y claridad","Coherencia y comparabilidad","El art. 12 enumera siete criterios: relevancia, exactitud, oportunidad, puntualidad, accesibilidad y claridad, comparabilidad y coherencia. La fiabilidad no figura en el art. 12"]],
+ ["Código de Buenas Prácticas de las Estadísticas Europeas",["Marco de referencia para las autoridades estadísticas del Sistema Estadístico Europeo","Principios agrupados en contexto institucional, procesos estadísticos y productos estadísticos, cada uno con indicadores","Versión de 2017: 16 principios, contando el 1 bis (coordinación y cooperación)"]],
+ ["Marco de garantía de calidad del SEE (ESS QAF)",["Orienta la aplicación del Código en cada fase del proceso, con métodos e instrumentos","Se vincula con el GSBPM: indicadores y buenas prácticas por fase","Informes de calidad estandarizados (estructura ESQRS y metadatos de referencia ESMS)"]],
+ ["Calidad de productos y procesos",["Productos: tasas de respuesta, coeficientes de variación, revisiones, puntualidad y cobertura","Procesos: control estadístico del proceso, paradatos, indicadores de edición e imputación y documentación","Mejora continua: planificar, hacer, verificar y actuar"]],
+ ["Sistemas de evaluación global",["Auditorías de calidad: internas o externas, con criterios y recomendaciones","Autoevaluación: la propia oficina se valora frente a una lista de comprobación (por ejemplo DESAP)","Revisión por homólogos (peer review): expertos de otras oficinas evalúan el cumplimiento del Código y proponen mejoras"]]],
+ fx:[],
+ ojo:["No confundir las dimensiones de calidad del art. 12 con los principios del Código: son cosas distintas","La calidad se mide con indicadores, no solo con la tasa de respuesta"]}
+};
+
+/* Ampliación de los temas A-I: secciones extra, ejemplo resuelto y pregunta de examen */
+var DEV2={
+"1":{ext:[["Error total de la encuesta",["Errores de muestreo (se miden) y no muestrales: cobertura, no respuesta, medida y procesamiento","Los no muestrales no bajan aumentando n y casi nunca se miden con una fórmula","Un buen diseño reparte el presupuesto entre ambos tipos, no solo reduce la varianza"]],["Objetivos de precisión",["Se fijan por parámetro y por dominio de estudio: por ejemplo CV ≤ 5 % a nivel nacional y ≤ 15 % por comunidad autónoma","Cada dominio con precisión exigida añade tamaño muestral y puede imponer una afijación no proporcional"]]],
+ ex:["Ejemplo: errores del marco","Población objetivo: 50.000 hogares. El marco tiene 55.000 registros: 47.000 hogares objetivo distintos, 3.000 registros duplicados de esos hogares y 5.000 que no pertenecen a la población. Subcobertura: 50.000 − 47.000 = 3.000 hogares (6 %). Sobrecobertura: 5.000 registros ajenos. Los duplicados tienen doble probabilidad de salir y sesgan si no se detectan."],
+ q:["¿Por qué un marco de áreas puede cubrir mejor que uno de listas?","No necesita una lista de unidades finales: todo el territorio queda dividido en áreas, así que la cobertura depende de la cartografía y no de que la lista esté actualizada. Solo se listan las unidades de las áreas elegidas."]},
+"2":{ext:[["Segundo orden y varianza",["Si π_{kl} = π_{k}π_{l} (Poisson) los términos cruzados de la varianza de HT se anulan","El estimador de Sen-Yates-Grundy es no negativo si π_{kl} ≤ π_{k}π_{l} para todo par; si no, puede salir negativo","Exige tamaño de muestra fijo"]],["Muestras autoponderadas",["Si todos los π_{k} son iguales, los pesos son iguales y la media ponderada coincide con la media muestral","MAS y la estratificación con afijación proporcional son autoponderados"]]],
+ ex:["Ejemplo: un peso y un intervalo","Una unidad con π = 0,02 representa 1/0,02 = 50 unidades: si declara y = 8 aporta 400 al total estimado. Si el total estimado es 120.000 con error estándar 6.000, el IC al 95 % es 120.000 ± 1,96·6.000 = 120.000 ± 11.760, es decir, [108.240 ; 131.760]. Con deff = 1,8 y n = 900, el tamaño efectivo es 900/1,8 = 500 y el error estándar es √1,8 ≈ 1,34 veces el de un MAS."],
+ q:["¿Es insesgado HT si alguna unidad tiene π_{k} = 0?","No. Si una unidad no puede salir en la muestra, su aportación no se estima y el estimador queda sesgado salvo que y_{k} = 0 en esas unidades."]},
+"3":{ext:[["Por qué aparece (1−f)",["En MAS sin reemplazamiento no hay repeticiones: observar una fracción grande de la población deja menos incertidumbre","Si f es pequeña (menos del 5 %) el factor apenas importa. Si f → 1 la varianza tiende a 0, porque ya se ha observado casi todo"]],["Bernoulli frente a MAS",["Bernoulli: el tamaño es aleatorio y eso añade variabilidad al total estimado","MAS: tamaño fijo. Condicionando al tamaño obtenido, una muestra de Bernoulli es un MAS de ese tamaño"]]],
+ ex:["Ejemplo: MAS completo","N = 2.000, n = 100, ȳ = 50, s² = 400. Total: 2.000·50 = 100.000. f = 0,05. V̂ = 2.000²·0,95·400/100 = 15.200.000, error estándar ≈ 3.899 y CV ≈ 3,9 %. Tamaño para e = 2 con 95 %: n₀ = 1,96²·400/2² = 384,16 y, corregido, n = 384,16/(1 + 384,16/2.000) ≈ 322,2, es decir, 323."],
+ q:["¿Qué cambia en MAS si n pasa de 100 a 400 con N = 2.000?","El error estándar queda por debajo de la mitad (no justo en la mitad), porque (1−f) también baja: f pasa de 0,05 a 0,20 y el factor de 0,95 a 0,80. Como V ∝ (1−f)/n, el error estándar se multiplica por √(0,2105) ≈ 0,46."]},
+"4":{ext:[["Intervalo fraccionario",["Si a = N/n no es entero se toma u uniforme en (0, a] y se seleccionan las unidades de posición ⌈u + (j−1)a⌉ con j = 1..n","Todas las unidades tienen π = n/N y el tamaño es fijo"]],["Estratificación implícita",["Ordenar el marco por una variable relacionada con y (zona, tamaño) reparte la muestra como una afijación proporcional","Da la ganancia de la estratificación sin definir estratos"]]],
+ ex:["Ejemplo","N = 1.000, n = 50, a = 20. Con arranque r = 7 la muestra es 7, 27, 47, …, 987. Hay 20 muestras posibles, cada una con probabilidad 1/20, y π_{k} = 0,05 para todas las unidades. Si otro marco se ordena por día de la semana y a = 7 (o múltiplo), cada muestra contiene siempre el mismo día: la estimación es muy ineficiente."],
+ q:["¿Por qué no hay estimador insesgado de la varianza con un solo arranque?","Porque π_{kl} = 0 para las parejas que no pueden estar juntas en la misma muestra sistemática, y el estimador de HT de la varianza necesita π_{kl} > 0 en todos los pares."]},
+"5":{ext:[["Unidades de inclusión forzosa",["Se calcula n·x_{k}/X; si supera 1 la unidad se incluye con certeza y se repite el cálculo con el resto","Es la práctica habitual en encuestas de empresas: las mayores se observan todas (estrato de certeza)"]],["Cuándo conviene PPS",["Cuando x se conoce para todo el marco y se relaciona con y (empleo, superficie, población)","Si y no guarda proporción con x, la varianza puede ser peor que la de MAS"]]],
+ ex:["Ejemplo: probabilidades de inclusión","Cuatro empresas con x = 10, 20, 30, 140 (X = 200) y n = 2. Primero n·x/X = 0,1; 0,2; 0,3; 1,4. La cuarta supera 1: se incluye con certeza. Se repite con las otras tres (X' = 60, n' = 1): π = 1/6, 1/3, 1/2. Comprobación: la suma de los π es 1 + 1 = 2 = n."],
+ q:["¿Qué pasa con la varianza de HT si y_{k}/π_{k} es casi constante?","Se aproxima a cero: todas las muestras dan casi el mismo total estimado. Por eso se usa PPS con una x proporcional a y."]},
+"6":{ext:[["Cómo elegir estratos",["Criterio: homogeneidad de la variable de interés dentro del estrato y dominios que se publican","Pocos estratos bien definidos suelen ser mejor que muchos con muestras diminutas: hace falta n_{h} ≥ 2 para estimar la varianza de cada estrato"]],["Poststratificación",["Calcula pesos con los totales poblacionales de las celdas después de recoger los datos","Sirve para corregir no respuesta y mejorar la precisión cuando el marco no traía la variable"]]],
+ ex:["Ejemplo: afijación","n = 100 y tres estratos con N = 5.000; 3.000; 2.000 y S = 10; 20; 40. Proporcional: 50, 30, 20. Neyman: N·S = 50.000; 60.000; 80.000 (total 190.000), luego n_{h} ≈ 26,3; 31,6; 42,1, es decir, 26, 32 y 42. El estrato más pequeño y más variable recibe la mayor muestra."],
+ q:["¿Cuándo coinciden la afijación proporcional y la de Neyman?","Cuando todos los estratos tienen la misma desviación típica S_{h}: entonces n_{h} es proporcional a N_{h}."]},
+"7":{ext:[["Correlación intraclase",["Mide cuánto se parecen las unidades de un mismo conglomerado respecto a la variación total","ρ positiva y grande: las unidades del conglomerado aportan información repetida y el tamaño efectivo cae","Variables socioeconómicas por zonas suelen tener ρ alta; otras, como el sexo, casi cero"]],["Conglomerados de distinto tamaño",["El total estimado depende de M_{i}: si los tamaños varían mucho, el estimador es poco preciso","Soluciones: estimador de razón, PPS con x = M_{i} o estratificar por tamaño"]]],
+ ex:["Ejemplo: efecto de diseño","Se eligen 60 conglomerados de M = 20 unidades: 1.200 unidades observadas. Con ρ = 0,05, deff ≈ 1 + 19·0,05 = 1,95 y el tamaño efectivo es 1.200/1,95 ≈ 615. Con 120 conglomerados de 10 (también 1.200 unidades) y el mismo ρ, deff ≈ 1 + 9·0,05 = 1,45 y el tamaño efectivo sube a ≈ 828."],
+ q:["¿Por qué un conglomerado de tamaño 1 equivale a un MAS?","Con M = 1 no hay correlación dentro del conglomerado y deff = 1: cada conglomerado es una unidad."]},
+"8":{ext:[["Efectos de modo",["El mismo cuestionario puede dar respuestas distintas según el modo (más deseabilidad social en CAPI, más abandono en CAWI)","En modos mixtos conviene un diseño unificado del cuestionario y estudiar las diferencias entre modos"]],["Indicadores de campo",["Tasas de contacto, de cooperación, de rechazo y de respuesta final","Duración media de la entrevista y número medio de visitas","Los indicadores de representatividad (R-indicators) comparan a los respondientes con el marco"]]],
+ ex:["Ejemplo: tasa de respuesta","Se seleccionan 2.000 unidades. 100 resultan no elegibles (fuera de la población) y 1.330 responden. Elegibles: 1.900. Tasa de respuesta = 1.330/1.900 = 70 %. Sin descontar las no elegibles saldría 66,5 %, una cifra engañosa."],
+ q:["¿Qué diferencia hay entre paradatos y metadatos?","Los paradatos describen el proceso de recogida (intentos, tiempos, resultado de los contactos). Los metadatos describen los datos (definiciones, clasificaciones, variables)."]},
+"9":{ext:[["Localización de errores de Fellegi-Holt",["Principio de cambio mínimo: se modifica el menor número de campos que deje el registro coherente con todas las reglas","Si varias soluciones empatan, se elige por la fiabilidad atribuida a cada variable","Hay que incluir las reglas implícitas (derivadas de las explícitas) para no dejar soluciones fuera"]],["Imputación y varianza",["La imputación simple trata el valor imputado como observado y subestima la varianza","Soluciones: imputación múltiple, estimadores de varianza que incorporan la imputación o réplicas con reimputación"]]],
+ ex:["Ejemplo: cambio mínimo","Regla: si edad < 16, el estado civil debe ser soltero. Registro: edad = 12, casado. Cambiar solo la edad o solo el estado civil resuelve el conflicto, ambos con un campo. Se elige el campo menos fiable: si la edad viene de un registro validado y el estado civil de una respuesta, se corrige el estado civil."],
+ q:["¿Por qué imputar por la media aplana la distribución?","Todos los imputados reciben el mismo valor: la media se conserva pero la varianza baja y la distribución se concentra en un punto. Con donante o con regresión más residuo aleatorio se conserva mejor la variabilidad."]},
+"10":{ext:[["Mecanismos de no respuesta",["MCAR: la respuesta no depende de nada. MAR: depende de variables observadas y se corrige con ellas. MNAR: depende del propio valor y no se corrige sin supuestos","Decide si basta reponderar o hace falta modelizar"]],["Ponderación por respuesta",["Se estima la probabilidad de respuesta θ_{k} con modelos o con grupos de homogeneidad de respuesta","El peso corregido es 1/(π_{k}θ̂_{k}). Un θ̂ muy bajo da pesos extremos, que se recortan"]]],
+ ex:["Ejemplo: sesgo","N = 10.000 y tasa de respuesta del 60 %: N_{NR}/N = 0,4. Media de respondientes 50 y de no respondientes 40. Media real = 0,6·50 + 0,4·40 = 46. Estimar con los respondientes da 50 y el sesgo es 0,4·(50 − 40) = 4. Si se duplica la muestra el sesgo sigue siendo 4: solo baja la varianza."],
+ q:["¿Cuándo es ignorable la no respuesta?","Cuando respondientes y no respondientes no difieren en la variable de interés (tras condicionar a las variables auxiliares usadas). Entonces el estimador con los respondientes es insesgado."]},
+"11":{ext:[["Supresión secundaria",["Se ocultan celdas adicionales para que las sensibles no se reconstruyan por diferencia con los totales marginales","Se optimiza para perder la menor información posible y se comprueba el intervalo de protección"]],["Riesgo en microdatos",["Variables clave: combinación de variables observables (sexo, edad, municipio) con la que un intruso puede reidentificar"]]],
+ ex:["Ejemplo: celda sensible","Celda de 4 empresas con aportaciones 60, 25, 10 y 5 (total 100). Regla (n,k) = (2; 80 %): las dos mayores suman 85 > 80, celda sensible. Regla p % con p = 30: T − x_{1} − x_{2} = 15 < 0,30·60 = 18, también sensible: la segunda empresa puede estimar a la primera con un error de 15 sobre 60 (25 %), menor que p."],
+ q:["¿Por qué suprimir solo la celda sensible no basta?","Porque si se publican los totales de fila y de columna, el valor suprimido se recupera por diferencia. Hay que suprimir otras celdas en cada fila y columna afectadas."]},
+"12":{ext:[["Elegir el gráfico",["Evolución en el tiempo: líneas. Comparación entre categorías: barras ordenadas. Composición: barras apiladas, o sectores solo con pocas partes. Distribución: histograma o caja. Territorio: mapa de coropletas con tasas, no con totales","Evitar sectores con más de cinco partes y los efectos 3D"]],["Notas y metadatos",["Toda cifra necesita unidad, periodo, fuente y si es provisional","Indicar revisiones y comparabilidad con la serie anterior"]]],
+ ex:["Ejemplo: eje truncado","Barras de 98 y 100 con el eje empezando en 96: las alturas visibles son 2 y 4 y la segunda parece el doble de la primera, cuando la diferencia real es del 2 %. Con el eje desde cero las barras casi coinciden, que es la lectura correcta."],
+ q:["¿Por qué un mapa de totales absolutos puede inducir a error?","Porque las áreas grandes o muy pobladas dominan el color y la vista. Hay que mapear una tasa o un valor por habitante, comparable entre territorios."]},
+"13":{ext:[["Estimación de m y u",["Si no hay pares revisados, se estiman con el algoritmo EM, tratando la pertenencia al grupo de coincidencias como variable latente","Se asume independencia condicional entre variables, un supuesto que conviene vigilar"]],["Pasadas de bloqueo",["Se usan varias pasadas con claves distintas para recuperar enlaces que una sola clave pierde"]]],
+ ex:["Ejemplo: pesos","Variable apellido con m = 0,95 y u = 0,01. Acuerdo: log₂(0,95/0,01) = log₂ 95 ≈ 6,57. Desacuerdo: log₂(0,05/0,99) ≈ −4,31. Un par que coincide en apellido suma 6,57 y uno que no coincide resta 4,31. Un acuerdo en una variable con u alto (sexo, u ≈ 0,5) aporta muy poco."],
+ q:["¿Qué errores de enlace existen y cómo se miden?","Falsos enlaces (se unen registros de entidades distintas) y enlaces perdidos (no se unen los de la misma entidad). Se miden con una muestra revisada a mano: precisión y exhaustividad."]},
+"14":{ext:[["Cómo usarlo para estudiar",["Ubicar cada decisión del diseño en su subproceso: se decide en la fase 2 y se ejecuta en las fases 4 a 6","Ejemplo: la imputación se diseña en 2.5, se programa en 3.2 y se aplica en 5.4","Calidad y metadatos no son una fase: actúan en cada subproceso"]],["Limitaciones",["Es un modelo descriptivo, no un manual de procedimientos","Los subprocesos no siguen siempre este orden ni todos se aplican a todas las operaciones","Las fuentes administrativas desplazan trabajo de la fase 4 hacia las fases 1 y 5"]]],
+ ex:["Ejemplo: seguir una decisión","Reponderar por no respuesta total: se decide en 2.5 (metodología de procesamiento), se implementa en 3.2 (componentes de procesamiento), se calcula en 5.6 (ponderaciones) y se evalúa en 8.2 con las tasas de respuesta. Cuatro subprocesos de cuatro fases para una sola decisión."],
+ q:["¿Qué diferencia hay entre GSBPM y GSIM?","El GSBPM describe los procesos (qué se hace y en qué orden). El GSIM describe la información (con qué objetos: conceptos, variables, conjuntos de datos)."]},
+"15":{ext:[["SDMX con más detalle",["Estructura de datos (DSD): dimensiones (frecuencia, territorio, sexo), medida (valor observado) y atributos (unidad, estado de la observación)","Flujo de datos (dataflow): vincula una DSD con un conjunto de datos publicado","Una serie se identifica con una clave, por ejemplo A.ES.F (anual, España, mujeres)"]],["DDI",["Codebook: describe un fichero de microdatos con sus variables, etiquetas y categorías","Lifecycle: documenta el ciclo completo, del diseño y la recogida a la difusión y el archivo","Uso típico: archivos de datos de encuestas para investigación"]]],
+ ex:["Ejemplo: un dato SDMX","Dimensiones: FREQ = A, REF_AREA = ES, SEX = F. Medida: OBS_VALUE = 52,3. Atributos: UNIT_MEASURE = porcentaje y OBS_STATUS = provisional. La lista de códigos de SEX define F, M y total, y el mismo código se reutiliza en cualquier flujo que use esa dimensión."],
+ q:["¿Qué papel tiene una lista de códigos?","Define los valores permitidos de una dimensión o atributo y su significado, de modo que distintos conjuntos de datos usen los mismos códigos."]},
+"16":{ext:[["Indicadores por dimensión",["Relevancia: satisfacción de usuarios y demanda atendida","Exactitud: CV, tasas de no respuesta y de cobertura, errores no muestrales. Fiabilidad: revisión media entre la primera y la última estimación","Oportunidad: días entre el fin del periodo de referencia y la publicación. Puntualidad: porcentaje de publicaciones en la fecha anunciada","Accesibilidad: consultas, formatos y metadatos. Coherencia: concordancia con otras estadísticas"]],["Ciclo de mejora",["Evaluar con indicadores, autoevaluación y auditoría","Acordar acciones y responsables (8.3)","Las acciones vuelven a la fase 1 del siguiente ciclo"]]],
+ ex:["Ejemplo: lectura de indicadores","Una estadística sale a los 45 días del fin del periodo y siempre en la fecha anunciada: oportunidad de 45 días y puntualidad del 100 %. Su primera estimación se revisa de media en 0,3 puntos, indicador de fiabilidad. Oportunidad, puntualidad y fiabilidad son distintas y pueden darse por separado."],
+ q:["¿Qué principios del Código protegen frente a la presión política sobre las cifras?","El 1 (independencia profesional) y el 6 (imparcialidad y objetividad)."]}
+};
+/* Segunda ampliación: temas del ciclo de producción (8-16) */
+var DEV3={
+"8":{ext:[["Diseño adaptativo y responsivo",["Responsivo: las reglas se ajustan durante el campo según los paradatos (cambio de modo, más visitas, incentivos cuando la respuesta se estanca)","Adaptativo: se asignan estrategias distintas a subgrupos definidos de antemano con información del marco o de registros","Objetivo: equilibrar la respuesta entre grupos para reducir el sesgo, no solo subir la tasa global"]],["Pruebas del cuestionario",["Entrevistas cognitivas: se pide al informante que explique cómo entiende y responde cada pregunta","Prueba piloto del proceso completo (3.6) y revisión de rutas y controles","Se corrige redacción, orden de preguntas, categorías y carga de respuesta"]],["Supervisión y falsificación",["Reentrevistas a una submuestra, escucha de grabaciones y análisis de tiempos y patrones de respuesta","Señales de alarma: entrevistas muy cortas, muchos «no sabe», respuestas idénticas entre unidades, rendimiento atípico por entrevistador"]]]},
+"9":{ext:[["Edición selectiva y función de puntuación",["Se calcula una puntuación por registro: su peso por el cambio esperado en la estimación si se corrigiera, relativo al total estimado","Se revisan a mano solo los registros por encima de un umbral y el resto se corrige de forma automática","Reduce el coste sin perder apenas exactitud, porque pocos registros concentran casi todo el impacto"]],["Donante: hot deck y vecino más próximo",["Se forman clases de imputación con variables relacionadas con la variable a imputar y con la falta de respuesta","Hot deck aleatorio o secuencial: se copia el valor de un donante de la misma clase","Vecino más próximo: el donante minimiza una distancia (por ejemplo, la de Mahalanobis) sobre variables auxiliares","Conviene limitar cuántas veces puede usarse un mismo donante"]],["Imputación múltiple (reglas de Rubin)",["Se generan m conjuntos completos y se analiza cada uno por separado","Estimación final: media de las m estimaciones","Varianza total T = Ū + (1 + 1/m)·B, con Ū la media de las varianzas internas y B la varianza entre estimaciones"]]],
+ ex:["Ejemplo: combinar cinco imputaciones","m = 5 estimaciones de una media: 10, 12, 11, 13, 14. Estimación final: 12. Varianza entre imputaciones: B = (4 + 0 + 1 + 1 + 4)/4 = 2,5. Si la varianza interna media es Ū = 3, entonces T = 3 + 1,2·2,5 = 6. Con una imputación simple solo se vería Ū = 3 y se subestimaría la incertidumbre."]},
+"10":{ext:[["Ampliación · Grupos de homogeneidad de respuesta",["Se agrupan las unidades según variables conocidas para respondientes y no respondientes que se relacionan con la respuesta y con la variable de interés","Dentro de cada grupo se multiplica el peso por la inversa de la tasa de respuesta ponderada del grupo","Funciona si la no respuesta es ignorable dentro del grupo (MAR)"]],["Ampliación · Calibración",["Se buscan pesos finales cercanos a los de diseño que reproduzcan totales conocidos de variables auxiliares, es decir, Σ w_{k} x_{k} = T_{x}","Poststratificación y raking son casos particulares","Corrige no respuesta y cobertura a la vez y reduce la varianza si las auxiliares se relacionan con y","Riesgo: pesos extremos o negativos, que se controlan con límites"]],["Ampliación · Submuestreo de no respondientes",["Tras la primera fase se selecciona una submuestra de los no respondientes y se les persigue de forma intensiva","Los pesos de esa submuestra se multiplican por la inversa de su probabilidad de selección","Convierte la no respuesta en muestreo en dos fases, con sesgo controlado"]]],
+ ex:["Ejemplo: ajuste por grupo","Un grupo tiene 200 unidades seleccionadas, cada una con peso de diseño 10, y responden 160. Factor de ajuste: 200/160 = 1,25 y peso final 12,5. Los 160 respondientes suman 160·12,5 = 2.000 unidades, igual que las 200·10 = 2.000 que representaba el grupo."]},
+"11":{ext:[["Tablas de frecuencias y de magnitudes",["Frecuencias: el riesgo son las celdas con pocas unidades (umbral) y la revelación por diferencia","Magnitudes: el riesgo es la dominancia, es decir, que una o pocas unidades aporten casi todo el total","Un mismo método no sirve para los dos tipos: el redondeo protege frecuencias, la regla de dominancia protege magnitudes"]],["Perturbación y redondeo",["Redondeo aleatorio a base 5: cada celda pasa al múltiplo de 5 inferior o al superior, con probabilidades que mantienen la esperanza","Ruido en celdas y claves de perturbación coherentes entre tablas","Mejora la coherencia entre tablas pero pierde exactitud en celdas pequeñas"]]],
+ ex:["Ejemplo: k-anonimato","Un fichero con las variables clave sexo, edad exacta y municipio tiene muchas combinaciones únicas (k = 1). Se recodifica la edad en tramos de 10 años y el municipio en tramos de población: ahora cada combinación aparece al menos 5 veces, es decir, k ≥ 5. Se ha perdido detalle, pero el riesgo de reidentificación baja."]},
+"12":{ext:[["Principios de diseño gráfico",["Proporción dato-tinta: cada elemento del gráfico debe aportar información","Orden con sentido (por valor o por cronología), etiquetado directo en lugar de leyendas lejanas, un mensaje por gráfico","Misma escala cuando se comparan gráficos y fuente y nota al pie siempre visibles"]],["Mapas de coropletas",["Clasificación: intervalos iguales, cuantiles o rupturas naturales (Jenks). Distinta clasificación da un mapa distinto","Paleta secuencial para magnitudes, divergente si hay un punto central significativo y cualitativa para categorías","Normalizar por población o superficie y avisar de las áreas pequeñas con datos poco fiables"]],["Accesibilidad en la práctica (WCAG)",["Contraste mínimo 4,5:1 para texto normal y 3:1 para texto grande y elementos gráficos (nivel AA)","Añadir una tabla de datos equivalente al gráfico y, además del color, patrones o etiquetas","Lenguaje claro y definiciones de términos técnicos"]],["Nota de prensa",["Estructura de pirámide invertida: titular y dato principal primero, contexto y metodología después","Comparar con el periodo anterior y con el mismo periodo del año anterior, y distinguir entre cifras brutas y corregidas de estacionalidad"]]],
+ ex:["Ejemplo: del dato al gráfico","Mensaje: «la tasa de paro baja 0,4 puntos respecto al trimestre anterior y 1,1 respecto al mismo trimestre del año anterior». Serie trimestral: líneas, con el último dato marcado como provisional. Por comunidades: mapa de coropletas con la tasa de paro (no el número de parados), cinco clases por cuantiles y paleta secuencial con contraste de al menos 3:1, más una tabla de datos equivalente."]},
+"13":{ext:[["Cardinalidad del enlace",["Relación uno a uno, uno a varios o varios a varios: determina las reglas de decisión y si un registro puede enlazarse más de una vez","Para evitar enlaces múltiples se impone una asignación de pares que maximice el peso total"]],["Medida resumen y sesgo de enlace",["F₁ es la media armónica de la precisión y la exhaustividad: las resume en un solo valor","Un error de enlace desigual entre grupos (por nombres extranjeros, por ejemplo) introduce sesgo en el análisis posterior"]],["Protección de datos",["Los identificadores se usan solo para enlazar y se separan del contenido (seudonimización)","El enlace se hace bajo el secreto estadístico y el principio de minimización"]]],
+ ex:["Ejemplo: precisión y exhaustividad","El algoritmo declara 1.000 enlaces, de los que 900 son correctos, y existen 1.200 pares verdaderos. Precisión = 900/1.000 = 90 %. Exhaustividad = 900/1.200 = 75 %. F₁ = 2·0,90·0,75/(0,90 + 0,75) ≈ 0,82."]},
+"14":{ext:[["Salida típica de cada fase",["1 Especificar: especificación de necesidades. 2 Diseñar: diseño completo (variables, muestra, procesamiento). 3 Construir: sistemas listos","4 Recoger: microdatos crudos. 5 Procesar: datos procesados (microdatos limpios y ponderados, y agregados). 6 Analizar: salidas validadas y protegidas","7 Difundir: productos publicados. 8 Evaluar: plan de acción que alimenta la fase 1"]],["Distintos modelos de producción",["Encuesta propia: todas las fases con peso de la 2.4, la 4 y la 5.6","Registros administrativos: la fase 4 se reduce a recibir datos y gana peso la 5.1 (integración) y la 1.5","Fuentes mixtas: se combinan y requieren enlace y armonización de conceptos"]]],
+ ex:["Ejemplo: ¿en qué subproceso?","¿Dónde se redacta la nota de prensa? 7.2. ¿Dónde se calculan los pesos? 5.6. ¿Dónde se prueba el cuestionario? El pretest, en 2.3 y 3.1; el sistema con el cuestionario cargado, en 3.5; el ensayo general, en 3.6. ¿Dónde se extrae la muestra? 4.1. ¿Dónde se define el control de revelación? 2.5 (diseño) y 6.4 (aplicación). ¿Dónde nace el plan de mejora? 8.3."]},
+"15":{ext:[["Objetos del GSIM: de concepto a dato",["Concepto: idea general (por ejemplo, edad)","Variable representada: concepto con un universo y un conjunto de valores admisibles (edad en años cumplidos, de 0 a 120)","Variable de instancia: la variable usada en un conjunto de datos concreto (la columna EDAD de una encuesta y un periodo)","Esta cadena permite reutilizar definiciones y saber de dónde viene cada columna"]],["Metadatos activos",["Los metadatos dirigen el proceso en lugar de solo describirlo: las rutas del cuestionario, las reglas de edición o los diseños de tabla salen del repositorio","Beneficio: coherencia, menos errores de transcripción y trazabilidad entre fases"]]],
+ ex:["Ejemplo: de concepto a columna","Concepto: edad. Variable representada: edad en años cumplidos, de 0 a 120, para personas residentes. Variable de instancia: la columna EDAD de la encuesta de un trimestre concreto. Si cambia la definición, se corrige en el concepto y el cambio llega a todas las columnas que lo usan. Con SDMX, la lista de códigos de tramos de edad se reutiliza en cada flujo de datos."]},
+"16":{ext:[["Los principios del Código y las fases",["Contexto institucional: independencia, coordinación, mandato, recursos, calidad, secreto e imparcialidad (principios 1, 1 bis y 2 a 6). Atraviesan todo el ciclo","Procesos: metodología sólida (7) y procedimientos apropiados (8), sobre todo en las fases 2, 4 y 5. Carga no excesiva (9) y rentabilidad (10) en diseño y construcción","Productos: relevancia (11) en la fase 1, exactitud y fiabilidad (12) en 5 y 6, oportunidad (13) y accesibilidad (15) en la 7, coherencia (14) en 5 y 6"]],["Exactitud y fiabilidad en la práctica",["Errores de muestreo (CV, intervalos) y no muestrales (cobertura, no respuesta, medida, procesamiento)","Fiabilidad: tamaño y signo de las revisiones entre la primera estimación y la definitiva","Se informan los dos tipos en el informe de calidad"]]],
+ ex:["Ejemplo: de la debilidad a la acción","Auditoría: la tasa de respuesta cae del 78 % al 64 % en dos años y hay revisiones al alza. Diagnóstico: exactitud y fiabilidad. Acciones (8.3): diseño responsivo en la recogida (2.3 y 4.3), reponderación revisada (5.6) y calendario de revisiones publicado (7.3). El plan vuelve a la fase 1 del siguiente ciclo."]}
+};
+/* Preguntas de oposición CSE (turno libre) relacionadas con cada tema. Fuente: exámenes publicados por el INE. [año INE, ejercicio, pregunta] */
+var DEV4={
+"8":[["2026","1.º · P6","Definir los paradatos, su objetivo en la gestión de la recogida y poner tres ejemplos."],
+ ["2026","2.º · C1a","Plan de recogida y de gestión del trabajo de campo para una encuesta mensual a empresas: canales, secuencia de contactos y estrategia para mejorar cobertura y respuesta."],
+ ["2024","1.º · P4","Describir los métodos CAWI y CATI."],
+ ["2019","1.º · P25","Derecho (A-VI·8): principios a los que se ajusta la recogida de datos con fines estadísticos según la Ley 12/1989."]],
+"9":[["2026","1.º · P8","Verdadero o falso, con justificación: la depuración corrige todos los errores, un outlier siempre es un error, los errores sistemáticos sesgan los agregados y, con imputación completa, se usa el mismo estimador tratando lo imputado como observado."],
+ ["2024","1.º · P5","Depuración selectiva y depuración automática."],
+ ["2023","1.º · C4","Método de imputación por el vecino más próximo."],
+ ["2019","1.º · P6","Diferencias entre depuración interactiva y depuración selectiva."]],
+"10":[["2025","1.º · P5","Clasificación formal de los mecanismos de falta de respuesta: MCAR, MAR y NMAR."],
+ ["2023","1.º · C5","Expresar el sesgo del estimador reponderado como suma de sesgo de muestreo y sesgo de falta de respuesta."],
+ ["2023","2.º · C1b","Estimar el total con el estimador estratificado reponderado por falta de respuesta aleatoria y calcular su error de muestreo relativo (ejercicio numérico)."],
+ ["2026","2.º · C6","Esperanza y sesgo del estimador de expansión cuando solo responde una parte, estimador corregido por la probabilidad de respuesta y estimador por grupos de respuesta."],
+ ["2026","4.º Esp. I · C6","Ampliación (fuera de A-I·10 de 2025): poststratificación y ajuste de pesos con distancia mínima que cumple los totales de grupo: identificar la calibración y llegar al estimador de regresión (GREG)."],
+ ["2019","1.º · P9","Ampliación (fuera de A-I·10 de 2025): el estimador lineal de regresión generalizado (GREG) como caso particular del estimador calibrado."]],
+"11":[["2026","1.º · P5","Equilibrio entre riesgo de identificación y utilidad en el control del secreto, y su formulación como problema de optimización."],
+ ["2026","2.º · C1c","Evaluar el riesgo de identificación en microdatos (a nivel de fichero y a nivel de registro) y métodos de control aplicables."],
+ ["2024","1.º · P6","Dos métodos de control del secreto estadístico en resultados tabulados."],
+ ["2023","1.º · C6","Dos métodos de control del secreto estadístico para microdatos."],
+ ["2023","1.º · C27","Qué es el secreto estadístico y a quién obliga según la Ley 12/1989."]],
+"12":[["2024","1.º · P7","Tres tipos de gráficos para difundir datos y para qué datos es adecuado cada uno."]],
+"13":[["2024","1.º · P8","Describir de forma explícita el modelo de Fellegi-Sunter de record linkage."],
+ ["2026","2.º · C1b","Enlace probabilístico de una encuesta con un registro sin identificador común: tareas de preparación de datos, método, elementos necesarios y criterio de decisión."]],
+"14":[["2026","1.º · P7","Esquema de un paso de producción estándar con el flujo de datos y el de metadatos en el marco del GSBPM y el GSIM, e interpretación de sus elementos."],
+ ["2025","1.º · P6","En qué consiste la fase 4 del GSBPM y qué subprocesos la forman."],
+ ["2023","1.º · C7","En qué consiste la fase 7 (Difundir) del GSBPM y qué subprocesos contiene."]],
+"15":[["2025","1.º · P7","Describir SDMX y DDI, sus propósitos y cómo se relacionan con el GSIM."],
+ ["2026","1.º · P7","Esquema GSBPM y GSIM con flujos de datos y metadatos (compartida con el tema 14)."]],
+"16":[["2025","1.º · P8","Tres indicadores de calidad de los productos estadísticos, indicando la dimensión de cada uno."],
+ ["2023","1.º · C8","Enunciar y describir los principios 11 a 15 del Código de Buenas Prácticas de las Estadísticas Europeas."]]
+};
+function opHtml(n){
+  var a=DEV4[n];if(!a)return "";
+  return '<div class="dop"><b>Preguntas de oposición (CSE, turno libre)</b><ul>'+a.map(function(x){return '<li><span class="yr">'+esc(x[0])+' · '+esc(x[1])+'</span> '+esc(x[2])+'</li>';}).join("")+'</ul></div>';
+}
+
+/* Preguntas probables (estimación propia, no oficial) para próximas convocatorias */
+var DEV5={
+"1":["Población objetivo, población marco y errores de cobertura: definiciones y efectos.","Marco de listas, marco de áreas y marcos múltiples: ventajas e inconvenientes.","Esquema general de una encuesta: fases y decisiones de diseño.","Muestreo probabilístico y no probabilístico: diferencias y consecuencias para la inferencia.","Objetivos de precisión por dominio y su efecto en el tamaño muestral."],
+"2":["Estimador de Horvitz-Thompson: definición, insesgadez y varianza.","Probabilidades de inclusión de primer y segundo orden: papel en la varianza.","Estimador de Sen-Yates-Grundy: condiciones y signo.","Efecto de diseño y tamaño muestral efectivo.","Hansen-Hurwitz frente a Horvitz-Thompson."],
+"3":["Muestreo de Bernoulli: distribución del tamaño y varianza del estimador del total.","MAS sin reemplazamiento: estimador del total, varianza y su estimador.","MAS con y sin reemplazamiento: comparación de varianzas.","Estimación de una proporción y cálculo del tamaño muestral.","Corrección por población finita: cuándo importa."],
+"4":["Muestreo sistemático: definición, probabilidades de inclusión y muestras posibles.","Por qué no hay estimador insesgado de la varianza y soluciones habituales.","Eficiencia frente al MAS según el orden del marco y la correlación intraclase.","Intervalo fraccionario y tamaño variable.","Estimador de diferencias sucesivas."],
+"5":["Muestreo de Poisson: definición, probabilidades de segundo orden y varianza.","PPS con reemplazamiento: estimador de Hansen-Hurwitz y su varianza.","PPS sin reemplazamiento: probabilidades de inclusión y unidades de inclusión forzosa.","Cuándo PPS mejora al MAS.","Procedimientos de selección PPS sin reemplazamiento."],
+"6":["Muestreo estratificado: estimador, varianza y estimador de la varianza.","Afijación proporcional, de Neyman, uniforme y con costes: comparación.","Ejercicio de afijación de Neyman con redondeo.","Ganancia de la estratificación frente al MAS.","Elección de estratos y poststratificación."],
+"7":["Muestreo por conglomerados sin submuestreo: estimador del total y varianza.","Efecto de diseño y correlación intraclase.","Conglomerados de distinto tamaño: estimador de razón y PPS.","Conglomerados frente a estratificación: cuándo conviene cada uno.","Ejercicio: tamaño efectivo con conglomerados de distinto tamaño."],
+"8":["Compare CAPI, CATI, CAWI y PAPI: ventajas, inconvenientes y costes.","Efectos de modo en encuestas de modo mixto: cómo se originan y cómo se miden.","Diseño responsivo y diseño adaptativo de la recogida: definición y diferencias.","Tipos de paradatos y su uso para modelizar la no respuesta.","Indicadores de seguimiento del trabajo de campo: tasas de contacto, cooperación, rechazo y respuesta.","Tasa de respuesta ponderada y no ponderada: tratamiento de las unidades no elegibles.","Estrategias para reducir la carga de respuesta en encuestas a empresas.","Detección de falsificación de entrevistas y supervisión de entrevistadores.","Pretest cognitivo y prueba piloto: objetivos y diferencias.","Contenido de un informe de calidad de la recogida."],
+"9":["Algoritmo de Fellegi-Holt: principio de cambio mínimo y reglas implícitas.","Tipos de reglas de edición (validez, coherencia y balance) con un ejemplo de cada una.","Edición selectiva: funciones de puntuación y umbral de revisión.","Edición micro y edición macro: diferencias y cuándo usar cada una.","Hot deck: variantes (aleatorio y secuencial) y propiedades.","Imputación por regresión con y sin residuo aleatorio: efecto sobre la media y la varianza.","Imputación múltiple: reglas de Rubin y varianza total.","Imputación completa, reponderación completa y enfoque combinado: comparación.","Efecto de la imputación sobre la estimación de la varianza y cómo corregirlo.","Valores atípicos: detección y tratamiento en la depuración."],
+"10":["Sesgo y error cuadrático medio del estimador de la media con los respondientes.","Grupos de homogeneidad de respuesta: construcción y estimador resultante.","Estimador de Horvitz-Thompson con probabilidades de respuesta estimadas: propiedades.","Calibración: planteamiento, distancia chi-cuadrado y solución explícita.","Poststratificación y raking como casos de calibración.","Submuestreo de no respondientes: estimador en dos fases.","Falta de respuesta no ignorable (MNAR) y análisis de sensibilidad.","Relación entre tasa de respuesta y sesgo: indicadores de representatividad.","Pesos extremos: causas y métodos de recorte.","Estimación de la varianza con reponderación por falta de respuesta."],
+"11":["Reglas de dominancia (n,k) y regla p %: definición y diferencias.","Supresión secundaria: formulación como problema de optimización.","Ajuste controlado de tablas y redondeo aleatorio.","k-anonimato y l-diversidad en microdatos.","Microagregación, intercambio (swapping) y PRAM.","Datos sintéticos como método de control del secreto.","Medidas de riesgo de reidentificación: unicidad en la muestra y en la población.","Medidas de pérdida de información tras la protección.","Protección coherente de tablas enlazadas.","Acceso a microdatos con fines de investigación: entornos seguros y ficheros de uso científico."],
+"12":["Elección del gráfico según el tipo de dato, con ejemplos.","Mapas de coropletas: clasificación de intervalos y paletas de color.","Gráficos engañosos y buenas prácticas de visualización.","Pautas WCAG aplicables a los productos estadísticos.","Estructura y contenido de una nota de prensa estadística.","Visualización de series temporales y de series desestacionalizadas.","Cuadros de mando y visualización interactiva: ventajas y riesgos.","Diseño de tablas de difusión: orden, redondeo y notas.","Comunicación de la incertidumbre (intervalos, coeficiente de variación).","Datos abiertos y API en la difusión estadística."],
+"13":["Enlace determinista y enlace probabilista: comparación.","Fellegi-Sunter: pesos, umbrales y zona de revisión manual.","Bloqueo: definición, elección de claves y pasadas múltiples.","Comparadores aproximados de cadenas (Jaro-Winkler, Levenshtein).","Estandarización de variables antes del enlace.","Estimación de las probabilidades m y u con el algoritmo EM.","Errores de enlace y su efecto en las estimaciones posteriores.","Evaluación del enlace: precisión, exhaustividad y F₁.","Enlace con aprendizaje automático: ventajas y limitaciones.","Seudonimización y protección de datos en el enlace de registros."],
+"14":["Las ocho fases del GSBPM y la salida de cada una.","Subprocesos de la fase 5 (Procesar) y su orden lógico.","Subprocesos de la fase 2 (Diseñar) y sus entradas.","Procesos transversales del GSBPM y su papel.","Relación entre GSBPM, GSIM, GAMSO y CSPA.","Aplicar el GSBPM a una estadística basada en registros administrativos.","Ubicar los controles de calidad en cada fase del GSBPM.","Fase 8 (Evaluar) y el bucle de mejora.","Fase 3 (Construir): subprocesos y tipos de pruebas.","Limitaciones del modelo y su adaptación local."],
+"15":["GSIM: alcance y grupos de objetos de información.","Variable representada y variable de instancia.","Estructura de datos de SDMX: dimensiones, medidas y atributos.","SDMX: flujos de datos, listas de códigos y formatos de intercambio.","DDI Codebook y DDI Lifecycle: diferencias.","Metadatos activos y su beneficio en la producción.","Modelo de Neuchâtel y gestión de clasificaciones.","ESMS y ESQRS: finalidad y contenido.","Beneficios de negocio y de tecnología del GSIM.","Relación entre GSIM y GSBPM: información de entrada y de salida de los subprocesos."],
+"16":["Dimensiones de calidad del artículo 12 del Reglamento (CE) 223/2009.","Principios 1, 1 bis y 2 a 6 del Código de Buenas Prácticas (contexto institucional).","Principios 7 a 10 del Código (procesos estadísticos).","Marco de garantía de calidad del Sistema Estadístico Europeo.","Indicadores de calidad por dimensión.","Autoevaluación: finalidad y herramientas (DESAP).","Revisión por homólogos: objeto y procedimiento.","Auditorías de calidad: tipos y alcance.","Informe de calidad: contenido y estructura estándar.","Enfoque de error total de la encuesta."]
+};
+function probHtml(n){
+  var a=DEV5[n];if(!a)return "";
+  return '<div class="dop"><b>'+a.length+' preguntas probables (estimación propia, no oficial)</b><ol>'+a.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+'</ol></div>';
+}
+
+function extraHtml(n){
+  var e=DEV2[n];if(!e)return {ext:"",ex:"",q:""};
+  var ext=(e.ext||[]).map(function(x){return '<div class="dsec"><h4>'+esc(x[0])+'</h4><ul>'+x[1].map(function(i){return "<li>"+rich(i)+"</li>";}).join("")+'</ul></div>';}).join("");
+  var ex=e.ex?'<div class="dex"><b>'+esc(e.ex[0])+'</b>'+rich(e.ex[1])+'</div>':"";
+  var q=e.q?'<div class="dq"><b>Pregunta de examen</b><p class="q">'+rich(e.q[0])+'</p><details class="ans"><summary>Ver respuesta</summary><p class="a">'+rich(e.q[1])+'</p></details></div>':"";
+  var d3=DEV3[n];
+  if(d3){
+    ext+=(d3.ext||[]).map(function(x){return '<div class="dsec"><h4>'+esc(x[0])+'</h4><ul>'+x[1].map(function(i){return "<li>"+rich(i)+"</li>";}).join("")+'</ul></div>';}).join("");
+    if(d3.ex)ex+='<div class="dex"><b>'+esc(d3.ex[0])+'</b>'+rich(d3.ex[1])+'</div>';
+  }
+  return {ext:ext,ex:ex,q:opHtml(n)+probHtml(n)+q};
+}
+
+function rich(t){
+  return esc(t).replace(/_\{([^}]*)\}/g,"<sub>$1</sub>").replace(/\^\{([^}]*)\}/g,"<sup>$1</sup>");
+}
+function devHtml(code,n){
+  var d=DEV[n];
+  if(code!=="A-I"||!d)return "";
+  var x2=extraHtml(n);
+  var sec=d.sec.map(function(x){
+    return '<div class="dsec"><h4>'+esc(x[0])+'</h4><ul>'+x[1].map(function(i){return "<li>"+rich(i)+"</li>";}).join("")+'</ul></div>';
+  }).join("");
+  var fx=(d.fx&&d.fx.length)?'<div class="dsec"><h4>Fórmulas</h4><dl class="fxl">'+d.fx.map(function(f){return '<div><dt>'+esc(f[0])+'</dt><dd><code class="fx">'+rich(f[1])+'</code></dd></div>';}).join("")+'</dl></div>':"";
+  var ojo=(d.ojo&&d.ojo.length)?'<div class="dkey"><b>Ojo</b><ul>'+d.ojo.map(function(i){return "<li>"+rich(i)+"</li>";}).join("")+'</ul></div>':"";
+  return '<details class="dev"><summary>Desarrollo del tema</summary><div class="devbody"><p class="dres">'+rich(d.res)+'</p>'+sec+x2.ext+fx+x2.ex+ojo+x2.q+'</div></details>';
+}
+
+var KEY="escolar-ine-a1-gsbpm-v1";
+var st={checks:{}};
+try{var raw=localStorage.getItem(KEY);if(raw){var p=JSON.parse(raw);if(p&&typeof p==="object"){st.checks=p.checks||{};}}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({checks:st.checks}));}catch(e){}}
+
+var app=document.getElementById("app");
+var mode="map";
+
+/* Render: tira de fases */
+document.getElementById("strip").innerHTML=PHASES.map(function(p){
+  return '<li><button type="button" class="chip" data-go="f'+p.id+'"><span class="n">FASE '+p.id+'</span><span class="t">'+esc(p.name)+'</span><span class="f">'+p.fn+'()</span><span class="tr"><i data-bar="f'+p.id+'"></i></span></button></li>';
+}).join("");
+
+/* Render: fases */
+document.getElementById("phases").innerHTML=PHASES.map(function(p){
+  var id="f"+p.id;
+  var subs=p.subs.map(function(s){
+    var d=DET[s[0]]||{d:"",p:[],k:""};
+    var pasos=d.p.map(function(x){return "<li>"+esc(x)+"</li>";}).join("");
+    var bm=bchips(BY_SUB[s[0]]||{});
+    return '<li class="subli" id="sub-'+s[0]+'"><label class="sub"><input type="checkbox" data-k="s'+s[0]+'" data-ph="'+id+'" aria-label="Dominado: '+s[0]+' '+esc(s[1])+'"><span class="n">'+s[0]+'</span><span class="tx rv"><span class="rv-b">'+esc(s[1])+'</span></span><code class="fn">'+s[2]+'()</code></label>'+
+      '<details class="det"><summary>Detalle y pasos</summary><div class="dbody">'+
+      '<div class="rv"><div class="rv-b"><p>'+esc(d.d)+'</p><ol>'+pasos+'</ol></div></div>'+
+      (d.k?'<div class="dkey"><b>Clave</b>'+esc(d.k)+'</div>':'')+
+      (bm?'<div><p class="lbl">Temas del BOE</p><div class="bchips">'+bm+'</div></div>':'')+
+      '</div></details></li>';
+  }).join("");
+  var temas=p.temas.map(function(t){return "<li>"+esc(t)+"</li>";}).join("");
+  var terms=p.terms.map(function(t){return '<div class="term"><dt>'+esc(t[0])+'</dt><dd class="rv"><span class="rv-b">'+esc(t[1])+'</span></dd></div>';}).join("");
+  var norma=p.norma.map(function(n){return "<li><span>"+esc(n)+"</span></li>";}).join("");
+  var qs=p.qs.map(function(q){return '<li><p class="q">'+esc(q[0])+'</p><p class="a rv"><span class="rv-b">'+esc(q[1])+'</span></p></li>';}).join("");
+  return '<details class="phase" id="'+id+'"'+(p.id===1?" open":"")+'>'+
+    '<summary><span class="num">'+p.id+'</span><span><h3>'+esc(p.name)+'</h3><span class="sig">def '+p.fn+'('+p.args+') → '+p.ret+'</span></span>'+
+    '<span class="pill" data-count="'+id+'">0/'+p.subs.length+'</span>'+
+    '<svg class="chev" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>'+
+    '<div class="body">'+
+      '<div class="stack"><div><p class="lbl">Subprocesos</p><ul class="subs">'+subs+'</ul></div>'+
+      '<div><p class="lbl">Temas del BOE que se aplican en esta fase</p><div class="bchips">'+bchips(phaseMap(p.id))+'</div></div>'+
+      '<div><p class="lbl">Conceptos clave de la fase</p><ul class="chips">'+temas+'</ul></div></div>'+
+      '<div class="stack"><div><p class="lbl">Términos exactos</p><dl class="terms">'+terms+'</dl></div>'+
+      '<div><p class="lbl">Normativa</p><ul class="norm">'+norma+'</ul></div>'+
+      '<div><p class="lbl">Suelen preguntar</p><ol class="qs">'+qs+'</ol></div></div>'+
+    '</div></details>';
+}).join("");
+
+/* Render: transversales */
+document.getElementById("tlist").innerHTML=TRANSV.map(function(t,i){
+  var bm=bchips(BY_SUB["T"+i]||{});
+  return '<li><label class="titem'+(t[2]?" key":"")+'"><input type="checkbox" data-k="t'+i+'" data-ph="tr" aria-label="Dominado: '+esc(t[0])+'"><div><b>'+esc(t[0])+'</b><span class="d rv"><span class="rv-b">'+esc(t[1])+'</span></span>'+(bm?'<span class="bchips" style="margin-top:6px">'+bm+'</span>':'')+'</div></label></li>';
+}).join("");
+document.getElementById("dlist").innerHTML=DIMS.map(function(t,i){
+  return '<li><label class="titem"><input type="checkbox" data-k="d'+i+'" data-ph="tr" aria-label="Dominado: '+esc(t[0])+'"><div><b>'+esc(t[0])+'</b><span class="d rv"><span class="rv-b">'+esc(t[1])+'</span></span></div></label></li>';
+}).join("");
+document.getElementById("cop").innerHTML=COP.map(function(c){
+  return '<div><h4>'+esc(c[0])+'</h4><ol>'+c[1].map(function(x){return "<li><i>"+x[0]+"</i><span>"+esc(x[1])+"</span></li>";}).join("")+"</ol></div>";
+}).join("");
+
+/* Render: temario BOE */
+(function(){
+  var groups=[
+    [BLOCKS[0][1],"",["A-I"]]
+  ];
+  var chev='<svg class="chev" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var html="";
+  groups.forEach(function(g){
+    html+='<p class="grp">'+esc(g[0])+'</p>'+(g[1]?'<p class="gnote">'+esc(g[1])+'</p>':'')+'<div class="bgroup">';
+    g[2].forEach(function(code){
+      var b=BLOCKS.filter(function(x){return x[0]===code;})[0];
+      var rows=b[3].map(function(t){
+        var chips=t[3].split(" ").map(function(k){
+                    if(k.charAt(0)==="T")return '<button type="button" class="mchip" data-go="transversal" title="Proceso transversal">@'+esc(TSHORT[+k.slice(1)])+'</button>';
+          return '<button type="button" class="mchip" data-go="sub-'+k+'" title="'+esc(SUBT[k])+'">'+k+'</button>';
+        }).join("");
+        return '<li><label class="row"><input type="checkbox" data-k="b:'+code+'.'+t[0]+'" data-ph="boe" data-blk="'+code+'" aria-label="Estudiado: '+code+' tema '+t[0]+'"><span class="n">'+t[0]+'</span><span class="bx"><span class="t">'+esc(t[1])+'</span>'+(t[2]?'<span class="c2">'+esc(t[2])+'</span>':'')+'<span class="mp">'+chips+'</span></span></label>'+devHtml(code,t[0])+'</li>';
+      }).join("");
+      html+='<details class="blk"><summary><span class="bcode">'+code+'</span><h3>'+esc(b[2])+'</h3><span class="pill" data-bcount="'+code+'">0/'+b[3].length+'</span>'+chev+'</summary><ul class="rows">'+rows+'</ul></details>';
+    });
+    html+='</div>';
+  });
+  document.getElementById("boe").innerHTML=html;
+})();
+
+/* Render: script */
+(function(){
+  function pad(s,n){while(s.length<n)s+=" ";return s;}
+  var L=[];
+  function C(s){return '<span class="c">'+esc(s)+"</span>";}
+  L.push(C("# Ciclo de producción estadística (GSBPM)"));
+  L.push(C("# @calidad y @metadatos decoran TODAS las funciones: corren en cada fase, no al final."));
+  L.push(C("# Los otros ocho transversales también corren en todas las fases; aquí solo se dibujan estos dos."));
+  L.push("");
+  L.push("FUENTES = [encuesta, registro_administrativo, censo, fuente_alternativa]");
+  L.push("");
+  L.push('<span class="k">def</span> <span class="f">ciclo_de_produccion</span>(necesidades):');
+  L.push('    <span class="k">while</span> <span class="k">True</span>:'+"                                  "+C("# iterativo, no lineal"));
+  PHASES.forEach(function(p){
+    var code="        "+pad(p.ret,16)+" = "+p.fn+"("+p.call+")";
+    L.push(esc(pad(code,64))+C("# fase "+p.id));
+  });
+  L.push(esc(pad("        necesidades = plan_de_accion",64))+C("# vuelve a la fase 1"));
+  PHASES.forEach(function(p){
+    L.push("");L.push("");
+    L.push('<span class="d">@calidad</span>');L.push('<span class="d">@metadatos</span>');
+    L.push('<span class="k">def</span> <span class="f">'+p.fn+"</span>("+esc(p.args)+"):");
+    var parts=p.args.split(",").map(function(x){return x.trim();});
+    L.push("    d = "+(parts.length>1?"("+parts.join(", ")+")":parts[0]));
+    p.subs.forEach(function(s){
+      L.push(esc(pad("    d = "+s[2]+"(d)",50))+C("# "+s[0]+" "+s[1]));
+    });
+    L.push('    <span class="k">return</span> d'+"                                       "+C("# → "+p.ret));
+  });
+  document.getElementById("code").innerHTML=L.join("\n");
+})();
+
+/* Checks y progreso */
+var inputs=Array.prototype.slice.call(document.querySelectorAll("input[data-k]"));
+var mainInputs=inputs.filter(function(i){return i.getAttribute("data-ph")!=="boe";});
+inputs.forEach(function(i){i.checked=!!st.checks[i.getAttribute("data-k")];});
+function updateProgress(){
+  var done=0;
+  mainInputs.forEach(function(i){if(i.checked)done++;});
+  document.getElementById("plabel").textContent=done+" / "+mainInputs.length;
+  document.getElementById("pfill").style.width=(mainInputs.length?done*100/mainInputs.length:0)+"%";
+  var bc={},bt={},bdone=0,btotal=0;
+  inputs.forEach(function(i){
+    var b=i.getAttribute("data-blk");
+    if(!b)return;
+    bt[b]=(bt[b]||0)+1;btotal++;
+    if(i.checked){bc[b]=(bc[b]||0)+1;bdone++;}
+  });
+  Object.keys(bt).forEach(function(b){
+    var pill=document.querySelector('[data-bcount="'+b+'"]');
+    var n=bc[b]||0;
+    if(pill){pill.textContent=n+"/"+bt[b];pill.classList.toggle("done",n===bt[b]);}
+  });
+  var bl=document.getElementById("blabel");
+  if(bl)bl.textContent=bdone+" de "+btotal+" temas marcados";
+  PHASES.forEach(function(p){
+    var id="f"+p.id,n=0;
+    p.subs.forEach(function(s){var el=document.querySelector('input[data-k="s'+s[0]+'"]');if(el&&el.checked)n++;});
+    var pill=document.querySelector('[data-count="'+id+'"]');
+    pill.textContent=n+"/"+p.subs.length;
+    pill.classList.toggle("done",n===p.subs.length);
+    document.querySelector('[data-bar="'+id+'"]').style.width=(n*100/p.subs.length)+"%";
+  });
+}
+document.addEventListener("change",function(e){
+  var t=e.target;
+  if(t&&t.matches&&t.matches("input[data-k]")){
+    st.checks[t.getAttribute("data-k")]=t.checked;
+    save();updateProgress();
+  }
+});
+updateProgress();
+
+/* Modos */
+function setMode(m){
+  mode=m;
+  app.classList.toggle("quiz",m==="quiz");
+  document.getElementById("view-map").hidden=(m==="script"||m==="boe");
+  document.getElementById("view-script").hidden=(m!=="script");
+  document.getElementById("view-boe").hidden=(m!=="boe");
+  document.getElementById("hint").hidden=(m!=="quiz");
+  document.getElementById("reset").hidden=(m!=="quiz");
+  Array.prototype.forEach.call(document.querySelectorAll("#seg button"),function(b){b.setAttribute("aria-pressed",b.getAttribute("data-mode")===m?"true":"false");});
+  Array.prototype.forEach.call(document.querySelectorAll(".rv"),function(el){
+    if(m==="quiz"){el.setAttribute("tabindex","0");el.setAttribute("role","button");}
+    else{el.removeAttribute("tabindex");el.removeAttribute("role");el.classList.remove("on");}
+  });
+}
+function go(id){
+  if(mode==="script"||mode==="boe")setMode("map");
+  var el=document.getElementById(id);
+  if(!el)return;
+  var ph=el.closest&&el.closest(".phase");
+  if(ph)ph.open=true;
+  if(el.tagName==="DETAILS")el.open=true;
+  var dt=el.querySelector&&el.querySelector(".det");
+  if(dt)dt.open=true;
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  el.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});
+}
+function syncToggleLabel(){
+  var all=document.querySelectorAll(".phase"),open=document.querySelectorAll(".phase[open]");
+  document.getElementById("toggleAll").textContent=(open.length===all.length)?"Plegar todo":"Desplegar todo";
+}
+document.addEventListener("click",function(e){
+  var t=e.target;
+  var rv=t.closest&&t.closest(".rv");
+  if(rv&&mode==="quiz"){e.preventDefault();rv.classList.toggle("on");return;}
+  var m=t.closest&&t.closest("[data-mode]");
+  if(m){setMode(m.getAttribute("data-mode"));return;}
+  var g=t.closest&&t.closest("[data-go]");
+  if(g){go(g.getAttribute("data-go"));syncToggleLabel();return;}
+  if(t.closest&&t.closest("#toggleDet")){
+    var dets=document.querySelectorAll(".det"),openDets=document.querySelectorAll(".det[open]");
+    var openD=openDets.length!==dets.length;
+    Array.prototype.forEach.call(dets,function(d){d.open=openD;});
+    if(openD)Array.prototype.forEach.call(document.querySelectorAll(".phase"),function(d){d.open=true;});
+    document.getElementById("toggleDet").textContent=openD?"Cerrar detalles":"Abrir detalles";
+    syncToggleLabel();
+    return;
+  }
+  if(t.closest&&t.closest("#toggleDev")){
+    var devs=document.querySelectorAll(".dev"),openDevs=document.querySelectorAll(".dev[open]");
+    var openV=openDevs.length!==devs.length;
+    Array.prototype.forEach.call(devs,function(d){d.open=openV;});
+    if(openV)Array.prototype.forEach.call(document.querySelectorAll(".blk"),function(d){d.open=true;});
+    document.getElementById("toggleDev").textContent=openV?"Cerrar todos los desarrollos":"Abrir todos los desarrollos";
+    return;
+  }
+  if(t.closest&&t.closest("#reset")){Array.prototype.forEach.call(document.querySelectorAll(".rv.on"),function(el){el.classList.remove("on");});return;}
+  if(t.closest&&t.closest("#toggleAll")){
+    var all=document.querySelectorAll(".phase"),open=document.querySelectorAll(".phase[open]");
+    var openAll=open.length!==all.length;
+    Array.prototype.forEach.call(all,function(d){d.open=openAll;});
+    syncToggleLabel();
+  }
+});
+document.addEventListener("keydown",function(e){
+  var t=e.target;
+  if(mode==="quiz"&&t&&t.classList&&t.classList.contains("rv")&&(e.key==="Enter"||e.key===" ")){
+    e.preventDefault();t.classList.toggle("on");
+  }
+});
+Array.prototype.forEach.call(document.querySelectorAll(".phase"),function(d){d.addEventListener("toggle",syncToggleLabel);});
+syncToggleLabel();
+
+/* Tema claro / oscuro: respeta el del sistema hasta que se pulsa el botón */
+var THEME_KEY="escolar-ine-a1-theme";
+var root=document.documentElement;
+function effTheme(){
+  var t=root.getAttribute("data-theme");
+  if(t==="dark"||t==="light")return t;
+  return (window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";
+}
+function paintTheme(){
+  var dark=effTheme()==="dark";
+  document.getElementById("themeBtn").setAttribute("aria-pressed",dark?"true":"false");
+  document.getElementById("themeLbl").textContent=dark?"Modo claro":"Modo oscuro";
+}
+try{var tv=localStorage.getItem(THEME_KEY);if(tv==="dark"||tv==="light")root.setAttribute("data-theme",tv);}catch(e){}
+paintTheme();
+document.getElementById("themeBtn").addEventListener("click",function(){
+  var n=effTheme()==="dark"?"light":"dark";
+  root.setAttribute("data-theme",n);
+  try{localStorage.setItem(THEME_KEY,n);}catch(e){}
+  paintTheme();
+});
+if(window.matchMedia){
+  var mq=window.matchMedia("(prefers-color-scheme: dark)");
+  if(mq.addEventListener)mq.addEventListener("change",paintTheme);
+}
+})();
+</script>
+
+</body></html>
