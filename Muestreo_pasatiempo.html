@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Muestreo: while True, learn()</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},startup:{typeset:false}};</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+<style>
+:root{--paper:#F3F6FC;--paper-raised:#fff;--ink:#1B1F2A;--ink-soft:#4A5163;--rule:#D9DFEC;--tinta:#0B66D6;--tinta-soft:#E4EDFA;--marg:#8E2DA8;--verde:#0F7A3A;--verde-soft:#DDF1E4;--err:#B3261E;--err-soft:#F8E3E1;--sh:0 1px 2px rgba(20,40,90,.06),0 10px 28px rgba(20,40,90,.07);--fd:'Plus Jakarta Sans',system-ui,sans-serif;--sf:'Inter',system-ui,sans-serif;--code:ui-monospace,Menlo,Consolas,monospace;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0F1626;--paper-raised:#182138;--ink:#EAF0FF;--ink-soft:#A9B4CC;--rule:#2B3654;--tinta:#6FA8FF;--tinta-soft:#1D2C4A;--marg:#D08CE6;--verde:#5FD08F;--verde-soft:#17382A;--err:#FF8A80;--err-soft:#3A2024;--sh:0 10px 28px rgba(0,0,0,.35)}}
+:root[data-theme="dark"]{--paper:#0F1626;--paper-raised:#182138;--ink:#EAF0FF;--ink-soft:#A9B4CC;--rule:#2B3654;--tinta:#6FA8FF;--tinta-soft:#1D2C4A;--marg:#D08CE6;--verde:#5FD08F;--verde-soft:#17382A;--err:#FF8A80;--err-soft:#3A2024;--sh:0 10px 28px rgba(0,0,0,.35)}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:linear-gradient(180deg,color-mix(in srgb,var(--tinta) 12%,var(--paper)) 0,var(--paper) 420px) fixed;color:var(--ink);font:16.5px/1.6 var(--sf);-webkit-font-smoothing:antialiased}
+main{max-width:720px;margin:0 auto;padding:36px 20px 90px}
+.k{display:inline-block;font:600 11.5px var(--sf);letter-spacing:.07em;text-transform:uppercase;color:var(--tinta);background:var(--tinta-soft);padding:3px 11px;border-radius:99px}
+h1{font:700 clamp(28px,6vw,40px)/1.1 var(--fd);letter-spacing:-.025em;margin:12px 0 8px;background:linear-gradient(90deg,var(--tinta) 15%,var(--marg));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--ink-soft);margin:0 0 18px}
+.bar{height:6px;background:var(--rule);border-radius:99px;overflow:hidden;margin:0 0 6px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--tinta),var(--marg));transition:width .3s}
+.cnt{font-size:13px;color:var(--ink-soft);margin:0 0 22px}
+.lv{background:var(--paper-raised);border:1px solid rgba(20,40,90,.08);border-radius:20px;box-shadow:var(--sh);padding:16px 20px;margin:0 0 14px}
+.lv.lock{opacity:.55;box-shadow:none}
+.lv h2{font:700 18px var(--fd);margin:0;letter-spacing:-.02em;display:flex;gap:8px;align-items:center}
+.tag{font:600 11px var(--sf);letter-spacing:.07em;text-transform:uppercase;border-radius:99px;padding:2px 9px;background:var(--tinta-soft);color:var(--tinta)}
+.lv.done .tag{background:var(--verde-soft);color:var(--verde)}
+pre{font:13.5px/1.7 var(--code);background:var(--tinta-soft);border-radius:14px;padding:12px 14px;margin:12px 0;overflow-x:auto}
+.fm{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:6px 14px 10px;margin:12px 0;overflow-x:auto;font-size:15px}.fm b{display:block;font:600 11px var(--sf);letter-spacing:.07em;text-transform:uppercase;color:var(--marg);margin-top:8px}.fm mjx-container{margin:6px 0!important}
+.q{margin:8px 0 10px;font-weight:500}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+button{font:600 14px var(--sf);color:var(--ink);background:var(--paper-raised);border:1px solid var(--rule);border-radius:99px;padding:0 16px;min-height:42px;cursor:pointer;transition:border-color .15s,color .15s}
+button:hover:not(:disabled){border-color:var(--tinta);color:var(--tinta)}button:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
+button.ok{background:var(--verde-soft);border-color:var(--verde);color:var(--verde)}button.ko{background:var(--err-soft);border-color:var(--err);color:var(--err)}button:disabled{cursor:default}
+.fb{margin:12px 0 0;padding:10px 14px;border-radius:14px;font-size:15px;display:none}
+.fb.g{display:block;background:var(--verde-soft)}.fb.b{display:block;background:var(--err-soft)}
+.seq{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;min-height:36px;font:600 13px var(--sf);color:var(--verde)}
+.seq span{background:var(--verde-soft);border-radius:99px;padding:4px 12px}
+.fin{background:var(--tinta-soft);border-radius:20px;padding:18px 20px;margin-top:6px}
+.fin h2{margin:0 0 6px}.lnk{background:none;border:none;color:var(--ink-soft);font-weight:500;text-decoration:underline;min-height:36px;padding:0}
+.ex{margin:14px 0 0;border-top:1px solid var(--rule);padding-top:6px}.ex summary{cursor:pointer;font:600 13.5px var(--sf);color:var(--tinta);min-height:36px;display:flex;align-items:center}.ex ul{margin:4px 0 0;padding:0;list-style:none}.ex li{margin:0 0 10px;font-size:14.5px;line-height:1.55;color:var(--ink-soft)}.ex li b{display:block;font:600 11px var(--sf);letter-spacing:.07em;text-transform:uppercase;color:var(--marg)}
+.src{font-size:13px;color:var(--ink-soft);margin:18px 0 0}.src a{color:var(--tinta)}
+.sol{margin:4px 0 0}.sol summary{cursor:pointer;font:600 12.5px var(--sf);color:var(--verde);min-height:32px;display:flex;align-items:center}.sol p{margin:4px 0 0;padding:10px 12px;background:var(--verde-soft);border-radius:12px;color:var(--ink)}
+.chk{display:inline-flex;gap:6px;align-items:center;font-size:13px;margin-top:6px;cursor:pointer;color:var(--ink-soft)}.chk input{width:18px;height:18px;accent-color:var(--tinta)}
+.mq{margin:0 0 14px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<span class="k">CSE-INE · Muestreo probabilístico</span>
+<h1>while True: learn()</h1>
+<p class="sub">Un estimador, siete niveles: del bloque HT a la pipeline completa. De T3 a T7 solo cambia cómo se calcula π<sub>k</sub>. Cada nivel sortea 3 de sus 10 preguntas: acierta las 3 para desbloquear el siguiente.</p>
+<details class="ex gl"><summary>Leyenda de símbolos</summary><ul>
+<li><b>Población y muestra</b>N = tamaño de la población · n = tamaño de la muestra · f = n/N (fracción de muestreo) · U = población · s = una muestra concreta · k, l = unidades · k ∈ s: «k está en la muestra».</li>
+<li><b>Probabilidades y pesos</b>π<sub>k</sub> = probabilidad de que k entre en la muestra · π<sub>kl</sub> = probabilidad de que k y l entren a la vez · d<sub>k</sub> = 1/π<sub>k</sub> = peso de k.</li>
+<li><b>Variables</b>y<sub>k</sub> = valor que se mide en k · x<sub>k</sub> = variable auxiliar conocida · total t (o Y, A) = suma de todos los valores de la población.</li>
+<li><b>Sombrero y barra</b>El sombrero marca una estimación (t̂, Ŷ, p̂ = «lo estimado con la muestra»; sin sombrero es el valor real). La barra marca una media: ȳ = media muestral, Ȳ = media poblacional, t̄ = media de los totales de conglomerado.</li>
+<li><b>Dispersión</b>σ² = varianza · S² = cuasivarianza de la población · s² = cuasivarianza de la muestra · V(·) = varianza del estimador · error = √V · CV = error/estimación · deff = V(diseño)/V(MAS).</li>
+<li><b>Estratos y conglomerados</b>h = estrato (N<sub>h</sub>, n<sub>h</sub>, S<sub>h</sub> son los de ese estrato) · i = conglomerado · M<sub>i</sub> = su tamaño · M̄ = tamaño medio · ρ = correlación dentro de los conglomerados · g = grupo de respuesta homogénea.</li>
+<li><b>No respuesta</b>θ<sub>k</sub> = probabilidad de que k responda · r = unidades que responden · r<sub>g</sub>, n<sub>g</sub> = respondientes y seleccionadas del grupo g.</li>
+<li><b>Signos</b>Σ = suma · Π = producto · ≈ = aproximadamente · ∈ = pertenece a · ∩ = y a la vez («r∩g»: respondientes del grupo g) · ⊂ = está contenido en · ~ = «sigue la distribución» · &gt; mayor que · &lt; menor que · <sub>x</sub> = subíndice (x<sub>k</sub> se lee «x sub k»).</li>
+</ul></details>
+<div class="bar"><i id="bar"></i></div><p class="cnt" id="cnt"></p>
+<div id="lv"></div>
+<p class="src">Enunciados: oposiciones al CSE (turno libre), segundos ejercicios publicados por el <a href="https://www.ine.es/dyngs/FYE/index.htm?cid=259" target="_blank" rel="noopener">INE</a>. Año = año del examen según esa página. Soluciones calculadas aquí: verifícalas antes de usarlas con alumnos. <button class="lnk" id="rst">Reiniciar progreso</button></p>
+</main>
+<script>
+const L=[
+{t:'T2 · El bloque HT',f:'\\[\\hat t_\\pi=\\sum_{k\\in s}\\frac{y_k}{\\pi_k}=\\sum_{k\\in s}d_k\\,y_k,\\qquad d_k=\\frac1{\\pi_k}\\]\\[E(\\hat t_\\pi)=\\sum_{k\\in U}\\pi_k\\,\\frac{y_k}{\\pi_k}=t\\quad(\\pi_k>0)\\]',code:'def HT(muestra):\n    return sum(y / pi for y, pi in muestra)',q:'Muestra: (y = 200, π = 0,50) y (y = 300, π = 0,25). ¿Qué devuelve HT?',o:['1.600','500','800'],c:0,e:'200/0,5 + 300/0,25 = 400 + 1.200 = 1.600. Cada unidad representa a 1/π unidades. Es insesgado si π_k > 0.'},
+{t:'T3 · Bernoulli vs MAS',f:'\\[\\text{Bernoulli: }\\pi_k=p,\\quad \\pi_{kl}=p^2,\\quad n_s\\sim\\text{Bin}(N,p),\\quad E(n_s)=Np\\]\\[\\text{MAS: }\\pi_k=\\frac nN,\\qquad V(\\hat t)=N^2(1-f)\\frac{S^2}{n}\\]',code:'for k in marco:\n    if random() < 0.05: muestra.append(k)   # N = 1000',q:'¿Qué tamaño tiene la muestra?',o:['Exactamente 50','Aleatorio, de media 50','Aleatorio, de media 5'],c:1,e:'Cada unidad decide por su cuenta: n ~ Binomial(N, p), con E[n] = Np = 50. El MAS fija n de antemano; Bernoulli no, y por eso es menos eficiente.'},
+{t:'T4 · Sistemático',f:'\\[k=\\frac Nn,\\qquad r\\sim U\\{1,\\dots,k\\},\\qquad s_r=\\{r,\\;r+k,\\;\\dots,\\;r+(n-1)k\\}\\]\\[\\pi_k=\\frac1k,\\qquad \\pi_{kl}\\in\\Big\\{0,\\tfrac1k\\Big\\}\\]',code:'k = N // n          # N = 60, n = 10  → k = 6\nr = 3               # arranque aleatorio\nmuestra = range(r, N+1, k)',q:'¿Cuál es la 4.ª unidad seleccionada?',o:['18','21','24'],c:1,e:'r, r+k, r+2k, r+3k = 3, 9, 15, 21. Ojo: con un solo arranque no hay estimador insesgado simple de la varianza (π_kl = 0 en casi todos los pares).'},
+{t:'T5 · pps y autorrepresentadas',f:'\\[\\pi_k=\\frac{n\\,x_k}{\\sum_{j\\in U}x_j}\\]\\[\\text{si }\\pi_k>1:\\ \\pi_k=1,\\quad n_r=n-\\#\\text{aut.},\\quad \\sum x_r=\\sum x-\\sum x_{\\text{aut.}}\\ \\ \\text{y se repite}\\]',code:'x = [500, 300, 120, 50, 30]   # Σx = 1000, n = 3\n# π = n·x/Σx → 1.50 · 0.90 · 0.36 · 0.15 · 0.09',q:'Tras fijar π = 1 en las que exceden y recalcular, ¿π final de la 3.ª empresa?',o:['0,36','0,60','0,12'],c:1,e:'1.ª excede → π=1, quedan n=2 y Σx=500; la 2.ª sale 1,20 → π=1, queda n=1 y Σx=200. Entonces π₃ = 120/200 = 0,60. El bucle repite hasta que nada excede 1.'},
+{t:'T6 · Neyman',f:'\\[n_h=n\\,\\frac{N_hS_h}{\\sum_j N_jS_j}\\qquad\\Big(\\text{proporcional: } n_h=n\\frac{N_h}{N}\\Big)\\]\\[V(\\hat t)=\\sum_h N_h^2\\,(1-f_h)\\,\\frac{S_h^2}{n_h}\\]',code:'N = [6000, 3000, 1000]\nS = [10, 20, 60]\nn = 500   # n_h = n·N_h·S_h / Σ N_j·S_j',q:'¿Cuántas unidades recibe el estrato 3?',o:['50','167','300'],c:1,e:'N_h·S_h = 60.000 en los tres, así que cada uno recibe 500/3 ≈ 167. La proporcional daría solo 50, aunque el estrato 3 es seis veces más disperso.'},
+{t:'T7 · Conglomerados',f:'\\[\\text{deff}\\approx 1+(M-1)\\,\\rho,\\qquad n_{\\text{ef}}=\\frac{n}{\\text{deff}}\\]\\[V_{\\text{congl}}=V_{\\text{MAS}}\\cdot\\big[1+(M-1)\\rho\\big]\\]',code:'rho = 0.05\nM = 50\ndeff = 1 + (M - 1) * rho',q:'¿Cuánto vale el efecto de diseño?',o:['1,05','2,50','3,45'],c:2,e:'1 + 49·0,05 = 3,45: la misma muestra tiene menos de un tercio de la precisión de un MAS. Con M = 10 sería 1,45. Muchos conglomerados pequeños > pocos grandes.'},
+{t:'Final · La pipeline (T8–T16)',fin:1,code:'while True:\n    ...   # ordena las fases del ciclo',q:'Pulsa las fases en el orden en que ocurren:',steps:['Diseñar marco y muestra','Recoger los datos','Depurar e imputar','Reponderar la no respuesta','Controlar el secreto','Publicar'],e:'Y después evaluar la calidad (T16): el informe de cada edición alimenta el diseño de la siguiente. Ahí está el while True.'}
+];
+const X=[
+[["2024 · C1","Población de N = 8 y plan muestral con 5 muestras posibles: {1,3,5,6}→1/8, {1,4,6,8}→1/8, {4,5,7,8}→1/8, {2,3,7,8}→1/4, {2,4,6,8}→3/8. a) Calcula las π<sub>i</sub> de todas las unidades. b) ¿Es un diseño MAS sin reemplazamiento, estratificado o ninguno? Razónalo."],
+["2025 · C1","Población con y<sub>k</sub> = k (k = 1…N), N = n·a, media (N+1)/2 y varianza (N−1)(N+1)/12. Deduce la varianza del estimador HT de la media en: a) MAS sin reemplazamiento de tamaño n; b) n estratos consecutivos de tamaño a, una unidad al azar por estrato (σ²<sub>i</sub> = (a²−1)/12); c) sistemático con probabilidades iguales sobre la población ordenada; d) compara los tres planes y justifica el más adecuado."]],
+[["2023 · C6 a-b","Población U de tamaño N y valores 0 &lt; π<sub>k</sub> &lt; 1. Se generan N uniformes (0,1) independientes α<sub>k</sub>; u<sub>k</sub> entra en la muestra si α<sub>k</sub> &lt; π<sub>k</sub>. a) Esperanza y varianza del tamaño muestral n<sub>s</sub>. b) Probabilidad de que la muestra tenga al menos un elemento."],
+["2019 · C3 A","Población de 5.000 viviendas: tamaño muestral necesario para estimar la proporción en alquiler con confianza del 95 % (z = 1,96) y error máximo de 0,1, sin reposición y sin información previa (P = 1/2)."]],
+[["2023 · C6 c","10 unidades con variable auxiliar x = 10, 40, 15, 20, 10, 15, 50, 25, 60, 40. Muestra de tamaño 5 por selección sistemática con probabilidades proporcionales a x y arranque aleatorio 35: ¿qué unidades entran?"],
+["2025 · C1 c","Varianza del estimador HT de la media bajo muestreo sistemático con probabilidades iguales sobre una población ordenada por la variable de interés (y<sub>k</sub> = k, N = n·a)."]],
+[["2024 · C1 c","Tamaños de 8 unidades: 100, 40, 40, 20, 20, 10, 5, 5. ¿Puede aplicarse un diseño sin reposición con n = 4 tal que las π<sub>i</sub> sean proporcionales a los tamaños? Justifícalo."]],
+[["2024 · C6","Muestreo estratificado por edad, MAS sin reemplazamiento en cada estrato. Estratos (N<sub>h</sub>, media, S²<sub>h</sub>): (150; 20; 36), (250; 35; 144), (200; 60; 256). a) Cuasivarianza poblacional de Y y proporción de la variación total que es interestrato. b) ¿Es apropiada la variable de estratificación en términos de ganancia de precisión? c) Tamaño muestral para una muestra autoponderada con varianza del estimador de la media = 1,45, y tamaños por estrato."],
+["2023 · C1 a","70 empresas en 2 estratos: estrato 1 (1–9 asalariados) con N = 50, total de asalariados 250, S = 1,1; estrato 2 (10–500) con N = 20, total 850, S = 8,5. Tamaño muestral por estrato con afijación óptima para estimar el total de asalariados con error de muestreo relativo del 1,5 %, con el estimador estratificado de expansión MAS s/r."],
+["2019 · C3 B","Las 5.000 viviendas se estratifican en 3 grupos (N<sub>h</sub> = 2.500, 2.500, 500; P<sub>h</sub> = 0,8; 0,5; 0,1; ojo: los N<sub>h</sub> del original no suman 5.000). Reparte el tamaño muestral de la parte A entre los estratos con afijación de Neyman y con afijación proporcional, y comenta los resultados."]],
+[["2025 · C6","Carril bici: muestreo de conglomerados s/r con probabilidades iguales, 4 semanas elegidas de las 52 del año. Totales semanales: 147, 92, 111 y 99 (datos diarios en el PDF). a) Estimación insesgada del total anual de usuarios, su coeficiente de variación y un IC al 95 % (z = 2). b) Número mínimo de semanas para que la varianza del estimador de la media diaria sea menor que 1 con el mismo diseño."],
+["2018 · C4","Proporción de pinos en una zona forestal con 20 conglomerados y M = 1.000 árboles. Conglomerados con submuestreo, probabilidades iguales s/r en ambas etapas: 4 conglomerados en la 1.ª etapa y f<sub>2i</sub> = 10/M<sub>i</sub> en la 2.ª. Tamaños M<sub>i</sub> = 60, 80, 50, 30; pinos = 8, 7, 6, 4. A) Estimación insesgada de la proporción y su error. B) Estimador de razón al tamaño y su error. C) Ventajas e inconvenientes de B frente a A."],
+["2016 · P1","M = 40.000 individuos en N = 10.000 hogares (M<sub>i</sub> = tamaño del hogar, A<sub>i</sub> = mujeres, A = total de mujeres). MAS s/r de n = 20 hogares, encuestando a todos sus miembros. a) Estimación insesgada de A y su error. b) Eficiencia relativa del muestreo por conglomerados frente al MAS. c) Estimación de A con el estimador de razón al tamaño y su error. d) Ventajas e inconvenientes de c frente a a (sumas muestrales en el PDF)."],
+["2016 · P2","Los individuos anteriores se reparten en 200 secciones censales de 50 hogares. Muestra de 4 secciones y submuestra de 5 hogares por sección, con reposición e iguales probabilidades en ambas etapas. Mujeres por sección: 6, 8, 11 y 10. Estimación insesgada de A y su error."]],
+[["2026 · C1","Encuesta mensual a empresas con diseño estratificado por tamaño; el marco trae identificador, razón social, dirección, correo y teléfono. a) Plan de recogida y trabajo de campo: canales, secuencia de contactos y mejora de cobertura y respuesta. b) Enlace probabilístico con un registro administrativo sin identificador común (comparten razón social, dirección, actividad con clasificaciones distintas y fecha de inicio): preparación de datos, método, elementos necesarios y criterio de decisión. c) Riesgo de identificación a nivel de fichero y de registro, y métodos de control del secreto en microdatos."],
+["2026 · C6","MAS s/r de tamaño n en una población de tamaño N; la unidad k responde con probabilidad θ<sub>k</sub> y solo se observa la submuestra r ⊂ s. Estimador del total: Ŷ<sub>0</sub> = (N/n) Σ<sub>k∈r</sub> y<sub>k</sub>. a) Esperanza y sesgo; interprétalos. b) Estimador alternativo que corrija el sesgo, a partir del mecanismo conjunto de selección y respuesta, y dificultades prácticas. c) Con grupos de respuesta homogénea dentro de cada grupo (por información auxiliar): estimador del total y propiedades."],
+["2023 · C1 b","Con la muestra de 2023 · C1 a responden 4 empresas del estrato 1 y 7 del 2; el resto no colabora (falta de respuesta aleatoria, se repondera). Estima el total de la cifra de negocios y su error relativo. Estrato 1: 40, 70, 60, 30. Estrato 2: 1700, 2000, 1800, 1750, 2500, 1700, 1800."]]
+];
+const S=[
+["Cada muestra aporta su probabilidad a las unidades que contiene (π<sub>k</sub> = suma de p(s) de las muestras s que contienen a k; ver T2). a) π = 1/4, 5/8, 3/8, 5/8, 1/4, 5/8, 3/8, 7/8 (suman 4 = n). b) Ninguno: en un MAS serían todas n/N = 1/2, y en un estratificado cada estrato tendría π constante = n<sub>h</sub>/N<sub>h</sub> (p. ej. {1,5} con π = 1/4 exigiría n<sub>h</sub> = 1/2).",
+"Con d<sub>k</sub> = 1/π<sub>k</sub>, el HT de la media es la media muestral en los tres planes. a) MAS: (1−n/N)S²/n con S² = N(N+1)/12 → (a−1)(na+1)/12. b) Una unidad por estrato: (1/n²)Σσ²<sub>i</sub> = (a²−1)/(12n). c) Sistemático: la media solo depende del arranque r ~ U{1…a} → (a²−1)/12. d) De menor a mayor varianza: estratificado, sistemático (n veces más) y MAS (≈ n veces más que el sistemático). Con la población ordenada, estratificar o ir sistemático capta la tendencia, y el estratificado además permite estimar la varianza (T4: con un solo arranque no)."],
+["n<sub>s</sub> = ΣI<sub>k</sub> con I<sub>k</sub> ~ Bernoulli(π<sub>k</sub>) independientes: es el Bernoulli de T3 con p variable (muestreo de Poisson). a) E(n<sub>s</sub>) = Σπ<sub>k</sub>; Var(n<sub>s</sub>) = Σπ<sub>k</sub>(1−π<sub>k</sub>). b) P(n<sub>s</sub> ≥ 1) = 1 − Π(1−π<sub>k</sub>). Como en el código del bloque, el tamaño es aleatorio y puede ser 0.",
+"n<sub>0</sub> = z²PQ/e² = 1,96²·0,25/0,1² = 96,04. Corrección de población finita del MAS (T3): n = n<sub>0</sub>N/(n<sub>0</sub>+N−1) = 94,25 → 95 viviendas."],
+["Intervalo k = Σx/n = 285/5 = 57; puntos 35, 92, 149, 206, 263 sobre los acumulados 10, 50, 65, 85, 95, 110, 160, 185, 245, 285. Entran las unidades 2, 5, 7, 9 y 10. Ojo (T5): π<sub>9</sub> = 5·60/285 = 1,05 &gt; 1, es autorrepresentada y habría que fijarla en 1 antes de seleccionar.",
+"Es el apartado c de 2025 · C1 (T2): la media muestral solo varía con el arranque r, uniforme en 1…a, luego Var = (a²−1)/12. Con un solo arranque no hay estimador insesgado de esta varianza (T4: π<sub>kl</sub> = 0)."],
+["Aplica el bucle de T5: π<sub>k</sub> = n·x<sub>k</sub>/Σx = 4·100/240 = 1,67 &gt; 1 → π = 1 y quedan n = 3, Σx = 140. Recalculo: 40 → 0,857; 20 → 0,429; 10 → 0,214; 5 → 0,107; ninguno excede 1. Sí es posible: π = (1; 6/7; 6/7; 3/7; 3/7; 3/14; 3/28; 3/28), suman 4."],
+["Fórmulas de T6. N = 600, Ȳ = 39,58; S² = [Σ(N<sub>h</sub>−1)S²<sub>h</sub> + ΣN<sub>h</sub>(Ȳ<sub>h</sub>−Ȳ)²]/(N−1) = (92.164 + 146.146)/599 ≈ 397,8. a) Interestrato ≈ 146.146/238.310 ≈ 61 %. b) Sí: más de la mitad de la variación es entre estratos y la varianza intra (ΣW<sub>h</sub>S²<sub>h</sub> = 154,3) es 2,6 veces menor que S². c) Autoponderada = afijación proporcional (n<sub>h</sub> = nN<sub>h</sub>/N): 1,45 = (1/n − 1/600)·154,33 → n = 90,4 → 91; n<sub>h</sub> = 23, 38 y 30.",
+"Neyman de T6: n<sub>h</sub> ∝ N<sub>h</sub>S<sub>h</sub> = 55 y 170 (Σ = 225). V(t̂) = (ΣN<sub>h</sub>S<sub>h</sub>)²/n − ΣN<sub>h</sub>S²<sub>h</sub> = 50.625/n − 1.505,5; el error prefijado es 0,015·1.100 = 16,5 → V = 272,25 → n = 28,5 → 29 (7 y 22). Trampa: el estrato 2 solo tiene N = 20, así que se toma entero (n<sub>2</sub> = 20, sin varianza) y se reajusta el 1: 3.025·(1/n<sub>1</sub> − 1/50) ≤ 272,25 → n<sub>1</sub> = 10. Resultado: n<sub>1</sub> = 10, n<sub>2</sub> = 20 (n = 30).",
+"S<sub>h</sub> ≈ √(P<sub>h</sub>Q<sub>h</sub>) = 0,4; 0,5; 0,3 y, corrigiendo la errata con N<sub>2</sub> = 2.000: N<sub>h</sub>S<sub>h</sub> = 1.000; 1.000; 150 (Σ = 2.150). Neyman (T6) con n = 95: 44, 44 y 7. Proporcional (k = 95/5.000 = 0,019): 47,5; 38; 9,5 → 47, 38, 9 (sobra 1). Neyman da más al estrato disperso (P = 0,5) y menos al de P = 0,1; si las S<sub>h</sub> fueran iguales coincidirían."],
+["Conglomerados = semanas (T7). Totales 147, 92, 111, 99 → t̄ = 112,25. a) t̂ = N·t̄ = 52·112,25 = 5.837; s²<sub>t</sub> = 598,25 → V = N²(1−n/N)s²/n ≈ 373.300, error ≈ 611, CV ≈ 10,5 %; IC95 % ≈ 5.837 ± 2·611 = [4.615; 7.059]. b) Media diaria = t̄/7: V = (1/n − 1/52)·598,25/49 &lt; 1 → n &gt; 9,9 → 10 semanas.",
+"Total de pinos = (N/n)ΣM<sub>i</sub>p̂<sub>i</sub>, con p̂<sub>i</sub> = 0,8; 0,7; 0,6; 0,4: 5·(48+56+30+12) = 730. A) p̂ = 730/1.000 = 0,73; V = N²(1−f<sub>1</sub>)s²/n + (N/n)ΣM²<sub>i</sub>(1−f<sub>2i</sub>)S²<sub>2i</sub>/m<sub>i</sub> ≈ 30.800 + 1.267 → error de la proporción ≈ 0,18 (domina la 1.ª etapa). B) Razón al tamaño (T7): p̂<sub>R</sub> = 146/220 = 0,664; con d<sub>i</sub> = M<sub>i</sub>p̂<sub>i</sub> − p̂<sub>R</sub>M<sub>i</sub> (s²<sub>d</sub> = 49,35) y M̄ = 50: V ≈ (1−n/N)s²<sub>d</sub>/(n·M̄²) = 0,0039 → error ≈ 0,063. C) La razón neutraliza la variación del tamaño de los conglomerados y reduce el error a un tercio, a costa de un sesgo pequeño (O(1/n)) y de necesitar M y los M<sub>i</sub>; A es insesgado pero inestable si los M<sub>i</sub> varían.",
+"Tomo los datos como ΣM<sub>i</sub> = 69, ΣA<sub>i</sub> = 35, ΣM²<sub>i</sub> = 269, ΣA²<sub>i</sub> = 81, ΣM<sub>i</sub>A<sub>i</sub> = 142 (confirma el orden en el PDF). a) Â = N·ΣA<sub>i</sub>/n = 17.500; s²<sub>A</sub> = 1,04 → V = N²(1−f)s²/n ≈ 5,19·10⁶, error ≈ 2.278 (13 %). b) Frente a un MAS de personas, con S² ≈ P(1−P) ≈ 0,25: con 80 personas esperadas (n·M/N) V ≈ 4,99·10⁶, eficiencia ≈ 0,96; con las 69 observadas V ≈ 5,79·10⁶, eficiencia ≈ 1,12. Es decir, ≈ 1: aquí agrupar por hogares casi no cuesta precisión (T7: deff ≈ 1+(M−1)ρ con ρ pequeña). c) Â<sub>R</sub> = M·ΣA/ΣM ≈ 20.290; con d<sub>i</sub> = A<sub>i</sub> − R̂M<sub>i</sub>, s²<sub>d</sub> = 0,324 → error ≈ 1.272. d) Como en 2018 · C4: la razón gana mucha precisión (1.272 frente a 2.278) porque A<sub>i</sub> crece con M<sub>i</sub>, pero es sesgada y exige conocer M.",
+"Bietápico con reposición (T7). Supongo que 6, 8, 11 y 10 son las mujeres de los 5 hogares submuestreados: cada sección se estima como (50/5)·mujeres = 60, 80, 110, 100. Â = 200·media = 200·87,5 = 17.500 (coincide con P1). Con reposición V = N²s²/n, con s² = 491,67 de esos cuatro valores → V ≈ 4,92·10⁶ → error ≈ 2.217."],
+["Respuesta abierta; esquema. a) Multimodo: web primero por coste, recordatorios por correo y teléfono, contacto personal en grandes empresas (inclusión forzosa); calendario escalonado con seguimiento de la respuesta por estrato y prioridad a los de más peso. b) Preparación: normalizar razón social y dirección (mayúsculas, sin acentos ni siglas), armonizar la actividad con una tabla de correspondencias, formatear fechas, y bloquear (p. ej. por provincia) para limitar pares. Método Fellegi-Sunter: comparar campos, sumar pesos log(m/u) en una puntuación y usar dos umbrales (enlace, revisión manual, no enlace). c) Fichero: número esperado de reidentificaciones (suma de los riesgos individuales) o proporción de unicidades muestrales; registro: riesgo individual de reidentificación (p. ej. Benedetti-Franconi, que usa los factores de elevación) y k-anonimato. Control: supresión, recodificación, ruido, microagregación, top-coding, swapping, datos sintéticos.",
+"I<sub>k</sub> = selección y R<sub>k</sub> = respuesta (P = θ<sub>k</sub>). a) E(Ŷ<sub>0</sub>) = (N/n)(n/N)Σθ<sub>k</sub>y<sub>k</sub> = Σθ<sub>k</sub>y<sub>k</sub> → sesgo = −Σ(1−θ<sub>k</sub>)y<sub>k</sub>: subestima si y &gt; 0 y solo es nulo con θ<sub>k</sub> = 1 (los no respondientes cuentan como 0). b) HT sobre el mecanismo conjunto (T2): Ŷ = Σ<sub>k∈r</sub> y<sub>k</sub>/(π<sub>k</sub>θ<sub>k</sub>) con π<sub>k</sub> = n/N; dificultad: θ<sub>k</sub> es desconocida y hay que estimarla (modelo de respuesta, no ignorable si depende de y, θ̂ pequeños inflan la varianza). c) Reponderación por grupos g: θ̂<sub>g</sub> = r<sub>g</sub>/n<sub>g</sub> → Ŷ = Σ<sub>g</sub> (N/n)(n<sub>g</sub>/r<sub>g</sub>)Σ y<sub>k</sub> sobre los respondientes del grupo g: aproximadamente insesgado si la respuesta es aleatoria dentro de cada grupo, con más varianza y exigiendo r<sub>g</sub> &gt; 0.",
+"Reponderación (T6 con las respondientes): t̂ = ΣN<sub>h</sub>ȳ<sub>hr</sub> = 50·50 + 20·1.892,9 ≈ 40.357. Con s²<sub>1</sub> = 333,3 y s²<sub>2</sub> = 82.024: V̂ = ΣN<sub>h</sub>²(1−r<sub>h</sub>/N<sub>h</sub>)s²<sub>h</sub>/r<sub>h</sub> = 191.700 + 3.046.600 ≈ 3,24·10⁶ → error ≈ 1.800, relativo ≈ 4,5 %."]
+];
+function exUI(a,i){const cnt=()=>a.filter((_,j)=>ES[i+'-'+j]).length,d=el('details','ex'),sm=el('summary',null,''),u=el('ul',null,''),upd=()=>sm.textContent='Enunciados de examen ('+cnt()+'/'+a.length+' resueltos)';upd();d.appendChild(sm);
+a.forEach((t,j)=>{const k=i+'-'+j,li=el('li',null,'<b>'+t[0]+'</b>'+t[1]+'<details class="sol"><summary>Solución</summary><p>'+S[i][j]+'</p></details>'),lb=el('label','chk','<input type="checkbox"> Lo he resuelto'),cb=lb.firstChild;cb.checked=!!ES[k];cb.onchange=()=>{cb.checked?ES[k]=1:delete ES[k];saveEx();upd()};li.appendChild(lb);u.appendChild(li)});d.appendChild(u);return d}
+const sh=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const H=['divide cada y entre su π y suma (cuidado con π = 0,25).','en Bernoulli cada unidad decide por su cuenta: ¿está fijado el tamaño?','la unidad r+jk es la (j+1)-ésima; la 4.ª suma 3k al arranque.','al fijar π = 1 cambian n y Σx: recalcula solo con las restantes.','calcula N_h·S_h de cada estrato antes de repartir.','aplica 1 + (M − 1)·ρ con los datos del código.'];
+const BK=[
+[["¿Qué condición garantiza que el HT sea insesgado?","π_k &gt; 0 para toda unidad de U","π_kl &gt; 0 para todo par","Que n sea fijo","Basta que nadie tenga probabilidad 0. π_kl &gt; 0 hace falta solo para estimar la varianza."],
+["Una unidad con π_k = 0,10 sale en la muestra. ¿Cuántas unidades representa (peso d_k)?","10","0,10","90","d_k = 1/π_k = 10."],
+["MAS con N = 500 y n = 25: peso de cada unidad.","20","25","0,05","π = n/N = 0,05, luego d = 20."],
+["Con todos los π_k = n/N, el HT del total es…","N por la media muestral","n por la media muestral","la media muestral","Σ y/π = (N/n)Σ y = N·ȳ."],
+["HT del total en un censo (π_k = 1 para todos).","El total exacto, sin error","El total con sesgo","No está definido","Σ y/1 = t y la varianza es 0."],
+["Muestra (y = 50, π = 0,2) y (y = 90, π = 0,6). ¿HT del total?","400","140","200","50/0,2 + 90/0,6 = 250 + 150 = 400."],
+["¿Por qué E(t̂) = t?","Porque E(I_k) = π_k y cada término da y_k","Porque la muestra es siempre un MAS","Porque Σ d_k = N siempre","E(t̂) = Σ E(I_k)·y_k/π_k = Σ y_k."],
+["Si y_k = 1 para todo k, el HT estima…","El tamaño N de la población","La media","El tamaño n","Σ_{k∈s} 1/π_k estima N."],
+["Una unidad con π_k muy pequeño sale en la muestra. ¿Qué pasa con el HT?","Su peso es enorme y la varianza crece","Se vuelve sesgado","Su aportación se anula","d_k = 1/π_k es grande: una sola unidad puede dominar la estimación."]],
+[["Bernoulli con p = 0,1 y N = 200: E(n_s).","20","10","2","E(n_s) = Np = 20."],
+["Bernoulli con N = 100 y p = 0,2: Var(n_s).","16","20","0,16","Np(1−p) = 100·0,2·0,8 = 16."],
+["MAS sin reemplazamiento, n = 10 de N = 40: π_k.","0,25","0,1","0,4","π_k = n/N = 0,25."],
+["¿Cómo es π_kl en Bernoulli y en MAS?","Bernoulli: p². MAS: n(n−1)/[N(N−1)]","Iguales en los dos","Bernoulli: p. MAS: n/N","Independencia da p²; en MAS sin reemplazo no son independientes."],
+["¿Cómo se llama el factor (1−f) de V(t̂) = N²(1−f)S²/n?","Corrección por población finita","Efecto de diseño","Factor de elevación","f = n/N; apenas pesa si n es pequeño frente a N."],
+["MAS con N = 1000, n = 100, S² = 25: V(t̂).","225.000","250.000","22.500","N²(1−f)S²/n = 10⁶·0,9·25/100 = 225.000."],
+["Con el mismo n esperado, ¿qué diseño tiene más varianza?","Bernoulli, porque n_s también varía","MAS","Son iguales","Bernoulli añade la variabilidad del tamaño muestral."],
+["Bernoulli con N = 4: ¿cuántas muestras posibles hay?","16","6","4","2^N = 16, incluidas la vacía y la completa."],
+["¿Cuándo vale 0 el factor 1−f?","Cuando n = N (censo)","Cuando n = 1","Cuando N tiende a infinito","f = n/N = 1: no hay error de muestreo."]],
+[["N = 100 y n = 20: salto k.","5","20","80","k = N/n = 5."],
+["k = 5 y arranque r = 2: unidad n.º 3.","12","7","10","r + 2k = 2 + 10 = 12."],
+["¿Cuántas muestras distintas tiene un sistemático de salto k?","k","N","C(N,n)","Una por cada arranque r = 1…k."],
+["En el sistemático, π_kl puede ser…","0 si k y l no pueden estar en la misma muestra","Siempre mayor que 0","Siempre p²","Dos unidades de arranques distintos nunca están en la misma muestra."],
+["Problema del sistemático para estimar la varianza.","Con un solo arranque no hay estimador insesgado","El HT del total es sesgado","π_k no existe","Casi todos los π_kl son 0."],
+["¿Cuándo rinde peor que un MAS?","Si hay periodicidad que coincide con el salto","Si la población está ordenada por y","Si k es pequeño","Las unidades del arranque se parecen entre sí y se repite información."],
+["¿Cuándo rinde mejor que un MAS?","Con la población ordenada por una variable correlacionada con y","Con ciclos de periodo k","Cuando N es desconocido","Ordenar actúa como una estratificación implícita."],
+["N = 105 y n = 20: ¿qué pasa con k = N/n?","No es entero: salto fraccionario o n variable","El diseño no existe","π_k = 0","Hay que usar un salto fraccionario o aceptar que n varíe."],
+["π_k en un sistemático con k = 8.","1/8","8","1/N","Cada unidad está en una sola de las 8 muestras posibles."]],
+[["x = (60, 30, 10) y n = 1: π de cada unidad.","0,6; 0,3; 0,1","1/3 cada una","1; 0,5; 0,17","π = n·x/Σx."],
+["x = (60, 30, 10) y n = 2: ¿hay autorrepresentadas?","Sí, la 1.ª (π = 1,2)","No, todas son menores que 1","Sí, la 2.ª","2·60/100 = 1,2, mayor que 1."],
+["Mismo caso: tras fijar π₁ = 1, ¿cuánto vale π₂?","0,75","0,60","0,30","Quedan n = 1 y Σx = 40: 30/40 = 0,75."],
+["Una unidad autorrepresentada es la que…","Entra con certeza (π = 1)","Entra dos veces","Se excluye","Su tamaño es tan grande que π excedería 1."],
+["¿Por qué es eficiente el pps?","Si y es casi proporcional a x, y/π varía poco","Porque π_kl = 0","Porque n es aleatorio","El HT es casi constante entre muestras."],
+["HT del total en pps sin reposición.","Σ y_k/π_k con π_k = n·x_k/Σx","N·ȳ","Σ x_k","Es el HT de siempre con π proporcional al tamaño."],
+["Si y_k = c·x_k exactamente, la varianza del HT en pps con n fijo es…","0","Máxima","c²","Cada y/π vale c·Σx/n, constante."],
+["x = (40, 30, 20, 10) y n = 2: π de la 4.ª.","0,2","0,1","0,25","2·10/100 = 0,2."],
+["Σπ_k en un diseño sin reposición de tamaño fijo n.","n","N","1","Σπ_k = E(n_s) = n."]],
+[["Proporcional con N_h = 600 y 400, n = 50: n_h.","30 y 20","25 y 25","40 y 10","n·N_h/N."],
+["Neyman asigna más muestra a un estrato cuando…","N_h·S_h es mayor (más grande o más disperso)","Es más pequeño","Tiene menor S","n_h es proporcional a N_h·S_h."],
+["N = (100, 100), S = (1, 4), n = 50: Neyman.","10 y 40","25 y 25","20 y 30","N_hS_h = 100 y 400."],
+["Si todos los S_h son iguales, Neyman coincide con…","La proporcional","La afijación igual","El MAS sin estratos","Neyman se reduce a n·N_h/N."],
+["Estratificar mejora la precisión si los estratos son…","Homogéneos por dentro y distintos entre sí","Heterogéneos por dentro","Iguales entre sí","La varianza que queda es la intraestrato."],
+["En V = ΣN_h²(1−f_h)S_h²/n_h, si n_h = N_h…","Esa varianza intraestrato se anula","S_h se anula","N_h se anula","f_h = 1: el estrato se observa entero."],
+["Un estrato con N_h = 1000 y S_h = 0. Neyman le asigna…","Casi nada (una unidad)","La mitad","1000","N_hS_h = 0: todos los valores son iguales."],
+["Muestra autoponderada en estratificado.","π_k igual para todos (afijación proporcional)","n_h igual en cada estrato","S_h igual","π_k = n_h/N_h constante ⇔ n_h ∝ N_h."],
+["¿Qué estimador del total se usa con estratos?","Σ N_h·ȳ_h","N·ȳ sin más","Σ ȳ_h","Es la suma de las expansiones de cada estrato."]],
+[["ρ = 0,1 y M = 11: deff.","2","1,1","11","1 + (M−1)ρ = 1 + 10·0,1 = 2."],
+["Un deff mayor que 1 significa que…","El conglomerado es menos preciso que un MAS del mismo n","Es más preciso","No hay sesgo","V_congl = V_MAS·deff."],
+["n = 600 personas y deff = 3: tamaño efectivo.","200","1.800","600","n_ef = n/deff."],
+["Si ρ = 0, el deff vale…","1, como un MAS","0","M","1 + (M−1)·0 = 1."],
+["Con el mismo n total conviene…","Muchos conglomerados pequeños","Pocos conglomerados grandes","Da igual","Menor M reduce (M−1)ρ."],
+["ρ cercano a 1 significa…","Dentro del conglomerado casi todos son iguales: cada uno aporta poca información","Los elementos son muy distintos entre sí","Precisión máxima","Repetir elementos parecidos desperdicia muestra."],
+["¿Cuándo se usa la razón al tamaño en conglomerados?","Cuando los M_i varían mucho","Cuando todos los M_i son iguales","Cuando N es desconocido","La razón compensa el efecto del tamaño del conglomerado."],
+["Muestreo bietápico.","Se eligen conglomerados y se submuestrea dentro","Se encuesta todo el conglomerado","Se eligen elementos sueltos","La 2.ª etapa selecciona elementos dentro de cada conglomerado elegido."],
+["M = 20 y deff = 2,9: ρ.","0,10","0,15","0,29","(M−1)ρ = 1,9, luego ρ = 0,1."]]
+];
+function pickAll(){L.forEach((v,i)=>{if(!v.o)return;if(!v.bank){const ok=v.o[v.c];v.bank=[[v.q,ok,...v.o.filter((_,j)=>j!==v.c),v.e],...BK[i]];v.q=''}
+v.pick=sh(v.bank.slice()).slice(0,3).map(x=>{const o=sh([x[1],x[2],x[3]]);return{q:x[0],o,c:o.indexOf(x[1]),e:x[4]}})})}
+pickAll();
+const ES=(()=>{try{return JSON.parse(localStorage.getItem('mq_ex')||'{}')}catch(e){return{}}})(),saveEx=()=>{try{localStorage.setItem('mq_ex',JSON.stringify(ES))}catch(e){}};
+function next(){render();const c=document.querySelector('.lv:not(.done):not(.lock)')||document.querySelector('.fin');if(c)c.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'})}
+let done=0;try{done=+localStorage.getItem('mq_done')||0}catch(e){}
+const $=id=>document.getElementById(id),save=()=>{try{localStorage.setItem('mq_done',done)}catch(e){}};
+function el(t,c,h){const x=document.createElement(t);if(c)x.className=c;if(h!=null)x.innerHTML=h;return x}
+function render(){
+  const R=$('lv');R.innerHTML='';
+  $('bar').style.width=100*done/L.length+'%';$('cnt').textContent=done+' / '+L.length+' niveles superados';
+  L.forEach((v,i)=>{
+    const s=i<done?'done':i===done?'':'lock',card=el('section','lv '+s);
+    const h=el('h2',null,(i<done?'✓ ':i>done?'🔒 ':'')+v.t);h.appendChild(el('span','tag',i<done?'superado':i===done?'en curso':'bloqueado'));card.appendChild(h);
+    if(i<=done){
+      card.appendChild(el('pre',null,'')).textContent=v.code;if(v.f)card.appendChild(el('div','fm','<b>Fórmula</b>'+v.f));if(v.q)card.appendChild(el('p','q',v.q));
+      const fb=el('div','fb');fb.setAttribute('role','status');
+      if(v.fin)seqUI(card,v,i,fb);else mcUI(card,v,i,fb);
+      card.appendChild(fb);if(X[i])card.appendChild(exUI(X[i],i));
+    }
+    R.appendChild(card);
+  });
+  if(done>=L.length){const f=el('div','fin','<h2 style="font:700 20px var(--fd)">Bucle completado</h2><p>Todo el temario es un solo estimador (HT) y seis formas de fijar π<sub>k</sub> (Bernoulli, MAS, sistemático, pps, estratificado y conglomerados), más una pipeline que se repite cada edición. Vuelve a T2 y repasa la demostración de insesgadez: es la base de todo lo demás.</p>');
+    const r=el('button','lnk','Reiniciar progreso');r.onclick=()=>{done=0;save();pickAll();for(const k in ES)delete ES[k];saveEx();render();scrollTo(0,0)};f.appendChild(r);R.appendChild(f)}
+  if(window.MathJax&&MathJax.typesetPromise)MathJax.typesetPromise([R]).catch(()=>{});
+}
+function bars(){$('bar').style.width=100*done/L.length+'%';$('cnt').textContent=done+' / '+L.length+' niveles superados'}
+function mcUI(card,v,i,fb){let ok=0;const T=v.pick.length;
+v.pick.forEach((x,n)=>{const w=el('div','mq',''),o=el('div','opts'),m=el('div','fb');m.setAttribute('role','status');w.appendChild(el('p','q',(n+1)+'/'+T+' · '+x.q));
+x.o.forEach((t,j)=>{const b=el('button',null,t);b.onclick=()=>{
+if(j===x.c){b.className='ok';[...o.children].forEach(y=>y.disabled=true);m.className='fb g';m.innerHTML='✓ '+x.e;ok++;
+if(ok===T&&i===done){done++;save();bars();const nx=el('button',null,i+1<L.length?'Siguiente nivel →':'Ver final →');nx.onclick=next;fb.className='fb g';fb.textContent='✓ Nivel superado.';fb.appendChild(el('div',null,'')).appendChild(nx)}}
+else{b.className='ko';b.disabled=true;m.className='fb b';m.textContent='✗ Prueba otra vez. Repasa la fórmula y el código de este bloque.'}};o.appendChild(b)});
+w.appendChild(o);w.appendChild(m);card.appendChild(w)})}
+function seqUI(card,v,i,fb){
+  const seq=el('div','seq'),o=el('div','opts');let n=0;card.appendChild(seq);
+  sh([...v.steps.keys()]).forEach(j=>{const b=el('button',null,v.steps[j]);b.onclick=()=>{
+    if(j===n){b.className='ok';b.disabled=true;seq.appendChild(el('span',null,(n+1)+'. '+v.steps[j]));n++;fb.className='fb';
+      if(n===v.steps.length){fb.className='fb g';fb.textContent='✓ '+v.e;if(i===done){done++;save();$('bar').style.width='100%';$('cnt').textContent=done+' / '+L.length+' niveles superados';const nx=el('button',null,'Ver final →');nx.onclick=next;fb.appendChild(el('div',null,'')).appendChild(nx)}}}
+    else{fb.className='fb b';fb.textContent='✗ Esa fase va más tarde (o ya la has puesto).'}};o.appendChild(b)});
+  card.appendChild(o);
+}
+$('rst').onclick=()=>{if(confirm('¿Borrar niveles superados y ejercicios marcados?')){done=0;save();pickAll();for(const k in ES)delete ES[k];saveEx();render();scrollTo(0,0)}};
+render();
+addEventListener('load',()=>{if(window.MathJax&&MathJax.startup&&MathJax.startup.promise)MathJax.startup.promise.then(()=>MathJax.typesetPromise([$('lv')])).catch(()=>{})});
+</script>
+</body>
+</html>
