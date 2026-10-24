@@ -1,0 +1,1295 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Demografía · Taller de indicadores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#eceff4; --surface:#ffffff; --surface-2:#f4f6fa; --ink:#151925; --ink-2:#444c61; --ink-3:#636b80;
+  --line:#d6dae5; --line-2:#e6e9f1; --accent:#2750d0; --accent-ink:#ffffff; --accent-soft:#e1e8fb;
+  --good:#177a3b; --warn:#935305; --bad:#c23a2b;
+  --display:'Chakra Petch','Rajdhani','Arial Narrow',system-ui,sans-serif;
+  --body:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --ty-0:#a3a08a;--tf-0:#1b1a14;  --ty-1:#c04a38;--tf-1:#ffffff;  --ty-2:#8aa3e6;--tf-2:#101a3a;
+  --ty-3:#a455b8;--tf-3:#ffffff;  --ty-4:#d2ac5a;--tf-4:#2a1d05;  --ty-5:#b5a14f;--tf-5:#221c05;
+  --ty-6:#9db526;--tf-6:#1a2204;  --ty-7:#6b5ca3;--tf-7:#ffffff;  --ty-8:#8da2b3;--tf-8:#0f1c27;
+  --ty-9:#ee7b30;--tf-9:#2b1000;  --ty-10:#3a7fdc;--tf-10:#ffffff;--ty-11:#52b04c;--tf-11:#0c2a0a;
+  --ty-12:#f1c721;--tf-12:#2b2300;--ty-13:#ec5d8e;--tf-13:#2e0716;--ty-14:#78cfd1;--tf-14:#08282a;
+  --ty-15:#6a4fd6;--tf-15:#ffffff;--ty-16:#5a4b45;--tf-16:#ffffff;--ty-17:#ea8fc6;--tf-17:#36102a;
+  --ty-18:#6f7684;--tf-18:#ffffff;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1118; --surface:#171b26; --surface-2:#1d2230; --ink:#e8ebf3; --ink-2:#aab1c4; --ink-3:#8088a0;
+    --line:#2b3145; --line-2:#232839; --accent:#8fa8ff; --accent-ink:#0d1330; --accent-soft:#1f2a52;
+    --good:#58c987; --warn:#e8ad55; --bad:#ff8070; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1118; --surface:#171b26; --surface-2:#1d2230; --ink:#e8ebf3; --ink-2:#aab1c4; --ink-3:#8088a0;
+  --line:#2b3145; --line-2:#232839; --accent:#8fa8ff; --accent-ink:#0d1330; --accent-soft:#1f2a52;
+  --good:#58c987; --warn:#e8ad55; --bad:#ff8070; color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:18px 56px}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+input,select{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:.45rem .55rem;min-width:0;max-width:100%}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+small{font-size:.78em}
+
+/* barra superior */
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 20px;max-width:1640px;margin:0 auto 14px}
+.brand h1{font:700 1.6rem/1 var(--display);letter-spacing:.01em}
+.brand p{margin-top:6px;color:var(--ink-3);font:500 .75rem var(--mono)}
+.top-ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:600 .82rem var(--body);padding:.5rem .8rem;border:1px solid var(--line);background:var(--surface);border-radius:6px}
+.btn:hover{border-color:var(--ink-3)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent}
+.btn.sm{padding:.3rem .6rem;font-size:.76rem}
+.note{max-width:1640px;margin:0 auto 14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:.6rem .85rem;border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--surface);border-radius:6px;color:var(--ink-2);font-size:.84rem}
+.note b{color:var(--ink)}
+.seg{display:inline-flex}
+.seg button{border:1px solid var(--line);background:var(--surface);padding:.3rem .6rem;font:600 .74rem var(--body)}
+.seg button:first-child{border-radius:5px 0 0 5px}.seg button:last-child{border-radius:0 5px 5px 0}
+.seg button+button{border-left:0}
+.seg button[aria-pressed=true]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.seg.lg button{padding:.5rem .7rem;font-size:.8rem}
+
+/* rejilla principal */
+.app{display:grid;grid-template-columns:15.5rem minmax(0,1fr) minmax(0,25rem);gap:14px;align-items:start;max-width:1640px;margin:0 auto}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;min-width:0}
+.viewseg{display:none;max-width:1640px;margin:0 auto 12px;gap:0}
+.viewseg button{flex:1;padding:.55rem;border:1px solid var(--line);background:var(--surface);font-weight:600}
+.viewseg button:first-child{border-radius:6px 0 0 6px}.viewseg button:last-child{border-radius:0 6px 6px 0;border-left:0}
+.viewseg button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+@media (max-width:1240px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .viewseg{display:flex}
+  .app[data-view=editor] .analysis{display:none}
+  .app[data-view=analysis] .editor{display:none}
+}
+
+/* equipo = fenómenos */
+.team{display:flex;flex-direction:column;gap:8px;min-width:0}
+@media (max-width:1240px){.team{display:grid;grid-template-columns:repeat(auto-fill,minmax(9.6rem,1fr))}.team-h{grid-column:1/-1}}
+.team-h{display:flex;justify-content:space-between;align-items:baseline;padding:0 2px}
+.team-h h2{font:600 .72rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.cnt{font:600 .75rem var(--mono);color:var(--ink-3)}
+.slot{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 10px;align-items:center;text-align:left;width:100%;padding:10px;border:1px solid var(--line);background:var(--surface);border-radius:10px}
+.slot:hover{border-color:var(--ink-3)}
+.slot[aria-pressed=true]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.slot .mono{grid-row:1/3}
+.slot .nm{font:600 .98rem/1.15 var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.slot .nm small{display:block;font:500 .66rem var(--body);color:var(--ink-3);overflow:hidden;text-overflow:ellipsis}
+.slot .tys{display:flex;gap:4px;flex-wrap:wrap}
+.slot .foot{grid-column:1/-1;display:flex;align-items:flex-end;gap:10px;margin-top:5px}
+.spark{flex:1;height:24px;min-width:0}
+.spark svg{display:block;width:100%;height:24px}
+.spe{font:600 .72rem var(--mono);color:var(--ink-2);white-space:nowrap}
+
+/* tipos y monograma */
+.ty{display:inline-block;background:var(--tc);color:var(--tx);font:600 .64rem/1 var(--body);letter-spacing:.07em;text-transform:uppercase;padding:.3rem .45rem;border-radius:3px;white-space:nowrap}
+.tys{display:flex;gap:4px;flex-wrap:wrap}
+.mono{--c1:var(--ty-0);--c2:var(--ty-0);width:2.6rem;aspect-ratio:1;border-radius:9px;background:linear-gradient(135deg,var(--c1) 50%,var(--c2) 50%);display:grid;place-items:center;flex:none}
+.mono i{font:700 .78rem/1 var(--display);font-style:normal;background:var(--surface);color:var(--ink);width:58%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center}
+.mono.sm{width:1.75rem;border-radius:6px}.mono.sm i{font-size:.54rem}
+.mono.lg{width:4.2rem;border-radius:12px}.mono.lg i{font-size:1.1rem}
+
+/* editor */
+.editor{padding:16px}
+.ed-head{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.ed-id{flex:1;min-width:12rem}
+.ed-id h2{font:700 1.5rem/1.1 var(--display)}
+.ed-id h2 small{font:500 .8rem var(--body);color:var(--ink-3);margin-left:6px}
+.ed-id .tys{margin:7px 0 6px}
+.meta{font:500 .74rem var(--mono);color:var(--ink-3)}
+.ed-act{display:flex;gap:6px;flex-wrap:wrap}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:12px 14px;margin:16px 0 4px}
+.fld{display:flex;flex-direction:column;gap:5px;min-width:0;align-items:flex-start}
+.fld>.l,.sec-h{font:600 .68rem var(--body);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.hint{font-size:.76rem;color:var(--ink-3);line-height:1.35}
+.sec-h{margin:20px 0 8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.sec-h .r{font:600 .75rem var(--mono);letter-spacing:0;text-transform:none;color:var(--ink-3)}
+.tw{overflow-x:auto}
+.num{font:600 .82rem var(--mono)}
+.up{color:var(--good)}.dn{color:var(--bad)}
+input[type=number]{width:8.2rem;font:600 .82rem var(--mono)}
+.fld input[type=number]{width:100%}
+
+/* sliders */
+input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;border:0;padding:0;height:1.5rem;width:100%}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:var(--line)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--accent);margin-top:-5.5px;border:2px solid var(--surface);box-shadow:0 0 0 1px var(--line)}
+input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:var(--line)}
+input[type=range]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--surface);box-shadow:0 0 0 1px var(--line)}
+
+/* gráficos svg */
+.ch{display:block;width:100%;height:auto}
+.ch .ln{fill:none;stroke:var(--accent);stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+.ch .ln.b{stroke:var(--ty-9)}
+.ch .ln.c{stroke:var(--ty-11)}
+.ch .ln.d{stroke:var(--ink-3);stroke-width:1.4;stroke-dasharray:4 3}
+.ch .gr{stroke:var(--line);stroke-width:1}
+.ch .ax{font:500 9px var(--mono);fill:var(--ink-3)}
+.ch .lab{font:600 8.5px var(--mono);fill:var(--ink-2)}
+.ch .bar{fill:var(--c,var(--accent))}
+.ch .mk{stroke:var(--bad);stroke-width:1.4;stroke-dasharray:3 3}
+.cc{border:1px solid var(--line-2);border-radius:8px;padding:8px 8px 4px;background:var(--surface)}
+.cc .cc-t{font:600 .66rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px 2px}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(14.5rem,1fr));gap:10px}
+.cleg{display:flex;flex-wrap:wrap;gap:4px 14px;font:500 .7rem var(--mono);color:var(--ink-3);margin-top:6px}
+.cleg span{display:inline-flex;align-items:center;gap:5px}
+.cleg s{display:inline-block;width:.9rem;height:.28rem;border-radius:2px;background:var(--c);text-decoration:none}
+.cleg s.dot{width:.7rem;height:.7rem;border-radius:50%}
+
+/* tablas de datos */
+.sam{max-height:26rem;overflow:auto;border:1px solid var(--line-2);border-radius:8px;background:var(--surface)}
+.sam table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.sam th{position:sticky;top:0;z-index:1;background:var(--surface);font:600 .62rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);text-align:right;padding:6px 5px;border-bottom:1px solid var(--line)}
+.sam td{padding:4px 5px;border-top:1px solid var(--line-2);font:500 .72rem var(--mono);text-align:right;white-space:nowrap}
+.sam th:first-child,.sam td:first-child{text-align:left}
+.sam td.z{text-align:left}
+.sam tfoot td{position:sticky;bottom:0;background:var(--surface-2);font-weight:700;border-top:1px solid var(--line)}
+.zdot{display:inline-block;width:.6rem;height:.6rem;border-radius:2px;margin-right:5px;vertical-align:-1px;background:var(--c)}
+
+/* tarjetas de indicadores */
+.est{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:8px}
+.ec{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--surface-2);display:flex;flex-direction:column;gap:3px;min-width:0}
+.ec .l{font:600 .64rem var(--body);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.ec .v{font:700 1.2rem/1.15 var(--mono);white-space:nowrap}
+.ec .s{font:500 .72rem var(--mono);color:var(--ink-3)}
+.estl{margin-top:8px;font:500 .76rem/1.5 var(--mono);color:var(--ink-3)}
+.estl b{color:var(--ink-2);font-weight:600}
+.badge{font:700 .62rem var(--body);letter-spacing:.07em;text-transform:uppercase;text-align:center;padding:.22rem .3rem;border-radius:3px;border:1px solid;display:inline-block}
+.badge.ok{color:var(--good);border-color:color-mix(in srgb,var(--good) 55%,var(--line))}
+.badge.rv{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 55%,var(--line))}
+.badge.in{color:var(--ink-3);border-color:var(--line)}
+.badge.bd{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 55%,var(--line))}
+.kv{width:100%;border-collapse:collapse;font-size:.8rem}
+.kv td{padding:5px 4px;border-top:1px solid var(--line-2);vertical-align:top}
+.kv td:first-child{font-weight:600;white-space:nowrap;padding-right:10px}
+.kv td:not(:first-child){color:var(--ink-2)}
+.kv code{font:600 .76rem var(--mono);color:var(--ink)}
+.kv.wide td:first-child{width:8.4rem;white-space:normal}
+.kv th{text-align:left;font:600 .62rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:4px;border-bottom:1px solid var(--line)}
+
+/* análisis */
+.analysis{overflow:hidden}
+.tabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{flex:1;padding:.7rem .6rem;border:0;border-bottom:2px solid transparent;background:transparent;font:600 .82rem var(--body);color:var(--ink-3);white-space:nowrap}
+.tab[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
+.ana-body{padding:14px;max-height:72vh;overflow:auto}
+.ana-body h4{font:600 .68rem var(--body);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin:18px 0 8px}
+.ana-body h4:first-child{margin-top:0}
+.ana-body p{font-size:.84rem;color:var(--ink-2)}
+.ana-body p+p{margin-top:6px}
+.checks{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px}
+.checks li{display:grid;grid-template-columns:4.4rem minmax(0,1fr);gap:8px;font-size:.84rem;color:var(--ink-2);align-items:start}
+.checks li b{color:var(--ink)}
+.callout{margin-top:12px;padding:10px 12px;background:var(--surface-2);border-radius:8px;font-size:.84rem;color:var(--ink-2);display:flex;flex-direction:column;gap:8px}
+.callout b{color:var(--ink)}
+.mx{border-collapse:separate;border-spacing:2px;width:100%;font-variant-numeric:tabular-nums}
+.mx th{font:500 .62rem var(--body);color:var(--ink-3);padding:2px 0;text-align:center;vertical-align:bottom;letter-spacing:.04em}
+.mx td{text-align:center;font:600 .74rem var(--mono);padding:5px 3px;border-radius:3px;white-space:nowrap}
+.mx td.tl{white-space:normal}
+.yes{color:var(--good)}.no{color:var(--bad)}.ap{color:var(--warn)}
+.mx td.tl{text-align:left;padding:0 4px 0 0;min-width:6rem}
+.mx td.tl .rowb{display:flex;align-items:center;gap:6px;width:100%;border:0;background:none;padding:2px;text-align:left;border-radius:5px}
+.mx td.tl .rowb:hover{background:var(--surface-2)}
+.mx td.tl .rowb[aria-current=true]{background:var(--accent-soft)}
+.mx td.tl .rowb span{font:600 .74rem var(--display);line-height:1.1}
+.m1{color:var(--ink-3);background:var(--surface-2)}
+.mh{background:color-mix(in srgb,var(--good) 24%,var(--surface))}
+.mq{background:color-mix(in srgb,var(--good) 48%,var(--surface))}
+.m2{background:color-mix(in srgb,var(--bad) 26%,var(--surface))}
+.m4{background:color-mix(in srgb,var(--bad) 58%,var(--surface))}
+.spl{display:flex;flex-direction:column;gap:7px}
+.spr{display:grid;grid-template-columns:auto minmax(0,1fr) 3.6rem;gap:4px 10px;align-items:center}
+.spr .nm{font:600 .82rem var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;display:flex;gap:6px;align-items:center}
+.spr .val{font:700 .86rem var(--mono);text-align:right}
+.track{position:relative;height:8px;background:var(--line-2);border-radius:4px;overflow:visible}
+.track i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.track u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--bad);text-decoration:none}
+.mgs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.mgc{display:flex;flex-direction:column;gap:6px;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);text-align:left;min-width:0}
+.mgc:hover{border-color:var(--ink-3)}
+.mgc[aria-pressed=true]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.mgc .h{display:flex;align-items:center;gap:6px;min-width:0}
+.mgc .h b{font:600 .8rem var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mgc .f{font:500 .68rem var(--mono);color:var(--ink-3)}
+
+/* ejercicios T1–T8 */
+.ej{border:1px solid var(--line);border-radius:10px;background:var(--surface);margin-bottom:14px;overflow:hidden}
+.ej>header{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line-2);background:var(--surface-2)}
+.ej>header .mono{width:2rem;border-radius:7px}
+.ej>header .mono i{font-size:.6rem}
+.ej>header h3{font:700 .95rem/1.2 var(--display);flex:1;min-width:12rem}
+.ej .bd{padding:10px 12px;display:flex;flex-direction:column;gap:10px}
+.ej .enun{font-size:.84rem;color:var(--ink-2);line-height:1.5}
+.ej .fields{margin:0}
+.ej details{border:1px solid var(--line-2);border-radius:8px;background:var(--surface)}
+.ej summary{cursor:pointer;padding:8px 10px;font:600 .8rem var(--body);color:var(--accent)}
+.ej .sol{padding:2px 10px 10px}
+.ej .ke{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:8px 14px;font-size:.78rem;color:var(--ink-2)}
+.ej .ke h6{font:600 .64rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px}
+.ej .ke ul{margin:0;padding-left:16px}
+pre.mem{background:var(--surface-2);border:1px solid var(--line-2);border-radius:8px;padding:10px 12px;font:500 .78rem/1.6 var(--mono);color:var(--ink-2);overflow:auto;margin:0}
+
+/* ventana modal */
+.modal{position:fixed;inset:0;z-index:50;background:color-mix(in srgb,var(--ink) 50%,transparent);display:flex;align-items:flex-start;justify-content:center;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:12px;width:min(760px,100%);max-height:100%;display:flex;flex-direction:column;overflow:hidden}
+.sheet>header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.sheet>header h2{font:700 1.15rem var(--display)}
+.mbody{overflow:auto;min-height:0;flex:1;padding:0}
+.mbody .sam{max-height:none;border:0;border-radius:0}
+.mfoot{padding:8px 14px;border-top:1px solid var(--line);font:500 .74rem var(--mono);color:var(--ink-3);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="root">
+<header class="top">
+  <div class="brand">
+    <h1>Demografía: seis fenómenos, una hoja de cálculo</h1>
+    <p id="brandp"></p>
+  </div>
+  <div class="top-ctl">
+    <button class="btn" type="button" data-act="pop">Ver datos</button>
+    <button class="btn" type="button" data-act="ciclo" aria-expanded="false" aria-controls="ciclo">Ciclo de repaso</button>
+    <button class="btn ghost" type="button" data-act="theme" id="themeBtn" aria-pressed="false">Modo oscuro</button>
+  </div>
+</header>
+
+<div class="note" id="note">
+  <span><b>Los mismos datos, indicadores que se confunden.</b> Cada fenómeno toma los datos de una hoja de demografía de HojaCraft y enfrenta las medidas rivales: <b>mx</b> y <b>qx</b>, <b>ISF</b> y <b>TNR</b>, tasa <b>bruta</b> y <b>estandarizada</b>, crecimiento <b>geométrico</b> y <b>exponencial</b>, saldo <b>residual</b> y <b>observado</b>. Elige un fenómeno, toca los controles y revisa la pestaña <b>Comparar</b>; los ejercicios <b>T1–T8</b> están en su pestaña con los datos y la solución paso a paso.</span>
+  <button class="btn sm" type="button" data-act="hidenote">Ocultar</button>
+</div>
+
+<section id="ciclo" hidden style="margin:0 0 12px;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:8px;font-size:.86rem;line-height:1.5">
+  <h4>Ciclo de repaso diario · indicadores de demografía</h4>
+  <p class="hint">Siete días, unos 45-60 minutos por sesión (ajústalo al tiempo que tengas). Cada sesión repite los mismos cuatro bloques y los fenómenos rotan para que cada uno vuelva a salir cada semana.</p>
+  <h4 style="margin-top:12px">Sesión diaria</h4>
+  <ol style="margin:6px 0 0;padding-left:20px">
+    <li><b>Recuerdo (10 min).</b> Antes de mirar nada, escribe de memoria las fórmulas del fenómeno del día (por ejemplo, de mx a qx, lx, Lx, Tx, ex). Luego repasa en 5 minutos el fenómeno de ayer, con una frase por fórmula.</li>
+    <li><b>Visualizador (10 min).</b> Abre el fenómeno, predice qué pasará al cambiar un control (nivel de mortalidad, calendario de fecundidad, estructura por edades), compruébalo y revisa la pestaña «Comparar».</li>
+    <li><b>Producción (20 min).</b> Resuelve dos ejercicios de la pestaña «Ejercicios», cronometrados a unos 10 minutos por ejercicio. Si te atascas, abre la solución y repítelo al día siguiente.</li>
+    <li><b>Cierre (5 min).</b> Anota en una línea tu error más importante del día y conviértelo en una tarjeta.</li>
+  </ol>
+  <h4 style="margin-top:12px">Rotación semanal</h4>
+  <div class="tw"><table class="kv wide"><thead><tr><th>Día</th><th style="text-align:left">Fenómeno</th><th style="text-align:left">Ejercicios para practicar</th></tr></thead><tbody>
+    <tr><td>1</td><td>Mortalidad: mx → qx → lx → Lx → Tx → ex; e0 frente a 1/TBM</td><td>T2</td></tr>
+    <tr><td>2</td><td>Fecundidad: ISF, edad media, TBR, TNR, tasa intrínseca</td><td>T3</td></tr>
+    <tr><td>3</td><td>Tasas y ecuación compensadora: tasa frente a probabilidad</td><td>T1</td></tr>
+    <tr><td>4</td><td>Migración: saldo residual, observado, discrepancia e IEM</td><td>T4</td></tr>
+    <tr><td>5</td><td>Estructura y crecimiento: índices, r exponencial, tiempo de duplicación</td><td>T5</td></tr>
+    <tr><td>6</td><td>Estandarización directa e indirecta; proyección, hogares</td><td>T6, T7</td></tr>
+    <tr><td>7</td><td>Fuentes (padrón, censo, ECP) y simulacro: 3-4 ejercicios seguidos en 40 min</td><td>T8 y los que más fallaste</td></tr>
+  </tbody></table></div>
+  <h4 style="margin-top:12px">Cómo evoluciona</h4>
+  <ul style="margin:6px 0 0;padding-left:20px">
+    <li><b>Semana 1:</b> haz el ciclo con el material delante cuando lo necesites.</li>
+    <li><b>Semana 2:</b> escribe sin mirar las fórmulas y los pasos, y reserva el visualizador para comprobar.</li>
+    <li><b>Semana 3 en adelante:</b> solo respuestas cronometradas. El día 7 pasa a ser un simulacro y revisas únicamente los ejercicios que falles.</li>
+  </ul>
+  <div class="callout"><span>La tabla de <b>Comparar</b> sirve de repaso rápido de verdadero o falso: recítala en 2 minutos cada mañana antes de empezar.</span></div>
+</section>
+
+<div class="viewseg" id="viewseg" role="group" aria-label="Vista">
+  <button type="button" data-act="view" data-v="editor" aria-pressed="true">Fenómeno</button>
+  <button type="button" data-act="view" data-v="analysis" aria-pressed="false">Análisis</button>
+</div>
+
+<div class="app" id="app" data-view="editor">
+  <aside class="team" id="team" aria-label="Fenómenos demográficos"></aside>
+  <main class="panel editor" id="editor"></main>
+  <aside class="panel analysis" id="analysis"></aside>
+</div>
+</div>
+<div id="modal" hidden></div>
+
+<script>
+(function(){
+'use strict';
+/* ===== Datos de las hojas de demografía de HojaCraft ===== */
+var MGROUPS=(function(){var g=[[0,1],[1,4]];for(var x=5;x<=85;x+=5)g.push([x,5]);return g})();   // 19 grupos, el último abierto (85+)
+function baseMx(x){return x===0?0.0035:0.0003+0.00003*Math.exp(0.1*x)}                            // tasas de la hoja TablaMort
+var FG=[15,20,25,30,35,40,45];                                                                     // grupos fértiles
+var FF=[.005,.025,.07,.1,.06,.015,.001];                                                           // tasas fx de la hoja Fecundidad
+var FL=[497000,496500,495800,495000,494000,492500,490500];                                        // 5Lx femenino
+var L0=100000,PROP_F=100/205;                                                                     // radix y proporción de nacimientos femeninos
+var EG=['0-19','20-39','40-59','60-79','80+'];                                                    // estandarización
+var EP=[25000,30000,25000,15000,5000];                                                             // población estándar
+var ET=[.5,1.2,4.5,22,110];                                                                       // tasas de referencia (‰)
+var EA=[20000,28000,26000,18000,8000];                                                             // población A (caso base)
+var ED=[9,35,130,430,940];                                                                        // defunciones A (caso base)
+var TASA_A=ED.map(function(d,i){return d/EA[i]*1000});                                            // tasas específicas de A (‰)
+var ESTR={joven:[35000,30000,20000,10000,5000],base:EA.slice(),vieja:[10000,18000,26000,28000,18000]};
+var SSTR={base:{j:1300000,a:6400000,m:2300000,m80:700000},
+          joven:{j:2500000,a:6500000,m:1000000,m80:250000},
+          vieja:{j:900000,a:5600000,m:3500000,m80:1200000}};                                      // T5 y variantes
+
+/* ===== utilidades ===== */
+function sum(a){var s=0;for(var i=0;i<a.length;i++)s+=a[i];return s}
+function fm(v,d){d=d||0;if(!isFinite(v))return '—';var a=Math.abs(v),s=a.toFixed(d),p=s.split('.'),i=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.');s=p[1]?i+','+p[1]:i;return(v<0&&Number(a.toFixed(d))!==0?'−':'')+s}
+function sg(v,d){return(v>0&&Number(v.toFixed(d||0))!==0?'+':'')+fm(v,d)}
+function fp(v,d){return fm(v*100,d===undefined?1:d)+' %'}
+function fpm(v,d){return fm(v,d===undefined?2:d)+' ‰'}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+
+/* ===== estado ===== */
+var S={mod:'mort',tab:'lect',mlevel:1,a0:0.1,fshift:0,flevel:1,estA:'base',strA:'base',
+  cr:{p0:1000000,p1:1080000,n:5,nac:9500,def:8200},                                               // hoja Crecim
+  mg:{p0:1200000,p1:1215000,nac:9000,def:12500,altas:38000,bajas:21500},                          // T4
+  str:{p5:10400000,cn:-50000},                                                                    // T5
+  view:'editor'};
+
+/* ===== mortalidad: tabla de vida (como TablaMort) ===== */
+function lifeTable(mult,a0){
+  var L=MGROUPS.length,lx=L0,lxs=[],dxs=[],qxs=[],mxs=[],i;
+  for(i=0;i<L;i++){
+    var g=MGROUPS[i],x=g[0],n=g[1],last=i===L-1;
+    var mx=baseMx(x)*mult,ax=last?null:(x===0?a0:n/2);
+    var qx=last?1:Math.min(1,n*mx/(1+(n-ax)*mx)),dx=lx*qx;
+    mxs.push(mx);qxs.push(qx);lxs.push(lx);dxs.push(dx);lx-=dx;
+  }
+  var Lxs=new Array(L),Txs=new Array(L),t=0;
+  for(i=L-1;i>=0;i--){
+    var g2=MGROUPS[i],n2=g2[1],last2=i===L-1;
+    var Lx=last2?lxs[i]/mxs[i]:n2*(lxs[i]-dxs[i])+(g2[0]===0?a0:n2/2)*dxs[i];
+    t+=Lx;Lxs[i]=Lx;Txs[i]=t;
+  }
+  var rows=[],i65=-1;
+  for(i=0;i<L;i++){
+    var g3=MGROUPS[i],x3=g3[0],last3=i===L-1;
+    if(x3===65)i65=i;
+    rows.push({x:x3,n:last3?null:g3[1],P:100000,D:Math.round(100000*mxs[i]),mx:mxs[i],ax:last3?null:(x3===0?a0:g3[1]/2),
+      qx:qxs[i],lx:lxs[i],dx:dxs[i],Lx:Lxs[i],Tx:Txs[i],ex:Txs[i]/lxs[i]});
+  }
+  var tbm=sum(rows.map(function(r){return r.D}))/sum(rows.map(function(r){return r.P}))*1000;
+  return{rows:rows,e0:rows[0].ex,e65:rows[i65].ex,q0:qxs[0],tbm:tbm,inv:1000/tbm,l85:lxs[L-1]};
+}
+
+/* ===== fecundidad: ISF, TBR, TNR (como Fecundidad y T3) ===== */
+function survAt(x){                                                                                // 5Lx/l0 interpolado por edad central
+  var xs=FG.map(function(g){return g+2.5}),ys=FL.map(function(v){return v/L0}),i;
+  if(x<=xs[0])return ys[0]+(ys[0]-ys[1])/(xs[0]-xs[1])*(x-xs[0]);
+  if(x>=xs[6])return ys[6]+(ys[6]-ys[5])/(xs[6]-xs[5])*(x-xs[6]);
+  for(i=0;i<6;i++)if(x<=xs[i+1])return ys[i]+(ys[i+1]-ys[i])/(xs[i+1]-xs[i])*(x-xs[i]);
+  return ys[6];
+}
+function fecCalc(shift,level){
+  var xc=FG.map(function(g){return g+2.5+shift}),fx=FF.map(function(f){return f*level});
+  var sf=sum(fx)||1e-9,isf=5*sf,em=sum(xc.map(function(x,i){return x*fx[i]}))/sf;
+  var MW=100000,nac=fx.map(function(f){return Math.round(MW*f)});
+  var tgf=sum(nac)/(MW*7)*1000,tbr=isf*PROP_F;
+  var surv=xc.map(survAt),tnr=fx.reduce(function(a,f,i){return a+f*surv[i]},0)*PROP_F;
+  return{xc:xc,fx:fx,isf:isf,em:em,nac:nac,tgf:tgf,tbr:tbr,tnr:tnr,surv:surv,muj:MW};
+}
+
+/* ===== estandarización directa e indirecta (como Estandar) ===== */
+function estCalc(kind){
+  var N=ESTR[kind],D=N.map(function(n,i){return Math.round(n*TASA_A[i]/1000)});
+  var tbm=sum(D)/sum(N)*1000;
+  var dir=sum(TASA_A.map(function(t,i){return t*EP[i]}))/sum(EP);
+  var esp=sum(ET.map(function(t,i){return t*N[i]}))/1000,obs=sum(D),rme=obs/esp;
+  var tbmRef=sum(ET.map(function(t,i){return t*EP[i]}))/sum(EP),ind=rme*tbmRef;
+  return{N:N,D:D,tbm:tbm,dir:dir,esp:esp,obs:obs,rme:rme,tbmRef:tbmRef,ind:ind};
+}
+
+/* ===== crecimiento y tasas brutas (como Crecim) ===== */
+function creCalc(c){
+  var pm=(c.p0+c.p1)/2,rg=c.p0>0&&c.p1>0?Math.pow(c.p1/c.p0,1/c.n)-1:NaN,re=c.p0>0&&c.p1>0?Math.log(c.p1/c.p0)/c.n:NaN;
+  var rl=(c.p1-c.p0)/c.n/c.p0;
+  return{pm:pm,rg:rg,re:re,rl:rl,t2g:isFinite(rg)&&rg>0?Math.log(2)/Math.log(1+rg):NaN,
+    t2e:isFinite(re)&&re>0?Math.log(2)/re:NaN,tbn:c.nac/pm*1000,tbm:c.def/pm*1000,cn:(c.nac-c.def),cnr:(c.nac-c.def)/pm*1000};
+}
+
+/* ===== migración: residual, observado e IEM (como T4) ===== */
+function migCalc(m){
+  var ct=m.p1-m.p0,cn=m.nac-m.def,smr=ct-cn,smo=m.altas-m.bajas,pm=(m.p0+m.p1)/2;
+  return{ct:ct,cn:cn,smr:smr,smo:smo,disc:smr-smo,pm:pm,ti:m.altas/pm*1000,te:m.bajas/pm*1000,tmn:(m.altas-m.bajas)/pm*1000,
+    iem:(m.altas+m.bajas)>0?(m.altas-m.bajas)/(m.altas+m.bajas):NaN};
+}
+
+/* ===== estructura por edades y crecimiento (como T5) ===== */
+function strCalc(kind,st){
+  var b=SSTR[kind],p0=b.j+b.a+b.m;
+  return{j:b.j,a:b.a,m:b.m,m80:b.m80,p0:p0,p5:st.p5,n:5,cn:st.cn,
+    ie:b.m/b.j*100,sobre:b.m80/b.m*100,dep:(b.j+b.m)/b.a*100,depj:b.j/b.a*100,depm:b.m/b.a*100,
+    r:st.p5>0&&p0>0?Math.log(st.p5/p0)/5:NaN,t2:NaN,sm:(st.p5-p0)-st.cn};
+}
+var CALCS={};
+function recompute(){
+  CALCS.mort=lifeTable(S.mlevel,S.a0);
+  CALCS.fec=fecCalc(S.fshift,S.flevel);
+  CALCS.est=estCalc(S.estA);
+  CALCS.cre=creCalc(S.cr);
+  CALCS.mig=migCalc(S.mg);
+  CALCS.str=strCalc(S.strA,S.str);
+  CALCS.str.t2=isFinite(CALCS.str.r)&&CALCS.str.r>0?Math.log(2)/CALCS.str.r:NaN;
+}
+/* ===== DOM ===== */
+/* ===== gráficos svg ===== */
+function mkLine(w,h,series,opt){
+  opt=opt||{};
+  var all=[],xs=[];
+  series.forEach(function(s){s.p.forEach(function(q){all.push(q[1]);xs.push(q[0])})});
+  var xmin=opt.xmin!=null?opt.xmin:Math.min.apply(null,xs),xmax=opt.xmax!=null?opt.xmax:Math.max.apply(null,xs);
+  var ymin=opt.zero?0:Math.min.apply(null,all),ymax=opt.ymax!=null?opt.ymax:Math.max.apply(null,all);
+  if(!isFinite(ymin))ymin=0;if(!isFinite(ymax))ymax=1;if(ymax===ymin)ymax=ymin+1;
+  var pL=38,pR=8,pT=10,pB=16;
+  function X(x){return pL+(x-xmin)/((xmax-xmin)||1)*(w-pL-pR)}
+  function Y(v){return h-pB-(v-ymin)/((ymax-ymin)||1)*(h-pT-pB)}
+  var s='<svg class="ch" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="'+esc(opt.lab||'gráfico')+'">';
+  for(var g=0;g<=2;g++){var gy=ymin+(ymax-ymin)*g/2;
+    s+='<line class="gr" x1="'+pL+'" x2="'+(w-pR)+'" y1="'+Y(gy).toFixed(1)+'" y2="'+Y(gy).toFixed(1)+'"/>';
+    if(!opt.mini)s+='<text class="ax" x="'+(pL-4)+'" y="'+(Y(gy)+3).toFixed(1)+'" text-anchor="end">'+(opt.yfmt?opt.yfmt(gy):fm(gy,opt.yd!=null?opt.yd:0))+'</text>'}
+  (opt.xlabs||[]).forEach(function(l){s+='<text class="ax" x="'+X(l[0]).toFixed(1)+'" y="'+(h-4)+'" text-anchor="middle">'+l[1]+'</text>'});
+  series.forEach(function(sr){
+    s+='<path class="ln '+(sr.cls||'')+'"'+(sr.w?' style="stroke-width:'+sr.w+'"':'')+' d="'+sr.p.map(function(q,i){return(i?'L':'M')+X(q[0]).toFixed(1)+' '+Y(q[1]).toFixed(1)}).join('')+'"/>';
+    (sr.dots||[]).forEach(function(d){s+='<circle cx="'+X(d[0]).toFixed(1)+'" cy="'+Y(d[1]).toFixed(1)+'" r="2.6" fill="var(--accent)"><title>'+esc(d[2]||'')+'</title></circle>'});
+  });
+  (opt.marks||[]).forEach(function(m){
+    var x=X(m.x).toFixed(1);
+    s+='<line class="mk" x1="'+x+'" x2="'+x+'" y1="'+pT+'" y2="'+(h-pB)+'"/>';
+    if(m.t)s+='<text class="lab" x="'+x+'" y="'+(pT-1<9?pT+8:pT-1)+'" text-anchor="middle">'+m.t+'</text>';
+  });
+  if(opt.href!=null)s+='<line class="mk" style="stroke:var(--ink-3)" x1="'+pL+'" x2="'+(w-pR)+'" y1="'+Y(opt.href)+'" y2="'+Y(opt.href)+'"/>';
+  s+='</svg>';
+  return s;
+}
+function mkBars(w,h,items,opt){
+  opt=opt||{};
+  var mx=1;
+  items.forEach(function(d){mx=Math.max(mx,Math.abs(d.v))});
+  var n=items.length,bw=(w-(opt.mini?2:12))/n,base=opt.signed?h*(opt.mini?0.62:0.66):h-(opt.mini?2:16),span=opt.signed?h*(opt.mini?0.34:0.38):base-(opt.mini?1:10);
+  var s='<svg class="ch" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="'+esc(opt.lab||'gráfico')+'">';
+  if(opt.href!=null){var yr=base-opt.href/mx*span;s+='<line x1="4" x2="'+(w-4)+'" y1="'+yr.toFixed(1)+'" y2="'+yr.toFixed(1)+'" stroke="var(--ink-3)" stroke-dasharray="3 3" stroke-width="1.2"/>'}
+  items.forEach(function(d,i){
+    var bh=Math.abs(d.v)/mx*span,x=4+i*bw+bw*(opt.mini?0.08:0.14),wd=bw*(opt.mini?0.84:0.72),y=d.v>=0?base-bh:base;
+    s+='<rect class="bar" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+Math.max(1,wd).toFixed(1)+'" height="'+Math.max(opt.mini?0.5:1,bh).toFixed(1)+'" rx="'+(opt.mini?1:2)+'" style="--c:'+(d.c||'var(--accent)')+'"'+(d.t?'><title>'+esc(d.t)+'</title></rect>':'/>');
+    if(!opt.mini){
+      if(d.lab)s+='<text class="lab" x="'+(x+wd/2).toFixed(1)+'" y="'+(h-4)+'" text-anchor="middle">'+d.lab+'</text>';
+      if(d.vl)s+='<text class="lab" x="'+(x+wd/2).toFixed(1)+'" y="'+(y-(d.v>=0?3:-6)).toFixed(1)+'" text-anchor="middle" '+((d.c&&d.v<0)?'fill="var(--bad)"':'')+'>'+d.vl+'</text>';
+    }
+  });
+  s+='</svg>';
+  return s;
+}
+function mkGroup(w,h,glab,series,opt){
+  opt=opt||{};
+  var mx=opt.ymax!=null?opt.ymax:1;
+  series.forEach(function(sr){sr.v.forEach(function(v){mx=Math.max(mx,v)})});
+  var n=glab.length,gw=(w-10)/n,bw=gw*0.72/series.length,base=h-16,span=base-12;
+  var s='<svg class="ch" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="'+esc(opt.lab||'gráfico')+'">';
+  for(var g=0;g<=2;g++){var gy=mx*g/2;s+='<line class="gr" x1="34" x2="'+(w-4)+'" y1="'+(base-gy/mx*span)+'" y2="'+(base-gy/mx*span)+'"/><text class="ax" x="30" y="'+(base-gy/mx*span+3).toFixed(1)+'" text-anchor="end">'+(opt.yfmt?opt.yfmt(gy):fm(gy,0))+'</text>'}
+  glab.forEach(function(gl,i){
+    series.forEach(function(sr,j){
+      var v=sr.v[i],bh=v/mx*span,x=6+i*gw+gw*0.14+j*bw;
+      s+='<rect class="bar" x="'+x.toFixed(1)+'" y="'+(base-bh).toFixed(1)+'" width="'+Math.max(1,bw-1.5).toFixed(1)+'" height="'+Math.max(0.5,bh).toFixed(1)+'" rx="1.5" style="--c:'+sr.c+'"><title>'+esc(gl+' · '+sr.n+': '+(opt.yfmt?opt.yfmt(v):fm(v,opt.yd!=null?opt.yd:1)))+'</title></rect>';
+    });
+    if(!opt.mini)s+='<text class="lab" x="'+(6+i*gw+gw/2).toFixed(1)+'" y="'+(h-4)+'" text-anchor="middle">'+gl+'</text>';
+  });
+  s+='</svg>';
+  return s;
+}
+function mkHBar(w,h,items,opt){
+  opt=opt||{};
+  var mx=1;
+  items.forEach(function(d){mx=Math.max(mx,Math.abs(d.v))});
+  var n=items.length,rh=(h-(opt.mini?2:14))/n,pL=opt.mini?0:52;
+  var s='<svg class="ch" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="'+esc(opt.lab||'gráfico')+'">';
+  items.forEach(function(d,i){
+    var bw=Math.abs(d.v)/mx*(w-pL-(opt.mini?2:44)),y=i*rh+rh*(opt.mini?0.12:0.16),bh=rh*(opt.mini?0.76:0.68);
+    s+='<rect class="bar" x="'+pL+'" y="'+y.toFixed(1)+'" width="'+Math.max(1,bw).toFixed(1)+'" height="'+bh.toFixed(1)+'" rx="2" style="--c:'+(d.c||'var(--accent)')+'"'+(d.t?'><title>'+esc(d.t)+'</title></rect>':'/>');
+    if(!opt.mini){
+      s+='<text class="lab" x="'+(pL-5)+'" y="'+(y+bh/2+3).toFixed(1)+'" text-anchor="end">'+d.lab+'</text>';
+      if(d.vl)s+='<text class="lab" x="'+(pL+Math.max(1,bw)+4).toFixed(1)+'" y="'+(y+bh/2+3).toFixed(1)+'">'+d.vl+'</text>';
+    }
+  });
+  s+='</svg>';
+  return s;
+}
+function sparkLine(pts,cls,w,h){
+  var xmin=pts[0][0],xmax=pts[pts.length-1][0],ymin=Math.min.apply(null,pts.map(function(q){return q[1]})),ymax=Math.max.apply(null,pts.map(function(q){return q[1]}));
+  if(ymax===ymin)ymax=ymin+1;
+  return '<svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none"><path class="ln '+(cls||'')+'" style="stroke-width:1.6" vector-effect="non-scaling-stroke" d="'+pts.map(function(q,i){return(i?'L':'M')+((q[0]-xmin)/((xmax-xmin)||1)*w).toFixed(1)+' '+(h-2-(q[1]-ymin)/((ymax-ymin)||1)*(h-4)).toFixed(1)}).join('')+'"/></svg>';
+}
+
+/* ===== definiciones de los fenómenos ===== */
+var MODS=['mort','fec','est','cre','mig','str'];
+var DEF={
+ mort:{name:'Mortalidad',sub:'tabla de vida · mx → ex',ini:'Mo',c:[10,1],chips:[['Período',10],['e0',1]]},
+ fec:{name:'Fecundidad',sub:'ISF · TBR · TNR',ini:'Fe',c:[13,7],chips:[['Intensidad',13],['Calendario',7]]},
+ est:{name:'Estandarización',sub:'directa e indirecta',ini:'Es',c:[3,15],chips:[['Estructura',3],['Comparar',15]]},
+ cre:{name:'Crecimiento',sub:'geométrico y exponencial',ini:'Cr',c:[6,12],chips:[['Tasas',6],['t₂',12]]},
+ mig:{name:'Migración',sub:'residual y observado',ini:'Mi',c:[9,17],chips:[['Saldos',9],['IEM',17]]},
+ str:{name:'Estructura',sub:'edades e índices',ini:'St',c:[4,11],chips:[['Índices',4],['Pirámide',11]]}
+};
+var STRL={joven:'Joven',base:'Base (T5)',vieja:'Envejecida'};
+function ty(t,i){return '<span class="ty" style="--tc:var(--ty-'+i+');--tx:var(--tf-'+i+')">'+t+'</span>'}
+function tyChips(d){return DEF[d].chips.map(function(c){return ty(c[0],c[1])}).join('')}
+function monoStyle(d){return '--c1:var(--ty-'+DEF[d].c[0]+');--c2:var(--ty-'+DEF[d].c[1]+')'}
+function mono(d,cls){return '<span class="mono '+(cls||'')+'" style="'+monoStyle(d)+'"><i>'+DEF[d].ini+'</i></span>'}
+var ZC=['var(--ty-11)','var(--ty-10)','var(--ty-9)','var(--ty-1)'];   // 0-14, 15-64, 65-79, 80+
+
+function modStat(m){
+  var c=CALCS[m];
+  if(m==='mort')return 'e0 '+fm(c.e0,1);
+  if(m==='fec')return 'ISF '+fm(c.isf,2);
+  if(m==='est')return 'bruta ×'+fm(c.tbm/c.dir,2);
+  if(m==='cre')return 't₂ '+fm(c.t2g,0)+' a';
+  if(m==='mig')return 'IEM '+fm(c.iem,2);
+  return 'IE '+fm(c.ie,0)+' %';
+}
+function modSpark(m){
+  var c=CALCS[m],W=84,H=24;
+  if(m==='mort'){
+    var pts=c.rows.map(function(r){return[r.x,r.lx]});pts.push([100,0]);
+    return sparkLine(pts,'',W,H);
+  }
+  if(m==='fec')return mkBars(W,H,c.fx.map(function(f,i){return{v:f,c:i===3?'var(--ty-13)':'color-mix(in srgb,var(--ty-13) 45%,var(--surface))'}}),{mini:true});
+  if(m==='est')return mkBars(W,H,[{v:c.tbm,c:'var(--ty-1)'},{v:c.dir,c:'var(--ty-11)'},{v:c.ind,c:'var(--ty-10)'}],{mini:true});
+  if(m==='cre'){
+    var g=[],e=[],t;
+    for(t=0;t<=50;t+=5){g.push([t,S.cr.p0*Math.pow(1+c.rg,t)/S.cr.p0]);e.push([t,Math.pow(Math.E,c.re*t)])}
+    return sparkLine(g.concat([]).sort(function(a,b){return a[0]-b[0]}),'',W,H)+sparkLine(e,'b',W,H).replace('<svg','<svg style="position:relative;margin-top:-24px"');
+  }
+  if(m==='mig')return mkBars(W,H,[{v:c.cn,c:'var(--ty-11)'},{v:c.smr,c:'var(--ty-10)'},{v:c.smo,c:'var(--ty-12)'},{v:c.disc,c:'var(--ty-1)'}],{mini:true,signed:true});
+  var st=CALCS.str,tot=st.p0;
+  return mkHBar(W,H,[{v:st.j/tot,c:ZC[0]},{v:st.a/tot,c:ZC[1]},{v:(st.m-st.m80)/tot,c:ZC[2]},{v:st.m80/tot,c:ZC[3]}],{mini:true});
+}
+/* ===== barra superior y equipo ===== */
+var $=function(id){return document.getElementById(id)};
+function renderTop(){
+  $('brandp').textContent='Datos y ejercicios de las hojas de demografía de HojaCraft · 6 fenómenos · T1–T8';
+}
+function renderTeam(){
+  var h='<div class="team-h"><h2>Fenómenos</h2><span class="cnt">6/6</span></div>';
+  MODS.forEach(function(d){
+    h+='<button type="button" class="slot" data-act="mod" data-d="'+d+'" aria-pressed="'+(S.mod===d)+'">'+mono(d)+
+      '<span class="nm">'+DEF[d].name+'<small>'+DEF[d].sub+'</small></span><span class="tys">'+tyChips(d)+'</span>'+
+      '<span class="foot"><span class="spark" title="Miniatura del fenómeno con los controles actuales">'+modSpark(d)+'</span>'+
+      '<span class="spe" title="Indicador clave">'+modStat(d)+'</span></span></button>';
+  });
+  $('team').innerHTML=h;
+}
+
+/* ===== campos de entrada ===== */
+function numFld(id,l,v,st){return '<label class="fld"><span class="l">'+l+'</span><input id="'+id+'" type="number" step="'+(st||'any')+'" value="'+v+'"></label>'}
+function rangeFld(id,l,min,max,step,v,numId,numTxt,hint){return '<div class="fld"><span class="l">'+l+'</span><input id="'+id+'" type="range" min="'+min+'" max="'+max+'" step="'+step+'" value="'+v+'"><span class="num" id="'+numId+'">'+numTxt+'</span><span class="hint">'+hint+'</span></div>'}
+function segFld(act,l,opts,cur,hint){
+  return '<div class="fld"><span class="l">'+l+'</span><div class="seg" role="group">'+opts.map(function(o){return '<button type="button" data-act="'+act+'" data-v="'+o[0]+'" aria-pressed="'+(cur===o[0])+'">'+o[1]+'</button>'}).join('')+'</div><span class="hint">'+hint+'</span></div>';
+}
+function ecCard(l,v,s){return '<div class="ec"><span class="l">'+l+'</span><span class="v">'+v+'</span>'+(s?'<span class="s">'+s+'</span>':'')+'</div>'}
+
+/* ===== editor ===== */
+function edHead(d){
+  return '<div class="ed-head">'+mono(d,'lg')+'<div class="ed-id"><h2>'+DEF[d].name+'<small>'+DEF[d].sub+'</small></h2><div class="tys">'+tyChips(d)+'</div><div class="meta">'+edMeta(d)+'</div></div>'+
+    '<div class="ed-act"><button class="btn" type="button" data-act="pop">Ver datos</button><button class="btn" type="button" data-act="reset">Restablecer</button></div></div>';
+}
+function edMeta(d){
+  if(d==='mort')return 'Tabla de mortalidad abreviada · 19 grupos (el último abierto, 85+) · l₀ = 100.000 · P = 100.000 por grupo';
+  if(d==='fec')return '7 grupos quinquenales (15–49) · 100.000 mujeres por grupo · 5Lx femenino de la tabla de mortalidad';
+  if(d==='est')return '5 grupos de edad · población estándar de 100.000 · tasas en ‰ · caso base de la hoja Estandar';
+  if(d==='cre')return 'Población de 1 a 1,08 millones en 5 años · nacimientos y defunciones anuales (hoja Crecim)';
+  if(d==='mig')return 'Provincia de 1,2 a 1,215 millones · altas y bajas por cambio de residencia (ejercicio T4)';
+  return 'Población de 10 millones por grandes grupos · horizonte de 5 años (ejercicio T5)';
+}
+function edFields(d){
+  var h='';
+  if(d==='mort'){
+    h+=rangeFld('mlvl','Nivel de mortalidad',0.4,2,0.05,S.mlevel,'mlvl-n','× '+fm(S.mlevel,2),'Multiplica todas las mx de la hoja (los datos de HojaCraft son ×1,00). Mira cómo se mueven e0, e65 y la curva lx.');
+    h+=segFld('a0','ax de la edad 0',[['0.1','0,1'],['0.5','0,5']],String(S.a0),'Años que vive de media quien muere en el primer año: 0,1 es lo habitual; con 0,5, L0 sube y e0 también.');
+  }
+  if(d==='fec'){
+    h+=rangeFld('fsh','Calendario (retraso +)',-5,5,1,S.fshift,'fsh-n',(S.fshift>=0?'+':'')+fm(S.fshift,0)+' años','Desplaza la curva sin cambiar su forma: la edad media se mueve, el ISF no; solo cambia la TNR (menos supervivencia al ser madres más tarde).');
+    h+=rangeFld('flv','Nivel de fecundidad',0.4,2,0.05,S.flevel,'flv-n','× '+fm(S.flevel,2),'Multiplica todas las fx: cambia la intensidad (ISF, TBR, TNR) y deja el calendario igual.');
+  }
+  if(d==='est'){
+    h+=segFld('estA','Estructura de la población A',[['joven','Joven'],['base','Base'],['vieja','Envejecida']],S.estA,'Cambia el reparto por edades de A (100.000 en total) manteniendo sus tasas específicas: la bruta se mueve, la estandarizada no.');
+  }
+  if(d==='cre'){
+    h+=numFld('cr-p0','Población inicial P₀',S.cr.p0)+numFld('cr-p1','Población final P₁',S.cr.p1)+numFld('cr-n','Años transcurridos',S.cr.n,1)+numFld('cr-nac','Nacimientos (por año)',S.cr.nac)+numFld('cr-def','Defunciones (por año)',S.cr.def);
+  }
+  if(d==='mig'){
+    h+=numFld('mg-p0','Población 1-1',S.mg.p0)+numFld('mg-p1','Población 31-12',S.mg.p1)+numFld('mg-nac','Nacimientos',S.mg.nac)+numFld('mg-def','Defunciones',S.mg.def)+numFld('mg-altas','Altas por cambio de residencia',S.mg.altas)+numFld('mg-bajas','Bajas por cambio de residencia',S.mg.bajas);
+  }
+  if(d==='str'){
+    h+=segFld('strA','Estructura por edades',[['joven','Joven'],['base','Base (T5)'],['vieja','Envejecida']],S.strA,'Tres repartos de los mismos 10 millones: los índices hacen el resto.');
+    h+=numFld('str-p5','Población a los 5 años',S.str.p5)+numFld('str-cn','Crecimiento natural del quinquenio',S.str.cn);
+  }
+  return h?'<div class="fields">'+h+'</div>':'';
+}
+function edOut(d){
+  var c=CALCS[d],h='';
+  if(d==='mort'){
+    var pts=c.rows.map(function(r){return [r.x,r.lx]});pts.push([100,0]);
+    h+='<div class="sec-h"><span>Supervivientes lx por edad</span><span class="r">cohorte ficticia de 100.000 nacimientos</span></div>'+
+      '<div class="cc"><div class="cc-t">Curva de supervivencia (el último tramo cierra el grupo abierto 85+)</div>'+
+      mkLine(560,190,[{p:pts,dots:[[0,c.rows[0].lx,'l0 = '+fm(c.rows[0].lx,0)],[65,c.rows[14].lx,'l65 = '+fm(c.rows[14].lx,0)+' → e65 = '+fm(c.e65,1)+' años']]}],
+        {zero:true,ymax:100000,xmin:0,xmax:100,yfmt:function(v){return fm(v,0)},xlabs:[[0,'0'],[20,'20'],[40,'40'],[60,'60'],[80,'80'],[100,'100']],lab:'Curva de supervivencia lx'})+'</div>'+
+      '<div class="mgrid" style="margin-top:10px">'+
+      '<div class="cc"><div class="cc-t">Defunciones de la tabla dx por grupo</div>'+
+        mkBars(300,190,c.rows.map(function(r){return{v:r.dx,lab:(r.x===85?'85+':String(r.x)),c:r.x>=65?'var(--ty-1)':'color-mix(in srgb,var(--ty-1) 40%,var(--surface))',t:r.x+'+'+(r.n?'-'+(r.x+r.n):'+')+': dx = '+fm(r.dx,0)}}),{lab:'dx por grupo de edad'})+'</div>'+
+      '<div><div class="est">'+
+        ecCard('Esperanza de vida e0',fm(c.e0,1),'años · Tx/lx en 0')+
+        ecCard('Esperanza de vida e65',fm(c.e65,1),'años · Tx/lx en 65')+
+        ecCard('Probabilidad q0',fm(c.q0,4),'morir antes de cumplir 1 año')+
+        ecCard('1/TBM de la hoja',fm(c.inv,1),'años · ≠ e0: la población no es la estacionaria')+
+      '</div><p class="estl">TBM de la hoja = <b>'+fpm(c.tbm,2)+'</b> (población uniforme de 100.000 por grupo). Σ dx = <b>'+fm(sum(c.rows.map(function(r){return r.dx})),0)+'</b> = l₀.</p></div></div>'+
+      '<div class="sec-h"><span>Tabla de mortalidad</span><span class="r">los datos de la hoja, con el control actual</span></div>'+
+      '<div class="sam"><table><thead><tr><th style="text-align:left">Edad</th><th>n</th><th>Población</th><th>Defunciones</th><th>mx</th><th>ax</th><th>qx</th><th>lx</th><th>dx</th><th>Lx</th><th>Tx</th><th>ex</th></tr></thead><tbody>'+
+      c.rows.map(function(r){return '<tr><td class="z">'+(r.x===85?'85+':r.x)+'</td><td>'+(r.n===null?'':r.n)+'</td><td>'+fm(r.P,0)+'</td><td>'+fm(r.D,0)+'</td><td>'+fm(r.mx,4)+'</td><td>'+(r.ax===null?'':fm(r.ax,1))+'</td><td>'+fm(r.qx,4)+'</td><td>'+fm(r.lx,0)+'</td><td>'+fm(r.dx,0)+'</td><td>'+fm(r.Lx,0)+'</td><td>'+fm(r.Tx,0)+'</td><td>'+fm(r.ex,1)+'</td></tr>'}).join('')+
+      '</tbody></table></div>';
+  }
+  if(d==='fec'){
+    var base=fecCalc(0,1);
+    h+='<div class="sec-h"><span>Tasas específicas de fecundidad fx</span><span class="r">curva actual frente a la de HojaCraft</span></div>'+
+      '<div class="cc"><div class="cc-t">fx por grupo de edad (por mujer y año)</div>'+
+      mkGroup(560,200,FG.map(function(g){return g+'-'+(g+4)}),
+        [{n:'HojaCraft',c:'color-mix(in srgb,var(--ty-13) 30%,var(--surface))',v:FF},{n:'Actual',c:'var(--ty-13)',v:c.fx}],
+        {yfmt:function(v){return fm(v,2)},lab:'fx por grupo'})+
+      '<div class="cleg"><span><s style="--c:color-mix(in srgb,var(--ty-13) 30%,var(--surface))"></s>HojaCraft (calendario y nivel base)</span><span><s style="--c:var(--ty-13)"></s>Actual</span></div></div>'+
+      '<div class="est" style="margin-top:10px">'+
+        ecCard('ISF · hijos por mujer',fm(c.isf,2),'5·Σ fx')+
+        ecCard('Edad media maternidad',fm(c.em,1),'años · calendario')+
+        ecCard('TGF',fpm(c.tgf,1),'nacimientos por 1.000 mujeres 15-49')+
+        ecCard('TBR',fm(c.tbr,3),'hijas por mujer · ISF·100/205')+
+        ecCard('TNR',fm(c.tnr,3),'hijas por mujer con mortalidad')+
+      '</div><p class="estl">Reemplazo: TNR = 1 (ISF ≈ 2,1). Ahora <b>TNR '+fm(c.tnr,3)+'</b>'+(c.tnr>=1?' ≥ 1: la generación se repone.':' &lt; 1: la generación no llega a reponerse.')+' · TNR/ISF = <b>'+fm(c.tnr/c.isf,3)+'</b> (supervivencia media ponderada × prop. femenina).</p>'+
+      '<div class="sec-h"><span>Datos por grupo</span><span class="r">supervivencia 5Lx/l₀ interpolada a la edad central</span></div>'+
+      '<div class="sam"><table><thead><tr><th style="text-align:left">Grupo</th><th>Edad central</th><th>Mujeres</th><th>Nacimientos</th><th>fx</th><th>5Lx/l₀</th><th>Contribución ISF</th></tr></thead><tbody>'+
+      FG.map(function(g,i){return '<tr><td class="z">'+g+'-'+(g+4)+'</td><td>'+fm(c.xc[i],1)+'</td><td>'+fm(c.muj,0)+'</td><td>'+fm(c.nac[i],0)+'</td><td>'+fm(c.fx[i],4)+'</td><td>'+fm(c.surv[i],3)+'</td><td>'+fm(c.fx[i]*5,3)+'</td></tr>'}).join('')+
+      '</tbody><tfoot><tr><td>Σ</td><td></td><td>'+fm(c.muj*7,0)+'</td><td>'+fm(sum(c.nac),0)+'</td><td></td><td></td><td>'+fm(c.isf,3)+'</td></tr></tfoot></table></div>';
+  }
+  if(d==='est'){
+    var sharesA=c.N.map(function(n){return n/sum(c.N)*100}),sharesP=EP.map(function(n){return n/sum(EP)*100});
+    h+='<div class="sec-h"><span>Las tasas no cambian; la estructura, sí</span><span class="r">estructura: '+STRL[S.estA]+'</span></div>'+
+      '<div class="mgrid">'+
+      '<div class="cc"><div class="cc-t">Estructura por edades (% de la población)</div>'+
+        mkGroup(300,190,EG,[{n:'Estándar',c:'color-mix(in srgb,var(--accent) 35%,var(--surface))',v:sharesP},{n:'Población A',c:'var(--accent)',v:sharesA}],{yfmt:function(v){return fm(v,0)+'%'},lab:'estructura'})+
+        '<div class="cleg"><span><s style="--c:color-mix(in srgb,var(--accent) 35%,var(--surface))"></s>Población tipo</span><span><s style="--c:var(--accent)"></s>Población A</span></div></div>'+
+      '<div class="cc"><div class="cc-t">Tasas por grupo (‰)</div>'+
+        mkGroup(300,190,EG,[{n:'Referencia',c:'color-mix(in srgb,var(--ty-8) 45%,var(--surface))',v:ET},{n:'A',c:'var(--ty-9)',v:TASA_A}],{yfmt:function(v){return fm(v,0)},lab:'tasas'})+
+        '<div class="cleg"><span><s style="--c:color-mix(in srgb,var(--ty-8) 45%,var(--surface))"></s>Referencia</span><span><s style="--c:var(--ty-9)"></s>Población A</span></div></div>'+
+      '</div>'+
+      '<div class="sec-h"><span>Tres maneras de resumir la mortalidad de A</span><span class="r">‰ · la línea discontinua es la TBM de la referencia</span></div>'+
+      '<div class="mgrid">'+
+      '<div class="cc"><div class="cc-t">Tasa bruta frente a estandarizadas</div>'+
+        mkBars(300,190,[{v:c.tbm,lab:'Bruta',vl:fm(c.tbm,2),c:'var(--ty-1)',t:'TBM A = ΣD/ΣN·1000'},{v:c.dir,lab:'Directa',vl:fm(c.dir,2),c:'var(--ty-11)',t:'TEd = Σ tA·Pst/ΣPst'},{v:c.ind,lab:'Indirecta',vl:fm(c.ind,2),c:'var(--ty-10)',t:'RME·TBM(ref)'}],{href:c.tbmRef,lab:'tasas de A'})+
+        '<div class="cleg"><span><s style="--c:var(--ty-1)"></s>Bruta</span><span><s style="--c:var(--ty-11)"></s>Directa</span><span><s style="--c:var(--ty-10)"></s>Indirecta</span></div></div>'+
+      '<div><div class="est">'+
+        ecCard('TBM A',fpm(c.tbm,2),'estructura de A + tasas de A')+
+        ecCard('Estandarizada directa',fpm(c.dir,2),'tasas de A, estructura tipo')+
+        ecCard('RME',fm(c.rme,3),'observadas / esperadas')+
+        ecCard('Estandarizada indirecta',fpm(c.ind,2),'RME · TBM ref ('+fpm(c.tbmRef,2)+')')+
+      '</div><p class="estl">Esperadas con tasas de referencia: <b>'+fm(c.esp,1)+'</b> · observadas: <b>'+fm(c.obs,0)+'</b> → RME = <b>'+fm(c.rme,3)+'</b>'+(c.rme>1?' &gt; 1: más muertes de las esperadas.':' &lt; 1: menos muertes de las esperadas.')+'</p></div></div>'+
+      '<div class="sec-h"><span>Datos por grupo</span><span class="r">tasas en ‰</span></div>'+
+      '<div class="sam"><table><thead><tr><th style="text-align:left">Grupo</th><th>Pob. estándar</th><th>Tasa ref. (‰)</th><th>Población A</th><th>Defunciones A</th><th>Tasa A (‰)</th></tr></thead><tbody>'+
+      EG.map(function(g,i){return '<tr><td class="z">'+g+'</td><td>'+fm(EP[i],0)+'</td><td>'+fm(ET[i],1)+'</td><td>'+fm(c.N[i],0)+'</td><td>'+fm(c.D[i],0)+'</td><td>'+fm(TASA_A[i],2)+'</td></tr>'}).join('')+
+      '</tbody><tfoot><tr><td>Σ</td><td>'+fm(sum(EP),0)+'</td><td></td><td>'+fm(sum(c.N),0)+'</td><td>'+fm(c.obs,0)+'</td><td></td></tr></tfoot></table></div>';
+  }
+  if(d==='cre'){
+    var H=Math.max(30,Math.ceil(S.cr.n*2/10)*10),lin=[],geo=[],ex=[],t;
+    for(t=0;t<=H;t+=Math.max(1,Math.round(H/25))){lin.push([t,S.cr.p0+(S.cr.p1-S.cr.p0)*t/S.cr.n]);geo.push([t,S.cr.p0*Math.pow(1+c.rg,t)]);ex.push([t,S.cr.p0*Math.pow(Math.E,c.re*t)])}
+    var marks=[];
+    if(isFinite(c.t2g)&&c.t2g<=H)marks.push({x:c.t2g,t:'t₂'});
+    h+='<div class="sec-h"><span>Tres modelos para la misma pareja (P₀, P₁)</span><span class="r">horizonte '+H+' años</span></div>'+
+      '<div class="cc"><div class="cc-t">Población proyectada con r lineal, geométrico y exponencial</div>'+
+      mkLine(560,210,[{p:lin,cls:'d'},{p:geo},{p:ex,cls:'b',dots:[[S.cr.n,S.cr.p1,'P₁ = '+fm(S.cr.p1,0)]]}],{zero:true,xmin:0,xmax:H,yfmt:function(v){return fm(v/1e6,1)+' M'},xlabs:[[0,'0'],[Math.round(H/2),fm(Math.round(H/2),0)+' años'],[H,fm(H,0)]],marks:marks,lab:'modelos de crecimiento'})+
+      '<div class="cleg"><span><s style="--c:var(--ink-3)"></s>Lineal</span><span><s></s>Geométrico</span><span><s style="--c:var(--ty-9)"></s>Exponencial</span><span><s style="--c:var(--bad);height:.7rem;width:2px"></s>t₂ duplicación</span></div></div>'+
+      '<div class="est" style="margin-top:10px">'+
+        ecCard('r geométrica',fp(c.rg,3),'(P₁/P₀)^(1/n) − 1')+
+        ecCard('r exponencial',fp(c.re,3),'ln(P₁/P₀)/n')+
+        ecCard('r lineal media',fp(c.rl,3),'(P₁−P₀)/(n·P₀) · solo referencia')+
+        ecCard('Duplicación geométrica',fm(c.t2g,1)+' a','ln2/ln(1+r)')+
+        ecCard('Duplicación exponencial',fm(c.t2e,1)+' a','ln2/r')+
+      '</div>'+
+      '<div class="sec-h"><span>Tasas brutas del periodo</span><span class="r">población media = '+fm(c.pm,0)+'</span></div>'+
+      '<div class="est">'+
+        ecCard('TBN',fpm(c.tbn,2),'nacimientos / P media')+
+        ecCard('TBM',fpm(c.tbm,2),'defunciones / P media')+
+        ecCard('Crecimiento natural',fpm(c.cnr,2),'TBN − TBM = '+sg(c.cn,0)+' hab')+
+        ecCard('Crecimiento total',fp(S.cr.p1/S.cr.p0-1,2),'en '+fm(S.cr.n,0)+' años')+
+      '</div><p class="estl">Relación exacta: <b>ln(1+r<sub>g</sub>) = r<sub>e</sub></b> → '+fm(Math.log(1+c.rg),6)+' = '+fm(c.re,6)+'. A '+H+' años: lineal <b>'+fm(lin[lin.length-1][1],0)+'</b> · geométrico <b>'+fm(geo[geo.length-1][1],0)+'</b> · exponencial <b>'+fm(ex[ex.length-1][1],0)+'</b> habitantes.</p>';
+  }
+  if(d==='mig'){
+    h+='<div class="sec-h"><span>Ecuación compensadora</span><span class="r">P₁ = P₀ + N − D + I − E</span></div>'+
+      '<div class="cc"><div class="cc-t">Componentes del cambio de población (habitantes)</div>'+
+      mkBars(560,200,[{v:c.cn,lab:'Crec. natural',vl:sg(c.cn,0),c:c.cn>=0?'var(--ty-11)':'var(--ty-1)',t:'CN = N − D'},{v:c.smr,lab:'SM residual',vl:sg(c.smr,0),c:'var(--ty-10)',t:'CT − CN: lo que la migración tiene que explicar'},{v:c.smo,lab:'SM observado',vl:sg(c.smo,0),c:'var(--ty-12)',t:'altas − bajas'},{v:c.disc,lab:'Discrepancia',vl:sg(c.disc,0),c:'var(--ty-1)',t:'residual − observado: error conjunto'}],{signed:true,lab:'componentes del cambio'})+'</div>'+
+      '<div class="est" style="margin-top:10px">'+
+        ecCard('Crecimiento total',sg(c.ct,0),'P₁ − P₀')+
+        ecCard('Crecimiento natural',sg(c.cn,0),'N − D')+
+        ecCard('SM residual',sg(c.smr,0),'CT − CN')+
+        ecCard('SM observado',sg(c.smo,0),'altas − bajas')+
+        ecCard('IEM',fm(c.iem,3),'(I−E)/(I+E), entre −1 y 1')+
+      '</div>'+
+      '<div class="sec-h"><span>Tasas del periodo</span><span class="r">población media = '+fm(c.pm,0)+'</span></div>'+
+      '<table class="kv wide"><tbody>'+
+      '<tr><td>Inmigración</td><td>'+fpm(c.ti,2)+' · '+fm(S.mg.altas,0)+' altas</td></tr>'+
+      '<tr><td>Emigración</td><td>'+fpm(c.te,2)+' · '+fm(S.mg.bajas,0)+' bajas</td></tr>'+
+      '<tr><td>Migración neta</td><td>'+fpm(c.tmn,2)+' · '+sg(c.smo,0)+' habitantes</td></tr>'+
+      '<tr><td>Discrepancia</td><td>'+sg(c.disc,0)+' habitantes ('+fp(c.disc/Math.abs(c.smo||1)*100,1)+' del saldo observado): bajas no comunicadas y error de las otras fuentes.</td></tr>'+
+      '</tbody></table>';
+  }
+  if(d==='str'){
+    var st=CALCS.str,tot=st.p0;
+    h+='<div class="sec-h"><span>Reparto por grandes grupos</span><span class="r">'+STRL[S.strA]+' · '+fm(tot,0)+' habitantes</span></div>'+
+      '<div class="mgrid">'+
+      '<div class="cc"><div class="cc-t">Peso de cada grupo (% de la población)</div>'+
+        mkHBar(300,190,[{lab:'0-14',v:st.j/tot*100,vl:fp(st.j/tot*100,1),c:ZC[0],t:fm(st.j,0)+' habitantes'},{lab:'15-64',v:st.a/tot*100,vl:fp(st.a/tot*100,1),c:ZC[1],t:fm(st.a,0)+' habitantes'},{lab:'65-79',v:(st.m-st.m80)/tot*100,vl:fp((st.m-st.m80)/tot*100,1),c:ZC[2],t:fm(st.m-st.m80,0)+' habitantes'},{lab:'80+',v:st.m80/tot*100,vl:fp(st.m80/tot*100,1),c:ZC[3],t:fm(st.m80,0)+' habitantes'}],{lab:'reparto por edades'})+'</div>'+
+      '<div><div class="est">'+
+        ecCard('Índice de envejecimiento',fm(st.ie,0)+' %','P65+/P0-14')+
+        ecCard('Sobreenvejecimiento',fm(st.sobre,0)+' %','P80+/P65+')+
+        ecCard('Dependencia total',fm(st.dep,1)+' %','(0-14 + 65+)/15-64')+
+        ecCard('Dependencia juvenil',fm(st.depj,1)+' %','P0-14/P15-64')+
+        ecCard('Dependencia senil',fm(st.depm,1)+' %','P65+/P15-64')+
+      '</div></div></div>'+
+      '<div class="sec-h"><span>Cinco años después</span><span class="r">crecimiento natural '+sg(st.cn,0)+' habitantes</span></div>'+
+      '<div class="est">'+
+        ecCard('Población inicial',fm(st.p0,0),' suma de los tres grupos')+
+        ecCard('Población final',fm(st.p5,0),' a los 5 años')+
+        ecCard('r exponencial',fp(st.r,3),'ln(Pt/P₀)/5')+
+        ecCard('Tiempo de duplicación',fm(st.t2,1)+' a','ln2/r')+
+        ecCard('Saldo migratorio',sg(st.sm,0),'(Pt − P₀) − CN')+
+      '</div><p class="estl">Con crecimiento natural negativo, toda la ganancia es migratoria: el saldo migra a la ecuación compensadora.</p>';
+  }
+  return h;
+}
+function renderEdOut(){
+  var el=$('ed-out');if(el)el.innerHTML=edOut(S.mod);
+}
+function renderEditor(){
+  $('editor').innerHTML=edHead(S.mod)+edFields(S.mod)+'<div id="ed-out"></div>';
+  renderEdOut();
+}
+function renderView(){
+  $('app').setAttribute('data-view',S.view);
+  [].forEach.call(document.querySelectorAll('#viewseg button'),function(b){b.setAttribute('aria-pressed',b.getAttribute('data-v')===S.view)});
+}
+function renderAll(){renderTop();renderTeam();renderEditor();renderAnalysis();renderView()}
+
+/* ===== ventana de datos ===== */
+function dataPop(){
+  var d=S.mod,c=CALCS[d],h='';
+  var sheet=function(title,head,rows,foot){
+    return '<div class="sam"><table><thead><tr>'+head.map(function(x,i){return '<th'+(i?'':' style="text-align:left"')+'>'+x+'</th>'}).join('')+'</tr></thead><tbody>'+
+      rows.map(function(r){return '<tr>'+r.map(function(x,i){return '<td'+(i?'':' class="z"')+'>'+x+'</td>'}).join('')+'</tr>'}).join('')+
+      (foot?'<tfoot><tr>'+foot.map(function(x,i){return '<td'+(i?'':' class="z"')+'>'+x+'</td>'}).join('')+'</tr></tfoot>':'')+'</table></div>';
+  };
+  if(d==='mort')h=sheet('TablaMort',['Edad','n','Población','Defunciones','mx'],MGROUPS.map(function(g,i){return [g[0]===85?'85+':g[0],i===18?'':g[1],'100.000',fm(Math.round(100000*baseMx(g[0])),0),fm(baseMx(g[0]),4)]}));
+  if(d==='fec')h=sheet('Fecundidad',['Grupo','Edad central','Mujeres','Nacimientos','fx','5Lx'],FG.map(function(g,i){return [g+'-'+(g+4),fm(g+2.5,1),'100.000',fm(Math.round(100000*FF[i]),0),fm(FF[i],4),fm(FL[i],0)]}),['Σ','','700.000',fm(sum(FF.map(function(f){return Math.round(100000*f)})),0),'','']);
+  if(d==='est')h=sheet('Estandar',['Grupo','Pob. estándar','Tasa ref. (‰)','Pob. A','Defunciones A'],EG.map(function(g,i){return [g,fm(EP[i],0),fm(ET[i],1),fm(EA[i],0),fm(ED[i],0)]}));
+  if(d==='cre')h=sheet('Crecim',['Dato','Valor'],[['Población inicial',fm(S.cr.p0,0)],['Población final',fm(S.cr.p1,0)],['Años',fm(S.cr.n,0)],['Nacimientos (año)',fm(S.cr.nac,0)],['Defunciones (año)',fm(S.cr.def,0)]]);
+  if(d==='mig')h=sheet('T4',['Dato','Valor'],[['Población 1-1',fm(S.mg.p0,0)],['Población 31-12',fm(S.mg.p1,0)],['Nacimientos',fm(S.mg.nac,0)],['Defunciones',fm(S.mg.def,0)],['Altas',fm(S.mg.altas,0)],['Bajas',fm(S.mg.bajas,0)]]);
+  if(d==='str')h=sheet('T5',['Grupo','Habitantes'],[['0-14',fm(SSTR[S.strA].j,0)],['15-64',fm(SSTR[S.strA].a,0)],['65 y más',fm(SSTR[S.strA].m,0)],['80 y más',fm(SSTR[S.strA].m80,0)],['Población a los 5 años',fm(S.str.p5,0)],['Crecimiento natural',sg(S.str.cn,0)]]);
+  var m=$('modal');
+  m.innerHTML='<div class="modal" data-act="closepop"><div class="sheet" role="dialog" aria-modal="true" aria-label="Datos" onclick="event.stopPropagation()"><header><h2>'+DEF[d].name+' · datos de la hoja</h2><button class="btn sm" type="button" data-act="closepop">Cerrar</button></header><div class="mbody">'+h+'</div><div class="mfoot"><span>Datos ficticios de las hojas de demografía de HojaCraft</span><span>edítalos con los controles del panel</span></div></div></div>';
+  m.hidden=false;
+}
+function closePop(){var m=$('modal');m.hidden=true;m.innerHTML=''}
+/* ===== pestañas de análisis ===== */
+var TABS=[['lect','Lectura'],['calc','Cálculo'],['cmp','Comparar'],['ejer','Ejercicios'],['mem','Memorizar']];
+var LECT={
+ mort:{u:'Resume la mortalidad de un año en una cohorte ficticia de 100.000 nacimientos que vive con las tasas observadas. Sirve para obtener la esperanza de vida (e0, e65), probabilidades de supervivencia y comparar mortalidad sin el efecto de la estructura por edades. Es la base de proyecciones y de la TNR.',
+  pros:['La esperanza de vida <b>no depende de la estructura por edades</b>: es la medida de período para comparar países y épocas sin tipificar.',
+   'Convierte tasas en probabilidades: qx responde a la pregunta real («¿qué probabilidad hay de morir antes de cumplir x+n?»), mientras mx es una tasa por persona-año.',
+   'Es la base de todo lo demás: la TNR usa las 5Lx femeninas y las proyecciones usan las relaciones de supervivencia L(x+1)/Lx.',
+   'Permite separar calendario (a qué edad se muere) e intensidad (cuánto se muere).'],
+  cons:['Hipótesis fuerte: una <b>generación ficticia</b> que vive toda su vida con las tasas de un solo año. No es una previsión de cohortes reales.',
+   'Depende de ax (n/2 por defecto, 0,1 en la edad 0): en las primeras edades la elección mueve e0. Pruébalo en el control «ax de la edad 0».',
+   'El grupo abierto se cierra con qx = 1 y Lx = lx/mx: los valores a partir de 85 son sensibles a esa convención.',
+   'Un año excepcional (epidemia, ola de calor) contamina toda la tabla: es un indicador de período.'],
+  when:'Comparar mortalidad entre poblaciones o periodos sin el efecto de la edad; calcular rentas y primas; construir proyecciones y la TNR.'},
+ fec:{u:'Mide cuántos hijos tiene una mujer, a qué edad, y si la población se reemplaza. Sirve para diagnosticar la natalidad, proyectar población y comparar países sin el efecto de la estructura por edades.',
+  pros:['El <b>ISF elimina la estructura por edades</b>: hijos por mujer de una generación ficticia que vive con las tasas del año.',
+   'La <b>edad media a la maternidad</b> mide el calendario: se puede retrasar la maternidad sin cambiar la intensidad (mueve el control «Calendario» y mira qué indicadores se mueven).',
+   'La <b>TNR añade mortalidad y cuenta solo hijas</b>: mide el reemplazo exacto (TNR = 1) y conduce a la tasa intrínseca.',
+   'Con r = ln(TNR)/T se resume el crecimiento a largo plazo si las condiciones se mantienen.'],
+  cons:['El ISF es de período: <b>no es la descendencia final</b> de ninguna generación real. Una caída del ISF puede ser solo retraso (efecto calendario).',
+   'Con grupos quinquenales hay que multiplicar por 5: <b>ISF = 5·Σfx</b>; es el olvido más frecuente.',
+   'La TNR aproximada (TBR·supervivencia) concentra toda la mortalidad femenina en la edad media: es una aproximación.',
+   'TGF, TBN e ISF miden cosas distintas: solo el ISF elimina el efecto de la estructura por edades.'],
+  when:'Diagnosticar la natalidad, comparar países, proyectar nacimientos (fx·mujeres-año) y estudiar el reemplazo generacional.'},
+ est:{u:'Permite comparar mortalidad (o cualquier tasa) entre poblaciones con estructuras por edad distintas. Directa: aplicas las tasas de A a una población tipo. Indirecta: aplicas tasas de referencia a la estructura de A y comparas con las defunciones observadas.',
+  pros:['La tasa bruta <b>mezcla mortalidad y estructura</b>; la estandarizada separa ambas: es la comparación justa.',
+   'Directa e indirecta <b>coinciden en la lectura</b> aunque usen poblaciones distintas: ambas valen las tasas específicas de A y descuentan la estructura.',
+   'La indirecta solo necesita el total de defunciones y la estructura de A: <b>útil en poblaciones pequeñas</b> con tasas específicas poco fiables.',
+   'La RME tiene lectura inmediata: &gt; 1, más muertes de las esperadas con las tasas de referencia.'],
+  cons:['La estandarizada <b>solo sirve para comparar</b>: su nivel depende de la población tipo elegida (cámbiala y cambia el valor).',
+   'La directa exige tasas específicas fiables de A: en poblaciones pequeñas son ruidosas.',
+   'La RME no es comparable entre sí para poblaciones distintas como si compartieran estructura.',
+   'Elegir una referencia muy lejana a las tasas de A distorsiona el resultado.'],
+  when:'Comparar la mortalidad (o cualquier tasa) de dos poblaciones con estructuras por edad distintas; tasas de zonas pequeñas con el método indirecto.'},
+ cre:{u:'Resume cuánto crece una población y por qué: modelos geométrico y exponencial, tiempo de duplicación y tasas brutas de natalidad y mortalidad. Es la base de las proyecciones sencillas.',
+  pros:['Geométrico y exponencial <b>coinciden cuando r es pequeña</b> (aquí 1,541 % y 1,539 %): dos lecturas del mismo dato entre las que media ln(1+r).',
+   'El tiempo de duplicación resume el ritmo: <b>t₂ ≈ 70 / (r en %)</b>. Aquí 45 años.',
+   'Las tasas brutas descomponen el crecimiento: CN = TBN − TBM, y la ecuación compensadora añade la migración.',
+   'Con la población media en el denominador, las tasas brutas son comparables entre periodos.'],
+  cons:['Son <b>modelos</b>: suponen que r se mantiene; a 50 años la divergencia frente al lineal es enorme (mírala en el gráfico).',
+   'Las tasas brutas dependen de la estructura por edades: una población vieja tiene TBM alta sin que nadie muera «peor».',
+   'El denominador correcto es la <b>población media</b>, no la inicial ni la final: el error típico del examen.',
+   'r geométrica y exponencial se relacionan por ln(1+rg) = re: intercambiarlas sin decirlo resta puntos.'],
+  when:'Resumir el cambio de población entre dos fechas, proyectar a corto plazo y descomponer el crecimiento en natural y migratorio.'},
+ mig:{u:'Cierra la ecuación compensadora comparando el saldo migratorio residual (lo que la migración tiene que explicar) con el observado en las variaciones residenciales, y resume la rotación con el índice de eficacia.',
+  pros:['El <b>saldo residual no necesita medir la migración</b>: sale de restar el crecimiento natural al total.',
+   'El <b>observado</b> usa altas y bajas por cambio de residencia: mide el fenómeno administrativo real.',
+   'La <b>discrepancia</b> entre ambos estima el error conjunto de las fuentes (sobre todo bajas no comunicadas).',
+   'El <b>IEM</b> distingue saldo nulo de ausencia de movimientos: (I−E)/(I+E) entre −1 y 1.'],
+  cons:['El residual <b>absorbe todos los errores</b> de nacimientos, defunciones y población: es una estimación, no una medición.',
+   'El observado falla sobre todo por las bajas no comunicadas; la migración interior se anula a nivel nacional pero no local.',
+   'Las tasas de migración dependen de la población media: en periodos cortos es una aproximación.',
+   'Un mismo saldo neto puede salir de poca rotación (IEM alto) o de mucha (IEM bajo).'],
+  when:'Cerrar la ecuación compensadora, estimar la migración cuando no hay registros y valorar la eficacia neta de los flujos.'},
+ str:{u:'Describe la pirámide con índices (envejecimiento, sobreenvejecimiento, dependencia) y resume el cambio de población con el crecimiento exponencial, el tiempo de duplicación y el saldo migratorio del periodo.',
+  pros:['Los índices <b>resumen la pirámide</b> en números comparables entre poblaciones de distinto tamaño.',
+   'El crecimiento exponencial r = ln(Pt/P0)/t es el estándar del temario; t₂ = ln2/r lo hace intuitivo.',
+   'Con el crecimiento natural se aísla el <b>saldo migratorio</b> del quinquenio: ecuación compensadora de nuevo.',
+   'La población estable/estacionaria da las referencias teóricas: e0 = 1/TBM solo en la estacionaria.'],
+  cons:['La dependencia es una <b>razón demográfica</b>, no una carga económica real: no todos los 15-64 trabajan ni todos los 65+ dependen.',
+   'Comparar pirámides con efectivos absolutos engaña: hay que usar porcentajes (como en el gráfico).',
+   'El envejecimiento se debe sobre todo a la <b>caída de la fecundidad</b>, no al aumento de la longevidad.',
+   'Los umbrales (65, 80) son convenciones: al vivir más años, los índices envejecen «solas».'],
+  when:'Describir la estructura de una población, comparar su envejecimiento y proyectar demanda (escolaridad, pensiones, dependencia).'}
+};
+function tabLect(){
+  var d=S.mod,p=LECT[d];
+  var li=function(b,t,k){return '<li><span class="badge '+k+'">'+b+'</span><span>'+t+'</span></li>'};
+  return '<h4>Qué mide</h4><p>'+p.u+'</p>'+
+    '<h4>Ventajas</h4><ul class="checks">'+p.pros.map(function(t){return li('Ventaja',t,'ok')}).join('')+'</ul>'+
+    '<h4>Límites</h4><ul class="checks">'+p.cons.map(function(t,i){return li(i===0?'Riesgo':'Límite',t,'rv')}).join('')+'</ul>'+
+    '<h4>Cuándo usarlo</h4><ul class="checks">'+li('Usar si',p.when,'in')+'</ul>'+
+    '<div class="callout"><span><b>Ahora mismo:</b> '+lectNow(d)+'</span></div>';
+}
+function lectNow(d){
+  var c=CALCS[d];
+  if(d==='mort')return 'con mortalidad ×'+fm(S.mlevel,2)+' y ax(0) = '+fm(S.a0,1)+', e0 = '+fm(c.e0,1)+' años y e65 = '+fm(c.e65,1)+'; la TBM de la hoja sería '+fpm(c.tbm,2)+' y su inversa '+fm(c.inv,1)+' años.';
+  if(d==='fec')return 'ISF = '+fm(c.isf,2)+' hijos por mujer, edad media '+fm(c.em,1)+' años, TNR = '+fm(c.tnr,3)+(c.tnr>=1?' (reemplazo cubierto)':' (por debajo del reemplazo)')+'.';
+  if(d==='est')return 'estructura '+STRL[S.estA].toLowerCase()+': TBM '+fpm(c.tbm,2)+' frente a directa '+fpm(c.dir,2)+' y indirecta '+fpm(c.ind,2)+'; RME = '+fm(c.rme,3)+'.';
+  if(d==='cre')return 'r geométrica '+fp(c.rg,3)+' y exponencial '+fp(c.re,3)+'; t₂ = '+fm(c.t2g,1)+' años; TBN '+fpm(c.tbn,2)+' y TBM '+fpm(c.tbm,2)+' → CN '+fpm(c.cnr,2)+'.';
+  if(d==='mig')return 'SM residual '+sg(c.smr,0)+' frente a observado '+sg(c.smo,0)+' (discrepancia '+sg(c.disc,0)+'); IEM = '+fm(c.iem,3)+'.';
+  return 'índice de envejecimiento '+fm(c.ie,0)+' %, dependencia total '+fm(c.dep,1)+' %, r '+fp(c.r,3)+' y saldo migratorio '+sg(c.sm,0)+' en el quinquenio.';
+}
+var CALCDOC={
+ mort:[['Tasa central de mortalidad','mx = Dx / Px','Defunciones entre población a mitad de año: es una tasa (por persona-año), no una probabilidad.'],
+ ['Probabilidad de morir','qx = n·mx / (1 + (n − ax)·mx)','Convierte la tasa en probabilidad de morir dentro del intervalo. Con ax = n/2 queda 2n·m/(2 + n·m). En el último grupo, qx = 1.'],
+ ['Supervivientes','l(x+n) = lx·(1 − qx)   con l0 = 100.000','Se parte de la raíz l0 y se descuentan los que mueren en cada intervalo.'],
+ ['Defunciones de la tabla','dx = lx·qx','Muertes de la cohorte ficticia en cada intervalo. Comprobación: Σ dx = l0.'],
+ ['Años-persona vividos','Lx = n·l(x+n) + ax·dx   (abierto: Lx = lx / mx)','Quien sobrevive vive el intervalo entero; quien muere, ax años de media.'],
+ ['Años vividos desde x','Tx = Lx + T(x+n)','Se acumula de abajo arriba, hasta el grupo abierto.'],
+ ['Esperanza de vida','ex = Tx / lx','Años que le quedan de media a quien llega vivo a x. e0 al nacer; e65 a los 65.']],
+ fec:[['Tasas específicas','fx = Bx / Mx','Nacimientos entre mujeres de cada edad: la curva de fecundidad.'],
+ ['Índice sintético','ISF = 5 · Σ fx','Hijos por mujer de una generación ficticia con estas tasas toda su vida fértil (5 = amplitud del grupo).'],
+ ['Edad media a la maternidad','x̄ = Σ xc·fx / Σ fx','Edad central del grupo (17,5; 22,5…) ponderada por la fecundidad: mide el calendario, no la intensidad.'],
+ ['Tasa general de fecundidad','TGF = ΣB / ΣM(15-49) · 1.000','Nacimientos por mil mujeres en edad fértil: sí depende de su estructura por edades.'],
+ ['Tasa bruta de reproducción','TBR = ISF · 100/205','Solo hijas (razón de masculinidad 105 al nacer).'],
+ ['Tasa neta de reproducción','TNR = Σ fx · 5Lx / l0 · 100/205','Descuenta a las mujeres que mueren antes de terminar su vida fértil. TNR = 1 es reemplazo.'],
+ ['Tasa intrínseca','r ≈ ln(TNR) / T','Crecimiento anual a largo plazo, con T la duración de la generación (≈ 30 años).']],
+ est:[['Tasas específicas de A','tx = Dx / Px · 1.000','Defunciones entre población de cada grupo, en ‰: lo único que mide de verdad la mortalidad de A.'],
+ ['Tasa bruta','TBM = ΣD / ΣP · 1.000','Mezcla mortalidad y estructura por edades: no sirve para comparar poblaciones.'],
+ ['Estandarización directa','TEd = Σ tx(A)·Px(est) / ΣPx(est)','Aplica las tasas de A a la población tipo. Exige tasas específicas fiables.'],
+ ['Tasas de referencia','Esperadas = Σ tx(ref)·Px(A) / 1.000','Defunciones que tendría A si sufriera las tasas de referencia: denominador de la RME.'],
+ ['Razón de mortalidad estandarizada','RME = Observadas / Esperadas','Mayor que 1: más muertes de las esperadas.'],
+ ['Tasa indirecta','Tind = RME · TBM(ref)','Cierra el método indirecto: tasa de A con la estructura de la referencia.']],
+ cre:[['Población media','P = (P0 + Pn) / 2','Aproxima los persona-años vividos: es el denominador de toda tasa del periodo.'],
+ ['Crecimiento geométrico','r = (Pn/P0)^(1/n) − 1','Interés compuesto: crecimiento por periodo discreto.'],
+ ['Crecimiento exponencial','r = ln(Pn/P0) / n','Crecimiento continuo. Se relaciona con el anterior por ln(1 + rg) = re.'],
+ ['Tiempo de duplicación','T = ln2 / ln(1+r)   ·   T = ln2 / r','Años necesarios para duplicar la población (≈ 70 / r en %).'],
+ ['Tasas brutas','TBN = N/P·1.000   ·   TBM = D/P·1.000','Nacimientos y defunciones por mil habitantes (población media).'],
+ ['Crecimiento natural','CN = TBN − TBM (‰)','Saldo natural. El crecimiento total suma el saldo migratorio.']],
+ mig:[['Crecimiento total y natural','CT = P1 − P0   ·   CN = N − D','Punto de partida de la ecuación compensadora.'],
+ ['Saldo residual','SM = CT − CN','Estima la migración sin observarla: absorbe todos los errores de las fuentes.'],
+ ['Saldo observado','SM = altas − bajas','Lo que registran las variaciones residenciales.'],
+ ['Discrepancia','residual − observado','Mide el error conjunto de las fuentes (bajas no comunicadas, sobre todo).'],
+ ['Tasas de migración','tasa = flujo / P media · 1.000','Inmigración, emigración y neta, en ‰.'],
+ ['Eficacia migratoria','IEM = (I − E) / (I + E)','Entre −1 y 1: cuánta rotación se traduce en ganancia neta.']],
+ str:[['Envejecimiento','IE = P65+ / P0-14 · 100   ·   Sobre = P80+ / P65+ · 100','Mayores por cada 100 menores de 15; y peso de los muy mayores dentro de los mayores.'],
+ ['Dependencia','(P0-14 + P65+) / P15-64 · 100','Razón demográfica, no carga económica real.'],
+ ['Crecimiento exponencial','r = ln(Pt / P0) / t','El de uso estándar; no la fórmula aritmética.'],
+ ['Tiempo de duplicación','t2 = ln 2 / r','Años para duplicar la población (≈ 70 / r %).'],
+ ['Saldo migratorio','SM = (Pt − P0) − CN','Con crecimiento natural negativo, toda la ganancia es migratoria.']]
+};
+function tabCalc(){
+  var d=S.mod,rows=CALCDOC[d];
+  return '<h4>Cómo se calcula, paso a paso</h4><table class="kv wide"><tbody>'+
+    rows.map(function(r){return '<tr><td>'+r[0]+'</td><td><code>'+r[1]+'</code><br>'+r[2]+'</td></tr>'}).join('')+'</tbody></table>'+
+    '<h4>Con los datos actuales</h4><p>'+calcNow(d)+'</p>'+
+    '<div class="callout"><span><b>Receta para argumentar cualquier indicador:</b> 1) qué mide (intensidad o calendario; período o cohorte); 2) cuál es su denominador (persona-años, efectivos iniciales, mujeres en edad fértil…); 3) si depende o no de la estructura por edades; 4) con qué se confunde; 5) una comprobación de sentido (Σ dx = l0, Σ π = n, TNR &lt; TBR…).</span></div>';
+}
+function calcNow(d){
+  var c=CALCS[d];
+  if(d==='mort')return 'e0 = T0/l0 = '+fm(c.rows[0].Tx,0)+' / 100.000 = <b>'+fm(c.e0,1)+'</b> años · e65 = '+fm(c.rows[14].Tx,0)+' / '+fm(c.rows[14].lx,0)+' = <b>'+fm(c.e65,1)+'</b> años. La fila de 85+ se cierra con qx = 1 y L85 = l85/m85 = '+fm(c.rows[18].lx,0)+' / '+fm(c.rows[18].mx,4)+' = '+fm(c.rows[18].Lx,0)+'.';
+  if(d==='fec')return 'ISF = 5·Σ fx = 5·'+fm(sum(c.fx),3)+' = <b>'+fm(c.isf,2)+'</b> · edad media = <b>'+fm(c.em,1)+'</b> años · TBR = ISF·100/205 = <b>'+fm(c.tbr,3)+'</b> · TNR = Σ fx·(5Lx/l0)·100/205 = <b>'+fm(c.tnr,3)+'</b>.';
+  if(d==='est')return 'Directa = Σ tA·Pst/ΣPst = <b>'+fpm(c.dir,2)+'</b> · esperadas = Σ tref·PA/1000 = <b>'+fm(c.esp,1)+'</b> · RME = '+fm(c.obs,0)+'/'+fm(c.esp,1)+' = <b>'+fm(c.rme,3)+'</b> · indirecta = RME·'+fpm(c.tbmRef,2)+' = <b>'+fpm(c.ind,2)+'</b> · bruta = <b>'+fpm(c.tbm,2)+'</b>.';
+  if(d==='cre')return 'rg = (1,08)^(1/5) − 1 = <b>'+fp(c.rg,3)+'</b> · re = ln(1,08)/5 = <b>'+fp(c.re,3)+'</b> · ln(1+rg) = '+fm(Math.log(1+c.rg),6)+' = re ✓ · t₂ = <b>'+fm(c.t2g,1)+'</b> años · TBN = <b>'+fpm(c.tbn,2)+'</b> · TBM = <b>'+fpm(c.tbm,2)+'</b> · CN = <b>'+fpm(c.cnr,2)+'</b>.';
+  if(d==='mig')return 'CT = <b>'+sg(c.ct,0)+'</b> · CN = <b>'+sg(c.cn,0)+'</b> · SM residual = <b>'+sg(c.smr,0)+'</b> · SM observado = <b>'+sg(c.smo,0)+'</b> · discrepancia = <b>'+sg(c.disc,0)+'</b> · IEM = <b>'+fm(c.iem,3)+'</b>.';
+  return 'IE = <b>'+fm(c.ie,0)+' %</b> · sobreenvejecimiento = <b>'+fm(c.sobre,0)+' %</b> · dependencia total = <b>'+fm(c.dep,1)+' %</b> · r = <b>'+fp(c.r,3)+'</b> · t₂ = <b>'+fm(c.t2,1)+'</b> años · SM = <b>'+sg(c.sm,0)+'</b>.';
+}
+/* ===== Comparar ===== */
+function heat(v,lo,hi){return v<=lo?'mq':v<=hi?'mh':'m2'}
+function tabCmp(){
+  var d=S.mod,c=CALCS[d],h='';
+  var rowBtn=function(dd){return '<td class="tl"><button type="button" class="rowb" data-act="mod" data-d="'+dd+'"'+(S.mod===dd?' aria-current="true"':'')+'>'+mono(dd,'sm')+'<span>'+DEF[dd].name+'</span></button></td>'};
+  if(d==='mort'){
+    var base=lifeTable(1,0.1);
+    h+='<h4>e0 frente a sus imitadores</h4><div class="tw"><table class="mx"><thead><tr><th></th><th>Valor</th><th>Qué es</th><th>¿Depende de la estructura?</th></tr></thead><tbody>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">e0 (esperanza de vida)</span></td><td class="mq">'+fm(c.e0,1)+' a</td><td class="tl" style="min-width:0">Años por vivir de la cohorte ficticia</td><td class="m1"><span class="no">No</span></td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">e65</span></td><td class="mh">'+fm(c.e65,1)+' a</td><td class="tl" style="min-width:0">Lo mismo condicionado a llegar a 65</td><td class="m1"><span class="no">No</span></td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">1/TBM de la hoja</span></td><td class="'+heat(c.inv/c.e0,0.8,1.2)+'">'+fm(c.inv,1)+' a</td><td class="tl" style="min-width:0">Vida media de la población uniforme de la hoja</td><td class="m1"><span class="yes">Sí</span></td></tr>'+
+    '</tbody></table></div><p class="hint" style="margin-top:6px">La identidad e0 = 1/TBM solo vale en la población estacionaria (Px ∝ Lx). La hoja usa 100.000 por grupo: por eso el inverso de la TBM ('+fm(c.inv,1)+' años) se aleja de e0 ('+fm(c.e0,1)+'). Mismo dato, indicadores distintos.</p>';
+    h+='<h4>mx y qx no son lo mismo</h4><div class="tw"><table class="mx"><thead><tr><th>Edad</th><th>n</th><th>mx (tasa)</th><th>qx (probabilidad)</th><th>Lectura</th></tr></thead><tbody>';
+    [0,2,6,10,14,18].forEach(function(i){
+      var r=c.rows[i];
+      h+='<tr><td>'+(r.x===85?'85+':r.x)+'</td><td class="m1">'+(r.n===null?'abierto':r.n)+'</td><td class="m1">'+fm(r.mx,4)+'</td><td class="m1">'+fm(r.qx,4)+'</td><td class="tl" style="min-width:0">'+(r.x===85?'Grupo abierto: qx = 1 y Lx = lx/mx':'En grupos anchos qx &lt; n·mx: quien muere a mitad de intervalo deja de exponerse')+'</td></tr>';
+    });
+    h+='</tbody></table></div>';
+    h+='<h4>Qué mueve el control</h4><div class="tw"><table class="mx"><thead><tr><th></th><th>Base (×1,00)</th><th>Actual (×'+fm(S.mlevel,2)+')</th><th>Cambio</th></tr></thead><tbody>'+
+      '<tr><td class="tl"><span style="font:600 .74rem var(--display)">e0</span></td><td class="m1">'+fm(base.e0,1)+'</td><td class="'+heat(c.e0/base.e0,0.999,1.001)+'">'+fm(c.e0,1)+'</td><td class="m1">'+sg(c.e0-base.e0,1)+' años</td></tr>'+
+      '<tr><td class="tl"><span style="font:600 .74rem var(--display)">e65</span></td><td class="m1">'+fm(base.e65,1)+'</td><td class="'+heat(c.e65/base.e65,0.999,1.001)+'">'+fm(c.e65,1)+'</td><td class="m1">'+sg(c.e65-base.e65,1)+' años</td></tr>'+
+      '<tr><td class="tl"><span style="font:600 .74rem var(--display)">q0</span></td><td class="m1">'+fm(base.q0,4)+'</td><td class="m1">'+fm(c.q0,4)+'</td><td class="m1">'+sg(c.q0-base.q0,4)+'</td></tr>'+
+      '</tbody></table></div><p class="hint" style="margin-top:6px">La relación no es proporcional: doblar todas las mx no reduce e0 a la mitad, porque la mortalidad se concentra en edades donde ya casi no queda vida por perder.</p>';
+  }
+  if(d==='fec'){
+    var bb=fecCalc(0,1);
+    h+='<h4>La batería de indicadores de fecundidad</h4><div class="tw"><table class="mx"><thead><tr><th></th><th>Valor</th><th>Cuenta</th><th>¿Estructura?</th><th>¿Mortalidad?</th></tr></thead><tbody>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">TGF</span></td><td class="m1">'+fpm(c.tgf,1)+'</td><td class="tl" style="min-width:0">Nacimientos / mujeres 15-49</td><td class="m1"><span class="yes">Sí</span></td><td class="m1"><span class="no">No</span></td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">ISF</span></td><td class="mq">'+fm(c.isf,2)+'</td><td class="tl" style="min-width:0">5·Σ fx: hijos por mujer (generación ficticia)</td><td class="m1"><span class="no">No</span></td><td class="m1"><span class="no">No</span></td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">TBR</span></td><td class="mh">'+fm(c.tbr,3)+'</td><td class="tl" style="min-width:0">ISF·100/205: hijas por mujer</td><td class="m1"><span class="no">No</span></td><td class="m1"><span class="no">No</span></td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">TNR</span></td><td class="'+(c.tnr>=1?'mq':'m2')+'">'+fm(c.tnr,3)+'</td><td class="tl" style="min-width:0">Hijas que sobreviven a la madre: reemplazo</td><td class="m1"><span class="no">No</span></td><td class="m1"><span class="yes">Sí</span></td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Edad media</span></td><td class="m1">'+fm(c.em,1)+' a</td><td class="tl" style="min-width:0">Σ xc·fx/Σ fx: calendario</td><td class="m1"><span class="no">No</span></td><td class="m1"><span class="no">No</span></td></tr>'+
+    '</tbody></table></div>';
+    h+='<h4>Intensidad frente a calendario</h4><div class="tw"><table class="mx"><thead><tr><th></th><th>ISF</th><th>Edad media</th><th>TNR</th></tr></thead><tbody>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">HojaCraft (base)</span></td><td class="m1">'+fm(bb.isf,2)+'</td><td class="m1">'+fm(bb.em,1)+'</td><td class="m1">'+fm(bb.tnr,3)+'</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Actual (retraso '+(S.fshift>=0?'+':'')+fm(S.fshift,0)+', nivel ×'+fm(S.flevel,2)+')</span></td><td class="'+heat(Math.abs(c.isf-bb.isf),0.001,0.05)+'">'+fm(c.isf,2)+'</td><td class="m1">'+fm(c.em,1)+'</td><td class="m1">'+fm(c.tnr,3)+'</td></tr>'+
+    '</tbody></table></div><p class="hint" style="margin-top:6px">Con solo retrasar el calendario, el ISF no se mueve pero la TNR baja: las mujeres son madres con menos supervivencia acumulada. La descendencia final de las generaciones reales puede incluso subir mientras el ISF (período) baja: es el efecto calendario.</p>';
+  }
+  if(d==='est'){
+    var j=estCalc('joven'),b=estCalc('base'),v=estCalc('vieja');
+    h+='<h4>La misma mortalidad (tasas específicas fijas), tres estructuras</h4><div class="tw"><table class="mx"><thead><tr><th></th><th>Joven</th><th>Base</th><th>Envejecida</th></tr></thead><tbody>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">TBM bruta</span></td><td class="mq">'+fpm(j.tbm,2)+'</td><td class="'+heat(b.tbm/b.dir,0,1.1)+'">'+fpm(b.tbm,2)+'</td><td class="m4">'+fpm(v.tbm,2)+'</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Estandarizada directa</span></td><td class="m1">'+fpm(j.dir,2)+'</td><td class="m1">'+fpm(b.dir,2)+'</td><td class="m1">'+fpm(v.dir,2)+'</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Estandarizada indirecta</span></td><td class="m1">'+fpm(j.ind,2)+'</td><td class="m1">'+fpm(b.ind,2)+'</td><td class="m1">'+fpm(v.ind,2)+'</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">RME</span></td><td class="m1">'+fm(j.rme,3)+'</td><td class="m1">'+fm(b.rme,3)+'</td><td class="m1">'+fm(v.rme,3)+'</td></tr>'+
+    '</tbody></table></div><p class="hint" style="margin-top:6px">Al envejecer la estructura, la bruta se multiplica por '+fm(v.tbm/j.tbm,2)+' y la estandarizada no se mueve: es la demostración de por qué se estandariza. La RME tampoco cambia, porque depende de las tasas y no del tamaño de los grupos.</p>'+
+    '<div class="callout"><span><b>Lectura de la fila base:</b> la bruta ('+fpm(b.tbm,2)+') dice que A mata más que la referencia ('+fpm(b.tbmRef,2)+'), pero es mentira estructural: las tasas específicas de A, puestas sobre cualquier población común, dan '+fpm(b.dir,2)+'. La comparación justa la gana la estandarizada.</span></div>';
+  }
+  if(d==='cre'){
+    var H=Math.max(30,Math.ceil(S.cr.n*2/10)*10);
+    var plin=S.cr.p0+(S.cr.p1-S.cr.p0)*H/S.cr.n,pgeo=S.cr.p0*Math.pow(1+c.rg,H),pexp=S.cr.p0*Math.pow(Math.E,c.re*H);
+    h+='<h4>Tres maneras de crecer con la misma pareja (P₀, P₁)</h4><div class="tw"><table class="mx"><thead><tr><th></th><th>r</th><th>t₂</th><th>P a '+H+' años</th></tr></thead><tbody>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Lineal</span></td><td class="m1">'+fp(c.rl,3)+'</td><td class="m1">'+(isFinite(c.rl)&&c.rl>0?fm(1/c.rl,0)+' a':'—')+'</td><td class="m1">'+fm(plin,0)+'</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Geométrico</span></td><td class="mq">'+fp(c.rg,3)+'</td><td class="m1">'+fm(c.t2g,1)+' a</td><td class="m1">'+fm(pgeo,0)+'</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Exponencial</span></td><td class="mq">'+fp(c.re,3)+'</td><td class="m1">'+fm(c.t2e,1)+' a</td><td class="m1">'+fm(pexp,0)+'</td></tr>'+
+    '</tbody></table></div><p class="hint" style="margin-top:6px">Con r pequeña, geométrico y exponencial son casi indistinguibles (ln(1+r) ≈ r). La diferencia estalla en el horizonte largo: '+fm(pgeo/plin,2)+'× el lineal a '+H+' años. Nunca projetes a 50 años con una r de 5.</p>';
+    h+='<h4>Descomposición del crecimiento</h4><div class="spl">'+
+      '<div class="spr"><span class="nm">TBN</span><div class="track"><i style="width:'+clamp(c.tbn/20*100,0,100)+'%"></i></div><span class="val">'+fpm(c.tbn,2)+'</span></div>'+
+      '<div class="spr"><span class="nm">TBM</span><div class="track"><i style="width:'+clamp(c.tbm/20*100,0,100)+'%;background:var(--bad)"></i></div><span class="val">'+fpm(c.tbm,2)+'</span></div>'+
+      '<div class="spr"><span class="nm">CN = TBN − TBM</span><div class="track"><i style="width:'+clamp(Math.abs(c.cnr)/20*100,0,100)+'%;background:'+(c.cnr>=0?'var(--good)':'var(--bad)')+'"></i></div><span class="val">'+fpm(c.cnr,2)+'</span></div>'+
+      '</div><p class="hint" style="margin-top:6px">El crecimiento natural en ‰ más el saldo migratorio en ‰ da el crecimiento total: '+fpm(c.cnr,2)+' + SM = '+fp(S.cr.p1/S.cr.p0-1,2)+' en '+fm(S.cr.n,0)+' años (≈ '+fpm((S.cr.p1/S.cr.p0-1)/S.cr.n*1000,2)+' por año).</p>';
+  }
+  if(d==='mig'){
+    h+='<h4>Los dos saldos y su discrepancia</h4><div class="tw"><table class="mx"><thead><tr><th></th><th>Valor</th><th>De dónde sale</th><th>Fallo típico</th></tr></thead><tbody>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">SM residual</span></td><td class="m1">'+sg(c.smr,0)+'</td><td class="tl" style="min-width:0">CT − CN (ecuación compensadora)</td><td class="tl" style="min-width:0">Presentarlo como medición: absorbe todos los errores</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">SM observado</span></td><td class="m1">'+sg(c.smo,0)+'</td><td class="tl" style="min-width:0">Altas − bajas por cambio de residencia</td><td class="tl" style="min-width:0">Olvidar las bajas no comunicadas</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Discrepancia</span></td><td class="'+heat(Math.abs(c.disc),0,Math.abs(c.smo)*0.1)+'">'+sg(c.disc,0)+'</td><td class="tl" style="min-width:0">Residual − observado</td><td class="tl" style="min-width:0">Esperar que sea cero</td></tr>'+
+    '</tbody></table></div>'+
+    '<h4>El IEM descompone la rotación</h4><div class="spl">'+
+      '<div class="spr"><span class="nm">Inmigración I</span><div class="track"><i style="width:'+clamp(S.mg.altas/Math.max(S.mg.altas,S.mg.bajas)*100,0,100)+'%;background:var(--good)"></i></div><span class="val">'+fm(S.mg.altas,0)+'</span></div>'+
+      '<div class="spr"><span class="nm">Emigración E</span><div class="track"><i style="width:'+clamp(S.mg.bajas/Math.max(S.mg.altas,S.mg.bajas)*100,0,100)+'%;background:var(--bad)"></i></div><span class="val">'+fm(S.mg.bajas,0)+'</span></div>'+
+      '<div class="spr"><span class="nm">IEM = (I−E)/(I+E)</span><div class="track"><i style="width:'+clamp((c.iem+1)/2*100,0,100)+'%"></i><u style="left:50%"></u></div><span class="val">'+fm(c.iem,3)+'</span></div>'+
+      '</div><p class="hint" style="margin-top:6px">La marca roja es el IEM = 0 (saldo nulo). Con I = E no hay saldo pero hay mucha rotación ('+fm(S.mg.altas+S.mg.bajas,0)+' movimientos): el saldo y la intensidad del fenómeno son cosas distintas.</p>';
+  }
+  if(d==='str'){
+    var sj=strCalc('joven',S.str),sb=strCalc('base',S.str),sv=strCalc('vieja',S.str);
+    h+='<h4>Los mismos 10 millones, tres pirámides</h4><div class="tw"><table class="mx"><thead><tr><th></th><th>Joven</th><th>Base (T5)</th><th>Envejecida</th></tr></thead><tbody>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Índice de envejecimiento</span></td><td class="mq">'+fm(sj.ie,0)+' %</td><td class="m1">'+fm(sb.ie,0)+' %</td><td class="m4">'+fm(sv.ie,0)+' %</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Sobreenvejecimiento</span></td><td class="m1">'+fm(sj.sobre,0)+' %</td><td class="m1">'+fm(sb.sobre,0)+' %</td><td class="m4">'+fm(sv.sobre,0)+' %</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Dependencia total</span></td><td class="m1">'+fm(sj.dep,1)+' %</td><td class="m1">'+fm(sb.dep,1)+' %</td><td class="m4">'+fm(sv.dep,1)+' %</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Dependencia senil</span></td><td class="mq">'+fm(sj.depm,1)+' %</td><td class="m1">'+fm(sb.depm,1)+' %</td><td class="m4">'+fm(sv.depm,1)+' %</td></tr>'+
+    '</tbody></table></div><p class="hint" style="margin-top:6px">El envejecimiento se dispara al pasar de joven a envejecida ('+fm(sj.ie,0)+' → '+fm(sv.ie,0)+' %) mientras la dependencia total se mueve menos: reparte el peso entre jóvenes y mayores. Por eso hay que leer los dos índices, no solo uno.</p>';
+  }
+  h+='<h4>Los seis fenómenos, de un vistazo</h4><div class="tw"><table class="mx"><thead><tr><th></th><th>Indicador estrella</th><th>Valor ahora</th><th>Se confunde con</th><th>Regla</th></tr></thead><tbody>';
+  var reglas={
+    mort:['e0',fm(CALCS.mort.e0,1)+' años','la edad media de los fallecidos, 1/TBM','medida de período: no depende de la estructura'],
+    fec:['ISF',fm(CALCS.fec.isf,2)+' hijos/mujer','TGF, descendencia final de cohortes','generación ficticia: 5·Σfx'],
+    est:['Estandarizada',fpm(CALCS.est.dir,2),'la tasa bruta','misma mortalidad, estructura común'],
+    cre:['r exponencial',fp(CALCS.cre.re,3),'r lineal media','ln(Pt/P0)/t, población media'],
+    mig:['SM residual',sg(CALCS.mig.smr,0),'el SM observado (una medición)','CT − CN: absorbe los errores'],
+    str:['Índice de envejec.',fm(CALCS.str.ie,0)+' %','la dependencia (otro índice)','P65+/P0-14·100, en porcentaje']
+  };
+  MODS.forEach(function(m){
+    h+='<tr>'+rowBtn(m)+'<td class="m1">'+reglas[m][0]+'</td><td class="m1">'+reglas[m][1]+'</td><td class="tl" style="min-width:0">'+reglas[m][2]+'</td><td class="tl" style="min-width:0">'+reglas[m][3]+'</td></tr>';
+  });
+  h+='</tbody></table></div><p class="hint" style="margin-top:6px">Pulsa un fenómeno para saltar a él. Los valores siguen los controles actuales de cada módulo.</p>';
+  h+='<div class="callout"><span><b>La moraleja de toda la página:</b> casi ningún indicador demográfico es «la verdad»: es una lectura con un denominador y una estructura detrás. Antes de comparar dos números, pregunta qué cuentan exactamente.</span></div>';
+  return h;
+}
+/* ===== Ejercicios T1–T8 de HojaCraft ===== */
+function txtFld(id,l,v){return '<label class="fld" style="grid-column:1/-1"><span class="l">'+l+'</span><input id="'+id+'" type="text" value="'+v+'"></label>'}
+var EJS=[
+ {id:'t1',t:'T1 · Tasas y ecuación compensadora',mods:['mig'],
+  u:'Municipio de 40.000 habitantes el 1 de enero y 42.000 el 31 de diciembre, con 520 defunciones (26 de menores de 1 año) y 480 nacimientos. Es el vocabulario de medida de todo el bloque: población media, tasa frente a cociente y ecuación compensadora.',
+  inp:[['p1','Población 1 de enero',40000],['p2','Población 31 de diciembre',42000],['d','Defunciones',520],['d1','Defunciones &lt; 1 año',26],['b','Nacimientos',480]],
+  v:{},
+  sol:function(i){var pm=(i.p1+i.p2)/2;return[
+   ['Población media','(P 1-ene + P 31-dic) / 2',fm(pm,0)+' hab'],
+   ['Tasa bruta de mortalidad','D / P media · 1.000',fpm(i.d/pm*1000,2)],
+   ['Mortalidad infantil','D(&lt;1) / nacidos vivos · 1.000',fpm(i.d1/i.b*1000,2)],
+   ['Crecimiento natural','N − D',sg(i.b-i.d,0)+' hab'],
+   ['Crecimiento total','P(t+1) − P(t)',sg(i.p2-i.p1,0)+' hab'],
+   ['Saldo migratorio (ecuación compensadora)','CT − CN',sg((i.p2-i.p1)-(i.b-i.d),0)+' hab']]},
+  k:['Tasa: denominador población media. Probabilidad: efectivos iniciales.','TMI y razón de masculinidad no son tasas en sentido estricto.'],
+  e:['Usar la población de 1 de enero como denominador de una tasa.','Comparar tasas brutas de dos poblaciones sin tipificar.']},
+ {id:'t2',t:'T2 · Completar dos filas de la tabla de mortalidad',mods:['mort'],
+  u:'Dadas l60 = 92.000, q60 = 0,008, q61 = 0,009, a = 0,5 y T62 = 1.900.000, completar dos filas de la tabla y hallar e61. Es la cuestión más calculable del bloque.',
+  inp:[['l60','l60',92000],['q60','q60',0.008],['q61','q61',0.009],['a','a (años vividos por quien muere)',0.5],['T62','T62',1900000]],
+  v:{},
+  sol:function(i){var d60=i.l60*i.q60,l61=i.l60-d60,L60=l61+i.a*d60,d61=l61*i.q61,l62=l61-d61,L61=l62+i.a*d61,T61=i.T62+L61;return[
+   ['d60 = l60·q60',fm(i.l60,0)+' · '+fm(i.q60,3),fm(d60,1)],
+   ['l61 = l60 − d60',fm(i.l60,0)+' − '+fm(d60,1),fm(l61,1)],
+   ['L60 = l61 + a·d60',fm(l61,1)+' + '+fm(i.a,1)+'·'+fm(d60,1),fm(L60,1)],
+   ['d61 = l61·q61',fm(l61,1)+' · '+fm(i.q61,3),fm(d61,1)],
+   ['l62 = l61 − d61',' ',fm(l62,1)],
+   ['L61 = l62 + a·d61',' ',fm(L61,1)],
+   ['T61 = T62 + L61',fm(i.T62,0)+' + '+fm(L61,1),fm(T61,1)],
+   ['e61 = T61 / l61',fm(T61,1)+' / '+fm(l61,1),fm(T61/l61,2)+' años']]},
+  k:['q entra en lx+1 = lx(1 − qx); m solo sirve para obtener q.','T se acumula de la edad final hacia atrás.'],
+  e:['Aplicar a0 = 0,5 al primer año de vida (≈ 0,1).','Decir que e0 es la edad media de defunción del año.']},
+ {id:'t3',t:'T3 · ISF, TBR, TNR y tasa intrínseca',mods:['fec'],
+  u:'Con tasas quinquenales por 1.000 mujeres, calcular ISF, edad media a la maternidad, TBR, TNR aproximada y tasa intrínseca de crecimiento. (Tasas del temario: 5, 20, 55, 95, 60, 12 y 1 por mil en los grupos 15-49.)',
+  inp:[],txt:[['tas','Tasas por 1.000 mujeres (7 grupos, separadas por comas)','5, 20, 55, 95, 60, 12, 1'],['S','Supervivencia femenina hasta la edad media',0.98],['T','Duración de la generación T (años)',32]],
+  v:{},
+  sol:function(i){
+   var t=String(i.tas).split(/[ ,;]+/).map(parseFloat).filter(function(x){return isFinite(x)});
+   if(t.length!==7)return null;
+   var xc=[17.5,22.5,27.5,32.5,37.5,42.5,47.5],sf=sum(t),isf=5*sf/1000;
+   var em=sum(xc.map(function(x,j){return x*t[j]}))/sf;
+   var tbr=isf*100/205,tnr=tbr*i.S,r=Math.log(tnr)/i.T;
+   return[
+   ['ISF = 5·Σ tasas / 1.000','5 · '+fm(sf,0)+' / 1.000',fm(isf,3)+' hijos/mujer'],
+   ['Edad media a la maternidad','Σ xc·fx / Σ fx',fm(em,2)+' años'],
+   ['TBR = ISF · 100/205',fm(isf,3)+' · 100/205',fm(tbr,4)],
+   ['TNR ≈ TBR · supervivencia',fm(tbr,4)+' · '+fm(i.S,2),fm(tnr,4)],
+   ['Tasa intrínseca r = ln(TNR)/T','ln('+fm(tnr,4)+') / '+fm(i.T,0),fp(r,2)]]},
+  k:['ISF = 5·Σ fx con tasas quinquenales.','TBR no incluye mortalidad; TNR sí.','El 2,1 de reemplazo depende del nivel de mortalidad.'],
+  e:['Poner en el denominador de fx toda la población de esa edad.','Concluir que cae la descendencia final porque cae el ISF: puede ser efecto calendario.']},
+ {id:'t4',t:'T4 · Saldo migratorio residual, observado y eficacia',mods:['mig'],
+  u:'Provincia de 1.200.000 habitantes que pasa a 1.215.000, con 9.000 nacimientos, 12.500 defunciones, 38.000 altas y 21.500 bajas por cambio de residencia. Se compara el saldo residual con el observado.',
+  inp:[['p0','Población 1-1-2024',1200000],['p1','Población 1-1-2025',1215000],['b','Nacimientos',9000],['d','Defunciones',12500],['alt','Altas por cambio de residencia',38000],['baj','Bajas por cambio de residencia',21500]],
+  v:{},
+  sol:function(i){var ct=i.p1-i.p0,cn=i.b-i.d,smr=ct-cn,smo=i.alt-i.baj,pm=(i.p0+i.p1)/2;return[
+   ['Crecimiento total','P1 − P0',sg(ct,0)+' hab'],
+   ['Crecimiento natural','N − D',sg(cn,0)+' hab'],
+   ['Saldo migratorio residual','CT − CN',sg(smr,0)+' hab'],
+   ['Saldo migratorio observado','altas − bajas',sg(smo,0)+' hab'],
+   ['Discrepancia (error conjunto)','residual − observado',sg(smr-smo,0)+' hab'],
+   ['Población media','(P0 + P1) / 2',fm(pm,0)+' hab'],
+   ['Tasa de inmigración (‰)','altas / P media · 1.000',fpm(i.alt/pm*1000,2)],
+   ['Tasa de emigración (‰)','bajas / P media · 1.000',fpm(i.baj/pm*1000,2)],
+   ['Tasa de migración neta (‰)','(altas − bajas) / P media · 1.000',fpm(smo/pm*1000,2)],
+   ['Índice de eficacia migratoria','(I − E) / (I + E)',fm((i.alt-i.baj)/(i.alt+i.baj),3)]]},
+  k:['Saldo residual = crecimiento total − crecimiento natural.','El saldo puede ser negativo; IEM distingue saldo nulo de ausencia de movimientos.'],
+  e:['Presentar el saldo residual como medición.','Sumar migraciones interiores al saldo nacional: se anulan.']},
+ {id:'t5',t:'T5 · Estructura por edades y crecimiento',mods:['str'],
+  u:'Población de 10 millones con 1,3 M de 0-14, 6,4 M de 15-64 y 2,3 M de 65 y más (0,7 M de 80 y más) que pasa a 10,4 M en cinco años, con un crecimiento natural de −50.000. Índices de estructura, crecimiento y saldo migratorio.',
+  inp:[['j','Menores de 15 años',1300000],['a','De 15 a 64 años',6400000],['m','65 y más',2300000],['m80','80 y más',700000],['p5','Población cinco años después',10400000],['cn','Crecimiento natural del quinquenio',-50000]],
+  v:{},
+  sol:function(i){var p0=i.j+i.a+i.m,r=Math.log(i.p5/p0)/5;return[
+   ['Población inicial','suma de los tres grupos',fm(p0,0)+' hab'],
+   ['Índice de envejecimiento','P65+ / P0-14 · 100',fm(i.m/i.j*100,1)+' %'],
+   ['Sobreenvejecimiento','P80+ / P65+ · 100',fm(i.m80/i.m*100,1)+' %'],
+   ['Dependencia total','(P0-14 + P65+) / P15-64 · 100',fm((i.j+i.m)/i.a*100,1)+' %'],
+   ['Dependencia juvenil','P0-14 / P15-64 · 100',fm(i.j/i.a*100,1)+' %'],
+   ['Dependencia senil','P65+ / P15-64 · 100',fm(i.m/i.a*100,1)+' %'],
+   ['Crecimiento exponencial r','ln(Pt / P0) / 5',fp(r,3)],
+   ['Tiempo de duplicación','ln 2 / r',fm(Math.log(2)/r,1)+' años'],
+   ['Saldo migratorio del quinquenio','(Pt − P0) − CN',sg((i.p5-p0)-i.cn,0)+' hab']]},
+  k:['Estable: crecimiento constante; estacionaria: crecimiento nulo (e0 = 1/TBM solo ahí).','El envejecimiento se debe sobre todo a la caída de la fecundidad.'],
+  e:['Aplicar e0 = 1/TBM a una población real.','Comparar pirámides con efectivos absolutos.']},
+ {id:'t6',t:'T6 · Proyección, nacimientos e interpolación',mods:['cre'],
+  u:'Envejecer cinco años el grupo de mujeres de 30-34 con supervivencia (5L30 = 496.000, 5L35 = 494.000) y migración (+6.000), calcular los nacimientos del grupo 25-29 (300.000 → 310.000, 5f25 = 0,055) e interpolar la población entre dos censos (1.000 → 1.350 en 10 años, en t = 5).',
+  inp:[['m3034','Mujeres 30-34 (inicio)',320000],['L30','5L30',496000],['L35','5L35',494000],['sm','Saldo migratorio quinquenal',6000],['m25i','Mujeres 25-29 al inicio',300000],['m25f','Mujeres 25-29 al final',310000],['f25','5f25 (por mujer y año)',0.055],['p0c','Población en t = 0',1000],['p1c','Población en t = 10',1350],['tc','Años del periodo intercensal',10],['ti','Momento a interpolar (años)',5]],
+  v:{},
+  sol:function(i){var S30=i.L35/i.L30,m35=i.m3034*S30+i.sm,ma=(i.m25i+i.m25f)/2*5,B=ma*i.f25;return[
+   ['Relación de supervivencia 5S30','5L35 / 5L30 = '+fm(i.L35,0)+' / '+fm(i.L30,0),fm(S30,5)],
+   ['Mujeres 35-39 dentro de 5 años','P·S + M = '+fm(i.m3034,0)+'·'+fm(S30,5)+' + '+fm(i.sm,0),fm(m35,0)+' hab'],
+   ['Mujeres-año del grupo 25-29','(inicio + final)/2 · 5',fm(ma,0)+' mujeres-año'],
+   ['Nacimientos del grupo 25-29','mujeres-año · 5f25',fm(B,0)+' nacimientos'],
+   ['Interpolación lineal','P0 + (P1 − P0)·t/T',fm(i.p0c+(i.p1c-i.p0c)*i.ti/i.tc,1)],
+   ['Interpolación exponencial','P0 · (P1/P0)^(t/T)',fm(i.p0c*Math.pow(i.p1c/i.p0c,i.ti/i.tc),1)],
+   ['Tasa exponencial intercensal','ln(P1/P0) / T',fp(Math.log(i.p1c/i.p0c)/i.tc,3)]]},
+  k:['Se proyecta con Lx+1/Lx, no con px.','El grupo 0-4 son nacimientos supervivientes: B·L0/(n·l0).'],
+  e:['Aplicar f a las mujeres del inicio y olvidar la amplitud.','Confundir estimación intercensal (pasado) con proyección (futuro).']},
+ {id:'t7',t:'T7 · Tasas de jefatura y proyección de hogares',mods:['str'],
+  u:'En el grupo de 30-34 años hay 1.400.000 personas y 620.000 son persona de referencia. Se proyecta 1.320.000 personas con tasa de jefatura 0,470: ¿cuántos hogares genera y qué pasa con su tamaño medio?',
+  inp:[['pob','Población 30-34 actual',1400000],['pr','Personas de referencia actuales',620000],['pobp','Población 30-34 proyectada',1320000],['hp','Tasa de jefatura proyectada',0.47]],
+  v:{},
+  sol:function(i){var h=i.pr/i.pob,H=i.pobp*i.hp;return[
+   ['Tasa de jefatura actual','PR / P = '+fm(i.pr,0)+' / '+fm(i.pob,0),fm(h,4)],
+   ['Hogares proyectados','población proyectada · tasa proyectada',fm(H,0)+' hogares'],
+   ['Variación de la población','(final − inicial) / inicial',fp(i.pobp/i.pob-1,2)],
+   ['Variación de los hogares','(proyectados − actuales) / actuales',fp(H/i.pr-1,2)],
+   ['Tamaño medio actual','población / hogares',fm(i.pob/i.pr,2)+' personas/hogar'],
+   ['Tamaño medio proyectado','población proyectada / hogares proyectados',fm(i.pobp/H,2)+' personas/hogar']]},
+  k:['Si cae la población, los hogares no caen necesariamente: depende de la tasa de jefatura.','Hogar = residencia y presupuesto; familia = parentesco.'],
+  e:['Dividir población total por tamaño medio sin descontar viviendas colectivas.','Interpretar la persona de referencia como jefatura o autoridad.']},
+ {id:'t8',t:'T8 · Padrón frente a censo',mods:['str'],
+  u:'Un municipio tiene 84.500 habitantes según el padrón y 82.100 según el censo referido a la misma fecha. Hay que explicar la diferencia y elegir la fuente adecuada para cada uso.',
+  inp:[['pad','Población según el padrón',84500],['cen','Población según el censo',82100]],
+  v:{},
+  sol:function(i){var dif=i.pad-i.cen;return[
+   ['Diferencia','padrón − censo',fm(dif,0)+' personas'],
+   ['Sobre el padrón','diferencia / padrón',fp(dif/i.pad,2)],
+   ['Sobre el censo','diferencia / censo',fp(dif/i.cen,2)],
+   ['Por qué difieren','inscripciones vigentes ≠ residentes efectivos','No es un error de medición: son dos conceptos. El padrón sobreestima porque nadie comunica la baja; se concentra en población extranjera y adultos jóvenes.'],
+   ['Estructura por estudios, tasas de actividad por sección',' ', 'Censo'],
+   ['Financiación local, censo electoral',' ','Padrón'],
+   ['Serie trimestral de población y flujos',' ','Estadística Continua de Población']]},
+  k:['El censo de 2021 fue íntegramente basado en registros.','El padrón es municipal, con coordinación del INE, y no exige situación regular.'],
+  e:['Presentar la discrepancia como error de medición.','Confundir padrón con censo electoral, o población de hecho con de derecho.']}
+];
+EJS.forEach(function(ej){ej.inp.forEach(function(r){ej.v[r[0]]=r[2]});(ej.txt||[]).forEach(function(r){ej.v[r[0]]=r[2]})});
+function ejSol(id){
+  var ej=null;EJS.forEach(function(x){if(x.id===id)ej=x});
+  if(!ej)return '';
+  var rows=ej.sol(ej.v);
+  if(!rows)return '<p class="hint">Introduce exactamente 7 tasas (una por grupo quinquenal de 15 a 49).</p>';
+  return '<table class="kv wide"><tbody>'+rows.map(function(r){return '<tr><td>'+r[0]+'</td><td><code>'+r[1]+'</code></td><td>'+r[2]+'</td></tr>'}).join('')+'</tbody></table>';
+}
+function tabEjer(){
+  var h='<h4>Cuestiones prácticas del temario</h4><p class="hint">Los ocho ejercicios de las hojas de demografía de HojaCraft, con sus datos. Intenta resolverlos en papel (~10 min) antes de abrir la solución; luego cambia un dato y comprueba si tu intuición sigue funcionando.</p>';
+  EJS.forEach(function(ej){
+    var chip=ej.mods.map(function(m){return ty(DEF[m].name,m==='mort'?1:m==='fec'?13:m==='est'?3:m==='cre'?12:m==='mig'?9:4)}).join(' ');
+    h+='<article class="ej"><header>'+mono(ej.mods[0])+'<h3>'+ej.t+'</h3><span class="tys">'+chip+'</span></header><div class="bd">'+
+      '<p class="enun">'+ej.u+'</p>'+
+      '<div class="fields">'+ej.inp.map(function(r){return numFld('ej-'+ej.id+'-'+r[0],r[1],ej.v[r[0]])}).join('')+(ej.txt||[]).map(function(r){return txtFld('ej-'+ej.id+'-'+r[0],r[1],r[2])}).join('')+'</div>'+
+      '<details><summary>Ver solución paso a paso</summary><div class="sol" id="ej-'+ej.id+'-out">'+ejSol(ej.id)+'</div></details>'+
+      '<div class="ke"><div><h6>Claves</h6><ul>'+ej.k.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div><div><h6>Errores típicos</h6><ul>'+ej.e.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div></div>'+
+      '</div></article>';
+  });
+  return h;
+}
+
+/* ===== Memorizar ===== */
+var MEM={
+ mort:{m:'qx = n·mx / (1 + (n − ax)·mx)\nl(x+n) = lx·(1 − qx)\nLx = n·l(x+n) + ax·dx   (abierto: Lx = lx/mx)\nTx = Lx + T(x+n)\nex = Tx / lx',
+  k:['Distingue <b>mx</b> (tasa) de <b>qx</b> (probabilidad): muchos problemas dan una y piden la otra.','Conoce la hipótesis de <b>ax</b>: n/2 por defecto, menor en la edad 0; el grupo abierto se cierra con qx = 1 y Lx = lx/mx.','La esperanza de vida es una medida de <b>período</b>: no depende de la estructura por edades, por eso sirve para comparar.','Comprueba siempre: lx decrece, la suma de dx es l0 y e0 es razonable.'],
+  e:['Usar la población a 1 de enero en vez de la de mitad de año.','Olvidar que Lx del último grupo es lx/mx, no n·lx.','Confundir e0 con la edad media de los fallecidos.'],
+  x:'Sube el nivel de mortalidad y mira cómo cambian qx, e0 y e65. Cambia ax de la edad 0 a 0,5 y observa el efecto en e0.'},
+ fec:{m:'fx = Bx / Mx\nISF = 5·Σ fx\nTBR = ISF · 100/205\nTNR = Σ fx·5Lx / l0 · 100/205\nr ≈ ln(TNR) / T',
+  k:['El <b>ISF</b> es un indicador de periodo (generación ficticia), no la descendencia final de ninguna generación real.','Con grupos quinquenales el ISF es 5·Σfx; con edades simples, Σfx.','Reemplazo: ISF ≈ 2,1 y TNR = 1. La TNR añade mortalidad y cuenta solo hijas.','TGF, TBN e ISF miden cosas distintas: solo el ISF elimina el efecto de la estructura por edades.'],
+  e:['Usar el límite del grupo (15) en lugar de la edad central (17,5) para la edad media.','Olvidar la proporción de nacimientos femeninos en la TNR.'],
+  x:'Cambia el nivel de fecundidad y mira ISF, edad media y TNR. Retrasa el calendario: ¿qué indicadores se mueven y cuáles no?'},
+ est:{m:'TEd = Σ tx(A)·Px(est) / ΣPx(est)\nRME = Observadas / Σ tx(ref)·Px(A)\nTasa indirecta = RME · TBM(ref)',
+  k:['La tasa bruta mezcla mortalidad y estructura por edades: por eso hay que estandarizar.','Directa: necesita tasas específicas de A y población tipo. Indirecta: solo defunciones totales y estructura de A (útil en poblaciones pequeñas).','La tasa estandarizada solo sirve para comparar; su valor depende de la población tipo elegida.','RME &gt; 1: más defunciones que las esperadas con las tasas de referencia.'],
+  e:['Mezclar unidades (‰ frente a tanto por uno).','Comparar entre sí RME de poblaciones distintas como si compartieran estructura.'],
+  x:'Cambia la estructura de A a «Envejecida»: su tasa bruta sube sin que cambie ninguna tasa específica. ¿Y la estandarizada?'},
+ cre:{m:'r = (Pn/P0)^(1/n) − 1\nr = ln(Pn/P0) / n\nT = ln2 / ln(1+r)   ·   T = ln2 / r\nTBN = N/P·1.000   ·   TBM = D/P·1.000\nCN = TBN − TBM',
+  k:['Geométrico: r = (Pf/Pi)^(1/n) − 1; exponencial: r = ln(Pf/Pi)/n.','Las tasas brutas usan la población media del periodo en el denominador.','Tiempo de duplicación ≈ 70 / (r en %).','Crecimiento total = crecimiento natural + saldo migratorio (por mil).'],
+  e:['Dividir por la población inicial o final en lugar de la media.','Olvidar que el exponente es 1/n con n en años.'],
+  x:'Cambia la población final y compara r geométrica y exponencial: ¿cuándo se parecen más? Alarga el periodo y mira la divergencia.'},
+ mig:{m:'SM = I − E\nSM residual = CT − (N − D)\nTMN = (I − E)/P·1.000\nIEM = (I − E)/(I + E)',
+  k:['Saldo residual = crecimiento total − crecimiento natural.','El saldo puede ser negativo; IEM distingue saldo nulo de ausencia de movimientos.'],
+  e:['Presentar el saldo residual como medición.','Sumar migraciones interiores al saldo nacional: se anulan.'],
+  x:'Cambia las bajas y mira cómo se separan saldo residual y observado. Pon altas = bajas: el IEM cae a 0 aunque la rotación siga siendo enorme.'},
+ str:{m:'IE = P65+/P0-14 · 100\nDependencia = (P0-14 + P65+)/P15-64 · 100\nr = ln(Pt/P0)/t\nt2 = ln2 / r',
+  k:['Estable: crecimiento constante; estacionaria: crecimiento nulo (e0 = 1/TBM solo ahí).','El envejecimiento se debe sobre todo a la caída de la fecundidad.'],
+  e:['Aplicar e0 = 1/TBM a una población real.','Comparar pirámides con efectivos absolutos.'],
+  x:'Cambia a la estructura «Joven» y comprueba cómo bajan el índice de envejecimiento y la dependencia senil.'}
+};
+function tabMem(){
+  var p=MEM[S.mod];
+  return '<h4>Para memorizar</h4><pre class="mem">'+p.m+'</pre>'+
+    '<h4>Lo más importante</h4><ol style="margin:6px 0 0;padding-left:20px;font-size:.84rem;color:var(--ink-2)">'+p.k.map(function(x){return '<li style="margin:4px 0">'+x+'</li>'}).join('')+'</ol>'+
+    '<h4>Errores típicos</h4><ul style="margin:6px 0 0;padding-left:20px;font-size:.84rem;color:var(--ink-2)">'+p.e.map(function(x){return '<li style="margin:4px 0">'+x+'</li>'}).join('')+'</ul>'+
+    '<div class="callout"><span><b>Practica con este panel:</b> '+p.x+'</span></div>';
+}
+function renderAnalysis(){
+  var b={lect:tabLect,calc:tabCalc,cmp:tabCmp,ejer:tabEjer,mem:tabMem}[S.tab]();
+  $('analysis').innerHTML='<div class="tabs" role="tablist">'+TABS.map(function(t){return '<button type="button" role="tab" class="tab" data-act="tab" data-t="'+t[0]+'" aria-selected="'+(S.tab===t[0])+'">'+t[1]+'</button>'}).join('')+'</div><div class="ana-body" role="tabpanel">'+b+'</div>';
+}
+function renderAnalysisSoft(){if(S.tab!=='ejer')renderAnalysis()}
+
+/* ===== tema ===== */
+function curTheme(){return document.documentElement.getAttribute('data-theme')||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}
+function syncTheme(){var d=curTheme()==='dark',b=$('themeBtn');b.textContent=d?'Modo claro':'Modo oscuro';b.setAttribute('aria-pressed',d)}
+try{var th=localStorage.getItem('demo-theme');if(th)document.documentElement.setAttribute('data-theme',th)}catch(e){}
+
+/* ===== eventos ===== */
+var DEF_S={mlevel:1,a0:0.1,fshift:0,flevel:1,estA:'base',strA:'base',
+  cr:{p0:1000000,p1:1080000,n:5,nac:9500,def:8200},
+  mg:{p0:1200000,p1:1215000,nac:9000,def:12500,altas:38000,bajas:21500},
+  str:{p5:10400000,cn:-50000}};
+function resetMod(){
+  var m=S.mod;
+  if(m==='mort'){S.mlevel=1;S.a0=0.1}
+  if(m==='fec'){S.fshift=0;S.flevel=1}
+  if(m==='est')S.estA='base';
+  if(m==='cre')S.cr=JSON.parse(JSON.stringify(DEF_S.cr));
+  if(m==='mig')S.mg=JSON.parse(JSON.stringify(DEF_S.mg));
+  if(m==='str'){S.strA='base';S.str=JSON.parse(JSON.stringify(DEF_S.str))}
+  recompute();renderAll();
+}
+function softRefresh(){
+  recompute();renderTeam();renderEdOut();renderAnalysisSoft();
+}
+function setNum(id,txt){var el=$(id);if(el)el.textContent=txt}
+document.addEventListener('click',function(ev){
+  var t=ev.target.closest&&ev.target.closest('[data-act]');if(!t)return;
+  var a=t.getAttribute('data-act'),v=t.getAttribute('data-v');
+  if(a==='closepop'){if(ev.target===t||t.tagName==='BUTTON')closePop();return}
+  if(a==='mod'){S.mod=t.getAttribute('data-d');renderTeam();renderEditor();renderAnalysis();return}
+  if(a==='tab'){S.tab=t.getAttribute('data-t');renderAnalysis();return}
+  if(a==='view'){S.view=v;renderView();return}
+  if(a==='pop'){dataPop();return}
+  if(a==='reset'){resetMod();return}
+  if(a==='a0'){S.a0=+v;softRefresh();return}
+  if(a==='estA'){S.estA=v;softRefresh();return}
+  if(a==='strA'){S.strA=v;softRefresh();return}
+  if(a==='theme'){var nt=curTheme()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',nt);try{localStorage.setItem('demo-theme',nt)}catch(e){}syncTheme();return}
+  if(a==='ciclo'){var cp=$('ciclo'),op=cp.hidden;cp.hidden=!op;t.setAttribute('aria-expanded',String(op));t.textContent=op?'Ocultar ciclo de repaso':'Ciclo de repaso';return}
+  if(a==='hidenote'){$('note').hidden=true;return}
+});
+document.addEventListener('input',function(ev){
+  var t=ev.target,id=t.id;
+  if(!id)return;
+  if(id==='mlvl'){S.mlevel=+t.value;setNum('mlvl-n','× '+fm(S.mlevel,2));softRefresh();return}
+  if(id==='fsh'){S.fshift=+t.value;setNum('fsh-n',(S.fshift>=0?'+':'')+fm(S.fshift,0)+' años');softRefresh();return}
+  if(id==='flv'){S.flevel=+t.value;setNum('flv-n','× '+fm(S.flevel,2));softRefresh();return}
+  var m=id&&/^cr-(p0|p1|n|nac|def)$/.exec(id);
+  if(m){S.cr[m[1]]=parseFloat(t.value)||0;softRefresh();return}
+  var g=id&&/^mg-(p0|p1|nac|def|altas|bajas)$/.exec(id);
+  if(g){S.mg[g[1]]=parseFloat(t.value)||0;softRefresh();return}
+  var st=id&&/^str-(p5|cn)$/.exec(id);
+  if(st){S.str[st[1]]=parseFloat(t.value)||0;softRefresh();return}
+  var ej=id&&/^ej-(t\d)-(.+)$/.exec(id);
+  if(ej){
+    var box=null;EJS.forEach(function(x){if(x.id===ej[1])box=x});
+    if(box){box.v[ej[2]]=t.type==='text'?t.value:(parseFloat(t.value)||0);
+      var el=$('ej-'+ej[1]+'-out');if(el)el.innerHTML=ejSol(ej[1]);}
+  }
+});
+document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&!$('modal').hidden)closePop()});
+
+recompute();renderAll();syncTheme();
+window.DEMO={S:S,get CALCS(){return CALCS},recompute:recompute,lifeTable:lifeTable,fecCalc:fecCalc,estCalc:estCalc,creCalc:creCalc,migCalc:migCalc,strCalc:strCalc,EJS:EJS};
+})();
+</script>
+</body>
+</html>
