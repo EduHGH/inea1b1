@@ -254,6 +254,7 @@ small{font-size:.78em}
     <input id="seed" type="number" min="1" step="1" inputmode="numeric" aria-label="Semilla del sorteo">
     <button class="btn primary" type="button" data-act="draw">Sortear muestra</button>
     <button class="btn" type="button" data-act="pop">Ver población</button>
+    <button class="btn" type="button" data-act="ciclo" aria-expanded="false" aria-controls="ciclo">Ciclo de repaso</button>
     <button class="btn ghost" type="button" data-act="theme" id="themeBtn" aria-pressed="false">Modo oscuro</button>
   </div>
 </header>
@@ -262,6 +263,35 @@ small{font-size:.78em}
   <span><b>Misma población, mismo n, seis maneras de elegir.</b> Cada diseño sortea empresas a su manera y todos estiman el total de ventas con el mismo estimador de Horvitz-Thompson, <b>T̂ = Σ y/π</b>. Elige un diseño a la izquierda, vuelve a sortear y compara en la pestaña <b>Comparar</b>.</span>
   <button class="btn sm" type="button" data-act="hidenote">Ocultar</button>
 </div>
+
+<section id="ciclo" hidden style="margin:0 0 12px;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:8px;font-size:.86rem;line-height:1.5">
+  <h4>Ciclo de repaso diario · diseños de muestreo</h4>
+  <p class="hint">Siete días, unos 45-60 minutos por sesión (ajústalo al tiempo que tengas). Cada sesión repite los mismos cuatro bloques y los diseños rotan para que cada uno vuelva a salir cada semana.</p>
+  <h4 style="margin-top:12px">Sesión diaria</h4>
+  <ol style="margin:6px 0 0;padding-left:20px">
+    <li><b>Recuerdo (10 min).</b> Antes de mirar nada, escribe de memoria los cinco pasos del diseño del día: marco, πₖ y πₖₗ, estimador, V y V̂, y deff frente al MAS. Luego repasa en 5 minutos el diseño de ayer, con una frase por paso.</li>
+    <li><b>Visualizador (10 min).</b> Abre el diseño, predice qué pasará al cambiar un control (orden del marco, x informativa o sin relación, n), compruébalo y revisa la pestaña «Comparar».</li>
+    <li><b>Producción (20 min).</b> Resuelve a mano una demostración de «Demostraciones» o un enunciado real de tu compilación, cronometrado a unos 5 minutos por pregunta de teoría. Si te atascas, abre la solución y repítelo al día siguiente.</li>
+    <li><b>Cierre (5 min).</b> Anota en una línea tu error más importante del día y conviértelo en una tarjeta.</li>
+  </ol>
+  <h4 style="margin-top:12px">Rotación semanal</h4>
+  <div class="tw"><table class="kv wide"><thead><tr><th>Día</th><th style="text-align:left">Diseño</th><th style="text-align:left">Enunciados para practicar</th></tr></thead><tbody>
+    <tr><td>1</td><td>MAS, πₖ, Σπ = n, Horvitz-Thompson</td><td>2024-P1a/b, 2025-P1, 2026-P1</td></tr>
+    <tr><td>2</td><td>Estratificado: proporcional frente a Neyman</td><td>2024-E2-C6</td></tr>
+    <tr><td>3</td><td>Sistemático: orden y ciclo</td><td>2024-P2, 2025-E2-C1</td></tr>
+    <tr><td>4</td><td>PPS: πps, π &gt; 1, algoritmo con I = T/n, SYG</td><td>2025-P3, 2026-P4</td></tr>
+    <tr><td>5</td><td>Conglomerados: deff, ρ, razones de uso</td><td>2026-P3, 2025-P4, 2025-E2-C6</td></tr>
+    <tr><td>6</td><td>Bernoulli, Poisson, con reemplazamiento, n para proporciones</td><td>2025-P2, 2024-P3, 2026-P2</td></tr>
+    <tr><td>7</td><td>Mixto: elige dos diseños al azar y compáralos por escrito (8 min cada uno); luego 3 o 4 preguntas de teoría seguidas en 40 min</td><td>Las que más fallaste</td></tr>
+  </tbody></table></div>
+  <h4 style="margin-top:12px">Cómo evoluciona</h4>
+  <ul style="margin:6px 0 0;padding-left:20px">
+    <li><b>Semana 1:</b> haz el ciclo con el material delante cuando lo necesites.</li>
+    <li><b>Semana 2:</b> escribe sin mirar las demostraciones y los pasos, y reserva el visualizador para comprobar.</li>
+    <li><b>Semana 3 en adelante:</b> solo respuestas cronometradas. El día 7 pasa a ser un simulacro y revisas únicamente las preguntas que falles.</li>
+  </ul>
+  <div class="callout"><span>La tabla de <b>Comparar</b> (autoponderado, V̂ insesgada) sirve de repaso rápido de verdadero o falso: recítala en 2 minutos cada mañana antes de empezar.</span></div>
+</section>
 
 <div class="viewseg" id="viewseg" role="group" aria-label="Vista">
   <button type="button" data-act="view" data-v="editor" aria-pressed="true">Diseño</button>
@@ -941,6 +971,7 @@ document.addEventListener('click',function(ev){
   if(a==='view'){S.view=v;renderView();return}
   if(a==='pop'){openPop();return}
   if(a==='theme'){var nt=curTheme()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',nt);try{localStorage.setItem('mu-theme',nt)}catch(e){}syncTheme();return}
+  if(a==='ciclo'){var cp=$('ciclo'),op=cp.hidden;cp.hidden=!op;t.setAttribute('aria-expanded',String(op));t.textContent=op?'Ocultar ciclo de repaso':'Ciclo de repaso';return}
   if(a==='hidenote'){$('note').hidden=true;return}
 });
 document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&!$('modal').hidden)closePop()});
