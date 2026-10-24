@@ -1,0 +1,1378 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cuentas Nacionales · Taller de agregados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#eceff4; --surface:#ffffff; --surface-2:#f4f6fa; --ink:#151925; --ink-2:#444c61; --ink-3:#636b80;
+  --line:#d6dae5; --line-2:#e6e9f1; --accent:#2750d0; --accent-ink:#ffffff; --accent-soft:#e1e8fb;
+  --good:#177a3b; --warn:#935305; --bad:#c23a2b;
+  --display:'Chakra Petch','Rajdhani','Arial Narrow',system-ui,sans-serif;
+  --body:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --ty-0:#a3a08a;--tf-0:#1b1a14;  --ty-1:#c04a38;--tf-1:#ffffff;  --ty-2:#8aa3e6;--tf-2:#101a3a;
+  --ty-3:#a455b8;--tf-3:#ffffff;  --ty-4:#d2ac5a;--tf-4:#2a1d05;  --ty-5:#b5a14f;--tf-5:#221c05;
+  --ty-6:#9db526;--tf-6:#1a2204;  --ty-7:#6b5ca3;--tf-7:#ffffff;  --ty-8:#8da2b3;--tf-8:#0f1c27;
+  --ty-9:#ee7b30;--tf-9:#2b1000;  --ty-10:#3a7fdc;--tf-10:#ffffff;--ty-11:#52b04c;--tf-11:#0c2a0a;
+  --ty-12:#f1c721;--tf-12:#2b2300;--ty-13:#ec5d8e;--tf-13:#2e0716;--ty-14:#78cfd1;--tf-14:#08282a;
+  --ty-15:#6a4fd6;--tf-15:#ffffff;--ty-16:#5a4b45;--tf-16:#ffffff;--ty-17:#ea8fc6;--tf-17:#36102a;
+  --ty-18:#6f7684;--tf-18:#ffffff;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1118; --surface:#171b26; --surface-2:#1d2230; --ink:#e8ebf3; --ink-2:#aab1c4; --ink-3:#8088a0;
+    --line:#2b3145; --line-2:#232839; --accent:#8fa8ff; --accent-ink:#0d1330; --accent-soft:#1f2a52;
+    --good:#58c987; --warn:#e8ad55; --bad:#ff8070; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1118; --surface:#171b26; --surface-2:#1d2230; --ink:#e8ebf3; --ink-2:#aab1c4; --ink-3:#8088a0;
+  --line:#2b3145; --line-2:#232839; --accent:#8fa8ff; --accent-ink:#0d1330; --accent-soft:#1f2a52;
+  --good:#58c987; --warn:#e8ad55; --bad:#ff8070; color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:18px 56px}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+input,select{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:.45rem .55rem;min-width:0;max-width:100%}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+small{font-size:.78em}
+
+/* barra superior */
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 20px;max-width:1640px;margin:0 auto 14px}
+.brand h1{font:700 1.6rem/1 var(--display);letter-spacing:.01em}
+.brand p{margin-top:6px;color:var(--ink-3);font:500 .75rem var(--mono)}
+.top-ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:600 .82rem var(--body);padding:.5rem .8rem;border:1px solid var(--line);background:var(--surface);border-radius:6px}
+.btn:hover{border-color:var(--ink-3)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent}
+.btn.sm{padding:.3rem .6rem;font-size:.76rem}
+.note{max-width:1640px;margin:0 auto 14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:.6rem .85rem;border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--surface);border-radius:6px;color:var(--ink-2);font-size:.84rem}
+.note b{color:var(--ink)}
+.seg{display:inline-flex}
+.seg button{border:1px solid var(--line);background:var(--surface);padding:.3rem .6rem;font:600 .74rem var(--body)}
+.seg button:first-child{border-radius:5px 0 0 5px}.seg button:last-child{border-radius:0 5px 5px 0}
+.seg button+button{border-left:0}
+.seg button[aria-pressed=true]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.seg.lg button{padding:.5rem .7rem;font-size:.8rem}
+
+/* rejilla principal */
+.app{display:grid;grid-template-columns:15.5rem minmax(0,1fr) minmax(0,25rem);gap:14px;align-items:start;max-width:1640px;margin:0 auto}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;min-width:0}
+.viewseg{display:none;max-width:1640px;margin:0 auto 12px;gap:0}
+.viewseg button{flex:1;padding:.55rem;border:1px solid var(--line);background:var(--surface);font-weight:600}
+.viewseg button:first-child{border-radius:6px 0 0 6px}.viewseg button:last-child{border-radius:0 6px 6px 0;border-left:0}
+.viewseg button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+@media (max-width:1240px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .viewseg{display:flex}
+  .app[data-view=editor] .analysis{display:none}
+  .app[data-view=analysis] .editor{display:none}
+}
+
+/* equipo = bloques */
+.team{display:flex;flex-direction:column;gap:8px;min-width:0}
+@media (max-width:1240px){.team{display:grid;grid-template-columns:repeat(auto-fill,minmax(9.6rem,1fr))}.team-h{grid-column:1/-1}}
+.team-h{display:flex;justify-content:space-between;align-items:baseline;padding:0 2px}
+.team-h h2{font:600 .72rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.cnt{font:600 .75rem var(--mono);color:var(--ink-3)}
+.slot{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 10px;align-items:center;text-align:left;width:100%;padding:10px;border:1px solid var(--line);background:var(--surface);border-radius:10px}
+.slot:hover{border-color:var(--ink-3)}
+.slot[aria-pressed=true]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.slot .mono{grid-row:1/3}
+.slot .nm{font:600 .98rem/1.15 var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.slot .nm small{display:block;font:500 .66rem var(--body);color:var(--ink-3);overflow:hidden;text-overflow:ellipsis}
+.slot .tys{display:flex;gap:4px;flex-wrap:wrap}
+.slot .foot{grid-column:1/-1;display:flex;align-items:flex-end;gap:10px;margin-top:5px}
+.spark{flex:1;height:24px;min-width:0}
+.spark svg{display:block;width:100%;height:24px}
+.spe{font:600 .72rem var(--mono);color:var(--ink-2);white-space:nowrap}
+
+/* tipos y monograma */
+.ty{display:inline-block;background:var(--tc);color:var(--tx);font:600 .64rem/1 var(--body);letter-spacing:.07em;text-transform:uppercase;padding:.3rem .45rem;border-radius:3px;white-space:nowrap}
+.tys{display:flex;gap:4px;flex-wrap:wrap}
+.mono{--c1:var(--ty-0);--c2:var(--ty-0);width:2.6rem;aspect-ratio:1;border-radius:9px;background:linear-gradient(135deg,var(--c1) 50%,var(--c2) 50%);display:grid;place-items:center;flex:none}
+.mono i{font:700 .78rem/1 var(--display);font-style:normal;background:var(--surface);color:var(--ink);width:58%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center}
+.mono.sm{width:1.75rem;border-radius:6px}.mono.sm i{font-size:.54rem}
+.mono.lg{width:4.2rem;border-radius:12px}.mono.lg i{font-size:1.1rem}
+
+/* editor */
+.editor{padding:16px}
+.ed-head{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.ed-id{flex:1;min-width:12rem}
+.ed-id h2{font:700 1.5rem/1.1 var(--display)}
+.ed-id h2 small{font:500 .8rem var(--body);color:var(--ink-3);margin-left:6px}
+.ed-id .tys{margin:7px 0 6px}
+.meta{font:500 .74rem var(--mono);color:var(--ink-3)}
+.ed-act{display:flex;gap:6px;flex-wrap:wrap}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:12px 14px;margin:16px 0 4px}
+.fld{display:flex;flex-direction:column;gap:5px;min-width:0;align-items:flex-start}
+.fld>.l,.sec-h{font:600 .68rem var(--body);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.hint{font-size:.76rem;color:var(--ink-3);line-height:1.35}
+.sec-h{margin:20px 0 8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.sec-h .r{font:600 .75rem var(--mono);letter-spacing:0;text-transform:none;color:var(--ink-3)}
+.tw{overflow-x:auto}
+.num{font:600 .82rem var(--mono)}
+.up{color:var(--good)}.dn{color:var(--bad)}
+input[type=number]{width:8.2rem;font:600 .82rem var(--mono)}
+.fld input[type=number]{width:100%}
+
+/* sliders */
+input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;border:0;padding:0;height:1.5rem;width:100%}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:var(--line)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--accent);margin-top:-5.5px;border:2px solid var(--surface);box-shadow:0 0 0 1px var(--line)}
+input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:var(--line)}
+input[type=range]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--surface);box-shadow:0 0 0 1px var(--line)}
+
+/* gráficos svg */
+.ch{display:block;width:100%;height:auto}
+.ch .ln{fill:none;stroke:var(--accent);stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+.ch .ln.b{stroke:var(--ty-9)}
+.ch .ln.c{stroke:var(--ty-11)}
+.ch .ln.d{stroke:var(--ink-3);stroke-width:1.4;stroke-dasharray:4 3}
+.ch .gr{stroke:var(--line);stroke-width:1}
+.ch .ax{font:500 9px var(--mono);fill:var(--ink-3)}
+.ch .lab{font:600 8.5px var(--mono);fill:var(--ink-2)}
+.ch .bar{fill:var(--c,var(--accent))}
+.ch .mk{stroke:var(--bad);stroke-width:1.4;stroke-dasharray:3 3}
+.cc{border:1px solid var(--line-2);border-radius:8px;padding:8px 8px 4px;background:var(--surface)}
+.cc .cc-t{font:600 .66rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px 2px}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(14.5rem,1fr));gap:10px}
+.cleg{display:flex;flex-wrap:wrap;gap:4px 14px;font:500 .7rem var(--mono);color:var(--ink-3);margin-top:6px}
+.cleg span{display:inline-flex;align-items:center;gap:5px}
+.cleg s{display:inline-block;width:.9rem;height:.28rem;border-radius:2px;background:var(--c);text-decoration:none}
+.cleg s.dot{width:.7rem;height:.7rem;border-radius:50%}
+
+/* tablas de datos */
+.sam{max-height:26rem;overflow:auto;border:1px solid var(--line-2);border-radius:8px;background:var(--surface)}
+.sam table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.sam th{position:sticky;top:0;z-index:1;background:var(--surface);font:600 .62rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);text-align:right;padding:6px 5px;border-bottom:1px solid var(--line)}
+.sam td{padding:4px 5px;border-top:1px solid var(--line-2);font:500 .72rem var(--mono);text-align:right;white-space:nowrap}
+.sam th:first-child,.sam td:first-child{text-align:left}
+.sam td.z{text-align:left}
+.sam tfoot td{position:sticky;bottom:0;background:var(--surface-2);font-weight:700;border-top:1px solid var(--line)}
+.zdot{display:inline-block;width:.6rem;height:.6rem;border-radius:2px;margin-right:5px;vertical-align:-1px;background:var(--c)}
+.sam input[type=number]{width:5.6rem;padding:.25rem .3rem;font-size:.74rem}
+
+/* tarjetas de indicadores */
+.est{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:8px}
+.ec{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--surface-2);display:flex;flex-direction:column;gap:3px;min-width:0}
+.ec .l{font:600 .64rem var(--body);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.ec .v{font:700 1.2rem/1.15 var(--mono);white-space:nowrap}
+.ec .s{font:500 .72rem var(--mono);color:var(--ink-3)}
+.estl{margin-top:8px;font:500 .76rem/1.5 var(--mono);color:var(--ink-3)}
+.estl b{color:var(--ink-2);font-weight:600}
+.badge{font:700 .62rem var(--body);letter-spacing:.07em;text-transform:uppercase;text-align:center;padding:.22rem .3rem;border-radius:3px;border:1px solid;display:inline-block}
+.badge.ok{color:var(--good);border-color:color-mix(in srgb,var(--good) 55%,var(--line))}
+.badge.rv{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 55%,var(--line))}
+.badge.in{color:var(--ink-3);border-color:var(--line)}
+.badge.bd{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 55%,var(--line))}
+.kv{width:100%;border-collapse:collapse;font-size:.8rem}
+.kv td{padding:5px 4px;border-top:1px solid var(--line-2);vertical-align:top}
+.kv td:first-child{font-weight:600;white-space:nowrap;padding-right:10px}
+.kv td:not(:first-child){color:var(--ink-2)}
+.kv code{font:600 .76rem var(--mono);color:var(--ink)}
+.kv.wide td:first-child{width:8.4rem;white-space:normal}
+.kv th{text-align:left;font:600 .62rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:4px;border-bottom:1px solid var(--line)}
+
+/* cascadas contables y mapas de coeficientes */
+.wf{display:flex;flex-direction:column;gap:2px;border:1px solid var(--line-2);border-radius:8px;padding:8px 10px;background:var(--surface);min-width:0}
+.wr{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:.8rem}
+.wr span{color:var(--ink-2);min-width:0}
+.wr b{font:600 .8rem var(--mono);white-space:nowrap}
+.wr.t{border-top:1px solid var(--line);margin-top:4px;padding-top:5px}
+.wr.t span{color:var(--ink);font-weight:600}
+.hm{width:100%;border-collapse:separate;border-spacing:2px;font-variant-numeric:tabular-nums}
+.hm th{font:500 .62rem var(--body);color:var(--ink-3);padding:2px;text-align:center}
+.hm td{text-align:center;font:600 .74rem var(--mono);padding:6px 3px;border-radius:3px}
+.hm td.z{text-align:left;padding-left:6px;color:var(--ink-2);font-weight:500;white-space:nowrap}
+
+/* análisis */
+.analysis{overflow:hidden}
+.tabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{flex:1;padding:.7rem .6rem;border:0;border-bottom:2px solid transparent;background:transparent;font:600 .82rem var(--body);color:var(--ink-3);white-space:nowrap}
+.tab[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
+.ana-body{padding:14px;max-height:72vh;overflow:auto}
+.ana-body h4{font:600 .68rem var(--body);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin:18px 0 8px}
+.ana-body h4:first-child{margin-top:0}
+.ana-body p{font-size:.84rem;color:var(--ink-2)}
+.ana-body p+p{margin-top:6px}
+.checks{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px}
+.checks li{display:grid;grid-template-columns:4.4rem minmax(0,1fr);gap:8px;font-size:.84rem;color:var(--ink-2);align-items:start}
+.checks li b{color:var(--ink)}
+.callout{margin-top:12px;padding:10px 12px;background:var(--surface-2);border-radius:8px;font-size:.84rem;color:var(--ink-2);display:flex;flex-direction:column;gap:8px}
+.callout b{color:var(--ink)}
+.mx{border-collapse:separate;border-spacing:2px;width:100%;font-variant-numeric:tabular-nums}
+.mx th{font:500 .62rem var(--body);color:var(--ink-3);padding:2px 0;text-align:center;vertical-align:bottom;letter-spacing:.04em}
+.mx td{text-align:center;font:600 .74rem var(--mono);padding:5px 3px;border-radius:3px;white-space:nowrap}
+.mx td.tl{white-space:normal}
+.yes{color:var(--good)}.no{color:var(--bad)}.ap{color:var(--warn)}
+.mx td.tl{text-align:left;padding:0 4px 0 0;min-width:6rem}
+.mx td.tl .rowb{display:flex;align-items:center;gap:6px;width:100%;border:0;background:none;padding:2px;text-align:left;border-radius:5px}
+.mx td.tl .rowb:hover{background:var(--surface-2)}
+.mx td.tl .rowb[aria-current=true]{background:var(--accent-soft)}
+.mx td.tl .rowb span{font:600 .74rem var(--display);line-height:1.1}
+.m1{color:var(--ink-3);background:var(--surface-2)}
+.mh{background:color-mix(in srgb,var(--good) 24%,var(--surface))}
+.mq{background:color-mix(in srgb,var(--good) 48%,var(--surface))}
+.m2{background:color-mix(in srgb,var(--bad) 26%,var(--surface))}
+.m4{background:color-mix(in srgb,var(--bad) 58%,var(--surface))}
+.spl{display:flex;flex-direction:column;gap:7px}
+.spr{display:grid;grid-template-columns:auto minmax(0,1fr) 3.6rem;gap:4px 10px;align-items:center}
+.spr .nm{font:600 .82rem var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;display:flex;gap:6px;align-items:center}
+.spr .val{font:700 .86rem var(--mono);text-align:right}
+.track{position:relative;height:8px;background:var(--line-2);border-radius:4px;overflow:visible}
+.track i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.track u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--bad);text-decoration:none}
+.mgs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.mgc{display:flex;flex-direction:column;gap:6px;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);text-align:left;min-width:0}
+.mgc:hover{border-color:var(--ink-3)}
+.mgc[aria-pressed=true]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.mgc .h{display:flex;align-items:center;gap:6px;min-width:0}
+.mgc .h b{font:600 .8rem var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mgc .f{font:500 .68rem var(--mono);color:var(--ink-3)}
+
+/* ejercicios E1–E13 */
+.ej{border:1px solid var(--line);border-radius:10px;background:var(--surface);margin-bottom:14px;overflow:hidden}
+.ej>header{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line-2);background:var(--surface-2)}
+.ej>header .mono{width:2rem;border-radius:7px}
+.ej>header .mono i{font-size:.6rem}
+.ej>header h3{font:700 .95rem/1.2 var(--display);flex:1;min-width:12rem}
+.ej .bd{padding:10px 12px;display:flex;flex-direction:column;gap:10px}
+.ej .enun{font-size:.84rem;color:var(--ink-2);line-height:1.5}
+.ej .fields{margin:0}
+.ej details{border:1px solid var(--line-2);border-radius:8px;background:var(--surface)}
+.ej summary{cursor:pointer;padding:8px 10px;font:600 .8rem var(--body);color:var(--accent)}
+.ej .sol{padding:2px 10px 10px}
+.ej .ke{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:8px 14px;font-size:.78rem;color:var(--ink-2)}
+.ej .ke h6{font:600 .64rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px}
+.ej .ke ul{margin:0;padding-left:16px}
+pre.mem{background:var(--surface-2);border:1px solid var(--line-2);border-radius:8px;padding:10px 12px;font:500 .78rem/1.6 var(--mono);color:var(--ink-2);overflow:auto;margin:0}
+
+/* ventana modal */
+.modal{position:fixed;inset:0;z-index:50;background:color-mix(in srgb,var(--ink) 50%,transparent);display:flex;align-items:flex-start;justify-content:center;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:12px;width:min(760px,100%);max-height:100%;display:flex;flex-direction:column;overflow:hidden}
+.sheet>header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.sheet>header h2{font:700 1.15rem var(--display)}
+.mbody{overflow:auto;min-height:0;flex:1;padding:0}
+.mbody .sam{max-height:none;border:0;border-radius:0}
+.mfoot{padding:8px 14px;border-top:1px solid var(--line);font:500 .74rem var(--mono);color:var(--ink-3);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="root">
+<header class="top">
+  <div class="brand">
+    <h1>Cuentas nacionales: seis bloques, una hoja de cálculo</h1>
+    <p id="brandp"></p>
+  </div>
+  <div class="top-ctl">
+    <button class="btn" type="button" data-act="pop">Ver datos</button>
+    <button class="btn" type="button" data-act="ciclo" aria-expanded="false" aria-controls="ciclo">Ciclo de repaso</button>
+    <button class="btn ghost" type="button" data-act="theme" id="themeBtn" aria-pressed="false">Modo oscuro</button>
+  </div>
+</header>
+
+<div class="note" id="note">
+  <span><b>Los mismos datos, agregados que se confunden.</b> Cada bloque toma los datos de una hoja de cuentas nacionales de HojaCraft y enfrenta las medidas rivales: las <b>tres ópticas</b> del PIB, <b>RNB</b> frente a PIB, precio <b>básico</b> frente a <b>adquisición</b>, <b>Laspeyres</b> frente a <b>Paasche</b>, efecto <b>directo</b> frente a <b>total</b>, productividad <b>por puesto</b> frente a <b>por hora</b>. Elige un bloque, toca los controles y revisa la pestaña <b>Comparar</b>; los ejercicios <b>E1–E13</b> están en su pestaña con los datos y la solución paso a paso.</span>
+  <button class="btn sm" type="button" data-act="hidenote">Ocultar</button>
+</div>
+
+<section id="ciclo" hidden style="margin:0 0 12px;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:8px;font-size:.86rem;line-height:1.5">
+  <h4>Ciclo de repaso diario · cuentas nacionales</h4>
+  <p class="hint">Siete días, unos 45-60 minutos por sesión (ajústalo al tiempo que tengas). Cada sesión repite los mismos cuatro bloques y los temas rotan para que cada uno vuelva a salir cada semana.</p>
+  <h4 style="margin-top:12px">Sesión diaria</h4>
+  <ol style="margin:6px 0 0;padding-left:20px">
+    <li><b>Recuerdo (10 min).</b> Antes de mirar nada, escribe de memoria las fórmulas del bloque del día (por ejemplo, las tres ópticas del PIB o la secuencia RNB → RDB → ahorro → B.9). Luego repasa en 5 minutos el bloque de ayer, con una frase por fórmula.</li>
+    <li><b>Visualizador (10 min).</b> Abre el bloque, predice qué pasará al cambiar un control (las importaciones, la FBC, un precio, la demanda final), compruébalo y revisa la pestaña «Comparar».</li>
+    <li><b>Producción (20 min).</b> Resuelve dos ejercicios de la pestaña «Ejercicios», cronometrados a unos 10 minutos por ejercicio. Si te atascas, abre la solución y repítelo al día siguiente.</li>
+    <li><b>Cierre (5 min).</b> Anota en una línea tu error más importante del día y conviértelo en una tarjeta.</li>
+  </ol>
+  <h4 style="margin-top:12px">Rotación semanal</h4>
+  <div class="tw"><table class="kv wide"><thead><tr><th>Día</th><th style="text-align:left">Bloque</th><th style="text-align:left">Ejercicios para practicar</th></tr></thead><tbody>
+    <tr><td>1</td><td>PIB por las tres ópticas: VAB, impuestos netos, C + FBC + X − M, renta</td><td>E1</td></tr>
+    <tr><td>2</td><td>Secuencia de cuentas: RNB, RDB, ahorro y B.9; efecto de una medida</td><td>E2, E7</td></tr>
+    <tr><td>3</td><td>Precios básico, productor y adquisición; oferta = utilización; tabla de destino</td><td>E3, E9</td></tr>
+    <tr><td>4</td><td>Números índice: Laspeyres, Paasche, Fisher; deflactar y encadenar</td><td>E4, E12</td></tr>
+    <tr><td>5</td><td>Input-output: coeficientes técnicos, inversa de Leontief, multiplicadores</td><td>E5</td></tr>
+    <tr><td>6</td><td>Empleo ETC, productividades y renta real</td><td>E10, E11</td></tr>
+    <tr><td>7</td><td>Flujos del SEC, sucesión por sectores y conceptos de frontera: simulacro</td><td>E6, E8, E13 y los que más fallaste</td></tr>
+  </tbody></table></div>
+  <h4 style="margin-top:12px">Cómo evoluciona</h4>
+  <ul style="margin:6px 0 0;padding-left:20px">
+    <li><b>Semana 1:</b> haz el ciclo con el material delante cuando lo necesites.</li>
+    <li><b>Semana 2:</b> escribe sin mirar las fórmulas y los pasos, y reserva el visualizador para comprobar.</li>
+    <li><b>Semana 3 en adelante:</b> solo respuestas cronometradas. El día 7 pasa a ser un simulacro y revisas únicamente los ejercicios que falles.</li>
+  </ul>
+  <div class="callout"><span>La tabla de <b>Comparar</b> sirve de repaso rápido de verdadero o falso: recítala en 2 minutos cada mañana antes de empezar.</span></div>
+</section>
+
+<div class="viewseg" id="viewseg" role="group" aria-label="Vista">
+  <button type="button" data-act="view" data-v="editor" aria-pressed="true">Bloque</button>
+  <button type="button" data-act="view" data-v="analysis" aria-pressed="false">Análisis</button>
+</div>
+
+<div class="app" id="app" data-view="editor">
+  <aside class="team" id="team" aria-label="Bloques de cuentas nacionales"></aside>
+  <main class="panel editor" id="editor"></main>
+  <aside class="panel analysis" id="analysis"></aside>
+</div>
+</div>
+<div id="modal" hidden></div>
+
+<script>
+(function(){
+'use strict';
+/* ===== Datos de las hojas de cuentas nacionales de HojaCraft ===== */
+/* CN1_PIB: tres ramas + gasto + renta · CN2_Secuencia · CN3_Precios ·
+   CN4_Indices · CN5_InputOutput · CN10_Empleo · CN11_RentaReal        */
+
+/* ===== utilidades ===== */
+function sum(a){var s=0;for(var i=0;i<a.length;i++)s+=a[i];return s}
+function fm(v,d){d=d||0;if(!isFinite(v))return '—';var a=Math.abs(v),s=a.toFixed(d),p=s.split('.'),i=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.');s=p[1]?i+','+p[1]:i;return(v<0&&Number(a.toFixed(d))!==0?'−':'')+s}
+function sg(v,d){return(v>0&&Number(v.toFixed(d||0))!==0?'+':'')+fm(v,d)}
+function fp(v,d){return fm(v*100,d===undefined?1:d)+' %'}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+
+/* ===== estado ===== */
+var S={mod:'pib',tab:'lect',view:'editor',
+  pib:{prod:[400,600,500],ci:[220,330,200],imp:60,c:520,fbc:190,x:200,m:100,d1:410,ebe:340},      // hoja CN1_PIB
+  sec:{pib:810,rp:-10,tc:5,c:520,tk:3,fbc:190,x:200,m:100},                                        // hoja CN2_Secuencia
+  pre:{pb:100,imp:8,iva:10,mg:12,prodpb:900,impo:150,impp:60,mgt:40,ci:400,c:500,fbc:100,x:150},   // hoja CN3_Precios
+  idx:{b:[{n:'Bien A',p0:2,pt:2.4,q0:100,qt:110},{n:'Bien B',p0:5,pt:5.5,q0:50,qt:48},{n:'Bien C',p0:10,pt:11,q0:20,qt:25}]},   // hoja CN4_Indices
+  io:{z:[[20,30,10],[40,20,60],[10,50,30]],y:[40,80,110],ny:[50,80,110]},                          // hoja CN5_InputOutput
+  emp:{vab:1000,etc:20,horas:36000,gp:0.006,gh:0.012,pibv:1000,xv:200,mv:180,px:110,pm:120}        // hojas CN10 y CN11
+};
+
+/* ===== PIB por las tres ópticas (como CN1_PIB) ===== */
+function pibCalc(p){
+  var vab=p.prod.map(function(v,i){return v-p.ci[i]}),vabT=sum(vab);
+  var pibP=vabT+p.imp,pibG=p.c+p.fbc+p.x-p.m,pibR=p.d1+p.ebe+p.imp;
+  return{vab:vab,vabT:vabT,pibP:pibP,pibG:pibG,pibR:pibR,dG:pibG-pibP,dR:pibR-pibP};
+}
+/* ===== secuencia de cuentas (como CN2_Secuencia) ===== */
+function secCalc(s){
+  var rnb=s.pib+s.rp,rdb=rnb+s.tc,ah=rdb-s.c,b9=ah+s.tk-s.fbc;
+  var saldo=(s.x-s.m)+s.rp+s.tc+s.tk;
+  return{rnb:rnb,rdb:rdb,ah:ah,b9:b9,saldo:saldo,diff:b9-saldo,tasaAh:rdb>0?ah/rdb:NaN};
+}
+/* ===== precios y oferta-utilización (como CN3_Precios) ===== */
+function preCalc(p){
+  var pp=p.pb+p.imp,pa=pp+p.iva+p.mg;
+  var ofer=p.prodpb+p.impo+p.impp+p.mgt,util=p.ci+p.c+p.fbc+p.x;
+  return{pp:pp,pa:pa,ofer:ofer,util:util,dif:ofer-util,rec:pa-p.pb};
+}
+/* ===== números índice y deflactación (como CN4_Indices) ===== */
+function idxCalc(b){
+  var V0=0,Vt=0,Ld=0,Pd=0,i;
+  for(i=0;i<b.length;i++){V0+=b[i].p0*b[i].q0;Vt+=b[i].pt*b[i].qt;Ld+=b[i].pt*b[i].q0;Pd+=b[i].p0*b[i].qt}
+  var L=V0?Ld/V0:NaN,P=Pd?Vt/Pd:NaN,F=Math.sqrt(L*P);
+  var nom=V0?Vt/V0-1:NaN,vol=P?Vt/V0/P:NaN,real=P?(1+nom)/P-1:NaN;
+  return{V0:V0,Vt:Vt,Ld:Ld,Pd:Pd,L:L,P:P,F:F,nom:nom,vol:vol,real:real,inf:P-1};
+}
+/* ===== inversa de una matriz 3×3 ===== */
+function matInv3(M){
+  var d=M[0][0]*(M[1][1]*M[2][2]-M[1][2]*M[2][1])-M[0][1]*(M[1][0]*M[2][2]-M[1][2]*M[2][0])+M[0][2]*(M[1][0]*M[2][1]-M[1][1]*M[2][0]);
+  if(!d)return null;
+  return[[(M[1][1]*M[2][2]-M[1][2]*M[2][1])/d,(M[0][2]*M[2][1]-M[0][1]*M[2][2])/d,(M[0][1]*M[1][2]-M[0][2]*M[1][1])/d],
+         [(M[1][2]*M[2][0]-M[1][0]*M[2][2])/d,(M[0][0]*M[2][2]-M[0][2]*M[2][0])/d,(M[0][2]*M[1][0]-M[0][0]*M[1][2])/d],
+         [(M[1][0]*M[2][1]-M[1][1]*M[2][0])/d,(M[0][1]*M[2][0]-M[0][0]*M[2][1])/d,(M[0][0]*M[1][1]-M[0][1]*M[1][0])/d]];
+}
+/* ===== tabla input-output y Leontief (como CN5_InputOutput) ===== */
+function ioCalc(z,y){
+  var n=z.length,x=[],i,j;
+  for(i=0;i<n;i++)x.push(sum(z[i])+y[i]);
+  var A=z.map(function(r){return r.map(function(v,j){return x[j]?v/x[j]:NaN})});
+  var M=A.map(function(r,i2){return r.map(function(v,j){return i2===j?1-v:-v})});
+  var L=matInv3(M);
+  var mult=L?[0,1,2].map(function(j){return L[0][j]+L[1][j]+L[2][j]}):[NaN,NaN,NaN];
+  return{x:x,A:A,L:L,mult:mult};
+}
+function ioProd(L,y){return L.map(function(r){return r.reduce(function(a,v,j){return a+v*y[j]},0)})}
+/* ===== empleo, productividad y renta real (como CN10 y CN11) ===== */
+function empCalc(e){
+  var pp=e.etc?e.vab/e.etc:NaN,ph=e.horas?e.vab/e.horas:NaN,hp=e.etc?e.horas/e.etc:NaN;
+  var dh=(1+e.gh)?(1+e.gp)/(1+e.gh)-1:NaN;
+  var gRI=e.xv*(e.px/100-1)-e.mv*(e.pm/100-1);
+  var rr=e.pibv+gRI;
+  return{pp:pp,ph:ph,hp:hp,dh:dh,gRI:gRI,rr:rr,varr:e.pibv?rr/e.pibv-1:NaN,tInt:e.pm?e.px/e.pm:NaN};
+}
+var CALCS={};
+function recompute(){
+  CALCS.pib=pibCalc(S.pib);
+  CALCS.sec=secCalc(S.sec);
+  CALCS.pre=preCalc(S.pre);
+  CALCS.idx=idxCalc(S.idx.b);
+  CALCS.io=ioCalc(S.io.z,S.io.y);
+  CALCS.xn=CALCS.io.L?ioProd(CALCS.io.L,S.io.ny):[NaN,NaN,NaN];
+  CALCS.emp=empCalc(S.emp);
+}
+/* ===== gráficos svg ===== */
+function mkBars(w,h,items,opt){
+  opt=opt||{};
+  var mx=1;
+  items.forEach(function(d){mx=Math.max(mx,Math.abs(d.v))});
+  var n=items.length,bw=(w-(opt.mini?2:12))/n,base=opt.signed?h*(opt.mini?0.62:0.66):h-(opt.mini?2:16),span=opt.signed?h*(opt.mini?0.34:0.38):base-(opt.mini?1:10);
+  var s='<svg class="ch" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="'+esc(opt.lab||'gráfico')+'">';
+  if(opt.href!=null){var yr=base-opt.href/mx*span;s+='<line x1="4" x2="'+(w-4)+'" y1="'+yr.toFixed(1)+'" y2="'+yr.toFixed(1)+'" stroke="var(--ink-3)" stroke-dasharray="3 3" stroke-width="1.2"/>'}
+  items.forEach(function(d,i){
+    var bh=Math.abs(d.v)/mx*span,x=4+i*bw+bw*(opt.mini?0.08:0.14),wd=bw*(opt.mini?0.84:0.72),y=d.v>=0?base-bh:base;
+    s+='<rect class="bar" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+Math.max(1,wd).toFixed(1)+'" height="'+Math.max(opt.mini?0.5:1,bh).toFixed(1)+'" rx="'+(opt.mini?1:2)+'" style="--c:'+(d.c||'var(--accent)')+'"'+(d.t?'><title>'+esc(d.t)+'</title></rect>':'/>');
+    if(!opt.mini){
+      if(d.lab)s+='<text class="lab" x="'+(x+wd/2).toFixed(1)+'" y="'+(h-4)+'" text-anchor="middle">'+d.lab+'</text>';
+      if(d.vl)s+='<text class="lab" x="'+(x+wd/2).toFixed(1)+'" y="'+(y-(d.v>=0?3:-6)).toFixed(1)+'" text-anchor="middle" '+((d.c&&d.v<0)?'fill="var(--bad)"':'')+'>'+d.vl+'</text>';
+    }
+  });
+  s+='</svg>';
+  return s;
+}
+function mkGroup(w,h,glab,series,opt){
+  opt=opt||{};
+  var mx=opt.ymax!=null?opt.ymax:1;
+  series.forEach(function(sr){sr.v.forEach(function(v){mx=Math.max(mx,v)})});
+  var n=glab.length,gw=(w-10)/n,bw=gw*0.72/series.length,base=h-16,span=base-12;
+  var s='<svg class="ch" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="'+esc(opt.lab||'gráfico')+'">';
+  for(var g=0;g<=2;g++){var gy=mx*g/2;s+='<line class="gr" x1="34" x2="'+(w-4)+'" y1="'+(base-gy/mx*span)+'" y2="'+(base-gy/mx*span)+'"/><text class="ax" x="30" y="'+(base-gy/mx*span+3).toFixed(1)+'" text-anchor="end">'+(opt.yfmt?opt.yfmt(gy):fm(gy,0))+'</text>'}
+  glab.forEach(function(gl,i){
+    series.forEach(function(sr,j){
+      var v=sr.v[i],bh=v/mx*span,x=6+i*gw+gw*0.14+j*bw;
+      s+='<rect class="bar" x="'+x.toFixed(1)+'" y="'+(base-bh).toFixed(1)+'" width="'+Math.max(1,bw-1.5).toFixed(1)+'" height="'+Math.max(0.5,bh).toFixed(1)+'" rx="1.5" style="--c:'+sr.c+'"><title>'+esc(gl+' · '+sr.n+': '+(opt.yfmt?opt.yfmt(v):fm(v,opt.yd!=null?opt.yd:1)))+'</title></rect>';
+    });
+    if(!opt.mini)s+='<text class="lab" x="'+(6+i*gw+gw/2).toFixed(1)+'" y="'+(h-4)+'" text-anchor="middle">'+gl+'</text>';
+  });
+  s+='</svg>';
+  return s;
+}
+function mkHBar(w,h,items,opt){
+  opt=opt||{};
+  var mx=1;
+  items.forEach(function(d){mx=Math.max(mx,Math.abs(d.v))});
+  var n=items.length,rh=(h-(opt.mini?2:14))/n,pL=opt.mini?0:52;
+  var s='<svg class="ch" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="'+esc(opt.lab||'gráfico')+'">';
+  items.forEach(function(d,i){
+    var bw=Math.abs(d.v)/mx*(w-pL-(opt.mini?2:44)),y=i*rh+rh*(opt.mini?0.12:0.16),bh=rh*(opt.mini?0.76:0.68);
+    s+='<rect class="bar" x="'+pL+'" y="'+y.toFixed(1)+'" width="'+Math.max(1,bw).toFixed(1)+'" height="'+bh.toFixed(1)+'" rx="2" style="--c:'+(d.c||'var(--accent)')+'"'+(d.t?'><title>'+esc(d.t)+'</title></rect>':'/>');
+    if(!opt.mini){
+      s+='<text class="lab" x="'+(pL-5)+'" y="'+(y+bh/2+3).toFixed(1)+'" text-anchor="end">'+d.lab+'</text>';
+      if(d.vl)s+='<text class="lab" x="'+(pL+Math.max(1,bw)+4).toFixed(1)+'" y="'+(y+bh/2+3).toFixed(1)+'">'+d.vl+'</text>';
+    }
+  });
+  s+='</svg>';
+  return s;
+}
+/* cascada contable: filas [etiqueta, valor, 't'|'d'] */
+function wf(rows){
+  return '<div class="wf">'+rows.map(function(r){return '<div class="wr '+(r[2]||'')+'"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>'}).join('')+'</div>';
+}
+
+/* ===== ejercicios E1–E13 de las hojas de cuentas nacionales de HojaCraft ===== */
+var FLUJOS=[
+ {n:'Pensión de jubilación',c:'D.62',w:'Prestación social en efectivo: transferencia corriente sin contrapartida.'},
+ {n:'Autocaravana comprada por un hogar',c:'P.3',w:'Bien duradero de consumo: gasto de consumo final del hogar.'},
+ {n:'Impuesto de Sucesiones y Donaciones',c:'D.91',w:'Impuesto sobre el capital: transferencia de capital (D.9).'},
+ {n:'Ayuda pública por vivienda destruida',c:'D.92',w:'Ayuda a la inversión: repone un activo, transferencia de capital.'},
+ {n:'Intereses pagados por una empresa',c:'D.41',w:'Renta de la propiedad: transferencia corriente.'},
+ {n:'Vivienda nueva comprada por un hogar',c:'P.51g',w:'La excepción del consumo: formación bruta de capital fijo.'},
+ {n:'IRPF',c:'D.51',w:'Impuesto corriente sobre la renta: transferencia corriente.'}];
+var EJS=[
+ {id:'e1',t:'E1 · PIB por las tres ópticas',mods:['pib'],
+  u:'Una economía tiene tres ramas con las producciones y consumos intermedios de los campos (hoja CN1_PIB), impuestos netos sobre los productos por 60 y las cifras de gasto y renta también en los campos. Calcula el PIB por producción, por gasto y por renta, y comprueba que las tres ópticas coinciden.',
+  inp:[['prodA','Producción rama A',400],['ciA','Consumo intermedio rama A',220],['prodB','Producción rama B',600],['ciB','Consumo intermedio rama B',330],['prodC','Producción rama C',500],['ciC','Consumo intermedio rama C',200],['imp','Impuestos netos s/ productos',60],['c','Consumo final',520],['fbc','Formación bruta de capital',190],['x','Exportaciones',200],['m','Importaciones',100],['d1','Remuneración de asalariados',410],['ebe','EBE y renta mixta',340]],
+  v:{},
+  sol:function(i){var vA=i.prodA-i.ciA,vB=i.prodB-i.ciB,vC=i.prodC-i.ciC,vabT=vA+vB+vC;
+   var pP=vabT+i.imp,pG=i.c+i.fbc+i.x-i.m,pR=i.d1+i.ebe+i.imp;return[
+   ['VAB rama A','producción − CI = '+fm(i.prodA,0)+' − '+fm(i.ciA,0),fm(vA,0)],
+   ['VAB rama B','producción − CI = '+fm(i.prodB,0)+' − '+fm(i.ciB,0),fm(vB,0)],
+   ['VAB rama C','producción − CI = '+fm(i.prodC,0)+' − '+fm(i.ciC,0),fm(vC,0)],
+   ['VAB total','suma de los tres valores añadidos',fm(vabT,0)],
+   ['PIB (producción)','Σ VAB + impuestos netos s/ productos',fm(pP,0)],
+   ['PIB (gasto)','C + FBC + X − M',fm(pG,0)],
+   ['PIB (renta)','D.1 + EBE + impuestos netos',fm(pR,0)],
+   ['Gasto − producción','discrepancia estadística',sg(pG-pP,0)],
+   ['Renta − producción','discrepancia estadística',sg(pR-pP,0)]]},
+  k:['VAB = producción − consumo intermedio: sumar producciones duplica los consumos intermedios.','Las tres ópticas miden el mismo agregado; si no cuadran, la diferencia es la discrepancia estadística.','El PIB es bruto (antes del consumo de capital fijo) y territorial, no de residencia.'],
+  e:['Olvidar restar las importaciones en la óptica del gasto.','Confundir el PIB con la renta nacional bruta.']},
+ {id:'e2',t:'E2 · Secuencia de cuentas y saldos',mods:['sec'],
+  u:'Partiendo del PIB (810) y de las operaciones con el resto del mundo que figuran en los campos (rentas primarias y transferencias corrientes y de capital netas), junto con el consumo final, la formación bruta de capital y los flujos exteriores, se recorre la secuencia de cuentas hasta el saldo de financiación de la nación (hoja CN2_Secuencia).',
+  inp:[['pib','PIB',810],['rp','Rentas primarias netas del RM',-10],['tc','Transferencias corrientes netas del RM',5],['c','Consumo final',520],['tk','Transferencias de capital netas',3],['fbc','Formación bruta de capital',190],['x','Exportaciones de bienes y servicios',200],['m','Importaciones de bienes y servicios',100]],
+  v:{},
+  sol:function(i){var rnb=i.pib+i.rp,rdb=rnb+i.tc,ah=rdb-i.c,b9=ah+i.tk-i.fbc,saldo=(i.x-i.m)+i.rp+i.tc+i.tk;return[
+   ['Renta nacional bruta','PIB + rentas primarias netas = '+fm(i.pib,0)+' '+sg(i.rp,0),fm(rnb,0)],
+   ['Renta disponible bruta','RNB + transferencias corrientes netas',fm(rdb,0)],
+   ['Ahorro bruto','RDB − consumo final',fm(ah,0)],
+   ['Tasa de ahorro','ahorro / renta disponible',fp(ah/rdb,1)],
+   ['B.9 capacidad (+) / necesidad (−)','ahorro + transf. capital − FBC',fm(b9,0)],
+   ['Saldo exterior (comprobación)','(X − M) + rentas + transf. corrientes + transf. capital',fm(saldo,0)],
+   ['Diferencia','B.9 − saldo exterior',sg(b9-saldo,1)]]},
+  k:['Secuencia: PIB → RNB → RDB → ahorro → capacidad/necesidad de financiación.','Cada saldo contable es el resultado de una cuenta y el punto de partida de la siguiente.','El B.9 de la nación es el saldo del resto del mundo con signo contrario.'],
+  e:['Confundir RNB con PIB: difieren por las rentas primarias con el resto del mundo.','Olvidar las transferencias de capital en el último paso.'] },
+ {id:'e3',t:'E3 · Precios y oferta-utilización',mods:['pre'],
+  u:'La hoja recoge la valoración de un producto (precio básico 100, impuestos netos sobre el producto sin IVA 8, IVA no deducible 10 y márgenes 12) y el balance de oferta y utilización (producción a precios básicos 900, importaciones 150, impuestos netos 60, márgenes 40; consumo intermedio 400, consumo final 500, FBC 100 y exportaciones 150). Pasa del precio básico al de adquisición y comprueba el equilibrio (hoja CN3_Precios).',
+  inp:[['pb','Precio básico',100],['imp','Impuestos netos s/ el producto (sin IVA)',8],['iva','IVA no deducible',10],['mg','Márgenes comerciales y de transporte',12],['prodpb','Producción a precios básicos',900],['impo','Importaciones',150],['impp','Impuestos netos s/ productos',60],['mgt','Márgenes comerciales y transporte',40],['ci','Consumo intermedio',400],['c','Consumo final',500],['fbc','Formación bruta de capital',100],['x','Exportaciones',150]],
+  v:{},
+  sol:function(i){var pp=i.pb+i.imp,pa=pp+i.iva+i.mg,ofer=i.prodpb+i.impo+i.impp+i.mgt,util=i.ci+i.c+i.fbc+i.x;return[
+   ['Precio de productor','básico + impuestos netos (sin IVA)',fm(pp,1)],
+   ['Precio de adquisición','productor + IVA no deducible + márgenes',fm(pa,1)],
+   ['Recargo sobre el básico','adquisición − básico',fm(pa-i.pb,1)],
+   ['Oferta a precios de adquisición','producción + importaciones + impuestos + márgenes',fm(ofer,0)],
+   ['Utilización total','CI + consumo final + FBC + exportaciones',fm(util,0)],
+   ['Diferencia','oferta − utilización',sg(ofer-util,1)]]},
+  k:['Cadena de precios: básico, productor y adquisición.','Oferta total = utilización total a precios de adquisición: la identidad contable central.','Los márgenes forman parte del precio final que paga el comprador.'],
+  e:['Mezclar valoraciones distintas en una misma suma.','Olvidar los impuestos netos sobre productos en la oferta.']},
+ {id:'e4',t:'E4 · Números índice y deflactación',mods:['idx'],
+  u:'Para tres bienes se conocen los precios y las cantidades del año base y del año actual (campos editables, hoja CN4_Indices). Calcula los índices de precios de Laspeyres, Paasche y Fisher, el crecimiento nominal y el crecimiento real deflactando con Paasche.',
+  inp:[['p0a','p₀ bien A',2],['pta','pₜ bien A',2.4],['q0a','q₀ bien A',100],['qta','qₜ bien A',110],['p0b','p₀ bien B',5],['ptb','pₜ bien B',5.5],['q0b','q₀ bien B',50],['qtb','qₜ bien B',48],['p0c','p₀ bien C',10],['ptc','pₜ bien C',11],['q0c','q₀ bien C',20],['qtc','qₜ bien C',25]],
+  v:{},
+  sol:function(i){
+   var g=[[i.p0a,i.pta,i.q0a,i.qta],[i.p0b,i.ptb,i.q0b,i.qtb],[i.p0c,i.ptc,i.q0c,i.qtc]];
+   var V0=0,Vt=0,Ld=0,Pd=0;g.forEach(function(b){V0+=b[0]*b[2];Vt+=b[1]*b[3];Ld+=b[1]*b[2];Pd+=b[0]*b[3]});
+   var L=Ld/V0,P=Vt/Pd,F=Math.sqrt(L*P),nom=Vt/V0-1,real=(1+nom)/P-1;return[
+   ['Valor del año base','Σ p₀·q₀',fm(V0,0)],
+   ['Valor actual','Σ pₜ·qₜ',fm(Vt,0)],
+   ['Cesta base a precios actuales','Σ pₜ·q₀',fm(Ld,0)],
+   ['Laspeyres','Σ pₜ·q₀ / Σ p₀·q₀',fm(L,4)],
+   ['Cesta actual a precios base','Σ p₀·qₜ',fm(Pd,0)],
+   ['Paasche','Σ pₜ·qₜ / Σ p₀·qₜ',fm(P,4)],
+   ['Fisher','√(L·P)',fm(F,4)],
+   ['Crecimiento nominal','Vₜ / V₀ − 1',fp(nom,2)],
+   ['Índice de volumen','(Vₜ/V₀) / Paasche',fm(Vt/V0/P,4)],
+   ['Crecimiento real','(1 + nominal)/(1 + inflación) − 1',fp(real,2)]]},
+  k:['Laspeyres pondera con cantidades base; Paasche, con actuales; Fisher es su media geométrica.','Vₜ/V₀ = Paasche de precios · Laspeyres de cantidades.','Deflactar = dividir el valor por el índice de precios.'],
+  e:['Deflactar con el índice equivocado.','Restar tasas en vez de dividir (1+g)/(1+π).']},
+ {id:'e5',t:'E5 · Input-output y Leontief',mods:['io'],
+  u:'Una economía de tres sectores registra los flujos de consumo intermedio y las demandas finales de los campos (hoja CN5_InputOutput); se plantea además una nueva demanda final. Calcula las producciones de equilibrio, los coeficientes técnicos, los multiplicadores de la inversa de Leontief y la producción necesaria ante el cambio.',
+  inp:[['z00','Flujo S1 → S1',20],['z01','Flujo S1 → S2',30],['z02','Flujo S1 → S3',10],['z10','Flujo S2 → S1',40],['z11','Flujo S2 → S2',20],['z12','Flujo S2 → S3',60],['z20','Flujo S3 → S1',10],['z21','Flujo S3 → S2',50],['z22','Flujo S3 → S3',30],['y0','Demanda final S1',40],['y1','Demanda final S2',80],['y2','Demanda final S3',110],['ny0','Nueva demanda final S1',50],['ny1','Nueva demanda final S2',80],['ny2','Nueva demanda final S3',110]],
+  v:{},
+  sol:function(i){
+   var z=[[i.z00,i.z01,i.z02],[i.z10,i.z11,i.z12],[i.z20,i.z21,i.z22]],y=[i.y0,i.y1,i.y2],ny=[i.ny0,i.ny1,i.ny2];
+   var r=ioCalc(z,y);if(!r.L)return[['Error','la matriz no es invertible',' ']];
+   var xn=ioProd(r.L,ny),d=[0,1,2].map(function(k){return xn[k]-r.x[k]});
+   var im=d.indexOf(Math.max.apply(null,d));return[
+   ['Producción de S1','Σ ventas intermedias + demanda final',fm(r.x[0],0)],
+   ['Producción de S2','Σ ventas intermedias + demanda final',fm(r.x[1],0)],
+   ['Producción de S3','Σ ventas intermedias + demanda final',fm(r.x[2],0)],
+   ['Coeficiente a11','Z11 / x1 = '+fm(i.z00,0)+' / '+fm(r.x[0],0),fm(r.A[0][0],3)],
+   ['Coeficiente a21 (el mayor)','Z21 / x1 = '+fm(i.z10,0)+' / '+fm(r.x[0],0),fm(r.A[1][0],3)],
+   ['Multiplicador del sector 1','Σ columna 1 de (I−A)⁻¹',fm(r.mult[0],2)],
+   ['Multiplicador del sector 2','Σ columna 2 de (I−A)⁻¹',fm(r.mult[1],2)],
+   ['Multiplicador del sector 3','Σ columna 3 de (I−A)⁻¹',fm(r.mult[2],2)],
+   ['Nueva producción de S1','x = (I−A)⁻¹ · y nuevo',fm(xn[0],1)],
+   ['Nueva producción de S2','x = (I−A)⁻¹ · y nuevo',fm(xn[1],1)],
+   ['Nueva producción de S3','x = (I−A)⁻¹ · y nuevo',fm(xn[2],1)],
+   ['Aumento de S1','nueva − actual',sg(d[0],1)],
+   ['Quién más aumenta','incluido el arrastre','S'+(im+1)+' ('+sg(d[im],1)+')']];},
+  k:['x = A·x + y, luego x = (I−A)⁻¹·y.','El multiplicador del sector j es la suma de la columna j de la inversa.','Los multiplicadores son mayores que 1: efectos directos e indirectos en cascada.'],
+  e:['Dividir por la producción de la fila en vez de la de la columna.','Usar A en lugar de la inversa para los efectos totales.']},
+ {id:'e6',t:'E6 · Clasificar flujos del SEC',mods:['sec'],
+  u:'Clasifica cada uno de los siete flujos en la operación del Sistema Europeo de Cuentas que le corresponda escribiendo su código (D.1, D.21, D.31, D.41, D.51, D.61, D.62, D.91, D.92, P.3, P.51g, P.7). Criterio rector: si hay contrapartida es una operación de producto (P); si no la hay, distributiva (D): corriente si afecta a la renta, de capital en el D.9. Matiz: la vivienda nueva comprada por un hogar es inversión (P.51g), no consumo.',
+  inp:[],
+  txt:[['f0','Pensión de jubilación',''],['f1','Autocaravana comprada por un hogar',''],['f2','Impuesto de Sucesiones y Donaciones',''],['f3','Ayuda pública por vivienda destruida',''],['f4','Intereses pagados por una empresa',''],['f5','Vivienda nueva comprada por un hogar',''],['f6','IRPF','']],
+  v:{},
+  sol:function(i){
+   var ok=0;FLUJOS.forEach(function(f,j){var u=String(i['f'+j]||'').trim().toUpperCase().replace(/\s+/g,'');if(u===f.c.toUpperCase())ok++});
+   var rows=[['Tus aciertos','códigos correctos de 7',ok+' de 7']];
+   FLUJOS.forEach(function(f){rows.push([f.n,f.c,f.w])});
+   rows.push(['Operaciones P.','con contrapartida (producción y gasto)','2 de 7'],
+    ['Operaciones D.','sin contrapartida (distributivas)','5 de 7'],
+    ['De las D., de capital','D.91 y D.92 (reponen activos)','2']);
+   return rows;},
+  k:['Contrapartida separa P de D.','Corriente (renta) frente a capital (D.9).','La vivienda nueva de un hogar es P.51g, no P.3.'],
+  e:['Contar la autocaravana como inversión de los hogares.','Confundir D.91 (impuestos sobre el capital) con D.51.']},
+ {id:'e7',t:'E7 · Efecto de una medida (subida del IRPF)',mods:['sec'],
+  u:'Se estudia el efecto de una subida del IRPF de 30 sobre las cuentas de los hogares, partiendo del saldo de rentas primarias (B.5g = 1.000), impuestos corrientes 150, cotizaciones 60, prestaciones 90 y otras transferencias netas 0, con propensión marginal a consumir 0,9 (hoja CN7_Medida). ¿Qué cuentas se mueven y cuánto absorbe el ahorro?',
+  inp:[['b5','B.5g saldo de rentas primarias',1000],['d5','Impuestos corrientes (D.5)',150],['d61','Cotizaciones sociales (D.61)',60],['d62','Prestaciones sociales (D.62)',90],['otr','Otras transferencias netas',0],['irpf','Subida del IRPF (medida)',30],['prop','Propensión marginal a consumir',0.9]],
+  v:{},
+  sol:function(i){var b6a=i.b5-i.d5-i.d61+i.d62+i.otr,b6d=b6a-i.irpf;
+   var ca=i.prop*b6a,cd=i.prop*b6d,aa=b6a-ca,ad=b6d-cd;return[
+   ['B.5g antes y después','la medida no toca la renta primaria',fm(i.b5,0)+' / '+fm(i.b5,0)],
+   ['B.6g antes','B.5g − D.5 − D.61 + D.62 + otras',fm(b6a,0)],
+   ['B.6g después','con D.5 + subida del IRPF',fm(b6d,0)],
+   ['Consumo antes','propensión × B.6g',fm(ca,0)],
+   ['Consumo después','propensión × B.6g',fm(cd,0)],
+   ['Ahorro antes','B.6g − consumo',fm(aa,0)],
+   ['Ahorro después','B.6g − consumo',fm(ad,0)],
+   ['Δ renta disponible','después − antes',sg(b6d-b6a,0)],
+   ['Δ consumo','después − antes',sg(cd-ca,0)],
+   ['Δ ahorro','después − antes',sg(ad-aa,0)],
+   ['Cuánto absorbe el ahorro','Δ ahorro / Δ renta disponible',fp((ad-aa)/(b6d-b6a),0)]]},
+  k:['El IRPF actúa en la distribución secundaria: reduce la renta disponible lo recaudado.','El consumo cae la propensión por la subida: 0,9 × 30 = 27.','El ahorro apenas absorbe la medida: 0,1 × 30 = 3.'],
+  e:['Decir que la renta primaria (B.5g) cambia con el IRPF.','Olvidar que el consumo no cae en la misma cuantía que la renta.'] },
+ {id:'e8',t:'E8 · Sucesión de cuentas por sectores (C8 · 2.º ejercicio 2025)',mods:['sec'],
+  u:'Con el consumo final 1.190, la FBC 338, el saldo de bienes y servicios con el exterior −67 y los impuestos netos sobre los productos 142, y con los valores añadidos y restantes operaciones por sector que figuran en los campos, construye la secuencia de cuentas de los sectores hasta el B.9 de las administraciones públicas (hoja CN8_Sucesión).',
+  inp:[['c','Consumo final',1190],['fbc','Formación bruta de capital',338],['sbs','Saldo de bienes y servicios con el exterior',-67],['imp','Impuestos netos s/ productos',142],['vabA','VAB de las AA.PP.',211],['vabH','VAB de Hogares',326],['remT','Remuneración total pagada por residentes',764],['remS','Remuneración pagada por Sociedades',527],['eebA','EEB de las AA.PP.',37],['remN','Remuneración pagada a no residentes',1],['remE','Remuneración recibida del exterior',6],['oiH','Otros impuestos s/ producción de Hogares',7],['rpH','Rentas de la propiedad cobradas por Hogares',77],['d5','Impuestos corrientes (D.5)',158],['d61','Cotizaciones sociales (D.61)',227],['d62','Prestaciones sociales (D.62)',287],['otr','Otras transferencias netas',6],['tse','Transferencias sociales en especie',186],['cA','Consumo final de las AA.PP.',308],['oiS','Otros impuestos netos s/ producción de Sociedades',7],['rpS','Rentas netas de la propiedad pagadas por Sociedades',65],['b7A','B.7g de las AA.PP.',116],['cC','Consumo colectivo',122],['fbkA','FBK de las AA.PP.',43],['tkA','Transferencias de capital a pagar (AA.PP.)',2]],
+  v:{},
+  sol:function(i){var pib=i.c+i.fbc+i.sbs,vabT=pib-i.imp,vabS=vabT-i.vabA-i.vabH;
+   var remA=i.vabA-i.eebA,remH=i.remT-i.remS-remA,b3=i.vabH-remH-i.oiH;
+   var d1r=i.remT-i.remN+i.remE,b5=b3+d1r+i.rpH,b6=b5-i.d5-i.d61+i.d62+i.otr;
+   var b7=b6+i.tse,cH=i.c-i.cA,b8=b6-cH,chk=b7-(cH+i.tse);
+   var eebS=vabS-i.remS-i.oiS,b5S=eebS-i.rpS,b8A=i.b7A-i.cC,b9A=b8A-i.fbkA-i.tkA;return[
+   ['PIB (gasto)','C + FBC + saldo exterior',fm(pib,0)],
+   ['VAB total','PIB − impuestos netos s/ productos',fm(vabT,0)],
+   ['VAB de Sociedades','total − AA.PP. − Hogares',fm(vabS,0)],
+   ['Remuneración pagada por AA.PP.','VAB AA.PP. − EEB',fm(remA,0)],
+   ['Remuneración pagada por Hogares','total − Sociedades − AA.PP.',fm(remH,0)],
+   ['B.3g renta mixta de Hogares','VAB Hog − D.1 pagada − otros imp.',fm(b3,0)],
+   ['D.1 recibida por Hogares','pagada por residentes − a no residentes + del exterior',fm(d1r,0)],
+   ['B.5g de Hogares','renta mixta + D.1 + rentas de la propiedad',fm(b5,0)],
+   ['B.6g de Hogares','B.5g − D.5 − D.61 + D.62 + otras',fm(b6,0)],
+   ['B.7g de Hogares','B.6g + transferencias en especie',fm(b7,0)],
+   ['Consumo final de Hogares','consumo total − AA.PP.',fm(cH,0)],
+   ['B.8g ahorro de Hogares','B.6g − consumo final',fm(b8,0)],
+   ['Comprobación','B.7g − consumo efectivo',fm(chk,0)],
+   ['EEB de Sociedades','VAB Soc − D.1 − otros imp.',fm(eebS,0)],
+   ['B.5g de Sociedades','EEB − rentas de la propiedad pagadas',fm(b5S,0)],
+   ['B.8g de las AA.PP.','B.7g − consumo colectivo',fm(b8A,0)],
+   ['B.9 de las AA.PP.','B.8g − FBK − transferencias de capital',fm(b9A,0)]]},
+  k:['Reconstruye el PIB antes de repartir el VAB por sectores.','Cotizaciones (recurso del empleo) y prestaciones no se suman ni restan juntas.','El B.9 es la imagen especular del exterior y de los demás sectores.'],
+  e:['Sumar cotizaciones y prestaciones en el mismo sentido.','Restar el consumo individual dos veces a las AA.PP.']},
+ {id:'e9',t:'E9 · Tabla de destino y productividades (C5)',mods:['pre'],
+  u:'Con las compras de no residentes en el territorio (58), las compras de residentes fuera (17), el consumo final en el territorio (1.250), la utilización total de los tres productos (1.800), la producción total (1.600), los impuestos netos sobre los productos (121) y los datos del Producto 3 (utilización 700, importaciones 54, impuestos netos de P1 y P2 70 y márgenes de P1 y P2 249), completa la tabla de destino y calcula las productividades por rama (hoja CN9_Destino).',
+  inp:[['cnr','Compras de no residentes en el territorio',58],['crf','Compras de residentes fuera del territorio',17],['cter','Consumo final en el territorio',1250],['utot','Utilización total de los tres productos',1800],['ptot','Producción total (suma de ramas)',1600],['imp','Impuestos netos s/ productos',121],['ut3','Utilización del Producto 3',700],['m3','Importaciones del Producto 3',54],['i12','Impuestos netos de P1 y P2',70],['mg12','Márgenes de P1 y P2',249],['vabA','VAB rama A',400],['empA','Empleo rama A (millones de puestos)',8],['vabB','VAB rama B',270],['empB','Empleo rama B',6],['vabC','VAB rama C',330],['empC','Empleo rama C',5]],
+  v:{},
+  sol:function(i){var cr=i.cter-i.cnr+i.crf,mt=i.utot-i.ptot-i.imp,i3=i.imp-i.i12,m3=-i.mg12;
+   var p3=i.ut3-i.m3-i3-m3,pa=i.vabA/i.empA,pb=i.vabB/i.empB,pc=i.vabC/i.empC;return[
+   ['Consumo final de los residentes','territorio − no residentes + fuera',fm(cr,0)],
+   ['Importaciones totales','utilización − producción − impuestos',fm(mt,0)],
+   ['Impuestos netos de P3','total − P1 y P2',fm(i3,0)],
+   ['Márgenes de P3','− márgenes de P1 y P2 (suman cero)',fm(m3,0)],
+   ['Producción de P3 a precios básicos','utilización − M − impuestos − márgenes',fm(p3,0)],
+   ['Productividad rama A','VAB / empleo',fm(pa,1)],
+   ['Productividad rama B','VAB / empleo',fm(pb,1)],
+   ['Productividad rama C','VAB / empleo',fm(pc,1)],
+   ['Rama más productiva','mayor VAB por puesto','Rama C']];},
+  k:['Producción = utilización − importaciones − impuestos − márgenes.','Los márgenes del conjunto suman cero: el bien comerciado los lleva positivos y el comercio, negativos.','Productividad = VAB / empleo por rama.'],
+  e:['Errores de signo en los márgenes.','Sumar las compras de no residentes al consumo de residentes.']},
+ {id:'e10',t:'E10 · Empleo ETC y productividad',mods:['emp'],
+  u:'Una economía presenta un VAB de 1.000, 20 puestos de trabajo equivalentes a tiempo completo y 36.000 horas trabajadas; la productividad por puesto ETC crece un 0,6 % y la productividad por hora un 1,2 % (hoja CN10_Empleo). Calcula las productividades y explica la diferencia.',
+  inp:[['vab','VAB',1000],['etc','Puestos de trabajo equivalentes a tiempo completo',20],['horas','Horas trabajadas',36000],['gp','Crecimiento de la productividad por puesto',0.006],['gh','Crecimiento de la productividad por hora',0.012]],
+  v:{},
+  sol:function(i){var pp=i.vab/i.etc,ph=i.vab/i.horas,hp=i.horas/i.etc,dh=(1+i.gp)/(1+i.gh)-1;return[
+   ['Productividad por puesto ETC','VAB / puestos ETC',fm(pp,1)],
+   ['Productividad por hora','VAB / horas',fm(ph,4)],
+   ['Horas por puesto ETC','horas / puestos ETC',fm(hp,0)],
+   ['Horas por puesto en semanas','a 40 horas de semana',fm(hp/40,1)+' semanas'],
+   ['Variación de las horas por puesto','(1 + g puesto)/(1 + g hora) − 1',fp(dh,2)],
+   ['Lectura','por hora crece el doble que por puesto','caen las horas por puesto']];},
+  k:['El puesto ETC suma las jornadas parciales como fracción de la completa.','Si la productividad por hora crece más que por puesto, caen las horas por puesto.','Ambas métricas difieren cuando cambia la duración de la jornada.'],
+  e:['Confundir persona ocupada, puesto, ETC y horas.','Presentar una productividad como mejor que la otra.']},
+ {id:'e11',t:'E11 · Renta real y términos de intercambio',mods:['emp'],
+  u:'Con el PIB en volumen (1.000), las exportaciones en volumen (200) y las importaciones en volumen (180), junto con los índices de precios de exportaciones (110) e importaciones (120, base 100), se analiza la renta real del país (hoja CN11_RentaReal).',
+  inp:[['pibv','PIB en volumen',1000],['xv','Exportaciones en volumen',200],['mv','Importaciones en volumen',180],['px','Índice de precios de exportaciones',110],['pm','Índice de precios de importaciones',120]],
+  v:{},
+  sol:function(i){var g=i.xv*(i.px/100-1)-i.mv*(i.pm/100-1),rr=i.pibv+g;return[
+   ['Ganancia por relación de intercambio','X vol·(px/100 − 1) − M vol·(pm/100 − 1)',sg(g,0)],
+   ['Renta interior real bruta','PIB en volumen + ganancia RI',fm(rr,0)],
+   ['Variación frente al PIB en volumen','renta real / PIB vol − 1',fp(rr/i.pibv-1,2)],
+   ['Términos de intercambio','px / pm','100 → '+fm(i.px/i.pm*100,1)],
+   ['Lectura','las importaciones se encarecen más','se produce igual y se es más pobre']];},
+  k:['Si los precios de exportación suben menos que los de importación, hay pérdida.','El PIB real no cambia: cambia la renta real.','La ganancia o pérdida es el efecto de los precios de X frente a M.'],
+  e:['Confundir relación de intercambio con competitividad.','Olvidar que el índice base es 100.']},
+ {id:'e12',t:'E12 · Trimestres y encadenado',mods:['idx'],
+  u:'Un indicador trimestral toma los valores 90, 100, 110 y 104 y debe repartir el total anual de 1.200; además se encadenan índices con crecimientos del 2 %, 3 % y −1 % desde la base 100 (hoja CN12_Trimestral).',
+  inp:[['i1','Indicador del T1',90],['i2','Indicador del T2',100],['i3','Indicador del T3',110],['i4','Indicador del T4',104],['anual','Total anual',1200],['g1','Crecimiento año 1',0.02],['g2','Crecimiento año 2',0.03],['g3','Crecimiento año 3',-0.01]],
+  v:{},
+  sol:function(i){var t=i.i1+i.i2+i.i3+i.i4;
+   var r=[i.anual*i.i1/t,i.anual*i.i2/t,i.anual*i.i3/t,i.anual*i.i4/t];
+   var enc=100*(1+i.g1)*(1+i.g2)*(1+i.g3);return[
+   ['Reparto del T1','anual × 90 / Σ indicadores',fm(r[0],1)],
+   ['Reparto del T2','anual × 100 / Σ indicadores',fm(r[1],1)],
+   ['Reparto del T3','anual × 110 / Σ indicadores',fm(r[2],1)],
+   ['Reparto del T4','anual × 104 / Σ indicadores',fm(r[3],1)],
+   ['Suma de los cuatro trimestres','comprobación del reparto',fm(sum(r),1)],
+   ['Índice encadenado final','base × (1+g1) × (1+g2) × (1+g3)',fm(enc,2)],
+   ['Tasa encadenada total','Π(1+g) − 1',fp(enc/100-1,2)],
+   ['Por qué no sumar tasas','2 + 3 − 1 = 4 % frente al encadenado',fp(enc/100-1,2)+' ≠ '+fp(i.g1+i.g2+i.g3,2)]]},
+  k:['El reparto proporcional conserva el total anual: Σ trimestres = anual.','Encadenar multiplica los factores (1 + g) sucesivos.','Los volúmenes encadenados evitan el arrastre de bases fijas.'],
+  e:['Sumar las tasas de crecimiento en vez de multiplicar los factores.','Esperar aditividad en volúmenes encadenados.']},
+ {id:'e13',t:'E13 · Stock, VA nacional y trabajo doméstico',mods:['pib'],
+  u:'Una empresa pasa de un stock inicial de 1.000 a uno final tras registrar operaciones por 80, otras variaciones de volumen 0 y revalorizaciones 30; se valora una exportación final de 100 con contenido importado del 0,6 y el trabajo doméstico (30 millones de adultos, 22 horas semanales por adulto y 11 € por hora) frente a un PIB central de 1.400 miles de millones (hoja CN13_Conceptos).',
+  inp:[['si','Stock inicial',1000],['op','Operaciones',80],['ovv','Otras variaciones de volumen',0],['rev','Revalorizaciones',30],['xe','Valor de la exportación final',100],['cont','Contenido importado',0.6],['ad','Adultos (millones)',30],['hs','Horas semanales de trabajo doméstico',22],['vh','Valor por hora (euros)',11],['pibc','PIB central (miles de millones)',1400]],
+  v:{},
+  sol:function(i){var sf=i.si+i.op+i.ovv+i.rev,van=i.xe*(1-i.cont),cont=i.xe*i.cont;
+   var td=i.ad*52*i.hs*i.vh,pa=i.pibc+td/1000;return[
+   ['Stock final','inicial + operaciones + otras variaciones + revalorizaciones',fm(sf,0)],
+   ['Valor añadido nacional de la exportación','exportación × (1 − contenido)',fm(van,0)],
+   ['Contenido extranjero incorporado','exportación × contenido',fm(cont,0)],
+   ['Trabajo doméstico anual','adultos × 52 × horas × valor hora',fm(td,0)+' M€'],
+   ['PIB ampliado','PIB central + trabajo doméstico',fm(pa,1)+' mil M€'],
+   ['Aumento sobre el PIB central','trabajo doméstico / PIB central',fp(td/1000/i.pibc,1)]]},
+  k:['Las revalorizaciones son ganancias de valor, no producción.','El VA nacional excluye el contenido importado del producto.','El trabajo doméstico queda fuera de la frontera de la producción: cuenta satélite.'],
+  e:['Contar 100 como contribución nacional de la exportación.','Incluir el trabajo doméstico en el PIB central.']}
+];
+EJS.forEach(function(ej){ej.inp.forEach(function(r){ej.v[r[0]]=r[2]});(ej.txt||[]).forEach(function(r){ej.v[r[0]]=r[2]})});
+/* ===== DOM ===== */
+
+/* ===== definiciones de los bloques ===== */
+var MODS=['pib','sec','pre','idx','io','emp'];
+var DEF={
+ pib:{name:'PIB',sub:'producción · gasto · renta',ini:'PI',c:[10,1],chips:[['Ópticas',10],['Identidad',1]]},
+ sec:{name:'Secuencia',sub:'PIB → RNB → RDB → B.9',ini:'SE',c:[3,15],chips:[['Saldos',3],['B.9',15]]},
+ pre:{name:'Precios',sub:'básico → adquisición',ini:'PR',c:[6,12],chips:[['Valoración',6],['Oferta = uso',12]]},
+ idx:{name:'Índices',sub:'Laspeyres · Paasche · Fisher',ini:'IN',c:[13,7],chips:[['Precios',13],['Deflactar',7]]},
+ io:{name:'Input-output',sub:'Leontief y multiplicadores',ini:'IO',c:[9,17],chips:[['Coeficientes',9],['Multiplicador',17]]},
+ emp:{name:'Empleo y renta',sub:'productividad y renta real',ini:'EM',c:[4,11],chips:[['Productiv.',4],['Renta real',11]]}
+};
+function ty(t,i){return '<span class="ty" style="--tc:var(--ty-'+i+');--tx:var(--tf-'+i+')">'+t+'</span>'}
+function tyChips(d){return DEF[d].chips.map(function(c){return ty(c[0],c[1])}).join('')}
+function monoStyle(d){return '--c1:var(--ty-'+DEF[d].c[0]+');--c2:var(--ty-'+DEF[d].c[1]+')'}
+function mono(d,cls){return '<span class="mono '+(cls||'')+'" style="'+monoStyle(d)+'"><i>'+DEF[d].ini+'</i></span>'}
+function modStat(m){
+  var c=CALCS[m];
+  if(m==='pib')return 'PIB '+fm(c.pibP,0);
+  if(m==='sec')return 'B.9 '+sg(c.b9,0);
+  if(m==='pre')return Math.abs(c.dif)<1e-9?'Oferta = uso':'Δ '+sg(c.dif,0);
+  if(m==='idx')return 'Fisher '+fm(c.F,3);
+  if(m==='io')return 'm₁ '+fm(c.mult[0],2);
+  return 'Δ horas '+fp(c.dh,2);
+}
+function modSpark(m){
+  var c=CALCS[m],W=84,H=24;
+  if(m==='pib')return mkBars(W,H,[{v:c.pibP,c:'var(--ty-10)'},{v:c.pibG,c:'var(--ty-11)'},{v:c.pibR,c:'var(--ty-12)'}],{mini:true});
+  if(m==='sec')return mkBars(W,H,[{v:S.sec.pib,c:'var(--ty-10)'},{v:c.rnb,c:'var(--ty-15)'},{v:c.rdb,c:'var(--ty-7)'},{v:c.ah,c:'var(--ty-6)'},{v:c.b9,c:c.b9>=0?'var(--ty-11)':'var(--ty-1)'}],{mini:true,signed:true});
+  if(m==='pre')return mkBars(W,H,[{v:c.ofer,c:'var(--ty-6)'},{v:c.util,c:'var(--ty-12)'}],{mini:true});
+  if(m==='idx')return mkBars(W,H,[{v:c.L,c:'var(--ty-13)'},{v:c.P,c:'var(--ty-7)'},{v:c.F,c:'var(--ty-4)'}],{mini:true});
+  if(m==='io')return mkHBar(W,H,c.mult.map(function(v,i){return{v:v,c:'var(--ty-'+(i===0?9:18)+')'}}),{mini:true});
+  return mkBars(W,H,[{v:S.emp.pibv,c:'var(--ty-10)'},{v:c.rr,c:c.rr>=S.emp.pibv?'var(--ty-11)':'var(--ty-1)'}],{mini:true});
+}
+/* ===== barra superior y equipo ===== */
+var $=function(id){return document.getElementById(id)};
+function renderTop(){
+  $('brandp').textContent='Datos y ejercicios de las hojas de cuentas nacionales de HojaCraft · 6 bloques · E1–E13';
+}
+function renderTeam(){
+  var h='<div class="team-h"><h2>Bloques</h2><span class="cnt">6/6</span></div>';
+  MODS.forEach(function(d){
+    h+='<button type="button" class="slot" data-act="mod" data-d="'+d+'" aria-pressed="'+(S.mod===d)+'">'+mono(d)+
+      '<span class="nm">'+DEF[d].name+'<small>'+DEF[d].sub+'</small></span><span class="tys">'+tyChips(d)+'</span>'+
+      '<span class="foot"><span class="spark" title="Miniatura del bloque con los controles actuales">'+modSpark(d)+'</span>'+
+      '<span class="spe" title="Indicador clave">'+modStat(d)+'</span></span></button>';
+  });
+  $('team').innerHTML=h;
+}
+
+/* ===== campos de entrada ===== */
+function numFld(id,l,v,st){return '<label class="fld"><span class="l">'+l+'</span><input id="'+id+'" type="number" step="'+(st||'any')+'" value="'+v+'"></label>'}
+function txtFld(id,l,v){return '<label class="fld" style="grid-column:1/-1"><span class="l">'+l+'</span><input id="'+id+'" type="text" value="'+v+'"></label>'}
+function ecCard(l,v,s){return '<div class="ec"><span class="l">'+l+'</span><span class="v">'+v+'</span>'+(s?'<span class="s">'+s+'</span>':'')+'</div>'}
+function heatTd(v,mx){var p=clamp(v/mx*100,0,100);return 'background:color-mix(in srgb,var(--accent) '+Math.round(p)+'%,var(--surface))'}
+
+/* ===== editor ===== */
+function edHead(d){
+  return '<div class="ed-head">'+mono(d,'lg')+'<div class="ed-id"><h2>'+DEF[d].name+'<small>'+DEF[d].sub+'</small></h2><div class="tys">'+tyChips(d)+'</div><div class="meta">'+edMeta(d)+'</div></div>'+
+    '<div class="ed-act"><button class="btn" type="button" data-act="pop">Ver datos</button><button class="btn" type="button" data-act="reset">Restablecer</button></div></div>';
+}
+function edMeta(d){
+  if(d==='pib')return 'Tres ramas (A, B, C) con producción y consumo intermedio · l₀ en unidades monetarias · hoja CN1_PIB de HojaCraft';
+  if(d==='sec')return 'PIB 810 · operaciones netas con el resto del mundo · hoja CN2_Secuencia';
+  if(d==='pre')return 'Un producto y el balance total en unidades monetarias · hoja CN3_Precios';
+  if(d==='idx')return 'Tres bienes con precios y cantidades de dos años · hoja CN4_Indices';
+  if(d==='io')return 'Tres sectores: flujos, demanda final y nueva demanda · hoja CN5_InputOutput';
+  return 'VAB 1.000 · 20 puestos ETC · 36.000 horas · hojas CN10_Empleo y CN11_RentaReal';
+}
+function edFields(d){
+  var h='';
+  if(d==='pib'){
+    h+='<div class="sec-h"><span>Ramas de actividad</span><span class="r">producción y consumo intermedio</span></div><div class="fields">';
+    ['A','B','C'].forEach(function(n,i){h+=numFld('pib-prod'+i,'Producción rama '+n,S.pib.prod[i])+numFld('pib-ci'+i,'Consumo intermedio rama '+n,S.pib.ci[i])});
+    h+='</div><div class="sec-h"><span>Impuestos y óptica del gasto</span><span class="r">PIB = C + FBC + X − M</span></div><div class="fields">';
+    h+=numFld('pib-imp','Impuestos netos s/ productos',S.pib.imp)+numFld('pib-c','Consumo final',S.pib.c)+numFld('pib-fbc','Formación bruta de capital',S.pib.fbc)+numFld('pib-x','Exportaciones',S.pib.x)+numFld('pib-m','Importaciones',S.pib.m);
+    h+='</div><div class="sec-h"><span>Óptica de la renta</span><span class="r">PIB = D.1 + EBE + imp. netos</span></div><div class="fields">';
+    h+=numFld('pib-d1','Remuneración de asalariados',S.pib.d1)+numFld('pib-ebe','EBE y renta mixta',S.pib.ebe);
+    h+='</div>';
+  }
+  if(d==='sec'){
+    h+='<div class="fields">';
+    h+=numFld('sec-pib','PIB',S.sec.pib)+numFld('sec-rp','Rentas primarias netas del resto del mundo',S.sec.rp)+numFld('sec-tc','Transferencias corrientes netas del RM',S.sec.tc)+numFld('sec-c','Consumo final',S.sec.c)+numFld('sec-tk','Transferencias de capital netas',S.sec.tk)+numFld('sec-fbc','Formación bruta de capital',S.sec.fbc)+numFld('sec-x','Exportaciones de bienes y servicios',S.sec.x)+numFld('sec-m','Importaciones de bienes y servicios',S.sec.m);
+    h+='</div>';
+  }
+  if(d==='pre'){
+    h+='<div class="sec-h"><span>Valoración de un producto</span><span class="r">del precio básico al de adquisición</span></div><div class="fields">';
+    h+=numFld('pre-pb','Precio básico',S.pre.pb)+numFld('pre-imp','Impuestos netos s/ el producto (sin IVA)',S.pre.imp)+numFld('pre-iva','IVA no deducible',S.pre.iva)+numFld('pre-mg','Márgenes comerciales y de transporte',S.pre.mg);
+    h+='</div><div class="sec-h"><span>Balance oferta-utilización</span><span class="r">a precios de adquisición</span></div><div class="fields">';
+    h+=numFld('pre-prodpb','Producción a precios básicos',S.pre.prodpb)+numFld('pre-impo','Importaciones',S.pre.impo)+numFld('pre-impp','Impuestos netos s/ productos',S.pre.impp)+numFld('pre-mgt','Márgenes comerciales y transporte',S.pre.mgt)+numFld('pre-ci','Consumo intermedio',S.pre.ci)+numFld('pre-c','Consumo final',S.pre.c)+numFld('pre-fbc','Formación bruta de capital',S.pre.fbc)+numFld('pre-x','Exportaciones',S.pre.x);
+    h+='</div>';
+  }
+  if(d==='idx'){
+    h+='<div class="sec-h"><span>Bienes del año base y actual</span><span class="r">edita precios y cantidades</span></div>'+
+      '<div class="sam"><table><thead><tr><th style="text-align:left">Bien</th><th>p₀</th><th>pₜ</th><th>q₀</th><th>qₜ</th><th>V₀ = p₀·q₀</th><th>Vₜ = pₜ·qₜ</th></tr></thead><tbody>'+
+      S.idx.b.map(function(b,i){return '<tr><td class="z">'+b.n+'</td>'+
+        ['p','pt','q','qt'].map(function(k){return '<td><input id="idx-'+k+i+'" type="number" step="any" value="'+b[k]+'"></td>'}).join('')+
+        '<td>'+fm(b.p0*b.q0,0)+'</td><td>'+fm(b.pt*b.qt,0)+'</td></tr>'}).join('')+
+      '</tbody><tfoot><tr><td>Σ</td><td></td><td></td><td></td><td></td><td>'+fm(CALCS.idx.V0,0)+'</td><td>'+fm(CALCS.idx.Vt,0)+'</td></tr></tfoot></table></div>';
+  }
+  if(d==='io'){
+    h+='<div class="sec-h"><span>Flujos de consumo intermedio</span><span class="r">fila vende · columna compra</span></div>'+
+      '<div class="sam"><table><thead><tr><th style="text-align:left">Vende \\ compra</th><th>S1</th><th>S2</th><th>S3</th><th>Demanda final</th><th>Producción</th></tr></thead><tbody>'+
+      [0,1,2].map(function(i){return '<tr><td class="z">S'+(i+1)+'</td>'+
+        [0,1,2].map(function(j){return '<td><input id="io-z'+i+j+'" type="number" step="any" value="'+S.io.z[i][j]+'"></td>'}).join('')+
+        '<td><input id="io-y'+i+'" type="number" step="any" value="'+S.io.y[i]+'"></td><td>'+fm(CALCS.io.x[i],0)+'</td></tr>'}).join('')+
+      '</tbody></table></div>'+
+      '<div class="sec-h"><span>Nueva demanda final</span><span class="r">simula un cambio y mira el arrastre</span></div><div class="fields">'+
+      [0,1,2].map(function(i){return numFld('io-ny'+i,'Nueva demanda final S'+(i+1),S.io.ny[i])}).join('')+'</div>';
+  }
+  if(d==='emp'){
+    h+='<div class="sec-h"><span>Productividad</span><span class="r">por puesto ETC y por hora</span></div><div class="fields">';
+    h+=numFld('emp-vab','VAB',S.emp.vab)+numFld('emp-etc','Puestos de trabajo ETC',S.emp.etc)+numFld('emp-horas','Horas trabajadas',S.emp.horas)+numFld('emp-gp','Crecimiento de la productividad por puesto',S.emp.gp)+numFld('emp-gh','Crecimiento de la productividad por hora',S.emp.gh);
+    h+='</div><div class="sec-h"><span>Renta real</span><span class="r">términos de intercambio</span></div><div class="fields">';
+    h+=numFld('emp-pibv','PIB en volumen',S.emp.pibv)+numFld('emp-xv','Exportaciones en volumen',S.emp.xv)+numFld('emp-mv','Importaciones en volumen',S.emp.mv)+numFld('emp-px','Índice de precios de exportaciones',S.emp.px)+numFld('emp-pm','Índice de precios de importaciones',S.emp.pm);
+    h+='</div>';
+  }
+  return h;
+}
+/* ===== salida del editor ===== */
+function edOut(d){
+  var c=CALCS[d],h='';
+  if(d==='pib'){
+    h+='<div class="sec-h"><span>Las tres ópticas del mismo PIB</span><span class="r">deben coincidir</span></div>'+
+      '<div class="cc"><div class="cc-t">PIB por producción, gasto y renta</div>'+
+      mkBars(560,210,[
+       {v:c.pibP,lab:'Producción',vl:fm(c.pibP,0),c:'var(--ty-10)',t:'Σ VAB + impuestos netos = '+fm(c.pibP,0)},
+       {v:c.pibG,lab:'Gasto',vl:fm(c.pibG,0),c:'var(--ty-11)',t:'C + FBC + X − M = '+fm(c.pibG,0)},
+       {v:c.pibR,lab:'Renta',vl:fm(c.pibR,0),c:'var(--ty-12)',t:'D.1 + EBE + impuestos netos = '+fm(c.pibR,0)}],{lab:'PIB por óptica'})+
+      '</div>'+
+      '<div class="est" style="margin-top:10px">'+
+      ecCard('VAB total',fm(c.vabT,0),'Σ (producción − CI)')+
+      ecCard('PIB producción',fm(c.pibP,0),'VAB + imp. netos')+
+      ecCard('PIB gasto',fm(c.pibG,0),'C + FBC + X − M')+
+      ecCard('PIB renta',fm(c.pibR,0),'D.1 + EBE + imp. netos')+
+      ecCard('Gasto − producción',sg(c.dG,0),Math.abs(c.dG)<1e-9?'las ópticas cuadran':'discrepancia estadística')+
+      ecCard('Renta − producción',sg(c.dR,0),Math.abs(c.dR)<1e-9?'las ópticas cuadran':'discrepancia estadística')+
+      '</div>'+
+      '<div class="sec-h"><span>Cómo se construye cada óptica</span><span class="r">mismos datos, tres lecturas</span></div>'+
+      '<div class="mgrid">'+
+      wf([['VAB rama A',fm(c.vab[0],0)],['VAB rama B',fm(c.vab[1],0)],['VAB rama C',fm(c.vab[2],0)],['VAB total',fm(c.vabT,0),'t'],['+ Impuestos netos s/ productos',fm(S.pib.imp,0),'d'],['= PIB producción',fm(c.pibP,0),'t']])+
+      wf([['Consumo final',fm(S.pib.c,0)],['+ Formación bruta de capital',fm(S.pib.fbc,0),'d'],['+ Exportaciones',fm(S.pib.x,0),'d'],['− Importaciones',fm(-S.pib.m,0),'d'],['= PIB gasto',fm(c.pibG,0),'t']])+
+      wf([['Remuneración de asalariados',fm(S.pib.d1,0)],['+ EBE y renta mixta',fm(S.pib.ebe,0),'d'],['+ Impuestos netos s/ producción',fm(S.pib.imp,0),'d'],['= PIB renta',fm(c.pibR,0),'t']])+
+      '</div>'+
+      '<p class="estl">Si las tres ópticas no coinciden, la diferencia es la <b>discrepancia estadística</b>. El PIB es <b>bruto</b> (antes del consumo de capital fijo) y <b>territorial</b>: la renta de los residentes es el RNB, que nace en el bloque «Secuencia».</p>';
+  }
+  if(d==='sec'){
+    h+='<div class="sec-h"><span>La cascada de saldos</span><span class="r">del PIB al B.9</span></div>'+
+      '<div class="cc"><div class="cc-t">Saldos de la secuencia de cuentas de la nación</div>'+
+      mkBars(560,210,[
+       {v:S.sec.pib,lab:'PIB',vl:fm(S.sec.pib,0),c:'var(--ty-10)',t:'PIB: '+fm(S.sec.pib,0)},
+       {v:c.rnb,lab:'RNB',vl:fm(c.rnb,0),c:'var(--ty-15)',t:'RNB: '+fm(c.rnb,0)},
+       {v:c.rdb,lab:'RDB',vl:fm(c.rdb,0),c:'var(--ty-7)',t:'RDB: '+fm(c.rdb,0)},
+       {v:c.ah,lab:'Ahorro',vl:fm(c.ah,0),c:'var(--ty-6)',t:'Ahorro bruto: '+fm(c.ah,0)},
+       {v:c.b9,lab:'B.9',vl:sg(c.b9,0),c:c.b9>=0?'var(--ty-11)':'var(--ty-1)',t:'B.9: '+sg(c.b9,0)}],{signed:true,lab:'secuencia de cuentas'})+
+      '</div>'+
+      '<div class="est" style="margin-top:10px">'+
+      ecCard('RNB',fm(c.rnb,0),'PIB + rentas netas RM')+
+      ecCard('RDB',fm(c.rdb,0),'RNB + transf. corrientes')+
+      ecCard('Ahorro bruto',fm(c.ah,0),fp(c.tasaAh,1)+' de la RDB')+
+      ecCard('B.9',sg(c.b9,0),c.b9>=0?'capacidad de financiación':'necesidad de financiación')+
+      ecCard('Saldo exterior',fm(c.saldo,0),'comprobación espejo')+
+      ecCard('Diferencia',sg(c.diff,1),Math.abs(c.diff)<1e-9?'cuadran':'revisa los datos')+
+      '</div>'+
+      '<div class="sec-h"><span>Paso a paso</span><span class="r">cada saldo nace del anterior</span></div>'+
+      wf([['PIB',fm(S.sec.pib,0)],['+ Rentas primarias netas del RM',sg(S.sec.rp,0),'d'],['= Renta nacional bruta',fm(c.rnb,0),'t'],['+ Transferencias corrientes netas',sg(S.sec.tc,0),'d'],['= Renta disponible bruta',fm(c.rdb,0),'t'],['− Consumo final',fm(-S.sec.c,0),'d'],['= Ahorro bruto',fm(c.ah,0),'t'],['+ Transferencias de capital netas',sg(S.sec.tk,0),'d'],['− Formación bruta de capital',fm(-S.sec.fbc,0),'d'],['= B.9 capacidad (+) / necesidad (−)',fm(c.b9,0),'t']])+
+      '<p class="estl">Comprobación con el exterior: <b>(X − M) + rentas + transf. corrientes + transf. capital = '+fm(c.saldo,0)+'</b>'+(Math.abs(c.diff)<1e-9?', igual que el B.9: lo que la nación presta de más es lo que el resto del mundo pide prestado.':', difiere en '+sg(c.diff,1)+' — revisa los datos.')+'</p>';
+  }
+  if(d==='pre'){
+    h+='<div class="sec-h"><span>La cadena de precios</span><span class="r">un producto, tres valoraciones</span></div>'+
+      '<div class="cc"><div class="cc-t">Del precio básico al de adquisición</div>'+
+      mkBars(560,200,[
+       {v:S.pre.pb,lab:'Básico',vl:fm(S.pre.pb,1),c:'var(--ty-6)',t:'Precio básico: '+fm(S.pre.pb,1)},
+       {v:c.pp,lab:'Productor',vl:fm(c.pp,1),c:'var(--ty-4)',t:'Precio de productor: '+fm(c.pp,1)},
+       {v:c.pa,lab:'Adquisición',vl:fm(c.pa,1),c:'var(--ty-9)',t:'Precio de adquisición: '+fm(c.pa,1)}],{lab:'cadena de precios'})+
+      '<div class="cleg"><span><s style="--c:var(--ty-6)"></s>Lo que recibe el productor</span><span><s style="--c:var(--ty-4)"></s>+ impuestos netos (sin IVA)</span><span><s style="--c:var(--ty-9)"></s>+ IVA no deducible + márgenes</span></div></div>'+
+      '<div class="est" style="margin-top:10px">'+
+      ecCard('Precio básico',fm(S.pre.pb,1),'lo recibe el productor')+
+      ecCard('Precio de productor',fm(c.pp,1),'básico + imp. netos')+
+      ecCard('Precio de adquisición',fm(c.pa,1),'lo paga el comprador')+
+      ecCard('Recargo total',fm(c.rec,1),'adquisición − básico')+
+      '</div>'+
+      '<div class="sec-h"><span>Oferta y utilización</span><span class="r">identidad central del sistema</span></div>'+
+      '<div class="cc"><div class="cc-t">Oferta total frente a utilización total (precios de adquisición)</div>'+
+      mkBars(560,190,[
+       {v:c.ofer,lab:'Oferta',vl:fm(c.ofer,0),c:'var(--ty-10)',t:'Oferta: '+fm(c.ofer,0)},
+       {v:c.util,lab:'Utilización',vl:fm(c.util,0),c:'var(--ty-14)',t:'Utilización: '+fm(c.util,0)}],{lab:'oferta y utilización'})+
+      '</div>'+
+      '<div class="mgrid" style="margin-top:10px">'+
+      wf([['Producción a precios básicos',fm(S.pre.prodpb,0)],['+ Importaciones',fm(S.pre.impo,0),'d'],['+ Impuestos netos s/ productos',fm(S.pre.impp,0),'d'],['+ Márgenes comerciales y transporte',fm(S.pre.mgt,0),'d'],['= Oferta total',fm(c.ofer,0),'t']])+
+      wf([['Consumo intermedio',fm(S.pre.ci,0)],['+ Consumo final',fm(S.pre.c,0),'d'],['+ Formación bruta de capital',fm(S.pre.fbc,0),'d'],['+ Exportaciones',fm(S.pre.x,0),'d'],['= Utilización total',fm(c.util,0),'t']])+
+      '</div>'+
+      '<p class="estl">Diferencia oferta − utilización: <b>'+sg(c.dif,1)+'</b>'+(Math.abs(c.dif)<1e-9?' — el producto está equilibrado, como manda la identidad contable.':' — para cada producto la identidad exige oferta = utilización; ajusta los datos.')+'</p>';
+  }
+  if(d==='idx'){
+    h+='<div class="sec-h"><span>Tres índices, una misma subida</span><span class="r">la línea marca la base 1</span></div>'+
+      '<div class="cc"><div class="cc-t">Índices de precios: Laspeyres, Paasche y Fisher</div>'+
+      mkBars(560,200,[
+       {v:c.L,lab:'Laspeyres',vl:fm(c.L,4),c:'var(--ty-13)',t:'Laspeyres: '+fm(c.L,4)},
+       {v:c.P,lab:'Paasche',vl:fm(c.P,4),c:'var(--ty-7)',t:'Paasche: '+fm(c.P,4)},
+       {v:c.F,lab:'Fisher',vl:fm(c.F,4),c:'var(--ty-4)',t:'Fisher: '+fm(c.F,4)}],{href:1,lab:'índices de precios'})+
+      '</div>'+
+      '<div class="est" style="margin-top:10px">'+
+      ecCard('Valor base Σ p₀q₀',fm(c.V0,0),'año base')+
+      ecCard('Valor actual Σ pₜqₜ',fm(c.Vt,0),'año actual')+
+      ecCard('Laspeyres',fm(c.L,4),'cesta del año base')+
+      ecCard('Paasche',fm(c.P,4),'cesta actual')+
+      ecCard('Fisher',fm(c.F,4),'√(L·P)')+
+      '</div>'+
+      '<div class="sec-h"><span>Nominal frente a real</span><span class="r">deflactar es dividir</span></div>'+
+      '<div class="cc"><div class="cc-t">Descomposición del crecimiento del valor (en %)</div>'+
+      mkBars(560,190,[
+       {v:c.nom*100,lab:'Nominal',vl:fp(c.nom,2),c:'var(--ty-18)',t:'Crecimiento nominal: '+fp(c.nom,2)},
+       {v:c.inf*100,lab:'Inflación (Paasche)',vl:fp(c.inf,2),c:'var(--ty-1)',t:'Inflación: '+fp(c.inf,2)},
+       {v:c.real*100,lab:'Real',vl:fp(c.real,2),c:'var(--ty-11)',t:'Crecimiento real: '+fp(c.real,2)}],{signed:true,lab:'nominal, inflación y real'})+
+      '</div>'+
+      '<p class="estl">Identidad exacta: <b>Vₜ/V₀ = Paasche de precios × Laspeyres de cantidades</b> → '+fm(c.Vt/c.V0,4)+' = '+fm(c.P,4)+' × '+fm(c.vol,4)+' (índice de volumen). El crecimiento real no es '+fp(c.nom,2)+' − '+fp(c.inf,2)+' = '+fp(c.nom-c.inf,2)+', sino <b>(1+'+fm(c.nom,4)+')/(1+'+fm(c.inf,4)+') − 1 = '+fp(c.real,2)+'</b>.</p>';
+  }
+  if(d==='io'){
+    var mxA=Math.max.apply(null,c.A.map(function(r){return Math.max.apply(null,r)}));
+    h+='<div class="sec-h"><span>Coeficientes técnicos A</span><span class="r">a(ij) = Z(ij) / x(j) · la receta de cada sector</span></div>'+
+      '<div class="tw"><table class="hm"><thead><tr><th></th><th>compra S1</th><th>compra S2</th><th>compra S3</th></tr></thead><tbody>'+
+      c.A.map(function(r,i){return '<tr><td class="z">vende S'+(i+1)+'</td>'+r.map(function(v){return '<td style="'+heatTd(v,mxA)+'" title="a = '+fm(v,4)+'">'+fm(v,3)+'</td>'}).join('')+'</tr>'}).join('')+
+      '</tbody></table></div>'+
+      '<p class="estl">Cada <b>columna</b> es la receta del sector que compra: lo que gasta en cada proveedor por unidad producida. Más color, más dependencia (máximo a = '+fm(mxA,3)+').</p>'+
+      '<div class="sec-h"><span>Inversa de Leontief L = (I − A)⁻¹</span><span class="r">efectos directos e indirectos</span></div>'+
+      '<div class="tw"><table class="hm"><thead><tr><th></th><th>S1</th><th>S2</th><th>S3</th></tr></thead><tbody>'+
+      (c.L?c.L.map(function(r,i){return '<tr><td class="z">S'+(i+1)+'</td>'+r.map(function(v,j){return '<td'+(i===j?' style="background:color-mix(in srgb,var(--accent) 22%,var(--surface))"':'')+'>'+fm(v,3)+'</td>'}).join('')+'</tr>'}).join(''):'<tr><td colspan="4">matriz no invertible con estos datos</td></tr>')+
+      '</tbody></table></div>'+
+      '<p class="estl">La diagonal (≥ 1) incluye la propia unidad de demanda final; el resto es el <b>arrastre</b> sobre los demás sectores.</p>'+
+      '<div class="mgrid" style="margin-top:10px">'+
+      '<div class="cc"><div class="cc-t">Multiplicadores de producción</div>'+
+      mkHBar(300,190,[{lab:'S1',v:c.mult[0],vl:fm(c.mult[0],2),c:'var(--ty-9)',t:'m1 = '+fm(c.mult[0],3)},{lab:'S2',v:c.mult[1],vl:fm(c.mult[1],2),c:'var(--ty-18)',t:'m2 = '+fm(c.mult[1],3)},{lab:'S3',v:c.mult[2],vl:fm(c.mult[2],2),c:'var(--ty-8)',t:'m3 = '+fm(c.mult[2],3)}],{lab:'multiplicadores'})+'</div>'+
+      '<div class="cc"><div class="cc-t">Producción por sector: hoy y tras el cambio</div>'+
+      mkGroup(300,190,['S1','S2','S3'],[{n:'Producción hoy',c:'var(--ty-18)',v:c.x},{n:'Con la nueva demanda final',c:'var(--accent)',v:CALCS.xn}],{yfmt:function(v){return fm(v,0)},lab:'producción por sector'})+'</div>'+
+      '</div>'+
+      '<div class="est" style="margin-top:10px">'+
+      ecCard('Producción S1',fm(c.x[0],0),'Σ Z(1j) + y(1)')+
+      ecCard('Multiplicador máximo','m'+(c.mult.indexOf(Math.max.apply(null,c.mult))+1)+' = '+fm(Math.max.apply(null,c.mult),2),'suma de su columna en L')+
+      ecCard('Nueva producción S1',fm(CALCS.xn[0],1),sg(CALCS.xn[0]-c.x[0],1)+' frente a hoy')+
+      ecCard('Arrastre total','Σ Δx = '+sg(sum(CALCS.xn)-sum(c.x),1),'Δ demanda final: '+sg(sum(S.io.ny)-sum(S.io.y),1))+
+      '</div>'+
+      '<p class="estl">x = A·x + y se resuelve como <b>x = (I − A)⁻¹·y</b>: la nueva demanda final ('+S.io.ny.map(function(v){return fm(v,0)}).join(', ')+') exige la producción '+CALCS.xn.map(function(v){return fm(v,1)}).join(', ')+', no solo su propio aumento.</p>';
+  }
+  if(d==='emp'){
+    h+='<div class="mgrid">'+
+      '<div class="cc"><div class="cc-t">Crecimientos (en %)</div>'+
+      mkBars(300,200,[
+       {v:S.emp.gp*100,lab:'Por puesto',vl:fp(S.emp.gp,2),c:'var(--ty-10)',t:'Productividad por puesto: '+fp(S.emp.gp,2)},
+       {v:S.emp.gh*100,lab:'Por hora',vl:fp(S.emp.gh,2),c:'var(--ty-11)',t:'Productividad por hora: '+fp(S.emp.gh,2)},
+       {v:c.dh*100,lab:'Horas/puesto',vl:fp(c.dh,2),c:c.dh<0?'var(--ty-1)':'var(--ty-6)',t:'Horas por puesto: '+fp(c.dh,2)}],{signed:true,lab:'crecimientos'})+'</div>'+
+      '<div class="cc"><div class="cc-t">PIB en volumen frente a renta real</div>'+
+      mkBars(300,200,[
+       {v:S.emp.pibv,lab:'PIB vol',vl:fm(S.emp.pibv,0),c:'var(--ty-10)',t:'PIB en volumen: '+fm(S.emp.pibv,0)},
+       {v:c.rr,lab:'Renta real',vl:fm(c.rr,0),c:c.rr>=S.emp.pibv?'var(--ty-11)':'var(--ty-1)',t:'Renta interior real bruta: '+fm(c.rr,0)}],{lab:'volumen y renta real'})+'</div>'+
+      '</div>'+
+      '<div class="est" style="margin-top:10px">'+
+      ecCard('Productividad por puesto',fm(c.pp,1),'VAB / ETC')+
+      ecCard('Productividad por hora',fm(c.ph,4),'VAB / horas')+
+      ecCard('Horas por puesto ETC',fm(c.hp,0),fm(c.hp/40,1)+' semanas de 40 h')+
+      ecCard('Δ horas por puesto',fp(c.dh,2),(1+S.emp.gp)/(1+S.emp.gh)-1<0?'caen: más parcial':'suben')+
+      ecCard('Ganancia por relación de intercambio',sg(c.gRI,0),'X·(px−1) − M·(pm−1)')+
+      ecCard('Renta interior real bruta',fm(c.rr,0),sg(c.varr*100,2)+' % sobre el PIB en volumen')+
+      '</div>'+
+      '<p class="estl">Términos de intercambio: px/pm = <b>'+fm(c.tInt,3)+'</b> (de 100 a '+fm(c.tInt*100,1)+')'+(c.gRI<0?': las importaciones se encarecen más que las exportaciones, se produce lo mismo y se es más pobre.':': las exportaciones se encarecen más, la renta real gana al volumen.')+'</p>';
+  }
+  return h;
+}
+function renderEdOut(){
+  var el=$('ed-out');if(el)el.innerHTML=edOut(S.mod);
+}
+function renderEditor(){
+  $('editor').innerHTML=edHead(S.mod)+edFields(S.mod)+'<div id="ed-out"></div>';
+  renderEdOut();
+}
+function renderView(){
+  $('app').setAttribute('data-view',S.view);
+  [].forEach.call(document.querySelectorAll('#viewseg button'),function(b){b.setAttribute('aria-pressed',b.getAttribute('data-v')===S.view)});
+}
+function renderAll(){renderTop();renderTeam();renderEditor();renderAnalysis();renderView()}
+
+/* ===== ventana de datos ===== */
+function dataPop(){
+  var d=S.mod,c=CALCS[d],h='';
+  var sheet=function(title,head,rows,foot){
+    return '<div class="sam"><table><thead><tr>'+head.map(function(x,i){return '<th'+(i?'':' style="text-align:left"')+'>'+x+'</th>'}).join('')+'</tr></thead><tbody>'+
+      rows.map(function(r){return '<tr>'+r.map(function(x,i){return '<td'+(i?'':' class="z"')+'>'+x+'</td>'}).join('')+'</tr>'}).join('')+
+      (foot?'<tfoot><tr>'+foot.map(function(x,i){return '<td'+(i?'':' class="z"')+'>'+x+'</td>'}).join('')+'</tr></tfoot>':'')+'</table></div>';
+  };
+  var kv=function(title,rows){
+    return '<div class="sam"><table><tbody>'+rows.map(function(r){return '<tr><td class="z" style="width:60%">'+r[0]+'</td><td>'+r[1]+'</td></tr>'}).join('')+'</tbody></table></div>';
+  };
+  if(d==='pib')h=sheet('CN1_PIB',['Rama','Producción','Consumo intermedio','VAB'],
+      ['A','B','C'].map(function(n,i){return [n,fm(S.pib.prod[i],0),fm(S.pib.ci[i],0),fm(c.vab[i],0)]}),['Σ',fm(sum(S.pib.prod),0),fm(sum(S.pib.ci),0),fm(c.vabT,0)])+
+    kv('Partidas',[['Impuestos netos s/ productos',fm(S.pib.imp,0)],['PIB (producción)',fm(c.pibP,0)],['Consumo final',fm(S.pib.c,0)],['Formación bruta de capital',fm(S.pib.fbc,0)],['Exportaciones',fm(S.pib.x,0)],['Importaciones',fm(S.pib.m,0)],['PIB (gasto)',fm(c.pibG,0)],['Remuneración de asalariados',fm(S.pib.d1,0)],['EBE y renta mixta',fm(S.pib.ebe,0)],['PIB (renta)',fm(c.pibR,0)],['Gasto − producción',sg(c.dG,0)],['Renta − producción',sg(c.dR,0)]]);
+  if(d==='sec')h=kv('CN2_Secuencia',[['PIB',fm(S.sec.pib,0)],['Rentas primarias netas del RM',sg(S.sec.rp,0)],['Transferencias corrientes netas del RM',sg(S.sec.tc,0)],['Consumo final',fm(S.sec.c,0)],['Transferencias de capital netas',sg(S.sec.tk,0)],['Formación bruta de capital',fm(S.sec.fbc,0)],['Exportaciones',fm(S.sec.x,0)],['Importaciones',fm(S.sec.m,0)],['RNB',fm(c.rnb,0)],['RDB',fm(c.rdb,0)],['Ahorro bruto',fm(c.ah,0)],['B.9',fm(c.b9,0)],['Saldo exterior (comprobación)',fm(c.saldo,0)]]);
+  if(d==='pre')h=kv('CN3_Precios · valoración',[['Precio básico',fm(S.pre.pb,1)],['Impuestos netos s/ el producto (sin IVA)',fm(S.pre.imp,1)],['IVA no deducible',fm(S.pre.iva,1)],['Márgenes comerciales y de transporte',fm(S.pre.mg,1)],['Precio de productor',fm(c.pp,1)],['Precio de adquisición',fm(c.pa,1)]])+
+    kv('CN3_Precios · oferta y utilización',[['Producción a precios básicos',fm(S.pre.prodpb,0)],['Importaciones',fm(S.pre.impo,0)],['Impuestos netos s/ productos',fm(S.pre.impp,0)],['Márgenes comerciales y transporte',fm(S.pre.mgt,0)],['Oferta total a precios de adquisición',fm(c.ofer,0)],['Consumo intermedio',fm(S.pre.ci,0)],['Consumo final',fm(S.pre.c,0)],['Formación bruta de capital',fm(S.pre.fbc,0)],['Exportaciones',fm(S.pre.x,0)],['Utilización total',fm(c.util,0)],['Oferta − utilización',sg(c.dif,1)]]);
+  if(d==='idx')h=sheet('CN4_Indices',['Bien','p₀','pₜ','q₀','qₜ'],
+      S.idx.b.map(function(b){return [b.n,fm(b.p0,2),fm(b.pt,2),fm(b.q0,0),fm(b.qt,0)]}),['Σ','','','',fm(c.V0,0),fm(c.Vt,0)].slice(0,5));
+  if(d==='io')h=sheet('CN5_InputOutput',['Vende \\ compra','S1','S2','S3','Demanda final','Producción'],
+      [0,1,2].map(function(i){return ['S'+(i+1)].concat(S.io.z[i].map(function(v){return fm(v,0)}),[fm(S.io.y[i],0),fm(c.x[i],0)])}));
+  if(d==='emp')h=kv('CN10_Empleo',[['VAB',fm(S.emp.vab,0)],['Puestos de trabajo ETC',fm(S.emp.etc,0)],['Horas trabajadas',fm(S.emp.horas,0)],['Productividad por puesto ETC',fm(c.pp,1)],['Productividad por hora',fm(c.ph,4)],['Horas por puesto ETC',fm(c.hp,0)],['Crecimiento prod. por puesto',fp(S.emp.gp,2)],['Crecimiento prod. por hora',fp(S.emp.gh,2)]])+
+    kv('CN11_RentaReal',[['PIB en volumen',fm(S.emp.pibv,0)],['Exportaciones en volumen',fm(S.emp.xv,0)],['Importaciones en volumen',fm(S.emp.mv,0)],['Índice de precios de exportaciones',fm(S.emp.px,0)],['Índice de precios de importaciones',fm(S.emp.pm,0)],['Ganancia (+) / pérdida (−) por relación de intercambio',sg(c.gRI,0)],['Renta interior real bruta',fm(c.rr,0)]]);
+  var m=$('modal');
+  m.innerHTML='<div class="modal" data-act="closepop"><div class="sheet" role="dialog" aria-modal="true" aria-label="Datos" onclick="event.stopPropagation()"><header><h2>'+DEF[d].name+' · datos de la hoja</h2><button class="btn sm" type="button" data-act="closepop">Cerrar</button></header><div class="mbody">'+h+'</div><div class="mfoot"><span>Datos ficticios de las hojas de cuentas nacionales de HojaCraft</span><span>edítalos con los controles del panel</span></div></div></div>';
+  m.hidden=false;
+}
+function closePop(){var m=$('modal');m.hidden=true;m.innerHTML=''}
+/* ===== pestañas de análisis ===== */
+var TABS=[['lect','Lectura'],['calc','Cálculo'],['cmp','Comparar'],['ejer','Ejercicios'],['mem','Memorizar']];
+var LECT={
+ pib:{u:'Mide el resultado total de la actividad productiva de un territorio en un periodo: todo lo que se produce menos lo consumido para producirlo. Se puede contar por producción (suma de valores añadidos más impuestos netos sobre los productos), por gasto (consumo más inversión más saldo exterior) o por renta (remuneraciones más excedente más impuestos). Es el punto de partida de toda la contabilidad nacional.',
+  pros:['Las tres ópticas son <b>la misma identidad contable</b> vista desde el producto, el destino y la distribución: deben dar el mismo total.',
+   'El <b>VAB evita la doble contabilidad</b>: resta el consumo intermedio para no contar dos veces lo producido por otras ramas.',
+   'El PIB es <b>bruto</b> (antes de descontar el consumo de capital fijo) y <b>territorial</b>: lo que se produce dentro, sea de quien sea.',
+   'La comprobación entre ópticas valida la coherencia de todo el cuadro contable.'],
+  cons:['En la práctica las tres ópticas <b>no cuadran exactamente</b>: la diferencia es la discrepancia estadística.',
+   'Sumar producciones en vez de valores añadidos duplica los consumos intermedios: el error clásico del examen.',
+   'No mide bienestar ni renta disponible: es producción, no renta, y no descuenta la depreciación.',
+   'El PIB de mercado ignora la producción no destinada a la venta (trabajo doméstico, cuenta satélite del E6… del E13).'],
+  when:'Valorar el tamaño de una economía, construir el resto de las cuentas (secuencia, sectores) y descomponer el crecimiento por componentes de gasto.'},
+ sec:{u:'Encadena los saldos contables de la nación: del PIB a la renta nacional bruta (añadiendo las rentas primarias netas con el resto del mundo), la renta disponible bruta (transferencias corrientes), el ahorro (menos consumo final) y la capacidad o necesidad de financiación (más transferencias de capital, menos inversión).',
+  pros:['Cada saldo es <b>el punto de partida de la cuenta siguiente</b>: la secuencia se lee como una cascada.',
+   'El <b>B.9</b> dice si la nación presta al exterior (capacidad) o se endeuda (necesidad).',
+   'La comprobación con el <b>saldo exterior</b> (bienes, rentas y transferencias) valida todo el recorrido de golpe.',
+   'Separa lo que pasa en el territorio (PIB) de lo que corresponde a los residentes (RNB).'],
+  cons:['Confundir PIB con RNB: difieren por las rentas primarias netas con el resto del mundo.',
+   'Olvidar las transferencias de capital (D.9) en el último paso: solo se restan corrientes.',
+   'El ahorro bruto no descuenta el consumo de capital fijo: el neto sí.',
+   'El B.9 no es «el ahorro»: incluye inversión y transferencias de capital.'],
+  when:'Pasar del PIB a la posición financiera de la nación y comprobar la coherencia con el resto del mundo.'},
+ pre:{u:'Sigue la formación del precio de un producto: del precio básico (lo que recibe el productor) al de productor (más impuestos netos sobre el producto, sin IVA) y al de adquisición (más IVA no deducible y márgenes comerciales y de transporte). Y comprueba la identidad central del sistema: la oferta total a precios de adquisición iguala la utilización total.',
+  pros:['Distingue con precisión <b>quién cobra cada parte</b> del precio final.',
+   'La igualdad <b>oferta = utilización</b> producto a producto es el equilibrio contable del sistema.',
+   'Los márgenes se tratan como servicio aparte: entre productos, suman cero.',
+   'Permite pasar de valoraciones básicas a precios de comprador sin perder coherencia.'],
+  cons:['Mezclar valoraciones (básica, productor, adquisición) en una misma suma.',
+   'Olvidar los impuestos netos sobre los productos al construir la oferta.',
+   'El IVA deducible de las empresas no forma parte del precio de adquisición final.',
+   'Los márgenes negativos (comercio) sorprenden: el bien vendido los pierde y el servicio de comercio los gana.'],
+  when:'Construir tablas de oferta y utilización, entender el IPC frente al deflactor y valorar correctamente impuestos y márgenes.'},
+ idx:{u:'Convierte el cambio de valor de una cesta en dos partes: precios y cantidades. Laspeyres pondera con las cantidades del año base; Paasche con las actuales; Fisher es su media geométrica. Y deflacta: pasar del crecimiento nominal al real dividiendo por el índice de precios.',
+  pros:['Laspeyres responde a «¿cuánto cuesta hoy la cesta de antes?»: la lógica del <b>IPC</b>.',
+   'Paasche es el <b>deflactor implícito</b>: sale de dividir el valor entre el volumen.',
+   'Fisher une ambos sin sesgo de sustitución: el índice ideal de la teoría.',
+   'La identidad Vₜ/V₀ = Paasche(precios)·Laspeyres(cantidades) descompone el valor sin residuo.'],
+  cons:['Laspeyres tiende a <b>sobreestimar</b> la inflación (la cesta envejece); Paasche, a subestimarla.',
+   'Deflactar es <b>dividir</b>, (1+g)/(1+π)−1, no restar tasas.',
+   'Los volúmenes encadenados no son aditivos: las sumas de series encadenadas no cuadran.',
+   'Comparar índices de bases o referencias distintas no tiene sentido.'],
+  when:'Medir inflación, deflactar cuentas nacionales, encadenar series y comparar niveles de vida reales.'},
+ io:{u:'Describe quién compra a quién: los consumos intermedios entre sectores y la demanda final. Con los coeficientes técnicos (la receta de cada sector) y la inversa de Leontief calcula la producción total que exige cualquier demanda final, incluyendo los efectos indirectos en cadena.',
+  pros:['Los <b>multiplicadores</b> miden cuánta producción total activa cada unidad de demanda final.',
+   'La cadena completa: petición directa, y arrastre sobre proveedores y proveedores de proveedores.',
+   'x = (I−A)⁻¹·y resuelve el equilibrio de una sola vez.',
+   'Sirve para simular choques de demanda, análisis de impacto y encadenamientos productivos.'],
+  cons:['Supone <b>coeficientes técnicos fijos</b>: sin sustitución ni cambios tecnológicos.',
+   'Es una fotografía de un año: envejece rápido.',
+   'La agregación de sectores oculta heterogeneidad dentro de cada columna.',
+   'Dividir por la producción de la fila en vez de la de la columna invierte la matriz: el error típico.'],
+  when:'Analizar interdependencias sectoriales, impacto de choques y políticas industriales.'},
+ emp:{u:'Compara dos formas de medir la productividad (por puesto equivalente a tiempo completo y por hora trabajada) y separa el crecimiento en volumen del cambio de la renta real: la ganancia o pérdida por la relación de intercambio con el exterior.',
+  pros:['La productividad por hora <b>no depende de la duración de la jornada</b>; la por puesto sí.',
+   'El puesto ETC resume las jornadas parciales como fracción de la jornada completa.',
+   'La <b>renta interior real</b> corrige el PIB en volumen por los términos de intercambio.',
+   'El diferencial de tasas (1+g₁)/(1+g₂)−1 revela si caen las horas por puesto.'],
+  cons:['Persona ocupada, puesto, ETC y horas <b>no son lo mismo</b>: cada fuente usa una unidad.',
+   'Presentar una productividad como mejor que la otra: miden cosas distintas.',
+   'La ganancia por relación de intercambio es una aproximación (deflactor común).',
+   'El comercio exterior en volumen no es el PIB: cuidado con los agregados.'],
+  when:'Analizar productividad, empleo y crecimiento real; valorar el efecto de los precios relativos exteriores.'}
+};
+function tabLect(){
+  var d=S.mod,p=LECT[d];
+  var li=function(b,t,k){return '<li><span class="badge '+k+'">'+b+'</span><span>'+t+'</span></li>'};
+  return '<h4>Qué mide</h4><p>'+p.u+'</p>'+
+    '<h4>Ventajas</h4><ul class="checks">'+p.pros.map(function(t){return li('Ventaja',t,'ok')}).join('')+'</ul>'+
+    '<h4>Límites</h4><ul class="checks">'+p.cons.map(function(t,i){return li(i===0?'Riesgo':'Límite',t,'rv')}).join('')+'</ul>'+
+    '<h4>Cuándo usarlo</h4><ul class="checks">'+li('Usar si',p.when,'in')+'</ul>'+
+    '<div class="callout"><span><b>Ahora mismo:</b> '+lectNow(d)+'</span></div>';
+}
+function lectNow(d){
+  var c=CALCS[d];
+  if(d==='pib')return 'PIB por producción '+fm(c.pibP,0)+', por gasto '+fm(c.pibG,0)+' y por renta '+fm(c.pibR,0)+'; las comprobaciones dan '+sg(c.dG,0)+' y '+sg(c.dR,0)+'.';
+  if(d==='sec')return 'RNB '+fm(c.rnb,0)+', RDB '+fm(c.rdb,0)+', ahorro bruto '+fm(c.ah,0)+' ('+fp(c.tasaAh,1)+' de la renta disponible) y B.9 '+sg(c.b9,0)+' ('+(c.b9>=0?'capacidad':'necesidad')+' de financiación); el saldo exterior confirma '+fm(c.saldo,0)+'.';
+  if(d==='pre')return 'precio de productor '+fm(c.pp,1)+' y de adquisición '+fm(c.pa,1)+' (+'+fm(c.rec,1)+' sobre el básico); oferta '+fm(c.ofer,0)+' frente a utilización '+fm(c.util,0)+'.';
+  if(d==='idx')return 'Laspeyres '+fm(c.L,4)+', Paasche '+fm(c.P,4)+' y Fisher '+fm(c.F,4)+'; crecimiento nominal '+fp(c.nom,2)+' que se descompone en inflación '+fp(c.inf,2)+' y crecimiento real '+fp(c.real,2)+'.';
+  if(d==='io')return 'producciones '+c.x.map(function(v){return fm(v,0)}).join(', ')+' con multiplicadores '+c.mult.map(function(v){return fm(v,2)}).join(', ')+'; la nueva demanda final lleva la producción a '+CALCS.xn.map(function(v){return fm(v,1)}).join(', ')+'.';
+  return 'productividad por puesto '+fm(c.pp,1)+' y por hora '+fm(c.ph,4)+' ('+fm(c.hp,0)+' horas por puesto, '+fp(c.dh,2)+'); ganancia por relación de intercambio '+sg(c.gRI,0)+' y renta real '+fm(c.rr,0)+' ('+sg(c.varr*100,2)+' %).';
+}
+var CALCDOC={
+ pib:[['Valor añadido bruto','VAB = Producción − Consumo intermedio','Lo que añade cada rama: evita contar dos veces los consumos intermedios.'],
+  ['VAB total','Σ VAB (a precios básicos)','Suma de los valores añadidos de todas las ramas.'],
+  ['PIB por producción','PIB = Σ VAB + impuestos netos s/ productos','Del VAB a precios básicos al PIB a precios de mercado.'],
+  ['PIB por gasto','PIB = C + FBC + X − M','Demanda final interior más saldo exterior de bienes y servicios.'],
+  ['PIB por renta','PIB = D.1 + EBE/renta mixta + impuestos netos s/ producción','Cómo se reparte lo producido entre factores y Administraciones.'],
+  ['Comprobación','gasto − producción · renta − producción','Si no cuadran, la diferencia es la discrepancia estadística.']],
+ sec:[['Renta nacional bruta','RNB = PIB + rentas primarias netas del RM','Pasa del territorio a los residentes.'],
+  ['Renta disponible bruta','RDB = RNB + transferencias corrientes netas','Tras la redistribución con el resto del mundo.'],
+  ['Ahorro bruto','S = RDB − consumo final','Lo que no se consume.'],
+  ['Capacidad de financiación','B.9 = S + transferencias de capital netas − FBC','Positiva: la economía presta al exterior; negativa: se endeuda.'],
+  ['Comprobación','B.9 = (X − M) + rentas + transf. corrientes + transf. capital','El saldo de la nación es el del resto del mundo con signo contrario.']],
+ pre:[['Precio de productor','P. productor = P. básico + impuestos netos s/ producto','Lo que recibe el productor más los impuestos del producto (sin IVA).'],
+  ['Precio de adquisición','P. adquisición = P. productor + IVA no deducible + márgenes','Lo que paga el comprador.'],
+  ['Oferta a precios de adquisición','producción pb + importaciones + impuestos netos + márgenes','Todo lo disponible del producto.'],
+  ['Utilización total','CI + consumo final + FBC + exportaciones','Todos los destinos del producto.'],
+  ['Equilibrio','Oferta = utilización','Identidad contable central, producto a producto.']],
+ idx:[['Valores','V₀ = Σ p₀·q₀ · Vₜ = Σ pₜ·qₜ','Valor = precio × cantidad.'],
+  ['Laspeyres','L = Σ pₜ·q₀ / Σ p₀·q₀','Pondera con las cantidades del año base (lógica del IPC).'],
+  ['Paasche','P = Σ pₜ·qₜ / Σ p₀·qₜ','Pondera con las cantidades actuales (deflactor implícito).'],
+  ['Fisher','F = √(L·P)','Media geométrica de ambos.'],
+  ['Nominal y real','real = (1 + nominal)/(1 + inflación) − 1','Deflactar es dividir, no restar tasas.'],
+  ['Identidad','Vₜ/V₀ = Paasche precios · Laspeyres cantidades','El valor se descompone sin residuo.']],
+ io:[['Producción','x(i) = Σ Z(ij) + y(i)','Ventas intermedias más demanda final.'],
+  ['Coeficientes técnicos','a(ij) = Z(ij) / x(j)','Cada columna es la receta del sector: dividir por la producción de la columna.'],
+  ['Inversa de Leontief','L = (I − A)⁻¹','Recoge los efectos directos e indirectos.'],
+  ['Multiplicadores','m(j) = Σ L(ij)','Producción total por unidad de demanda final del sector j.'],
+  ['Producción necesaria','x = L · y','Con la nueva demanda final.']],
+ emp:[['Productividades','VAB / puestos ETC · VAB / horas','Mismo numerador, distinto denominador.'],
+  ['Horas por puesto','horas / puestos ETC','Es el cociente entre las dos productividades.'],
+  ['Diferencial','(1 + g puesto)/(1 + g hora) − 1','Negativo: caen las horas por puesto (parcial, jornada).'],
+  ['Ganancia por relación de intercambio','X vol·(px/100 − 1) − M vol·(pm/100 − 1)','Sube el precio relativo de lo que importo: pérdida.'],
+  ['Renta interior real bruta','PIB en volumen + ganancia RI','La producción valorada por lo que compra en el exterior.']]
+};
+function tabCalc(){
+  var d=S.mod,rows=CALCDOC[d];
+  return '<h4>Cómo se calcula, paso a paso</h4><table class="kv wide"><tbody>'+
+    rows.map(function(r){return '<tr><td>'+r[0]+'</td><td><code>'+r[1]+'</code><br>'+r[2]+'</td></tr>'}).join('')+'</tbody></table>'+
+    '<h4>Con los datos actuales</h4><p>'+calcNow(d)+'</p>'+
+    '<div class="callout"><span><b>Receta para argumentar cualquier agregado:</b> 1) qué mide y desde qué óptica (producto, destino, distribución); 2) su frontera (territorio o residencia; producción o renta); 3) su valoración (básica, productor, adquisición; nominal o real); 4) con qué se confunde; 5) una comprobación de sentido (las tres ópticas coinciden, oferta = utilización, B.9 = saldo exterior, Vₜ/V₀ = P·L…).</span></div>';
+}
+function calcNow(d){
+  var c=CALCS[d];
+  if(d==='pib')return 'VAB total = Σ (P − CI) = <b>'+fm(c.vabT,0)+'</b> · PIB producción = '+fm(c.vabT,0)+' + '+fm(S.pib.imp,0)+' = <b>'+fm(c.pibP,0)+'</b> · PIB gasto = '+fm(S.pib.c,0)+' + '+fm(S.pib.fbc,0)+' + '+fm(S.pib.x,0)+' − '+fm(S.pib.m,0)+' = <b>'+fm(c.pibG,0)+'</b> · PIB renta = '+fm(S.pib.d1,0)+' + '+fm(S.pib.ebe,0)+' + '+fm(S.pib.imp,0)+' = <b>'+fm(c.pibR,0)+'</b>.';
+  if(d==='sec')return 'RNB = '+fm(S.sec.pib,0)+' '+sg(S.sec.rp,0)+' = <b>'+fm(c.rnb,0)+'</b> · RDB = <b>'+fm(c.rdb,0)+'</b> · ahorro = '+fm(c.rdb,0)+' − '+fm(S.sec.c,0)+' = <b>'+fm(c.ah,0)+'</b> · B.9 = '+fm(c.ah,0)+' '+sg(S.sec.tk,0)+' − '+fm(S.sec.fbc,0)+' = <b>'+fm(c.b9,0)+'</b> · comprobación exterior = <b>'+fm(c.saldo,0)+'</b>.';
+  if(d==='pre')return 'P. productor = '+fm(S.pre.pb,1)+' + '+fm(S.pre.imp,1)+' = <b>'+fm(c.pp,1)+'</b> · P. adquisición = '+fm(c.pp,1)+' + '+fm(S.pre.iva,1)+' + '+fm(S.pre.mg,1)+' = <b>'+fm(c.pa,1)+'</b> · oferta = '+fm(c.ofer,0)+' · utilización = <b>'+fm(c.util,0)+'</b> · diferencia = <b>'+sg(c.dif,1)+'</b>.';
+  if(d==='idx')return 'V₀ = <b>'+fm(c.V0,0)+'</b> · Vₜ = <b>'+fm(c.Vt,0)+'</b> · L = '+fm(c.Ld,0)+'/'+fm(c.V0,0)+' = <b>'+fm(c.L,4)+'</b> · P = '+fm(c.Vt,0)+'/'+fm(c.Pd,0)+' = <b>'+fm(c.P,4)+'</b> · F = <b>'+fm(c.F,4)+'</b> · nominal <b>'+fp(c.nom,2)+'</b> = inflación <b>'+fp(c.inf,2)+'</b> + real <b>'+fp(c.real,2)+'</b> (aprox.).';
+  if(d==='io')return 'x = ('+c.x.map(function(v){return fm(v,0)}).join(', ')+') · m = ('+c.mult.map(function(v){return fm(v,2)}).join(', ')+') · con la nueva demanda final, x = L·y = ('+CALCS.xn.map(function(v){return fm(v,1)}).join(', ')+').';
+  return 'Prod/puesto = '+fm(S.emp.vab,0)+'/'+fm(S.emp.etc,0)+' = <b>'+fm(c.pp,1)+'</b> · prod/hora = <b>'+fm(c.ph,4)+'</b> · horas/puesto = <b>'+fm(c.hp,0)+'</b> · Δ horas = (1+'+fm(S.emp.gp,3)+')/(1+'+fm(S.emp.gh,3)+') − 1 = <b>'+fp(c.dh,2)+'</b> · ganancia RI = <b>'+sg(c.gRI,0)+'</b> · renta real = <b>'+fm(c.rr,0)+'</b>.';
+}
+/* ===== Comparar ===== */
+function heat(v,lo,hi){return v<=lo?'mq':v<=hi?'mh':'m2'}
+function tabCmp(){
+  var d=S.mod,c=CALCS[d],h='';
+  var rowBtn=function(dd){return '<td class="tl"><button type="button" class="rowb" data-act="mod" data-d="'+dd+'"'+(S.mod===dd?' aria-current="true"':'')+'>'+mono(dd,'sm')+'<span>'+DEF[dd].name+'</span></button></td>'};
+  if(d==='pib'){
+    h+='<h4>Las tres ópticas, cara a cara</h4><div class="tw"><table class="mx"><thead><tr><th></th><th>Valor</th><th>Qué suma</th><th>Si falla, revisa</th></tr></thead><tbody>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">PIB producción</span></td><td class="mq">'+fm(c.pibP,0)+'</td><td class="tl" style="min-width:0">Σ VAB + impuestos netos s/ productos</td><td class="tl" style="min-width:0">el VAB total o los impuestos</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">PIB gasto</span></td><td class="'+heat(Math.abs(c.dG),0,0.5)+'">'+fm(c.pibG,0)+'</td><td class="tl" style="min-width:0">C + FBC + X − M</td><td class="tl" style="min-width:0">las importaciones (¿las has restado?)</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">PIB renta</span></td><td class="'+heat(Math.abs(c.dR),0,0.5)+'">'+fm(c.pibR,0)+'</td><td class="tl" style="min-width:0">D.1 + EBE + impuestos netos</td><td class="tl" style="min-width:0">remuneración o excedente</td></tr>'+
+    '</tbody></table></div><p class="hint" style="margin-top:6px">Las tres deben coincidir: son el mismo agregado contado por el producto, por el destino y por la distribución. Con los datos actuales: gasto − producción = '+sg(c.dG,0)+' y renta − producción = '+sg(c.dR,0)+'.</p>';
+    h+='<h4>PIB frente a sus vecinos</h4><div class="tw"><table class="mx"><thead><tr><th></th><th>Qué mide</th><th>Frontera</th><th>Nota</th></tr></thead><tbody>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">PIB</span></td><td class="tl" style="min-width:0">producción del territorio</td><td class="m1">territorio</td><td class="tl" style="min-width:0">bruto: antes del consumo de capital fijo</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">RNB</span></td><td class="tl" style="min-width:0">renta primaria de los residentes</td><td class="m1">residencia</td><td class="tl" style="min-width:0">PIB + rentas primarias netas con el RM</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Σ producciones</span></td><td class="tl" style="min-width:0">suma bruta de ventas</td><td class="m2"><span class="no">No es el PIB</span></td><td class="tl" style="min-width:0">duplica los consumos intermedios</td></tr>'+
+    '</tbody></table></div>'+
+    '<div class="callout"><span><b>Prueba de concepto:</b> sube las importaciones 20 con el botón «Restablecer» a mano y mira qué óptica deja de cuadrar: la del gasto cae 20, la de producción ni se inmuta. Esa diferencia es exactamente la discrepancia estadística que el cuadro real registra.</span></div>';
+  }
+  if(d==='sec'){
+    h+='<h4>La cascada de saldos</h4><div class="tw"><table class="mx"><thead><tr><th>Saldo</th><th>Valor</th><th>Operación que lo produce</th><th>Lectura</th></tr></thead><tbody>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">PIB</span></td><td class="m1">'+fm(S.sec.pib,0)+'</td><td class="tl" style="min-width:0">producción del territorio</td><td class="tl" style="min-width:0">punto de partida</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">RNB</span></td><td class="m1">'+fm(c.rnb,0)+'</td><td class="tl" style="min-width:0">+ rentas primarias netas del RM</td><td class="tl" style="min-width:0">pasa a residentes</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">RDB</span></td><td class="m1">'+fm(c.rdb,0)+'</td><td class="tl" style="min-width:0">+ transferencias corrientes netas</td><td class="tl" style="min-width:0">tras la redistribución</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Ahorro bruto</span></td><td class="mh">'+fm(c.ah,0)+'</td><td class="tl" style="min-width:0">− consumo final</td><td class="tl" style="min-width:0">'+fp(c.tasaAh,1)+' de la RDB</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">B.9</span></td><td class="'+(c.b9>=0?'mq':'m2')+'">'+sg(c.b9,0)+'</td><td class="tl" style="min-width:0">+ transf. capital − FBC</td><td class="tl" style="min-width:0">'+(c.b9>=0?'capacidad: la nación presta':'necesidad: la nación se endeuda')+'</td></tr>'+
+    '</tbody></table></div>';
+    h+='<h4>Comprobación con el exterior</h4><div class="spl">'+
+      '<div class="spr"><span class="nm">B.9 por ahorro e inversión</span><div class="track"><i style="width:'+clamp(Math.abs(c.b9)/Math.max(Math.abs(c.b9),Math.abs(c.saldo),1)*100,0,100)+'%"></i></div><span class="val">'+sg(c.b9,0)+'</span></div>'+
+      '<div class="spr"><span class="nm">B.9 por saldo exterior</span><div class="track"><i style="width:'+clamp(Math.abs(c.saldo)/Math.max(Math.abs(c.b9),Math.abs(c.saldo),1)*100,0,100)+'%;background:var(--good)"></i></div><span class="val">'+sg(c.saldo,0)+'</span></div>'+
+      '</div><p class="hint" style="margin-top:6px">El B.9 de la nación es el préstamo neto del resto del mundo con signo contrario: dos caminos al mismo número. Ahora difieren en '+sg(c.diff,1)+'.</p>'+
+      '<div class="callout"><span><b>No confundas:</b> el ahorro bruto ('+fm(c.ah,0)+') no es el B.9 ('+sg(c.b9,0)+'): entre medias están las transferencias de capital y la inversión. Y el PIB no es el RNB: entre medias, las rentas primarias con el exterior ('+sg(S.sec.rp,0)+').</span></div>';
+  }
+  if(d==='pre'){
+    h+='<h4>Tres precios, un producto</h4><div class="tw"><table class="mx"><thead><tr><th>Precio</th><th>Valor</th><th>Qué incluye</th><th>Quién cobra la diferencia</th></tr></thead><tbody>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Básico</span></td><td class="m1">'+fm(S.pre.pb,1)+'</td><td class="tl" style="min-width:0">lo que recibe el productor</td><td class="tl" style="min-width:0">el productor</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Productor</span></td><td class="mh">'+fm(c.pp,1)+'</td><td class="tl" style="min-width:0">básico + impuestos netos s/ producto (sin IVA)</td><td class="tl" style="min-width:0">+ la Administración</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Adquisición</span></td><td class="mq">'+fm(c.pa,1)+'</td><td class="tl" style="min-width:0">productor + IVA no deducible + márgenes</td><td class="tl" style="min-width:0">+ comercio, transporte y Hacienda</td></tr>'+
+    '</tbody></table></div><p class="hint" style="margin-top:6px">El comprador paga '+fm(c.pa,1)+': '+fm(c.rec,1)+' más que el productor recibe en el precio básico.</p>';
+    h+='<h4>Oferta frente a utilización</h4><div class="tw"><table class="mx"><thead><tr><th></th><th>Valor</th><th>Componentes</th></tr></thead><tbody>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Oferta total</span></td><td class="'+heat(Math.abs(c.dif),0,0.5)+'">'+fm(c.ofer,0)+'</td><td class="tl" style="min-width:0">producción pb + importaciones + impuestos + márgenes</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Utilización total</span></td><td class="m1">'+fm(c.util,0)+'</td><td class="tl" style="min-width:0">CI + consumo final + FBC + exportaciones</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Diferencia</span></td><td class="'+(Math.abs(c.dif)<1e-9?'mq':'m2')+'">'+sg(c.dif,1)+'</td><td class="tl" style="min-width:0">'+(Math.abs(c.dif)<1e-9?'identidad cumplida: producto equilibrado':'la identidad exige oferta = utilización')+'</td></tr>'+
+    '</tbody></table></div>'+
+    '<div class="callout"><span><b>El matiz de los márgenes:</b> en el total suman cero entre productos: el bien vendido los lleva positivos y el servicio de comercio, negativos (su producción es justamente el margen). Por eso en la tabla de destino del E9 los márgenes de P3 son −249.</span></div>';
+  }
+  if(d==='idx'){
+    h+='<h4>Los tres índices de precios</h4><div class="tw"><table class="mx"><thead><tr><th>Índice</th><th>Valor</th><th>Cesta</th><th>Sesgo</th><th>Uso típico</th></tr></thead><tbody>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Laspeyres</span></td><td class="m1">'+fm(c.L,4)+'</td><td class="tl" style="min-width:0">cantidades del año base</td><td class="tl" style="min-width:0">sobreestima (sustitución)</td><td class="tl" style="min-width:0">IPC</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Paasche</span></td><td class="m1">'+fm(c.P,4)+'</td><td class="tl" style="min-width:0">cantidades actuales</td><td class="tl" style="min-width:0">subestima</td><td class="tl" style="min-width:0">deflactor implícito</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Fisher</span></td><td class="mq">'+fm(c.F,4)+'</td><td class="tl" style="min-width:0">media geométrica</td><td class="tl" style="min-width:0">sin sesgo de sustitución</td><td class="tl" style="min-width:0">índice ideal</td></tr>'+
+    '</tbody></table></div><p class="hint" style="margin-top:6px">Normalmente L ≥ P: cuando un bien se encarece, la gente compra menos de él y la cesta actual pesa menos lo caro. Aquí L = '+fm(c.L,4)+' frente a P = '+fm(c.P,4)+'.</p>';
+    h+='<h4>Nominal, real y la identidad</h4><div class="tw"><table class="mx"><thead><tr><th>Magnitud</th><th>Valor</th><th>De dónde sale</th></tr></thead><tbody>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Vₜ / V₀</span></td><td class="m1">'+fm(c.Vt/c.V0,4)+'</td><td class="tl" style="min-width:0">crecimiento del valor (nominal '+fp(c.nom,2)+')</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Paasche de precios</span></td><td class="m1">'+fm(c.P,4)+'</td><td class="tl" style="min-width:0">inflación '+fp(c.inf,2)+'</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Laspeyres de cantidades</span></td><td class="mh">'+fm(c.vol,4)+'</td><td class="tl" style="min-width:0">índice de volumen (real '+fp(c.real,2)+')</td></tr>'+
+    '</tbody></table></div><p class="hint" style="margin-top:6px">Vₜ/V₀ = Paasche(precios) × Laspeyres(cantidades): '+fm(c.Vt/c.V0,4)+' = '+fm(c.P,4)+' × '+fm(c.vol,4)+'. Descomposición exacta, sin residuo.</p>'+
+    '<div class="callout"><span><b>Deflactar es dividir:</b> el crecimiento real es (1+'+fm(c.nom,4)+')/(1+'+fm(c.inf,4)+') − 1 = <b>'+fp(c.real,2)+'</b>, no la resta '+fp(c.nom,2)+' − '+fp(c.inf,2)+' = '+fp(c.nom-c.inf,2)+'. Con inflación alta, la resta engaña.</span></div>';
+  }
+  if(d==='io'){
+    h+='<h4>Directo frente a total</h4><div class="tw"><table class="mx"><thead><tr><th></th><th>Demanda final (directo)</th><th>Producción total (con arrastre)</th><th>Multiplicador</th></tr></thead><tbody>'+
+    [0,1,2].map(function(i){return '<tr><td class="tl"><span style="font:600 .74rem var(--display)">S'+(i+1)+'</span></td><td class="m1">'+fm(S.io.y[i],0)+'</td><td class="m1">'+fm(c.x[i],0)+'</td><td class="'+(c.mult[i]===Math.max.apply(null,c.mult)?'mq':'mh')+'">'+fm(c.mult[i],2)+'</td></tr>'}).join('')+
+    '</tbody></table></div><p class="hint" style="margin-top:6px">La demanda final es el efecto directo; la producción total añade el arrastre de proveedores y proveedores de proveedores. Cada unidad de demanda final del sector 1 activa en total <b>'+fm(c.mult[0],2)+'</b> unidades de producción en toda la economía.</p>';
+    h+='<h4>Antes y después del cambio de demanda</h4><div class="spl">'+
+      [0,1,2].map(function(i){var dd=CALCS.xn[i]-c.x[i];return '<div class="spr"><span class="nm">Producción S'+(i+1)+'</span><div class="track"><i style="width:'+clamp(Math.abs(dd)/Math.max.apply(null,[0,1,2].map(function(k){return Math.abs(CALCS.xn[k]-c.x[k])}))*100,0,100)+'%;background:'+(dd>=0?'var(--good)':'var(--bad)')+'"></i></div><span class="val">'+sg(dd,1)+'</span></div>'}).join('')+
+      '</div><p class="hint" style="margin-top:6px">El aumento de la demanda final del S1 ('+sg(S.io.ny[0]-S.io.y[0],0)+') arrastra a los demás sectores: en total, la producción sube '+sg(sum(CALCS.xn)-sum(c.x),1)+' frente al aumento directo de la demanda de '+sg(sum(S.io.ny)-sum(S.io.y),0)+'. La relación entre ambos es un multiplicador agregado.</p>'+
+      '<div class="callout"><span><b>El mapa completo:</b> x = A·x + y parece circular, pero se resuelve como x = (I−A)⁻¹·y. La inversa de Leontief es el «multiplicador de recetas»: cada columna dice cuánta producción de todos los sectores exige una unidad de demanda final del sector.</span></div>';
+  }
+  if(d==='emp'){
+    h+='<h4>Dos productividades</h4><div class="tw"><table class="mx"><thead><tr><th>Medida</th><th>Valor</th><th>Denominador</th><th>Cuándo difieren</th></tr></thead><tbody>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Por puesto ETC</span></td><td class="m1">'+fm(c.pp,1)+'</td><td class="tl" style="min-width:0">puestos de trabajo ETC</td><td class="tl" style="min-width:0">si cambia la jornada media</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Por hora</span></td><td class="mq">'+fm(c.ph,4)+'</td><td class="tl" style="min-width:0">horas trabajadas</td><td class="tl" style="min-width:0">nunca depende de la jornada</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Horas por puesto</span></td><td class="m1">'+fm(c.hp,0)+'</td><td class="tl" style="min-width:0">cociente entre ambas</td><td class="tl" style="min-width:0">las une: '+fp(c.dh,2)+' al año</td></tr>'+
+    '</tbody></table></div><p class="hint" style="margin-top:6px">Si la productividad por hora crece más que por puesto ('+fp(S.emp.gh,2)+' frente a '+fp(S.emp.gp,2)+'), las horas por puesto están cayendo: más empleo a tiempo parcial o jornadas más cortas.</p>';
+    h+='<h4>Volumen frente a renta real</h4><div class="tw"><table class="mx"><thead><tr><th>Magnitud</th><th>Valor</th><th>Qué mide</th></tr></thead><tbody>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">PIB en volumen</span></td><td class="m1">'+fm(S.emp.pibv,0)+'</td><td class="tl" style="min-width:0">producción a precios constantes</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Ganancia por relación de intercambio</span></td><td class="'+(c.gRI<0?'m2':'mq')+'">'+sg(c.gRI,0)+'</td><td class="tl" style="min-width:0">efecto de los precios relativos de X y M</td></tr>'+
+    '<tr><td class="tl"><span style="font:600 .74rem var(--display)">Renta interior real bruta</span></td><td class="mh">'+fm(c.rr,0)+'</td><td class="tl" style="min-width:0">lo que la producción compra en el exterior</td></tr>'+
+    '</tbody></table></div>'+
+    '<div class="callout"><span><b>Mismo producto, rentas distintas:</b> el país produce lo mismo ('+fm(S.emp.pibv,0)+' en volumen) pero sus importaciones se han encarecido relativamente (pm = '+fm(S.emp.pm,0)+' frente a px = '+fm(S.emp.px,0)+'): la renta real cae a '+fm(c.rr,0)+' ('+sg(c.varr*100,2)+' %). Volumen mide producción; renta real, capacidad de compra.</span></div>';
+  }
+  h+='<h4>Los seis bloques, de un vistazo</h4><div class="tw"><table class="mx"><thead><tr><th></th><th>Indicador estrella</th><th>Valor ahora</th><th>Se confunde con</th><th>Regla</th></tr></thead><tbody>';
+  var reglas={
+    pib:['PIB (producción)',fm(CALCS.pib.pibP,0),'la suma de producciones o el RNB','Σ VAB + impuestos netos: bruto y territorial'],
+    sec:['B.9',sg(CALCS.sec.b9,0),'el ahorro bruto','ahorro + transf. capital − FBC = saldo exterior'],
+    pre:['Precio de adquisición',fm(CALCS.pre.pa,1),'el precio de productor o el básico','básico + impuestos + IVA + márgenes'],
+    idx:['Fisher',fm(CALCS.idx.F,4),'Laspeyres o Paasche por separado','media geométrica; L ≥ P por sustitución'],
+    io:['Multiplicador m₁',fm(CALCS.io.mult[0],2),'el efecto directo (la demanda final)','columna de L: efectos directos e indirectos'],
+    emp:['Productividad por hora',fm(CALCS.emp.ph,4),'la productividad por puesto','VAB/horas: no depende de la jornada']
+  };
+  MODS.forEach(function(m){
+    h+='<tr>'+rowBtn(m)+'<td class="m1">'+reglas[m][0]+'</td><td class="m1">'+reglas[m][1]+'</td><td class="tl" style="min-width:0">'+reglas[m][2]+'</td><td class="tl" style="min-width:0">'+reglas[m][3]+'</td></tr>';
+  });
+  h+='</tbody></table></div><p class="hint" style="margin-top:6px">Pulsa un bloque para saltar a él. Los valores siguen los controles actuales de cada módulo.</p>';
+  h+='<div class="callout"><span><b>La moraleja de toda la página:</b> casi ningún agregado es «la verdad»: es una lectura con una óptica, una frontera y una valoración detrás. Antes de comparar dos números, pregunta qué cuentan exactamente.</span></div>';
+  return h;
+}
+
+/* ===== Ejercicios E1–E13 de HojaCraft ===== */
+function ejSol(id){
+  var ej=null;EJS.forEach(function(x){if(x.id===id)ej=x});
+  if(!ej)return '';
+  var rows=ej.sol(ej.v);
+  if(!rows)return '<p class="hint">Datos incompletos.</p>';
+  return '<table class="kv wide"><tbody>'+rows.map(function(r){return '<tr><td>'+r[0]+'</td><td><code>'+r[1]+'</code></td><td>'+r[2]+'</td></tr>'}).join('')+'</tbody></table>';
+}
+function tabEjer(){
+  var h='<h4>Cuestiones prácticas del temario</h4><p class="hint">Los trece ejercicios de las hojas de cuentas nacionales de HojaCraft, con sus datos. Intenta resolverlos en papel (~10 min) antes de abrir la solución; luego cambia un dato y comprueba si tu intuición sigue funcionando.</p>';
+  EJS.forEach(function(ej){
+    var chip=ej.mods.map(function(m){return ty(DEF[m].name,DEF[m].c[0])}).join(' ');
+    h+='<article class="ej"><header>'+mono(ej.mods[0])+'<h3>'+ej.t+'</h3><span class="tys">'+chip+'</span></header><div class="bd">'+
+      '<p class="enun">'+ej.u+'</p>'+
+      '<div class="fields">'+ej.inp.map(function(r){return numFld('ej-'+ej.id+'-'+r[0],r[1],ej.v[r[0]])}).join('')+(ej.txt||[]).map(function(r){return txtFld('ej-'+ej.id+'-'+r[0],r[1],ej.v[r[0]])}).join('')+'</div>'+
+      '<details><summary>Ver solución paso a paso</summary><div class="sol" id="ej-'+ej.id+'-out">'+ejSol(ej.id)+'</div></details>'+
+      '<div class="ke"><div><h6>Claves</h6><ul>'+ej.k.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div><div><h6>Errores típicos</h6><ul>'+ej.e.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div></div>'+
+      '</div></article>';
+  });
+  return h;
+}
+
+/* ===== Memorizar ===== */
+var MEM={
+ pib:{m:'VAB = P − CI\nPIB = Σ VAB + Imp. netos s/ productos\nPIB = C + FBC + X − M\nPIB = D.1 + EBE + Imp. netos',
+  k:['Las tres ópticas miden el mismo agregado; en la práctica difieren por la discrepancia estadística.','El PIB es bruto (antes del consumo de capital fijo) y se mide por territorio, no por residencia.','Sumar producciones en vez de VAB duplica los consumos intermedios.','Las importaciones se restan en la óptica del gasto.'],
+  e:['Sumar producción en vez de VAB: duplica los consumos intermedios.','Confundir PIB con renta nacional bruta.'],
+  x:'Sube las importaciones 20 y mira qué óptica deja de cuadrar y por cuánto; después repárala ajustando el consumo final.'},
+ sec:{m:'RNB = PIB + rentas netas RM\nRDB = RNB + transf. netas\nAhorro = RDB − consumo\nB.9 = Ahorro + TK − FBC',
+  k:['Secuencia: PIB → RNB → RDB → ahorro → capacidad/necesidad de financiación.','Cada saldo contable es el resultado de una cuenta y el punto de partida de la siguiente.','El B.9 de la nación es el saldo del resto del mundo con signo contrario.'],
+  e:['Confundir RNB con PIB: difieren por las rentas primarias con el resto del mundo.','Olvidar las transferencias de capital en el último paso.'],
+  x:'Sube la FBC a 300 y comprueba cómo el B.9 pasa de capacidad a necesidad mientras el saldo exterior lo confirma.'},
+ pre:{m:'P productor = P básico + imp. netos\nP adquisición = P productor + IVA + márgenes\nOferta = Utilización',
+  k:['Distingue precios básicos, de productor y de adquisición.','Oferta = utilización a precios de adquisición, producto a producto.','Los márgenes del conjunto suman cero: el bien los lleva positivos y el servicio de comercio, negativos.'],
+  e:['Mezclar valoraciones distintas.','Olvidar los impuestos netos sobre productos.'],
+  x:'Sube las importaciones 50 y mira qué utilización debe cambiar para mantener el equilibrio.'},
+ idx:{m:'L = Σ pt q0 / Σ p0 q0\nP = Σ pt qt / Σ p0 qt\nF = √(L·P)\nreal = (1+nominal)/(1+inflación) − 1',
+  k:['Laspeyres usa cantidades base; Paasche, actuales; Fisher es su media geométrica.','Vt/V0 = Paasche de precios · Laspeyres de cantidades.','Deflactar = dividir el valor por el índice de precios.'],
+  e:['Deflactar con el índice equivocado.','Restar tasas en vez de dividir (1+g)/(1+π).'],
+  x:'Cambia el precio actual del bien B a 8 y mira qué índice sube más, si Laspeyres o Paasche.'},
+ io:{m:'a(ij) = Z(ij) / x(j)\nx = (I − A)^−1 · y\nm(j) = Σ L(ij)',
+  k:['x = A·x + y, luego x = (I−A)⁻¹·y.','El multiplicador del sector j es la suma de la columna j de la inversa.','La diagonal de la inversa es mayor o igual que 1: incluye la propia unidad de demanda.'],
+  e:['Dividir por la producción de la fila en vez de la de la columna.','Usar A en lugar de la inversa para los efectos totales.'],
+  x:'Sube la nueva demanda final del sector 1 y observa qué sector aumenta más su producción: el propio S1 arrastra a sus proveedores.'},
+ emp:{m:'Prod/puesto = VAB / ETC\nProd/hora = VAB / horas\nΔ horas = (1+g1)/(1+g2) − 1\nRenta real = PIB vol + ganancia RI',
+  k:['El puesto ETC suma las jornadas parciales como fracción de la completa.','Si la productividad por hora crece más que por puesto, caen las horas por puesto.','Con términos de intercambio adversos, la renta real crece menos que el volumen.'],
+  e:['Confundir persona ocupada, puesto, ETC y horas.','Presentar una productividad como mejor que la otra.'],
+  x:'Pon el índice de precios de importación en 100 y mira cómo la pérdida pasa a ganancia.'}
+};
+function tabMem(){
+  var p=MEM[S.mod];
+  return '<h4>Para memorizar</h4><pre class="mem">'+p.m+'</pre>'+
+    '<h4>Lo más importante</h4><ol style="margin:6px 0 0;padding-left:20px;font-size:.84rem;color:var(--ink-2)">'+p.k.map(function(x){return '<li style="margin:4px 0">'+x+'</li>'}).join('')+'</ol>'+
+    '<h4>Errores típicos</h4><ul style="margin:6px 0 0;padding-left:20px;font-size:.84rem;color:var(--ink-2)">'+p.e.map(function(x){return '<li style="margin:4px 0">'+x+'</li>'}).join('')+'</ul>'+
+    '<div class="callout"><span><b>Practica con este panel:</b> '+p.x+'</span></div>';
+}
+function renderAnalysis(){
+  var b={lect:tabLect,calc:tabCalc,cmp:tabCmp,ejer:tabEjer,mem:tabMem}[S.tab]();
+  $('analysis').innerHTML='<div class="tabs" role="tablist">'+TABS.map(function(t){return '<button type="button" role="tab" class="tab" data-act="tab" data-t="'+t[0]+'" aria-selected="'+(S.tab===t[0])+'">'+t[1]+'</button>'}).join('')+'</div><div class="ana-body" role="tabpanel">'+b+'</div>';
+}
+function renderAnalysisSoft(){if(S.tab!=='ejer')renderAnalysis()}
+
+/* ===== tema ===== */
+function curTheme(){return document.documentElement.getAttribute('data-theme')||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}
+function syncTheme(){var d=curTheme()==='dark',b=$('themeBtn');b.textContent=d?'Modo claro':'Modo oscuro';b.setAttribute('aria-pressed',d)}
+try{var th=localStorage.getItem('cn-theme');if(th)document.documentElement.setAttribute('data-theme',th)}catch(e){}
+
+/* ===== eventos ===== */
+var DEF_S={
+  pib:{prod:[400,600,500],ci:[220,330,200],imp:60,c:520,fbc:190,x:200,m:100,d1:410,ebe:340},
+  sec:{pib:810,rp:-10,tc:5,c:520,tk:3,fbc:190,x:200,m:100},
+  pre:{pb:100,imp:8,iva:10,mg:12,prodpb:900,impo:150,impp:60,mgt:40,ci:400,c:500,fbc:100,x:150},
+  idx:{b:[{n:'Bien A',p0:2,pt:2.4,q0:100,qt:110},{n:'Bien B',p0:5,pt:5.5,q0:50,qt:48},{n:'Bien C',p0:10,pt:11,q0:20,qt:25}]},
+  io:{z:[[20,30,10],[40,20,60],[10,50,30]],y:[40,80,110],ny:[50,80,110]},
+  emp:{vab:1000,etc:20,horas:36000,gp:0.006,gh:0.012,pibv:1000,xv:200,mv:180,px:110,pm:120}};
+function resetMod(){
+  S[S.mod]=JSON.parse(JSON.stringify(DEF_S[S.mod]));
+  recompute();renderAll();
+}
+function softRefresh(){
+  recompute();renderTeam();renderEdOut();renderAnalysisSoft();
+}
+document.addEventListener('click',function(ev){
+  var t=ev.target.closest&&ev.target.closest('[data-act]');if(!t)return;
+  var a=t.getAttribute('data-act'),v=t.getAttribute('data-v');
+  if(a==='closepop'){if(ev.target===t||t.tagName==='BUTTON')closePop();return}
+  if(a==='mod'){S.mod=t.getAttribute('data-d');renderTeam();renderEditor();renderAnalysis();return}
+  if(a==='tab'){S.tab=t.getAttribute('data-t');renderAnalysis();return}
+  if(a==='view'){S.view=v;renderView();return}
+  if(a==='pop'){dataPop();return}
+  if(a==='reset'){resetMod();return}
+  if(a==='theme'){var nt=curTheme()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',nt);try{localStorage.setItem('cn-theme',nt)}catch(e){}syncTheme();return}
+  if(a==='ciclo'){var cp=$('ciclo'),op=cp.hidden;cp.hidden=!op;t.setAttribute('aria-expanded',String(op));t.textContent=op?'Ocultar ciclo de repaso':'Ciclo de repaso';return}
+  if(a==='hidenote'){$('note').hidden=true;return}
+});
+document.addEventListener('input',function(ev){
+  var t=ev.target,id=t.id;
+  if(!id)return;
+  var val=parseFloat(t.value);if(!isFinite(val))val=0;
+  var m;
+  if(m=/^pib-(prod|ci)([0-2])$/.exec(id)){S.pib[m[1]][+m[2]]=val;softRefresh();return}
+  if(m=/^pib-(imp|c|fbc|x|m|d1|ebe)$/.exec(id)){S.pib[m[1]]=val;softRefresh();return}
+  if(m=/^sec-(pib|rp|tc|c|tk|fbc|x|m)$/.exec(id)){S.sec[m[1]]=val;softRefresh();return}
+  if(m=/^pre-(prodpb|impp|impo|mgt|pb|iva|mg|imp|ci|c|fbc|x)$/.exec(id)){S.pre[m[1]]=val;softRefresh();return}
+  if(m=/^idx-(pt|p|qt|q)([0-2])$/.exec(id)){S.idx.b[+m[2]][m[1]]=val;softRefresh();return}
+  if(m=/^io-z([0-2])([0-2])$/.exec(id)){S.io.z[+m[1]][+m[2]]=val;softRefresh();return}
+  if(m=/^io-(ny|y)([0-2])$/.exec(id)){S.io[m[1]][+m[2]]=val;softRefresh();return}
+  if(m=/^emp-(vab|etc|horas|gp|gh|pibv|xv|mv|px|pm)$/.exec(id)){S.emp[m[1]]=val;softRefresh();return}
+  var ej=/^ej-(e\d+)-(.+)$/.exec(id);
+  if(ej){
+    var box=null;EJS.forEach(function(x){if(x.id===ej[1])box=x});
+    if(box){box.v[ej[2]]=t.type==='text'?t.value:val;
+      var el=$('ej-'+ej[1]+'-out');if(el)el.innerHTML=ejSol(ej[1]);}
+  }
+});
+document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&!$('modal').hidden)closePop()});
+
+recompute();renderAll();syncTheme();
+window.CN={S:S,get CALCS(){return CALCS},recompute:recompute,pibCalc:pibCalc,secCalc:secCalc,preCalc:preCalc,idxCalc:idxCalc,ioCalc:ioCalc,ioProd:ioProd,empCalc:empCalc,matInv3:matInv3,EJS:EJS,FLUJOS:FLUJOS};
+})();
+</script>
+</body>
+</html>
