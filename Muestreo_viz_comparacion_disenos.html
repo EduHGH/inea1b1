@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Muestreo · Taller de diseños</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#eceff4; --surface:#ffffff; --surface-2:#f4f6fa; --ink:#151925; --ink-2:#444c61; --ink-3:#636b80;
+  --line:#d6dae5; --line-2:#e6e9f1; --accent:#2750d0; --accent-ink:#ffffff; --accent-soft:#e1e8fb;
+  --good:#177a3b; --warn:#935305; --bad:#c23a2b;
+  --display:'Chakra Petch','Rajdhani','Arial Narrow',system-ui,sans-serif;
+  --body:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --ty-0:#a3a08a;--tf-0:#1b1a14;  --ty-1:#c04a38;--tf-1:#ffffff;  --ty-2:#8aa3e6;--tf-2:#101a3a;
+  --ty-3:#a455b8;--tf-3:#ffffff;  --ty-4:#d2ac5a;--tf-4:#2a1d05;  --ty-5:#b5a14f;--tf-5:#221c05;
+  --ty-6:#9db526;--tf-6:#1a2204;  --ty-7:#6b5ca3;--tf-7:#ffffff;  --ty-8:#8da2b3;--tf-8:#0f1c27;
+  --ty-9:#ee7b30;--tf-9:#2b1000;  --ty-10:#3a7fdc;--tf-10:#ffffff;--ty-11:#52b04c;--tf-11:#0c2a0a;
+  --ty-12:#f1c721;--tf-12:#2b2300;--ty-13:#ec5d8e;--tf-13:#2e0716;--ty-14:#78cfd1;--tf-14:#08282a;
+  --ty-15:#6a4fd6;--tf-15:#ffffff;--ty-16:#5a4b45;--tf-16:#ffffff;--ty-17:#ea8fc6;--tf-17:#36102a;
+  --ty-18:#6f7684;--tf-18:#ffffff;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1118; --surface:#171b26; --surface-2:#1d2230; --ink:#e8ebf3; --ink-2:#aab1c4; --ink-3:#8088a0;
+    --line:#2b3145; --line-2:#232839; --accent:#8fa8ff; --accent-ink:#0d1330; --accent-soft:#1f2a52;
+    --good:#58c987; --warn:#e8ad55; --bad:#ff8070; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1118; --surface:#171b26; --surface-2:#1d2230; --ink:#e8ebf3; --ink-2:#aab1c4; --ink-3:#8088a0;
+  --line:#2b3145; --line-2:#232839; --accent:#8fa8ff; --accent-ink:#0d1330; --accent-soft:#1f2a52;
+  --good:#58c987; --warn:#e8ad55; --bad:#ff8070; color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:18px 56px}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+input,select{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:.45rem .55rem;min-width:0;max-width:100%}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+small{font-size:.78em}
+
+/* barra superior */
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 20px;max-width:1640px;margin:0 auto 14px}
+.brand h1{font:700 1.6rem/1 var(--display);letter-spacing:.01em}
+.brand p{margin-top:6px;color:var(--ink-3);font:500 .75rem var(--mono)}
+.top-ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.top-ctl input{width:7.5rem;font:600 .82rem var(--mono)}
+.btn{font:600 .82rem var(--body);padding:.5rem .8rem;border:1px solid var(--line);background:var(--surface);border-radius:6px}
+.btn:hover{border-color:var(--ink-3)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent}
+.btn.sm{padding:.3rem .6rem;font-size:.76rem}
+.note{max-width:1640px;margin:0 auto 14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:.6rem .85rem;border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--surface);border-radius:6px;color:var(--ink-2);font-size:.84rem}
+.note b{color:var(--ink)}
+.seg{display:inline-flex}
+.seg button{border:1px solid var(--line);background:var(--surface);padding:.3rem .6rem;font:600 .74rem var(--body)}
+.seg button:first-child{border-radius:5px 0 0 5px}.seg button:last-child{border-radius:0 5px 5px 0}
+.seg button+button{border-left:0}
+.seg button[aria-pressed=true]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.seg.lg button{padding:.5rem .7rem;font-size:.8rem}
+
+/* rejilla principal */
+.app{display:grid;grid-template-columns:15.5rem minmax(0,1fr) minmax(0,25rem);gap:14px;align-items:start;max-width:1640px;margin:0 auto}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;min-width:0}
+.viewseg{display:none;max-width:1640px;margin:0 auto 12px;gap:0}
+.viewseg button{flex:1;padding:.55rem;border:1px solid var(--line);background:var(--surface);font-weight:600}
+.viewseg button:first-child{border-radius:6px 0 0 6px}.viewseg button:last-child{border-radius:0 6px 6px 0;border-left:0}
+.viewseg button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+@media (max-width:1240px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .viewseg{display:flex}
+  .app[data-view=editor] .analysis{display:none}
+  .app[data-view=analysis] .editor{display:none}
+}
+
+/* equipo = diseños */
+.team{display:flex;flex-direction:column;gap:8px;min-width:0}
+@media (max-width:1240px){.team{display:grid;grid-template-columns:repeat(auto-fill,minmax(9.6rem,1fr))}.team-h{grid-column:1/-1}}
+.team-h{display:flex;justify-content:space-between;align-items:baseline;padding:0 2px}
+.team-h h2{font:600 .72rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.cnt{font:600 .75rem var(--mono);color:var(--ink-3)}
+.slot{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 10px;align-items:center;text-align:left;width:100%;padding:10px;border:1px solid var(--line);background:var(--surface);border-radius:10px}
+.slot:hover{border-color:var(--ink-3)}
+.slot[aria-pressed=true]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.slot .mono{grid-row:1/3}
+.slot .nm{font:600 .98rem/1.15 var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.slot .nm small{display:block;font:500 .66rem var(--body);color:var(--ink-3);overflow:hidden;text-overflow:ellipsis}
+.slot .tys{display:flex;gap:4px;flex-wrap:wrap}
+.slot .foot{grid-column:1/-1;display:flex;align-items:flex-end;gap:10px;margin-top:5px}
+.strip{flex:1;display:flex;align-items:flex-end;gap:2px;height:22px}
+.strip i{flex:1;background:color-mix(in srgb,var(--accent) 70%,var(--surface));border-radius:1px;min-height:2px}
+.spe{font:600 .72rem var(--mono);color:var(--ink-2);white-space:nowrap}
+
+/* tipos y monograma */
+.ty{display:inline-block;background:var(--tc);color:var(--tx);font:600 .64rem/1 var(--body);letter-spacing:.07em;text-transform:uppercase;padding:.3rem .45rem;border-radius:3px;white-space:nowrap}
+.tys{display:flex;gap:4px;flex-wrap:wrap}
+.mono{--c1:var(--ty-0);--c2:var(--ty-0);width:2.6rem;aspect-ratio:1;border-radius:9px;background:linear-gradient(135deg,var(--c1) 50%,var(--c2) 50%);display:grid;place-items:center;flex:none}
+.mono i{font:700 .78rem/1 var(--display);font-style:normal;background:var(--surface);color:var(--ink);width:58%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center}
+.mono.sm{width:1.75rem;border-radius:6px}.mono.sm i{font-size:.54rem}
+.mono.lg{width:4.2rem;border-radius:12px}.mono.lg i{font-size:1.1rem}
+
+/* editor */
+.editor{padding:16px}
+.ed-head{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.ed-id{flex:1;min-width:12rem}
+.ed-id h2{font:700 1.5rem/1.1 var(--display)}
+.ed-id h2 small{font:500 .8rem var(--body);color:var(--ink-3);margin-left:6px}
+.ed-id .tys{margin:7px 0 6px}
+.meta{font:500 .74rem var(--mono);color:var(--ink-3)}
+.ed-act{display:flex;gap:6px;flex-wrap:wrap}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:12px 14px;margin:16px 0 4px}
+.fld{display:flex;flex-direction:column;gap:5px;min-width:0;align-items:flex-start}
+.fld>.l,.sec-h{font:600 .68rem var(--body);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.hint{font-size:.76rem;color:var(--ink-3);line-height:1.35}
+.sec-h{margin:20px 0 8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.sec-h .r{font:600 .75rem var(--mono);letter-spacing:0;text-transform:none;color:var(--ink-3)}
+.tw{overflow-x:auto}
+.num{font:600 .82rem var(--mono)}
+.up{color:var(--good)}.dn{color:var(--bad)}
+
+/* selección: rejilla del marco */
+.sel2{display:grid;grid-template-columns:minmax(0,25rem) minmax(0,1fr);gap:14px;align-items:start}
+@media (max-width:900px){.sel2{grid-template-columns:minmax(0,1fr)}}
+.pg{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:3px}
+.pc{--zc:var(--ty-10);--zt:var(--tf-10);position:relative;aspect-ratio:1;border:1px solid var(--line);border-radius:5px;background:var(--surface-2);color:var(--ink-3);font:600 .64rem var(--mono);display:grid;place-items:center;overflow:hidden;cursor:default}
+.pc::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:var(--b,30%);background:var(--zc);opacity:.8}
+.pc.on{background:var(--zc);color:var(--zt);border-color:var(--ink)}
+.pc.on::after{background:var(--zt);opacity:.5}
+.pc.au::before{content:"★";position:absolute;top:1px;right:2px;font-size:.55rem;line-height:1}
+.pc.bs{box-shadow:-3px 0 0 -1px var(--ink-3)}
+.pg.mini{gap:1px}
+.pg.mini .pc{border:0;border-radius:2px;font-size:0;background:var(--line-2)}
+.pg.mini .pc::after,.pg.mini .pc::before{display:none}
+.pg.mini .pc.on{border:0}
+.lgd{display:flex;flex-wrap:wrap;gap:4px 12px;font:500 .7rem var(--mono);color:var(--ink-3);margin-top:9px}
+.lgd span{display:inline-flex;align-items:center;gap:5px}
+.lgd s{display:inline-block;width:.7rem;height:.7rem;border-radius:2px;background:var(--c);text-decoration:none}
+.sam{max-height:26rem;overflow:auto;border:1px solid var(--line-2);border-radius:8px;background:var(--surface)}
+.sam table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.sam th{text-transform:none;position:sticky;top:0;z-index:1;background:var(--surface);font:600 .62rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);text-align:right;padding:6px 5px;border-bottom:1px solid var(--line)}
+.sam td{padding:4px 5px;border-top:1px solid var(--line-2);font:500 .72rem var(--mono);text-align:right;white-space:nowrap}
+.sam th:first-child,.sam td:first-child{text-align:left}
+.sam td.z{text-align:left}
+.sam tfoot td{position:sticky;bottom:0;background:var(--surface-2);font-weight:700;border-top:1px solid var(--line)}
+.zdot{display:inline-block;width:.6rem;height:.6rem;border-radius:2px;margin-right:5px;vertical-align:-1px;background:var(--c)}
+
+/* estimación */
+.est{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:8px}
+.ec{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--surface-2);display:flex;flex-direction:column;gap:3px;min-width:0}
+.ec .l{font:600 .64rem var(--body);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.ec .v{font:700 1.2rem/1.15 var(--mono);white-space:nowrap}
+.ec .s{font:500 .72rem var(--mono);color:var(--ink-3)}
+.estl{margin-top:8px;font:500 .76rem/1.5 var(--mono);color:var(--ink-3)}
+.estl b{color:var(--ink-2);font-weight:600}
+.badge{font:700 .62rem var(--body);letter-spacing:.07em;text-transform:uppercase;text-align:center;padding:.22rem .3rem;border-radius:3px;border:1px solid;display:inline-block}
+.badge.ok{color:var(--good);border-color:color-mix(in srgb,var(--good) 55%,var(--line))}
+.badge.rv{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 55%,var(--line))}
+.badge.in{color:var(--ink-3);border-color:var(--line)}
+.badge.bd{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 55%,var(--line))}
+.hist{position:relative;height:8rem;display:flex;align-items:flex-end;gap:2px;border-bottom:1px solid var(--line);padding-top:6px}
+.hist i{flex:1;background:color-mix(in srgb,var(--accent) 70%,var(--surface));border-radius:2px 2px 0 0;min-height:1px}
+.hist u{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--bad);text-decoration:none}
+.hist b{position:absolute;bottom:-1px;width:0;height:0;margin-left:-6px;border:6px solid transparent;border-bottom:8px solid var(--ink);border-top:0}
+.hax{display:flex;justify-content:space-between;font:500 .66rem var(--mono);color:var(--ink-3);margin-top:5px}
+.hleg{display:flex;flex-wrap:wrap;gap:4px 14px;font:500 .7rem var(--mono);color:var(--ink-3);margin-top:8px}
+.hleg span{display:inline-flex;align-items:center;gap:5px}
+.hleg s{display:inline-block;width:2px;height:.8rem;background:var(--bad);text-decoration:none}
+.hleg s.t{width:0;height:0;background:none;border:5px solid transparent;border-bottom:7px solid var(--ink);border-top:0}
+.kv{width:100%;border-collapse:collapse;font-size:.8rem}
+.kv td{padding:5px 4px;border-top:1px solid var(--line-2);vertical-align:top}
+.kv td:first-child{font-weight:600;white-space:nowrap;padding-right:10px}
+.kv td:not(:first-child){color:var(--ink-2)}
+.kv code{font:600 .76rem var(--mono);color:var(--ink)}
+.kv.wide td:first-child{width:8.4rem;white-space:normal}
+
+/* análisis */
+.analysis{overflow:hidden}
+.tabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{flex:1;padding:.7rem .6rem;border:0;border-bottom:2px solid transparent;background:transparent;font:600 .82rem var(--body);color:var(--ink-3);white-space:nowrap}
+.tab[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
+.ana-body{padding:14px}
+.ana-body h4{font:600 .68rem var(--body);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin:18px 0 8px}
+.ana-body h4:first-child{margin-top:0}
+.ana-body p{font-size:.84rem;color:var(--ink-2)}
+.ana-body p+p{margin-top:6px}
+.checks{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px}
+.checks li{display:grid;grid-template-columns:4.4rem minmax(0,1fr);gap:8px;font-size:.84rem;color:var(--ink-2);align-items:start}
+.checks li b{color:var(--ink)}
+.callout{margin-top:12px;padding:10px 12px;background:var(--surface-2);border-radius:8px;font-size:.84rem;color:var(--ink-2);display:flex;flex-direction:column;gap:8px}
+.callout b{color:var(--ink)}
+.mx{border-collapse:separate;border-spacing:2px;width:100%;font-variant-numeric:tabular-nums}
+.mx th{font:500 .62rem var(--body);color:var(--ink-3);padding:2px 0;text-align:center;vertical-align:bottom;letter-spacing:.04em}
+.mx td{text-align:center;font:600 .74rem var(--mono);padding:5px 3px;border-radius:3px;white-space:nowrap}
+.mx td.tl{white-space:normal}
+.yes{color:var(--good)}.no{color:var(--bad)}.ap{color:var(--warn)}
+.mx td.tl{text-align:left;padding:0 4px 0 0;min-width:6rem}
+.mx td.tl .rowb{display:flex;align-items:center;gap:6px;width:100%;border:0;background:none;padding:2px;text-align:left;border-radius:5px}
+.mx td.tl .rowb:hover{background:var(--surface-2)}
+.mx td.tl .rowb[aria-current=true]{background:var(--accent-soft)}
+.mx td.tl .rowb span{font:600 .74rem var(--display);line-height:1.1}
+.m4{background:color-mix(in srgb,var(--bad) 58%,var(--surface))}
+.m2{background:color-mix(in srgb,var(--bad) 26%,var(--surface))}
+.m1{color:var(--ink-3);background:var(--surface-2)}
+.mh{background:color-mix(in srgb,var(--good) 24%,var(--surface))}
+.mq{background:color-mix(in srgb,var(--good) 48%,var(--surface))}
+.spl{display:flex;flex-direction:column;gap:7px}
+.spr{display:grid;grid-template-columns:auto minmax(0,1fr) 3.6rem;gap:4px 10px;align-items:center}
+.spr .nm{font:600 .82rem var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;display:flex;gap:6px;align-items:center}
+.spr .val{font:700 .86rem var(--mono);text-align:right}
+.track{position:relative;height:8px;background:var(--line-2);border-radius:4px;overflow:visible}
+.track i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.track u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--bad);text-decoration:none}
+.mgs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.mgc{display:flex;flex-direction:column;gap:6px;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);text-align:left;min-width:0}
+.mgc:hover{border-color:var(--ink-3)}
+.mgc[aria-pressed=true]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.mgc .h{display:flex;align-items:center;gap:6px;min-width:0}
+.mgc .h b{font:600 .8rem var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mgc .f{font:500 .68rem var(--mono);color:var(--ink-3)}
+
+/* ventana modal */
+.modal{position:fixed;inset:0;z-index:50;background:color-mix(in srgb,var(--ink) 50%,transparent);display:flex;align-items:flex-start;justify-content:center;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:12px;width:min(760px,100%);max-height:100%;display:flex;flex-direction:column;overflow:hidden}
+.sheet>header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.sheet>header h2{font:700 1.15rem var(--display)}
+.mbody{overflow:auto;min-height:0;flex:1;padding:0}
+.mbody .sam{max-height:none;border:0;border-radius:0}
+.mfoot{padding:8px 14px;border-top:1px solid var(--line);font:500 .74rem var(--mono);color:var(--ink-3);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.empty-st{padding:26px 8px;text-align:center;color:var(--ink-3)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="root">
+<header class="top">
+  <div class="brand">
+    <h1>Muestreo: seis diseños, una población</h1>
+    <p id="brandp"></p>
+  </div>
+  <div class="top-ctl">
+    <div class="seg" role="group" aria-label="Tamaño de muestra" id="nseg"></div>
+    <label class="sr" for="seed">Semilla del sorteo</label>
+    <input id="seed" type="number" min="1" step="1" inputmode="numeric" aria-label="Semilla del sorteo">
+    <button class="btn primary" type="button" data-act="draw">Sortear muestra</button>
+    <button class="btn" type="button" data-act="pop">Ver población</button>
+    <button class="btn ghost" type="button" data-act="theme" id="themeBtn" aria-pressed="false">Modo oscuro</button>
+  </div>
+</header>
+
+<div class="note" id="note">
+  <span><b>Misma población, mismo n, seis maneras de elegir.</b> Cada diseño sortea empresas a su manera y todos estiman el total de ventas con el mismo estimador de Horvitz-Thompson, <b>T̂ = Σ y/π</b>. Elige un diseño a la izquierda, vuelve a sortear y compara en la pestaña <b>Comparar</b>.</span>
+  <button class="btn sm" type="button" data-act="hidenote">Ocultar</button>
+</div>
+
+<div class="viewseg" id="viewseg" role="group" aria-label="Vista">
+  <button type="button" data-act="view" data-v="editor" aria-pressed="true">Diseño</button>
+  <button type="button" data-act="view" data-v="analysis" aria-pressed="false">Análisis</button>
+</div>
+
+<div class="app" id="app" data-view="editor">
+  <aside class="team" id="team" aria-label="Diseños muestrales"></aside>
+  <main class="panel editor" id="editor"></main>
+  <aside class="panel analysis" id="analysis"></aside>
+</div>
+</div>
+<div id="modal" hidden></div>
+
+<script>
+(function(){
+'use strict';
+/* ===== Población sintética: 100 empresas de un sector =====
+   Z zona (0 Capital · 1 Periferia · 2 Rural) · CL polígono (20 de 5 empresas, dentro de una misma zona)
+   X empleados · Y ventas (M€) */
+var Z=[2,2,0,0,0,0,1,1,2,2,1,0,1,1,0,0,1,2,1,2,0,0,1,0,0,0,1,1,0,1,0,2,0,1,2,0,0,0,1,0,0,1,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0,2,0,2,0,2,2,1,2,2,0,1,0,1,1,0,1,1,1,1,1,0,0,0,0,2,1,2,0,0,0,1,1,1,2,0,2,0,2,0,0,0,1,1];
+var CL=[18,17,4,9,2,8,10,14,19,17,14,0,12,15,4,5,12,18,14,16,7,5,11,0,1,3,10,14,5,15,3,19,1,10,18,6,2,7,11,1,4,15,8,0,15,16,2,6,5,8,3,4,9,3,9,0,6,17,8,18,5,19,19,15,19,17,6,12,7,11,13,0,10,13,13,13,14,3,1,2,6,18,10,16,9,7,2,11,11,12,16,1,16,8,17,4,7,9,12,13];
+var X=[319,102,119,48,217,185,120,179,280,137,163,113,142,79,246,357,203,65,106,69,251,231,114,86,222,489,152,159,87,60,281,108,154,86,83,269,569,67,157,75,290,102,182,130,57,82,622,330,284,173,435,297,1460,313,225,307,56,67,309,77,141,220,113,78,157,96,142,68,263,211,65,163,292,73,197,99,49,340,2099,95,323,91,78,69,92,253,173,182,88,503,74,1099,63,242,200,143,95,233,63,166];
+var Y=[13.5,10.1,20.0,10.2,15.2,21.0,8.0,14.9,13.3,7.5,19.0,11.3,9.2,12.9,15.3,24.4,13.7,6.4,9.4,9.8,27.3,32.5,11.0,11.6,22.0,33.9,25.6,11.0,21.4,14.2,32.7,9.8,14.3,16.7,7.7,28.4,38.3,7.8,12.7,12.3,34.7,12.2,15.3,21.5,8.0,5.9,33.8,31.5,27.9,22.1,31.3,26.6,81.1,30.5,36.6,42.9,9.2,10.0,20.7,5.1,25.7,9.8,9.3,11.4,12.2,9.0,21.5,14.8,28.8,18.8,18.3,14.5,22.8,8.8,18.8,11.1,6.9,43.6,135.8,18.9,32.6,7.7,10.3,7.5,17.9,39.6,19.1,16.0,12.6,14.8,8.5,116.1,6.3,31.5,10.8,19.3,6.2,16.4,9.5,11.0];
+var N=100,NC=20,M=5,NH=[50,30,20],B=3000;
+var ZN=['Capital','Periferia','Rural'];
+var ZC=['var(--ty-10)','var(--ty-12)','var(--ty-11)'],ZT=['var(--tf-10)','var(--tf-12)','var(--tf-11)'];
+var ALL=[];for(var q=0;q<N;q++)ALL.push(q);
+var DES=['mas','sis','epr','eney','pps','cong'];
+
+/* ===== utilidades ===== */
+function sum(a){var s=0;for(var i=0;i<a.length;i++)s+=a[i];return s}
+function mean(a){return sum(a)/a.length}
+function vr(a){var m=mean(a),s=0;for(var i=0;i<a.length;i++)s+=(a[i]-m)*(a[i]-m);return s/(a.length-1)}
+function fm(v,d){d=d||0;if(!isFinite(v))return '—';var a=Math.abs(v),s=a.toFixed(d),p=s.split('.'),i=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.');s=p[1]?i+','+p[1]:i;return(v<0&&Number(a.toFixed(d))!==0?'−':'')+s}
+function sg(v,d){return(v>0&&Number(v.toFixed(d||0))!==0?'+':'')+fm(v,d)}
+function fp(v,d){return fm(v*100,d===undefined?1:d)+' %'}
+function rngFrom(seed){var a=seed>>>0;return function(){a=(a+0x6D2B79F5)>>>0;var t=a;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
+function pick(rng,arr,k){var a=arr.slice();for(var i=0;i<k;i++){var j=i+Math.floor(rng()*(a.length-i)),t=a[i];a[i]=a[j];a[j]=t}return a.slice(0,k)}
+function shuffled(rng,arr){return pick(rng,arr,arr.length)}
+function corr(a,b){var ma=mean(a),mb=mean(b),sab=0,sa=0,sb=0;for(var i=0;i<a.length;i++){sab+=(a[i]-ma)*(b[i]-mb);sa+=(a[i]-ma)*(a[i]-ma);sb+=(b[i]-mb)*(b[i]-mb)}return sab/Math.sqrt(sa*sb)}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+
+/* ===== parámetros de la población ===== */
+var T=sum(Y),S2=vr(Y);
+var ZU=[[],[],[]];for(var u=0;u<N;u++)ZU[Z[u]].push(u);
+var SH2=ZU.map(function(l){return vr(l.map(function(i){return Y[i]}))}),SH=SH2.map(Math.sqrt);
+var YBH=ZU.map(function(l){return mean(l.map(function(i){return Y[i]}))});
+var CU=[];for(var c0=0;c0<NC;c0++)CU.push([]);for(var u2=0;u2<N;u2++)CU[CL[u2]].push(u2);
+var TC=CU.map(function(l){return sum(l.map(function(i){return Y[i]}))});
+var ST2=vr(TC);
+var XR=shuffled(rngFrom(777),X);           // x "sin relación" con y (mismos valores, permutados)
+var CORR_X=corr(X,Y),CORR_XR=corr(XR,Y);
+var XMAX=Math.max.apply(null,X);
+
+/* ===== estado ===== */
+var S={n:20,seed:752,design:'mas',tab:'pros',order:'reg',xmode:'inf',layout:'design',view:'editor'};
+var CTX=null,R=null,CUR=null;
+
+/* ===== contexto según n, orden del marco y variable auxiliar ===== */
+function ppsPi(n,x){
+  var fixed=[],tot=sum(x),pi=new Array(N);
+  for(var i=0;i<N;i++)fixed.push(false);
+  for(var it=0;it<N;it++){
+    var nf=0,sx=0;for(i=0;i<N;i++){if(fixed[i])nf++;else sx+=x[i]}
+    var ch=false;for(i=0;i<N;i++){if(!fixed[i]&&(n-nf)*x[i]/sx>1){fixed[i]=true;ch=true}}
+    if(!ch){for(i=0;i<N;i++)pi[i]=fixed[i]?1:(n-nf)*x[i]/sx;break}
+  }
+  return{pi:pi,auto:fixed,na:fixed.filter(Boolean).length};
+}
+function neyman(n){
+  var w=NH.map(function(h,i){return h*SH[i]}),sw=sum(w),raw=w.map(function(v){return n*v/sw}),a=raw.map(function(v,i){return Math.min(NH[i],Math.max(2,Math.floor(v)))}),h;
+  while(sum(a)<n){var b=-1;for(h=0;h<3;h++)if(a[h]<NH[h]&&(b<0||raw[h]-a[h]>raw[b]-a[b]))b=h;a[b]++}
+  while(sum(a)>n){var b2=-1;for(h=0;h<3;h++)if(a[h]>2&&(b2<0||a[h]-raw[h]>a[b2]-raw[b2]))b2=h;a[b2]--}
+  return a;
+}
+function mkOrder(kind,k){
+  var idx=ALL.slice(),o;
+  if(kind==='size'){return idx.sort(function(a,b){return X[a]-X[b]||a-b})}
+  if(kind==='cyc'){
+    var s=idx.sort(function(a,b){return Y[a]-Y[b]||a-b}),g=N/k,cnt=[],r;
+    for(r=0;r<k;r++)cnt.push(0);
+    o=new Array(N);
+    for(var p=0;p<N;p++){r=p%k;o[p]=s[r*g+cnt[r]];cnt[r]++}
+    return o;
+  }
+  return idx;
+}
+function mkCtx(){
+  var n=S.n,k=N/n,m=n/M,xv=S.xmode==='inf'?X:XR,pp=ppsPi(n,xv),c={n:n,k:k,m:m,xv:xv,pp:pp,nhP:NH.map(function(h){return n*h/N}),nhN:neyman(n)};
+  c.order=mkOrder(S.order,k);
+  c.pi={mas:ALL.map(function(){return n/N}),sis:ALL.map(function(){return 1/k}),
+    epr:ALL.map(function(i){return c.nhP[Z[i]]/NH[Z[i]]}),eney:ALL.map(function(i){return c.nhN[Z[i]]/NH[Z[i]]}),
+    pps:pp.pi,cong:ALL.map(function(){return m/NC})};
+  return c;
+}
+
+/* ===== sorteo ===== */
+function draw(d,c,rng){
+  var n=c.n,idx=[],i,h;
+  if(d==='mas')return{idx:pick(rng,ALL,n)};
+  if(d==='sis'){var r=Math.floor(rng()*c.k);for(i=0;i<n;i++)idx.push(c.order[r+i*c.k]);return{idx:idx,r:r}}
+  if(d==='epr'||d==='eney'){var nh=d==='epr'?c.nhP:c.nhN;for(h=0;h<3;h++)idx=idx.concat(pick(rng,ZU[h],nh[h]));return{idx:idx}}
+  if(d==='cong'){var cs=pick(rng,ALL.slice(0,NC),c.m);cs.forEach(function(g){idx=idx.concat(CU[g])});return{idx:idx,cs:cs}}
+  /* pps: sistemático PPS (Madow) con las unidades en orden aleatorio */
+  var perm=shuffled(rng,ALL),u0=rng(),cum=0,j=0;
+  for(var t=0;t<N;t++){
+    var un=perm[t],lo=cum,hi=t===N-1?Infinity:cum+c.pp.pi[un];cum+=c.pp.pi[un];
+    while(j<n&&u0+j<hi){if(u0+j>=lo)idx.push(un);j++}
+  }
+  return{idx:idx};
+}
+
+/* ===== varianzas: fórmula exacta (o aproximación de Hájek en PPS) ===== */
+function sisV(order,k){
+  var n=N/k,v=0;
+  for(var r=0;r<k;r++){var t=0;for(var i=0;i<n;i++)t+=Y[order[r+i*k]];var th=k*t;v+=(th-T)*(th-T)/k}
+  return v;
+}
+function stratV(nh){var v=0;for(var h=0;h<3;h++)v+=NH[h]*NH[h]*(1-nh[h]/NH[h])*SH2[h]/nh[h];return v}
+function hajek(pi){
+  var a=0,b=0,i;for(i=0;i<N;i++){a+=(1-pi[i])*Y[i];b+=pi[i]*(1-pi[i])}
+  var A=a/b,v=0;for(i=0;i<N;i++)v+=pi[i]*(1-pi[i])*Math.pow(Y[i]/pi[i]-A,2);return v;
+}
+function vFormula(d,c){
+  var n=c.n;
+  if(d==='mas')return N*N*(1-n/N)*S2/n;
+  if(d==='sis')return sisV(c.order,c.k);
+  if(d==='epr')return stratV(c.nhP);
+  if(d==='eney')return stratV(c.nhN);
+  if(d==='cong')return NC*NC*(1-c.m/NC)*ST2/c.m;
+  return hajek(c.pp.pi);
+}
+/* estimadores de la varianza con la muestra */
+function vHat(d,c,idx){
+  var n=idx.length,i;
+  if(d==='mas'||d==='sis')return N*N*(1-n/N)*vr(idx.map(function(i){return Y[i]}))/n;
+  if(d==='epr'||d==='eney'){
+    var nh=d==='epr'?c.nhP:c.nhN,v=0;
+    for(var h=0;h<3;h++){var ys=idx.filter(function(i){return Z[i]===h}).map(function(i){return Y[i]});v+=NH[h]*NH[h]*(1-nh[h]/NH[h])*vr(ys)/nh[h]}
+    return v;
+  }
+  if(d==='cong'){var tc=CU.map(function(l,g){return g}).filter(function(g){return idx.indexOf(CU[g][0])>=0}).map(function(g){return TC[g]});return NC*NC*(1-c.m/NC)*vr(tc)/c.m}
+  var pi=c.pp.pi,a=0,b=0,z=idx.map(function(i){return Y[i]/pi[i]});
+  idx.forEach(function(i,t){a+=(1-pi[i])*z[t];b+=(1-pi[i])});
+  if(b===0)return 0;var A=a/b,s=0;idx.forEach(function(i,t){s+=(1-pi[i])*Math.pow(z[t]-A,2)});return n/(n-1)*s;
+}
+function htEst(d,c,idx){var pi=c.pi[d],t=0;for(var i=0;i<idx.length;i++)t+=Y[idx[i]]/pi[idx[i]];return t}
+
+/* ===== simulación Monte Carlo ===== */
+function histo(vals,lo,hi,nb){
+  var h=new Array(nb),i;for(i=0;i<nb;i++)h[i]=0;
+  for(i=0;i<vals.length;i++){var b=Math.floor((vals[i]-lo)/(hi-lo)*nb);if(b<0)b=0;if(b>=nb)b=nb-1;h[b]++}
+  return h.map(function(v){return v/vals.length});
+}
+function runMC(c){
+  var out={};
+  var sdm=Math.sqrt(vFormula('mas',c)),lo=T-3.5*sdm,hi=T+3.5*sdm;
+  DES.forEach(function(d,di){
+    var rng=rngFrom(9000+di*131),vals=new Float64Array(B),pi=c.pi[d],r1=0,cnt=new Array(N);
+    for(var i=0;i<N;i++)cnt[i]=0;
+    for(var b=0;b<B;b++){var s=draw(d,c,rng),t=0,ru=0;for(var j=0;j<s.idx.length;j++){var u=s.idx[j];t+=Y[u]/pi[u];cnt[u]++;if(Z[u]===2)ru++}vals[b]=t;if(ru<=1)r1++}
+    var m=0,k;for(k=0;k<B;k++)m+=vals[k];m/=B;var v=0;for(k=0;k<B;k++)v+=(vals[k]-m)*(vals[k]-m);v/=B;
+    var out1=0;for(k=0;k<B;k++)if(vals[k]<lo||vals[k]>hi)out1++;
+    var vf=vFormula(d,c);
+    out[d]={vals:vals,mean:m,sd:Math.sqrt(v),vmc:v,bias:m-T,se:Math.sqrt(v/B),vf:vf,vc:d==='pps'?v:vf,r1:r1/B,outside:out1/B,
+      hist:histo(vals,lo,hi,32),mini:histo(vals,lo,hi,14),cnt:cnt};
+  });
+  out.lo=lo;out.hi=hi;
+  return out;
+}
+function drawAll(){
+  CUR={};
+  DES.forEach(function(d,di){
+    var rng=rngFrom(S.seed*7919+di*104729),s=draw(d,CTX,rng),th=htEst(d,CTX,s.idx),vh=vHat(d,CTX,s.idx),e=1.96*Math.sqrt(vh);
+    CUR[d]={idx:s.idx,r:s.r,cs:s.cs,th:th,vh:vh,lo:th-e,hi:th+e};
+  });
+}
+function recompute(){CTX=mkCtx();R=runMC(CTX);drawAll()}
+
+/* ===== contenido de cada diseño ===== */
+function ty(t,i){return '<span class="ty" style="--tc:var(--ty-'+i+');--tx:var(--tf-'+i+')">'+t+'</span>'}
+var DEF={
+ mas:{name:'MAS sin reposición',sub:'MASsr · π = n/N',ini:'Ma',c:[8,0],chips:[['Autopond.',11],['Sin aux.',8]]},
+ sis:{name:'Sistemático',sub:'k = N/n · un solo arranque r',ini:'Si',c:[10,14],chips:[['Autopond.',11],['Orden',14]]},
+ epr:{name:'Estrat. proporcional',sub:'n_h = n·N_h/N',ini:'Ep',c:[11,6],chips:[['Autopond.',11],['Estratos',10]]},
+ eney:{name:'Estrat. Neyman',sub:'n_h ∝ N_h·S_h',ini:'En',c:[6,12],chips:[['Estratos',10],['Óptimo',12]]},
+ pps:{name:'PPS',sub:'π = n·x/Σx',ini:'Pp',c:[9,13],chips:[['π variable',9],['Aux. x',12]]},
+ cong:{name:'Conglomerados',sub:'polígonos de 5 empresas',ini:'Cg',c:[3,15],chips:[['Grupos',3],['deff > 1',1]]}
+};
+function ratio(d){return R[d].vc/R.mas.vc}
+function rr(d){return '×'+fm(ratio(d),2)}
+function pillMeta(d){
+  var c=CTX,n=c.n,k=c.k;
+  if(d==='mas')return 'Marco: lista de '+N+' empresas · π = n/N = '+fm(n/N,2)+' · πkl = n(n−1)/N(N−1) = '+fm(n*(n-1)/(N*(N-1)),4);
+  if(d==='sis')return 'Marco ordenado · k = N/n = '+fm(k,0)+' · π = 1/k = '+fm(1/k,2)+' · '+fm(k,0)+' muestras posibles';
+  if(d==='epr')return '3 estratos por zona · n_h = '+c.nhP.join(' / ')+' · π = n_h/N_h = '+fm(n/N,2)+' en todos';
+  if(d==='eney')return '3 estratos por zona · n_h = '+c.nhN.join(' / ')+' · π = '+c.nhN.map(function(v,h){return fm(v/NH[h],2)}).join(' / ');
+  if(d==='pps')return 'Aux. x = empleados · '+c.pp.na+' autorrepresentadas (π = 1) · Σπ = '+fm(sum(c.pp.pi),0)+' = n';
+  return NC+' polígonos de '+M+' empresas · m = '+fm(c.m,0)+' polígonos · π = m/C = '+fm(c.m/NC,2);
+}
+
+/* texto de ventajas, límites y cuándo usarlo */
+function prosCons(d){
+  var c=CTX,n=c.n,rd=R[d],x=ratio(d);
+  var P={
+  mas:{
+    pros:['Solo necesita una lista de las unidades: no exige variables auxiliares ni estructura en el marco.',
+      '<b>πk = n/N</b> para todas y <b>πkl = n(n−1)/N(N−1) &gt; 0</b> para cualquier par: existe estimador insesgado de la varianza y las fórmulas son cerradas.',
+      'Autoponderado: todas las empresas pesan N/n = '+fm(N/n,0)+'. El estimador es una simple expansión de la suma muestral.',
+      'Es la referencia: el efecto de diseño de cualquier otro diseño se mide contra su varianza.'],
+    cons:['No usa información previa. No sabe que Capital pesa más que Rural: en '+fp(R.mas.r1,1)+' de los '+fm(B)+' sorteos caen como mucho 1 empresa rural (lo esperado son '+fm(n*NH[2]/N,0)+').',
+      'Deja las empresas grandes al azar. Las 3 mayores son el 3 % del marco y suman el '+fp(Y.slice().sort(function(a,b){return b-a}).slice(0,3).reduce(function(a,b){return a+b},0)/T,0)+' de las ventas: según entren o no en la muestra, T̂ se dispara o se queda corto.',
+      'La muestra queda dispersa por todo el territorio: trabajo de campo caro.'],
+    when:'No hay variable auxiliar útil ni estructura en el marco, o hace falta una línea base para medir el efecto de diseño.'},
+  sis:{
+    pros:['Se ejecuta sobre una lista con un solo sorteo (el arranque r) y sin numerar al azar cada unidad.',
+      'Si el orden del marco es informativo (tamaño, fecha, geografía) actúa como <b>estratificación implícita</b>: con el marco por tamaño la varianza queda en '+fm(sisV(mkOrder('size',c.k),c.k)/R.mas.vf,2)+'× la del MAS.',
+      '<b>πk = 1/k = n/N</b>, igual que el MAS: autoponderado y con el mismo estimador.',
+      'Reparte la muestra de forma uniforme por toda la lista.'],
+    cons:['<b>πkl = 0</b> para pares de posiciones de distinta clase (r mod k): no existe estimador insesgado de V. Hay que aproximarla (como MAS o con pares de zonas).',
+      '<b>Periodicidad:</b> si el marco tiene un ciclo que coincide con k, todas las muestras posibles son malas. Aquí, con ciclo de periodo k, la varianza sube a '+fm(sisV(mkOrder('cyc',c.k),c.k)/R.mas.vf,1)+'× la del MAS.',
+      'Solo hay k = '+fm(c.k,0)+' muestras posibles: la distribución de T̂ es muy discreta.',
+      'Si N/n no es entero, el tamaño de muestra varía o hay que usar k fraccionario.'],
+    when:'Marco ya ordenado con sentido (por tamaño, tiempo, zona) o listas largas en papel o archivo. Antes de usarlo, comprueba que el orden no tenga ciclos.'},
+  epr:{
+    pros:['<b>Autoponderado:</b> π = n_h/N_h = n/N en cada estrato; el estimador T̂ = Σ N_h·ȳ_h es una simple expansión.',
+      'Elimina de la varianza la parte <b>entre zonas</b> (medias '+YBH.map(function(v){return fm(v,1)}).join(' · ')+' M€): la varianza queda en '+fm(x,2)+'× la del MAS.',
+      'Garantiza representación de cada zona (n_h = '+c.nhP.join(' / ')+') y permite estimar por estrato.',
+      'Con afijación proporcional no empeora al MAS (salvo diferencias de orden menor).'],
+    cons:['Exige que la variable de estratificación (zona) esté <b>en el marco para todas las unidades</b>.',
+      'Si los estratos no son homogéneos por dentro, la ganancia es pequeña. Aquí Capital sigue siendo muy dispersa (S = '+fm(SH[0],1)+').',
+      'No mira la dispersión S_h: reparte igual de bien a un estrato muy variable que a uno casi constante.',
+      'Con muchos estratos, n_h &lt; 2 impide estimar la varianza.'],
+    when:'Hay una variable (zona, sector, tamaño) conocida en el marco que separa bien los valores de y, o se quieren estimaciones por dominios.'},
+  eney:{
+    pros:['<b>Varianza mínima</b> para un n fijo: n_h ∝ N_h·S_h. Aquí '+c.nhN.join(' / ')+' frente a '+c.nhP.join(' / ')+' del proporcional.',
+      'Concentra la muestra donde hay más tamaño y más dispersión (Capital) y gasta poco en estratos casi homogéneos (Rural).',
+      'Varianza en '+fm(x,2)+'× la del MAS y en '+fm(R.eney.vc/R.epr.vc,2)+'× la del proporcional.',
+      'Se puede incorporar el coste por unidad: n_h ∝ N_h·S_h/√c_h.'],
+    cons:['Necesita conocer (o estimar con piloto o registros previos) las dispersiones S_h. Si se estiman mal, se pierde la ventaja.',
+      '<b>No es autoponderado:</b> π = '+c.nhN.map(function(v,h){return fm(v/NH[h],2)}).join(' / ')+'. Los pesos son desiguales y hay que usarlos siempre.',
+      'Es óptima para <b>una</b> variable: con varias variables de interés puede ser mala para las demás.',
+      'Se exige un mínimo de 2 por estrato para estimar V, aunque Neyman pida menos.'],
+    when:'Una variable principal, dispersiones por estrato conocidas y la precisión importa más que la sencillez de los pesos.'},
+  pps:{
+    pros:['Si y ∝ x, el cociente y/π es casi constante y la varianza se hunde: aquí <b>'+fm(x,2)+'× la del MAS</b> con r(x,y) = '+fm(CORR_X,2)+'.',
+      'Las empresas grandes entran con probabilidad alta o con '+'<b>π = 1 (autorrepresentadas)</b>: aportan su valor exacto, sin error de muestreo.',
+      'Es el diseño natural para totales dominados por pocas unidades grandes (empleo, producción, ventas).',
+      'T̂ = Σ y/π es insesgado con cualquier π &gt; 0.'],
+    cons:['Necesita <b>x conocida para todo el marco</b> y actualizada (un directorio de empresas).',
+      'Si x no se relaciona con y, <b>puede ser peor que el MAS</b>: con x sin relación (r = '+fm(CORR_XR,2)+') la varianza llega a '+fm(ppsNoise(),2)+'× la del MAS. Pruébalo en el campo «Variable auxiliar».',
+      'Los pesos 1/π son muy desiguales: una empresa pequeña que sale habla por '+fm(1/Math.min.apply(null,c.pp.pi),0)+' o más.',
+      'Hay que iterar cuando n·x/Σx supera 1 ('+c.pp.na+' autorrepresentadas con n = '+n+'), y los πkl dependen del algoritmo de sorteo.'],
+    when:'Totales de una variable de tamaño con un directorio y una variable auxiliar x muy correlacionada con y.'},
+  cong:{
+    pros:['Solo hace falta un <b>marco de conglomerados</b> (20 polígonos), no la lista de las 100 empresas. Es barato de construir.',
+      'Trabajo de campo concentrado: se visitan '+fm(c.m,0)+' polígonos en lugar de '+n+' puntos sueltos.',
+      '<b>π = m/C = '+fm(c.m/NC,2)+'</b> para todas: es autoponderado y el estimador es T̂ = (C/m)·Σ T_c.',
+      'Se puede combinar con otras etapas (submuestrear dentro del polígono) si el conglomerado es grande.'],
+    cons:['<b>Pierde precisión:</b> deff = V/V_MAS = '+fm(x,2)+'. Las '+n+' empresas rinden como '+fm(n/x,0)+' elegidas por MAS.',
+      'Las empresas del mismo polígono se parecen (misma zona): ρ implícito = '+fm((x-1)/(M-1),2)+' &gt; 0, y entran juntas (πkl = πk dentro del polígono).',
+      'Con solo '+fm(c.m,0)+' conglomerados hay pocos grados de libertad para estimar V.',
+      'Si los polígonos tienen tamaños distintos, T̂ es más inestable (hay que usar razón o PPS).'],
+    when:'No existe lista de elementos o es muy cara, y los conglomerados son lo más heterogéneos por dentro posible (ρ pequeño). Hay que equilibrar coste y varianza.'}
+  };
+  return P[d];
+}
+var _ppsNoise=null,_ppsNoiseKey='';
+function ppsNoise(){
+  var key=S.n+'|'+S.order;
+  if(_ppsNoiseKey!==key){var pp=ppsPi(S.n,XR);_ppsNoise=hajek(pp.pi)/R.mas.vf;_ppsNoiseKey=key}
+  return _ppsNoise;
+}
+
+/* justificación estadística */
+function just(d){
+  var c=CTX,n=c.n,rd=R[d],x=ratio(d),k=c.k;
+  var rows,why,vs,exam;
+  var vmasTxt=fm(R.mas.vf,0);
+  if(d==='mas'){
+    rows=[['Marco','Lista de las N = '+N+' unidades.'],
+      ['πk','<code>n/N = '+n+'/'+N+' = '+fm(n/N,2)+'</code>. Cada empresa está en C(99,'+(n-1)+') de las C(100,'+n+') muestras.'],
+      ['πkl','<code>n(n−1)/N(N−1) = '+fm(n*(n-1)/(N*(N-1)),4)+'</code>, positivo para todo par.'],
+      ['Estimador','<code>T̂ = Σ y/π = (N/n)·Σ y = '+fm(N/n,0)+'·Σ y</code>'],
+      ['Varianza','<code>V = N²(1−n/N)·S²/n = '+vmasTxt+'</code>, con S² = '+fm(S2,1)+'. El factor (1−n/N) = '+fm(1-n/N,2)+' es la corrección por población finita.'],
+      ['V̂','<code>N²(1−f)·s²/n</code>. Es insesgado porque todos los πkl &gt; 0.']];
+    why='Cada unidad entra con πk &gt; 0 y el estimador pondera por 1/πk: <b>E[T̂] = Σ (yk/πk)·πk = T</b>. La simulación lo confirma: media de T̂ − T = '+sg(rd.bias,1)+' ± '+fm(rd.se,1)+'.';
+    vs='Es la referencia (deff = 1). Cualquier ganancia de los demás diseños se mide como V/V_MAS.';
+    exam='MAS · 2023-C3, 2025-P2: comparar dos diseños con el deff. Bernoulli frente a MAS (2025-P2): pestaña Examen+.';
+  }
+  if(d==='sis'){
+    var vr_=sisV(mkOrder('reg',k),k),vs_=sisV(mkOrder('size',k),k),vc_=sisV(mkOrder('cyc',k),k);
+    rows=[['Marco','Lista ordenada. <b>El orden decide la calidad del diseño.</b>'],
+      ['πk','<code>1/k = n/N = '+fm(1/k,2)+'</code> con k = N/n = '+fm(k,0)+'. Cada empresa está en 1 de las k muestras.'],
+      ['πkl','<code>0</code> o <code>1/k</code>: dos posiciones de la misma clase (r mod k) entran siempre juntas; las demás, nunca.'],
+      ['Estimador','<code>T̂ = Σ y/π = k·Σ y = '+fm(k,0)+'·Σ y</code>'],
+      ['Varianza','<code>V = (1/k)·Σr (T̂r − T)²</code>, enumerando las '+fm(k,0)+' muestras posibles = '+fm(rd.vf,0)+' con el orden elegido.'],
+      ['Según el orden','Registro <code>×'+fm(vr_/R.mas.vf,2)+'</code> · Por tamaño <code>×'+fm(vs_/R.mas.vf,2)+'</code> · Con ciclo <code>×'+fm(vc_/R.mas.vf,1)+'</code> (respecto al MAS).'],
+      ['V̂','No hay estimador insesgado (πkl = 0). Aquí se aproxima como en el MAS: '+fm(CUR.sis.vh,0)+'.']];
+    why='Las k muestras posibles forman una <b>partición</b> del marco: E[T̂] = (1/k)·Σr k·T_r = T. Es insesgado con cualquier orden; lo que cambia con el orden es la varianza. Media simulada de T̂ − T = '+sg(rd.bias,1)+' ± '+fm(rd.se,1)+'.';
+    vs='Con orden aleatorio se comporta como el MAS; con orden por tamaño es una estratificación implícita (los k elementos de cada tramo de la lista) y gana; con un ciclo que coincide con k cada muestra es un bloque de un solo tipo y pierde mucho.';
+    exam='Sistemático · 2024-P2: compararlo con el MAS según el marco esté ordenado (creciente o decreciente) o tenga un patrón periódico.';
+  }
+  if(d==='epr'){
+    rows=[['Marco','Lista con la zona conocida para todas las unidades.'],
+      ['πk','<code>n_h/N_h = '+c.nhP.map(function(v,h){return v+'/'+NH[h]}).join(' = ')+' = '+fm(n/N,2)+'</code>: igual en los tres estratos.'],
+      ['πkl','Estratos distintos: <code>πk·πl</code> (sorteos independientes). Mismo estrato: <code>n_h(n_h−1)/N_h(N_h−1)</code>.'],
+      ['Estimador','<code>T̂ = Σh N_h·ȳ_h</code>, que coincide con Σ y/π.'],
+      ['Varianza','<code>V = Σ N_h²(1−n_h/N_h)·S_h²/n_h = '+fm(rd.vf,0)+'</code>. No aparece la varianza entre estratos.'],
+      ['V̂','Mismos términos con s_h² de la muestra (exige n_h ≥ 2).']];
+    why='Cada estrato es un MAS independiente: E[ȳ_h] = Ȳ_h, luego <b>E[T̂] = Σ N_h·Ȳ_h = T</b>. Media simulada de T̂ − T = '+sg(rd.bias,1)+' ± '+fm(rd.se,1)+'.';
+    vs='V/V_MAS = '+fm(x,2)+'. El MAS contiene la dispersión entre zonas (medias '+YBH.map(function(v){return fm(v,1)}).join(' · ')+' M€); aquí desaparece. La ganancia es mayor cuanto más distintas son las medias de los estratos y más parecidas son las empresas dentro de cada uno.';
+    exam='Estratificado · 2023-C2: demostrar que con afijación proporcional π = n_h/N_h = n/N (autoponderación).';
+  }
+  if(d==='eney'){
+    var w=NH.map(function(h,i){return h*SH[i]});
+    rows=[['Marco','Zona conocida y dispersiones S_h conocidas o estimadas.'],
+      ['Afijación','<code>n_h ∝ N_h·S_h</code>. N_h·S_h = '+w.map(function(v){return fm(v,0)}).join(' / ')+' ⇒ n_h = '+c.nhN.join(' / ')+' (mínimo 2 por estrato).'],
+      ['πk','<code>n_h/N_h = '+c.nhN.map(function(v,h){return fm(v/NH[h],2)}).join(' / ')+'</code>: distintos por estrato.'],
+      ['Estimador','<code>T̂ = Σh N_h·ȳ_h = Σ y/π</code> con pesos <code>'+c.nhN.map(function(v,h){return fm(NH[h]/v,1)}).join(' / ')+'</code>.'],
+      ['Varianza','<code>V = Σ N_h²(1−f_h)·S_h²/n_h = '+fm(rd.vf,0)+'</code>. Sin redondeos, <code>V = (ΣN_hS_h)²/n − ΣN_hS_h²</code>.'],
+      ['V̂','Igual que el proporcional, con los n_h de Neyman.']];
+    why='Minimizar Σ N_h²S_h²/n_h con Σ n_h = n (multiplicadores de Lagrange) da <b>n_h ∝ N_h·S_h</b>. Es insesgado por el mismo motivo que el proporcional (MAS independientes en cada estrato). Media simulada de T̂ − T = '+sg(rd.bias,1)+' ± '+fm(rd.se,1)+'.';
+    vs='Por Cauchy-Schwarz, V_Neyman ≤ V_proporcional ≤ V_MAS (salvo órdenes menores): '+fm(x,2)+'× la del MAS y '+fm(R.eney.vc/R.epr.vc,2)+'× la del proporcional. Si las S_h están mal estimadas, la ganancia se reduce.';
+    exam='Estratificado · 2023-C2 (autoponderación): con Neyman <b>no</b> se cumple, porque π cambia de un estrato a otro.';
+  }
+  if(d==='pps'){
+    rows=[['Marco','Directorio con la variable de tamaño x (empleados) conocida para todas.'],
+      ['πk','<code>n·x/Σx</code>, repitiendo hasta que ninguna pase de 1. Aquí '+c.pp.na+' unidades con π = 1; <code>Σπ = n = '+n+'</code>.'],
+      ['πkl','Depende del algoritmo (aquí, sistemático PPS con las unidades en orden aleatorio). Con πkl &gt; 0 hay estimador de V.'],
+      ['Estimador','<code>T̂ = Σ y/π</code> (Horvitz-Thompson)'],
+      ['Varianza','<code>V ≈ Σ πk(1−πk)·(yk/πk − A)² = '+fm(rd.vf,0)+'</code> (Hájek). Simulada: '+fm(rd.vmc,0)+'.'],
+      ['Idea clave','V → 0 si <code>yk/πk</code> es constante, es decir, si <code>y ∝ x</code>. Aquí r(x,y) = '+fm(CORR_X,2)+'.'],
+      ['V̂','Aproximación de Hájek con la muestra: '+fm(CUR.pps.vh,0)+'.']];
+    why='HT es insesgado con cualquier diseño en que todo πk &gt; 0. Las unidades con π = 1 aportan su valor exacto (y/1) y no añaden varianza. Media simulada de T̂ − T = '+sg(rd.bias,1)+' ± '+fm(rd.se,1)+'.';
+    vs='V/V_MAS = '+fm(x,2)+'. Gana porque casi todo el total está en pocas empresas grandes y y/x es casi constante. Con una x sin relación con y la ventaja se pierde (×'+fm(ppsNoise(),2)+').';
+    exam='PPS · 2026-P4(b): procedimiento cuando π &gt; 1 (fijar a 1, restar de n y de Σx, repetir). SYG y algoritmo paso a paso: pestaña Examen+.';
+  }
+  if(d==='cong'){
+    var rho=(x-1)/(M-1);
+    rows=[['Marco','Lista de '+NC+' conglomerados (polígonos de M = '+M+'). No hace falta lista de empresas para sortear.'],
+      ['πk','<code>m/C = '+fm(c.m,0)+'/'+NC+' = '+fm(c.m/NC,2)+'</code>, igual para todas las empresas de cualquier polígono.'],
+      ['πkl','Mismo polígono: <code>πk</code> (entran juntas). Distinto polígono: <code>m(m−1)/C(C−1)</code>.'],
+      ['Estimador','<code>T̂ = (C/m)·Σ T_c = Σ y/π</code>, con T_c el total del polígono.'],
+      ['Varianza','<code>V = C²(1−m/C)·S_t²/m = '+fm(rd.vf,0)+'</code>, con S_t² = '+fm(ST2,0)+' la varianza de los <b>totales</b> de polígono.'],
+      ['Efecto de diseño','<code>deff = V/V_MAS = S_t²/(M·S²) = '+fm(x,2)+'</code> ⇒ <code>ρ = (deff−1)/(M−1) = '+fm(rho,2)+'</code>. n efectivo = n/deff = '+fm(n/x,0)+'.'],
+      ['V̂','Igual con la varianza de los totales de los '+fm(c.m,0)+' polígonos de la muestra.']];
+    why='Es un MAS de polígonos con π = m/C &gt; 0: <b>E[T̂] = T</b> para HT. La unidad de muestreo es el polígono, por eso la varianza usa los totales T_c. Media simulada de T̂ − T = '+sg(rd.bias,1)+' ± '+fm(rd.se,1)+'.';
+    vs='deff = 1 + (M−1)ρ &gt; 1 cuando las empresas de un polígono se parecen (ρ &gt; 0): aquí todas son de la misma zona. Se paga con varianza lo que se ahorra en marco y desplazamientos. Con M menor, deff baja.';
+    exam='Conglomerados · 2025-P4: razones de uso y precio en eficiencia. 2026-P3: V_cong en función de V_MAS.';
+  }
+  return{rows:rows,why:why,vs:vs,exam:exam};
+}
+
+/* ===== vistas ===== */
+var $=function(id){return document.getElementById(id)};
+function tyChips(d){return DEF[d].chips.map(function(c){return ty(c[0],c[1])}).join('')}
+function monoStyle(d){return '--c1:var(--ty-'+DEF[d].c[0]+');--c2:var(--ty-'+DEF[d].c[1]+')'}
+function mono(d,cls){return '<span class="mono '+(cls||'')+'" style="'+monoStyle(d)+'"><i>'+DEF[d].ini+'</i></span>'}
+
+function renderTop(){
+  $('brandp').textContent='N = '+N+' empresas · T real = '+fm(T,1)+' M€ · '+fm(B)+' sorteos por diseño · semilla '+S.seed;
+  $('nseg').innerHTML=[10,20,50].map(function(v){return '<button type="button" data-act="n" data-v="'+v+'" aria-pressed="'+(S.n===v)+'">n = '+v+'</button>'}).join('');
+  $('seed').value=S.seed;
+}
+function renderTeam(){
+  var h='<div class="team-h"><h2>Diseños</h2><span class="cnt">6/6</span></div>';
+  DES.forEach(function(d){
+    var strip=R[d].mini,mx=Math.max.apply(null,strip);
+    h+='<button type="button" class="slot" data-act="design" data-d="'+d+'" aria-pressed="'+(S.design===d)+'">'+mono(d)+
+      '<span class="nm">'+DEF[d].name+'<small>'+DEF[d].sub+'</small></span><span class="tys">'+tyChips(d)+'</span>'+
+      '<span class="foot"><span class="strip" title="Distribución de T̂ en '+fm(B)+' sorteos (misma escala en todos)">'+strip.map(function(v){return '<i style="height:'+Math.max(8,Math.round(v/mx*100))+'%"></i>'}).join('')+'</span>'+
+      '<span class="spe" title="Varianza respecto al MAS">V '+rr(d)+'</span></span></button>';
+  });
+  $('team').innerHTML=h;
+}
+
+function layoutOrder(d){
+  if(S.layout==='reg')return ALL;
+  var c=CTX;
+  if(d==='sis')return c.order;
+  if(d==='epr'||d==='eney')return ZU[0].concat(ZU[1],ZU[2]);
+  if(d==='cong'){var o=[];for(var g=0;g<NC;g++)o=o.concat(CU[g]);return o}
+  if(d==='pps')return ALL.slice().sort(function(a,b){return c.xv[b]-c.xv[a]||a-b});
+  return ALL;
+}
+function gridHTML(d,order,mini){
+  var cur=CUR[d],sel={},c=CTX,i;
+  cur.idx.forEach(function(u){sel[u]=1});
+  var h='<div class="pg'+(mini?' mini':'')+'" role="img" aria-label="Marco de '+N+' empresas con las '+cur.idx.length+' seleccionadas por '+DEF[d].name+'">';
+  order.forEach(function(u,p){
+    var on=sel[u],au=d==='pps'&&c.pp.auto[u]&&on,cls='pc'+(on?' on':'')+(au?' au':'')+((!mini&&d==='cong'&&S.layout==='design'&&p%5===0&&p%10!==0)?' bs':'');
+    var b=Math.max(8,Math.round(Math.sqrt(X[u]/XMAX)*100));
+    h+='<div class="'+cls+'" style="--zc:'+ZC[Z[u]]+';--zt:'+ZT[Z[u]]+';--b:'+b+'%"'+(mini?'':' title="Empresa '+(u+1)+' · '+ZN[Z[u]]+' · polígono P'+(CL[u]+1)+' · x = '+X[u]+' · y = '+fm(Y[u],1)+' M€ · π = '+fm(c.pi[d][u],3)+'"')+'>'+(mini?'':(u+1))+'</div>';
+  });
+  return h+'</div>';
+}
+function sampleTable(d){
+  var cur=CUR[d],c=CTX,pi=c.pi[d],idx=cur.idx.slice().sort(function(a,b){return a-b}),h='<div class="sam"><table><thead><tr><th>Id</th><th style="text-align:left">Zona</th>'+(d==='cong'?'<th>Pol.</th>':'')+'<th>x</th><th>y</th><th>π</th><th>y/π</th></tr></thead><tbody>',sy=0;
+  idx.forEach(function(u){
+    sy+=Y[u];
+    h+='<tr><td>'+(u+1)+'</td><td class="z"><i class="zdot" style="--c:'+ZC[Z[u]]+'"></i>'+ZN[Z[u]]+'</td>'+(d==='cong'?'<td>P'+(CL[u]+1)+'</td>':'')+'<td>'+c.xv[u]+'</td><td>'+fm(Y[u],1)+'</td><td>'+fm(pi[u],3)+(d==='pps'&&c.pp.auto[u]?' ★':'')+'</td><td>'+fm(Y[u]/pi[u],1)+'</td></tr>';
+  });
+  h+='</tbody><tfoot><tr><td colspan="'+(d==='cong'?4:3)+'">Σ</td><td>'+fm(sy,1)+'</td><td></td><td>'+fm(cur.th,1)+'</td></tr></tfoot></table></div>';
+  return h;
+}
+function fields(d){
+  var c=CTX,h='';
+  if(d==='sis'){
+    h+='<div class="fld"><span class="l">Orden del marco</span><div class="seg" role="group" aria-label="Orden del marco">'+
+      [['reg','Registro'],['size','Por tamaño'],['cyc','Con ciclo']].map(function(o){return '<button type="button" data-act="order" data-v="'+o[0]+'" aria-pressed="'+(S.order===o[0])+'">'+o[1]+'</button>'}).join('')+'</div>'+
+      '<span class="hint">'+({reg:'El marco sigue el orden de alta: no tiene relación con y, así que se comporta como un MAS.',size:'Ordenado por empleados: cada tramo de k empresas aporta una, como una estratificación implícita.',cyc:'Cada k-ésima posición es del mismo tipo (como ventas diarias con k = 7). La muestra es un bloque de un solo tipo.'})[S.order]+'</span></div>';
+    h+='<div class="fld"><span class="l">Arranque aleatorio</span><span class="num">r = '+(CUR.sis.r+1)+' de '+fm(c.k,0)+'</span><span class="hint">Posiciones '+[0,1,2].map(function(j){return CUR.sis.r+1+j*c.k}).join(', ')+', … (cada '+fm(c.k,0)+'). Un solo sorteo fija toda la muestra.</span></div>';
+  }
+  if(d==='epr'||d==='eney'){
+    var nh=d==='epr'?c.nhP:c.nhN;
+    h+='<div class="fld"><span class="l">Afijación por zona</span><span class="num">'+nh.map(function(v,i){return ZN[i].slice(0,3)+' '+v}).join(' · ')+'</span><span class="hint">'+(d==='epr'?'Proporcional a N_h = '+NH.join(' / ')+'.':'Proporcional a N_h·S_h con S_h = '+SH.map(function(v){return fm(v,1)}).join(' / ')+' M€.')+'</span></div>';
+  }
+  if(d==='pps'){
+    h+='<div class="fld"><span class="l">Variable auxiliar x</span><div class="seg" role="group" aria-label="Variable auxiliar">'+
+      [['inf','Empleados'],['noise','Sin relación']].map(function(o){return '<button type="button" data-act="xmode" data-v="'+o[0]+'" aria-pressed="'+(S.xmode===o[0])+'">'+o[1]+'</button>'}).join('')+'</div>'+
+      '<span class="hint">r(x, y) = '+fm(S.xmode==='inf'?CORR_X:CORR_XR,2)+'. '+(S.xmode==='inf'?'x es informativa: y/π casi constante.':'Mismos valores de x repartidos al azar: PPS sin base estadística.')+'</span></div>';
+    h+='<div class="fld"><span class="l">Autorrepresentación</span><span class="num">'+c.pp.na+' con π = 1</span><span class="hint">Σπ = '+fm(sum(c.pp.pi),2)+' = n. Se marcan con ★ en la rejilla.</span></div>';
+  }
+  if(d==='cong'){
+    h+='<div class="fld"><span class="l">Polígonos sorteados</span><span class="num">'+CUR.cong.cs.map(function(g){return 'P'+(g+1)}).join(' · ')+'</span><span class="hint">m = n/M = '+fm(c.m,0)+' de C = '+NC+'. Se encuestan las '+M+' empresas de cada uno.</span></div>';
+    h+='<div class="fld"><span class="l">Efecto de diseño</span><span class="num">deff = '+fm(ratio('cong'),2)+'</span><span class="hint">1 + (M−1)ρ con ρ = '+fm((ratio('cong')-1)/(M-1),2)+'. n efectivo = '+fm(c.n/ratio('cong'),0)+'.</span></div>';
+  }
+  if(d==='mas'){
+    h+='<div class="fld"><span class="l">Espacio muestral</span><span class="num">C('+N+', '+c.n+')</span><span class="hint">Todas las muestras de tamaño n son equiprobables: cada una con probabilidad 1/C(N,n).</span></div>';
+    h+='<div class="fld"><span class="l">Factor de población finita</span><span class="num">1 − n/N = '+fm(1-c.n/N,2)+'</span><span class="hint">Multiplica la varianza. Si n = N (censo), vale 0.</span></div>';
+  }
+  return h?'<div class="fields">'+h+'</div>':'';
+}
+function histHTML(d){
+  var rd=R[d],hs=rd.hist,mx=Math.max.apply(null,hs),lo=R.lo,hi=R.hi,pos=function(v){return Math.max(0,Math.min(100,(v-lo)/(hi-lo)*100))};
+  var h='<div class="hist" role="img" aria-label="Distribución de T̂ en '+B+' sorteos">'+hs.map(function(v){return '<i style="height:'+Math.max(1,v/mx*100)+'%"></i>'}).join('')+
+    '<u style="left:'+pos(T)+'%" title="T real"></u><b style="left:'+pos(CUR[d].th)+'%" title="Esta muestra"></b></div>'+
+    '<div class="hax"><span>'+fm(lo,0)+'</span><span>T = '+fm(T,0)+'</span><span>'+fm(hi,0)+'</span></div>'+
+    '<div class="hleg"><span><s></s>T real</span><span><s class="t"></s>T̂ de la muestra actual</span>'+(rd.outside>0.005?'<span>'+fp(rd.outside,0)+' de los sorteos queda fuera de escala (se acumula en los extremos)</span>':'')+'</div>';
+  return h;
+}
+function renderEditor(){
+  var d=S.design,c=CTX,cur=CUR[d],rd=R[d],err=cur.th-T,order=layoutOrder(d);
+  var tag=cur.lo<=T&&T<=cur.hi?'<span class="badge ok">Cubre T</span>':'<span class="badge rv">No cubre T</span>';
+  var h='<div class="ed-head">'+mono(d,'lg')+'<div class="ed-id"><h2>'+DEF[d].name+'<small>'+DEF[d].sub+'</small></h2><div class="tys">'+tyChips(d)+'</div><div class="meta">'+pillMeta(d)+'</div></div>'+
+    '<div class="ed-act"><button class="btn" type="button" data-act="draw">Sortear de nuevo</button></div></div>'+
+    fields(d)+
+    '<div class="sec-h"><span>Selección · '+cur.idx.length+' de '+N+' empresas</span><span class="r"><span class="seg" role="group" aria-label="Orden de la rejilla"><button type="button" data-act="layout" data-v="design" aria-pressed="'+(S.layout==='design')+'">Vista del diseño</button><button type="button" data-act="layout" data-v="reg" aria-pressed="'+(S.layout==='reg')+'">Por registro</button></span></span></div>'+
+    '<div class="sel2"><div>'+gridHTML(d,order,false)+
+      '<div class="lgd">'+ZN.map(function(z,i){return '<span><s style="--c:'+ZC[i]+'"></s>'+z+'</span>'}).join('')+'<span>Barra inferior: empleados</span>'+(d==='pps'?'<span>★ autorrepresentada</span>':'')+'</div>'+
+      '<p class="hint" style="margin-top:6px">'+layoutHint(d)+'</p></div>'+
+    '<div>'+sampleTable(d)+'</div></div>'+
+    '<div class="sec-h"><span>Estimación del total de ventas</span><span class="r">M€</span></div>'+
+    '<div class="est"><div class="ec"><span class="l">Estimación T̂</span><span class="v">'+fm(cur.th,1)+'</span><span class="s">Σ y/π</span></div>'+
+    '<div class="ec"><span class="l">Total real T</span><span class="v">'+fm(T,1)+'</span><span class="s">Σ y de las '+N+'</span></div>'+
+    '<div class="ec"><span class="l">Error de esta muestra</span><span class="v">'+(err>=0?'▲ ':'▼ ')+sg(err,1)+'</span><span class="s">'+sg(err/T*100,1)+' % de T</span></div>'+
+    '<div class="ec"><span class="l">IC 95 %</span><span class="v" style="font-size:1rem">['+fm(cur.lo,0)+' ; '+fm(cur.hi,0)+']</span><span class="s">'+tag+'</span></div></div>'+
+    '<p class="estl">V̂ de esta muestra = <b>'+fm(cur.vh,0)+'</b> · EE = <b>'+fm(Math.sqrt(cur.vh),1)+'</b>'+(d==='sis'?' (aproximada como MAS: no existe estimador insesgado)':d==='pps'?' (aprox. de Hájek)':'')+' · V teórica = <b>'+fm(rd.vf,0)+'</b> · EE teórico = <b>'+fm(Math.sqrt(rd.vf),1)+'</b></p>'+
+    '<div class="sec-h"><span>Qué pasaría en '+fm(B)+' sorteos</span><span class="r">distribución de T̂</span></div>'+histHTML(d)+
+    '<table class="kv wide" style="margin-top:10px"><tbody>'+
+    '<tr><td>Insesgadez</td><td>Media de T̂ − T = <code>'+sg(rd.bias,1)+'</code> con error típico <code>'+fm(rd.se,1)+'</code>: '+(Math.abs(rd.bias)<=2.5*rd.se?'compatible con 0.':'distinto de 0 (revisa el diseño).')+'</td></tr>'+
+    '<tr><td>Varianza</td><td>Fórmula <code>'+fm(rd.vf,0)+'</code> · simulada <code>'+fm(rd.vmc,0)+'</code> ('+sg((rd.vmc/rd.vf-1)*100,1)+' %)'+(d==='pps'?'. La fórmula es la aproximación de Hájek.':'.')+'</td></tr>'+
+    '<tr><td>Coeficiente de variación</td><td><code>'+fp(Math.sqrt(rd.vc)/T,1)+'</code> de T · frente al MAS: <code>'+rr(d)+'</code> en varianza, <code>×'+fm(Math.sqrt(ratio(d)),2)+'</code> en error típico.</td></tr></tbody></table>';
+  $('editor').innerHTML=h;
+}
+function layoutHint(d){
+  if(S.layout==='reg')return 'Las empresas en orden de registro (1 a 100) para poder comparar con el resto de diseños.';
+  return ({mas:'Orden de registro: no hay estructura que aprovechar, la muestra cae donde cae.',
+    sis:'Posiciones del marco con el orden elegido: la muestra son columnas separadas k posiciones.',
+    epr:'Filas 1–5 Capital, 6–8 Periferia, 9–10 Rural: cada bloque tiene su propio sorteo con la misma fracción.',
+    eney:'Filas 1–5 Capital, 6–8 Periferia, 9–10 Rural: casi toda la muestra va a Capital.',
+    pps:'Empresas ordenadas de más a menos empleados: arriba, las grandes entran casi siempre; abajo, rara vez.',
+    cong:'Cada fila agrupa 2 polígonos de 5 empresas: se enciende el polígono entero o ninguna.'})[d];
+}
+
+/* panel de análisis */
+var TABS=[['pros','Pros y contras'],['just','Justificación'],['cmp','Comparar'],['sel','Selecciones'],['ex','Examen+'],['dem','Demostraciones']];
+function tabPros(){
+  var d=S.design,p=prosCons(d);
+  var li=function(b,t,k){return '<li><span class="badge '+k+'">'+b+'</span><span>'+t+'</span></li>'};
+  return '<h4>Ventajas</h4><ul class="checks">'+p.pros.map(function(t){return li('Ventaja',t,'ok')}).join('')+'</ul>'+
+    '<h4>Inconvenientes</h4><ul class="checks">'+p.cons.map(function(t,i){return li(i===0&&(d==='sis'||d==='cong'||d==='pps')?'Riesgo':'Límite',t,'rv')}).join('')+'</ul>'+
+    '<h4>Cuándo elegirlo</h4><ul class="checks">'+li('Usar si',p.when,'in')+'</ul>'+
+    '<div class="callout"><span><b>En esta población, con n = '+S.n+':</b> V = '+fm(R[d].vc,0)+' ('+rr(d)+' respecto al MAS) · error típico '+fm(Math.sqrt(R[d].vc),0)+' M€ · CV '+fp(Math.sqrt(R[d].vc)/T,1)+'.</span></div>';
+}
+function tabJust(){
+  var d=S.design,j=just(d);
+  return '<h4>Cómo se justifica</h4><table class="kv wide"><tbody>'+j.rows.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>'}).join('')+'</tbody></table>'+
+    '<h4>Por qué es insesgado</h4><p>'+j.why+'</p>'+
+    '<h4>Por qué gana o pierde frente al MAS</h4><p>'+j.vs+'</p>'+
+    '<div class="callout"><span><b>En examen.</b> '+j.exam+'</span><span class="hint" style="font-size:.74rem">Patrón tomado del apartado «Qué ha caído» de tu clase de Muestreo (redacción reconstruida, no literal).</span></div>'+
+    '<div class="callout"><span><b>Receta para argumentar cualquier diseño:</b> 1) qué información tiene el marco; 2) πk y πkl; 3) T̂ = Σ y/π y por qué es insesgado; 4) V y V̂; 5) deff = V/V_MAS y de dónde sale la ganancia o la pérdida.</span></div>';
+}
+function heat(r){return r<0.5?'mq':r<0.9?'mh':r<=1.1?'m1':r<=2?'m2':'m4'}
+function tabCmp(){
+  var mk=function(v){return '<span class="'+(v==='✓'?'yes':v==='✗'?'no':'ap')+'">'+v+'</span>'};var ins={mas:'✓',sis:'✗',epr:'✓',eney:'✓',pps:'≈',cong:'✓'},aut={mas:'✓',sis:'✓',epr:'✓',eney:'✗',pps:'✗',cong:'✓'};
+  var h='<h4>Misma población, n = '+S.n+'</h4><div class="tw"><table class="mx"><thead><tr><th></th><th>V/V<sub>MAS</sub></th><th>CV</th><th title="Pesos iguales para todas las unidades">Autopond.</th><th title="Estimador insesgado de la varianza disponible">V̂ insesgada</th></tr></thead><tbody>';
+  DES.forEach(function(d){
+    h+='<tr><td class="tl"><button type="button" class="rowb" data-act="design" data-d="'+d+'"'+(S.design===d?' aria-current="true"':'')+'>'+mono(d,'sm')+'<span>'+DEF[d].name+'</span></button></td>'+
+      '<td class="'+heat(ratio(d))+'">'+fm(ratio(d),2)+'</td><td class="m1">'+fp(Math.sqrt(R[d].vc)/T,1)+'</td><td class="m1">'+mk(aut[d])+'</td><td class="m1">'+mk(ins[d])+'</td></tr>';
+  });
+  h+='</tbody></table></div><p class="hint" style="margin-top:6px">V exacta por fórmula en todos salvo PPS (simulación de '+fm(B)+' sorteos). V̂: sistemático no tiene (πkl = 0); en PPS depende del algoritmo (aprox.).</p>';
+  h+='<h4>Varianza respecto al MAS</h4><div class="spl">';
+  var cap=3;
+  DES.forEach(function(d){
+    var q=ratio(d);
+    h+='<div class="spr"><span class="nm">'+mono(d,'sm')+DEF[d].name+'</span><div class="track"><i style="width:'+Math.min(100,q/cap*100)+'%"></i><u style="left:'+(1/cap*100)+'%" title="MAS = 1"></u></div><span class="val">'+(q>cap?'&gt;'+cap:fm(q,2))+'</span></div>';
+  });
+  h+='</div><p class="hint" style="margin-top:6px">Línea roja: varianza del MAS. Escala truncada en ×'+cap+'.</p>';
+  var order=DES.slice().sort(function(a,b){return R[a].vc-R[b].vc}),best=order[0],worst=order[order.length-1];
+  h+='<div class="callout"><span><b>Lectura:</b> con estos datos el diseño más preciso es <b>'+DEF[best].name+'</b> ('+rr(best)+') y el menos preciso, <b>'+DEF[worst].name+'</b> ('+rr(worst)+'). Pero «más preciso» no significa «mejor»: cada ventaja exige algo del marco (zona, x, orden) y el coste de campo no está en la varianza.</span>'+
+    '<span>Cambia a <b>Sistemático</b> y prueba los tres órdenes, o a <b>PPS</b> con x sin relación: el ranking se mueve.</span></div>';
+  return h;
+}
+function tabSel(){
+  var h='<h4>Las mismas '+N+' empresas, la misma semilla ('+S.seed+')</h4><div class="mgs">';
+  DES.forEach(function(d){
+    var cur=CUR[d];
+    h+='<button type="button" class="mgc" data-act="design" data-d="'+d+'" aria-pressed="'+(S.design===d)+'"><span class="h">'+mono(d,'sm')+'<b>'+DEF[d].name+'</b></span>'+gridHTML(d,ALL,true)+
+      '<span class="f">T̂ = '+fm(cur.th,0)+' ('+sg((cur.th-T)/T*100,1)+' %)</span></button>';
+  });
+  h+='</div><div class="lgd">'+ZN.map(function(z,i){return '<span><s style="--c:'+ZC[i]+'"></s>'+z+'</span>'}).join('')+'<span>Orden de registro</span></div>';
+    h+='<h4>Reparto por zona</h4><table class="kv"><tbody>'+DES.map(function(d,i){var z=[0,1,2].map(function(h){return CUR[d].idx.filter(function(u){return Z[u]===h}).length});return '<tr><td>'+DEF[d].name+'</td><td><code>'+z.join(' / ')+'</code> (Cap / Per / Rur)</td></tr>'}).join('')+'</tbody></table>';
+  h+='<div class="callout"><span><b>Qué mirar:</b> el MAS y el sistemático por registro reparten al azar; los estratificados fijan el reparto por zona (Neyman casi todo a Capital); PPS enciende las grandes (★ las autorrepresentadas); conglomerados enciende bloques enteros.</span></div>';
+  return h;
+}
+/* ===== Examen+: Bernoulli/Poisson, tamaño muestral, Sen-Yates-Grundy ===== */
+var _bp=null,_bpk='',_pk=null,_pkk='',SS={e:5,z:1.96,p:50,N:10000};
+function bpSim(){
+  var key=S.n+'|'+S.xmode;if(_bpk===key)return _bp;
+  var n=CTX.n,pb=ALL.map(function(){return n/N}),o={sy2:0},u;
+  for(u=0;u<N;u++)o.sy2+=Y[u]*Y[u];
+  [['b',pb],['p',CTX.pp.pi]].forEach(function(d,di){
+    var pi=d[1],rng=rngFrom(5100+di*17),ns=new Float64Array(B),ts=new Float64Array(B),mn=1e9,mx=0,b,m,t;
+    for(b=0;b<B;b++){m=0;t=0;for(u=0;u<N;u++)if(rng()<pi[u]){m++;t+=Y[u]/pi[u]}ns[b]=m;ts[b]=t;if(m<mn)mn=m;if(m>mx)mx=m}
+    var mm=mean(ns),mt=mean(ts),vn=0,vv=0,vf=0,vnf=0,p0=1;
+    for(b=0;b<B;b++){vn+=(ns[b]-mm)*(ns[b]-mm);vv+=(ts[b]-mt)*(ts[b]-mt)}
+    for(u=0;u<N;u++){vf+=(1-pi[u])/pi[u]*Y[u]*Y[u];vnf+=pi[u]*(1-pi[u]);p0*=1-pi[u]}
+    o[d[0]]={en:sum(pi),vnf:vnf,sdn:Math.sqrt(vn/B),mn:mn,mx:mx,vf:vf,vmc:vv/B,p0:p0};
+  });
+  _bp=o;_bpk=key;return o;
+}
+function pairsPps(){
+  var key=S.n+'|'+S.xmode;if(_pkk===key)return _pk;
+  var rng=rngFrom(4242),P=new Float64Array(N*N),b,i,j,s;
+  for(b=0;b<B;b++){s=draw('pps',CTX,rng).idx;for(i=0;i<s.length;i++)for(j=0;j<s.length;j++)P[s[i]*N+s[j]]++}
+  _pk=P;_pkk=key;return P;
+}
+function syg(pw,pt,pkl){var v=0,k,l,d;for(k=0;k<N;k++)for(l=0;l<N;l++)if(k!==l){d=Y[k]/pt[k]-Y[l]/pt[l];v+=(pw[k]*pw[l]-pkl(k,l))*d*d}return v/2}
+function ssOut(){
+  var el=$('ss-out');if(!el)return;
+  var e=SS.e/100,z=SS.z,p=SS.p/100,NN=SS.N;
+  if(!(e>0)||!(z>0)||!(p>=0&&p<=1)||!(NN>1)){el.innerHTML='<p class="hint">Introduce E &gt; 0, z &gt; 0, 0 ≤ p ≤ 100 y N &gt; 1.</p>';return}
+  var q=function(pp){var n0=z*z*pp*(1-pp)/(e*e);return[n0,n0/(1+n0/NN)]},a=q(p),b=q(0.5);
+  el.innerHTML='<table class="kv wide" style="margin-top:8px"><tbody>'+
+    '<tr><td>Sin corrección</td><td><code>n₀ = z²·p(1−p)/E² = '+fm(a[0],1)+'</code> → '+fm(Math.ceil(a[0]))+'</td></tr>'+
+    '<tr><td>Población finita</td><td><code>n = n₀/(1+n₀/N) = '+fm(a[1],1)+'</code> → '+fm(Math.ceil(a[1]))+'</td></tr>'+
+    '<tr><td>p desconocida</td><td>p = 0,5 maximiza p(1−p) = 0,25: <code>n₀ = '+fm(b[0],1)+'</code>, <code>n = '+fm(b[1],1)+'</code> → '+fm(Math.ceil(b[1]))+'</td></tr></tbody></table>';
+}
+function tabEx(){
+  var o=bpSim(),c=CTX,n=c.n,vm=R.mas.vf,P=pairsPps(),pm=n*(n-1)/(N*(N-1)),h;
+  var pe=ALL.map(function(k){return P[k*N+k]/B});
+  var sm=syg(c.pi.mas,c.pi.mas,function(){return pm}),sp=syg(pe,c.pp.pi,function(k,l){return P[k*N+l]/B});
+  var row=function(nm,d){return '<tr><td>'+nm+'</td><td><code>'+fm(d.en,0)+'</code></td><td><code>'+fm(Math.sqrt(d.vnf),2)+'</code> · sim <code>'+fm(d.sdn,2)+'</code></td><td><code>'+d.mn+' – '+d.mx+'</code></td><td><code>'+fm(d.vf,0)+'</code> · sim <code>'+fm(d.vmc,0)+'</code></td><td><code>×'+fm(d.vf/vm,2)+'</code></td></tr>'};
+  var inp=function(id,l,v,st){return '<label class="fld"><span class="l">'+l+'</span><input id="ss-'+id+'" type="number" step="'+st+'" value="'+v+'"></label>'};
+  h='<h4>Bernoulli y Poisson frente al MAS (n = '+n+')</h4><p class="hint">Con inclusión independiente πₖₗ = πₖπₗ: los términos cruzados de V(HT) se anulan y queda V = Σ (1−πₖ)/πₖ · yₖ². El tamaño de la muestra es aleatorio; el MAS lo fija. Poisson usa πₖ ∝ x (con el tope π ≤ 1 del PPS).</p>'+
+  '<div class="tw"><table class="kv wide"><thead><tr><th></th><th>E(n)</th><th>DT de n</th><th>n mín–máx</th><th>V(T̂)</th><th>V/V<sub>MAS</sub></th></tr></thead><tbody>'+
+  '<tr><td>MAS sr</td><td><code>'+n+'</code></td><td><code>0</code></td><td><code>'+n+'</code></td><td><code>'+fm(vm,0)+'</code></td><td><code>×1,00</code></td></tr>'+
+  row('Bernoulli π = n/N',o.b)+row('Poisson πₖ ∝ x',o.p)+'</tbody></table></div>'+
+  '<table class="kv wide" style="margin-top:8px"><tbody>'+
+  '<tr><td>deff Bernoulli</td><td><code>Σy²/(N·S²) = '+fm(o.sy2/(N*S2),2)+'</code>, y es ≥ 1 mientras S² ≤ N·Ȳ² (aquí S² = '+fm(S2,1)+' y N·Ȳ² = '+fm(T*T/N,0)+').</td></tr>'+
+  '<tr><td>p(s)</td><td><code>Π<sub>k∈s</sub>πₖ · Π<sub>k∉s</sub>(1−πₖ)</code>. Muestra vacía: Bernoulli <code>(1−n/N)^N = '+fp(o.b.p0,2)+'</code>; Poisson <code>'+fp(o.p.p0,4)+'</code> (las unidades con π = 1 la impiden).</td></tr>'+
+  '<tr><td>Var(n)</td><td>Bernoulli <code>N·π(1−π) = '+fm(o.b.vnf,1)+'</code>; Poisson <code>Σπₖ(1−πₖ) = '+fm(o.p.vnf,1)+'</code>. Es máxima con πₖ = 0,5 y nula con πₖ ∈ {0, 1}.</td></tr></tbody></table>'+
+  '<h4>Tamaño muestral para una proporción (MAS sr)</h4><div class="fields">'+inp('e','Error E (%)',SS.e,0.1)+inp('z','z (1,645 · 1,96 · 2,576)',SS.z,0.001)+inp('p','p (%)',SS.p,1)+inp('N','N',SS.N,1)+'</div><div id="ss-out"></div>'+
+  '<h4>Varianza de Horvitz-Thompson: forma general y Sen-Yates-Grundy</h4><table class="kv wide"><tbody>'+
+  '<tr><td>General</td><td><code>V = ΣₖΣₗ (πₖₗ − πₖπₗ)·(yₖ/πₖ)(yₗ/πₗ)</code> con πₖₖ = πₖ.</td></tr>'+
+  '<tr><td>SYG (n fijo)</td><td><code>V = ½ΣₖΣₗ (πₖπₗ − πₖₗ)·(yₖ/πₖ − yₗ/πₗ)²</code>. Estimador: <code>V̂ = ½Σ<sub>k,l∈s</sub> (πₖπₗ−πₖₗ)/πₖₗ·(yₖ/πₖ − yₗ/πₗ)²</code>, no negativo si πₖₗ ≤ πₖπₗ.</td></tr>'+
+  '<tr><td>MAS</td><td>SYG con πₖₗ = n(n−1)/N(N−1): <code>'+fm(sm,0)+'</code> = fórmula cerrada <code>'+fm(vm,0)+'</code>.</td></tr>'+
+  '<tr><td>PPS</td><td>SYG con πₖₗ simulados ('+fm(B)+' sorteos): <code>'+fm(sp,0)+'</code> · Hájek <code>'+fm(R.pps.vf,0)+'</code> · simulada <code>'+fm(R.pps.vmc,0)+'</code>.</td></tr></tbody></table>'+
+  '<div class="callout"><span><b>Cómo leerlo.</b> Con πps e y ≈ βx, los cocientes yₖ/πₖ son casi iguales y cada sumando de SYG se anula: de ahí la varianza pequeña. Las unidades con π = 1 no aportan, porque πₖₗ = πₗ. Prueba «Sin relación» en el PPS del panel Diseño y vuelve aquí.</span></div>'+ppBlock()+hhBlock();
+  return h;
+}
+var PP={x:'12, 30, 8, 45, 20, 5, 60, 20',n:4,a:0.37},_hh=null,_hhk='';
+function ppBlock(){
+  var inp=function(id,l,v,st,ty){return '<label class="fld"><span class="l">'+l+'</span><input id="pp-'+id+'" type="'+ty+'" step="'+st+'" value="'+v+'"></label>'};
+  return '<h4>PPS sistemático paso a paso</h4><p class="hint">Se acumulan los tamaños, I = T/n y un único arranque a ∈ (0, I]; entra la unidad cuyo intervalo (Cₖ₋₁, Cₖ] contiene a + jI. Si xₖ &gt; I, esa unidad se fuerza (π = 1) y se repite con n − 1 y T − xₖ. Cambia los datos.</p><div class="fields">'+inp('x','Tamaños x',PP.x,1,'text')+inp('n','n',PP.n,1,'number')+inp('a','a / I (0–1)',PP.a,0.01,'number')+'</div><div id="pp-out"></div>';
+}
+function ppOut(){
+  var el=$('pp-out');if(!el)return;
+  var x=String(PP.x).split(/[ ,;]+/).map(parseFloat).filter(function(v){return v>0}),K=x.length,n=Math.floor(PP.n),a0=Math.min(1,Math.max(0.001,PP.a||0.5));
+  if(K<2||!(n>=1&&n<K)){el.innerHTML='<p class="hint">Necesitas al menos 2 valores x &gt; 0 y 1 ≤ n &lt; número de unidades.</p>';return}
+  var fx=x.map(function(){return false}),nf=0,sx,ch,it,i,j;
+  for(it=0;it<K;it++){nf=fx.filter(Boolean).length;sx=0;for(i=0;i<K;i++)if(!fx[i])sx+=x[i];ch=false;
+    for(i=0;i<K;i++)if(!fx[i]&&(n-nf)*x[i]/sx>1){fx[i]=true;ch=true}
+    if(!ch)break}
+  nf=fx.filter(Boolean).length;
+  var n2=n-nf,T2=0,fz=[];for(i=0;i<K;i++){if(fx[i])fz.push(i+1);else T2+=x[i]}
+  var I=T2/n2,a=a0*I,pts=[],C=0,rows='';for(j=0;j<n2;j++)pts.push(a+j*I);
+  for(i=0;i<K;i++){
+    var lo=C,hit=[];if(!fx[i]){C+=x[i];hit=pts.filter(function(p){return p>lo&&p<=C})}
+    rows+='<tr><td>'+(i+1)+'</td><td>'+x[i]+'</td><td>'+(fx[i]?'forzosa':'('+fm(lo,1)+' ; '+fm(C,1)+']')+'</td><td>'+fm(fx[i]?1:n2*x[i]/T2,3)+'</td><td>'+(fx[i]?'sí (π = 1)':hit.length?'sí · '+hit.map(function(p){return fm(p,1)}).join(', '):'no')+'</td></tr>';
+  }
+  el.innerHTML='<p class="hint" style="margin-top:6px">Forzosas: '+(fz.length?fz.join(', '):'ninguna')+' · T = '+fm(T2,1)+' · n = '+n2+' · I = T/n = '+fm(I,2)+' · a = '+fm(a,2)+' · puntos '+pts.map(function(p){return fm(p,1)}).join(', ')+'</p><div class="tw"><table class="kv wide"><thead><tr><th>Id</th><th>x</th><th>Intervalo (Cₖ₋₁ ; Cₖ]</th><th>πₖ</th><th>¿Entra?</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+}
+function hhSim(){
+  var key=S.n+'|'+S.xmode;if(_hhk===key)return _hh;
+  var x=CTX.xv,n=CTX.n,sx=sum(x),p=x.map(function(v){return v/sx}),cp=[],c=0,i,b,j,u,lo,hi,m,t,nd,seen,rng=rngFrom(777+n),ts=new Float64Array(B),dd=0;
+  for(i=0;i<N;i++){c+=p[i];cp.push(c)}
+  for(b=0;b<B;b++){t=0;nd=0;seen={};for(j=0;j<n;j++){u=rng();lo=0;hi=N-1;while(lo<hi){m=(lo+hi)>>1;if(cp[m]<u)lo=m+1;else hi=m}t+=Y[lo]/p[lo];if(!seen[lo]){seen[lo]=1;nd++}}ts[b]=t/n;dd+=nd}
+  var mt=mean(ts),vv=0,vh=0,ed=0;
+  for(b=0;b<B;b++)vv+=(ts[b]-mt)*(ts[b]-mt);
+  for(i=0;i<N;i++){vh+=p[i]*Math.pow(Y[i]/p[i]-T,2);ed+=1-Math.pow(1-p[i],n)}
+  _hh={vh:vh/n,vmc:vv/B,bias:mt-T,ed:ed,edm:dd/B,vcr:N*(N-1)*S2/n};_hhk=key;return _hh;
+}
+function hhBlock(){
+  var h=hhSim(),n=CTX.n;
+  return '<h4>Muestreo con reemplazamiento (Hansen-Hurwitz)</h4><p class="hint">n extracciones independientes con probabilidades pₖ = xₖ/Σx; una unidad puede repetirse. Ŷ = (1/n)Σ yᵢ/pᵢ.</p><table class="kv wide"><tbody>'+
+  '<tr><td>Insesgadez</td><td><code>E[yᵢ/pᵢ] = Σ pₖ·yₖ/pₖ = Y</code>; media simulada − T = <code>'+sg(h.bias,1)+'</code>.</td></tr>'+
+  '<tr><td>Varianza</td><td><code>V = (1/n)Σ pₖ(yₖ/pₖ − Y)² = '+fm(h.vh,0)+'</code> · simulada <code>'+fm(h.vmc,0)+'</code>. V̂ = Σ(yᵢ/pᵢ − Ŷ)²/(n(n−1)) usa solo la muestra.</td></tr>'+
+  '<tr><td>Frente a sin reemplazo</td><td>MAS con reemplazamiento <code>N(N−1)S²/n = '+fm(h.vcr,0)+'</code> frente a MAS sr <code>'+fm(R.mas.vf,0)+'</code> (falta el factor 1−n/N). PPS con reemplazamiento <code>'+fm(h.vh,0)+'</code> frente a PPS sin reemplazamiento <code>'+fm(R.pps.vmc,0)+'</code>.</td></tr>'+
+  '<tr><td>Unidades distintas</td><td><code>πₖ = 1−(1−pₖ)ⁿ</code>; E(distintas) = <code>'+fm(h.ed,1)+'</code> (simulada <code>'+fm(h.edm,1)+'</code>) de n = '+n+' extracciones.</td></tr></tbody></table>';
+}
+function dt(t,b){return '<details style="margin:6px 0"><summary style="cursor:pointer;font-weight:600">'+t+'</summary><p style="margin:6px 0 4px;line-height:1.5">'+b+'</p></details>'}
+function tabDem(){
+  var c=function(t){return '<code>'+t+'</code>'};
+  return '<h4>Demostraciones en símbolos</h4><p class="hint">Intenta escribir cada una antes de abrirla.</p>'+
+  dt('πₖ y πₖₗ en MAS sin reemplazamiento','Hay C(N,n) muestras equiprobables y contienen a k las C(N−1,n−1) que completan con n−1 de las N−1 restantes: '+c('πₖ = C(N−1,n−1)/C(N,n) = n/N')+'. Igual, '+c('πₖₗ = C(N−2,n−2)/C(N,n) = n(n−1)/(N(N−1))')+'.')+
+  dt('Σπₖ = n en tamaño fijo','Con '+c('Iₖ = 1{k∈s}')+' se tiene E(Iₖ) = πₖ y '+c('ΣₖIₖ = n')+'. Tomando esperanzas: '+c('Σπₖ = E(ΣIₖ) = n')+'.')+
+  dt('Horvitz-Thompson insesgado; en MAS es N·ȳ',c('Ŷ = Σ_U Iₖ·yₖ/πₖ')+' ⇒ '+c('E(Ŷ) = Σ πₖ·yₖ/πₖ = Σ yₖ = Y')+' (basta πₖ &gt; 0). En MAS, '+c('Ŷ = (N/n)Σ_s yₖ = N·ȳ')+'.')+
+  dt('Varianza de HT y paso a Sen-Yates-Grundy',c('V(Iₖ) = πₖ(1−πₖ)')+' y '+c('Cov(Iₖ,Iₗ) = πₖₗ−πₖπₗ')+' ⇒ '+c('V = ΣΣ (πₖₗ−πₖπₗ)·aₖaₗ')+' con '+c('aₖ = yₖ/πₖ')+'. Con n fijo, '+c('Σ_{l≠k}πₖₗ = (n−1)πₖ')+' y '+c('Σ_{l≠k}πₗ = n−πₖ')+', luego '+c('Σ_{l≠k}(πₖπₗ−πₖₗ) = πₖ(1−πₖ)')+'. Al desarrollar '+c('½ΣΣ(πₖπₗ−πₖₗ)(aₖ−aₗ)²')+' sale '+c('Σπₖ(1−πₖ)aₖ² − Σ_{k≠l}(πₖπₗ−πₖₗ)aₖaₗ')+', que es V.')+
+  dt('Bernoulli frente a MAS: deff','Inclusión independiente ⇒ '+c('V₁ = (1−π)/π·Σy²')+' con π = n/N, es decir '+c('(N−n)/n·Σy²')+'. MAS: '+c('V₂ = N(N−n)S²/n')+'. Cociente: '+c('deff = Σy²/(N·S²) = (N−1)/N + Ȳ²/S²')+', que es ≥ 1 ⇔ S² ≤ N·Ȳ².')+
+  dt('Poisson: p(s), E(n), Var(n)',c('p(s) = Π_{k∈s}πₖ · Π_{k∉s}(1−πₖ)')+'. Con '+c('n_s = ΣIₖ')+' independientes: '+c('E(n_s) = Σπₖ')+', '+c('Var(n_s) = Σπₖ(1−πₖ)')+'.')+
+  dt('Tamaño muestral de una proporción',c('V(p̂) = (1−n/N)·p(1−p)/n')+'. Exigir '+c('z²(1−n/N)p(1−p)/n ≤ E²')+' ⇒ '+c('1/n ≤ 1/n₀ + 1/N')+' con '+c('n₀ = z²p(1−p)/E²')+' ⇒ '+c('n = n₀/(1+n₀/N)')+'. Si p es desconocida, p(1−p) tiene derivada 1−2p y su máximo (0,25) está en p = 0,5.')+
+  dt('Sistemático PPS: πₖ = n·xₖ/T','Los puntos a+jI distan I = T/n y el intervalo de k mide xₖ ≤ I: contiene como mucho un punto, y lo contiene si a cae en un tramo de longitud xₖ entre los I posibles. '+c('πₖ = xₖ/I = n·xₖ/T')+'. Si xₖ &gt; I podría llevar 2 puntos: inclusión forzosa.')+
+  dt('Hansen-Hurwitz (con reemplazamiento)',c('yᵢ/pᵢ')+' vale yₖ/pₖ con probabilidad pₖ: '+c('E = Σ pₖ·yₖ/pₖ = Y')+'. Extracciones independientes: '+c('V(Ŷ) = (1/n)Σ pₖ(yₖ/pₖ − Y)²')+'. V̂ es la varianza muestral de los yᵢ/pᵢ entre n, y por eso es insesgada.')+
+  dt('Afijación de Neyman','Minimizar '+c('Σ N_h²S_h²/n_h')+' con '+c('Σ n_h = n')+': '+c('−N_h²S_h²/n_h² + λ = 0')+' ⇒ '+c('n_h ∝ N_h·S_h')+'. La proporcional, '+c('n_h = n·N_h/N')+', da '+c('πₖ = n/N')+' (autoponderada); Neyman no.')+
+  dt('Conglomerados: efecto de diseño','La unidad es el conglomerado, con total T_c: '+c('V = C²(1−m/C)·S_t²/m')+'. Un MAS de nM elementos (N = CM) da '+c('N²(1−f)S²/(nM)')+'. Cociente: '+c('deff = S_t²/(M·S²) = 1+(M−1)ρ')+', con ρ la correlación intraconglomerado.');
+}
+function renderAnalysis(){
+  var b={pros:tabPros,just:tabJust,cmp:tabCmp,sel:tabSel,ex:tabEx,dem:tabDem}[S.tab]();
+  $('analysis').innerHTML='<div class="tabs" role="tablist">'+TABS.map(function(t){return '<button type="button" role="tab" class="tab" data-act="tab" data-t="'+t[0]+'" aria-selected="'+(S.tab===t[0])+'">'+t[1]+'</button>'}).join('')+'</div><div class="ana-body" role="tabpanel">'+b+'</div>';if(S.tab==='ex'){ssOut();ppOut()}
+}
+function renderView(){
+  $('app').setAttribute('data-view',S.view);
+  [].forEach.call(document.querySelectorAll('#viewseg button'),function(b){b.setAttribute('aria-pressed',b.getAttribute('data-v')===S.view)});
+}
+function renderAll(){renderTop();renderTeam();renderEditor();renderAnalysis();renderView()}
+
+/* población (modal) */
+function openPop(){
+  var h='<div class="modal" data-act="closepop"><div class="sheet" role="dialog" aria-modal="true" aria-label="Población" onclick="event.stopPropagation()"><header><h2>Población · marco de '+N+' empresas</h2><button class="btn sm" type="button" data-act="closepop">Cerrar</button></header><div class="mbody"><div class="sam"><table><thead><tr><th>Id</th><th style="text-align:left">Zona</th><th>Pol.</th><th>x (empleados)</th><th>y (ventas, M€)</th></tr></thead><tbody>';
+  for(var u=0;u<N;u++)h+='<tr><td>'+(u+1)+'</td><td class="z"><i class="zdot" style="--c:'+ZC[Z[u]]+'"></i>'+ZN[Z[u]]+'</td><td>P'+(CL[u]+1)+'</td><td>'+X[u]+'</td><td>'+fm(Y[u],1)+'</td></tr>';
+  h+='</tbody><tfoot><tr><td colspan="3">Σ</td><td>'+fm(sum(X),0)+'</td><td>'+fm(T,1)+'</td></tr></tfoot></table></div></div><div class="mfoot"><span>Datos sintéticos generados para la clase</span><span>S² = '+fm(S2,1)+' · r(x,y) = '+fm(CORR_X,2)+' · S_h = '+SH.map(function(v){return fm(v,1)}).join(' / ')+'</span></div></div></div>';
+  var m=$('modal');m.innerHTML=h;m.hidden=false;
+}
+function closePop(){var m=$('modal');m.hidden=true;m.innerHTML=''}
+
+/* tema */
+function curTheme(){return document.documentElement.getAttribute('data-theme')||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}
+function syncTheme(){var d=curTheme()==='dark',b=$('themeBtn');b.textContent=d?'Modo claro':'Modo oscuro';b.setAttribute('aria-pressed',d)}
+try{var th=localStorage.getItem('mu-theme');if(th)document.documentElement.setAttribute('data-theme',th)}catch(e){}
+
+/* eventos */
+document.addEventListener('click',function(ev){
+  var t=ev.target.closest&&ev.target.closest('[data-act]');if(!t)return;
+  var a=t.getAttribute('data-act'),v=t.getAttribute('data-v');
+  if(a==='closepop'){if(ev.target===t||t.tagName==='BUTTON')closePop();return}
+  if(a==='design'){S.design=t.getAttribute('data-d');renderTeam();renderEditor();renderAnalysis();return}
+  if(a==='tab'){S.tab=t.getAttribute('data-t');renderAnalysis();return}
+  if(a==='draw'){S.seed=1+Math.floor(Math.random()*99999);drawAll();renderTop();renderEditor();renderAnalysis();return}
+  if(a==='n'){S.n=+v;recompute();renderAll();return}
+  if(a==='order'){S.order=v;recompute();renderAll();return}
+  if(a==='xmode'){S.xmode=v;recompute();renderAll();return}
+  if(a==='layout'){S.layout=v;renderEditor();return}
+  if(a==='view'){S.view=v;renderView();return}
+  if(a==='pop'){openPop();return}
+  if(a==='theme'){var nt=curTheme()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',nt);try{localStorage.setItem('mu-theme',nt)}catch(e){}syncTheme();return}
+  if(a==='hidenote'){$('note').hidden=true;return}
+});
+document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&!$('modal').hidden)closePop()});
+document.addEventListener('input',function(ev){var t=ev.target,m=t.id&&/^ss-(e|z|p|N)$/.exec(t.id);if(m){SS[m[1]]=parseFloat(t.value);ssOut()}});
+document.addEventListener('input',function(ev){var t=ev.target,m=t.id&&/^pp-(x|n|a)$/.exec(t.id);if(m){PP[m[1]]=m[1]==='x'?t.value:parseFloat(t.value);ppOut()}});
+$('seed').addEventListener('change',function(){var v=Math.floor(+this.value);if(!(v>=1))v=S.seed;S.seed=v;drawAll();renderTop();renderEditor();renderAnalysis()});
+
+recompute();renderAll();syncTheme();
+window.MU={drawAll:drawAll,S:S,get CTX(){return CTX},get R(){return R},get CUR(){return CUR},T:T,S2:S2,SH:SH,ST2:ST2,draw:draw,rngFrom:rngFrom,vFormula:vFormula,vHat:vHat,sisV:sisV,mkOrder:mkOrder,recompute:recompute,ppsPi:ppsPi,neyman:neyman,hajek:hajek,XR:XR,X:X,Y:Y,ZU:ZU,CU:CU,corr:CORR_X,ppsNoise:ppsNoise};
+})();
+</script>
+</body>
+</html>
