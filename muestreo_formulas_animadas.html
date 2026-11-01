@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<!--
+  FÓRMULAS DE MUESTREO EN MOVIMIENTO · 29 fórmulas, 29 animaciones
+  Basado en la plantilla de vídeo de clase (motor seek determinista) y en el
+  documento «muestreo_ejercicios_resueltos_CSE_A1.html» (semántica de colores).
+  Cada fórmula abre con una simulación visual a medida (bombo de Hansen-
+  Hurwitz, ruleta de tamaños, intervalos que fallan, peines sistemáticos…)
+  y añade vistas algebraicas pieza a pieza. Controles: Ver/Pausa · barra de
+  posición · anterior/siguiente · menú · Notas · Colores · Auto · Tema.
+  Sin selector de idioma. Toggles explicativos: «vistas» (alternativas de
+  una misma fórmula: forma general / SYG / V̂, Neyman / proporcional / óptima…).
+  URL: ?lint (validación) · ?render&id=a2&v=1&t=6 (captura, sin controles)
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fórmulas de muestreo en movimiento · CSE-INE A1</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script>(function(){var q=new URLSearchParams(location.search),t=q.get('theme');if(t!=='light'&&t!=='dark'){t=null;if(!q.has('render')&&!q.has('lint'))try{t=localStorage.getItem('theme')}catch(e){}}document.documentElement.dataset.theme=(t==='light'||t==='dark')?t:(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})();</script>
+<style>
+:root{color-scheme:light;--paper:#F7F4EC;--ink:#1B1C20;--mut:#5A5953;--line:#D3CFC4;--edge:#7C7A72;--b:#2250E8;--am:#B35400;--on:#fff;--ok:#08813F;--er:#D42A18;--f1:Fraunces,Georgia,serif;--f2:'IBM Plex Sans',system-ui,sans-serif;--hl-b:rgba(34,80,232,.16)}
+:root[data-theme=dark]{color-scheme:dark;--paper:#13151A;--ink:#F1EEE6;--mut:#A9A79F;--line:#34363D;--edge:#8A8880;--b:#6B9AFF;--am:#FFC233;--on:#0E1420;--ok:#2FD38C;--er:#FF7B5A;--hl-b:rgba(107,154,255,.26)}
+html,body{margin:0}
+body{background:var(--paper);max-width:1100px;margin:0 auto;padding:22px 24px 40px;color:var(--ink);font:400 17px/1.5 var(--f2)}
+[data-zr] body{max-width:none;padding:0}
+/* ── cabecera de página ── */
+.pg{font:600 clamp(1.5rem,4vw,2.3rem)/1.1 var(--f1);letter-spacing:-.01em;margin:6px 0 4px}
+.pgsub{margin:0 0 18px;color:var(--mut);max-width:74ch}
+.pgsub .cue{padding:1px 10px;border-radius:99px;border:1px solid var(--edge);font-size:.78rem;white-space:nowrap}
+/* ── escenario ── */
+.vd{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--paper);color:var(--ink);font:400 24px/1.3 var(--f2);border:1px solid var(--line)}
+.vd *{box-sizing:border-box}
+.zst{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:0 0}
+.zst>*{position:absolute}
+.zpb{left:0;top:0;width:1280px;height:6px;background:var(--line)}
+.zpb i{display:block;height:100%;background:var(--b);transform-origin:left;transform:scaleX(0)}
+.zcaph{left:64px;right:64px;top:26px;display:flex;justify-content:space-between;gap:16px;font:500 18px var(--f2);color:var(--mut)}
+.zcaph b{font-weight:600;color:var(--ink)}
+.zti{left:64px;top:62px;width:1152px;font:600 45px/1.12 var(--f1);letter-spacing:-.01em}
+.zsub{left:64px;top:126px;width:1152px;font:400 19px/1.3 var(--f2);color:var(--mut)}
+/* fórmula */
+.zfx{left:24px;top:196px;width:760px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;column-gap:10px;row-gap:24px}
+.pz{display:inline-flex;align-items:center}
+body.nonotes .zfx{left:64px;width:1152px}
+/* notas laterales */
+.znt{left:822px;top:180px;width:394px}
+body.nonotes .znt{display:none}
+.znt .zh2{font:600 14px var(--f2);text-transform:uppercase;letter-spacing:.1em;color:var(--mut);margin:0 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.nl{display:flex;gap:8px;margin:0 0 10px;font-size:15.5px;line-height:1.36;align-items:baseline}
+.nl .sw{flex:none;width:10px;height:10px;border-radius:3px;background:var(--line);position:relative;top:1px}
+.nl .nk{flex:none;max-width:38%;color:var(--ink);font-size:13.5px;overflow-wrap:anywhere}
+.nl .nt{flex:1;min-width:14ch;color:var(--mut)}
+/* lectura */
+.zl{left:64px;top:598px;width:1152px;display:flex;gap:14px;align-items:center}
+.zl .zlt{flex:none;padding:5px 15px;border:2px solid var(--b);border-radius:99px;color:var(--b);font:600 15px var(--f2)}
+.zl .zlx{font:500 21px/1.32 var(--f2)}
+/* rejilla (tarjeta de notación) */
+.zfx.zgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px 20px;left:64px;top:182px;width:1152px}
+.cell{display:flex;flex-direction:column;align-items:center;gap:7px;padding:15px 12px 11px;border:2px solid var(--line);border-radius:14px;text-align:center;font-size:19px}
+.cell .cc{margin:0;font:400 14px/1.32 var(--f2);color:var(--mut)}
+/* simulación de ρ */
+#zc{position:absolute;left:0;top:0;width:1280px;height:720px}
+.rp{position:absolute;width:356px;border:2px solid var(--line);border-radius:16px;padding:12px 16px}
+.rp .rt{display:block;font:600 17px var(--f1);margin:0 0 10px}
+.rp .rd{position:relative;width:320px;height:200px}
+.rp .rd i{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--b);opacity:0}
+.rp .rd u{position:absolute;width:152px;height:86px;border:1.5px dashed var(--edge);border-radius:8px}
+.rp .rc{font:400 13.5px/1.34 var(--f2);color:var(--mut);margin:9px 0 0}
+.rp .zc{display:inline-block;margin-top:9px;padding:4px 13px;border:1.5px solid var(--b);border-radius:99px;color:var(--b);font:600 13.5px var(--f2)}
+/* ── piezas de las vistas animadas (una por fórmula) ── */
+.rp .rd b{position:absolute;font:600 12.5px/1.3 var(--f2);color:var(--ink);opacity:0;white-space:nowrap}
+.rp .rd b.mut{color:var(--mut);font-weight:500}
+.rp .rd b.on{color:var(--on)}
+.rp .rd i.k{background:var(--ok)}.rp .rd i.r{background:var(--er)}.rp .rd i.a{background:var(--am)}.rp .rd i.g{background:var(--edge)}.rp .rd i.v{background:var(--sem-op)}
+.rp .rd u{display:flex;align-items:center;justify-content:center;font:600 14px var(--f2);color:var(--mut)}
+.rp .rd u.s{border-style:solid;border-color:var(--ok);background:rgba(8,129,63,.07);color:var(--ink)}
+.rp .rd u.b{border-style:solid;border-color:var(--b);opacity:0}
+.rp .rd u.a{border-style:solid;border-color:var(--am);opacity:0}
+.rp .rd u.o{border-radius:50%;border-color:var(--ok)}
+.rp .rd em{position:absolute;bottom:0;background:var(--b);border-radius:5px 5px 0 0;transform-origin:50% 100%;transform:scaleY(0);opacity:0}
+.rp .rd em.k{background:var(--ok)}.rp .rd em.r{background:var(--er)}.rp .rd em.a{background:var(--am)}.rp .rd em.m{background:var(--mut)}
+.rp .rd .ln{position:absolute;height:0;border-top:2px dashed var(--edge);opacity:0}
+.rp .rd .ln.solid{border-top-style:solid;border-top-color:var(--mut)}
+.rp .rd .ln.r{border-top-color:var(--er)}
+.rp .rd .lv{position:absolute;width:0;border-left:2px dashed var(--edge);opacity:0}
+.rp .rd .lv.solid{border-left-style:solid;border-left-color:var(--mut)}
+.rp .rd .lv.r{border-left-color:var(--sem-pop)}
+.rp .rd .lv.k{border-left-color:var(--ok)}
+.rp .rd .lv.b{border-left-color:var(--b)}
+.rp .rd .sg{position:absolute;height:26px;border-radius:7px;transform-origin:0 50%;transform:scaleX(0);opacity:0}
+.rp .rd .sg.a{background:var(--am)}.rp .rd .sg.k{background:var(--ok)}.rp .rd .sg.b{background:var(--b)}.rp .rd .sg.m{background:var(--mut)}
+.rp .rd .col{position:absolute;width:200px;text-align:center;opacity:0}
+.rp .rd .col .cs{display:inline-block;width:24px;height:24px;border-radius:8px;margin-bottom:7px}
+.rp .rd .col .cx{display:block;font:600 20px var(--f1);margin:0 0 5px}
+.rp .rd .col .cr{display:block;font:400 13px/1.32 var(--f2);color:var(--mut)}
+.rp .rd .iv{position:absolute;height:0;border-top:2.5px solid var(--b);opacity:0}
+.rp .rd .iv::before,.rp .rd .iv::after{content:'';position:absolute;top:-5px;width:2.5px;height:10px;background:var(--b)}
+.rp .rd .iv::before{left:0}.rp .rd .iv::after{right:0}
+.rp .rd .iv.m{border-color:var(--er)}
+.rp .rd .iv.m::before,.rp .rd .iv.m::after{background:var(--er)}
+.rp .rd svg{position:absolute;left:0;top:0}
+.rp .rd .cellx{position:absolute;border:1.5px solid var(--line);border-radius:5px;opacity:0;font:500 11px/34px var(--f2);text-align:center;color:var(--mut)}
+.rp .rd .chip{position:absolute;padding:4px 12px;border:1.5px solid var(--b);border-radius:99px;color:var(--b);font:600 13px var(--f2);opacity:0;white-space:nowrap}
+.rp .rd .chip.k{border-color:var(--ok);color:var(--ok)}.rp .rd .chip.r{border-color:var(--er);color:var(--er)}.rp .rd .chip.a{border-color:var(--am);color:var(--am)}.rp .rd .chip.m{border-color:var(--edge);color:var(--mut)}.rp .rd .chip.v{border-color:var(--sem-op);color:var(--sem-op)}
+.rp .rd .tx{position:absolute;font:400 13px/1.4 var(--f2);color:var(--mut);opacity:0}
+/* ── semántica de colores (igual que el documento) ── */
+:root{--sem-pop:var(--er);--sem-est:var(--b);--sem-dis:var(--ok);--sem-obs:var(--am);--sem-op:#7A3FBF}
+:root[data-theme=dark]{--sem-op:#C5A8F0}
+.katex .sem-pop{color:var(--sem-pop)}
+.katex .sem-est{color:var(--sem-est)}
+.katex .sem-dis{color:var(--sem-dis)}
+.katex .sem-obs{color:var(--sem-obs)}
+.katex .sem-op{color:var(--sem-op)}
+body.nocolor .katex .sem-pop,body.nocolor .katex .sem-est,body.nocolor .katex .sem-dis,body.nocolor .katex .sem-obs,body.nocolor .katex .sem-op{color:inherit}
+body.nocolor .nl .sw,body.nocolor .semleg .sw{background:var(--line)}
+.sw-pop{background:var(--sem-pop)}.sw-est{background:var(--sem-est)}.sw-dis{background:var(--sem-dis)}.sw-obs{background:var(--sem-obs)}.sw-op{background:var(--sem-op)}
+.katex-display{margin:0}
+/* ── controles ── */
+.zq{display:flex;align-items:center;gap:12px;margin-top:14px;font:400 15px var(--f2);color:var(--mut);flex-wrap:wrap}
+.zq button{font:600 15px var(--f2);padding:9px 20px;min-height:44px;border:0;border-radius:99px;background:var(--b);color:var(--on);cursor:pointer}
+.zq button:hover{filter:brightness(1.08)}.zq button:active{transform:scale(.95)}
+.zq input{flex:1;min-width:150px;accent-color:var(--b);min-height:44px}
+.zk{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
+.zk:first-of-type{margin-left:0}
+.zk button{background:none;color:var(--ink);border:2px solid var(--edge);padding:6px 15px}
+.zk button[aria-pressed=true]{background:var(--b);color:var(--on);border-color:var(--b)}
+#zm{font-variant-numeric:tabular-nums;min-width:9ch}
+.zq button:focus-visible,.zq input:focus-visible,.zrow button:focus-visible,.zx summary:focus-visible{outline:3px solid var(--b);outline-offset:3px}
+/* chips de vistas (alternativas de la fórmula) */
+.zrow{display:flex;align-items:center;gap:9px;margin-top:12px;flex-wrap:wrap;font:400 15px var(--f2);color:var(--mut)}
+.zrow .zl2{font-weight:600;color:var(--ink)}
+.zrow button{font:600 15px var(--f2);padding:7px 17px;min-height:44px;border:2px solid var(--edge);border-radius:99px;background:none;color:var(--ink);cursor:pointer}
+.zrow button[aria-pressed=true]{border-color:var(--b);color:var(--b);background:var(--hl-b)}
+.zrow button:hover{border-color:var(--b)}
+/* leyenda de colores */
+.semleg{margin:16px 0 0;border:1px solid var(--edge);border-radius:10px;padding:13px 16px 11px}
+.semleg .fn-t{display:block;font:600 12.5px var(--f2);text-transform:uppercase;letter-spacing:.1em;color:var(--mut);margin:0 0 8px}
+.semleg ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 22px}
+.semleg li{display:flex;gap:8px;align-items:baseline;font-size:.9rem;margin:0}
+.semleg .sw{flex:none;width:10px;height:10px;border-radius:3px;background:var(--line);position:relative;top:1px}
+.semleg .mut{font-size:.82rem;margin:8px 0 0}
+/* guion */
+.zx{margin-top:14px;font:400 16px/1.55 var(--f2)}
+.zx summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}
+.zx h3{font:600 19px var(--f1);margin:16px 0 4px}
+.zx h4{font:600 15px var(--f2);color:var(--b);margin:10px 0 2px}
+.zx ul{margin:0;padding-left:20px}
+.zx li{margin:3px 0;color:var(--mut)}
+.zx li i{flex:none;width:9px;height:9px;border-radius:3px;background:var(--line);position:relative;top:0}
+.zx li .gk{color:var(--ink);font-weight:600}
+.zx .gl{color:var(--ink);font-style:italic;margin:4px 0 0}
+.zx .gn{font:600 .95rem var(--f1);color:var(--b)}
+/* menú de fórmulas */
+.mnb{position:fixed;inset:0;z-index:11;background:rgba(0,0,0,.35)}
+.mnu{position:fixed;z-index:12;top:calc(70px + env(safe-area-inset-top,0px));right:max(10px,env(safe-area-inset-right));width:min(430px,calc(100vw - 20px));max-height:calc(100% - 90px);overflow-y:auto;padding:8px;border-radius:6px;background:var(--paper);border:1px solid var(--edge);box-shadow:0 18px 50px rgba(0,0,0,.28)}
+@keyframes up{from{opacity:0;transform:translateY(-8px)}}
+.mnu{animation:up .22s}
+.mnu ol{list-style:none;margin:0;padding:0}
+.mnu button{display:flex;gap:12px;align-items:center;width:100%;min-height:44px;padding:8px 12px;border:0;border-radius:6px;background:none;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.mnu button:hover{background:var(--hl-b)}
+.mnu .n{font:600 1rem var(--f1);color:var(--b);width:2.4em;flex:none}
+.mnu .t{flex:1;min-width:0;font-size:.95rem}
+.mnu .vs{font-size:.78rem;color:var(--mut);flex:none}
+.mnu li.cur button{background:var(--hl-b);font-weight:600}
+.mh{font:600 .95rem var(--f1);color:var(--mut);margin:14px 12px 2px}.mh:first-child{margin-top:4px}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+#lint{white-space:pre-wrap;font:14px/1.5 var(--f2);padding:12px;border:2px dashed var(--edge);margin-top:12px}
+/* modo captura y print */
+[data-zr] .pg,[data-zr] .pgsub,[data-zr] .zq,[data-zr] .zrow,[data-zr] .semleg,[data-zr] .zx,[data-zr] .mnb,[data-zr] .mnu{display:none!important}
+@media print{.zq,.zrow,.mnu,.mnb{display:none!important}}
+@media(prefers-reduced-motion:reduce){.mnu{animation:none}}
+</style>
+</head>
+<body>
+<main>
+<h1 class="pg">Las fórmulas de muestreo, en movimiento</h1>
+<p class="pgsub">Las 29 fórmulas clave del <em>muestreo en poblaciones finitas</em> (Sánchez-Crespo · de Parada, INE 2007), cada una con su <strong>animación visual</strong> —bombos, ruletas de tamaños, intervalos que fallan, peines sistemáticos…— y, en los chips de abajo, sus formas algebraicas construidas pieza a pieza con la misma semántica de colores del documento de ejercicios. <span class="cue">Ver</span> reproduce la animación actual.</p>
+<div class="vd" id="vd" role="img"><div class="zst" id="zst">
+ <div class="zpb"><i id="zpi"></i></div>
+ <div class="zcaph" id="zch"></div>
+ <div class="zti" id="zti"></div>
+ <div class="zsub" id="zsub"></div>
+ <div class="zfx" id="zfx"></div>
+ <div class="znt" id="znt"><p class="zh2">¿Qué es cada parte?</p><div id="znl"></div></div>
+ <div id="zc"></div>
+ <div class="zl" id="zl"><span class="zlt">Lectura</span><span class="zlx" id="zlx"></span></div>
+</div></div>
+<div class="zrow" id="zvis" hidden></div>
+<div class="zq">
+ <button id="zp" type="button">Ver<span class="vh"> la animación</span></button>
+ <input id="zt" type="range" min="0" max="15" step=".05" value="0" aria-label="Posición de la animación" aria-valuetext="0:00">
+ <span id="zm">0:00 / 0:15</span>
+ <span class="zk" role="group" aria-label="Navegación">
+  <button type="button" id="zpv">‹ Anterior</button><button type="button" id="znx">Siguiente ›</button><button type="button" id="zmu" aria-expanded="false" aria-controls="mnu">☰ Fórmulas</button>
+ </span>
+ <span class="zk" role="group" aria-label="Ajustes">
+  <button type="button" id="zno" aria-pressed="true">Notas</button><button type="button" id="zcl" aria-pressed="true">Colores</button><button type="button" id="zau" aria-pressed="true">Auto ▸</button><button type="button" id="zth">☾ Oscuro</button>
+ </span>
+</div>
+<aside class="semleg" role="note">
+ <b class="fn-t">Semántica de colores</b>
+ <ul>
+  <li><i class="sw sw-pop"></i><span><strong style="color:var(--sem-pop)">Población</strong>: N, X_i, S²…</span></li>
+  <li><i class="sw sw-est"></i><span><strong style="color:var(--sem-est)">Estimación</strong>: X̂, x̄, s²…</span></li>
+  <li><i class="sw sw-dis"></i><span><strong style="color:var(--sem-dis)">Diseño</strong>: n, f, π_i, P_i…</span></li>
+  <li><i class="sw sw-obs"></i><span><strong style="color:var(--sem-obs)">Datos</strong>: u_i, x_i, s…</span></li>
+  <li><i class="sw sw-op"></i><span><strong style="color:var(--sem-op)">Operadores</strong>: E, V, B, P, Σ…</span></li>
+  <li><i class="sw"></i><span>Sin color: constantes e índices</span></li>
+ </ul>
+ <p class="mut">El botón «Colores» apaga la semántica para ver la fórmula «en blanco»; «Notas» oculta la columna explicativa; «Auto ▸» encadena la fórmula siguiente al terminar.</p>
+</aside>
+<details class="zx" id="guion"><summary>Guion de las 29 fórmulas (texto)</summary></details>
+</main>
+<div class="mnb" id="mnb" hidden></div>
+<nav class="mnu" id="mnu" aria-label="Fórmulas" hidden></nav>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script>
+/* ════════════════════════════════════════════════════════════════════
+   CONFIG · contenido de «Fórmulas de muestreo en movimiento»
+   Fórmulas del Anexo (chuleta) del libro Sánchez-Crespo · de Parada.
+   Semántica de colores (idéntica al documento de ejercicios):
+     pop → población (rojo) · est → estimación (azul) · dis → diseño (verde)
+     obs → datos (ámbar) · op → operadores (violeta) · sin color → constantes
+   Cada pieza aparece animada con su nota al lado. Piezas «q» = separadores
+   rápidos (=, +, ·, …). «vistas» = alternativas de una misma fórmula.
+   ════════════════════════════════════════════════════════════════════ */
+const R=String.raw;
+const C={
+  pop:s=>R`\htmlClass{sem-pop}{${s}}`,
+  est:s=>R`\htmlClass{sem-est}{${s}}`,
+  dis:s=>R`\htmlClass{sem-dis}{${s}}`,
+  obs:s=>R`\htmlClass{sem-obs}{${s}}`,
+  op:s=>R`\htmlClass{sem-op}{${s}}`
+};
+/* puntos para la simulación de ρ (F3): cajas 2×2 de 152×86 en un campo 320×200 */
+const BX=[[4,8],[164,8],[4,106],[164,106]];
+const CO=[[7,7],[125,7],[7,60],[125,60]];
+const dotAt=(b,dp)=>'<i style="left:'+(b[0]+dp[0])+'px;top:'+(b[1]+dp[1])+'px"></i>';
+const dotsCluster=BX.map((b,k)=>{const c=CO[k];
+  return [[0,0],[13,6],[5,14],[17,10]].map(d=>dotAt(b,[c[0]+d[0],c[1]+d[1]])).join('')}).join('');
+const dotsSpread=BX.map(b=>CO.map(c=>dotAt(b,c)).join('')).join('');
+const dotsAzar=[[30,60],[120,50],[220,66],[300,52],[70,130],[160,140],[250,128],[300,178],
+ [24,172],[110,166],[200,158],[286,120],[52,96],[142,92],[232,150],[80,28]].map(p=>'<i style="left:'+p[0]+'px;top:'+p[1]+'px"></i>').join('');
+const caja=b=>'<u style="left:'+b[0]+'px;top:'+b[1]+'px"></u>';
+const cajas=BX.map(caja).join('');
+
+/* ══ utilidades para las 28 vistas animadas (HTML + fn) ═══════════ */
+const pan=(id,x,y,w,h,t,body,c,bdg)=>'<div class="rp" id="'+id+'" style="left:'+x+'px;top:'+y+'px;width:'+w+'px"><b class="rt">'+t+'</b><div class="rd" style="width:'+(w-36)+'px;height:'+h+'px">'+body+'</div>'+(c?'<p class="rc">'+c+'</p>':'')+(bdg?'<span class="zc" id="'+id+'d">'+bdg+'</span>':'')+'</div>';
+const dt=(id,x,y,c)=>'<i'+(c?' class="'+c+'"':'')+(id?' id="'+id+'"':'')+' style="left:'+x+'px;top:'+y+'px"></i>';
+const ball=(id,x,y,r,c)=>'<i'+(c?' class="'+c+'"':'')+(id?' id="'+id+'"':'')+' style="left:'+(x-r)+'px;top:'+(y-r)+'px;width:'+(2*r)+'px;height:'+(2*r)+'px"></i>';
+const sq=(id,x,y,w,h,c,inner)=>'<u'+(c?' class="'+c+'"':'')+(id?' id="'+id+'"':'')+' style="left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px">'+(inner||'')+'</u>';
+const lb=(id,x,y,txt,st)=>'<b'+(id?' id="'+id+'"':'')+' style="left:'+x+'px;top:'+y+'px'+(st?';'+st:'')+'">'+txt+'</b>';
+const ln_=(id,x,y,w,c)=>'<div class="ln'+(c?' '+c:'')+'"'+(id?' id="'+id+'"':'')+' style="left:'+x+'px;top:'+y+'px;width:'+w+'px"></div>';
+const lv_=(id,x,y,h,c)=>'<div class="lv'+(c?' '+c:'')+'"'+(id?' id="'+id+'"':'')+' style="left:'+x+'px;top:'+y+'px;height:'+h+'px"></div>';
+const sg_=(id,x,y,w,h,c)=>'<div class="sg'+(c?' '+c:'')+'"'+(id?' id="'+id+'"':'')+' style="left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px"></div>';
+const ch_=(id,x,y,txt,c)=>'<span class="chip'+(c?' '+c:'')+'"'+(id?' id="'+id+'"':'')+' style="left:'+x+'px;top:'+y+'px">'+txt+'</span>';
+const tx_=(id,x,y,txt,w)=>'<p class="tx"'+(id?' id="'+id+'"':'')+' style="left:'+x+'px;top:'+y+'px;width:'+(w||300)+'px">'+txt+'</p>';
+/* fn helpers: reciben h={E,pr,eo,put,up} y el tiempo u */
+const rise=(h,ids,u,a,st,d)=>ids.forEach((x,i)=>h.up(h.E(x),u,a+i*st,d||.5,18));
+const pop=(h,id,u,a,d,s)=>{const e=h.E(id);if(!e)return;const q=h.eo(h.pr(u,a,a+(d||.5)));h.put(e,q,0,(1-q)*14,(s||1)*(.55+.45*q))};
+const growY=(h,id,u,a,d)=>{const e=h.E(id);if(!e)return;const q=h.eo(h.pr(u,a,a+(d||.6)));e.style.opacity=Math.min(1,q*3);e.style.transform='scaleY('+q+')'};
+const growX=(h,id,u,a,d)=>{const e=h.E(id);if(!e)return;const q=h.eo(h.pr(u,a,a+(d||.6)));e.style.opacity=Math.min(1,q*3);e.style.transform='scaleX('+q+')'};
+const drawW=(h,id,u,a,d,W)=>{const e=h.E(id);if(!e)return;const q=h.eo(h.pr(u,a,a+(d||.7)));e.style.opacity=Math.min(1,q*3);e.style.width=(q*W)+'px'};
+const drawH=(h,id,u,a,d,H)=>{const e=h.E(id);if(!e)return;const q=h.eo(h.pr(u,a,a+(d||.7)));e.style.opacity=Math.min(1,q*3);e.style.height=(q*H)+'px'};
+const fadeIn=(h,id,u,a,d)=>{const e=h.E(id);if(!e)return;e.style.opacity=h.pr(u,a,a+(d||.5))};
+/* generadores de contenido */
+const gauss=(cx,by,sc,c)=>{const rr=[[2,.32],[4,.58],[6,.82],[7,1],[6,.82],[4,.58],[2,.32]];let h='';rr.forEach((r,i)=>{const w=sc*r[1],n=r[0];for(let k=0;k<n;k++)h+=dt(null,Math.round(cx-w/2+(n>1?w*k/(n-1):0))-5,by-i*15-5,c)});return h};
+/* b1: población asimétrica */
+const b1D=(()=>{let h='';for(let i=0;i<24;i++){const x=i<18?28+((i*61)%190):250+((i*53)%90),y=16+((i*47)%186);h+=dt('b1p'+i,x,y,'r')}return h})();
+/* b2: rejilla 10×10 con 55 ámbar exactos + anillo de 12 (7 ámbar) */
+const b2G=(()=>{let h='';for(let i=0;i<10;i++)for(let j=0;j<10;j++){h+=dt(null,8+j*37,6+i*21,(((i*10+j)*7)%100)<55?'a':'g')}return h})();
+const b2R=[[2,9],[3,1],[1,8],[3,4],[2,1],[9,3],[2,2],[9,4],[3,8],[5,3],[4,0],[9,9]].map((p,k)=>sq('b2r'+k,8+p[1]*37-4,6+p[0]*21-4,19,19,'b')).join('');
+/* b5: 20 intervalos, 19 aciertos */
+const b5off=[-132,-98,-78,-55,-38,-22,-8,4,15,28,42,58,74,92,110,128,145,-118,-64,168];
+/* d1: nube razón (pendiente muestral por el origen, calculada) */
+const d1S=(()=>{const pts=[];for(let i=0;i<26;i++){const x=110+((i*83)%920),n=((i*47)%53)-26,y=238-(0.16*(x-70)+n);pts.push([x,y])}
+ let sxy=0,sx=0;[3,8,12,15,19,23].forEach(i=>{sxy+=(pts[i][0]-70)*(238-pts[i][1]);sx+=(pts[i][0]-70)*(pts[i][0]-70)});const m=sxy/sx,xi=1030,yi=238-m*(xi-70),ye=238-m*1000;
+ return '<svg width="1116" height="260">'
+ +'<line id="d1ax" x1="50" y1="238" x2="1070" y2="238" stroke="var(--mut)" stroke-width="1.5"/>'
+ +'<line id="d1ay" x1="70" y1="26" x2="70" y2="238" stroke="var(--mut)" stroke-width="1.5"/>'
+ +'<g id="d1g" opacity="0">'+pts.map(p=>'<circle cx="'+p[0]+'" cy="'+Math.round(p[1])+'" r="4.5" fill="var(--edge)"/>').join('')+'</g>'
+ +'<line id="d1pl" x1="70" y1="238" x2="1070" y2="78" stroke="var(--edge)" stroke-width="2" stroke-dasharray="7 6" opacity="0"/>'
+ +'<line id="d1ml" x1="70" y1="238" x2="1070" y2="'+ye.toFixed(1)+'" stroke="var(--b)" stroke-width="3" stroke-dasharray="1400" stroke-dashoffset="1400"/>'
+ +'<line id="d1vx" x1="'+xi+'" y1="26" x2="'+xi+'" y2="238" stroke="var(--ok)" stroke-width="2" stroke-dasharray="5 5" opacity="0"/>'
+ +'<line id="d1hy" x1="70" y1="'+yi.toFixed(1)+'" x2="'+xi+'" y2="'+yi.toFixed(1)+'" stroke="var(--ok)" stroke-width="2" stroke-dasharray="5 5" opacity="0"/>'
+ +'<circle id="d1pt" cx="'+xi+'" cy="'+yi.toFixed(1)+'" r="7" fill="var(--ok)" opacity="0"/>'
+ +[3,8,12,15,19,23].map(i=>'<circle id="d1s'+i+'" cx="'+pts[i][0]+'" cy="'+Math.round(pts[i][1])+'" r="7" fill="var(--b)" opacity="0"/>').join('')
+ +'</svg>'})();
+/* d3: nube regresión (ajuste por mínimos cuadrados, calculado) */
+const d3S=(()=>{const pts=[];for(let i=0;i<18;i++){const x=100+((i*57)%900),n=((i*41)%45)-22;pts.push([x,170-0.1*(x-80)+n])}
+ let sx=0,sy=0,sxy=0,sxx=0;pts.forEach(p=>{sx+=p[0];sy+=p[1];sxy+=p[0]*p[1];sxx+=p[0]*p[0]});const N=18,b=(N*sxy-sx*sy)/(N*sxx-sx*sx),a=(sy-b*sx)/N,yb=sy/N;
+ const fit=x=>a+b*x,S=Math.sqrt(pts.reduce((s,p)=>s+(p[1]-yb)*(p[1]-yb),0)/(N-1)),Se=Math.sqrt(pts.reduce((s,p)=>s+(p[1]-fit(p[0]))*(p[1]-fit(p[0])),0)/(N-2));
+ const fat=[2,8,14].map(i=>'<line x1="'+pts[i][0]+'" y1="'+Math.round(pts[i][1])+'" x2="'+pts[i][0]+'" y2="'+Math.round(yb)+'" stroke="var(--sem-op)" stroke-width="3" opacity=".55"/>').join('');
+ return '<svg width="1116" height="260">'
+ +'<line id="d3ax" x1="50" y1="238" x2="1070" y2="238" stroke="var(--mut)" stroke-width="1.5"/>'
+ +'<line id="d3ay" x1="70" y1="20" x2="70" y2="238" stroke="var(--mut)" stroke-width="1.5"/>'
+ +'<g id="d3g" opacity="0">'+pts.map(p=>'<circle cx="'+p[0]+'" cy="'+Math.round(p[1])+'" r="5" fill="var(--b)"/>').join('')+'</g>'
+ +'<g id="d3r0" opacity="0">'+fat+'</g>'
+ +'<line id="d3fl" x1="70" y1="'+Math.round(yb)+'" x2="1070" y2="'+Math.round(yb)+'" stroke="var(--mut)" stroke-width="2" stroke-dasharray="6 5" opacity="0"/>'
+ +'<line id="d3rl" x1="80" y1="'+Math.round(fit(80))+'" x2="1040" y2="'+Math.round(fit(1040))+'" stroke="var(--ok)" stroke-width="3" stroke-dasharray="1400" stroke-dashoffset="1400"/>'
+ +'<g id="d3res" opacity="0">'+pts.map(p=>'<line x1="'+p[0]+'" y1="'+Math.round(p[1])+'" x2="'+p[0]+'" y2="'+Math.round(fit(p[0]))+'" stroke="var(--er)" stroke-width="1.5" opacity=".4"/>').join('')+'</g>'
+ +'</svg>|||'+S.toFixed(1)+'|||'+Se.toFixed(1)})();
+const d3val=d3S.split('|||'),d3svg=d3val[0],d3Sv=d3val[1],d3Sev=d3val[2];
+/* e1: bombo desigual y 10 extracciones con reposición */
+const e1vals=[900,1000,1000,1400],e1seq=[1,2,1,3,1,2,4,1,3,2];
+const e1run=(()=>{const r=[];let s=0;e1seq.forEach((v,i)=>{s+=e1vals[v-1];r.push(s/(i+1))});return r})();
+const e1plot=(()=>{const Y=v=>112-(v-850)/600*100;let h='<svg width="668" height="120" style="top:100px">'
+ +'<line x1="30" y1="112" x2="640" y2="112" stroke="var(--mut)" stroke-width="1.5"/>'
+ +'<line id="e1xl" x1="30" y1="'+Y(1000).toFixed(1)+'" x2="640" y2="'+Y(1000).toFixed(1)+'" stroke="var(--ok)" stroke-width="2" stroke-dasharray="6 5" opacity="0"/>';
+ e1run.forEach((v,i)=>{const x=44+i*62,y=Y(v).toFixed(1);h+='<circle id="e1q'+i+'" cx="'+x+'" cy="'+y+'" r="4.5" fill="var(--b)" opacity="0"/>';
+  if(i<9){const y2=Y(e1run[i+1]).toFixed(1);h+='<line id="e1l'+i+'" x1="'+x+'" y1="'+y+'" x2="'+(x+62)+'" y2="'+y2+'" stroke="var(--b)" stroke-width="1.5" opacity="0"/>'}});
+ return h+'</svg>'})();
+/* g1: 24 celdas y 4 peines */
+const g1cells=(()=>{let h='';for(let j=0;j<24;j++)h+='<div class="cellx" id="g1c'+j+'" style="left:'+(42+j*43)+'px;top:64px;width:40px;height:40px">'+(j+1)+'</div>';
+ for(let r=1;r<=4;r++){const y=140+(r-1)*24;h+=lb('g1rl'+r,8,y+2,'r = '+r,'color:var(--mut);font-weight:500');
+  for(let j=0;j<24;j++){const on=(j-(r-1))%4===0,me=r===3;h+='<div class="cellx" id="g1m'+r+'_'+j+'" style="left:'+(42+j*43)+'px;top:'+y+'px;width:40px;height:18px;line-height:16px;font-size:9px;'+(on?'border-color:'+(me?'var(--b)':'var(--edge)')+';background:'+(me?'var(--hl-b)':'rgba(124,122,114,.12)')+';color:'+(me?'var(--b)':'var(--mut)'):'')+'">'+(on?(j+1):'')+'</div>'}}
+ return h})();
+/* e4: el bombo que adelgaza */
+const e4rows=[[10,[['u<sub>1</sub>','g'],['u<sub>2</sub>',''],['u<sub>3</sub>','k'],['u<sub>4</sub>',''],['u<sub>5</sub>',''],['u<sub>6</sub>','']]],
+ [92,[['u<sub>2</sub>',''],['u<sub>4</sub>','g'],['u<sub>5</sub>','k'],['u<sub>6</sub>','']]],
+ [174,[['u<sub>2</sub>','k'],['u<sub>6</sub>','']]]];
+const e4L=(()=>{let h='';e4rows.forEach((row,r)=>{h+=sq(null,17,row[0],490,56);
+ row[1].forEach((b,j)=>{const x=50+j*72;h+=ball('e4'+r+'_'+j,x,row[0]+28,13,b[1])
+  +lb(null,x-8,row[0]+44,b[0],'color:var(--mut);font-weight:500')
+  +((b[1]==='g')?lb(null,x-5,row[0]+21,'✕','color:var(--er);font-size:14px'):'')})});
+ return h})();
+/* g2: 30 clasificadas (18 ámbar) y 8 medidas (5 ámbar) */
+const g2col=i=>((i*13)%30)<18?'a':'v';
+const g2L=(()=>{let h='';for(let i=0;i<30;i++){const r=Math.floor(i/6),c=i%6;h+=dt('g2p'+i,40+c*80,26+r*40,g2col(i))}return h})();
+const g2R=[0,1,2,3,4,5,6,7].map(i=>ball('g2b'+i,90+(i%4)*115,70+Math.floor(i/4)*90,15,g2col(i))).join('');
+
+const V={
+titulo:'Fórmulas de muestreo en movimiento',
+aria:'Vídeo interactivo: las 29 fórmulas clave del muestreo en poblaciones finitas, cada una con su animación visual (simulaciones a medida) y sus formas algebraicas pieza a pieza, con notas explicativas y semántica de colores. Debajo hay un guion en texto.',
+caps:[
+ ['0','Notación'],
+ ['A','Resultados transversales'],
+ ['B','Muestreo aleatorio simple'],
+ ['C','Muestreo estratificado'],
+ ['D','Estimadores de razón y regresión'],
+ ['E','Probabilidades desiguales (PPT)'],
+ ['F','Muestreo por conglomerados'],
+ ['G','Sistemático, bifásico, ocasiones y no respuesta']
+],
+cards:[
+
+/* ── 0 · Notación ─────────────────────────────────────────────── */
+{id:'n0',cap:0,layout:'grid',t:'La notación, de un vistazo',
+ sub:'Los ocho símbolos que aparecen en todas las fórmulas (con su color fijo)',
+ vistas:[
+ {label:'Animación',d:8,lectura:'Un color, un papel: población lo que existe, estimación lo que calculamos, diseño lo que decidimos, datos lo que vemos.',custom:{html:
+  pan('n0p',64,206,1152,150,'Cinco colores, cinco papeles',
+   [0,1,2,3,4].map(i=>'<div class="col" id="n0c'+i+'" style="left:'+(30+i*214)+'px;top:16px"><span class="cs sw-'+['pop','est','dis','obs','op'][i]+'"></span><span class="cx" style="color:var(--sem-'+['pop','est','dis','obs','op'][i]+')">'+['N · X · X̄ · S²','x̄ · X̂ · V̂ · s²','n · f · π · n_h','s · i ∈ s','E · V · Σ'][i]+'</span><span class="cr">'+['lo que existe y no vemos','lo que calculamos con la muestra','lo que decidimos antes de salir','lo que de verdad observamos','con qué se opera'][i]+'</span></div>').join(''),
+   'Un color = una pregunta distinta sobre el mismo símbolo.','Rojo población · azul estimación · verde diseño · ámbar datos · violeta operadores'),
+  fn:(u,h)=>{rise(h,['n0c0','n0c1','n0c2','n0c3','n0c4'],u,.4,.8,.6);h.up(h.E('n0pd'),u,5,.6,12)}}},
+ {label:'Los 8 símbolos',lectura:'Código de color: rojo población · azul estimación · verde diseño · ámbar datos · violeta operadores.',
+ piezas:[
+  {tex:C.pop('N'),sem:'pop',nota:'Tamaño de la población: las N unidades del universo U.'},
+  {tex:C.dis('n'),sem:'dis',nota:'Tamaño de muestra: cuántas unidades se seleccionan de U.'},
+  {tex:R`\htmlClass{sem-dis}{f}=\dfrac{\htmlClass{sem-dis}{n}}{\htmlClass{sem-pop}{N}}`,sem:'dis',nota:'Fracción de muestreo. (1−f) es la corrección por población finita.'},
+  {tex:C.pop(R`\bar{X}`)+R`\;`+C.est(R`\bar{x}`),sem:'pop',nota:'Media poblacional (roja) y media muestral (azul).'},
+  {tex:C.pop(R`X=\sum_{i\in U}X_i`),sem:'pop',nota:'Total poblacional: la suma de todos los valores.'},
+  {tex:C.pop(R`S^2`)+R`\;`+C.est(R`s^2`),sem:'pop',nota:'Cuasivarianzas poblacional y muestral (divisores N−1 y n−1).'},
+  {tex:C.dis(R`\pi_i\quad \pi_{ij}`),sem:'dis',nota:'Probabilidades de inclusión de primer y segundo orden.'},
+  {tex:C.dis(R`p_i`)+R`\;`+C.op('p')+R`(`+C.obs('s')+R`)`,sem:'dis',nota:'p_i: probabilidad de sacar a u_i en una extracción; p(s): probabilidad de la muestra s.'}
+ ]}]},
+
+/* ── A · Resultados transversales ─────────────────────────────── */
+{id:'a1',cap:1,fs:.95,t:'Probabilidad de inclusión',
+ sub:'la puerta de entrada de todo diseño sin reposición',
+ vistas:[
+ {label:'Contando muestras',d:9,lectura:'De las 6 muestras posibles, 3 contienen a u₁: su probabilidad de inclusión es 3/6 = n/N.',custom:{html:
+  pan('a1l',64,190,356,250,'La población U',
+   [0,1,2,3].map(i=>dt('a1u'+i,34,22+i*54,'r')+lb(null,56,23+i*54,'u<sub>'+(i+1)+'</sub>','color:var(--sem-pop)')).join('')
+   +sq('a1h',24,12,38,38,'b'),
+   'N = 4 unidades; muestras de tamaño n = 2 → hay C(4,2) = 6 posibles.','π₁ = …') +
+  pan('a1r',446,190,770,250,'Las 6 muestras posibles',
+   [[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]].map((s,i)=>sq('a1s'+i,12+(i%3)*244,12+Math.floor(i/3)*114,226,88,null,'{u<sub>'+s[0]+'</sub>, u<sub>'+s[1]+'</sub>}')).join(''),
+   'Contienen a u₁ las tres primeras: 3 de 6.','…'),
+  fn:(u,h)=>{const {E,pr,up}=h;
+   up(E('a1l'),u,.25,.5,20);up(E('a1r'),u,.5,.5,20);
+   rise(h,['a1u0','a1u1','a1u2','a1u3'],u,.8,.15,.4);
+   up(E('a1h'),u,1.5,.4,10);
+   [0,1,2,3,4,5].forEach(i=>{const e=E('a1s'+i);up(e,u,1.9+i*.4,.45,16);
+    if(i<3){const q=pr(u,2.5+i*.4,3.1+i*.4);e.style.borderColor=q>0?'var(--ok)':'';e.style.background=q>0?'rgba(8,129,63,.08)':'';e.style.color=q>0?'var(--ok)':''}});
+   const cnt=[0,1,2].filter(i=>pr(u,2.5+i*.4,3.1+i*.4)>0).length,fin=pr(u,4.8,5.3)>0;
+   E('a1ld').textContent=fin?'π₁ = 3/6 = n/N = 0,5':'π₁ = '+cnt+'/6';
+   E('a1rd').textContent=fin?'y π₁₂ = n(n−1)/N(N−1) = 2/12 = 1/6':'3 de 6 contienen a u₁';
+   up(E('a1ld'),u,4.6,.5,10);up(E('a1rd'),u,4.6,.5,10);
+  }}},
+ {label:'Definición',lectura:'Se lee: «pi sub i es la suma de p(s) sobre las muestras que contienen a u_i».',
+  piezas:[
+   {tex:C.dis(R`\pi_i`),sem:'dis',nota:'Probabilidad de que la unidad u_i forme parte de la muestra seleccionada.'},
+   {tex:'=',q:1},
+   {tex:C.op(R`\sum_{s\ni u_i}`),sem:'op',nota:'Suma sobre todas las muestras s que contienen a u_i.'},
+   {tex:C.op('p')+R`(`+C.obs('s')+R`)`,sem:'op',nota:'Probabilidad de que el diseño extraiga exactamente la muestra s.'}
+  ]},
+ {label:'En el MAS',lectura:'π_i = n/N es la llave: con ella se deducen casi todas las fórmulas del MAS.',
+  piezas:[
+   {tex:C.dis(R`\pi_i`),sem:'dis',nota:'En el MAS sin reposición, todas las unidades entran con la misma probabilidad.'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{`+C.dis('n')+R`}{`+C.pop('N')+R`}`,sem:'dis',nota:'n de las N unidades: π_i = f, la fracción de muestreo.'},
+   {tex:R`\qquad`,q:1},
+   {tex:C.dis(R`\pi_{ij}`),sem:'dis',nota:'Para el par (i, j):'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{`+C.dis(R`n(n-1)`)+R`}{`+C.pop(R`N(N-1)`)+R`}`,sem:'dis',nota:'Los n(n−1) pares que caben sobre los N(N−1) del universo.'}
+  ]}]},
+
+{id:'a2',cap:1,fs:.94,t:'El estimador de Horvitz-Thompson',
+ sub:'válido para CUALQUIER diseño con π_i > 0 · insesgado',
+ vistas:[
+ {label:'El peso de cada uno',d:11,lectura:'Cada encuestado representa a N/n = 3 unidades: la muestra, inflada por los pesos, reconstruye el universo.',custom:{html:
+  pan('a2p',64,190,1152,230,'N = 12, n = 4: cada encuestado «vale» N/n = 3',
+   [0,1,2,3].map(k=>{const x=20+k*280;return sq(null,x,14,250,132)
+    +[0,1,2].map(j=>dt('a2d'+k+'_'+j,x+96+j*40,64,'r')).join('')
+    +lb('a2w'+k,x+58,160,'peso 1/π = N/n = 3','color:var(--sem-dis);font-size:14px')}).join('')
+   +lb('a2e',20,196,'X̂<sub>HT</sub> = 3·(X<sub>1</sub>+X<sub>2</sub>+X<sub>3</sub>+X<sub>4</sub>) = 12·x̄ = N·x̄','font-size:16px'),
+   'Los 12 del universo en 4 tríos: se encuesta a UNO por trío y su valor cuenta por 3.','X̂_HT = Σ X_i/π_i: el peso hace visible a todo el universo'),
+  fn:(u,h)=>{const {E,up,pr,eo,put}=h;
+   up(E('a2p'),u,.25,.5,20);
+   [0,1,2,3].forEach(k=>{
+    [0,1,2].forEach(j=>{const d=E('a2d'+k+'_'+j),sel=j===1,q=eo(pr(u,.9+k*.3,1.5+k*.3));
+     put(d,q,0,(1-q)*12,sel?1.6:1);
+     if(sel){const c=pr(u,1.7+k*.3,2.2+k*.3);d.style.background=c>0?'var(--b)':''}
+     else{const c=pr(u,1.7+k*.3,2.2+k*.3);d.style.opacity=q*(1-.72*c)}});
+    up(E('a2w'+k),u,2.6+k*.25,.4,10)});
+   up(E('a2e'),u,3.8,.7,16);up(E('a2pd'),u,4.9,.6,12);
+  }}},
+ {label:'General',lectura:'Se lee: «la suma sobre la muestra de cada valor dividido por su probabilidad de inclusión».',
+  piezas:[
+   {tex:C.est(R`\hat{X}_{HT}`),sem:'est',nota:'El estimador insesgado del total X, construido sobre las π_i.'},
+   {tex:'=',q:1},
+   {tex:C.op(R`\sum_{`+C.obs('i')+R`\in`+C.obs('s')+R`}`),sem:'op',nota:'Suma sobre las unidades de la muestra s.'},
+   {tex:R`\dfrac{`+C.pop(R`X_i`)+R`}{`+C.dis(R`\pi_i`)+R`}`,sem:'pop',nota:'El peso 1/π_i: la unidad u_i «representa» a 1/π_i unidades del universo.'}
+  ]},
+ {label:'¿Por qué es insesgado?',lectura:'Truco de examen: introduce ε_i con E(ε_i) = π_i y E(ε_i ε_j) = π_ij.',
+  piezas:[
+   {tex:C.op('E')+R`\bigl(`+C.est(R`\hat{X}_{HT}`)+R`\bigr)`,sem:'op',nota:'Esperanza bajo el diseño: el promedio sobre todas las muestras posibles.'},
+   {tex:'=',q:1},
+   {tex:C.op(R`\sum_{i\in U}`),sem:'op',nota:'…que se extiende a TODAS las unidades de la población.'},
+   {tex:C.dis(R`\pi_i\,`)+R`\dfrac{`+C.pop(R`X_i`)+R`}{`+C.dis(R`\pi_i`)+R`}`,sem:'dis',nota:'E(ε_i) = π_i: la unidad i aporta solo cuando entra en s.'},
+   {tex:'=',q:1},
+   {tex:C.pop(R`\sum_{i\in U}X_i`),sem:'pop',nota:'Los π_i se cancelan uno a uno…'},
+   {tex:'=',q:1},
+   {tex:C.pop('X'),sem:'pop',nota:'…y queda exactamente el total poblacional: cero sesgo.'}
+  ]},
+ {label:'En el MAS',lectura:'El HT es la madre de N·x̄: cambia las π_i y cambia el estimador.',
+  piezas:[
+   {tex:C.est(R`\hat{X}_{HT}`),sem:'est',nota:'Sustituye π_i = n/N en el estimador general…'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{`+C.pop('N')+R`}{`+C.dis('n')+R`}`+C.op(R`\sum_{i\in s}`)+C.pop(R`X_i`),sem:'pop',nota:'…y cada valor pesa N/n: hay N/n unidades «como» cada encuestado.'},
+   {tex:'=',q:1},
+   {tex:C.pop('N')+C.est(R`\bar{x}`),sem:'est',nota:'La suma de los n valores es n·x̄: al multiplicar, queda el clásico N·x̄.'}
+  ]}]},
+
+{id:'a3',cap:1,fs:.8,t:'La varianza del Horvitz-Thompson',
+ sub:'dos formas equivalentes y el estimador con datos de muestra',
+ vistas:[
+ {label:'Juntos o separados',d:11,lectura:'Cada par aporta su coeficiente por la distancia al cuadrado: el diseño premia o castiga juntar unidades.',custom:{html:
+  pan('a3l',64,190,560,230,'El coeficiente: el diseño junta o separa',
+   lb('a3t1',14,8,'A · extracciones independientes','color:var(--mut);font-weight:500')
+   +dt('a3a0',96,58)+dt('a3a1',400,58)
+   +lb(null,90,72,'i')+lb(null,394,72,'j')
+   +ch_('a3c1',170,52,'π<sub>ij</sub> = π<sub>i</sub>π<sub>j</sub>','m')
+   +tx_('a3x1',14,102,'entran en muestras distintas sin buscarse: aportan su distancia, sin premio ni castigo.',496)
+   +lb('a3t2',14,128,'B · el diseño los junta','color:var(--mut);font-weight:500')
+   +sq(null,158,140,120,64,'o')
+   +dt('a3b0',186,168)+dt('a3b1',240,168)
+   +ch_('a3c2',300,158,'π<sub>ij</sub> &gt; π<sub>i</sub>π<sub>j</sub>','k')
+   +tx_('a3x2',14,214,'juntos ⇒ el coeficiente (π<sub>i</sub>π<sub>j</sub>−π<sub>ij</sub>) se vuelve negativo y premia.',496),
+   'En el SYG cada par entra una sola vez, con su coeficiente.','coeficiente = π_iπ_j − π_ij') +
+  pan('a3r',664,190,560,230,'El núcleo: diferencia al cuadrado',
+   '<em id="a3v1" style="left:80px;width:70px;height:150px"></em>'
+   +'<em id="a3v2" style="left:210px;width:70px;height:90px"></em>'
+   +lb('a3l1',80,54,'X<sub>i</sub>/π<sub>i</sub>')+lb('a3l2',210,114,'X<sub>j</sub>/π<sub>j</sub>')
+   +lv_('a3g',300,80,60)
+   +lb(null,310,102,'diferencia','color:var(--mut);font-weight:500')
+   +sq('a3q',360,80,60,60,'b')
+   +lb(null,364,148,'( … )<sup>2</sup>','font-size:15px')
+   +ch_('a3c3',330,170,'× (π<sub>i</sub>π<sub>j</sub>−π<sub>ij</sub>)','k'),
+   'La distancia entre «inflados», al cuadrado y ponderada por el coeficiente.','V_SYG = Σ_{i<j} coef·(dif)²'),
+  fn:(u,h)=>{const {E,up}=h;
+   up(E('a3l'),u,.25,.5,20);up(E('a3r'),u,.5,.5,20);
+   up(E('a3t1'),u,.8,.4,12);
+   rise(h,['a3a0','a3a1'],u,.9,.2,.4);pop(h,'a3c1',u,1.4,.5);up(E('a3x1'),u,1.7,.5,10);
+   up(E('a3t2'),u,2.1,.4,12);
+   rise(h,['a3b0','a3b1'],u,2.2,.2,.4);pop(h,'a3c2',u,2.7,.5);up(E('a3x2'),u,3,.5,10);
+   growY(h,'a3v1',u,2.4,.7);growY(h,'a3v2',u,2.8,.7);
+   rise(h,['a3l1','a3l2'],u,2.6,.25,.4);drawH(h,'a3g',u,3.6,.5,60);
+   pop(h,'a3q',u,4,.5);pop(h,'a3c3',u,4.5,.5);
+   up(E('a3ld'),u,5.2,.5,10);up(E('a3rd'),u,5.2,.5,10);
+  }}},
+ {label:'Forma general',lectura:'Dos sumatorios: el «propio» de cada unidad y el «cruzado» entre pares.',
+  piezas:[
+   {tex:C.op('V')+R`\bigl(`+C.est(R`\hat{X}_{HT}`)+R`\bigr)`,sem:'op',nota:'Varianza de muestreo: cuánto oscila X̂_HT de muestra a muestra.'},
+   {tex:'=',q:1},
+   {tex:C.op(R`\sum_i`)+R`\dfrac{`+C.pop(R`X_i^2`)+R`\,(`+C.dis(R`1-\pi_i`)+R`)}{`+C.dis(R`\pi_i`)+R`}`,sem:'pop',nota:'Aporte de cada unidad: mayor cuanto mayor es X_i y menor su π_i.'},
+   {tex:'+',q:1},
+   {tex:C.op(R`\sum_{i\neq j}`)+R`\dfrac{`+C.pop(R`X_iX_j`)+R`\,(`+C.dis(R`\pi_{ij}-\pi_i\pi_j`)+R`)}{`+C.dis(R`\pi_i\pi_j`)+R`}`,sem:'pop',nota:'Aporte de cada par ordenado: cómo se covarían sus inclusiones.'}
+  ]},
+ {label:'Sen-Yates-Grundy',lectura:'SYG solo vale con tamaño de muestra fijo; es la forma que sí se puede estimar.',
+  piezas:[
+   {tex:C.op('V')+R`\bigl(`+C.est(R`\hat{X}_{HT}`)+R`\bigr)`,sem:'op',nota:'Con tamaño fijo n, la forma general se reordena por completo…'},
+   {tex:'=',q:1},
+   {tex:C.op(R`\sum_{i<j}`),sem:'op',nota:'…en una suma sobre pares sin orden: cada par, una sola vez.'},
+   {tex:C.dis(R`\bigl(\pi_i\pi_j-\pi_{ij}\bigr)`),sem:'dis',nota:'Si π_ij > π_iπ_j el diseño «junta» a i y j: covarianza positiva.'},
+   {tex:C.pop(R`\Bigl(\dfrac{X_i}{`+C.dis(R`\pi_i`)+R`}-\dfrac{X_j}{`+C.dis(R`\pi_j`)+R`}\Bigr)^2`),sem:'pop',nota:'…y se castiga la distancia entre las unidades ya «infladas».'}
+  ]},
+ {label:'Estimador V̂',lectura:'Regla de oro: si un diseño deja alguna π_ij = 0, su V̂ estilo SYG no existe.',
+  piezas:[
+   {tex:C.op(R`\hat{V}`)+R`\bigl(`+C.est(R`\hat{X}_{HT}`)+R`\bigr)`,sem:'op',nota:'La varianza, estimada con la propia muestra…'},
+   {tex:'=',q:1},
+   {tex:C.op(R`\sum_{i<j\in s}`),sem:'op',nota:'…solo sobre las parejas realmente incluidas en s.'},
+   {tex:R`\dfrac{`+C.dis(R`\pi_i\pi_j-\pi_{ij}`)+R`}{`+C.dis(R`\pi_{ij}`)+R`}`,sem:'dis',nota:'Exige π_ij > 0: el precio de estimar la varianza.'},
+   {tex:C.pop(R`\Bigl(\dfrac{X_i}{`+C.dis(R`\pi_i`)+R`}-\dfrac{X_j}{`+C.dis(R`\pi_j`)+R`}\Bigr)^2`),sem:'pop',nota:'El mismo núcleo que la forma SYG poblacional.'}
+  ]}]},
+
+{id:'a4',cap:1,fs:.95,t:'El efecto de diseño (deff)',
+ sub:'la «nota» de cualquier diseño frente al MAS, al mismo tamaño',
+ vistas:[
+ {label:'El diseño, calificado',d:10,lectura:'Al mismo n, la varianza cambia con el diseño: deff es la nota que compara cada uno con el MAS.',custom:{html:
+  pan('a4p',64,190,1152,250,'Varianza del estimador, con el MISMO n',
+   ln_('a4bl',60,220,1000,'solid')+ln_('a4rf',40,150,1036)
+   +lb('a4t0',44,126,'V<sub>MAS</sub> · la vara de medir','color:var(--mut);font-weight:500')
+   +'<em id="a4b0" class="m" style="left:120px;width:130px;height:70px;bottom:30px"></em>'
+   +'<em id="a4b1" class="k" style="left:390px;width:130px;height:39px;bottom:30px"></em>'
+   +'<em id="a4b2" style="left:660px;width:130px;height:66px;bottom:30px"></em>'
+   +'<em id="a4b3" class="r" style="left:930px;width:130px;height:168px;bottom:30px"></em>'
+   +[0,1,2,3].map(i=>ch_('a4c'+i,[120,390,660,930][i]+18,[118,149,122,20][i],['deff = 1','deff = 0,55','deff = 0,95','deff = 2,40'][i],['m','k','','r'][i])).join('')
+   +[0,1,2,3].map(i=>lb('a4l'+i,[120,390,660,930][i]+22,226,['MAS','estratificado','sistemático','conglomerados'][i],'color:var(--mut);font-weight:500')).join(''),
+   'Conglomerados: 1+(M−1)ρ = 1+14·0,1 = 2,40 — más de 4× entre el mejor y el peor diseño.','deff = V_diseño/V_MAS: la «nota» del diseño, al mismo n'),
+  fn:(u,h)=>{const {E,up}=h;
+   up(E('a4p'),u,.25,.5,20);
+   drawW(h,'a4bl',u,.8,.4,1000);
+   [0,1,2,3].forEach(i=>{growY(h,'a4b'+i,u,1.4+i*.55,.7);pop(h,'a4c'+i,u,1.9+i*.55,.5);up(E('a4l'+i),u,1.4+i*.55,.4,10)});
+   drawW(h,'a4rf',u,3.8,.5,1036);up(E('a4t0'),u,3.8,.4,10);
+   up(E('a4pd'),u,5,.6,12);
+  }}},
+ {label:'Definición',lectura:'deff < 1: mejora el MAS · deff > 1: lo empeora · deff = 1: equivalente.',
+  piezas:[
+   {tex:R`\mathrm{deff}`,sem:'',nota:'Efecto de diseño: cociente de varianzas, nunca una varianza.'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{`+C.op(R`V_{\text{diseño}}`)+R`(`+C.est(R`\hat{\theta}`)+R`)}{`+C.op(R`V_{\text{MAS}}`)+R`(`+C.est(R`\hat{\theta}`)+R`)}`,sem:'op',nota:'Mismo estimador θ̂ y mismo n: solo cambia el diseño de selección.'}
+  ]},
+ {label:'En conglomerados',lectura:'ρ > 0 ⇒ encuestar M juntos infla la varianza por 1+(M−1)ρ (se ve en el capítulo F).',
+  piezas:[
+   {tex:R`\mathrm{deff}`,sem:'',nota:'El caso estrella del examen…'},
+   {tex:'=',q:1},
+   {tex:R`1+(`+C.dis('M')+R`-1)`+C.dis(R`\rho`),sem:'dis',nota:'…conglomerados de tamaño M y correlación intra ρ.'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{`+C.dis('M')+C.pop(R`S_b^2`)+R`}{`+C.pop(R`S^2`)+R`}`,sem:'pop',nota:'Forma poblacional equivalente: parte «entre» sobre total.'}
+  ]}]},
+
+/* ── B · MAS ──────────────────────────────────────────────────── */
+{id:'b1',cap:2,t:'Media y total del MAS, con su varianza',
+ sub:'muestreo aleatorio simple sin reposición',
+ vistas:[
+ {label:'Muchas muestras',d:11,lectura:'Las medias de muchas muestras se reparten alrededor de X̄: con n = 8, la oscilación se divide por √8.',custom:{html:
+  pan('b1l',64,190,400,230,'La población',b1D
+   +lv_('b1m',165,10,190)+lb('b1t0',150,204,'X̄','color:var(--sem-pop);font-size:15px'),
+   'Los 24 valores, asimétricos, con su media X̄ marcada.','') +
+  pan('b1r',488,190,728,230,'Las medias de muchas muestras',
+   '<span id="b1c1" style="position:absolute;inset:0">'+gauss(180,205,190)+'</span>'
+   +'<span id="b1c2" style="position:absolute;inset:0">'+gauss(500,205,67)+'</span>'
+   +lb('b1n1',120,214,'n = 1 · ancho ≈ S','color:var(--mut);font-weight:500')
+   +lb('b1n2',420,214,'n = 8 · ancho ≈ S/√8','color:var(--mut);font-weight:500'),
+   'Cada punto es la x̄ de una muestra distinta: con n = 8, ocho veces menos varianza.','V(x̄) = (1−f)·S²/n'),
+  fn:(u,h)=>{const {E,pr,eo}=h;
+   h.up(E('b1l'),u,.25,.5,20);h.up(E('b1r'),u,1.6,.5,20);
+   for(let i=0;i<24;i++){const d=E('b1p'+i),q=eo(pr(u,.7+i*.05,1.1+i*.05));h.put(d,q,0,(1-q)*10,1)}
+   drawH(h,'b1m',u,2,.5,190);h.up(E('b1t0'),u,2.2,.4,10);
+   [...E('b1c1').querySelectorAll('i')].forEach((d,j)=>{const q=pr(u,2.5+j*.04,2.8+j*.04);d.style.opacity=q;d.style.transform='scale('+(.4+.6*eo(q))+')'});
+   [...E('b1c2').querySelectorAll('i')].forEach((d,j)=>{const q=pr(u,3.6+j*.04,3.9+j*.04);d.style.opacity=q;d.style.transform='scale('+(.4+.6*eo(q))+')'});
+   rise(h,['b1n1','b1n2'],u,2.6,.6,.4);h.up(E('b1rd'),u,4.8,.5,12);
+  }}},
+ {label:'V poblacional',lectura:'Para el total: X̂ = N·x̄ y V(X̂) = N²(1−f)S²/n — basta multiplicar por N².',
+  piezas:[
+   {tex:C.op('V')+R`(`+C.est(R`\bar{x}`)+R`)`,sem:'op',nota:'Varianza de muestreo de la media muestral.'},
+   {tex:'=',q:1},
+   {tex:C.dis(R`(1-f)`),sem:'dis',nota:'Corrección por población finita: muestrear sin reponer en población pequeña «regala» precisión (si f < 0,05 se ignora).'},
+   {tex:C.pop(R`\dfrac{S^2}{`+C.dis('n')+R`}`),sem:'pop',nota:'Variabilidad poblacional repartida entre las n observaciones.'}
+  ]},
+ {label:'V̂ muestral',lectura:'Regla visual del vídeo: pasar de V a V̂ es teñir de azul lo que era rojo.',
+  piezas:[
+   {tex:C.op(R`\hat{V}`)+R`(`+C.est(R`\bar{x}`)+R`)`,sem:'op',nota:'La misma fórmula, ya con datos: S² (rojo) pasa a s² (azul).'},
+   {tex:'=',q:1},
+   {tex:C.dis(R`(1-f)`),sem:'dis',nota:'La fpc se conoce: n y N son del diseño.'},
+   {tex:C.est(R`\dfrac{s^2}{`+C.dis('n')+R`}`),sem:'est',nota:'s², la cuasivarianza muestral: el puente de la teoría al cálculo.'}
+  ]},
+ {label:'Con reposición',lectura:'deff_wr/wor = N²/[(N−1)(N−n)] ≥ 1: reponer nunca mejora (como mucho, empata).',
+  piezas:[
+   {tex:C.op('V')+R`(`+C.est(R`\bar{x}`)+R`)`,sem:'op',nota:'Con reposición las extracciones son independientes: no hay fpc.'},
+   {tex:'=',q:1},
+   {tex:C.pop(R`\dfrac{\sigma^2}{`+C.dis('n')+R`}`)+R`\quad`+C.pop(R`\sigma^2`)+R`=\dfrac{N-1}{N}`+C.pop(R`S^2`),sem:'pop',nota:'σ² lleva N en el divisor; casi igual a S² si N es grande.'}
+  ]}]},
+
+{id:'b2',cap:2,t:'Proporciones y su varianza',
+ sub:'el MAS particularizado a variables 0/1',
+ vistas:[
+ {label:'Una muestra, un p̂',d:12,lectura:'Con 12 encuestadas, p̂ = 7/12: la proporción muestral hereda la variabilidad P(1−P)/n.',custom:{html:
+  pan('b2l',64,190,420,230,'Población: P = 0,55',b2G+b2R,
+   '55 de 100 con la característica (ámbar); anillo: las 12 encuestadas.','p̂ = …') +
+  pan('b2r',512,190,704,230,'¿Cuánto baila p̂?',
+   '<span id="b2c1" style="position:absolute;inset:0">'+gauss(180,190,167)+'</span>'
+   +'<span id="b2c2" style="position:absolute;inset:0">'+gauss(490,190,100)+'</span>'
+   +lb('b2t1',120,200,'P = 0,5 · lo peor','color:var(--mut);font-weight:500')
+   +lb('b2t2',420,200,'P = 0,9 · estable','color:var(--mut);font-weight:500'),
+   'Distribución de p̂ en muchas muestras: P(1−P) vale 0,25 frente a 0,09.','V(p̂) = (1−f)·P(1−P)/n'),
+  fn:(u,h)=>{const {E,pr,eo,up}=h;
+   up(E('b2l'),u,.25,.5,20);up(E('b2r'),u,4.2,.5,20);
+   [...E('b2l').querySelectorAll('.rd i')].forEach((d,j)=>{const q=pr(u,.6+j*.018,.9+j*.018);d.style.opacity=q;d.style.transform='scale('+(.4+.6*eo(q))+')'});
+   for(let k=0;k<12;k++)pop(h,'b2r'+k,u,2.8+k*.14,.4);
+   const n=[0,1,2,3,4,5,6].filter(k=>pr(u,2.8+k*.14,3.2+k*.14)>0).length,fin=pr(u,4.6,5.1)>0;
+   E('b2ld').textContent=fin?'p̂ = 7/12 ≈ 0,58':'p̂ = '+n+'/12';
+   up(E('b2ld'),u,4.4,.5,10);
+   [...E('b2c1').querySelectorAll('i')].forEach((d,j)=>{const q=pr(u,4.9+j*.04,5.2+j*.04);d.style.opacity=q;d.style.transform='scale('+(.4+.6*eo(q))+')'});
+   [...E('b2c2').querySelectorAll('i')].forEach((d,j)=>{const q=pr(u,5.3+j*.04,5.6+j*.04);d.style.opacity=q;d.style.transform='scale('+(.4+.6*eo(q))+')'});
+   rise(h,['b2t1','b2t2'],u,5.2,.5,.4);up(E('b2rd'),u,6.2,.5,12);
+  }}},
+ {label:'La fórmula',lectura:'Con N grande: V̂(P̂) ≈ P̂(1−P̂)/n. Para el total de clase: N·P̂.',
+ piezas:[
+  {tex:C.est(R`\hat{P}`),sem:'est',nota:'Proporción muestral: la media de variables 0/1 (x_i = 1 si tiene el atributo).'},
+  {tex:R`\quad`,q:1},
+  {tex:C.op(R`\hat{V}`)+R`(`+C.est(R`\hat{P}`)+R`)`,sem:'op',nota:'Su varianza estimada: B1 particularizada a datos 0/1.'},
+  {tex:'=',q:1},
+  {tex:C.dis(R`(1-f)`),sem:'dis',nota:'La misma corrección por población finita.'},
+  {tex:R`\dfrac{`+C.est(R`\hat{P}(1-\hat{P}`)+R`)}{`+C.dis(R`n-1`)+R`}`,sem:'est',nota:'La cuasivarianza de una 0/1 es n/(n−1)·P̂(1−P̂): de ahí el n−1.'}
+ ]}]},
+
+{id:'b3',cap:2,fs:.88,t:'Tamaño de muestra para una proporción',
+ sub:'se parte siempre de E = z·√V y se despeja n',
+ vistas:[
+ {label:'El precio del error',d:10,lectura:'Reducir el error a la mitad cuadruplica el tamaño: la precisión se paga al cuadrado.',custom:{html:
+  pan('b3p',64,184,1152,262,'n para una proporción · z = 1,96 · P = 0,5 (conservador)',
+   ln_('b3ax',110,228,950,'solid')
+   +lb('b3t0',990,20,'escala √n','color:var(--mut);font-weight:500')
+   +'<em id="b3b0" style="left:160px;width:140px;height:49px;bottom:34px"></em>'
+   +'<em id="b3b1" style="left:500px;width:140px;height:98px;bottom:34px"></em>'
+   +'<em id="b3b2" class="r" style="left:840px;width:140px;height:196px;bottom:34px"></em>'
+   +lb('b3n0',160,155,'n = 97')+lb('b3n1',500,106,'n = 385')+lb('b3n2',840,8,'n = 1 537')
+   +lb('b3e0',178,234,'e = ±0,10','color:var(--mut);font-weight:500')+lb('b3e1',518,234,'e = ±0,05','color:var(--mut);font-weight:500')+lb('b3e2',858,234,'e = ±0,025','color:var(--mut);font-weight:500')
+   +ch_('b3c1',340,140,'e ÷ 2 ⇒ n × 4','a')+ch_('b3c2',680,80,'e ÷ 2 ⇒ n × 4','a'),
+   'De ±10% a ±5%: ×4; a ±2,5%: ×16. La precisión se paga al cuadrado.','n = z²P(1−P)/e² = 0,9604/e²'),
+  fn:(u,h)=>{const {E,up}=h;
+   up(E('b3p'),u,.25,.5,20);
+   drawW(h,'b3ax',u,.8,.4,950);up(E('b3t0'),u,.8,.4,10);
+   [0,1,2].forEach(i=>{growY(h,'b3b'+i,u,1.2+i*.8,.7);up(E('b3n'+i),u,1.4+i*.8,.4,10);up(E('b3e'+i),u,1.2+i*.8,.4,10)});
+   pop(h,'b3c1',u,2.6,.5);pop(h,'b3c2',u,3.4,.5);
+   up(E('b3pd'),u,4.6,.6,12);
+  }}},
+ {label:'Con población finita',lectura:'z según confianza: 90 % → 1,64 · 95 % → 1,96 · 99 % → 2,58.',
+  piezas:[
+   {tex:C.dis('n'),sem:'dis',nota:'El tamaño muestral buscado.'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{z^2\,`+C.pop(R`P(1-P)`)+R`}{E^2+\dfrac{z^2\,`+C.pop(R`P(1-P)`)+R`}{`+C.pop('N')+R`}}`,sem:'pop',nota:'Numerador: la información necesaria (z² × variabilidad). Denominador: el error tolerado E² más la corrección por N finita.'}
+  ]},
+ {label:'N grande o P desconocida',lectura:'¿P desconocida? P = 1/2 y a correr: es el peor caso, el conservador.',
+  piezas:[
+   {tex:C.dis('n'),sem:'dis',nota:'Sin corrección por población finita…'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{z^2\,`+C.pop(R`P(1-P)`)+R`}{E^2}`,sem:'pop',nota:'…la fórmula clásica: n sube con la variabilidad y la confianza, baja con el error.'},
+   {tex:R`\quad\xrightarrow{\ P=1/2\ }\quad`,q:1},
+   {tex:R`\dfrac{z^2}{4E^2}`,sem:'',nota:'P = 1/2 es el valor conservador: maximiza P(1−P) = 1/4.'}
+  ]}]},
+
+{id:'b4',cap:2,fs:.88,t:'Tamaño de muestra: media y error relativo',
+ sub:'dos criterios de precisión, dos gemelas de B3',
+ vistas:[
+ {label:'Los tres precios',d:10,lectura:'Confianza, dispersión y error: los tres precios del tamaño de muestra, todos al cuadrado.',custom:{html:
+  pan('b4p0',64,190,356,230,'Más confianza',
+   '<em id="b4a0" style="left:60px;width:90px;height:76px;bottom:30px"></em>'
+   +'<em id="b4a1" class="r" style="left:190px;width:90px;height:133px;bottom:30px"></em>'
+   +lb('b4x0',72,102,'95%')+lb('b4x1',202,45,'99%')
+   +lb('b4y0',58,206,'z = 1,96','color:var(--mut);font-weight:500')+lb('b4y1',188,206,'z = 2,58','color:var(--mut);font-weight:500')
+   +ch_('b4c0',108,16,'n × 1,7','a'),
+   'z entra al cuadrado: de 95% a 99% casi duplica z².','n ∝ z²') +
+  pan('b4p1',462,190,356,230,'Más dispersión',
+   '<em id="b4b0" style="left:60px;width:90px;height:40px;bottom:30px"></em>'
+   +'<em id="b4b1" class="r" style="left:190px;width:90px;height:160px;bottom:30px"></em>'
+   +lb('b4u0',88,138,'S')+lb('b4u1',215,18,'2·S')
+   +ch_('b4c1',60,96,'n × 4','a'),
+   'Duplicar la dispersión cuadruplica el tamaño.','n ∝ S²') +
+  pan('b4p2',860,190,356,230,'Más precisión',
+   '<em id="b4d0" style="left:60px;width:90px;height:160px;bottom:30px"></em>'
+   +'<em id="b4d1" class="k" style="left:190px;width:90px;height:40px;bottom:30px"></em>'
+   +lb('b4v0',88,18,'e')+lb('b4v1',215,138,'e/2')
+   +ch_('b4c2',185,96,'n × 4','a'),
+   'Partir el error tolerado multiplica n por 4.','n ∝ 1/e²'),
+  fn:(u,h)=>{const {E,up}=h;
+   ['b4p0','b4p1','b4p2'].forEach((p,i)=>up(E(p),u,.25+i*.2,.5,20));
+   growY(h,'b4a0',u,1,.5);growY(h,'b4a1',u,1.5,.5);rise(h,['b4x0','b4x1','b4y0','b4y1'],u,1.2,.2,.4);pop(h,'b4c0',u,2.1,.5);
+   growY(h,'b4b0',u,2.3,.5);growY(h,'b4b1',u,2.8,.5);rise(h,['b4u0','b4u1'],u,2.5,.2,.4);pop(h,'b4c1',u,3.4,.5);
+   growY(h,'b4d0',u,3.6,.5);growY(h,'b4d1',u,4.1,.5);rise(h,['b4v0','b4v1'],u,3.8,.2,.4);pop(h,'b4c2',u,4.7,.5);
+   up(E('b4p0d'),u,2.4,.5,10);up(E('b4p1d'),u,3.7,.5,10);up(E('b4p2d'),u,5,.5,10);
+  }}},
+ {label:'Error absoluto',lectura:'S² se estima con un piloto o con encuestas anteriores; si dudas, muestrea de más.',
+  piezas:[
+   {tex:C.dis('n'),sem:'dis',nota:'Tamaño para estimar una MEDIA con error máximo E.'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{z^2\,`+C.pop(R`S^2`)+R`}{E^2+\dfrac{z^2\,`+C.pop(R`S^2`)+R`}{`+C.pop('N')+R`}}`,sem:'pop',nota:'Gemela de la de proporciones: cambia P(1−P) por S².'}
+  ]},
+ {label:'Error relativo (0,10)',lectura:'γ = 10 % ⇒ γ² = 0,01; ojo con las unidades del CV (en % o en tanto por uno).',
+  piezas:[
+   {tex:R`\gamma^2`,sem:'',nota:'El error se fija RELATIVO a la media: E = γ·X̄…'},
+   {tex:'=',q:1},
+   {tex:R`4`+C.dis(R`(1-f)`)+R`\dfrac{(CV)^2}{`+C.dis('n')+R`}`,sem:'dis',nota:'…con S² = (CV)²·X̄² queda esta expresión; despejando n:'},
+   {tex:R`\Rightarrow`,q:1},
+   {tex:C.dis('n')+R`=\dfrac{4`+C.pop('N')+R`(CV)^2}{\gamma^2(`+C.pop(R`N-1`)+R`)+4(CV)^2}`,sem:'dis',nota:'La versión «tipo 0,10» de las encuestas del INE: CV conocido del piloto.'}
+  ]}]},
+
+{id:'b5',cap:2,t:'El intervalo de confianza de la media',
+ sub:'aproximado por el teorema central del límite',
+ vistas:[
+ {label:'El 95%, en imágenes',d:11,lectura:'Si repitiéramos la encuesta 20 veces, 19 intervalos capturarían a X̄: la confianza es del procedimiento.',custom:{html:
+  pan('b5p',64,176,1152,270,'20 encuestas del mismo tamaño n',
+   lv_('b5v',558,8,252)+lb('b5t0',470,262,'X̄ (el valor verdadero)','color:var(--sem-pop);font-weight:500')
+   +b5off.map((o,k)=>{const y=10+k*12.5,c=558+o,miss=Math.abs(o)>150;
+    return '<div class="iv'+(miss?' m':'')+'" id="b5i'+k+'" style="left:'+Math.round(c-150)+'px;top:'+y+'px;width:300px"></div>'
+     +dt('b5d'+k,Math.round(c-5),Math.round(y-5),miss?'r':'')+(miss?lb('b5f'+k,Math.round(c+160),Math.round(y-4),'¡falló!','color:var(--er)'):'')}).join('')
+   +ch_('b5n',20,14,'0/20 contienen a X̄','m'),
+   'Cada barra es el IC de una encuesta distinta: 19 de 20 capturan a X̄.','el 95% es del PROCEDIMIENTO, no de este intervalo'),
+  fn:(u,h)=>{const {E,pr,eo,put,up}=h;
+   up(E('b5p'),u,.25,.5,20);
+   drawH(h,'b5v',u,.6,.6,252);up(E('b5t0'),u,.9,.4,10);
+   b5off.forEach((o,k)=>{const a=.9+k*.32,q=pr(u,a,a+.3),e=E('b5i'+k);
+    put(e,q,(1-eo(q))*-36,0,1);
+    const d=E('b5d'+k);if(d)put(d,q,(1-eo(q))*-36,0,1);
+    if(Math.abs(o)>150){const f=E('b5f'+k);if(f)put(f,q,(1-eo(q))*-36,0,1)}});
+   const cnt=b5off.filter((o,k)=>pr(u,.9+k*.32,1.2+k*.32)>0&&Math.abs(o)<=150).length;
+   E('b5n').textContent=cnt<19?cnt+'/20 contienen a X̄':'19/20 contienen a X̄';
+   pop(h,'b5n',u,1,.4);
+   up(E('b5pd'),u,8.2,.6,12);
+  }}},
+ {label:'La fórmula',lectura:'Al 95 %, z ≈ 2: «la media, más o menos dos errores típicos».',
+ piezas:[
+  {tex:C.est(R`\bar{x}`),sem:'est',nota:'La estimación puntual: el centro del intervalo.'},
+  {tex:R`\pm`,q:1},
+  {tex:R`z\,`+C.est(R`\hat{\sigma}_{\bar{x}}`),sem:'est',nota:'El margen: z (por la confianza) × el error típico estimado.'},
+  {tex:'=',q:1},
+  {tex:R`z\sqrt{`+C.dis(R`(1-f)`)+R`\dfrac{`+C.est(R`s^2`)+R`}{`+C.dis('n')+R`}}`,sem:'est',nota:'La V̂ de la media «en raíz cuadrada» (la vista «V̂ muestral» de B1).'}
+ ]}]},
+
+/* ── C · Estratificado ────────────────────────────────────────── */
+{id:'c1',cap:3,t:'La media estratificada',
+ sub:'agregar por estratos con pesos poblacionales',
+ vistas:[
+ {label:'El peso manda',d:12,lectura:'La media estratificada pondera cada x̄_h por su peso poblacional: 8,8, y no la media simple 10.',custom:{html:
+  pan('c1p',64,190,1152,250,'Tres estratos, tres medias distintas',
+   [0,1,2].map(k=>{const bx=30+k*388,cx=[55,145,235][k];
+    return sq(null,bx,12,300,150)
+    +lb(null,bx+10,16,['E1 · W₁ = 0,5','E2 · W₂ = 0,3','E3 · W₃ = 0,2'][k],'color:var(--mut);font-weight:500')
+    +[0,1,2,3,4,5,6,7].map(j=>dt('c1d'+k+'_'+j,bx+cx+[-28,-19,-11,-4,6,13,22,30][j],44+((j*29)%80))).join('')
+    +lv_('c1t'+k,bx+cx+4,30,115,'b')
+    +lb('c1x'+k,bx+cx-30,166,['x̄₁ = 6','x̄₂ = 10','x̄₃ = 14'][k],'color:var(--sem-est)')}).join('')
+   +[ch_('c1c0',130,196,'0,5 · 6 = 3'),ch_('c1c1',500,196,'0,3 · 10 = 3'),ch_('c1c2',880,196,'0,2 · 14 = 2,8')].join('')
+   +ln_('c1s',30,224,1056,'solid')
+   +[[30,'0'],[294,'4'],[558,'8'],[822,'12'],[1086,'16']].map((t,i)=>lv_('c1k'+i,t[0],219,10,'solid')+lb('c1v'+i,t[0]-6,232,t[1],'color:var(--mut);font-weight:500')).join('')
+   +dt('c1m',605,213)
+   +lb('c1mf',630,204,'x̄<sub>st</sub> = 8,8','color:var(--sem-est);font-size:15px'),
+   'La media ponderada NO es la media simple de las tres medias (que daría 10).','x̄_st = Σ W_h·x̄_h: el peso poblacional manda'),
+  fn:(u,h)=>{const {E,up,pr,eo,put}=h;
+   up(E('c1p'),u,.25,.5,20);
+   for(let k=0;k<3;k++)for(let j=0;j<8;j++){const d=E('c1d'+k+'_'+j),q=eo(pr(u,.7+(k*8+j)*.06,1.1+(k*8+j)*.06));put(d,q,0,(1-q)*10,1)}
+   rise(h,['c1t0','c1t1','c1t2'],u,2.9,.25,.4);
+   rise(h,['c1x0','c1x1','c1x2'],u,3.3,.2,.4);
+   [0,1,2].forEach(i=>pop(h,'c1c'+i,u,3.8+i*.5,.5));
+   drawW(h,'c1s',u,4.3,.6,1056);
+   for(let i=0;i<5;i++){fadeIn(h,'c1k'+i,u,4.7,.3);up(E('c1v'+i),u,4.7,.3,8)}
+   const q=eo(pr(u,5.1,6));
+   put(E('c1m'),Math.min(1,q*3),(1-q)*-580,0,1);
+   E('c1mf').innerHTML='x̄<sub>st</sub> = '+(8.8*q).toFixed(1).replace('.',',');
+   up(E('c1mf'),u,5.1,.4,10);
+   up(E('c1pd'),u,6.6,.6,12);
+  }}},
+ {label:'Media',lectura:'Es una media ponderada por pesos POBLACIONALES, no por los n_h.',
+  piezas:[
+   {tex:C.est(R`\bar{x}_{st}`),sem:'est',nota:'La media estratificada: agrega la información por estratos.'},
+   {tex:'=',q:1},
+   {tex:C.op(R`\sum_h`),sem:'op',nota:'Suma sobre los estratos (regiones, tramos, tipos…).'},
+   {tex:C.dis(R`W_h`)+C.est(R`\bar{x}_h`),sem:'dis',nota:'Peso del estrato × media muestral del estrato.'},
+   {tex:R`\quad`,q:1},
+   {tex:C.dis(R`W_h`)+R`=\dfrac{`+C.pop(R`N_h`)+R`}{`+C.pop('N')+R`}`,sem:'dis',nota:'W_h: la proporción de población que vive en el estrato h.'}
+  ]},
+ {label:'Total',lectura:'Coherencia total: X̂_st = N·x̄_st, igual que X̂ = N·x̄ en el MAS.',
+  piezas:[
+   {tex:C.est(R`\hat{X}_{st}`),sem:'est',nota:'El total: cambia el papel de los pesos…'},
+   {tex:'=',q:1},
+   {tex:C.op(R`\sum_h`),sem:'op',nota:'Suma sobre estratos.'},
+   {tex:C.pop(R`N_h`)+C.est(R`\bar{x}_h`),sem:'est',nota:'…N_h «sube» cada media a todo su estrato.'}
+  ]}]},
+
+{id:'c2',cap:3,fs:.86,t:'La varianza estratificada',
+ sub:'SAE independiente dentro de cada estrato',
+ vistas:[
+ {label:'Dónde vive la varianza',d:12,lectura:'Estratificar solo paga si los estratos son homogéneos: la varianza se muda de «dentro» (cara) a «entre» (gratis).',custom:{html:
+  pan('c2l',64,190,560,230,'Estratos surtidos (heterogéneos)',
+   [0,1,2].map(k=>{const bx=10+k*182;return sq(null,bx,14,140,110)
+    +[0,1,2,3,4,5].map(j=>dt('c2a'+k+'_'+j,bx+12+((j*37)%105),24+((j*31)%70))).join('')
+    +lv_('c2at'+k,bx+55,20,95,'b')}).join('')
+   +sg_('c2w1',17,152,410,30,'a')+sg_('c2b1',427,152,80,30,'k')
+   +ch_('c2g1',17,192,'DENTRO (S_w²): se paga','a')+ch_('c2g2',250,192,'ENTRE (S_b²): regalado','k'),
+   'Cada estrato es una mezcla: las tres medias coinciden.','aquí estratificar casi no ayuda') +
+  pan('c2r',664,190,560,230,'Estratos homogéneos',
+   [0,1,2].map(k=>{const bx=10+k*182;return sq(null,bx,14,140,110)
+    +[0,1,2,3,4,5].map(j=>dt('c2b'+k+'_'+j,bx+16+k*44+((j*13)%30),24+((j*31)%70))).join('')
+    +lv_('c2bt'+k,bx+30+k*44,20,95,'b')}).join('')
+   +sg_('c2w2',17,152,80,30,'a')+sg_('c2b2',97,152,410,30,'k')
+   +ch_('c2g3',17,192,'DENTRO (S_w²): poquísimo','a')+ch_('c2g4',250,192,'ENTRE (S_b²): casi todo','k'),
+   'Cada estrato es puro: las medias se separan y la parte cara se desploma.','la misma σ² total, mejor repartida'),
+  fn:(u,h)=>{const {E,up,pr,eo,put}=h;
+   up(E('c2l'),u,.25,.5,20);up(E('c2r'),u,.4,.5,20);
+   for(let k=0;k<3;k++)for(let j=0;j<6;j++){
+    const a=eo(pr(u,.7+(k*6+j)*.07,1.1+(k*6+j)*.07)),b=eo(pr(u,2+(k*6+j)*.07,2.4+(k*6+j)*.07));
+    const da=E('c2a'+k+'_'+j),db=E('c2b'+k+'_'+j);
+    if(da)put(da,a,0,(1-a)*10,1);if(db)put(db,b,0,(1-b)*10,1)}
+   rise(h,['c2at0','c2at1','c2at2'],u,1.8,.2,.4);rise(h,['c2bt0','c2bt1','c2bt2'],u,3.1,.2,.4);
+   growX(h,'c2w1',u,2.6,.6);growX(h,'c2b1',u,3,.4);growX(h,'c2w2',u,4.4,.4);growX(h,'c2b2',u,4.8,.6);
+   pop(h,'c2g1',u,3.5,.5);pop(h,'c2g2',u,3.8,.5);pop(h,'c2g3',u,5.3,.5);pop(h,'c2g4',u,5.6,.5);
+   up(E('c2ld'),u,4.4,.5,10);up(E('c2rd'),u,6.4,.5,12);
+  }}},
+ {label:'V',lectura:'Estratificar bien = dejar S_h² pequeños DENTRO de cada estrato.',
+  piezas:[
+   {tex:C.op('V')+R`(`+C.est(R`\bar{x}_{st}`)+R`)`,sem:'op',nota:'Varianza de muestreo de la media estratificada.'},
+   {tex:'=',q:1},
+   {tex:C.op(R`\sum_h`),sem:'op',nota:'Suma de varianzas: los estratos son independientes entre sí.'},
+   {tex:C.dis(R`W_h^2`),sem:'dis',nota:'El peso del estrato, AL CUADRADO.'},
+   {tex:C.dis(R`\Bigl(1-\dfrac{n_h}{N_h}\Bigr)`),sem:'dis',nota:'La fpc de cada estrato, por separado.'},
+   {tex:C.pop(R`\dfrac{S_h^2}{`+C.dis(R`n_h`)+R`}`),sem:'pop',nota:'Variabilidad del estrato sobre SU tamaño muestral n_h.'}
+  ]},
+ {label:'V̂',lectura:'Otra vez el truco del color: en azul lo calculado, en rojo lo desconocido.',
+  piezas:[
+   {tex:C.op(R`\hat{V}`)+R`(`+C.est(R`\bar{x}_{st}`)+R`)`,sem:'op',nota:'Con datos de muestra, estrato a estrato…'},
+   {tex:'=',q:1},
+   {tex:C.op(R`\sum_h`)+C.dis(R`W_h^2`)+C.dis(R`\Bigl(1-\dfrac{n_h}{N_h}\Bigr)`),sem:'dis',nota:'…mismos pesos y misma fpc (todo conocido)…'},
+   {tex:C.est(R`\dfrac{s_h^2}{`+C.dis(R`n_h`)+R`}`),sem:'est',nota:'…y la cuasivarianza muestral de cada estrato.'}
+  ]},
+ {label:'Proporcional',lectura:'Proporcional ⇒ autoponderado: π_i = f común. La base de las grandes encuestas.',
+  piezas:[
+   {tex:C.op('V')+R`(`+C.est(R`\bar{x}_{st}`)+R`)`,sem:'op',nota:'Con n_h = n·N_h/N (afijación proporcional) todo colapsa…'},
+   {tex:'=',q:1},
+   {tex:C.dis(R`(1-f)`)+C.pop(R`\dfrac{\bar{S}^2}{`+C.dis('n')+R`}`),sem:'pop',nota:'…idéntica al MAS con S̄² = ΣW_hS_h²: la varianza media entre estratos.'}
+  ]}]},
+
+{id:'c3',cap:3,fs:.92,t:'Las afijaciones: cómo repartir n',
+ sub:'mismo n total, reparticiones distintas entre estratos',
+ vistas:[
+ {label:'Repartir n = 50',d:12,lectura:'Mismo n, tres repartos: proporcional mira el tamaño, Neyman el ruido, la óptima el ruido y el coste.',custom:{html:
+  pan('c3p',64,182,1152,260,'Mismo n = 50, tres repartos distintos',
+   ch_('c3i',20,10,'N = 600 · 300 · 100 · S = 10 · 20 · 30 · c = 4 · 1 · 9 €','m')
+   +ln_('c3ax',70,224,990,'solid')
+   +[['Proporcional · n_h ∝ N_h',[165,82,28],['30','15','5']],
+     ['Neyman · n_h ∝ N_h·S_h',[110,110,55],['20','20','10']],
+     ['Óptima (costes) · n_h ∝ N_h·S_h/√c_h',[82,165,28],['15','30','5']]].map((s,m)=>{const cx=170+m*370;
+    return lb('c3t'+m,cx-(m===2?90:m===1?70:70),40,s[0])
+     +s[1].map((h,i)=>'<em id="c3b'+m+'_'+i+'"'+((m===2&&i===1)?' class="k"':'')+' style="left:'+(cx+i*66)+'px;width:44px;height:'+h+'px;bottom:36px"></em>'
+      +lb('c3n'+m+'_'+i,cx+i*66+12,224-h+6,s[2][i],'color:var(--on);font-weight:600')).join('')
+     +['E1','E2','E3'].map((e,i)=>lb('c3e'+m+'_'+i,cx+i*66+12,230,e,'color:var(--mut);font-weight:500')).join('')}).join(''),
+   'Neyman estira hacia el estrato ruidoso (E2); la óptima, hacia el ruidoso Y barato.','afijar = decidir dónde poner las encuestas'),
+  fn:(u,h)=>{const {E,up}=h;
+   up(E('c3p'),u,.25,.5,20);
+   pop(h,'c3i',u,.8,.5);
+   drawW(h,'c3ax',u,1,.4,990);
+   [0,1,2].forEach(m=>{const a=1.4+m*1.4;
+    up(E('c3t'+m),u,a,.4,12);
+    [0,1,2].forEach(i=>{growY(h,'c3b'+m+'_'+i,u,a+.3+i*.25,.6);up(E('c3n'+m+'_'+i),u,a+.5+i*.25,.3,8);up(E('c3e'+m+'_'+i),u,a+.3,.3,8)})});
+   up(E('c3pd'),u,6.4,.6,12);
+  }}},
+ {label:'Neyman',lectura:'Neyman minimiza V(x̄_st) con n fijo: la afijación «inteligente».',
+  piezas:[
+   {tex:C.dis(R`n_h`),sem:'dis',nota:'Cuántas unidades muestrear en el estrato h.'},
+   {tex:'=',q:1},
+   {tex:C.dis('n')+R`\dfrac{`+C.pop(R`N_hS_h`)+R`}{`+C.op(R`\sum_k`)+C.pop(R`N_kS_k`)+R`}`,sem:'pop',nota:'Reparte n según tamaño × variabilidad: más muestra donde hay más unidades Y más dispersión.'}
+  ]},
+ {label:'Proporcional',lectura:'Barata y robusta: pesos iguales para todos los encuestados.',
+  piezas:[
+   {tex:C.dis(R`n_h`),sem:'dis',nota:'La afijación simple…'},
+   {tex:'=',q:1},
+   {tex:C.dis('n')+R`\dfrac{`+C.pop(R`N_h`)+R`}{`+C.pop('N')+R`}`,sem:'pop',nota:'…solo mira el tamaño: olvida la variabilidad, pero autopondera.'}
+  ]},
+ {label:'Óptima con costes',lectura:'Neyman es el caso particular con todos los c_h iguales. Coste total: C = Σc_h n_h.',
+  piezas:[
+   {tex:C.dis(R`n_h`),sem:'dis',nota:'La afijación óptima de verdad incorpora el coste…'},
+   {tex:'=',q:1},
+   {tex:C.dis('n')+R`\dfrac{`+C.pop(R`N_hS_h`)+R`/\sqrt{c_h}}{`+C.op(R`\sum_k`)+C.pop(R`N_kS_k`)+R`/\sqrt{c_k}}`,sem:'pop',nota:'c_h = coste por entrevista en el estrato h: caro ⇒ menos muestra ahí.'}
+  ]}]},
+
+/* ── D · Razón y regresión ────────────────────────────────────── */
+{id:'d1',cap:4,t:'El estimador de razón',
+ sub:'aprovecha una variable auxiliar y conocida',
+ vistas:[
+ {label:'La pendiente que se ve',d:11,lectura:'La pendiente de la muestra, prolongada hasta el total conocido del padrón, estima el total de interés.',custom:{html:
+  pan('d1p',64,180,1152,260,'La recta por el origen con la pendiente de la muestra',d1S
+   +lb(null,16,14,'interés x','color:var(--mut);font-weight:500')
+   +lb(null,920,246,'auxiliar y (padrón: conocido)','color:var(--mut);font-weight:500')
+   +lb(null,915,12,'Y: total conocido','color:var(--sem-pop);font-weight:500')
+   +ch_('d1c',420,40,'R̂ = x̄/ȳ'),
+   'La muestra fija la pendiente; el padrón aporta el punto de llegada: X̂_R = R̂·Y.','X̂_R = R̂·Y: la encuesta + el padrón'),
+  fn:(u,h)=>{const {E,pr,eo}=h;
+   h.up(E('d1p'),u,.25,.5,20);
+   const ax=pr(u,.6,.9);E('d1ax').style.opacity=ax;E('d1ay').style.opacity=ax;
+   fadeIn(h,'d1g',u,.9,.5);
+   fadeIn(h,'d1pl',u,1.7,.5);
+   [3,8,12,15,19,23].forEach((i,k)=>{const e=E('d1s'+i);if(e){const q=eo(pr(u,2.2+k*.15,2.6+k*.15));e.style.opacity=q;e.setAttribute('r',3+4*q)}});
+   E('d1ml').style.strokeDashoffset=1400*(1-eo(pr(u,3.4,.9)));
+   fadeIn(h,'d1vx',u,4.4,.4);fadeIn(h,'d1hy',u,4.7,.4);
+   pop(h,'d1pt',u,5,.4);
+   pop(h,'d1c',u,5.4,.5);
+   h.up(E('d1pd'),u,6.2,.6,12);
+  }}},
+ {label:'La razón',lectura:'Sesgo de orden 1/n: grande con n pequeña, despreciable con n grande.',
+  piezas:[
+   {tex:C.est(R`\hat{R}`),sem:'est',nota:'La razón muestral: estima a R, pero con sesgo O(1/n).'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{`+C.est(R`\bar{x}`)+R`}{`+C.est(R`\bar{y}`)+R`}`,sem:'est',nota:'Media de la variable de interés sobre media de la auxiliar y, correlacionada con x.'}
+  ]},
+ {label:'Total por razón',lectura:'Con correlación NEGATIVA conviene el estimador de producto (eficiente si ρ < 0).',
+  piezas:[
+   {tex:C.est(R`\hat{X}_R`),sem:'est',nota:'El total de x «a través» de la auxiliar y.'},
+   {tex:'=',q:1},
+   {tex:C.est(R`\hat{R}`),sem:'est',nota:'La razón estimada en la muestra…'},
+   {tex:R`\cdot`,q:1},
+   {tex:C.pop('Y'),sem:'pop',nota:'…elevada al total poblacional CONOCIDO de y (censo, registro).'}
+  ]}]},
+
+{id:'d2',cap:4,fs:.84,t:'La varianza del estimador de razón',
+ sub:'aproximación de Taylor: por eso el «≅»',
+ vistas:[
+ {label:'MSE = V + B²',d:10,lectura:'La varianza cae con 1/n y el sesgo al cuadrado con 1/n²: con n grande, el sesgo desaparece primero.',custom:{html:
+  pan('d2p',64,182,1152,260,'MSE(R̂) = V + B², según crece n',
+   ch_('d2g1',100,24,'V (varianza)')+ch_('d2g2',280,24,'B² (sesgo al cuadrado)','a')
+   +ln_('d2ax',140,226,880,'solid')
+   +[[180,150,38,'n = 10'],[540,38,3,'n = 40'],[900,10,2,'n = 160']].map((c,i)=>
+    '<em id="d2v'+i+'" style="left:'+c[0]+'px;width:120px;height:'+c[1]+'px;bottom:34px"></em>'
+    +'<em id="d2b'+i+'" class="a" style="left:'+c[0]+'px;width:120px;height:'+c[2]+'px;bottom:'+(34+c[1])+'px"></em>'
+    +lb('d2n'+i,c[0]+38,226-c[1]-c[2]-22,c[3])).join('')
+   +tx_('d2t',760,240,'en n = 160 el bloque del sesgo ya no se ve',300),
+   'La varianza cae como 1/n… y el sesgo al cuadrado, como 1/n²: todavía más rápido.','con n grande, MSE ≈ V: el sesgo se ignora'),
+  fn:(u,h)=>{const {E,up}=h;
+   up(E('d2p'),u,.25,.5,20);
+   pop(h,'d2g1',u,.8,.5);pop(h,'d2g2',u,1.1,.5);
+   drawW(h,'d2ax',u,1.2,.4,880);
+   [0,1,2].forEach(i=>{growY(h,'d2v'+i,u,1.6+i*.8,.6);growY(h,'d2b'+i,u,1.9+i*.8,.5);up(E('d2n'+i),u,1.6+i*.8,.4,10)});
+   up(E('d2t'),u,4.6,.5,10);up(E('d2pd'),u,5.4,.6,12);
+  }}},
+ {label:'V aproximada',lectura:'Si ρ = corr(x, y) ≈ 1, la varianza de la razón se hunde: y «explica» a x.',
+  piezas:[
+   {tex:C.op('V')+R`(`+C.est(R`\hat{R}`)+R`)`,sem:'op',nota:'La varianza del estimador de razón…'},
+   {tex:R`\cong`,q:1},
+   {tex:R`\dfrac{`+C.dis(R`1-f`)+R`}{`+C.dis('n')+C.pop(R`\bar{Y}^2`)+R`}`,sem:'dis',nota:'…aproximada: fpc, tamaño y la escala de Ȳ al cuadrado.'},
+   {tex:C.pop(R`\Bigl(S_x^2-2RS_{xy}+R^2S_y^2\Bigr)`),sem:'pop',nota:'Es S_e², la varianza de los residuos e_i = X_i − R·Y_i: lo que y no explica de x.'}
+  ]},
+ {label:'V̂',lectura:'Todo en azul: los residuos de la muestra alrededor de la recta que pasa por el origen.',
+  piezas:[
+   {tex:C.op(R`\hat{V}`)+R`(`+C.est(R`\hat{R}`)+R`)`,sem:'op',nota:'La versión muestral…'},
+   {tex:R`\cong`,q:1},
+   {tex:R`\dfrac{`+C.dis(R`1-f`)+R`}{`+C.dis('n')+C.est(R`\bar{y}^2`)+R`}`,sem:'est',nota:'Ȳ (rojo) se sustituye por ȳ (azul)…'},
+   {tex:C.est(R`\Bigl(s_x^2-2\hat{R}s_{xy}+\hat{R}^2s_y^2\Bigr)`),sem:'est',nota:'…y la «varianza de residuos», con s y R̂ muestrales.'}
+  ]}]},
+
+{id:'d3',cap:4,t:'El estimador de regresión',
+ sub:'corrige al estimador directo con la auxiliar',
+ vistas:[
+ {label:'La recta que explica',d:10,lectura:'La recta de mínimos cuadrados absorbe lo que la auxiliar explica: solo queda por pagar el residuo S_e².',custom:{html:
+  pan('d3p',64,180,1152,260,'Lo que la auxiliar explica, no se paga',d3svg
+   +lb(null,16,8,'y: interés','color:var(--mut);font-weight:500')
+   +lb(null,930,246,'x: auxiliar','color:var(--mut);font-weight:500')
+   +ch_('d3c1',660,138,'S ≈ '+d3Sv+' · contra la media','m')
+   +ch_('d3c2',200,55,'S_e ≈ '+d3Sev+' · contra la recta','k'),
+   'La ordenada en origen es la diferencia con la razón (D1): aquí la recta no se fuerza a pasar por el 0.','V(x̄_reg) = (1−f)·S_e²/n: solo paga el ruido sin explicar'),
+  fn:(u,h)=>{const {E}=h;
+   h.up(E('d3p'),u,.25,.5,20);
+   const ax=h.pr(u,.6,.9);E('d3ax').style.opacity=ax;E('d3ay').style.opacity=ax;
+   fadeIn(h,'d3g',u,.9,.5);
+   fadeIn(h,'d3fl',u,1.6,.4);fadeIn(h,'d3r0',u,1.9,.4);pop(h,'d3c1',u,2.2,.5);
+   E('d3rl').style.strokeDashoffset=1400*(1-h.eo(h.pr(u,2.8,.9)));
+   fadeIn(h,'d3res',u,3.6,.5);pop(h,'d3c2',u,4,.5);
+   h.up(E('d3pd'),u,5.2,.6,12);
+  }}},
+ {label:'El estimador',lectura:'Regresión ≥ razón en eficiencia: usa la pendiente óptima en vez de forzar la recta por el origen.',
+  piezas:[
+   {tex:C.est(R`\hat{X}_{reg}`),sem:'est',nota:'El estimador de regresión corrige al directo con la auxiliar…'},
+   {tex:'=',q:1},
+   {tex:C.est(R`\hat{X}`),sem:'est',nota:'…el estimador directo (p. ej. N·x̄)…'},
+   {tex:'+',q:1},
+   {tex:C.est('b')+R`\bigl(`+C.pop('Y')+R`-`+C.est(R`\hat{Y}`)+R`\bigr)`,sem:'est',nota:'…más b por el error al estimar el total de y: si Ŷ = Y, no corrige nada.'},
+   {tex:R`\quad`+C.est('b')+R`=\dfrac{`+C.est(R`s_{xy}`)+R`}{`+C.est(R`s_y^2`)+R`}`,sem:'est',nota:'b: la pendiente muestral de mínimos cuadrados.'}
+  ]},
+ {label:'Su varianza',lectura:'La ganancia máxima es exactamente ρ²; con ρ = ±1, varianza nula.',
+  piezas:[
+   {tex:C.op('V')+R`(`+C.est(R`\hat{X}_{reg}`)+R`)`,sem:'op',nota:'La varianza del de regresión…'},
+   {tex:R`\cong`,q:1},
+   {tex:C.op('V')+R`(`+C.est(R`\hat{X}`)+R`)`+R`\bigl(1-\rho^2\bigr)`,sem:'op',nota:'…es la del directo multiplicada por (1−ρ²).'}
+  ]}]},
+
+/* ── E · PPT ──────────────────────────────────────────────────── */
+{id:'e1',cap:5,t:'El estimador de Hansen-Hurwitz',
+ sub:'PPT con reposición',
+ vistas:[
+ {label:'El bombo desigual',d:11,lectura:'Cada extracción improvisa un total X_i/p_i; el promedio de las 10 converge exactamente a X = 1 000.',custom:{html:
+  pan('e1l',64,190,420,230,'El bombo: p_i desiguales',
+   ball('e1b0',100,70,44)+ball('e1b1',258,64,38)+ball('e1b2',140,158,31)+ball('e1b3',284,154,22)
+   +lb('e1t0',26,118,'u₁ · p = 0,4 · X₁/p₁ = 900','color:var(--mut);font-weight:500')
+   +lb('e1t1',186,106,'u₂ · p = 0,3 · 1 000','color:var(--mut);font-weight:500')
+   +lb('e1t2',64,194,'u₃ · p = 0,2 · 1 000','color:var(--mut);font-weight:500')
+   +lb('e1t3',214,188,'u₄ · p = 0,1 · 1 400','color:var(--mut);font-weight:500'),
+   'La bola grande cae más a menudo… y su ratio X_i/p_i es más pequeño.','ΣX_i = 1 000') +
+  pan('e1r',512,190,704,230,'10 extracciones CON reposición',
+   e1seq.map((v,k)=>sq('e1c'+k,6+k*66,10,58,50,null,'u<sub>'+v+'</sub><br><span style="font:500 10.5px var(--f2);color:var(--mut)">'+String(e1vals[v-1]).replace(/(\d)(\d{3})$/,'$1 $2')+'</span>')).join('')
+   +e1plot
+   +lb('e1yl',30,102,'media corriendo','color:var(--mut);font-weight:500')
+   +lb('e1t4',552,170,'X = 1 000','color:var(--ok);font-weight:600'),
+   'Cada tirada improvisa un total X_i/p_i; el promedio de las 10 converge a X.','la media de las 10 = 1 000 = X'),
+  fn:(u,h)=>{const {E,pr,up}=h;
+   up(E('e1l'),u,.25,.5,20);up(E('e1r'),u,.6,.5,20);
+   [0,1,2,3].forEach(i=>pop(h,'e1b'+i,u,.9+i*.3,.5,1));
+   rise(h,['e1t0','e1t1','e1t2','e1t3'],u,1.6,.25,.4);
+   up(E('e1yl'),u,1.2,.4,8);
+   fadeIn(h,'e1xl',u,1.1,.4);up(E('e1t4'),u,1.4,.4,10);
+   e1seq.forEach((v,k)=>{const a=1+k*.35;up(E('e1c'+k),u,a,.35,14);
+    const q=E('e1q'+k);if(q)q.style.opacity=pr(u,a+.1,a+.45);
+    const l=E('e1l'+k);if(l&&k<9)l.style.opacity=pr(u,a+.25,a+.6)});
+   up(E('e1ld'),u,2.4,.5,10);up(E('e1rd'),u,5.4,.6,12);
+  }}},
+ {label:'La fórmula',lectura:'Un promedio de «totales improvisados», extracción a extracción: insesgado.',
+ piezas:[
+  {tex:C.est(R`\hat{X}_{HH}`),sem:'est',nota:'El estimador del total con probabilidades desiguales y reposición.'},
+  {tex:'=',q:1},
+  {tex:R`\dfrac{1}{`+C.dis('n')+R`}`,sem:'dis',nota:'Promedia las n extracciones (independientes gracias a la reposición).'},
+  {tex:C.op(R`\sum_{k=1}^{n}`),sem:'op',nota:'k = 1, …, n: cada extracción, una «tirada» del bombo.'},
+  {tex:R`\dfrac{`+C.obs(R`x_k`)+R`}{`+C.dis(R`p_k`)+R`}`,sem:'obs',nota:'El ratio de la tirada k: valor observado sobre su probabilidad p_k. Cada ratio estima YA el total.'}
+ ]}]},
+
+{id:'e2',cap:5,fs:.88,t:'La varianza del Hansen-Hurwitz',
+ sub:'la de un promedio de v.a. independientes',
+ vistas:[
+ {label:'Quién hace oscilar',d:10,lectura:'La varianza la manda la bola pequeña con gran desviación; si p_i ∝ X_i, toda tirada acierta y V = 0.',custom:{html:
+  pan('e2l',64,190,560,230,'Las torres de (X_i/p_i − X)²',
+   ln_('e2ax',40,196,470,'solid')
+   +'<em id="e2t0" style="left:50px;width:70px;height:11px;bottom:34px"></em>'
+   +'<em id="e2t1" style="left:180px;width:70px;height:2px;bottom:34px"></em>'
+   +'<em id="e2t2" style="left:310px;width:70px;height:2px;bottom:34px"></em>'
+   +'<em id="e2t3" class="r" style="left:440px;width:70px;height:170px;bottom:34px"></em>'
+   +[lb('e2n0',50,163,'u₁: (−100)²'),lb('e2n1',192,180,'0'),lb('e2n2',322,180,'0'),lb('e2n3',430,4,'u₄: (+400)²')].join('')
+   +[lb(null,50,202,'p = 0,4','color:var(--mut);font-weight:500'),lb(null,190,202,'0,3','color:var(--mut);font-weight:500'),lb(null,320,202,'0,2','color:var(--mut);font-weight:500'),lb(null,450,202,'0,1','color:var(--mut);font-weight:500')].join(''),
+   'Aportes: 0,4·10⁴ + 0 + 0 + 0,1·16·10⁴ = 20 000: manda la bola pequeña muy desviada.','V(HH) = (1/n)·Σ p_i·(X_i/p_i − X)²') +
+  pan('e2r',664,190,560,230,'El bombo perfecto: p_i ∝ X_i',
+   ball('e2q0',110,80,42)+ball('e2q1',250,70,38)+ball('e2q2',150,172,31)+ball('e2q3',280,168,26)
+   +lb(null,60,128,'p = 0,36','color:var(--mut);font-weight:500')+lb(null,206,114,'0,30','color:var(--mut);font-weight:500')
+   +lb(null,104,210,'0,20','color:var(--mut);font-weight:500')+lb(null,252,200,'0,14','color:var(--mut);font-weight:500')
+   +ch_('e2c',140,18,'todas las tiradas dan X_i/p_i = 1 000','k'),
+   'Si las p_i son proporcionales a las X_i, cada extracción acierta el total.','p_i = X_i/X ⇒ V = 0'),
+  fn:(u,h)=>{const {E,up}=h;
+   up(E('e2l'),u,.25,.5,20);up(E('e2r'),u,1.6,.5,20);
+   [0,1,2,3].forEach(i=>{growY(h,'e2t'+i,u,.9+i*.3,.5);up(E('e2n'+i),u,1.1+i*.3,.4,10)});
+   [0,1,2,3].forEach(i=>pop(h,'e2q'+i,u,2.2+i*.25,.5,1));
+   pop(h,'e2c',u,3.6,.5);
+   up(E('e2ld'),u,3.2,.5,10);up(E('e2rd'),u,4.4,.6,12);
+  }}},
+ {label:'V',lectura:'Si X_i/p_i es casi constante (X_i ∝ p_i), la varianza se hunde: ahí vive la PPT.',
+  piezas:[
+   {tex:C.op('V')+R`\bigl(`+C.est(R`\hat{X}_{HH}`)+R`\bigr)`,sem:'op',nota:'La varianza del HH…'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{1}{`+C.dis('n')+R`}`,sem:'dis',nota:'…la de un promedio de n variables independientes…'},
+   {tex:C.op(R`\sum_i`)+C.dis(R`p_i`),sem:'dis',nota:'…la «esperanza» de la extracción: la unidad i con probabilidad p_i…'},
+   {tex:C.pop(R`\Bigl(\dfrac{X_i}{`+C.dis('p_i')+R`}-X\Bigr)^2`),sem:'pop',nota:'…del cuadrado del error del ratio de i frente al total real X.'}
+  ]},
+ {label:'V̂',lectura:'V̂ sale «gratis»: n ratios, su media y su dispersión.',
+  piezas:[
+   {tex:C.op(R`\hat{V}`)+R`\bigl(`+C.est(R`\hat{X}_{HH}`)+R`\bigr)`,sem:'op',nota:'La versión muestral…'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{1}{`+C.dis(R`n(n-1)`)+R`}`,sem:'dis',nota:'…idéntica a la varianza de una media i.i.d.: Σ(x_k−x̄)²/[n(n−1)]…'},
+   {tex:C.op(R`\sum_k`)+C.est(R`\Bigl(\dfrac{`+C.obs(R`x_k`)+R`}{`+C.dis(R`p_k`)+R`}-\hat{X}_{HH}\Bigr)^2`),sem:'est',nota:'…con la dispersión de los n ratios alrededor de su promedio X̂_HH.'}
+  ]}]},
+
+{id:'e3',cap:5,fs:.9,t:'PPT sin reposición',
+ sub:'Brewer (n = 2) fabrica π_ij compatibles con estas π_i (ejercicios 5.7–5.8)',
+ vistas:[
+ {label:'La ruleta de tamaños',d:12,lectura:'Los saltos de k = 33,3 sobre los tamaños acumulados eligen las UPM 1, 2 y 4: probabilidad ∝ tamaño, sin repetición.',custom:{html:
+  pan('e3p',64,190,1152,230,'Los tamaños M_i, acumulados en una tira',
+   ch_('e3k',58,6,'k = ΣM/n = 100/3 = 33,3')+ch_('e3r',330,6,'arranque r ~ U(0, k): r = 12','k')
+   +[[58,300,'M₁ = 30'],[358,200,'M₂ = 20'],[558,250,'M₃ = 25'],[808,150,'M₄ = 15'],[958,100,'M₅ = 10']].map((s,i)=>sq('e3s'+i,s[0],90,s[1],56,null,s[2])).join('')
+   +[[58,'0'],[358,'30'],[558,'50'],[808,'75'],[958,'90'],[1058,'100']].map((t,i)=>lv_('e3t'+i,t[0],146,10,'solid')+lb('e3v'+i,t[0]-10,160,t[1],'color:var(--mut);font-weight:500')).join('')
+   +[[178,'t₁ = 12'],[511,'t₂ = 45,3'],[845,'t₃ = 78,7']].map((a,i)=>lv_('e3a'+i,a[0],46,44,'b')+lb('e3l'+i,a[0]-24,34,a[1],'color:var(--b)')).join('')
+   +tx_('e3x',58,192,'Caen en M₁, M₂ y M₄: los segmentos anchos caen más… y nadie cae dos veces.',640)
+   +ch_('e3c',810,186,'seleccionadas: UPM 1, 2 y 4','k'),
+   'Los t* acumulados sobre ΣM_i = 100, con saltos de k = 33,3 desde un arranque aleatorio.','PPT sin reposición: probabilidad ∝ tamaño'),
+  fn:(u,h)=>{const {E,up,pr}=h;
+   up(E('e3p'),u,.25,.5,20);
+   [0,1,2,3,4].forEach(i=>up(E('e3s'+i),u,.7+i*.22,.45,16));
+   for(let i=0;i<6;i++){fadeIn(h,'e3t'+i,u,1.9,.3);up(E('e3v'+i),u,1.9,.3,8)}
+   pop(h,'e3k',u,2.3,.5);pop(h,'e3r',u,2.7,.5);
+   [0,1,2].forEach(i=>{drawH(h,'e3a'+i,u,3.1+i*.45,.4,44);up(E('e3l'+i),u,3.1+i*.45,.35,10);
+    const e=E('e3s'+[0,1,3][i]),q=pr(u,3.1+i*.45,3.5+i*.45);
+    if(e&&q>0){e.style.borderColor='var(--ok)';e.style.background='rgba(8,129,63,.08)';e.style.color='var(--ink)'}});
+   up(E('e3x'),u,4.8,.5,10);pop(h,'e3c',u,5.2,.5);
+   up(E('e3pd'),u,6,.6,12);
+  }}},
+ {label:'La fórmula',lectura:'Con el HT: pesos X_i/π_i ∝ X_i/M_i. Si X_i = c·M_i ⇒ V = 0: el incentivo de la PPT.',
+ piezas:[
+  {tex:C.dis(R`\pi_i`),sem:'dis',nota:'Sin reposición, el objetivo: π_i proporcional al tamaño M_i.'},
+  {tex:'=',q:1},
+  {tex:R`\dfrac{`+C.dis('n')+C.pop(R`M_i`)+R`}{`+C.pop('M')+R`}`,sem:'dis',nota:'n·M_i/M, con M = ΣM_i: la unidad grande entra con más probabilidad.'},
+  {tex:R`\quad`,q:1},
+  {tex:R`\text{certeza si } \dfrac{`+C.dis('n')+C.pop(R`M_i`)+R`}{`+C.pop('M')+R`}\ge 1`,sem:'dis',nota:'Si la π_i llega a 1, la unidad se toma con seguridad y se recalculan las demás.'}
+ ]}]},
+
+{id:'e4',cap:5,fs:.86,t:'El esquema mixto SCG',
+ sub:'Sánchez-Crespo · Gabeiras: entre reponer todo y no reponer nada',
+ vistas:[
+ {label:'Quitar b bolas',d:9,lectura:'Tras cada extracción se retiran b bolas: el bombo se enfría y ninguna π_i llega a 1.',custom:{html:
+  pan('e4l',64,190,560,230,'El bombo que adelgaza',e4L
+   +tx_('e4x1',30,72,'1.ª: sale u₃ (verde) · se retira u₁ (✕) · b = 1',460)
+   +tx_('e4x2',30,154,'2.ª: sale u₅ · se retira u₄',460),
+   '3.ª: sale u₂; u₆ jamás entró. El bombo se enfría en cada tirada.','seleccionadas: u₃, u₅ y u₂') +
+  pan('e4r',664,190,560,230,'Por qué se retiran b bolas',
+   ch_('e4c0',60,30,'b = min M_i /(n−1)')
+   +tx_('e4t',60,76,'Se retiran b bolas tras cada extracción para que ninguna π_i llegue a 1: el diseño queda «casi» PPT pero SIN reposición.',440)
+   +ch_('e4c1',60,138,'π_i ≤ 1 garantizado','k')+ch_('e4c2',60,170,'p_i casi fijas')+ch_('e4c3',60,202,'cero repeticiones','m'),
+   'Menos varianza que reponer (HH), menos coste que no reponer nada.','SCG: el punto medio'),
+  fn:(u,h)=>{const {E,up}=h;
+   up(E('e4l'),u,.25,.5,20);up(E('e4r'),u,.3,.5,20);
+   e4rows.forEach((row,r)=>row[1].forEach((b,j)=>pop(h,'e4'+r+'_'+j,u,.8+r*.6+j*.1,.4,1)));
+   up(E('e4x1'),u,1.6,.4,10);up(E('e4x2'),u,2.2,.4,10);
+   pop(h,'e4c0',u,1.4,.5);up(E('e4t'),u,1.8,.5,10);
+   pop(h,'e4c1',u,2.6,.5);pop(h,'e4c2',u,2.95,.5);pop(h,'e4c3',u,3.3,.5);
+   up(E('e4ld'),u,3.8,.5,10);up(E('e4rd'),u,4.2,.6,12);
+  }}},
+ {label:'La fórmula',lectura:'Retirar b bolas «enfría» el bombo: algo mejor que HH, sin llegar al sin reposición.',
+ piezas:[
+  {tex:C.est(R`\hat{X}_{SCG}`),sem:'est',nota:'El estimador del esquema mixto: un HH «atenuado»…'},
+  {tex:'=',q:1},
+  {tex:R`\dfrac{1}{`+C.dis('n')+R`}`+C.op(R`\sum`)+R`\dfrac{`+C.pop(R`X_i`)+R`}{`+C.dis('n')+C.pop(R`P_i`)+R`}`,sem:'pop',nota:'…sobre un bombo del que se RETIRAN b bolas tras cada extracción.'},
+  {tex:R`\quad`+R`\dfrac{`+C.op('V')+R`(`+C.est(R`\hat{X}_{SCG}`)+R`)}{`+C.op('V')+R`(`+C.est(R`\hat{X}_{HH}`)+R`)}`,sem:'op',nota:'Su varianza frente al HH puro…'},
+  {tex:R`=\dfrac{`+C.pop('M')+R`-`+C.dis(R`nb`)+R`}{`+C.pop('M')+R`-`+C.dis('b')+R`}`,sem:'pop',nota:'…siempre menor: (M−nb)/(M−b) < 1.'},
+  {tex:R`\quad`+C.dis('b')+R`=\dfrac{\min_i M_i}{`+C.dis(R`n-1`)+R`}`,sem:'dis',nota:'b: bolas retiradas por extracción para que nadie rebase π = 1.'}
+ ]}]},
+
+/* ── F · Conglomerados ────────────────────────────────────────── */
+{id:'f1',cap:6,fs:.84,t:'Conglomerados: media y varianza',
+ sub:'conglomerados iguales de tamaño M; n de ellos, completos',
+ vistas:[
+ {label:'Grupos enteros',d:10,lectura:'Se sortean UPM completas: los M = 6 elementos del grupo entran enteros, sin sorteo interno.',custom:{html:
+  pan('f1p',64,190,1152,230,'N = 4 conglomerados de M = 6: se sortean DOS, enteros',
+   [0,1,2,3].map(k=>{const bx=20+k*280;return sq('f1s'+k,bx,14,250,140)
+    +lb(null,bx+8,18,'UPM '+(k+1),'color:var(--mut);font-weight:500')
+    +[0,1,2,3,4,5].map(j=>dt('f1d'+k+'_'+j,bx+55+(j%3)*75,46+Math.floor(j/3)*60)).join('')}).join('')
+   +[1,3].map(k=>lb('f1w'+k,[20,300,580,860][k]+30,162,'¡los M = 6 encuestados enteros!','color:var(--ok)')).join('')
+   +ch_('f1c',20,196,'n = 2 de N = 4 · cada UPM pesa M','m'),
+   'Un sorteo de UPM y, dentro, no se sortea NADA: el grupo entra entero.','x̄_c = media de los n·M = 12 encuestados'),
+  fn:(u,h)=>{const {E,up,pr,put}=h;
+   up(E('f1p'),u,.25,.5,20);
+   for(let k=0;k<4;k++)for(let j=0;j<6;j++){const d=E('f1d'+k+'_'+j),q=h.eo(h.pr(u,.7+(k*6+j)*.05,1.1+(k*6+j)*.05));put(d,q,0,(1-q)*10,1)}
+   [1,3].forEach(k=>{const e=E('f1s'+k),q=pr(u,2.6,.9);
+    if(e&&q>0){e.style.borderColor='var(--ok)';e.style.background='rgba(8,129,63,.06)'}
+    for(let j=0;j<6;j++){const d=E('f1d'+k+'_'+j),c=pr(u,2.8+j*.12,3.2+j*.12);if(d&&c>0)d.style.background='var(--b)'}
+    up(E('f1w'+k),u,3.6,.5,10)});
+   pop(h,'f1c',u,4.3,.5);up(E('f1pd'),u,5,.6,12);
+  }}},
+ {label:'Cuantitativas',lectura:'n conglomerados completos = nM encuestas… pero solo n grados de libertad.',
+  piezas:[
+   {tex:C.est(R`\hat{\bar{X}}`),sem:'est',nota:'La media por ELEMENTO, encuestando conglomerados completos.'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{1}{`+C.dis('n')+R`}`+C.op(R`\sum_{i\in s}`)+C.est(R`\bar{X}_i`),sem:'est',nota:'Promedio de las medias de los n conglomerados elegidos.'},
+   {tex:R`\quad`,q:1},
+   {tex:C.op('V')+R`=`+C.dis(R`\Bigl(1-\dfrac{n}{N}\Bigr)`)+C.pop(R`\dfrac{S_b^2}{`+C.dis(R`nM`)+R`}`),sem:'pop',nota:'fpc de conglomerados × S_b²/(nM): nM encuestas, pero solo n «tiradas».'},
+   {tex:C.pop(R`S_b^2`)+R`=\dfrac{`+C.op(R`\sum_i`)+C.pop(R`M(\bar{X}_i-\bar{X})^2`)+R`}{`+C.pop(R`N-1`)+R`}`,sem:'pop',nota:'Varianza ENTRE conglomerados; el M del numerador compensa el N−1.'}
+  ]},
+ {label:'Proporciones',lectura:'Con ambas se reconstruyen V, ρ y deff como en el caso cuantitativo.',
+  piezas:[
+   {tex:C.est(R`\hat{s}_b^2`)+R`=\dfrac{`+C.dis('M')+R`\bigl(`+C.est(R`\sum\hat{P}_i^2-n\bar{P}^2`)+R`\bigr)}{`+C.dis(R`n-1`)+R`}`,sem:'est',nota:'La S_b² de datos 0/1: dispersión de las P̂_i entre conglomerados.'},
+   {tex:R`\quad`,q:1},
+   {tex:C.est(R`\hat{s}_w^2`)+R`=\dfrac{`+C.dis('M')+C.est(R`\sum\hat{P}_i(1-\hat{P}_i)`)+R`}{`+C.dis(R`n(M-1)`)+R`}`,sem:'est',nota:'La S_w² de 0/1: P̂_i(1−P̂_i) promediado DENTRO.'}
+  ]}]},
+
+{id:'f2',cap:6,t:'La identidad: total = dentro + entre',
+ sub:'la descomposición que gobierna todo el capítulo 6',
+ vistas:[
+ {label:'La dispersión se parte',d:11,lectura:'La variación total es la misma; agrupar la reparte: dentro (se paga) y entre (regalada).',custom:{html:
+  pan('f2p',64,190,1152,230,'Los mismos NM puntos, vistos por grupos',
+   [0,1,2,3].map(k=>{const bx=20+k*280,c=[50,105,160,215][k];return sq(null,bx,10,250,140)
+    +[0,1,2,3,4,5].map(j=>dt('f2d'+k+'_'+j,bx+c+[-24,-15,-7,0,8,17][j],28+((j*31)%82))).join('')
+    +lv_('f2t'+k,bx+c+2,16,110,'r')}).join('')
+   +ln_('f2br',70,162,910)
+   +lb('f2bl',400,168,'las medias de los grupos se separan: ahí vive la parte ENTRE','color:var(--mut);font-weight:500')
+   +sg_('f2w',33,190,380,30,'a')+sg_('f2b',413,190,670,30,'k')
+   +lb('f2lw',60,198,'NMσ_w² · DENTRO: se paga','color:var(--ink)')+lb('f2lb',560,198,'Nσ_b² · ENTRE: regalado','color:var(--on)'),
+   'La misma variación total, repartida: con grupos «puros» manda la parte entre.','NMσ² = NMσ_w² + Nσ_b²'),
+  fn:(u,h)=>{const {E,up}=h;
+   up(E('f2p'),u,.25,.5,20);
+   for(let k=0;k<4;k++)for(let j=0;j<6;j++){const d=E('f2d'+k+'_'+j),q=h.eo(h.pr(u,.7+(k*6+j)*.05,1.1+(k*6+j)*.05));h.put(d,q,0,(1-q)*10,1)}
+   rise(h,['f2t0','f2t1','f2t2','f2t3'],u,2.2,.2,.4);
+   drawW(h,'f2br',u,2.8,.5,910);up(E('f2bl'),u,3,.4,10);
+   growX(h,'f2w',u,3.5,.6);growX(h,'f2b',u,3.9,.7);
+   rise(h,['f2lw','f2lb'],u,4.1,.2,.4);
+   up(E('f2pd'),u,5.2,.6,12);
+  }}},
+ {label:'Con σ²',lectura:'Total = dentro + entre: de aquí salen ρ, deff y las comparaciones de coste.',
+  piezas:[
+   {tex:C.pop(R`NM\,\sigma^2`),sem:'pop',nota:'La dispersión TOTAL: varianza de los NM elementos en una sola lista.'},
+   {tex:'=',q:1},
+   {tex:C.pop(R`NM\,\sigma_w^2`),sem:'pop',nota:'La parte DENTRO: promedio de las varianzas de cada conglomerado.'},
+   {tex:'+',q:1},
+   {tex:C.pop(R`N\,\sigma_b^2`),sem:'pop',nota:'La parte ENTRE: varianza de las medias de los conglomerados.'}
+  ]},
+ {label:'Con S² (ANOVA)',lectura:'Aproximación útil del examen: M·S² ≈ S_b² + M·S_w².',
+  piezas:[
+   {tex:C.pop(R`(NM-1)S^2`),sem:'pop',nota:'La versión en cuasivarianzas (divisores N−1 y M−1): la «identidad ANOVA»…'},
+   {tex:'=',q:1},
+   {tex:C.pop(R`(N-1)S_b^2`),sem:'pop',nota:'…la parte entre conglomerados…'},
+   {tex:'+',q:1},
+   {tex:C.pop(R`N(M-1)S_w^2`),sem:'pop',nota:'…más la parte dentro de ellos.'}
+  ]}]},
+
+{id:'f3',cap:6,fs:.9,t:'deff y ρ en conglomerados',
+ sub:'el precio de encuestar en grupo',
+ vistas:[
+ {label:'Simulación',d:13,lectura:'Misma M, distinta ρ: quién cae con quién decide el coste de agrupar.',
+  custom:{
+   html:'<div class="rp" id="rpa" style="left:64px;top:186px"><b class="rt">ρ alto (≈ +1)</b><div class="rd">'+cajas+dotsCluster+'</div><p class="rc">En cada grupo se parecen todos: la media del grupo «representa» de sobra… pero entre grupos hay de todo.</p><span class="zc k" id="rpad">deff = 1+(M−1)ρ ≫ 1 · pierde</span></div>'
+      +'<div class="rp" id="rpb" style="left:462px;top:186px"><b class="rt">ρ ≈ 0 (azar)</b><div class="rd">'+dotsAzar+'</div><p class="rc">Los grupos son mezclas al azar: agrupar no dista de un MAS puro.</p><span class="zc k" id="rpbd">deff ≈ 1 · neutral</span></div>'
+      +'<div class="rp" id="rpc" style="left:860px;top:186px"><b class="rt">ρ &lt; 0 (mezcla)</b><div class="rd">'+cajas+dotsSpread+'</div><p class="rc">Cada grupo contiene de todo: sus medias coinciden y agrupar sale gratis.</p><span class="zc k" id="rpcd">deff &lt; 1 · gana al MAS</span></div>',
+   fn:(u,h)=>{['rpa','rpb','rpc'].forEach((id,i)=>{const p=h.E(id);h.up(p,u,.4+i*1.9,.6,18);
+     [...p.querySelectorAll('.rd i')].forEach((d,j)=>{const a=1+i*1.9+j*.08,q=h.pr(u,a,a+.3);d.style.opacity=q;d.style.transform='scale('+(.3+.7*h.eo(q))+')'});
+     h.up(h.E(id+'d'),u,2+i*1.9,.5,8)})}
+  }},
+ {label:'deff',lectura:'ρ ∈ [−1/(M−1), 1]: un ρ negativo da un diseño MEJOR que el MAS.',
+  piezas:[
+   {tex:R`\mathrm{deff}`,sem:'',nota:'El efecto de diseño de muestrear por conglomerados…'},
+   {tex:'=',q:1},
+   {tex:R`1+(`+C.dis('M')+R`-1)`+C.dis(R`\rho`),sem:'dis',nota:'…frente a un MAS del mismo tamaño: M juntos y correlación intra ρ.'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{`+C.dis('M')+C.pop(R`S_b^2`)+R`}{`+C.pop(R`S^2`)+R`}`,sem:'pop',nota:'La forma poblacional (identidad de F2): parte «entre» sobre total.'}
+  ]},
+ {label:'ρ',lectura:'ρ mide homogeneidad: parecidos dentro ⇒ ρ alto ⇒ caro muestrear en grupo.',
+  piezas:[
+   {tex:C.dis(R`\rho`),sem:'dis',nota:'El coeficiente de homogeneidad del conglomerado…'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{`+C.pop(R`S_b^2-S_w^2`)+R`}{(`+C.dis('M')+R`-1)`+C.pop(R`S_w^2`)+R`+`+C.pop(R`S_b^2`)+R`}`,sem:'pop',nota:'…positivo si hay más variación ENTRE que dentro; negativo si cada grupo es una mezcla.'}
+  ]}]},
+
+{id:'f4',cap:6,fs:.78,t:'Bietápico: dos fuentes de error',
+ sub:'n UPM y m elementales por UPM · f₁ = n/N, f₂ = m/M',
+ vistas:[
+ {label:'Dos facturas de error',d:11,lectura:'Elegir las UPM y elegir dentro de ellas son dos suertes cuyos errores se suman.',custom:{html:
+  pan('f4p',64,190,1152,240,'Dos suertes, dos lotes de error que se suman',
+   [0,1,2,3,4,5].map(b=>{const x=30+(b%3)*130,y=16+Math.floor(b/3)*96;
+    return sq('f4s'+b,x,y,110,82)+lb(null,x+4,y+3,'UPM '+(b+1),'color:var(--mut);font-weight:500;font-size:10.5px')
+    +[0,1,2,3,4,5].map(d=>dt('f4d'+b+'_'+d,x+22+(d%3)*33,y+22+Math.floor(d/3)*32)).join('')}).join('')
+   +ch_('f4c',30,206,'1.ª: 2 de 6 UPM (f₁ = 1/3) · 2.ª: 3 de 6 dentro (f₂ = 1/2)','m')
+   +ln_('f4bl',560,222,540,'solid')
+   +ln_('f4br',595,78,390)
+   +ch_('f4sc',660,40,'V̂(x̄) = ENTRE + DENTRO')
+   +'<em id="f4v1" class="k" style="left:600px;width:140px;height:130px;bottom:18px"></em>'
+   +'<em id="f4v2" class="a" style="left:800px;width:140px;height:50px;bottom:18px"></em>'
+   +lb('f4l1',612,150,'ENTRE (1−f₁)','color:var(--on)')+lb('f4l2',612,176,'elegir las UPM','color:var(--on);font-weight:500')
+   +lb('f4l3',812,182,'DENTRO f₁(1−f₂)','color:var(--ink)')+lb('f4l4',812,198,'submuestrear','color:var(--ink);font-weight:500'),
+   'Viajar hasta la UPM y elegir a quiénes preguntar dentro: dos errores que se SUMAN.','f₁ = 2/6 · f₂ = 3/6'),
+  fn:(u,h)=>{const {E,up,pr,put}=h;
+   up(E('f4p'),u,.25,.5,20);
+   for(let b=0;b<6;b++)for(let d=0;d<6;d++){const e=E('f4d'+b+'_'+d),q=h.eo(h.pr(u,.7+(b*6+d)*.04,1.05+(b*6+d)*.04));put(e,q,0,(1-q)*8,1)}
+   [0,3].forEach(b=>{const e=E('f4s'+b),q=pr(u,2.2,.8);
+    if(e&&q>0){e.style.borderColor='var(--ok)';e.style.background='rgba(8,129,63,.06)'}
+    [0,2,4].forEach(d=>{const x=E('f4d'+b+'_'+d),c=pr(u,2.4+d*.15,2.8+d*.15);if(x&&c>0)x.style.background='var(--b)'})});
+   pop(h,'f4c',u,3.1,.5);
+   drawW(h,'f4br',u,3.5,.4,390);pop(h,'f4sc',u,3.7,.5);
+   growY(h,'f4v1',u,3.9,.7);growY(h,'f4v2',u,4.3,.5);
+   rise(h,['f4l1','f4l2','f4l3','f4l4'],u,4.1,.15,.35);
+   up(E('f4pd'),u,5.4,.6,12);
+  }}},
+ {label:'Sin reposición',lectura:'Dos errores: «a quién llamo» (entre) y «a quién encuesto dentro» (dentro).',
+  piezas:[
+   {tex:C.op(R`\hat{V}`)+R`(`+C.est(R`\bar{x}`)+R`)`,sem:'op',nota:'La varianza estimada suma DOS componentes…'},
+   {tex:'=',q:1},
+   {tex:C.dis(R`(1-f_1)`)+R`\dfrac{`+C.est(R`\sum(\bar{x}_i-\bar{x})^2`)+R`}{`+C.dis(R`n(n-1)`)+R`}`,sem:'est',nota:'ENTRE UPM: elegir los conglomerados en la 1.ª etapa…'},
+   {tex:'+',q:1},
+   {tex:C.dis(R`f_1(1-f_2)`)+R`\dfrac{`+C.est(R`\sum_i\sum_j(x_{ij}-\bar{x}_i)^2`)+R`}{`+C.dis(R`n^2m(m-1)`)+R`}`,sem:'est',nota:'…DENTRO: submuestrear m de M en la 2.ª, ponderada por f₁.'}
+  ]},
+ {label:'Con reposición',lectura:'Método de conglomerados últimos: la 1.ª etapa con reposición elimina su fpc.',
+  piezas:[
+   {tex:C.op(R`\hat{V}`)+R`(`+C.est(R`\bar{x}`)+R`)`,sem:'op',nota:'Si la 1.ª etapa es con reposición…'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{`+C.est(R`\sum(\bar{x}_i-\bar{x})^2`)+R`}{`+C.dis(R`n(n-1)`)+R`}`,sem:'est',nota:'…basta la dispersión entre las medias de las UPM.'}
+  ]},
+ {label:'m óptimo',lectura:'S_w² grande ⇒ conglomerados grandes; S_b² grande ⇒ muchos conglomerados pequeños.',
+  piezas:[
+   {tex:C.dis(R`m_{opt}`),sem:'dis',nota:'¿Cuántos elementales por UPM conviene encuestar?'},
+   {tex:'=',q:1},
+   {tex:R`\sqrt{\dfrac{c_1\,`+C.pop(R`S_w^2`)+R`}{c_2\,`+C.pop(R`S_b^2`)+R`}}`,sem:'pop',nota:'Equilibrio de costes: c₁ por UPM (viajar) frente a c₂ por elemental (entrevistar).'}
+  ]}]},
+
+/* ── G · Sistemático, bifásico, ocasiones, no respuesta ───────── */
+{id:'g1',cap:7,fs:.88,t:'El muestreo sistemático',
+ sub:'k = N/n: un arranque aleatorio y, a partir de él, cada k',
+ vistas:[
+ {label:'Un peine cada k',d:12,lectura:'Un arranque entre k = 4 posibles fija el peine: la varianza del sistemático promedia los k arranques.',custom:{html:
+  pan('g1p',64,184,1152,250,'N = 24, n = 6 ⇒ k = 4: elige un arranque y cae cada 4',
+   ch_('g1cc',260,18,'k = N/n = 4','m')
+   +lv_('g1a',147,20,44,'b')+lb('g1r',120,4,'r = 3','color:var(--b);font-size:14px')
+   +g1cells,
+   'Los otros tres arranques son otros tantos peines: la varianza promedia los k posibles.','un sorteo entre k: por eso ≈ MAS (o mejor con tendencia)'),
+  fn:(u,h)=>{const {E,up,pr,eo,put}=h;
+   up(E('g1p'),u,.25,.5,20);
+   for(let j=0;j<24;j++){const e=E('g1c'+j),q=eo(pr(u,.6+j*.03,1+j*.03));put(e,q,0,(1-q)*8,1)}
+   drawH(h,'g1a',u,1.5,.4,44);up(E('g1r'),u,1.5,.3,8);
+   [2,6,10,14,18,22].forEach((j,i)=>{const e=E('g1c'+j),q=pr(u,1.9+i*.3,2.3+i*.3);
+    if(e&&q>0){e.style.borderColor='var(--b)';e.style.background='var(--hl-b)';e.style.color='var(--b)';e.style.fontWeight='600'}});
+   pop(h,'g1cc',u,2.2,.5);
+   for(let r=1;r<=4;r++){const q=pr(u,3.6+(r-1)*.35,4+(r-1)*.35);
+    for(let j=0;j<24;j++){const e=E('g1m'+r+'_'+j);if(e)e.style.opacity=q}
+    const l=E('g1rl'+r);if(l)l.style.opacity=q}
+   up(E('g1pd'),u,5.6,.6,12);
+  }}},
+ {label:'Varianza exacta',lectura:'k medias que nadie ve salvo con el marco completo: por eso se aproxima.',
+  piezas:[
+   {tex:C.op('V')+R`(`+C.est(R`\bar{x}_s`)+R`)`,sem:'op',nota:'La varianza REAL del sistemático…'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{1}{`+C.dis('k')+R`}`,sem:'dis',nota:'…promedio sobre las k muestras posibles (k arranques)…'},
+   {tex:C.op(R`\sum_{j=1}^{k}`)+C.pop(R`(\bar{x}_j-\bar{X})^2`),sem:'pop',nota:'…de la dispersión de sus medias: solo calculable enumerándolas.'}
+  ]},
+ {label:'Como estratificado',lectura:'Marco con tendencia lineal ⇒ el sistemático brilla; periodo ≈ k ⇒ desastre.',
+  piezas:[
+   {tex:C.op('V')+R`(`+C.est(R`\bar{x}_s`)+R`)`,sem:'op',nota:'Truco: el sistemático ≈ MAS estratificado en n estratos de tamaño k…'},
+   {tex:'=',q:1},
+   {tex:R`\dfrac{`+C.dis(R`N-n`)+R`}{`+C.dis(R`Nn`)+R`}`+C.pop(R`S_{wst}^2`)+R`\bigl[1+(`+C.dis('n')+R`-1)`+C.dis(R`\rho_{wst}`)+R`\bigr]`,sem:'pop',nota:'…con S_wst² dentro de los «estratos» y ρ_wst su correlación interna.'}
+  ]}]},
+
+{id:'g2',cap:7,fs:.8,t:'Bifásico para estratificar',
+ sub:'n′ grandes y baratas para clasificar; n para medir · v_h = n/n′',
+ vistas:[
+ {label:'Dos fases',d:11,lectura:'Primero clasificar barato a n′ = 30; después medir caro a n = 8: la estratificación se compra a dos precios.',custom:{html:
+  pan('g2l',64,190,560,230,'1.ª fase: clasificar (barato)',g2L
+   +ch_('g2v',150,198,'v = n/n′ = 8/30','m'),
+   'n′ = 30 clasificadas por estrato con una sola pregunta (ámbar / violeta).','estratificar sin preguntarlo todo') +
+  pan('g2r',664,190,560,230,'2.ª fase: medir (caro)',g2R
+   +lb('g2t',60,196,'las 8 medidas de verdad: 5 ámbar + 3 violeta','color:var(--mut);font-weight:500'),
+   'El cuestionario completo solo a n = 8 de las 30 ya clasificadas.','V = error de medir + error de clasificar a ciegas'),
+  fn:(u,h)=>{const {E,pr,eo,up}=h;
+   up(E('g2l'),u,.25,.5,20);up(E('g2r'),u,2.8,.5,20);
+   for(let i=0;i<30;i++){const d=E('g2p'+i),q=eo(pr(u,.7+i*.05,1.05+i*.05));h.put(d,q,0,(1-q)*10,1)}
+   pop(h,'g2v',u,2.4,.5);
+   for(let i=0;i<8;i++)pop(h,'g2b'+i,u,3.3+i*.25,.5,1);
+   up(E('g2t'),u,4.6,.4,10);up(E('g2ld'),u,3,.5,10);up(E('g2rd'),u,5.4,.6,12);
+  }}},
+ {label:'La fórmula',lectura:'Primera fase barata y grande, segunda cara y pequeña: el arte está en n′/n.',
+ piezas:[
+  {tex:C.op('V')+R`(`+C.est(R`\hat{P}'_{st}`)+R`)`,sem:'op',nota:'La varianza del estimador bifásico de una proporción estratificada…'},
+  {tex:'=',q:1},
+  {tex:R`\dfrac{`+C.op(R`\sum`)+C.dis(R`W_h`)+C.pop(R`P_h(1-P_h)`)+R`}{`+C.dis(R`n'v_h`)+R`}`,sem:'pop',nota:'…el error de la 2.ª fase: submuestrear n de n′ (v_h es la fracción de submuestreo)…'},
+  {tex:'+',q:1},
+  {tex:R`\dfrac{`+C.op(R`\sum`)+C.dis(R`W_h`)+C.pop(R`(P_h-P)^2`)+R`}{`+C.dis(R`n'`)+R`}`,sem:'pop',nota:'…más el error de estratificar solo APROXIMADAMENTE con la 1.ª fase.'}
+ ]}]},
+
+{id:'g3',cap:7,fs:.9,t:'Ocasiones sucesivas: el estimador combinado',
+ sub:'reutilizar la muestra de la ocasión anterior',
+ vistas:[
+ {label:'La muestra que envejece',d:12,lectura:'La ocasión 2 recicla a 6 unidades viejas: con C₁₂ > 0, φ = 0,5 reutiliza media parte del peso.',custom:{html:
+  pan('g3l',64,190,520,230,'Dos ocasiones, parte común',
+   [0,1,2,3,4].map(j=>dt('g3a'+j,70,26+j*36)+dt('g3b'+j,130,26+j*36)).join('')
+   +[0,1,2].map(j=>dt('g3c'+j,280,26+j*36,'v')+dt('g3d'+j,340,26+j*36,'v')).join('')
+   +[0,1,2,3].map(j=>dt('g3e'+j,400,26+j*36,'k')+dt('g3f'+j,460,26+j*36,'k')).join('')
+   +ch_('g3x',170,90,'6 repiten','v')
+   +lb('g3t1',40,214,'ocasión 1 · n = 10','color:var(--mut);font-weight:500')
+   +lb('g3t2',250,214,'ocasión 2 · 6 panel + 8 nuevas','color:var(--mut);font-weight:500'),
+   'La ocasión 2 reutiliza a 6 de la muestra vieja: información correlacionada (C₁₂ > 0).','panel rotatorio') +
+  pan('g3r',628,190,592,230,'El coeficiente φ reparte el peso',
+   ch_('g3f',90,36,'x̄′ = φ·x̄₁′ + (1−φ)·x̄₂')
+   +ln_('g3s',60,120,440,'solid')
+   +[[60,'0'],[280,'φ_opt = 0,5'],[500,'1']].map((t,i)=>lv_('g3k'+i,t[0],114,12,'solid')+lb('g3v'+i,t[0]-12,132,t[1],'color:var(--mut);font-weight:500')).join('')
+   +ball('g3h',60,120,12,'v')
+   +lb('g3p',238,88,'φ = 0,00','color:var(--sem-op);font-size:15px')
+   +ch_('g3c',90,170,'V₁ = 4 · V₂ = 4 · C₁₂ = 2','m'),
+   'La vieja muestra pesa φ; la nueva, 1−φ.','φ_opt = (V₂−C₁₂)/(V₁+V₂−2C₁₂) = 0,5'),
+  fn:(u,h)=>{const {E,up,pr,eo,put}=h;
+   up(E('g3l'),u,.25,.5,20);up(E('g3r'),u,2.4,.5,20);
+   for(let j=0;j<5;j++){up(E('g3a'+j),u,.8+j*.1,.35,12);up(E('g3b'+j),u,.9+j*.1,.35,12)}
+   for(let j=0;j<3;j++){up(E('g3c'+j),u,1.8+j*.12,.35,12);up(E('g3d'+j),u,1.9+j*.12,.35,12)}
+   for(let j=0;j<4;j++){up(E('g3e'+j),u,2.2+j*.1,.35,12);up(E('g3f'+j),u,2.3+j*.1,.35,12)}
+   rise(h,['g3t1','g3t2'],u,3,.4,.4);pop(h,'g3x',u,2.8,.5);
+   pop(h,'g3f',u,2.8,.5);drawW(h,'g3s',u,3.1,.5,440);
+   for(let i=0;i<3;i++){fadeIn(h,'g3k'+i,u,3.4,.3);up(E('g3v'+i),u,3.4,.3,8)}
+   pop(h,'g3c',u,3.8,.5);
+   const q=eo(pr(u,4.3,5.3));
+   put(E('g3h'),pr(u,3.1,3.4),220*q,0,1);
+   E('g3p').textContent='φ = '+(0.5*q).toFixed(2).replace('.',',');
+   up(E('g3p'),u,4.3,.4,10);
+   up(E('g3ld'),u,3.4,.5,10);up(E('g3rd'),u,5.8,.6,12);
+  }}},
+ {label:'La fórmula',lectura:'Si las ocasiones están correlacionadas (C₁₂ > 0), la muestra antigua AÚN aporta información.',
+ piezas:[
+  {tex:C.est(R`\bar{x}'`),sem:'est',nota:'El estimador combinado de la ocasión actual…'},
+  {tex:'=',q:1},
+  {tex:C.dis(R`\varphi`)+C.est(R`\bar{x}'_1`),sem:'est',nota:'…la parte que reutiliza la información de la ocasión 1…'},
+  {tex:'+',q:1},
+  {tex:R`(1-`+C.dis(R`\varphi`)+R`)`+C.est(R`\bar{x}_2`),sem:'est',nota:'…más la parte fresca de la muestra nueva de este mes.'},
+  {tex:R`\quad`,q:1},
+  {tex:C.dis(R`\varphi_{opt}`)+R`=\dfrac{V_2-C_{12}}{V_1+V_2-2C_{12}}`,sem:'dis',nota:'La ponderación de mínima varianza; C₁₂: covarianza entre ocasiones.'}
+ ]}]},
+
+{id:'g4',cap:7,fs:.82,t:'No respuesta: submuestrear a los remisos',
+ sub:'mejor reintentar a una fracción que perseguir a todos',
+ vistas:[
+ {label:'No perseguir a todos',d:11,lectura:'De 6 remisos solo se reintenta a 2 (f₂₁ = 1/3): el tamaño total se infla de 20 a 32.',custom:{html:
+  pan('g4p',64,190,1152,230,'n′ = 20 encuestas: 14 responden, 6 remisos',
+   [0,1].map(r=>[0,1,2,3,4,5,6,7,8,9].map(c=>{const i=r*10+c;return dt('g4d'+i,60+c*54,50+r*80,i<14?'':'g')}).join('')).join('')
+   +sq('g4r0',270,124,23,23,'a')+sq('g4r1',432,124,23,23,'a')
+   +ch_('g4c1',60,20,'responden: 14')+ch_('g4c2',210,20,'remisos: 6','m')+ch_('g4c3',340,20,'reintentos: solo 2 (f₂₁ = 1/3)','a')
+   +ch_('g4c4',640,40,'n′ = 20 · P₂ = 0,3 ⇒ 6 remisos','m')
+   +ch_('g4c5',640,80,'f₂₁ = 1/3 ⇒ reintentar a 2','a')
+   +ch_('g4c6',640,130,'n = 20·[1+2·0,3] = 32','k')
+   +tx_('g4t',640,180,'Perseguir a los 6 cuesta; a 2, justo. El tamaño total se infla a 32.',440),
+   'Modelo 7.5 (Hansen-Hurwitz): los reintentos son «extracciones» del estrato remiso.','n = n′[1+(1/f₂₁−1)·P₂]'),
+  fn:(u,h)=>{const {E,pr,eo,put,up}=h;
+   up(E('g4p'),u,.25,.5,20);
+   for(let i=0;i<20;i++){const d=E('g4d'+i),q=eo(pr(u,.7+i*.05,1.05+i*.05));put(d,q,0,(1-q)*10,1)}
+   pop(h,'g4c1',u,1.9,.4);pop(h,'g4c2',u,2.1,.4);pop(h,'g4c3',u,3.2,.5);
+   pop(h,'g4r0',u,2.7,.4);pop(h,'g4r1',u,2.9,.4);
+   pop(h,'g4c4',u,3.6,.5);pop(h,'g4c5',u,4.1,.5);pop(h,'g4c6',u,4.7,.6);
+   up(E('g4t'),u,5.3,.5,10);up(E('g4pd'),u,6,.6,12);
+  }}},
+ {label:'Modelo 7.5 (HH)',lectura:'Hansen-Hurwitz aplicado a la no respuesta: los reintentos son «extracciones».',
+  piezas:[
+   {tex:C.dis('n'),sem:'dis',nota:'El tamaño TOTAL que acabas encuestando…'},
+   {tex:'=',q:1},
+   {tex:C.dis(R`n'`)+R`\Bigl[1+\Bigl(\dfrac{1}{`+C.dis(R`f_{21}`)+R`}-1\Bigr)`+C.dis(R`P_2`)+R`\Bigr]`,sem:'dis',nota:'…n′ encuestas iniciales más la fracción de no respondedores (P₂) que se reintenta: solo f₂₁ de ellos.'},
+   {tex:R`\quad`,q:1},
+   {tex:C.dis(R`f_{21}`)+R`=\sqrt{\dfrac{k(C_0+`+C.dis(R`P_1`)+R`C_1)}{C_2(1-k`+C.dis(R`P_2`)+R`)}}`,sem:'dis',nota:'Costes: C₀ fijo, C₁ por encuesta, C₂ por reintento; k = σ₂²/σ².'}
+  ]},
+ {label:'Modelo de Rao',lectura:'El ejercicio típico del capítulo 7: comparar las f₂₁ de ambos modelos.',
+  piezas:[
+   {tex:C.dis('n'),sem:'dis',nota:'La versión de Rao: n₀ es el tamaño «sin» no respuesta…'},
+   {tex:'=',q:1},
+   {tex:C.dis(R`n_0`)+R`\Bigl[1+\dfrac{k`+C.dis(R`P_2`)+R`}{`+C.dis(R`f_{21}`)+R`}\Bigr]`,sem:'dis',nota:'…inflado por la no respuesta y por k (los remisos son más variables).'},
+   {tex:R`\quad`,q:1},
+   {tex:C.dis(R`f_{21}`)+R`=\sqrt{\dfrac{k(C_0+`+C.dis(R`P_1`)+R`C_1)}{C_2}}`,sem:'dis',nota:'Misma lógica de costes, sin el (1−kP₂) en el denominador.'}
+  ]}]},
+
+{id:'g5',cap:7,fs:.92,t:'El sesgo por no respuesta',
+ sub:'por qué «quedarse con los completos» sesga',
+ vistas:[
+ {label:'Los que no están',d:11,lectura:'Responden los de media 8 y el total vive en 6,8: quedarse con los completos sesga B = 1,2.',custom:{html:
+  pan('g5p',64,190,1152,230,'Dos mundos con medias distintas',
+   [0,1,2,3,4,5,6,7,8,9,10,11,12,13].map(i=>dt('g5a'+i,Math.round(798+(((i*53)%89)-44)*2),Math.round(56+((i*31)%57)-28))).join('')
+   +[0,1,2,3,4,5,6,7,8].map(i=>dt('g5b'+i,Math.round(328+(((i*47)%71)-35)*2),Math.round(96+((i*29)%49)-24),'g')).join('')
+   +lv_('g5tr',798,36,158,'r')+lv_('g5tn',328,76,118)
+   +lb('g5lr',750,12,'responden: Ȳ_r = 8','color:var(--sem-pop)')
+   +lb('g5ln',150,128,'no responden: Ȳ_nr = 4','color:var(--mut);font-weight:500')
+   +ln_('g5s',90,196,940,'solid')
+   +[[90,'2'],[328,'4'],[654,'6,8'],[798,'8'],[1030,'10']].map((t,i)=>lv_('g5k'+i,t[0],192,8,'solid')+lb('g5v'+i,t[0]-8,204,t[1],'color:var(--mut);font-weight:500')).join('')
+   +lv_('g5tm',654,36,158,'k')
+   +lb('g5to',600,16,'Ȳ = 0,7·8 + 0,3·4 = 6,8','color:var(--ok)')
+   +ln_('g5b2',654,105,144,'r')
+   +lb('g5bl',660,112,'B = 0,3·(8−4) = 1,2','color:var(--er);font-size:14px')
+   +ch_('g5c',140,162,'media de los completos: 8','r'),
+   'Si responder depende de la respuesta, la media de los completos miente.','B = (1−P₁)·(Ȳ_r − Ȳ_nr)'),
+  fn:(u,h)=>{const {E,up,pr,eo,put}=h;
+   up(E('g5p'),u,.25,.5,20);
+   for(let i=0;i<14;i++){const d=E('g5a'+i),q=eo(pr(u,.7+i*.05,1.05+i*.05));put(d,q,0,(1-q)*10,1)}
+   for(let i=0;i<9;i++){const d=E('g5b'+i),q=eo(pr(u,1.5+i*.06,1.85+i*.06));put(d,q,0,(1-q)*10,1)}
+   fadeIn(h,'g5tr',u,2.4,.4);fadeIn(h,'g5tn',u,2.6,.4);
+   up(E('g5lr'),u,2.4,.4,10);up(E('g5ln'),u,2.6,.4,10);
+   drawW(h,'g5s',u,3,.5,940);
+   for(let i=0;i<5;i++){fadeIn(h,'g5k'+i,u,3.3,.3);up(E('g5v'+i),u,3.3,.3,8)}
+   fadeIn(h,'g5tm',u,3.7,.4);up(E('g5to'),u,3.7,.4,10);
+   drawW(h,'g5b2',u,4.3,.5,144);up(E('g5bl'),u,4.5,.4,10);
+   pop(h,'g5c',u,5,.5);up(E('g5pd'),u,5.8,.6,12);
+  }}},
+ {label:'Sesgo de los completos',lectura:'MCAR: las medias coinciden y no hay sesgo. MAR/NMAR: crece con la no respuesta.',
+  piezas:[
+   {tex:C.op('B')+R`(`+C.est(R`\bar{y}_r`)+R`)`,sem:'op',nota:'El sesgo del estimador calculado SOLO con quienes responden…'},
+   {tex:'=',q:1},
+   {tex:R`(1-`+C.dis(R`P_1`)+R`)`,sem:'dis',nota:'…la proporción de NO respondedores…'},
+   {tex:R`\cdot`,q:1},
+   {tex:C.pop(R`(\bar{Y}_r-\bar{Y}_{nr}`)+R`)`,sem:'pop',nota:'…por la diferencia de medias entre respondedores y no respondedores.'}
+  ]},
+ {label:'Estimador reponderado',lectura:'Reponderar elimina el sesgo de muestreo… pero solo mitiga el de no respuesta.',
+  piezas:[
+   {tex:C.est(R`\hat{Y}_{NR}`),sem:'est',nota:'El estimador que corrige reponderando…'},
+   {tex:'=',q:1},
+   {tex:C.op(R`\sum_{i\in r}`)+R`\dfrac{`+C.obs(R`Y_i`)+R`}{`+C.dis(R`\pi_i`)+C.dis(R`p_i`)+R`}`,sem:'obs',nota:'…a los respondidos (r) se les sube el peso: π_i del diseño × p_i de responder.'},
+   {tex:R`\quad`,q:1},
+   {tex:R`B=`+C.op(R`B_{\text{muestreo}}`)+R`+`+C.op(R`B_{\text{no\,respuesta}}`),sem:'op',nota:'El sesgo total se descompone: el del diseño (nulo con HT) más el de la no respuesta.'}
+  ]}]}
+]
+};
+
+/* ══════════ MOTOR (basado en la plantilla de vídeo) ══════════ */
+(()=>{
+const E=id=>document.getElementById(id),cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),pr=(t,a,b)=>cl((t-a)/(b-a)),
+eo=x=>1-Math.pow(1-x,3),eb=x=>1+2.70158*Math.pow(x-1,3)+1.70158*Math.pow(x-1,2),
+put=(el,o,x=0,y=0,s=1)=>{el.style.opacity=o;el.style.transform='translate('+x+'px,'+y+'px) scale('+s+')'},
+up=(el,u,a,d=.6,dy=24)=>{const p=pr(u,a,a+d);put(el,p,0,(1-eo(p))*dy)};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const Q=new URLSearchParams(location.search),LINT=Q.has('lint'),RD=Q.has('render');
+if(RD)document.documentElement.dataset.zr=1;
+const KT=window.katex;
+const texErr=[];
+const kt=(tex,node)=>{
+ if(!KT){node.textContent=tex;return}
+ try{KT.render(tex,node,{throwOnError:true,trust:true,strict:false})}
+ catch(e){texErr.push(tex);try{KT.render(tex,node,{throwOnError:false,trust:true,strict:false})}catch(e2){node.textContent=tex}}
+};
+const stripSem=s=>s.replace(/\\htmlClass\{sem-[a-z]+\}/g,'');
+const H={E,cl,pr,eo,eb,put,up};
+
+const cards=V.cards,caps=V.caps,N=cards.length;
+document.title=V.titulo+' · CSE-INE A1';
+E('vd').setAttribute('aria-label',V.aria);
+
+let ci=0,vi=0,t=0,pl=false,go=false,last=0,auto=true,els={pz:[],nl:[]},A=[],TL=0,D=10,custFn=null;
+const fmt=x=>Math.floor(x/60)+':'+String(Math.floor(x%60)).padStart(2,'0');
+const lab=c=>c.id==='n0'?'0':caps[c.cap][0]+c.id.slice(1);
+
+function build(){
+ const c=cards[ci],w=c.vistas[vi],fs=c.fs||1,grid=(c.layout==='grid'),cust=!!w.custom;
+ els={pz:[],nl:[]};texErr.length=0;
+ E('zch').innerHTML='<span><b>'+esc(caps[c.cap][0])+'</b> · '+esc(caps[c.cap][1])+'</span><span>'+esc('fórmula '+(ci+1)+' de '+N+(c.vistas.length>1?' · vista '+(vi+1)+' de '+c.vistas.length:''))+'</span>';
+ E('zti').textContent=c.t;
+ E('zsub').textContent=c.sub||'';E('zsub').style.display=c.sub?'':'none';
+ const fx=E('zfx');
+ fx.className='zfx'+(grid?' zgrid':'');
+ fx.style.display=cust?'none':'';
+ fx.style.fontSize=(grid?21:Math.round(40*fs))+'px';
+ fx.innerHTML='';
+ const znl=E('znl');znl.innerHTML='';
+ E('znt').style.display=(grid||cust)?'none':'';
+ const zc=E('zc');zc.innerHTML=cust?w.custom.html:'';zc.style.display=cust?'':'none';
+ E('zlx').textContent=w.lectura||'';
+ A=[];let k=0;const base=1,step=grid?.85:1.35;
+ if(!cust){
+  w.piezas.forEach(p=>{
+   const at=base+k*(p.q?.42:step);k++;A.push(at);
+   const z=document.createElement(grid?'div':'span');z.className=grid?'cell':'pz';
+   const kk=document.createElement('span');kk.className='kk';z.appendChild(kk);kt(p.tex,kk);
+   if(grid){const cp=document.createElement('p');cp.className='cc';cp.textContent=p.nota;z.appendChild(cp)}
+   fx.appendChild(z);
+   if(p.nota&&!grid){
+    const l=document.createElement('div');l.className='nl';
+    l.innerHTML='<i class="sw'+(p.sem?' sw-'+p.sem:'')+'" aria-hidden="true"></i><span class="nk"></span><span class="nt"></span>';
+    kt(stripSem(p.tex),l.querySelector('.nk'));
+    l.querySelector('.nt').textContent=p.nota;
+    znl.appendChild(l);els.nl.push({el:l,at:at+.3});
+   }
+   els.pz.push({el:z,at});
+  });
+ }
+ custFn=cust?function(u,hh){try{w.custom.fn(u,hh)}catch(e){(window.__fnerr=window.__fnerr||[]).push(c.id+' v'+(vi+1)+': '+(e&&e.message||e))}}:null;
+ TL=(A.length?A[A.length-1]:1)+(cust?0:1.3);
+ D=cust?(w.d||12):TL+2.2;
+ E('zt').max=D;
+ chips();menuCur();
+ seek(0);
+}
+
+function chips(){const c=cards[ci],r=E('zvis');
+ if(c.vistas.length<2){r.hidden=true;r.innerHTML='';return}
+ r.hidden=false;
+ r.innerHTML='<span class="zl2">Ver:</span>'+c.vistas.map((v,i)=>'<button type="button" data-vi="'+i+'" aria-pressed="'+(i===vi)+'">'+esc(v.label||('vista '+(i+1)))+'</button>').join('');
+ [...r.querySelectorAll('button')].forEach(b=>b.onclick=()=>{vi=+b.dataset.vi;build();play()});
+}
+
+function play(){go=true;pl=true;setBtn()}
+function setBtn(){E('zp').innerHTML=(pl?'Pausa':(go&&t>=D)?'Repetir':'Ver')+'<span class="vh"> la animación</span>'}
+
+function seek(x){
+ t=cl(x,0,D);
+ E('zpi').style.transform='scaleX('+(t/D)+')';
+ up(E('zti'),t,.25,.55,26);
+ up(E('zsub'),t,.6,.5,14);
+ E('zch').style.opacity=pr(t,0,.45);
+ els.pz.forEach(o=>{const p=pr(t,o.at,o.at+.55),bump=.05*Math.sin(Math.PI*pr(t,o.at+.3,o.at+1.05));
+  put(o.el,eo(p),0,(1-eo(p))*20,.93+.07*eo(p)+bump)});
+ els.nl.forEach(o=>up(o.el,t,o.at,.5,12));
+ up(E('zl'),t,TL,.7,18);
+ if(custFn)custFn(t,H);
+ E('zt').value=t;E('zm').textContent=fmt(t)+' / '+fmt(D);
+ E('zt').setAttribute('aria-valuetext',fmt(t)+' de '+fmt(D));
+}
+
+const loop=ts=>{if(pl){t+=(ts-last)/1000;if(t>=D){t=D;
+  if(auto&&!RD&&ci<N-1){ci++;vi=0;build()}else{pl=false;setBtn()}}
+  seek(t)}last=ts;requestAnimationFrame(loop)};
+
+/* menú de fórmulas */
+function menu(){let h='';
+ caps.forEach((cp,i)=>{h+='<p class="mh">'+esc(cp[0]+' · '+cp[1])+'</p><ol>';
+  cards.forEach((c,j)=>{if(c.cap!==i)return;
+   h+='<li data-ci="'+j+'"><button type="button"><span class="n">'+esc(lab(c))+'</span><span class="t">'+esc(c.t)+'</span><span class="vs">'+(c.vistas.length>1?c.vistas.length+' vistas':'')+'</span></button></li>'});
+  h+='</ol>'});
+ E('mnu').innerHTML=h;
+ [...E('mnu').querySelectorAll('button')].forEach(b=>b.onclick=()=>{tog(0);ci=+b.closest('li').dataset.ci;vi=0;build();play()});
+}
+function menuCur(){[...E('mnu').querySelectorAll('li')].forEach(l=>l.classList.toggle('cur',+l.dataset.ci===ci))}
+const tog=o=>{E('mnu').hidden=E('mnb').hidden=!o;E('zmu').setAttribute('aria-expanded',o)};
+E('zmu').onclick=()=>tog(E('mnu').hidden);E('mnb').onclick=()=>tog(false);
+addEventListener('keydown',e=>{if(e.key==='Escape')tog(false)});
+
+/* guion en texto (accesibilidad y respaldo) */
+function guion(){let h='';
+ cards.forEach(c=>{h+='<h3><span class="gn">'+esc(lab(c))+'</span> · '+esc(c.t)+'</h3>';
+  c.vistas.forEach(v=>{if(c.vistas.length>1)h+='<h4>'+esc(v.label)+'</h4>';
+   if(v.custom){h+='<p class="gl">'+esc(v.lectura)+'</p>';return}
+   h+='<ul>';
+   v.piezas.forEach(p=>{if(!p.nota)return;
+    h+='<li><i class="sw'+(p.sem?' sw-'+p.sem:'')+'"></i> <span class="gk" data-tex="'+esc(p.tex)+'"></span> '+esc(p.nota)+'</li>'});
+   h+='</ul><p class="gl">Lectura: '+esc(v.lectura)+'</p>'})});
+ E('guion').innerHTML='<summary>Guion de las '+N+' fórmulas (texto)</summary>'+h;
+ E('guion').querySelectorAll('.gk').forEach(el=>kt(stripSem(el.dataset.tex),el));
+}
+
+/* controles */
+const sv=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+E('zp').onclick=()=>{if(pl)pl=false;else{if(!go||t>=D){t=0;seek(0)}go=true;pl=true}setBtn()};
+E('zt').oninput=e=>{pl=false;go=true;t=+e.target.value;seek(t);setBtn()};
+E('zt').onkeydown=e=>{const d={ArrowRight:2,ArrowLeft:-2,PageUp:5,PageDown:-5}[e.key];if(d){e.preventDefault();pl=false;go=true;t=cl(t+d,0,D);seek(t);setBtn()}};
+E('zpv').onclick=()=>{ci=(ci-1+N)%N;vi=0;build();play()};
+E('znx').onclick=()=>{ci=(ci+1)%N;vi=0;build();play()};
+E('zno').onclick=function(){const v=this.getAttribute('aria-pressed')!=='true';this.setAttribute('aria-pressed',v);document.body.classList.toggle('nonotes',!v)};
+E('zcl').onclick=function(){const v=this.getAttribute('aria-pressed')!=='true';this.setAttribute('aria-pressed',v);document.body.classList.toggle('nocolor',!v)};
+E('zau').onclick=function(){auto=this.getAttribute('aria-pressed')!=='true';this.setAttribute('aria-pressed',auto)};
+function setTh(m){document.documentElement.dataset.theme=m;E('zth').textContent=m==='dark'?'☀ Claro':'☾ Oscuro'}
+E('zth').onclick=()=>{const m=document.documentElement.dataset.theme==='dark'?'light':'dark';setTh(m);sv('theme',m)};
+
+/* escala del escenario */
+const vd=E('vd'),st=E('zst'),fit=()=>st.style.transform='scale('+vd.clientWidth/1280+')';
+new ResizeObserver(fit).observe(vd);fit();
+
+/* ?lint: pendientes, KaTeX y desbordes */
+function lint(){const w=[];
+ (function wk(o,p){if(typeof o==='string'){if(/\.sem$/.test(p))return;if(!o.trim()||/TODO/.test(o))w.push('Falta texto: '+p)}
+  else if(o&&typeof o==='object'&&typeof o!=='function')Object.keys(o).forEach(k=>wk(o[k],p+'.'+k))})(V,'V');
+ if(!KT)w.push('KaTeX no cargó (¿sin red?): fórmulas sin validar');
+ cards.forEach(c=>{
+  if(c.vistas.length>1)c.vistas.forEach((v,j)=>{if(!v.label||/TODO/.test(v.label))w.push('Vista sin etiqueta: '+c.id+' v'+(j+1))});
+  c.vistas.forEach((v,j)=>{
+   if(!v.custom)v.piezas.forEach((p,k)=>{
+    if(!p.tex){w.push('Pieza sin tex: '+c.id+' v'+(j+1)+' p'+(k+1));return}
+    if(!p.q&&!p.nota)w.push('Pieza sin nota: '+c.id+' v'+(j+1)+' p'+(k+1)+' → '+p.tex.slice(0,40));
+    if(p.nota&&!['pop','est','dis','obs','op',''].includes(p.sem||''))w.push('sem raro: '+c.id+' v'+(j+1)+' p'+(k+1));
+    if(p.nota&&p.nota.length>190)w.push('Nota larga ('+p.nota.length+'): '+c.id+' v'+(j+1)+' p'+(k+1));
+   });
+   if(!v.lectura)w.push('Sin lectura: '+c.id+' v'+(j+1));
+  });
+ });
+ const sr=()=>st.getBoundingClientRect();
+ cards.forEach((c,i)=>c.vistas.forEach((v,j)=>{
+  ci=i;vi=j;build();seek(D-.05);
+  const sr2=sr(),k=sr2.width/1280;
+  if(texErr.length)texErr.forEach(x=>w.push('KaTeX error: '+c.id+' v'+(j+1)+' → '+x.slice(0,60)));
+  st.querySelectorAll('.pz,.nl,.cell,.zl,#zch,.zti,.zsub,.rp,.rc2,.rp .rd em,.rp .rd b,.rp .rd .chip,.rp .rd .iv,.rp .rd .col,.rp .rd .sg,.rp .rd .tx,.rp .rd .cellx,.rp .rd u').forEach(x=>{
+   const r=x.getBoundingClientRect();if(!r.width||+getComputedStyle(x).opacity<.25)return;
+   if((r.right-sr2.left)/k>1272||(r.bottom-sr2.top)/k>712||(r.left-sr2.left)/k<6)
+    w.push('Se sale del cuadro: '+c.id+' v'+(j+1)+' → '+((x.textContent||'').trim().slice(0,46)))});
+  const ti=E('zti').getBoundingClientRect();if(c.t&&(ti.bottom-sr2.top)/k>124)w.push('Título ocupa 2 líneas: '+c.id+' → '+c.t);
+  const zf=E('zfx');if(zf.style.display!=='none'){const r=zf.getBoundingClientRect();if((r.bottom-sr2.top)/k>590)w.push('Fórmula choca con la lectura: '+c.id+' v'+(j+1))}
+  const zn=E('znt');if(zn.style.display!=='none'){const r=zn.getBoundingClientRect();if((r.bottom-sr2.top)/k>600)w.push('Notas desbordadas: '+c.id+' v'+(j+1))}
+ }));
+ ci=0;vi=0;build();
+ if(window.__fnerr)window.__fnerr.forEach(x=>w.push('fn error: '+x));
+ const p=document.createElement('pre');p.id='lint';
+ p.textContent=w.length?'⚠ '+w.length+' aviso(s):\n'+w.join('\n'):'✓ Plantilla coherente: '+N+' fórmulas, sin pendientes, errores de KaTeX ni desbordes.';
+ document.querySelector('main').appendChild(p);console.log(p.textContent);
+}
+
+/* arranque */
+if(Q.get('id')){const i=cards.findIndex(c=>c.id===Q.get('id'));if(i>=0)ci=i}
+if(Q.get('v')){const v=+Q.get('v');if(cards[ci].vistas[v])vi=v}
+menu();guion();build();setTh(document.documentElement.dataset.theme);setBtn();
+const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+document.fonts.ready.then(()=>{
+ window.seek=seek;window.__ready=1;
+ const tp=Q.get('t');
+ if(tp!==null&&tp!==''&&+tp>0)seek(+tp);
+ else if(RD)play();
+ else if(!LINT){requestAnimationFrame(loop);
+  if(!rm&&'IntersectionObserver'in window)new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){o.disconnect();if(!go)play()}},{threshold:.6}).observe(vd)}
+ if(LINT)lint();
+});
+})();
+</script>
+</body>
+</html>
