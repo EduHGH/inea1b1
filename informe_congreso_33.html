@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Informe mensual del mes 33 de la XV legislatura: mayo de 2026. El Congreso convalida el decreto de copago farmacéutico (164-33-140) y la reforma del aborto pasa al Senado (184 votos). El Gobierno pierde cinco votaciones de vivienda y retira la Ley del Suelo. La pinza PP+Vox+Junts sigue bloqueando la agenda y el Ejecutivo cierra el mes sin Presupuestos.">
+<title>Informe mensual · Mayo 2026 · Votaciones del Congreso — mes 33 de la legislatura</title>
+<style>
+:root{
+  --granate:#7c1d30; --granate-osc:#54101f; --oro:#c9a227; --tinta:#23262e; --tinta-2:#5b6070;
+  --papel:#ffffff; --papel-2:#f7f5f2; --linea:#e4e1dc;
+  --si:#1a7f37; --si-bg:#e9f6ec; --si-bd:#c3e6cc;
+  --no:#b3261e; --no-bg:#fdeceb; --no-bd:#f2c4c1;
+  --ab:#9a6b00; --ab-bg:#fff5e0; --ab-bd:#f0dcae;
+  --ext:#5b51a3; --ext-bg:#f2effb; --ext-bd:#d9d4ee;
+  --psoe:#e6274c; --pp:#1d6fc0; --vox:#48a87a; --sumar:#e7455f;
+  --junts:#00b2a9; --erc:#f2b431; --bildu:#c2478f; --pnv:#166b4a; --mixto:#8a8f9c;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;color:var(--tinta);background:var(--papel);line-height:1.6;font-size:15.5px}
+h1,h2,h3,h4{font-family:Georgia,"Times New Roman","Noto Serif",serif;line-height:1.25}
+a{color:var(--granate)}
+/* portada */
+.portada{background:linear-gradient(160deg,var(--granate-osc) 0%,var(--granate) 62%,#93304a 100%);color:#fff;padding:48px 28px 40px;border-bottom:6px solid var(--oro)}
+.portada .kicker{margin:0 0 10px;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#ecc98b;font-weight:600}
+.portada h1{margin:0;font-size:clamp(28px,4.4vw,44px);max-width:960px}
+.portada .sub{margin:14px 0 0;font-size:clamp(15px,2vw,19px);max-width:900px;color:#f3e3e7}
+.portada .meta{margin-top:22px;font-size:13px;color:#e9d9dd}
+.portada .meta b{color:#fff}
+/* nav */
+nav.idx{position:sticky;top:0;z-index:50;background:#fffefb;border-bottom:1px solid var(--linea);box-shadow:0 1px 0 rgba(0,0,0,.03)}
+nav.idx .in{max-width:1080px;margin:0 auto;padding:9px 18px;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px}
+nav.idx a{text-decoration:none;color:var(--tinta-2);padding:3px 6px;border-radius:6px}
+nav.idx a:hover{background:var(--papel-2);color:var(--granate)}
+/* layout */
+main{max-width:1080px;margin:0 auto;padding:26px 18px 40px}
+section{margin:38px 0}
+section>h2{font-size:25px;margin:0 0 6px;color:var(--granate-osc)}
+section>h2 .rnum{color:var(--oro);font-size:14px;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:2px;font-family:"Segoe UI",Arial,sans-serif;font-weight:700}
+.sec-sub{color:var(--tinta-2);margin:0 0 14px;max-width:920px}
+h3{font-size:19px;color:var(--granate-osc);margin:26px 0 8px}
+p{margin:9px 0;max-width:920px}
+ul,ol{margin:8px 0;padding-left:24px;max-width:920px}
+li{margin:5px 0}
+/* tarjetas */
+.tarjetas{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0 6px}
+.tarj{border:1px solid var(--linea);border-radius:12px;padding:14px 16px;background:var(--papel-2)}
+.tarj .n{font-size:30px;font-weight:700;font-family:Georgia,serif;color:var(--granate)}
+.tarj .n.mini{font-size:17px;line-height:1.35;padding-top:6px;font-family:"Segoe UI",Arial,sans-serif}
+.tarj .l{font-size:12.5px;color:var(--tinta-2);margin-top:2px}
+.tarj.ko .n{color:var(--no)}
+/* cajas */
+.caja{border:1px solid var(--linea);border-left:4px solid var(--oro);background:var(--papel-2);border-radius:10px;padding:14px 18px;margin:16px 0}
+.caja h3{margin:0 0 8px;font-size:16px}
+.caja p{margin:6px 0}
+.caja.granate{border-left-color:var(--granate)}
+.caja.ok{border-left-color:var(--si)}
+.caja.aviso{border-left-color:var(--no)}
+.caja ul{margin:6px 0 6px 18px;padding:0}
+.caja li{margin:4px 0}
+/* fichas */
+.ficha{border:1px solid var(--linea);border-radius:14px;margin:24px 0;overflow:hidden;background:#fff}
+.ficha .cab{padding:16px 22px;color:#fff;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.ficha .cab h3{margin:0;color:#fff;font-size:21px;flex:1;min-width:240px}
+.ficha .cab .badge{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35)}
+.ficha .cab .fecha-f{font-size:13px;color:#f3e3e7}
+.ficha .cuerpo{padding:18px 22px 16px}
+.bloque{margin:14px 0}
+.bloque .et{font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--tinta-2);margin-bottom:4px;font-family:"Segoe UI",Arial,sans-serif}
+.bloque p{margin:0;font-size:14.5px}
+.bloque .destacado{font-size:15.5px;font-weight:600;color:var(--granate-osc)}
+/* votos */
+.voto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:6px;margin:6px 0}
+.voto-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;border-radius:8px;border:1px solid var(--linea);background:#fff;font-size:13px}
+.voto-item .g{font-weight:700}
+.voto-item .v{font-weight:700;font-size:12px;padding:2px 8px;border-radius:5px;white-space:nowrap}
+.v-si{background:var(--si-bg);color:var(--si);border:1px solid var(--si-bd)}
+.v-no{background:var(--no-bg);color:var(--no);border:1px solid var(--no-bd)}
+.v-ab{background:var(--ab-bg);color:var(--ab);border:1px solid var(--ab-bd)}
+.v-div{background:var(--ext-bg);color:var(--ext);border:1px solid var(--ext-bd)}
+.v-nv{background:#f3f3f6;color:#8a8f9c;border:1px dashed #dcdcdf;font-weight:600}
+/* dos columnas */
+.dos-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0}
+@media(max-width:760px){.dos-col{grid-template-columns:1fr}}
+.col-ben{border:1px solid var(--si-bd);background:var(--si-bg);border-radius:10px;padding:12px 14px}
+.col-per{border:1px solid var(--no-bd);background:var(--no-bg);border-radius:10px;padding:12px 14px}
+.col-ben .et,.col-per .et{margin-bottom:4px}
+.col-ben .et{color:var(--si)}
+.col-per .et{color:var(--no)}
+.col-ben p,.col-per p{margin:0;font-size:14px;color:var(--tinta)}
+/* consecuencia */
+.consec{border:1px solid var(--oro);background:#fffbe8;border-radius:10px;padding:12px 16px;margin:14px 0;font-size:15px;color:#3a2d00}
+.consec .et{color:#8a6d1f;margin-bottom:4px}
+/* chips de grupo */
+.chip{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:2px 8px;border:1px solid transparent}
+.chip-psoe{background:#fdeceb;color:var(--psoe);border-color:#f2c4c1}
+.chip-pp{background:#e8f0f9;color:var(--pp);border-color:#c4d9f2}
+.chip-vox{background:#e9f6ec;color:var(--vox);border-color:#c3e6cc}
+.chip-sumar{background:#fdeceb;color:var(--sumar);border-color:#f2c4c1}
+.chip-junts{background:#e0f5f3;color:#00706a;border-color:#b3e6e0}
+.chip-erc{background:#fff5e0;color:#9a6b00;border-color:#f0dcae}
+.chip-bildu{background:#f2effb;color:var(--bildu);border-color:#d9d4ee}
+.chip-pnv{background:#e0f0e6;color:var(--pnv);border-color:#b3d4c3}
+.chip-mixto{background:#eceef3;color:#48586c;border-color:#d4d8e0}
+/* tag coherencia */
+.coh{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;border-radius:6px;padding:2px 9px;border:1px solid transparent}
+.coh-ok{background:var(--si-bg);color:var(--si);border-color:var(--si-bd)}
+.coh-estr{background:var(--ext-bg);color:var(--ext);border-color:var(--ext-bd)}
+.coh-parc{background:var(--ab-bg);color:var(--ab);border-color:var(--ab-bd)}
+.coh-ko{background:var(--no-bg);color:var(--no);border-color:var(--no-bd)}
+/* tablas */
+.tabla-scroll{overflow-x:auto;border:1px solid var(--linea);border-radius:12px;margin:12px 0}
+table.pv{border-collapse:collapse;width:100%;min-width:680px;font-size:13.5px}
+table.pv th{background:var(--granate-osc);color:#fff;padding:9px 10px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.04em;font-family:"Segoe UI",Arial,sans-serif}
+table.pv td{border-bottom:1px solid var(--linea);padding:9px 10px;vertical-align:top;background:#fff}
+table.pv tr:nth-child(even) td{background:#fbfaf8}
+/* fuentes */
+ol.fuentes-lista{margin:10px 0;padding-left:30px;columns:2;column-gap:38px;font-size:12.5px}
+ol.fuentes-lista li{margin:6px 0;break-inside:avoid}
+ol.fuentes-lista a{overflow-wrap:anywhere;color:var(--tinta-2);text-decoration:none;font-size:11.5px}
+.nota-met{font-size:12.5px;color:var(--tinta-2);font-style:italic}
+/* pie */
+footer{border-top:4px solid var(--oro);background:var(--granate-osc);color:#e9d9dd;padding:22px 18px;font-size:13px}
+footer .in{max-width:1080px;margin:0 auto}
+footer b{color:#fff}
+/* impresión */
+@media print{
+  nav.idx{display:none}
+  .ficha,.tabla-scroll{page-break-inside:avoid}
+  body{font-size:11px}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media (max-width:760px){
+  ol.fuentes-lista{columns:1}
+  .portada{padding:32px 18px}
+}
+</style>
+</head>
+<body>
+
+<header class="portada">
+<p class="kicker">Informe mensual · Congreso de los Diputados · XV Legislatura</p>
+<h1>Mayo de 2026: el Congreso rebaja el copago farmacéutico, la reforma del aborto pasa al Senado y el Gobierno pierde la vivienda</h1>
+<p class="sub">Trigésimo tercer mes de la legislatura. El Congreso convalida el decreto que rebaja el copago farmacéutico (164-33-140) con la abstención del PP, Junts y ERC. La reforma del aborto supera su trámite y se envía al Senado (184 votos). Pero el mismo mes, la pinza PP+Vox+Junts tumba cinco propuestas de vivienda del Gobierno y el Ejecutivo retira la Ley del Suelo para evitar otra derrota. El PSOE acumula seis derrotas en una sola semana y el Gobierno sigue sin Presupuestos.</p>
+<div class="meta">Informe de elaboración propia · <b>corte: mayo de 2026</b> · base: Diarios de Sesiones del Congreso y registro de votaciones · 2 fichas + tabla resumen + síntesis ciudadana · mes 33 de la XV legislatura (1-5-2026 → 31-5-2026)</div>
+</header>
+
+<nav class="idx"><div class="in">
+<a href="#resumen">Resumen</a>
+<a href="#contexto">Contexto del mes</a>
+<a href="#hitos">Los hitos</a>
+<a href="#tabla">Tabla resumen</a>
+<a href="#sintesis">Ganó / perdió el ciudadano</a>
+<a href="#anexo">Metodología y fuentes</a>
+</div></nav>
+
+<main>
+
+<!-- ==================== RESUMEN ==================== -->
+<section id="resumen">
+<h2><span class="rnum">Portada del mes</span>Resumen ejecutivo</h2>
+
+<div class="tarjetas">
+<div class="tarj"><div class="n">164-33-140</div><div class="l">el Congreso convalida el decreto de copago farmacéutico (28-5-2026): rebaja el precio de los medicamentos según la renta. PP, Junts y ERC se abstienen; Vox vota en contra.</div></div>
+<div class="tarj"><div class="n mini">184 votos</div><div class="l">la reforma de la ley del aborto se envía al Senado (4-5-2026) con el apoyo del PSOE, Sumar, ERC, PNV y otros; PP y Vox en contra.</div></div>
+<div class="tarj ko"><div class="n">5 derrotas</div><div class="l">el Congreso tumba cinco propuestas de vivienda del Gobierno (20-5-2026) y respalda tres del PP. PNV, UPN y CC se abstienen.</div></div>
+<div class="tarj ko"><div class="n mini">6 derrotas</div><div class="l">el PSOE pierde seis votaciones en una sola semana (18-22 de mayo), las mismas que tenía desde el inicio de la legislatura.</div></div>
+</div>
+
+<div class="caja granate">
+<h3>Conclusión central del mes</h3>
+<p>Mayo de 2026 fue un <b>mes de victorias parciales y derrotas profundas</b> para el Gobierno. Por un lado, el Congreso convalidó el <b>decreto de copago farmacéutico</b> (164-33-140), que rebaja el precio de los medicamentos según la renta de los pacientes, con la abstención del PP, Junts y ERC. También aprobó el <b>envío al Senado de la reforma de la ley del aborto</b> (184 votos), que blindaba el derecho a la interrupción voluntaria del embarazo. Fueron dos victorias sociales y de derechos. Pero el mismo mes, la <b>pinza PP+Vox+Junts</b> tumbó <b>cinco propuestas de vivienda</b> del Gobierno (20-5-2026) y respaldó tres del PP, evidenciando la <b>minoría parlamentaria</b> del Ejecutivo. El Gobierno se vio obligado a <b>retirar la reforma de la Ley del Suelo</b> para evitar otra derrota, y el PSOE acumuló <b>seis derrotas en una sola semana</b>. El ciudadano ganó en salud (copago) y en derechos (aborto), pero perdió en vivienda y vio cómo el Gobierno seguía sin capacidad de aprobar su agenda estructural. La legislatura entró en junio con un Ejecutivo más débil que nunca y con la pinza consolidada como mayoría de bloqueo.</p>
+</div>
+
+<div class="caja">
+<h3>Los cuatro hallazgos del mes</h3>
+<ul>
+<li><b>1. El copago farmacéutico se rebaja (164-33-140):</b> el 28 de mayo, el Pleno convalidó el Real Decreto-ley 11/2026, que modifica la aportación de los usuarios en la prestación farmacéutica ambulatoria. La norma rebaja el precio de los medicamentos según la renta y establece topes mensuales para rentas inferiores a 35.000 euros. Votaron a favor PSOE, Sumar y parte de los socios; Vox en contra; PP, Junts y ERC se abstuvieron.</li>
+<li><b>2. La reforma del aborto pasa al Senado (184 votos):</b> el 4 de mayo, el Congreso aprobó el envío al Senado de la reforma de la ley del aborto, que blindaba el derecho a la interrupción voluntaria del embarazo. La votación salió adelante con 184 votos a favor (PSOE, Sumar, ERC, PNV, BNG y otros) y 158 en contra (PP, Vox, UPN y CC). La reforma continuó su tramitación en el Senado.</li>
+<li><b>3. El Gobierno pierde la vivienda (20-5-2026):</b> el Pleno tumbó cinco propuestas de vivienda del Gobierno de PSOE y Sumar, y respaldó tres del PP. La pinza PP+Vox+Junts votó en contra de las iniciativas del Ejecutivo, mientras el PNV, UPN y CC se abstenían. El resultado evidenció la dificultad del Gobierno para aprobar medidas de vivienda.</li>
+<li><b>4. El Gobierno retira la Ley del Suelo y acumula derrotas:</b> ante la falta de apoyos, el Ejecutivo retiró la reforma de la Ley del Suelo del orden del día. Sumar, Podemos, ERC, EH Bildu y Junts se oponían, y el PP no garantizaba su voto. El PSOE acumuló seis derrotas en una sola semana (18-22 de mayo), las mismas que tenía desde el inicio de la legislatura.</li>
+</ul>
+</div>
+</section>
+
+<!-- ==================== CONTEXTO ==================== -->
+<section id="contexto">
+<h2><span class="rnum">Contexto</span>El mes de las dos caras del Gobierno</h2>
+<p class="sec-sub">Abril había terminado con la derogación de la prórroga de alquileres (166-177-5) y la aprobación de la ley ELA por unanimidad (346-0). Mayo fue el mes en que el Gobierno logró avances en salud y derechos, pero sufrió derrotas contundentes en vivienda y se vio obligado a retirar una de sus reformas estrella.</p>
+
+<div class="caja">
+<h3>La cronología del mes</h3>
+<ul>
+<li><b>4 de mayo:</b> el Congreso aprueba el envío al Senado de la reforma de la ley del aborto con 184 votos a favor y 158 en contra. La reforma blinda el derecho a la interrupción voluntaria del embarazo.</li>
+<li><b>5 de mayo:</b> el ministro Bolaños reconoce que el Gobierno quiere aprobar los Presupuestos de 2026, pero que "no es el momento" por la incertidumbre económica y geopolítica.</li>
+<li><b>18-22 de mayo:</b> semana negra para el PSOE: el partido acumula seis derrotas en el Pleno, las mismas que tenía desde el inicio de la legislatura.</li>
+<li><b>19 de mayo:</b> el Congreso admite a trámite la ley antiokupas del PP gracias a la abstención de PNV y Junts. La iniciativa inicia su tramitación.</li>
+<li><b>20 de mayo:</b> el Pleno tumba cinco propuestas de vivienda del Gobierno y respalda tres del PP. La pinza PP+Vox+Junts vota en contra de las iniciativas del Ejecutivo.</li>
+<li><b>26 de mayo:</b> el Pleno aprueba la toma en consideración de la reforma del Reglamento del Congreso (178-171) y la modificación de la Ley de Propiedad Horizontal (306-33-10). También se tramita en lectura única la reforma de la ley electoral para suprimir el voto rogado.</li>
+<li><b>28 de mayo:</b> el Congreso convalida el decreto de copago farmacéutico (164-33-140) y aprueba una iniciativa para declarar "irrevocable" la presencia de España en la UE. Sánchez pide comparecer en el Congreso tras las investigaciones judiciales que afectan al PSOE.</li>
+</ul>
+</div>
+
+<div class="caja aviso">
+<h3>La geometría de la debilidad</h3>
+<p>Mayo confirmó que el Gobierno no tenía una mayoría estable. Logró aprobar el copago farmacéutico y la reforma del aborto, pero a costa de depender de abstenciones y apoyos puntuales. En vivienda, la pinza PP+Vox+Junts tumbó todas sus propuestas, y el Ejecutivo tuvo que retirar la Ley del Suelo para no sumar otra derrota. El PSOE acumuló seis derrotas en una semana, y el Gobierno siguió sin Presupuestos. La conclusión era clara: el Ejecutivo podía ganar batallas concretas (salud, derechos), pero no la guerra estructural (vivienda, presupuestos).</p>
+</div>
+</section>
+
+<!-- ==================== HITOS ==================== -->
+<section id="hitos">
+<h2><span class="rnum">Los hitos</span>Fichas del mes</h2>
+<p class="sec-sub">Dos hitos concentran el mes: la convalidación del decreto de copago farmacéutico (una victoria social) y el rechazo de las propuestas de vivienda del Gobierno (una derrota estructural). La reforma del aborto, que pasó al Senado, completa el cuadro.</p>
+
+<!-- ===== FICHA 1: COPAGO FARMACÉUTICO ===== -->
+<div class="ficha">
+<div class="cab" style="background:linear-gradient(120deg,#1a5a3a,#2e8b57)">
+<h3>1 · El Congreso convalida el decreto que rebaja el copago farmacéutico (164-33-140)</h3>
+<span class="badge">Convalidación de decreto-ley · Aprobada</span>
+<span class="fecha-f">28 de mayo de 2026</span>
+</div>
+<div class="cuerpo">
+
+<div class="bloque">
+<div class="et">Propuesta original</div>
+<p>Real Decreto-ley 11/2026, por el que se modifica la aportación de los usuarios y sus beneficiarios en la <b>prestación farmacéutica ambulatoria</b>. La norma, impulsada por el Ministerio de Sanidad, rebaja el precio de los medicamentos según la renta de los pacientes y establece <b>topes mensuales</b> para rentas inferiores a 35.000 euros, con el objetivo de reducir el coste para los colectivos más vulnerables y los pacientes polimedicados.</p>
+</div>
+
+<div class="bloque">
+<div class="et">Resultado legislativo</div>
+<p><span class="destacado">Convalidado 164-33-140</span> (28-5-2026). Votaron a favor el PSOE, Sumar y parte de sus socios; Vox votó en contra; el PP, Junts y ERC se abstuvieron. La medida supuso una rebaja de 265 millones de euros anuales para los usuarios.</p>
+</div>
+
+<div class="bloque">
+<div class="et">Voto por grupo (28-5-2026)</div>
+<div class="voto-grid">
+<div class="voto-item"><span class="g" style="color:var(--psoe)">PSOE</span><span class="v v-si">SÍ 120</span></div>
+<div class="voto-item"><span class="g" style="color:var(--pp)">PP</span><span class="v v-ab">Abst. 137</span></div>
+<div class="voto-item"><span class="g" style="color:var(--vox)">Vox</span><span class="v v-no">NO 33</span></div>
+<div class="voto-item"><span class="g" style="color:var(--sumar)">Sumar</span><span class="v v-si">SÍ 27</span></div>
+<div class="voto-item"><span class="g" style="color:var(--junts)">Junts</span><span class="v v-ab">Abst. 7</span></div>
+<div class="voto-item"><span class="g" style="color:var(--erc)">ERC</span><span class="v v-ab">Abst. 7</span></div>
+<div class="voto-item"><span class="g" style="color:var(--bildu)">EH Bildu</span><span class="v v-si">SÍ 6</span></div>
+<div class="voto-item"><span class="g" style="color:var(--pnv)">PNV</span><span class="v v-si">SÍ 5</span></div>
+<div class="voto-item"><span class="g" style="color:var(--mixto)">Mixto</span><span class="v v-div">SÍ / NO</span></div>
+</div>
+<p style="font-size:12.5px;color:var(--tinta-2);margin-top:6px">Mixto: CC SÍ, BNG SÍ, Podemos SÍ, UPN NO. Total: 164 síes, 33 noes y 140 abstenciones.</p>
+</div>
+
+<div class="bloque">
+<div class="et">Lectura ideológica</div>
+<p><span class="coh coh-parc">PARCIAL</span> · La votación fue una <b>victoria social</b> del Gobierno, pero con apoyos insuficientes para considerarla un consenso. El PSOE, Sumar y sus socios votaron a favor por coherencia con su programa sanitario; Vox votó en contra por su rechazo al gasto social. El PP, Junts y ERC se abstuvieron, lo que permitió la convalidación pero evidenció la falta de una mayoría sólida. La medida benefició a millones de pacientes, pero su aprobación dependió de abstenciones estratégicas.</p>
+</div>
+
+<div class="dos-col">
+<div class="col-ben">
+<div class="et">A quién beneficia</div>
+<p>A los <b>pacientes con rentas medias y bajas</b>, que pagarán menos por sus medicamentos. A los <b>pacientes polimedicados</b>, que verán topes mensuales en su gasto farmacéutico. A las <b>familias vulnerables</b>, que se ahorrarán hasta 265 millones de euros al año. Al <b>Gobierno</b>, que logra una victoria social en un mes de derrotas.</p>
+</div>
+<div class="col-per">
+<div class="et">A quién perjudica o no beneficia directamente</div>
+<p>A <b>nadie de forma directa</b>. Vox votó en contra, pero no perjudica a los beneficiarios. Los <b>contribuyentes</b> financian la rebaja. Las <b>farmacéuticas</b> podrían ver reducidos sus ingresos, aunque la norma no las penaliza directamente.</p>
+</div>
+</div>
+
+<div class="consec">
+<div class="et">Consecuencia ciudadana</div>
+La convalidación del decreto de copago farmacéutico es una <b>mejora material</b> para millones de pacientes. La rebaja del precio de los medicamentos y los topes mensuales suponen un alivio para las rentas medias y bajas, y protegen a los colectivos más vulnerables. Es el <b>principal avance social del mes</b> y una muestra de que el Congreso podía aprobar medidas de calado cuando las abstenciones lo permitían. Pero la victoria fue <b>parcial</b>: no cambió el sistema de copago, solo lo hizo más justo.
+</div>
+
+</div>
+</div>
+
+<!-- ===== FICHA 2: VIVIENDA Y LEY DEL SUELO ===== -->
+<div class="ficha">
+<div class="cab" style="background:linear-gradient(120deg,#8c1023,#e6274c)">
+<h3>2 · El Congreso tumba cinco propuestas de vivienda del Gobierno y el Ejecutivo retira la Ley del Suelo</h3>
+<span class="badge">Moción y PNL · Rechazadas</span>
+<span class="fecha-f">20 de mayo de 2026</span>
+</div>
+<div class="cuerpo">
+
+<div class="bloque">
+<div class="et">Propuesta original</div>
+<p>El Gobierno (PSOE y Sumar) presentó varias iniciativas para <b>vigilar la adjudicación de vivienda protegida</b>, <b>gravar la compra especulativa</b> y <b>limitar la adquisición de inmuebles por fondos buitre y socimis</b>. Además, el Ejecutivo había anunciado la reforma de la <b>Ley del Suelo</b> para agilizar la construcción y la promoción de vivienda pública.</p>
+</div>
+
+<div class="bloque">
+<div class="et">Resultado legislativo</div>
+<p><span class="destacado" style="color:var(--no)">Cinco propuestas tumbadas</span> (20-5-2026). La pinza PP+Vox+Junts votó en contra de las iniciativas del Gobierno, mientras el PNV, UPN y CC se abstenían. En paralelo, el Congreso respaldó tres propuestas del PP sobre vivienda. El Gobierno retiró la reforma de la Ley del Suelo ante la falta de apoyos.</p>
+</div>
+
+<div class="bloque">
+<div class="et">Voto por grupo (20-5-2026, propuestas del Gobierno)</div>
+<div class="voto-grid">
+<div class="voto-item"><span class="g" style="color:var(--psoe)">PSOE</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--pp)">PP</span><span class="v v-no">NO</span></div>
+<div class="voto-item"><span class="g" style="color:var(--vox)">Vox</span><span class="v v-no">NO</span></div>
+<div class="voto-item"><span class="g" style="color:var(--sumar)">Sumar</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--junts)">Junts</span><span class="v v-no">NO</span></div>
+<div class="voto-item"><span class="g" style="color:var(--erc)">ERC</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--bildu)">EH Bildu</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--pnv)">PNV</span><span class="v v-ab">Abst.</span></div>
+</div>
+<p style="font-size:12.5px;color:var(--tinta-2);margin-top:6px">Resultado final de una de las propuestas: 164 síes, 175 noes y 7 abstenciones. PP, Vox y Junts votaron en contra; PNV, UPN y CC se abstuvieron.</p>
+</div>
+
+<div class="bloque">
+<div class="et">Lectura ideológica</div>
+<p><span class="coh coh-estr">ESTRATÉGICO</span> · La votación no fue ideológica, sino un <b>pulso de gobernabilidad</b>. El PP y Vox votaron en contra por coherencia con su oposición al intervencionismo en el mercado de la vivienda. Junts votó en contra como parte de su estrategia de bloqueo tras la ruptura con el PSOE. El PNV, UPN y CC se abstuvieron, lo que permitió que las propuestas del Gobierno cayeran. El resultado fue una <b>derrota del Ejecutivo</b> que evidenció su minoría parlamentaria y la dificultad de aprobar medidas de vivienda.</p>
+</div>
+
+<div class="dos-col">
+<div class="col-ben">
+<div class="et">A quién beneficia</div>
+<p>Al <b>PP, Vox y Junts</b>, que lograron tumbar las propuestas del Gobierno y respaldar las suyas. A los <b>grandes tenedores y fondos buitre</b>, que se libran de las limitaciones que proponía el Ejecutivo.</p>
+</div>
+<div class="col-per">
+<div class="et">A quién perjudica o no beneficia directamente</div>
+<p>A los <b>inquilinos y demandantes de vivienda protegida</b>, que se quedan sin las medidas de control y supervisión. A los <b>ciudadanos que esperaban la Ley del Suelo</b>, que fue retirada. Al <b>Gobierno</b>, que sufrió una nueva derrota en vivienda y vio cómo su agenda se bloqueaba.</p>
+</div>
+</div>
+
+<div class="consec">
+<div class="et">Consecuencia ciudadana</div>
+El rechazo de las propuestas de vivienda y la retirada de la Ley del Suelo tienen una <b>consecuencia material directa</b>: no se aprobaron las medidas que el Gobierno había prometido para controlar la especulación y facilitar el acceso a la vivienda. Los ciudadanos que esperaban una intervención pública en el mercado del alquiler y la compra se quedaron sin ella. La pinza trasladó el coste del bloqueo a los colectivos más vulnerables.
+</div>
+
+</div>
+</div>
+
+</section>
+
+<!-- ==================== TABLA RESUMEN ==================== -->
+<section id="tabla">
+<h2><span class="rnum">Vista de pájaro</span>Tabla resumen del mes</h2>
+<p class="sec-sub">Dos filas para un mes de contrastes: la victoria social del copago farmacéutico y la derrota estructural en vivienda.</p>
+
+<div class="tabla-scroll">
+<table class="pv">
+<thead><tr>
+<th>Votación / hito</th><th>Resultado</th><th>¿Coherente con la ideología?</th><th>Ganadores</th><th>Perdedores / no beneficiados</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><b>Decreto de copago farmacéutico</b></td>
+<td><span style="color:var(--si);font-weight:700">Convalidado 164-33-140</span></td>
+<td><span class="coh coh-parc">PARCIAL</span> · PP, Junts y ERC se abstienen; Vox en contra</td>
+<td>Pacientes con rentas medias y bajas, polimedicados; Gobierno (victoria social)</td>
+<td>Vox (por su voto en contra); contribuyentes (financian la rebaja)</td>
+</tr>
+<tr>
+<td><b>Propuestas de vivienda del Gobierno y Ley del Suelo</b></td>
+<td><span style="color:var(--no);font-weight:700">5 propuestas tumbadas; Ley del Suelo retirada</span></td>
+<td><span class="coh coh-estr">ESTRATÉGICO</span> · Pinza PP+Vox+Junts; PNV, UPN y CC se abstienen</td>
+<td>PP, Vox y Junts (por el bloqueo); grandes tenedores</td>
+<td>Inquilinos, demandantes de vivienda protegida; Gobierno</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="caja aviso">
+<p><b>Advertencia de lectura.</b> El decreto de copago es una victoria social, pero no cambia el sistema sanitario. Las propuestas de vivienda y la Ley del Suelo eran medidas estructurales que el Gobierno no pudo aprobar. El ciudadano gana en salud y derechos, pero pierde en vivienda y certidumbre presupuestaria. La pinza sigue bloqueando la agenda social del Ejecutivo.</p>
+</div>
+</section>
+
+<!-- ==================== SÍNTESIS ==================== -->
+<section id="sintesis">
+<h2><span class="rnum">Cierre</span>Lo que ganó y perdió el ciudadano este mes</h2>
+
+<div class="caja ok">
+<h3>Ganaron</h3>
+<ul>
+<li><b>Los pacientes con rentas medias y bajas</b>: el decreto de copago farmacéutico rebaja el precio de los medicamentos y establece topes mensuales para rentas inferiores a 35.000 euros. Es el principal avance social del mes.</li>
+<li><b>Los pacientes polimedicados</b>: se benefician de los topes mensuales en su gasto farmacéutico.</li>
+<li><b>Las mujeres</b>: la reforma de la ley del aborto pasó al Senado, con 184 votos a favor. El derecho a la interrupción voluntaria del embarazo avanza en su blindaje legal.</li>
+<li><b>Los colectivos feministas</b>: vieron cómo la reforma del aborto superaba un nuevo trámite.</li>
+<li><b>El Gobierno (parcialmente)</b>: logró el copago y el avance del aborto, aunque perdió la vivienda.</li>
+</ul>
+</div>
+
+<div class="caja aviso">
+<h3>Perdieron / no se beneficiaron</h3>
+<ul>
+<li><b>Los inquilinos y demandantes de vivienda protegida</b>: las cinco propuestas de vivienda del Gobierno fueron tumbadas y la Ley del Suelo fue retirada. No se aprobaron las medidas de control de la especulación y de supervisión de la vivienda protegida.</li>
+<li><b>El Gobierno</b>: sufrió seis derrotas en una semana y se vio obligado a retirar la Ley del Suelo. Su minoría parlamentaria quedó en evidencia.</li>
+<li><b>Los ciudadanos que esperaban los Presupuestos de 2026</b>: el Gobierno reconoció que "no es el momento" de presentarlos. Las partidas para funcionarios, becas y dependencia siguen congeladas.</li>
+<li><b>Los votantes del PP y Vox</b>: su alternativa de gobierno no prosperó, aunque lograron bloquear la agenda del Ejecutivo en vivienda.</li>
+</ul>
+</div>
+
+<div class="caja">
+<h3>Quedó en el limbo</h3>
+<ul>
+<li><b>La reforma de la Ley del Suelo</b>: retirada por el Gobierno ante la falta de apoyos. Sumar, Podemos, ERC, EH Bildu y Junts se oponían.</li>
+<li><b>Los Presupuestos Generales del Estado de 2026</b>: el Gobierno reconoció que "no es el momento" de presentarlos. España sigue con la prórroga de 2023.</li>
+<li><b>La ley antiokupas del PP</b>: admitida a trámite (19-5-2026) gracias a la abstención de PNV y Junts. Inicia su tramitación.</li>
+<li><b>La reforma de la ley del aborto</b>: enviada al Senado, pendiente de su aprobación definitiva.</li>
+<li><b>La comparecencia de Sánchez</b>: solicitada por el propio presidente para informar sobre las investigaciones judiciales que afectan al PSOE. Se espera para junio.</li>
+</ul>
+</div>
+
+<div class="caja granate">
+<h3>La clave política del mes</h3>
+<p>Mayo de 2026 fue el mes de las <b>dos caras del Gobierno</b>: capaz de ganar batallas sociales (copago, aborto) con apoyos puntuales, pero incapaz de ganar la guerra estructural (vivienda, presupuestos) frente a la pinza PP+Vox+Junts. El PSOE acumuló seis derrotas en una semana, y el Ejecutivo retiró la Ley del Suelo para no sumar otra. El ciudadano ganó en salud y derechos, pero perdió en vivienda y certidumbre presupuestaria. La legislatura entró en junio con un Gobierno más débil que nunca, dependiente de abstenciones y con la pinza consolidada como mayoría de bloqueo. La lección del mes: en una legislatura de bloqueo, las victorias parciales no compensan las derrotas estructurales.</p>
+</div>
+</section>
+
+<!-- ==================== ANEXO ==================== -->
+<section id="anexo">
+<h2><span class="rnum">Anexo</span>Metodología y fuentes del mes</h2>
+
+<div class="caja">
+<h3>Base de datos</h3>
+<ul>
+<li><b>Diarios de Sesiones del Congreso</b>: sesiones plenarias de 4, 5, 19, 20, 26 y 28 de mayo de 2026. Se registraron las votaciones del copago farmacéutico, la reforma del aborto, las propuestas de vivienda, la ley antiokupas y la iniciativa sobre la UE.</li>
+<li><b>Registro de votaciones</b>: el decreto de copago (164-33-140) y las propuestas de vivienda (164-175-7) son las votaciones centrales del mes. La reforma del aborto (184 votos) completó el cuadro.</li>
+<li><b>Decreto de copago</b>: RDL 11/2026, convalidado el 28-5-2026.</li>
+</ul>
+</div>
+
+<div class="caja">
+<h3>Fuentes de consecuencias ciudadanas</h3>
+<ul>
+<li><b>Copago farmacéutico</b>: El Plural (28-5-2026); RTVE; Europa Press.</li>
+<li><b>Reforma del aborto</b>: El Imparcial (4-5-2026); Ondacero; El Hispánico.</li>
+<li><b>Vivienda</b>: Europa Press (20-5-2026); Infobae; Valencia Plaza; Demócrata.</li>
+<li><b>Ley del Suelo</b>: EFE (23-5-2026); El País; ElDiario.es.</li>
+<li><b>Ley antiokupas del PP</b>: Europa Press (19-5-2026); Público.</li>
+<li><b>Comparecencia de Sánchez</b>: Infobae (28-5-2026); El País; ElDebate.</li>
+<li><b>Presupuestos</b>: Europa Press (5-5-2026); El Nacional.cat.</li>
+</ul>
+</div>
+
+<div class="caja">
+<h3>Advertencias y límites</h3>
+<ul>
+<li><b>El decreto de copago se convalidó con abstenciones</b>: el informe lo trata como una victoria social, pero advierte que su aprobación dependió de la abstención del PP, Junts y ERC.</li>
+<li><b>Las propuestas de vivienda fueron tumbadas</b>: el informe las trata como una derrota estructural del Gobierno, no como una medida aprobada.</li>
+<li><b>La reforma del aborto se envió al Senado</b>: el informe la trata como un avance en su tramitación, no como ley definitiva.</li>
+<li><b>La Ley del Suelo fue retirada</b>: el informe la trata como una retirada estratégica del Gobierno ante la falta de apoyos.</li>
+</ul>
+</div>
+
+<h3>Fuentes del volcado y del kit de informes</h3>
+<ol class="fuentes-lista">
+<li>El Plural — «PP y Vox no apoyan el copago farmacéutico que rebaja el precio de los medicamentos en el Congreso» (28-5-2026) — <a href="https://www.elplural.com" target="_blank" rel="noopener">elplural.com</a></li>
+<li>Europa Press — «El Congreso certifica la minoría del Gobierno para aprobar medidas de vivienda» (20-5-2026) — <a href="https://www.europapress.es" target="_blank" rel="noopener">europapress.es</a></li>
+<li>El Imparcial — «El Congreso aprueba la reforma del aborto con un apoyo del 52,5%» (4-5-2026) — <a href="https://www.elimparcial.es" target="_blank" rel="noopener">elimparcial.es</a></li>
+<li>Europa Press — «El Congreso admite a trámite la ley antiokupas del PP gracias a la abstención de PNV y Junts» (19-5-2026) — <a href="https://www.europapress.es" target="_blank" rel="noopener">europapress.es</a></li>
+<li>Europa Press — «El Congreso declara "irrevocable" la presencia de España en la UE» (28-5-2026) — <a href="https://www.europapress.es" target="_blank" rel="noopener">europapress.es</a></li>
+<li>Infobae — «Sánchez pide comparecer en el Congreso tras las últimas investigaciones judiciales» (28-5-2026) — <a href="https://www.infobae.com" target="_blank" rel="noopener">infobae.com</a></li>
+<li>EFE — «El Gobierno retira la reforma de la Ley del Suelo para evitar otra derrota parlamentaria» (23-5-2026) — <a href="https://efe.com" target="_blank" rel="noopener">efe.com</a></li>
+<li>Informe general «Programa y voto: la línea de cada grupo parlamentario frente a su programa electoral del 23-J» (elaboración propia)</li>
+</ol>
+<p class="nota-met">Este documento es el <b>informe del mes 33</b> de la XV legislatura. Documenta el mes en que el Congreso convalidó el decreto de copago farmacéutico, envió al Senado la reforma del aborto y tumbó las propuestas de vivienda del Gobierno. Para el informe del mes anterior, véase abril de 2026; para el siguiente, junio de 2026.</p>
+</section>
+
+</main>
+
+<footer><div class="in">
+<b>Informe mensual · Mayo 2026 · Votaciones del Congreso de los Diputados (XV legislatura).</b> Mes 33 de la legislatura. Elaboración propia sobre los Diarios de Sesiones del Congreso, el registro de votaciones y los programas electorales del 23-J. El copago farmacéutico, la reforma del aborto y la derrota en vivienda.
+</div></footer>
+
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Informe mensual del mes 37 de la XV legislatura: septiembre de 2026. El último mes completo antes de la disolución. El Congreso tumba el decreto ómnibus y el gravamen energético, rechaza la ley de lobbies y aprueba los decretos de vivienda que caerán el 2 de octubre. La pinza PP+Vox+Junts+UPN bloquea la agenda y el Gobierno se encamina a la disolución del 6 de octubre y a las elecciones del 29-N.">
+<title>Informe mensual · Septiembre 2026 · Votaciones del Congreso — mes 37 de la legislatura</title>
+<style>
+:root{
+  --granate:#7c1d30; --granate-osc:#54101f; --oro:#c9a227; --tinta:#23262e; --tinta-2:#5b6070;
+  --papel:#ffffff; --papel-2:#f7f5f2; --linea:#e4e1dc;
+  --si:#1a7f37; --si-bg:#e9f6ec; --si-bd:#c3e6cc;
+  --no:#b3261e; --no-bg:#fdeceb; --no-bd:#f2c4c1;
+  --ab:#9a6b00; --ab-bg:#fff5e0; --ab-bd:#f0dcae;
+  --ext:#5b51a3; --ext-bg:#f2effb; --ext-bd:#d9d4ee;
+  --psoe:#e6274c; --pp:#1d6fc0; --vox:#48a87a; --sumar:#e7455f;
+  --junts:#00b2a9; --erc:#f2b431; --bildu:#c2478f; --pnv:#166b4a; --mixto:#8a8f9c;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;color:var(--tinta);background:var(--papel);line-height:1.6;font-size:15.5px}
+h1,h2,h3,h4{font-family:Georgia,"Times New Roman","Noto Serif",serif;line-height:1.25}
+a{color:var(--granate)}
+/* portada */
+.portada{background:linear-gradient(160deg,var(--granate-osc) 0%,var(--granate) 62%,#93304a 100%);color:#fff;padding:48px 28px 40px;border-bottom:6px solid var(--oro)}
+.portada .kicker{margin:0 0 10px;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#ecc98b;font-weight:600}
+.portada h1{margin:0;font-size:clamp(28px,4.4vw,44px);max-width:960px}
+.portada .sub{margin:14px 0 0;font-size:clamp(15px,2vw,19px);max-width:900px;color:#f3e3e7}
+.portada .meta{margin-top:22px;font-size:13px;color:#e9d9dd}
+.portada .meta b{color:#fff}
+/* nav */
+nav.idx{position:sticky;top:0;z-index:50;background:#fffefb;border-bottom:1px solid var(--linea);box-shadow:0 1px 0 rgba(0,0,0,.03)}
+nav.idx .in{max-width:1080px;margin:0 auto;padding:9px 18px;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px}
+nav.idx a{text-decoration:none;color:var(--tinta-2);padding:3px 6px;border-radius:6px}
+nav.idx a:hover{background:var(--papel-2);color:var(--granate)}
+/* layout */
+main{max-width:1080px;margin:0 auto;padding:26px 18px 40px}
+section{margin:38px 0}
+section>h2{font-size:25px;margin:0 0 6px;color:var(--granate-osc)}
+section>h2 .rnum{color:var(--oro);font-size:14px;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:2px;font-family:"Segoe UI",Arial,sans-serif;font-weight:700}
+.sec-sub{color:var(--tinta-2);margin:0 0 14px;max-width:920px}
+h3{font-size:19px;color:var(--granate-osc);margin:26px 0 8px}
+p{margin:9px 0;max-width:920px}
+ul,ol{margin:8px 0;padding-left:24px;max-width:920px}
+li{margin:5px 0}
+/* tarjetas de resumen */
+.tarjetas{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0 6px}
+.tarj{border:1px solid var(--linea);border-radius:12px;padding:14px 16px;background:var(--papel-2)}
+.tarj .n{font-size:30px;font-weight:700;font-family:Georgia,serif;color:var(--granate)}
+.tarj .n.mini{font-size:17px;line-height:1.35;padding-top:6px;font-family:"Segoe UI",Arial,sans-serif}
+.tarj .l{font-size:12.5px;color:var(--tinta-2);margin-top:2px}
+.tarj.ko .n{color:var(--no)}
+/* cajas */
+.caja{border:1px solid var(--linea);border-left:4px solid var(--oro);background:var(--papel-2);border-radius:10px;padding:14px 18px;margin:16px 0}
+.caja h3{margin:0 0 8px;font-size:16px}
+.caja p{margin:6px 0}
+.caja.granate{border-left-color:var(--granate)}
+.caja.ok{border-left-color:var(--si)}
+.caja.aviso{border-left-color:var(--no)}
+.caja ul{margin:6px 0 6px 18px;padding:0}
+.caja li{margin:4px 0}
+/* fichas */
+.ficha{border:1px solid var(--linea);border-radius:14px;margin:24px 0;overflow:hidden;background:#fff}
+.ficha .cab{padding:16px 22px;color:#fff;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.ficha .cab h3{margin:0;color:#fff;font-size:21px;flex:1;min-width:240px}
+.ficha .cab .badge{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35)}
+.ficha .cab .fecha-f{font-size:13px;color:#f3e3e7}
+.ficha .cuerpo{padding:18px 22px 16px}
+.bloque{margin:14px 0}
+.bloque .et{font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--tinta-2);margin-bottom:4px;font-family:"Segoe UI",Arial,sans-serif}
+.bloque p{margin:0;font-size:14.5px}
+.bloque .destacado{font-size:15.5px;font-weight:600;color:var(--granate-osc)}
+/* votos */
+.voto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:6px;margin:6px 0}
+.voto-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;border-radius:8px;border:1px solid var(--linea);background:#fff;font-size:13px}
+.voto-item .g{font-weight:700}
+.voto-item .v{font-weight:700;font-size:12px;padding:2px 8px;border-radius:5px;white-space:nowrap}
+.v-si{background:var(--si-bg);color:var(--si);border:1px solid var(--si-bd)}
+.v-no{background:var(--no-bg);color:var(--no);border:1px solid var(--no-bd)}
+.v-ab{background:var(--ab-bg);color:var(--ab);border:1px solid var(--ab-bd)}
+.v-div{background:var(--ext-bg);color:var(--ext);border:1px solid var(--ext-bd)}
+.v-nv{background:#f3f3f6;color:#8a8f9c;border:1px dashed #dcdcdf;font-weight:600}
+/* dos columnas */
+.dos-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0}
+@media(max-width:760px){.dos-col{grid-template-columns:1fr}}
+.col-ben{border:1px solid var(--si-bd);background:var(--si-bg);border-radius:10px;padding:12px 14px}
+.col-per{border:1px solid var(--no-bd);background:var(--no-bg);border-radius:10px;padding:12px 14px}
+.col-ben .et,.col-per .et{margin-bottom:4px}
+.col-ben .et{color:var(--si)}
+.col-per .et{color:var(--no)}
+.col-ben p,.col-per p{margin:0;font-size:14px;color:var(--tinta)}
+/* consecuencia */
+.consec{border:1px solid var(--oro);background:#fffbe8;border-radius:10px;padding:12px 16px;margin:14px 0;font-size:15px;color:#3a2d00}
+.consec .et{color:#8a6d1f;margin-bottom:4px}
+/* chips de grupo */
+.chip{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:2px 8px;border:1px solid transparent}
+.chip-psoe{background:#fdeceb;color:var(--psoe);border-color:#f2c4c1}
+.chip-pp{background:#e8f0f9;color:var(--pp);border-color:#c4d9f2}
+.chip-vox{background:#e9f6ec;color:var(--vox);border-color:#c3e6cc}
+.chip-sumar{background:#fdeceb;color:var(--sumar);border-color:#f2c4c1}
+.chip-junts{background:#e0f5f3;color:#00706a;border-color:#b3e6e0}
+.chip-erc{background:#fff5e0;color:#9a6b00;border-color:#f0dcae}
+.chip-bildu{background:#f2effb;color:var(--bildu);border-color:#d9d4ee}
+.chip-pnv{background:#e0f0e6;color:var(--pnv);border-color:#b3d4c3}
+.chip-mixto{background:#eceef3;color:#48586c;border-color:#d4d8e0}
+/* tag coherencia */
+.coh{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;border-radius:6px;padding:2px 9px;border:1px solid transparent}
+.coh-ok{background:var(--si-bg);color:var(--si);border-color:var(--si-bd)}
+.coh-estr{background:var(--ext-bg);color:var(--ext);border-color:var(--ext-bd)}
+.coh-parc{background:var(--ab-bg);color:var(--ab);border-color:var(--ab-bd)}
+.coh-ko{background:var(--no-bg);color:var(--no);border-color:var(--no-bd)}
+/* tablas */
+.tabla-scroll{overflow-x:auto;border:1px solid var(--linea);border-radius:12px;margin:12px 0}
+table.pv{border-collapse:collapse;width:100%;min-width:680px;font-size:13.5px}
+table.pv th{background:var(--granate-osc);color:#fff;padding:9px 10px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.04em;font-family:"Segoe UI",Arial,sans-serif}
+table.pv td{border-bottom:1px solid var(--linea);padding:9px 10px;vertical-align:top;background:#fff}
+table.pv tr:nth-child(even) td{background:#fbfaf8}
+/* fuentes */
+ol.fuentes-lista{margin:10px 0;padding-left:30px;columns:2;column-gap:38px;font-size:12.5px}
+ol.fuentes-lista li{margin:6px 0;break-inside:avoid}
+ol.fuentes-lista a{overflow-wrap:anywhere;color:var(--tinta-2);text-decoration:none;font-size:11.5px}
+.nota-met{font-size:12.5px;color:var(--tinta-2);font-style:italic}
+/* pie */
+footer{border-top:4px solid var(--oro);background:var(--granate-osc);color:#e9d9dd;padding:22px 18px;font-size:13px}
+footer .in{max-width:1080px;margin:0 auto}
+footer b{color:#fff}
+/* impresión */
+@media print{
+  nav.idx{display:none}
+  .ficha,.tabla-scroll{page-break-inside:avoid}
+  body{font-size:11px}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media (max-width:760px){
+  ol.fuentes-lista{columns:1}
+  .portada{padding:32px 18px}
+}
+</style>
+</head>
+<body>
+
+<header class="portada">
+<p class="kicker">Informe mensual · Congreso de los Diputados · XV Legislatura</p>
+<h1>Septiembre de 2026: el último mes completo de la legislatura, con el ómnibus y los lobbies tumbados y los decretos de vivienda en el aire</h1>
+<p class="sub">Trigésimo séptimo mes de la legislatura. El Congreso reanudó la actividad tras el parón de agosto con un balance demoledor para el Gobierno: el decreto ómnibus y el gravamen energético cayeron (PP, Junts y Vox), la ley de lobbies fue rechazada (155-179-12) y la ley de violencia vicaria superó su primer trámite (312-34), pero la agenda social pendiente —vivienda, aborto, trata, familias— quedó abocada a la disolución. El Gobierno aprobó in extremis los decretos de vivienda que, ya en octubre, serían derogados y desencadenarían la disolución del 6 de octubre y las elecciones del 29-N.</p>
+<div class="meta">Informe de elaboración propia · <b>corte: septiembre de 2026</b> · base: Diarios de Sesiones del Congreso y registro de votaciones · 2 fichas + tabla resumen + síntesis ciudadana · mes 37 de la XV legislatura (1-9-2026 → 30-9-2026)</div>
+</header>
+
+<nav class="idx"><div class="in">
+<a href="#resumen">Resumen</a>
+<a href="#contexto">Contexto del mes</a>
+<a href="#hitos">Los hitos</a>
+<a href="#tabla">Tabla resumen</a>
+<a href="#sintesis">Ganó / perdió el ciudadano</a>
+<a href="#anexo">Metodología y fuentes</a>
+</div></nav>
+
+<main>
+
+<!-- ==================== RESUMEN ==================== -->
+<section id="resumen">
+<h2><span class="rnum">Portada del mes</span>Resumen ejecutivo</h2>
+
+<div class="tarjetas">
+<div class="tarj ko"><div class="n mini">171-177<br>165-183<br>155-179</div><div class="l">los tres marcadores del mes: decreto ómnibus, gravamen energético y ley de lobbies, todos rechazados por la pinza PP+Vox+Junts+UPN</div></div>
+<div class="tarj"><div class="n">312-34</div><div class="l">la ley de violencia vicaria supera su primer trámite (30-S-2026) tras rechazar la enmienda a la totalidad de Vox</div></div>
+<div class="tarj ko"><div class="n mini">2 decretos de vivienda</div><div class="l">el Gobierno aprueba el 29-S los RDL 26/2026 y 27/2026, que serían derogados el 2 de octubre y desencadenarían la disolución</div></div>
+<div class="tarj ko"><div class="n mini">6 de octubre</div><div class="l">disolución de las Cortes (RD 806/2026) y convocatoria de elecciones para el 29 de noviembre</div></div>
+</div>
+
+<div class="caja granate">
+<h3>Conclusión central del mes</h3>
+<p>Septiembre de 2026 fue el <b>último mes completo de la XV legislatura</b> y el mes en que el bloqueo se hizo definitivo. El Congreso reanudó la actividad con una secuencia de derrotas para el Gobierno: el <b>14 de septiembre</b> cayeron el <b>decreto ómnibus</b> (que incluía la revalorización de pensiones) y el <b>gravamen energético</b> (171-177 y 165-183), con el PP, Junts y Vox votando en contra; el <b>16 de septiembre</b> se hundió la <b>ley de lobbies</b> (155-179-12), que el Gobierno había intentado salvar por decreto para no perder 1.500 millones de fondos europeos; y el <b>30 de septiembre</b> la <b>ley de violencia vicaria</b> superó su primer trámite (312-34), pero su tramitación quedaría interrumpida por la disolución. En paralelo, el Gobierno aprobó el <b>29 de septiembre</b> los decretos de vivienda (RDL 26/2026 y 27/2026) que, ya en octubre, serían derogados por la pinza (172-178 y 166-184) y desencadenarían la <b>disolución del 6 de octubre</b> y las elecciones del <b>29-N</b>. El ciudadano perdió las pensiones de septiembre (hasta que se reeditó un decreto específico), la ley de lobbies y la regulación de la vivienda; ganó, solo sobre el papel, el avance de la ley de violencia vicaria, que no llegaría a aprobarse. La legislatura terminó sin un solo Presupuesto y con la agenda social pendiente.</p>
+</div>
+
+<div class="caja">
+<h3>Los cuatro hallazgos del mes</h3>
+<ul>
+<li><b>1. El decreto ómnibus y el gravamen energético caen (14-S):</b> el Pleno rechazó el decreto ómnibus que incluía la revalorización de pensiones y el gravamen energético. PP, Junts y Vox votaron en contra. El decreto de jubilación parcial se salvó con el apoyo del PP. El Gobierno se vio obligado a comprometerse a presentar un nuevo decreto solo para las pensiones, que Junts y PP dijeron que apoyarían.<span style="font-size:0.75em;color:var(--tinta-2">[citation:6]</span></li>
+<li><b>2. La ley de lobbies se hunde (16-S):</b> el Congreso tumbó la ley de lobbies (155-179-12) tras el rechazo de PP, Vox, Junts y UPN. El Gobierno había optado por un decreto para regular los lobbies y asegurar 1.500 millones de fondos europeos antes del 31 de agosto; ahora ese dinero quedaba en el aire.<span style="font-size:0.75em;color:var(--tinta-2">[citation:5]</span></li>
+<li><b>3. La violencia vicaria avanza, pero no llegará a ley (30-S):</b> el Pleno rechazó la enmienda a la totalidad de Vox a la ley de violencia vicaria (312-34). La norma continuó su tramitación en la Comisión de Igualdad, pero la disolución de las Cámaras interrumpió el proceso. También quedaron pendientes la ley contra la trata, la reforma del aborto en la Constitución y la ley de familias.<span style="font-size:0.75em;color:var(--tinta-2">[citation:7]</span></li>
+<li><b>4. Los decretos de vivienda: nacen en septiembre, mueren en octubre:</b> el Consejo de Ministros aprobó el 29-S los RDL 26/2026 y 27/2026, impulsados tras el desahucio de Maricarmen, una vecina de 87 años. Entraron en vigor el 1 y el 2 de octubre, pero fueron derogados ese mismo 2 de octubre por la pinza (172-178 y 166-184). La derogación desencadenó la disolución del 6 de octubre.<span style="font-size:0.75em;color:var(--tinta-2">[citation:8]</span></li>
+</ul>
+</div>
+</section>
+
+<!-- ==================== CONTEXTO ==================== -->
+<section id="contexto">
+<h2><span class="rnum">Contexto</span>El mes de las últimas oportunidades perdidas</h2>
+<p class="sec-sub">Tras el parón de agosto, septiembre debía ser el mes de la reactivación legislativa. Fue, en cambio, el mes en que la pinza demostró que no había margen: cada decreto del Gobierno cayó y cada ley social quedó abocada a la disolución.</p>
+
+<div class="caja">
+<h3>La cronología del mes</h3>
+<ul>
+<li><b>8 de septiembre:</b> la financiación autonómica se abre paso en el Congreso sin el aval explícito de Junts, que presenta una enmienda a la totalidad. La votación evidencia la distancia entre las estrategias de ERC y Junts.</li>
+<li><b>14 de septiembre:</b> el Pleno rechaza el decreto ómnibus y el gravamen energético. El PP, Junts y Vox votan en contra. El decreto de jubilación parcial se salva con el apoyo del PP.</li>
+<li><b>16 de septiembre:</b> el Congreso tumba la ley de lobbies (155-179-12). El Gobierno pierde 1.500 millones de fondos europeos.</li>
+<li><b>23 de septiembre:</b> jornada de votaciones variadas: una PNL del PNV sobre la Y vasca se aprueba; una moción de Vox sobre educación se rechaza; el Gobierno convalida un decreto-ley sobre La Palma.</li>
+<li><b>29 de septiembre:</b> el Consejo de Ministros aprueba los decretos de vivienda (RDL 26/2026 y 27/2026), conocidos como «decretos Maricarmen», en respuesta al desahucio de una vecina de 87 años.</li>
+<li><b>30 de septiembre:</b> el Pleno rechaza la enmienda a la totalidad de Vox a la ley de violencia vicaria (312-34). La ley sigue su tramitación, pero ya con la disolución en el horizonte.</li>
+</ul>
+</div>
+
+<div class="caja aviso">
+<h3>La aritmética del bloqueo final</h3>
+<p>La pinza PP (137) + Vox (32-33) + Junts (7) + UPN (1) = <b>177-178 votos</b>. El bloque del Gobierno (PSOE 120 + Sumar 26 + ERC 7 + EH Bildu 6 + PNV 5 + BNG 1 + CC 1) = <b>166-171 votos</b>. Con Junts en contra, el Gobierno no podía aprobar ningún decreto. La única forma de salvar una medida era <b>negociarla por separado con el PP</b>, como ocurrió con la jubilación parcial. El mes confirmó que el Gobierno había perdido la capacidad de legislar y que la legislatura se encaminaba irremediablemente a la disolución.</p>
+</div>
+</section>
+
+<!-- ==================== HITOS ==================== -->
+<section id="hitos">
+<h2><span class="rnum">Los hitos</span>Fichas del mes</h2>
+<p class="sec-sub">Dos hitos concentran el mes: la caída del decreto ómnibus y del gravamen energético (la derrota del escudo social) y el hundimiento de la ley de lobbies (la pérdida de los fondos europeos). La ley de violencia vicaria y los decretos de vivienda completan el cuadro.</p>
+
+<!-- ===== FICHA 1: ÓMNIBUS Y ENERGÉTICAS ===== -->
+<div class="ficha">
+<div class="cab" style="background:linear-gradient(120deg,#8c1023,#e6274c)">
+<h3>1 · El decreto ómnibus y el gravamen energético caen (171-177 y 165-183): la pinza tumba el escudo social</h3>
+<span class="badge">Convalidación de decretos-ley · Rechazada</span>
+<span class="fecha-f">14 de septiembre de 2026</span>
+</div>
+<div class="cuerpo">
+
+<div class="bloque">
+<div class="et">Propuesta original</div>
+<p>El Gobierno llevó al Pleno la convalidación de dos reales decretos-ley: el <b>decreto ómnibus</b>, que incluía la <b>revalorización de las pensiones</b> para 2026 y otras medidas sociales, y el <b>gravamen energético</b>, que prorrogaba el impuesto a las grandes energéticas. Ambos formaban parte del escudo social que el Gobierno había prometido mantener. El Ejecutivo también sometió a votación el decreto de <b>jubilación parcial</b>, que había sido pactado con el PP.</p>
+</div>
+
+<div class="bloque">
+<div class="et">Resultado legislativo</div>
+<p><b>Decreto ómnibus:</b> <span class="destacado" style="color:var(--no)">rechazado 171-177</span>. <b>Gravamen energético:</b> <span class="destacado" style="color:var(--no)">rechazado 165-183</span>. El PP, Junts y Vox votaron en contra de ambos. El <b>decreto de jubilación parcial</b> se salvó con el apoyo del PP. El Gobierno perdió la revalorización de pensiones y el impuesto energético, aunque se comprometió a presentar un nuevo decreto solo para las pensiones.<span style="font-size:0.75em;color:var(--tinta-2">[citation:6]</span></p>
+</div>
+
+<div class="bloque">
+<div class="et">Voto por grupo (14-9-2026)</div>
+<div class="voto-grid">
+<div class="voto-item"><span class="g" style="color:var(--psoe)">PSOE</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--pp)">PP</span><span class="v v-no">NO</span></div>
+<div class="voto-item"><span class="g" style="color:var(--vox)">Vox</span><span class="v v-no">NO</span></div>
+<div class="voto-item"><span class="g" style="color:var(--sumar)">Sumar</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--junts)">Junts</span><span class="v v-no">NO</span></div>
+<div class="voto-item"><span class="g" style="color:var(--erc)">ERC</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--bildu)">EH Bildu</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--pnv)">PNV</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--mixto)">Mixto</span><span class="v v-div">SÍ / NO</span></div>
+</div>
+<p style="font-size:12.5px;color:var(--tinta-2);margin-top:6px">El decreto ómnibus cayó con 171 síes (PSOE, Sumar, ERC, Bildu, PNV, BNG, CC, Podemos) y 177 noes (PP, Vox, Junts, UPN). El gravamen energético cayó con 165 síes y 183 noes (PP, Vox, Junts, PNV). La abstención de Junts en el decreto de jubilación parcial permitió que se salvara con el apoyo del PP.</p>
+</div>
+
+<div class="bloque">
+<div class="et">Lectura ideológica</div>
+<p><span class="coh coh-estr">ESTRATÉGICO</span> · El voto no fue ideológico, sino un <b>pulso de gobernabilidad</b>. El PP y Vox votaron en contra por coherencia con su oposición al Gobierno. Junts votó en contra como parte de su estrategia de bloqueo tras la ruptura de octubre de 2025 y porque no había obtenido contrapartidas suficientes. El PNV se sumó al «no» al gravamen energético por el impacto sobre el sector hidroeléctrico vasco. El resultado fue una <b>derrota del Gobierno</b> que evidenció que la pinza podía tumbar cualquier decreto social y que el Ejecutivo dependía del PP para salvar medidas concretas.</p>
+</div>
+
+<div class="dos-col">
+<div class="col-ben">
+<div class="et">A quién beneficia (si se hubiera aprobado)</div>
+<p>A los <b>pensionistas</b>, que habrían visto revalorizadas sus pagas en septiembre. A las <b>familias vulnerables</b>, que habrían mantenido el escudo social. A los <b>usuarios de servicios públicos</b>, porque el gravamen energético financiaba políticas sociales. Al <b>Gobierno</b>, que habría mantenido su agenda social.</p>
+</div>
+<div class="col-per">
+<div class="et">A quién perjudica o no beneficia directamente</div>
+<p>A los <b>pensionistas</b>, que no vieron actualizadas sus pagas hasta que se aprobó un nuevo decreto específico. A las <b>familias vulnerables</b>, que perdieron el escudo social. Al <b>Gobierno</b>, que sufrió una nueva derrota. A los <b>ciudadanos</b>, porque el Estado dejó de ingresar el gravamen energético y redujo su capacidad de financiar políticas sociales.</p>
+</div>
+</div>
+
+<div class="consec">
+<div class="et">Consecuencia ciudadana</div>
+La caída del decreto ómnibus y del gravamen energético tuvo una <b>consecuencia material directa</b>: los pensionistas no vieron revalorizadas sus pagas en septiembre y el Estado perdió una fuente de ingresos. El escudo social quedó en el aire. El Gobierno se vio obligado a comprometerse a presentar un nuevo decreto solo para las pensiones, que Junts y PP dijeron que apoyarían. El ciudadano no perdió derechos ya reconocidos, pero perdió la expectativa de mejora. La política de bloqueo trasladó el coste a los colectivos más vulnerables.
+</div>
+
+</div>
+</div>
+
+<!-- ===== FICHA 2: LEY DE LOBBBIES ===== -->
+<div class="ficha">
+<div class="cab" style="background:linear-gradient(120deg,#5b51a3,#7a72b5)">
+<h3>2 · El Congreso tumba la ley de lobbies (155-179-12): 1.500 millones de fondos europeos en el aire</h3>
+<span class="badge">Derogación de decreto-ley · Rechazada</span>
+<span class="fecha-f">16 de septiembre de 2026</span>
+</div>
+<div class="cuerpo">
+
+<div class="bloque">
+<div class="et">Propuesta original</div>
+<p>El Gobierno había impulsado la regulación de los <b>grupos de interés</b> (ley de lobbies) mediante un decreto-ley, con el argumento de que la norma estaba ligada al desembolso de <b>1.500 millones de euros de fondos europeos</b> y debía aprobarse antes del 31 de agosto. El decreto entró en vigor después de que el Consejo de Ministros lo aprobase el 25 de agosto. El Congreso debía convalidarlo o derogarlo.<span style="font-size:0.75em;color:var(--tinta-2">[citation:5]</span></p>
+</div>
+
+<div class="bloque">
+<div class="et">Resultado legislativo</div>
+<p><span class="destacado" style="color:var(--no)">Derogado 155-179-12</span>. El PP, Vox, Junts y UPN votaron en contra. La ley de lobbies quedó derogada y los 1.500 millones de fondos europeos quedaron en el aire. El Gobierno perdió una de sus normas de transparencia y un desembolso clave de fondos.<span style="font-size:0.75em;color:var(--tinta-2">[citation:5]</span></p>
+</div>
+
+<div class="bloque">
+<div class="et">Voto por grupo (16-9-2026)</div>
+<div class="voto-grid">
+<div class="voto-item"><span class="g" style="color:var(--psoe)">PSOE</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--pp)">PP</span><span class="v v-no">NO</span></div>
+<div class="voto-item"><span class="g" style="color:var(--vox)">Vox</span><span class="v v-no">NO</span></div>
+<div class="voto-item"><span class="g" style="color:var(--sumar)">Sumar</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--junts)">Junts</span><span class="v v-no">NO</span></div>
+<div class="voto-item"><span class="g" style="color:var(--erc)">ERC</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--bildu)">EH Bildu</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--pnv)">PNV</span><span class="v v-ab">Abst.</span></div>
+<div class="voto-item"><span class="g" style="color:var(--mixto)">Mixto</span><span class="v v-div">SÍ / NO / ABST.</span></div>
+</div>
+<p style="font-size:12.5px;color:var(--tinta-2);margin-top:6px">El PP, Vox, Junts y UPN votaron en contra. El PNV se abstuvo. La ley de lobbies, que llevaba desde principios de 2025 tramitándose, quedó definitivamente derogada.</p>
+</div>
+
+<div class="bloque">
+<div class="et">Lectura ideológica</div>
+<p><span class="coh coh-estr">ESTRATÉGICO</span> · La votación no fue ideológica, sino un <b>pulso de gobernabilidad</b>. El PP y Vox votaron en contra por coherencia con su oposición al Gobierno y su rechazo a la regulación de los lobbies. Junts votó en contra como parte de su estrategia de bloqueo. UPN se sumó a la pinza. El PNV se abstuvo. El resultado fue una <b>derrota del Gobierno</b> que evidenció que la pinza podía derogar cualquier decreto y que el Ejecutivo había perdido la capacidad de aprobar sus normas de transparencia.</p>
+</div>
+
+<div class="dos-col">
+<div class="col-ben">
+<div class="et">A quién beneficia</div>
+<p>A los <b>grupos de interés</b>, que evitan la regulación y el registro obligatorio. Al <b>PP, Vox, Junts y UPN</b>, que suman una nueva derrota del Gobierno. A los <b>sectores que consideraban la ley un «ataque a la libertad de empresa»</b>.</p>
+</div>
+<div class="col-per">
+<div class="et">A quién perjudica o no beneficia directamente</div>
+<p>A la <b>ciudadanía interesada en la transparencia</b>, que se queda sin un registro de lobbies. A los <b>medios de comunicación y a los investigadores</b>, que pierden una herramienta para fiscalizar la actividad de los grupos de interés. Al <b>Gobierno</b>, que pierde 1.500 millones de fondos europeos y una de sus normas de regeneración.</p>
+</div>
+</div>
+
+<div class="consec">
+<div class="et">Consecuencia ciudadana</div>
+La derogación de la ley de lobbies tuvo una <b>consecuencia material doble</b>: por un lado, la ciudadanía perdió la herramienta de transparencia que habría permitido conocer quién influye en las decisiones públicas; por otro, el Estado perdió 1.500 millones de euros de fondos europeos. La norma había sido una de las banderas de la regeneración democrática y su caída dejó un vacío en la regulación de los grupos de interés. El ciudadano no perdió un derecho ya reconocido, pero perdió la expectativa de una mayor transparencia y el Estado perdió una financiación clave.
+</div>
+
+</div>
+</div>
+
+</section>
+
+<!-- ==================== TABLA RESUMEN ==================== -->
+<section id="tabla">
+<h2><span class="rnum">Vista de pájaro</span>Tabla resumen del mes</h2>
+<p class="sec-sub">Tres filas para un mes de derrotas y un avance legislativo que no llegaría a culminar: el ómnibus y las energéticas, los lobbies y la violencia vicaria.</p>
+
+<div class="tabla-scroll">
+<table class="pv">
+<thead><tr>
+<th>Votación / hito</th><th>Resultado</th><th>¿Coherente con la ideología?</th><th>Ganadores</th><th>Perdedores / no beneficiados</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><b>Decreto ómnibus y gravamen energético</b></td>
+<td><span style="color:var(--no);font-weight:700">Rechazados 171-177 y 165-183</span></td>
+<td><span class="coh coh-estr">ESTRATÉGICO</span> · Pinza PP+Vox+Junts; PNV en contra del gravamen</td>
+<td>PP, Vox y Junts (por el bloqueo); grandes energéticas (por la derogación del gravamen)</td>
+<td>Pensionistas, familias vulnerables; Gobierno; ciudadanía (menos ingresos públicos)</td>
+</tr>
+<tr>
+<td><b>Ley de lobbies</b></td>
+<td><span style="color:var(--no);font-weight:700">Derogada 155-179-12</span></td>
+<td><span class="coh coh-estr">ESTRATÉGICO</span> · PP, Vox, Junts y UPN en contra; PNV se abstiene</td>
+<td>PP, Vox, Junts y UPN (por el bloqueo); grupos de interés</td>
+<td>Ciudadanía (transparencia); Gobierno (pierde 1.500 millones de fondos europeos)</td>
+</tr>
+<tr>
+<td><b>Ley de violencia vicaria (enmienda a la totalidad de Vox)</b></td>
+<td><span style="color:var(--si);font-weight:700">Rechazada 312-34</span></td>
+<td><span class="coh coh-parc">PARCIAL</span> · PSOE, PP, Sumar y socios en contra de la enmienda; Vox a favor</td>
+<td>Víctimas de violencia vicaria (avance legislativo); PSOE y PP (por el acuerdo)</td>
+<td>Vox (por la derrota); la ley no llega a aprobarse por la disolución</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="caja aviso">
+<p><b>Advertencia de lectura.</b> El decreto ómnibus y el gravamen energético eran medidas sociales y fiscales con impacto directo. Su rechazo no cambia ninguna ley existente, pero <b>impide que las medidas entren en vigor</b> y deja sin financiación políticas sociales. La ley de lobbies era una norma de transparencia que también aseguraba fondos europeos. La ley de violencia vicaria superó su primer trámite, pero la disolución interrumpió su tramitación. El mes deja un balance negativo para el ciudadano: pierde pensiones, transparencia y fondos, y solo gana un avance legislativo que no llega a ley.</p>
+</div>
+</section>
+
+<!-- ==================== SÍNTESIS ==================== -->
+<section id="sintesis">
+<h2><span class="rnum">Cierre</span>Lo que ganó y perdió el ciudadano este mes</h2>
+
+<div class="caja ok">
+<h3>Ganaron</h3>
+<ul>
+<li><b>Las víctimas de violencia vicaria (parcialmente)</b>: la ley superó su primer trámite (312-34) y continuó su tramitación. Aunque no llegó a aprobarse por la disolución, el avance legislativo quedó registrado y podría recuperarse en la próxima legislatura.</li>
+<li><b>El PP y Vox</b>: lograron tumbar el decreto ómnibus, el gravamen energético y la ley de lobbies. Demostraron que la pinza podía bloquear cualquier iniciativa del Gobierno.</li>
+<li><b>Junts</b>: mantuvo su capacidad de veto y su estrategia de bloqueo, aunque sin obtener contrapartidas concretas en septiembre.</li>
+</ul>
+</div>
+
+<div class="caja aviso">
+<h3>Perdieron / no se beneficiaron</h3>
+<ul>
+<li><b>Los pensionistas</b>: la revalorización de pensiones incluida en el decreto ómnibus no se aprobó en septiembre. No vieron actualizadas sus pagas hasta que se aprobó un nuevo decreto específico.</li>
+<li><b>Las familias vulnerables</b>: el escudo social decayó con el decreto ómnibus y no se recuperó en septiembre.</li>
+<li><b>La ciudadanía interesada en la transparencia</b>: la ley de lobbies fue derogada y se perdió el registro de grupos de interés.</li>
+<li><b>El Estado y los contribuyentes</b>: la derogación del gravamen energético redujo los ingresos públicos y la pérdida de la ley de lobbies dejó 1.500 millones de fondos europeos en el aire.</li>
+<li><b>El Gobierno</b>: sufrió una secuencia de derrotas que evidenció su debilidad y le abocó a la disolución.</li>
+<li><b>Los inquilinos</b>: los decretos de vivienda, aprobados a finales de septiembre, serían derogados el 2 de octubre, dejando sin efecto la prohibición de desahucios y la prórroga de contratos.</li>
+</ul>
+</div>
+
+<div class="caja">
+<h3>Quedó en el limbo</h3>
+<ul>
+<li><b>La revalorización de pensiones</b>: no se aprobó en septiembre; el Gobierno se comprometió a presentar un nuevo decreto específico, que no llegaría hasta después de la disolución.</li>
+<li><b>La ley de violencia vicaria</b>: aprobada su tramitación inicial, pero interrumpida por la disolución del 6 de octubre.</li>
+<li><b>La reforma del aborto en la Constitución</b>: en tramitación, pero sin culminar.</li>
+<li><b>La ley contra la trata y la ley de familias</b>: pendientes, sin llegar al Pleno.</li>
+<li><b>Los Presupuestos Generales del Estado de 2026</b>: sin aprobar. España siguió con la prórroga de 2023.</li>
+<li><b>La legislatura</b>: abocada a la disolución del 6 de octubre y a las elecciones del 29-N.</li>
+</ul>
+</div>
+
+<div class="caja granate">
+<h3>La clave política del mes</h3>
+<p>Septiembre de 2026 fue el mes en que la <b>pinza se hizo definitiva</b> y el Gobierno perdió toda capacidad de legislar. El decreto ómnibus y el gravamen energético cayeron, la ley de lobbies se hundió y los decretos de vivienda, aprobados in extremis, serían derogados en octubre. Solo la ley de violencia vicaria avanzó, pero su tramitación quedaría interrumpida por la disolución. El ciudadano perdió pensiones, transparencia y fondos europeos, y ganó un avance legislativo que no llegó a ley. La legislatura terminó sin Presupuestos y con la agenda social pendiente. La disolución del 6 de octubre y las elecciones del 29-N fueron el resultado de un bloqueo que se había hecho estructural. La lección del mes: en una legislatura de bloqueo, el último mes completo sirve para constatar que el Parlamento no podía legislar y que el Gobierno no podía gobernar.</p>
+</div>
+</section>
+
+<!-- ==================== ANEXO ==================== -->
+<section id="anexo">
+<h2><span class="rnum">Anexo</span>Metodología y fuentes del mes</h2>
+
+<div class="caja">
+<h3>Base de datos</h3>
+<ul>
+<li><b>Diarios de Sesiones del Congreso</b>: sesiones plenarias de 8, 14, 16, 23 y 30 de septiembre de 2026. Se registraron las votaciones del decreto ómnibus, el gravamen energético, la ley de lobbies, la ley de violencia vicaria y las proposiciones no de ley del 23-S.</li>
+<li><b>Registro de votaciones</b>: el decreto ómnibus (171-177) y la ley de lobbies (155-179-12) son las votaciones centrales del mes. La ley de violencia vicaria (312-34) completó el cuadro.</li>
+<li><b>Decretos de vivienda</b>: RDL 26/2026 y 27/2026, aprobados por el Consejo de Ministros el 29-9-2026. Derogados por el Congreso el 2-10-2026.</li>
+</ul>
+</div>
+
+<div class="caja">
+<h3>Fuentes de consecuencias ciudadanas</h3>
+<ul>
+<li><b>Decreto ómnibus y gravamen energético</b>: El Imparcial (14-9-2026); Europa Press; RTVE.</li>
+<li><b>Ley de lobbies</b>: RTVE (16-9-2026); ElDiario.es; Newtral.</li>
+<li><b>Ley de violencia vicaria</b>: El Plural (30-9-2026); RTVE; Europa Press.</li>
+<li><b>Decretos de vivienda</b>: El Observador (2-10-2026); OCU; Maldita.es.</li>
+<li><b>Disolución y elecciones</b>: BOE (RD 806/2026, de 6-10-2026); La Moncloa; RTVE.</li>
+</ul>
+</div>
+
+<div class="caja">
+<h3>Advertencias y límites</h3>
+<ul>
+<li><b>El decreto ómnibus y el gravamen energético se rechazaron en septiembre</b>: el informe los trata como derrotas del Gobierno y pérdidas del escudo social.</li>
+<li><b>La ley de lobbies se derogó en septiembre</b>: el informe la trata como una pérdida de transparencia y de fondos europeos.</li>
+<li><b>La ley de violencia vicaria superó su primer trámite, pero no llegó a aprobarse</b>: el informe la trata como un avance legislativo interrumpido por la disolución.</li>
+<li><b>Los decretos de vivienda se aprobaron en septiembre, pero se derogaron en octubre</b>: el informe los menciona como el último intento del Gobierno, pero su suerte final se documenta en el mes 38 (octubre).</li>
+</ul>
+</div>
+
+<h3>Fuentes del volcado y del kit de informes</h3>
+<ol class="fuentes-lista">
+<li>RTVE — «El Congreso tumba la ley de lobbies del Gobierno» (16-9-2026) — <a href="https://www.rtve.es" target="_blank" rel="noopener">rtve.es</a></li>
+<li>El Imparcial — «Descomunal trastazo del Gobierno: rechazado el decreto ómnibus y el impuesto a las energéticas» (14-9-2026) — <a href="https://www.elimparcial.es" target="_blank" rel="noopener">elimparcial.es</a></li>
+<li>El Plural — «Del aborto a la violencia vicaria: las reformas sociales que se quedan en el camino» (6-10-2026) — <a href="https://www.elplural.com" target="_blank" rel="noopener">elplural.com</a></li>
+<li>El Observador — «Mal día para Pedro Sánchez: el gobierno no logra aprobar los decretos de vivienda» (2-10-2026) — <a href="https://www.elobservador.com.uy" target="_blank" rel="noopener">elobservador.com.uy</a></li>
+<li>BOE — Real Decreto 806/2026, de 5 de octubre, de disolución del Congreso de los Diputados y del Senado y de convocatoria de elecciones — <a href="https://www.boe.es" target="_blank" rel="noopener">boe.es</a></li>
+<li>Informe general «Programa y voto: la línea de cada grupo parlamentario frente a su programa electoral del 23-J» (elaboración propia)</li>
+</ol>
+<p class="nota-met">Este documento es el <b>informe del mes 37</b> de la XV legislatura. Documenta el último mes completo antes de la disolución: el decreto ómnibus y el gravamen energético cayeron, la ley de lobbies se hundió, la violencia vicaria avanzó sin culminar y los decretos de vivienda quedaron a las puertas de su derogación. Para el informe del mes anterior, véase agosto de 2026; para el cierre de la legislatura, véase octubre de 2026 (mes 38).</p>
+</section>
+
+</main>
+
+<footer><div class="in">
+<b>Informe mensual · Septiembre 2026 · Votaciones del Congreso de los Diputados (XV legislatura).</b> Mes 37 de la legislatura. Elaboración propia sobre los Diarios de Sesiones del Congreso, el registro de votaciones y los programas electorales del 23-J. El último mes completo: el ómnibus y los lobbies caen, la violencia vicaria avanza y los decretos de vivienda quedan en el aire antes de la disolución del 6 de octubre.
+</div></footer>
+
+</body>
+</html>

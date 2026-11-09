@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Hub de los informes mensuales de votaciones del Congreso de los Diputados de la XV legislatura (septiembre 2023 – octubre 2026). Índice completo por año con enlaces a cada informe.">
+<title>Hub · Informes mensuales · Votaciones del Congreso · XV Legislatura</title>
+<style>
+:root{
+  --granate:#7c1d30; --granate-osc:#54101f; --oro:#c9a227; --tinta:#23262e; --tinta-2:#5b6070;
+  --papel:#ffffff; --papel-2:#f7f5f2; --linea:#e4e1dc;
+  --si:#1a7f37; --si-bg:#e9f6ec; --si-bd:#c3e6cc;
+  --no:#b3261e; --no-bg:#fdeceb; --no-bd:#f2c4c1;
+  --ab:#9a6b00; --ab-bg:#fff5e0; --ab-bd:#f0dcae;
+  --ext:#5b51a3; --ext-bg:#f2effb; --ext-bd:#d9d4ee;
+  --psoe:#e6274c; --pp:#1d6fc0; --vox:#48a87a; --sumar:#e7455f;
+  --junts:#00b2a9; --erc:#f2b431; --bildu:#c2478f; --pnv:#166b4a; --mixto:#8a8f9c;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;color:var(--tinta);background:var(--papel);line-height:1.6;font-size:15.5px}
+h1,h2,h3,h4{font-family:Georgia,"Times New Roman","Noto Serif",serif;line-height:1.25}
+a{color:var(--granate)}
+/* portada */
+.portada{background:linear-gradient(160deg,var(--granate-osc) 0%,var(--granate) 62%,#93304a 100%);color:#fff;padding:52px 28px 44px;border-bottom:6px solid var(--oro)}
+.portada .kicker{margin:0 0 10px;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#ecc98b;font-weight:600}
+.portada h1{margin:0;font-size:clamp(30px,4.6vw,48px);max-width:960px}
+.portada .sub{margin:16px 0 0;font-size:clamp(15px,2vw,19px);max-width:900px;color:#f3e3e7}
+.portada .meta{margin-top:24px;font-size:13px;color:#e9d9dd}
+.portada .meta b{color:#fff}
+/* nav */
+nav.idx{position:sticky;top:0;z-index:50;background:#fffefb;border-bottom:1px solid var(--linea);box-shadow:0 1px 0 rgba(0,0,0,.03)}
+nav.idx .in{max-width:1080px;margin:0 auto;padding:9px 18px;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px}
+nav.idx a{text-decoration:none;color:var(--tinta-2);padding:3px 8px;border-radius:6px}
+nav.idx a:hover{background:var(--papel-2);color:var(--granate)}
+/* layout */
+main{max-width:1080px;margin:0 auto;padding:26px 18px 40px}
+section{margin:38px 0}
+section>h2{font-size:25px;margin:0 0 6px;color:var(--granate-osc)}
+section>h2 .rnum{color:var(--oro);font-size:14px;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:2px;font-family:"Segoe UI",Arial,sans-serif;font-weight:700}
+.sec-sub{color:var(--tinta-2);margin:0 0 18px;max-width:920px}
+h3{font-size:19px;color:var(--granate-osc);margin:26px 0 8px}
+p{margin:9px 0;max-width:920px}
+ul,ol{margin:8px 0;padding-left:24px;max-width:920px}
+li{margin:5px 0}
+/* tarjetas de resumen global */
+.tarjetas{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0 6px}
+.tarj{border:1px solid var(--linea);border-radius:12px;padding:14px 16px;background:var(--papel-2)}
+.tarj .n{font-size:30px;font-weight:700;font-family:Georgia,serif;color:var(--granate)}
+.tarj .n.mini{font-size:17px;line-height:1.35;padding-top:6px;font-family:"Segoe UI",Arial,sans-serif}
+.tarj .l{font-size:12.5px;color:var(--tinta-2);margin-top:2px}
+.tarj.ko .n{color:var(--no)}
+/* cajas */
+.caja{border:1px solid var(--linea);border-left:4px solid var(--oro);background:var(--papel-2);border-radius:10px;padding:14px 18px;margin:16px 0}
+.caja h3{margin:0 0 8px;font-size:16px}
+.caja p{margin:6px 0}
+.caja.granate{border-left-color:var(--granate)}
+.caja.ok{border-left-color:var(--si)}
+.caja.aviso{border-left-color:var(--no)}
+.caja ul{margin:6px 0 6px 18px;padding:0}
+.caja li{margin:4px 0}
+/* rejilla de meses */
+.year-block{margin:28px 0 8px}
+.year-block>h3{display:flex;align-items:baseline;gap:12px;font-size:22px;color:var(--granate-osc);border-bottom:2px solid var(--oro);padding-bottom:6px;margin:26px 0 14px}
+.year-block>h3 .count{font-family:"Segoe UI",Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-2);background:var(--papel-2);border:1px solid var(--linea);border-radius:20px;padding:3px 10px}
+.meses{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.mes-card{border:1px solid var(--linea);border-radius:12px;padding:14px 16px;background:#fff;text-decoration:none;color:var(--tinta);display:flex;flex-direction:column;gap:6px;transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;position:relative}
+.mes-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(84,16,31,.10);border-color:var(--oro)}
+.mes-card .mes-num{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--oro);font-family:"Segoe UI",Arial,sans-serif}
+.mes-card .mes-nombre{font-family:Georgia,serif;font-size:18px;color:var(--granate-osc);line-height:1.2}
+.mes-card .mes-hito{font-size:13px;color:var(--tinta-2);line-height:1.4;flex:1}
+.mes-card .mes-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;border-radius:6px;padding:2px 9px;border:1px solid transparent;margin-top:2px;align-self:flex-start}
+.tag-victoria{background:var(--si-bg);color:var(--si);border-color:var(--si-bd)}
+.tag-derrota{background:var(--no-bg);color:var(--no);border-color:var(--no-bd)}
+.tag-bloqueo{background:var(--ext-bg);color:var(--ext);border-color:var(--ext-bd)}
+.tag-parcial{background:var(--ab-bg);color:var(--ab);border-color:var(--ab-bd)}
+.tag-cierre{background:#eceef3;color:#48586c;border-color:#d4d8e0}
+.mes-card .flecha{position:absolute;top:14px;right:16px;color:var(--oro);font-size:18px;opacity:.7}
+/* mes ausente */
+.mes-ausente{border:1px dashed #d4d8e0;border-radius:12px;padding:14px 16px;background:#fbfaf8;color:var(--tinta-2);font-size:13px;display:flex;flex-direction:column;gap:4px}
+.mes-ausente .mes-num{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9aa0aa;font-family:"Segoe UI",Arial,sans-serif}
+.mes-ausente .mes-nombre{font-family:Georgia,serif;font-size:17px;color:#9aa0aa}
+.mes-ausente .nota{font-size:12px;font-style:italic}
+/* duplicado */
+.mes-card.duplicado{border-left:4px solid var(--ext)}
+/* tabla índice */
+.tabla-scroll{overflow-x:auto;border:1px solid var(--linea);border-radius:12px;margin:12px 0}
+table.pv{border-collapse:collapse;width:100%;min-width:680px;font-size:13.5px}
+table.pv th{background:var(--granate-osc);color:#fff;padding:9px 10px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.04em;font-family:"Segoe UI",Arial,sans-serif}
+table.pv td{border-bottom:1px solid var(--linea);padding:9px 10px;vertical-align:top;background:#fff}
+table.pv tr:nth-child(even) td{background:#fbfaf8}
+table.pv a{font-weight:700;text-decoration:none}
+table.pv a:hover{text-decoration:underline}
+/* pie */
+footer{border-top:4px solid var(--oro);background:var(--granate-osc);color:#e9d9dd;padding:22px 18px;font-size:13px}
+footer .in{max-width:1080px;margin:0 auto}
+footer b{color:#fff}
+/* impresión */
+@media print{
+  nav.idx{display:none}
+  .mes-card:hover{transform:none;box-shadow:none}
+  body{font-size:11px}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media (max-width:760px){
+  .portada{padding:32px 18px}
+  .meses{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="portada">
+<p class="kicker">Hub de informes · Congreso de los Diputados · XV Legislatura</p>
+<h1>Informes mensuales de votaciones del Congreso: septiembre de 2023 – octubre de 2026</h1>
+<p class="sub">Índice completo de los 36 informes mensuales publicados. Cada informe analiza las votaciones nominales del Pleno, el desglose por grupo, la lectura ideológica y las consecuencias ciudadanas del mes. La XV legislatura terminó el 6 de octubre de 2026 con la disolución de las Cortes y la convocatoria de elecciones para el 29-N.</p>
+<div class="meta">Informes de elaboración propia · <b>base:</b> Diarios de Sesiones y registro de votaciones del Congreso · <b>36 informes</b> · 2 meses sin informe (enero 2024 y agosto 2026) · <b>última actualización:</b> octubre de 2026</div>
+</header>
+
+<nav class="idx"><div class="in">
+<a href="#resumen">Resumen</a>
+<a href="#2023">2023</a>
+<a href="#2024">2024</a>
+<a href="#2025">2025</a>
+<a href="#2026">2026</a>
+<a href="#indice">Índice completo</a>
+<a href="#anexo">Metodología</a>
+</div></nav>
+
+<main>
+
+<!-- ==================== RESUMEN ==================== -->
+<section id="resumen">
+<h2><span class="rnum">Vista general</span>La legislatura en cifras</h2>
+
+<div class="tarjetas">
+<div class="tarj"><div class="n">36</div><div class="l">informes mensuales publicados (meses 1 a 38, con 2 ausencias y 1 duplicado)</div></div>
+<div class="tarj"><div class="n mini">Sept 2023<br>Oct 2026</div><div class="l">periodo cubierto: 38 meses de legislatura</div></div>
+<div class="tarj ko"><div class="n">0</div><div class="l">Presupuestos Generales del Estado aprobados: tres prórrogas consecutivas (2023, 2024 y 2025)</div></div>
+<div class="tarj ko"><div class="n">≈ 10</div><div class="l">leyes sociales que decayeron con la disolución de octubre de 2026</div></div>
+</div>
+
+<div class="caja granate">
+<h3>Cómo usar este hub</h3>
+<p>Cada tarjeta enlaza al informe mensual correspondiente, que se encuentra en la <b>misma carpeta</b> que este índice. Los informes están numerados con el mes de legislatura (1 = septiembre de 2023; 38 = octubre de 2026) y organizados por año natural. Las tarjetas llevan una etiqueta de color que resume el tono del mes: <span class="mes-tag tag-victoria" style="display:inline-block;margin:0 2px">victoria</span> <span class="mes-tag tag-derrota" style="display:inline-block;margin:0 2px">derrota</span> <span class="mes-tag tag-bloqueo" style="display:inline-block;margin:0 2px">bloqueo</span> <span class="mes-tag tag-parcial" style="display:inline-block;margin:0 2px">parcial</span> <span class="mes-tag tag-cierre" style="display:inline-block;margin:0 2px">cierre</span>.</p>
+</div>
+
+<div class="caja aviso">
+<h3>Nota sobre los archivos ausentes y duplicados</h3>
+<ul>
+<li><b>Mes 5 (enero de 2024):</b> no se ha publicado informe. En el índice aparece como «mes ausente».</li>
+<li><b>Mes 36 (agosto de 2026):</b> no se ha publicado informe. En el índice aparece como «mes ausente».</li>
+<li><b>Mes 38 (octubre de 2026):</b> existen dos archivos con el mismo contenido (<code>informe_congreso_38.html</code> y <code>informe_congreso_39.html</code>). El hub enlaza al 38; el 39 es un duplicado.</li>
+</ul>
+</div>
+</section>
+
+<!-- ==================== 2023 ==================== -->
+<section id="2023">
+<h2><span class="rnum">Año 2023</span>El arranque de la legislatura</h2>
+<p class="sec-sub">Cuatro meses: la constitución de las Cortes, la reforma del Reglamento para las lenguas cooficiales, la investidura fallida de Feijóo, la investidura de Sánchez y el primer decreto anticrisis.</p>
+
+<div class="year-block">
+<h3>2023 <span class="count">4 informes</span></h3>
+<div class="meses">
+
+<a class="mes-card" href="informe_congreso_01.html">
+<span class="mes-num">Mes 1 · Septiembre 2023</span>
+<span class="mes-nombre">Constitución y investidura fallida</span>
+<span class="mes-hito">Reforma del Reglamento para las lenguas cooficiales (180-170) e investidura fallida de Feijóo (172-178 y 172-177).</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_02.html">
+<span class="mes-num">Mes 2 · Octubre 2023</span>
+<span class="mes-nombre">Parálisis parlamentaria</span>
+<span class="mes-hito">Sin votaciones legislativas: el Congreso espera la investidura de Sánchez. Coste: congelación de los Presupuestos y de las políticas sociales.</span>
+<span class="mes-tag tag-bloqueo">Bloqueo</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_03.html">
+<span class="mes-num">Mes 3 · Noviembre 2023</span>
+<span class="mes-nombre">Investidura de Sánchez y amnistía</span>
+<span class="mes-hito">Sánchez investido (179-171) y registro de la ley de amnistía. Advertencias sindicales sobre la desigualdad territorial.</span>
+<span class="mes-tag tag-victoria">Victoria</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_04.html">
+<span class="mes-num">Mes 4 · Diciembre 2023</span>
+<span class="mes-nombre">La amnistía arranca y Junts avisa</span>
+<span class="mes-hito">La amnistía supera su primer trámite (178-172). El decreto anticrisis nace con el «no» anunciado de Junts.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+</div>
+</div>
+</section>
+
+<!-- ==================== 2024 ==================== -->
+<section id="2024">
+<h2><span class="rnum">Año 2024</span>El año de la amnistía y del desgaste</h2>
+<p class="sec-sub">Once informes publicados (falta enero, mes 5). El año de la aprobación definitiva de la amnistía, la ley ELA, la ley de paridad, la ley de eficiencia judicial y la dimisión de la cúpula del CGPJ.</p>
+
+<div class="year-block">
+<h3>2024 <span class="count">11 informes · 1 ausencia</span></h3>
+<div class="meses">
+
+<div class="mes-ausente">
+<span class="mes-num">Mes 5 · Enero 2024</span>
+<span class="mes-nombre">Sin informe</span>
+<span class="nota">No se ha publicado el informe de enero de 2024.</span>
+</div>
+
+<a class="mes-card" href="informe_congreso_06.html">
+<span class="mes-num">Mes 6 · Febrero 2024</span>
+<span class="mes-nombre">Secretos oficiales, Marlaska y Koldo</span>
+<span class="mes-hito">Reforma de la ley de secretos oficiales (176-169), reprobación de Marlaska (171-165-11) y comisión del caso Koldo.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_07.html">
+<span class="mes-num">Mes 7 · Marzo 2024</span>
+<span class="mes-nombre">La amnistía pasa al Senado</span>
+<span class="mes-hito">La amnistía supera el Congreso (178-172), el caso Koldo llega a la comisión y el Gobierno renuncia a los Presupuestos.</span>
+<span class="mes-tag tag-victoria">Victoria</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_08.html">
+<span class="mes-num">Mes 8 · Abril 2024</span>
+<span class="mes-nombre">Comisión Koldo y veto a la amnistía</span>
+<span class="mes-hito">Se constituye la comisión Koldo bajo presidencia socialista. El PP veta la amnistía en el Senado y el Gobierno pierde la deflactación del IRPF.</span>
+<span class="mes-tag tag-bloqueo">Bloqueo</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_09.html">
+<span class="mes-num">Mes 9 · Mayo 2024</span>
+<span class="mes-nombre">Amnistía definitiva y docena de derrotas</span>
+<span class="mes-hito">La amnistía se aprueba definitivamente (177-172). La ley de enseñanzas artísticas culmina, pero el PSOE suma una docena de derrotas.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_10.html">
+<span class="mes-num">Mes 10 · Junio 2024</span>
+<span class="mes-nombre">Multirreincidencia y escudo social</span>
+<span class="mes-hito">El PP logra su primera victoria legislativa (302-40). El Gobierno convalida el subsidio de desempleo (178-0-171) y la ley de paridad pasa al Senado.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_11.html">
+<span class="mes-num">Mes 11 · Julio 2024</span>
+<span class="mes-nombre">Paridad, CGPJ y bloqueo de Junts</span>
+<span class="mes-hito">La ley de paridad se aprueba (178-171) y el CGPJ se renueva tras cinco años. Junts tumba el techo de gasto (171-178) y la reforma de extranjería.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_12.html">
+<span class="mes-num">Mes 12 · Agosto 2024</span>
+<span class="mes-nombre">Parón parlamentario</span>
+<span class="mes-hito">Sin votaciones: el Congreso se va de vacaciones con la paridad atascada en el Senado y sin Presupuestos.</span>
+<span class="mes-tag tag-bloqueo">Bloqueo</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_13.html">
+<span class="mes-num">Mes 13 · Septiembre 2024</span>
+<span class="mes-nombre">Vox salva al Gobierno, Junts lo tumba</span>
+<span class="mes-hito">La abstención de Vox salva la moción del PP (139-171-33), pero Junts tumba la ley de alquileres temporales (172-178). La ley ELA se aprueba por unanimidad.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_14.html">
+<span class="mes-num">Mes 14 · Octubre 2024</span>
+<span class="mes-nombre">Ley ELA y 48 derrotas del PSOE</span>
+<span class="mes-hito">La ley ELA se aprueba por unanimidad (344-0) y el Congreso convalida el decreto de RTVE (175-1). El PSOE acumula 48 derrotas, récord de la legislatura.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_15.html">
+<span class="mes-num">Mes 15 · Noviembre 2024</span>
+<span class="mes-nombre">DANA y ley de eficiencia judicial</span>
+<span class="mes-hito">El Congreso convalida el primer paquete de ayudas de la DANA (314-33-2) y aprueba la ley de eficiencia judicial (180-167). La ley ELA entra en vigor.</span>
+<span class="mes-tag tag-victoria">Victoria</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_16.html">
+<span class="mes-num">Mes 16 · Diciembre 2024</span>
+<span class="mes-nombre">Cierre de año con claroscuros</span>
+<span class="mes-hito">Ley de eficiencia judicial definitiva (177-170), segundo paquete de la DANA (312-33-2) y derogación del gravamen energético (183-165-1). El decreto ómnibus queda en el aire.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+</div>
+</div>
+</section>
+
+<!-- ==================== 2025 ==================== -->
+<section id="2025">
+<h2><span class="rnum">Año 2025</span>El año de la pinza y del bloqueo estructural</h2>
+<p class="sec-sub">Doce informes. El año en que la pinza PP+Vox+Junts+UPN se consolida como mayoría de bloqueo, el decreto ómnibus cae, la amnistía se aprueba, la ley de economía social y la ley de lobbies se recuperan tras los vetos del Senado y el Gobierno cierra el año sin Presupuestos.</p>
+
+<div class="year-block">
+<h3>2025 <span class="count">12 informes</span></h3>
+<div class="meses">
+
+<a class="mes-card" href="informe_congreso_17.html">
+<span class="mes-num">Mes 17 · Enero 2025</span>
+<span class="mes-nombre">El decreto ómnibus cae y la pinza se consolida</span>
+<span class="mes-hito">El Congreso tumba el decreto ómnibus (171-177-1) y deroga el gravamen energético (165-183-1) con el PNV sumado a la derecha. Solo se salva la jubilación flexible.</span>
+<span class="mes-tag tag-derrota">Derrota</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_18.html">
+<span class="mes-num">Mes 18 · Febrero 2025</span>
+<span class="mes-nombre">Pensiones y subsidio salvados, pinza intacta</span>
+<span class="mes-hito">El Gobierno salva la revalorización de pensiones con el apoyo del PP y el subsidio de desempleo (175-170-4). La pinza sigue bloqueando el resto de la agenda.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_19.html">
+<span class="mes-num">Mes 19 · Marzo 2025</span>
+<span class="mes-nombre">Techo de gasto de 2026 y 13-M legislativo</span>
+<span class="mes-hito">El techo de gasto de 2026 cae (171-178). El Congreso aprueba la ley de economía social y la LO de responsabilidad penal de menores. La ley de lobbies supera su primer trámite.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_20.html">
+<span class="mes-num">Mes 20 · Abril 2025</span>
+<span class="mes-nombre">Concierto Económico y veto del Senado</span>
+<span class="mes-hito">El Congreso aprueba la ley del Concierto Económico (10-4-2025). El Senado, con la mayoría del PP, veta la ley de economía social y la ley de lobbies.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_21.html">
+<span class="mes-num">Mes 21 · Mayo 2025</span>
+<span class="mes-nombre">Revancha parlamentaria</span>
+<span class="mes-hito">El Congreso levanta los vetos del Senado y aprueba la ley de economía social (178-172) y la ley de lobbies (177-173). El Concierto Económico entra en vigor.</span>
+<span class="mes-tag tag-victoria">Victoria</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_22.html">
+<span class="mes-num">Mes 22 · Junio 2025</span>
+<span class="mes-nombre">Vivienda tumbada y función pública aprobada</span>
+<span class="mes-hito">El decreto de vivienda cae (171-178) y la pinza bloquea la regulación de alquileres. El PP y el PSOE aprueban la ley de función pública (302-40) y se prorroga el escudo social.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_23.html">
+<span class="mes-num">Mes 23 · Julio 2025</span>
+<span class="mes-nombre">Techo de gasto y conciliación bloqueados</span>
+<span class="mes-hito">La pinza tumba el techo de gasto de 2026 (171-178) y el decreto de conciliación. El PP y el PSOE aprueban la reforma de la carrera judicial (302-40).</span>
+<span class="mes-tag tag-derrota">Derrota</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_24.html">
+<span class="mes-num">Mes 24 · Agosto 2025</span>
+<span class="mes-nombre">Parón parlamentario</span>
+<span class="mes-hito">Sin votaciones: el Congreso se va de vacaciones con la paridad atascada en el Senado y sin Presupuestos.</span>
+<span class="mes-tag tag-bloqueo">Bloqueo</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_25.html">
+<span class="mes-num">Mes 25 · Septiembre 2025</span>
+<span class="mes-nombre">Jornada, migración y reprobación</span>
+<span class="mes-hito">La reducción de jornada cae (178-170), la ley migratoria de PSOE y Junts es tumbada (177-173) y el Congreso reprueba a la ministra de Igualdad (170-162-16). Solo se salva el permiso parental de 17 semanas.</span>
+<span class="mes-tag tag-derrota">Derrota</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_26.html">
+<span class="mes-num">Mes 26 · Octubre 2025</span>
+<span class="mes-nombre">Amnistía, Palestina y ruptura de Junts</span>
+<span class="mes-hito">La amnistía se aprueba (178-172), el decreto de Palestina se convalida (178-169-1) y la senda de déficit cae. Junts rompe con el PSOE el 27 de octubre.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_27.html">
+<span class="mes-num">Mes 27 · Noviembre 2025</span>
+<span class="mes-nombre">Ruptura oficial y decretos sociales</span>
+<span class="mes-hito">Junts oficializa la ruptura. La senda de estabilidad cae (178-164-5), pero el Congreso convalida la dependencia y la ELA por unanimidad (346-0) y la DANA (307-33-7).</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_28.html">
+<span class="mes-num">Mes 28 · Diciembre 2025</span>
+<span class="mes-nombre">Senda de gasto tumbada y transporte prorrogado</span>
+<span class="mes-hito">La senda de gasto cae por cuarta vez (171-178). El transporte público se prorroga (316-0-33), pero las pensiones y las ayudas al transporte se aplazan a 2026.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+</div>
+</div>
+</section>
+
+<!-- ==================== 2026 ==================== -->
+<section id="2026">
+<h2><span class="rnum">Año 2026</span>El último año: bloqueo, leyes sociales y disolución</h2>
+<p class="sec-sub">Nueve informes publicados (falta agosto, mes 36). El año del escudo social tumbado, las pensiones salvadas, la reforma del aborto, la ley ELA, la moción de confianza, la ley de terapias de conversión, las leyes de dependencia y discapacidad y la disolución final del 6 de octubre.</p>
+
+<div class="year-block">
+<h3>2026 <span class="count">9 informes · 1 ausencia</span></h3>
+<div class="meses">
+
+<a class="mes-card" href="informe_congreso_29.html">
+<span class="mes-num">Mes 29 · Enero 2026</span>
+<span class="mes-nombre">El escudo social cae</span>
+<span class="mes-hito">El decreto ómnibus del escudo social cae (171-178): caen pensiones, desahucios, SMI y ayudas a la DANA. Solo se salva el transporte público (179-32-137).</span>
+<span class="mes-tag tag-derrota">Derrota</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_30.html">
+<span class="mes-num">Mes 30 · Febrero 2026</span>
+<span class="mes-nombre">Pensiones y transporte salvados</span>
+<span class="mes-hito">El Congreso convalida el RDL 3/2026 (317-33): pensiones y transporte salvados. La senda de déficit vuelve a caer (171-178) y los Presupuestos de 2026 quedan bloqueados.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_31.html">
+<span class="mes-num">Mes 31 · Marzo 2026</span>
+<span class="mes-nombre">Senador para Formentera</span>
+<span class="mes-hito">El Congreso aprueba la reforma del art. 69.3 CE para crear un senador propio para Formentera (312-33-5). La pinza sigue bloqueando la agenda social.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_32.html">
+<span class="mes-num">Mes 32 · Abril 2026</span>
+<span class="mes-nombre">Alquileres tumbados y ley ELA</span>
+<span class="mes-hito">El Congreso deroga la prórroga de alquileres (166-177-5) y el Gobierno retira la Ley del Suelo. La ley ELA se aprueba por unanimidad (346-0) y la reforma del aborto avanza (177-171).</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_33.html">
+<span class="mes-num">Mes 33 · Mayo 2026</span>
+<span class="mes-nombre">Copago farmacéutico y vivienda perdida</span>
+<span class="mes-hito">El Congreso convalida el decreto de copago farmacéutico (164-33-140) y la reforma del aborto pasa al Senado (184 votos). La pinza tumba cinco propuestas de vivienda y el Gobierno retira la Ley del Suelo.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_34.html">
+<span class="mes-num">Mes 34 · Junio 2026</span>
+<span class="mes-nombre">Desbloqueo y moción de confianza</span>
+<span class="mes-hito">El Congreso desbloquea la Ley del Cine y la ley de ratios, y aprueba la ley de terapias de conversión (178-32-137). El PP y Junts aprueban una moción que insta a Sánchez a una cuestión de confianza (178-171).</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card" href="informe_congreso_35.html">
+<span class="mes-num">Mes 35 · Julio 2026</span>
+<span class="mes-nombre">Dependencia, discapacidad y senda de déficit</span>
+<span class="mes-hito">El Congreso aprueba las leyes de dependencia y discapacidad (176-33-137) y convalida los decretos de Irán y jubilación parcial. La senda de déficit cae (176-166-5) y los Presupuestos de 2027 quedan bloqueados.</span>
+<span class="mes-tag tag-parcial">Parcial</span>
+<span class="flecha">→</span>
+</a>
+
+<div class="mes-ausente">
+<span class="mes-num">Mes 36 · Agosto 2026</span>
+<span class="mes-nombre">Sin informe</span>
+<span class="nota">No se ha publicado el informe de agosto de 2026 (parón parlamentario).</span>
+</div>
+
+<a class="mes-card" href="informe_congreso_37.html">
+<span class="mes-num">Mes 37 · Septiembre 2026</span>
+<span class="mes-nombre">Ómnibus, lobbies y violencia vicaria</span>
+<span class="mes-hito">Caen el decreto ómnibus y el gravamen energético (171-177 y 165-183) y se hunde la ley de lobbies (155-179-12). La ley de violencia vicaria supera su primer trámite (312-34).</span>
+<span class="mes-tag tag-derrota">Derrota</span>
+<span class="flecha">→</span>
+</a>
+
+<a class="mes-card duplicado" href="informe_congreso_38.html">
+<span class="mes-num">Mes 38 · Octubre 2026</span>
+<span class="mes-nombre">El último Pleno y la disolución</span>
+<span class="mes-hito">El Congreso tumba los dos decretos de vivienda (172-178 y 166-184). La disolución de las Cortes (6-O) convoca elecciones para el 29-N. Una decena de leyes sociales decaen. La legislatura termina sin Presupuestos.</span>
+<span class="mes-tag tag-cierre">Cierre</span>
+<span class="flecha">→</span>
+</a>
+
+</div>
+</div>
+</section>
+
+<!-- ==================== ÍNDICE COMPLETO ==================== -->
+<section id="indice">
+<h2><span class="rnum">Índice completo</span>Los 36 informes en una tabla</h2>
+<p class="sec-sub">Vista compacta de todos los informes publicados, con el mes de legislatura, el mes natural y el hito principal.</p>
+
+<div class="tabla-scroll">
+<table class="pv">
+<thead><tr>
+<th>Mes</th><th>Periodo</th><th>Hito principal</th><th>Informe</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td>Septiembre 2023</td><td>Lenguas cooficiales (180-170) e investidura fallida de Feijóo (172-178)</td><td><a href="informe_congreso_01.html">informe_congreso_01.html</a></td></tr>
+<tr><td>2</td><td>Octubre 2023</td><td>Parálisis parlamentaria: sin votaciones legislativas</td><td><a href="informe_congreso_02.html">informe_congreso_02.html</a></td></tr>
+<tr><td>3</td><td>Noviembre 2023</td><td>Investidura de Sánchez (179-171) y registro de la amnistía</td><td><a href="informe_congreso_03.html">informe_congreso_03.html</a></td></tr>
+<tr><td>4</td><td>Diciembre 2023</td><td>Amnistía supera su primer trámite (178-172)</td><td><a href="informe_congreso_04.html">informe_congreso_04.html</a></td></tr>
+<tr><td>5</td><td>Enero 2024</td><td><em>Sin informe publicado</em></td><td>—</td></tr>
+<tr><td>6</td><td>Febrero 2024</td><td>Secretos oficiales (176-169), Marlaska (171-165-11) y Koldo</td><td><a href="informe_congreso_06.html">informe_congreso_06.html</a></td></tr>
+<tr><td>7</td><td>Marzo 2024</td><td>Amnistía pasa al Senado (178-172) y caso Koldo</td><td><a href="informe_congreso_07.html">informe_congreso_07.html</a></td></tr>
+<tr><td>8</td><td>Abril 2024</td><td>Comisión Koldo y veto del Senado a la amnistía</td><td><a href="informe_congreso_08.html">informe_congreso_08.html</a></td></tr>
+<tr><td>9</td><td>Mayo 2024</td><td>Amnistía definitiva (177-172) y docena de derrotas del PSOE</td><td><a href="informe_congreso_09.html">informe_congreso_09.html</a></td></tr>
+<tr><td>10</td><td>Junio 2024</td><td>Multirreincidencia (302-40), subsidio (178-0-171) y paridad al Senado</td><td><a href="informe_congreso_10.html">informe_congreso_10.html</a></td></tr>
+<tr><td>11</td><td>Julio 2024</td><td>Paridad (178-171), CGPJ y bloqueo de Junts al techo de gasto</td><td><a href="informe_congreso_11.html">informe_congreso_11.html</a></td></tr>
+<tr><td>12</td><td>Agosto 2024</td><td>Parón parlamentario: sin votaciones</td><td><a href="informe_congreso_12.html">informe_congreso_12.html</a></td></tr>
+<tr><td>13</td><td>Septiembre 2024</td><td>Vox salva al Gobierno y Junts tumba la ley de alquileres</td><td><a href="informe_congreso_13.html">informe_congreso_13.html</a></td></tr>
+<tr><td>14</td><td>Octubre 2024</td><td>Ley ELA (344-0), RTVE (175-1) y 48 derrotas del PSOE</td><td><a href="informe_congreso_14.html">informe_congreso_14.html</a></td></tr>
+<tr><td>15</td><td>Noviembre 2024</td><td>DANA (314-33-2) y ley de eficiencia judicial (180-167)</td><td><a href="informe_congreso_15.html">informe_congreso_15.html</a></td></tr>
+<tr><td>16</td><td>Diciembre 2024</td><td>Eficiencia judicial definitiva (177-170), DANA (312-33-2) y gravamen energético derogado</td><td><a href="informe_congreso_16.html">informe_congreso_16.html</a></td></tr>
+<tr><td>17</td><td>Enero 2025</td><td>Decreto ómnibus cae (171-177-1) y pinza se consolida</td><td><a href="informe_congreso_17.html">informe_congreso_17.html</a></td></tr>
+<tr><td>18</td><td>Febrero 2025</td><td>Pensiones salvadas con el PP y subsidio (175-170-4)</td><td><a href="informe_congreso_18.html">informe_congreso_18.html</a></td></tr>
+<tr><td>19</td><td>Marzo 2025</td><td>Techo de gasto 2026 cae (171-178), economía social y LO de menores</td><td><a href="informe_congreso_19.html">informe_congreso_19.html</a></td></tr>
+<tr><td>20</td><td>Abril 2025</td><td>Concierto Económico y veto del Senado a economía social y lobbies</td><td><a href="informe_congreso_20.html">informe_congreso_20.html</a></td></tr>
+<tr><td>21</td><td>Mayo 2025</td><td>Revancha parlamentaria: economía social (178-172) y lobbies (177-173)</td><td><a href="informe_congreso_21.html">informe_congreso_21.html</a></td></tr>
+<tr><td>22</td><td>Junio 2025</td><td>Vivienda tumbada (171-178) y función pública (302-40)</td><td><a href="informe_congreso_22.html">informe_congreso_22.html</a></td></tr>
+<tr><td>23</td><td>Julio 2025</td><td>Techo de gasto (171-178) y conciliación bloqueados; carrera judicial (302-40)</td><td><a href="informe_congreso_23.html">informe_congreso_23.html</a></td></tr>
+<tr><td>24</td><td>Agosto 2025</td><td>Parón parlamentario: sin votaciones</td><td><a href="informe_congreso_24.html">informe_congreso_24.html</a></td></tr>
+<tr><td>25</td><td>Septiembre 2025</td><td>Jornada (178-170), migración (177-173) y reprobación de la ministra de Igualdad</td><td><a href="informe_congreso_25.html">informe_congreso_25.html</a></td></tr>
+<tr><td>26</td><td>Octubre 2025</td><td>Amnistía (178-172), Palestina (178-169-1) y ruptura de Junts</td><td><a href="informe_congreso_26.html">informe_congreso_26.html</a></td></tr>
+<tr><td>27</td><td>Noviembre 2025</td><td>Ruptura oficial de Junts, dependencia y ELA (346-0) y DANA (307-33-7)</td><td><a href="informe_congreso_27.html">informe_congreso_27.html</a></td></tr>
+<tr><td>28</td><td>Diciembre 2025</td><td>Senda de gasto tumbada (171-178) y transporte prorrogado (316-0-33)</td><td><a href="informe_congreso_28.html">informe_congreso_28.html</a></td></tr>
+<tr><td>29</td><td>Enero 2026</td><td>Escudo social cae (171-178); solo se salva el transporte (179-32-137)</td><td><a href="informe_congreso_29.html">informe_congreso_29.html</a></td></tr>
+<tr><td>30</td><td>Febrero 2026</td><td>Pensiones y transporte salvados (317-33); senda de déficit cae (171-178)</td><td><a href="informe_congreso_30.html">informe_congreso_30.html</a></td></tr>
+<tr><td>31</td><td>Marzo 2026</td><td>Senador para Formentera (312-33-5) y bloqueo de la agenda social</td><td><a href="informe_congreso_31.html">informe_congreso_31.html</a></td></tr>
+<tr><td>32</td><td>Abril 2026</td><td>Alquileres tumbados (166-177-5), ley ELA (346-0) y aborto avanza (177-171)</td><td><a href="informe_congreso_32.html">informe_congreso_32.html</a></td></tr>
+<tr><td>33</td><td>Mayo 2026</td><td>Copago farmacéutico (164-33-140), aborto al Senado (184) y vivienda perdida</td><td><a href="informe_congreso_33.html">informe_congreso_33.html</a></td></tr>
+<tr><td>34</td><td>Junio 2026</td><td>Terapias de conversión (178-32-137) y moción de confianza (178-171)</td><td><a href="informe_congreso_34.html">informe_congreso_34.html</a></td></tr>
+<tr><td>35</td><td>Julio 2026</td><td>Dependencia y discapacidad (176-33-137) y senda de déficit (176-166-5)</td><td><a href="informe_congreso_35.html">informe_congreso_35.html</a></td></tr>
+<tr><td>36</td><td>Agosto 2026</td><td><em>Sin informe publicado (parón parlamentario)</em></td><td>—</td></tr>
+<tr><td>37</td><td>Septiembre 2026</td><td>Ómnibus y lobbies caen (171-177 y 155-179-12) y violencia vicaria avanza (312-34)</td><td><a href="informe_congreso_37.html">informe_congreso_37.html</a></td></tr>
+<tr><td>38</td><td>Octubre 2026</td><td>Decretos de vivienda caen (172-178 y 166-184) y disolución de las Cortes</td><td><a href="informe_congreso_38.html">informe_congreso_38.html</a></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="caja">
+<h3>Nota sobre el mes 38</h3>
+<p>El mes 38 (octubre de 2026) aparece duplicado en los archivos <code>informe_congreso_38.html</code> e <code>informe_congreso_39.html</code>. El hub enlaza al 38, que es el informe de referencia. El 39 es un duplicado con el mismo contenido.</p>
+</div>
+</section>
+
+<!-- ==================== ANEXO ==================== -->
+<section id="anexo">
+<h2><span class="rnum">Anexo</span>Metodología y estructura de los informes</h2>
+
+<div class="caja">
+<h3>Estructura de cada informe mensual</h3>
+<ul>
+<li><b>Resumen ejecutivo:</b> tarjetas con las cifras clave del mes y conclusión central.</li>
+<li><b>Contexto:</b> cronología del mes y aritmética parlamentaria.</li>
+<li><b>Hitos:</b> fichas de las votaciones principales, con propuesta original, resultado legislativo, voto por grupo, lectura ideológica y consecuencias ciudadanas.</li>
+<li><b>Tabla resumen:</b> vista de pájaro con ganadores, perdedores y coherencia ideológica.</li>
+<li><b>Ganó / perdió el ciudadano:</b> síntesis del impacto material del mes.</li>
+<li><b>Anexo:</b> metodología y fuentes.</li>
+</ul>
+</div>
+
+<div class="caja">
+<h3>Cómo enlazar los archivos</h3>
+<p>Todos los informes están en la <b>misma carpeta</b> que este hub. Los enlaces son relativos (<code>href="informe_congreso_XX.html"</code>), por lo que funcionarán siempre que el hub y los informes estén juntos. Si mueves el hub a otra carpeta, tendrás que actualizar las rutas.</p>
+</div>
+
+<div class="caja aviso">
+<h3>Advertencia sobre los informes ausentes y el duplicado</h3>
+<ul>
+<li><b>Mes 5 (enero 2024):</b> no se ha localizado el archivo. Si lo tienes, añádelo a la carpeta y actualiza el hub.</li>
+<li><b>Mes 36 (agosto 2026):</b> no se ha localizado el archivo. Si lo tienes, añádelo a la carpeta y actualiza el hub.</li>
+<li><b>Mes 38 (octubre 2026):</b> hay dos archivos. El hub enlaza al 38. El 39 es un duplicado y puede eliminarse o conservarse como copia de seguridad.</li>
+</ul>
+</div>
+
+<div class="caja">
+<h3>Kit de informes</h3>
+<p>Cada informe está diseñado para ser <b>reproducible</b>: el HTML de cualquier mes sirve como plantilla para el siguiente. Solo hay que duplicar el archivo, cambiar los contenidos (portada, tarjetas, fichas, tabla y anexo) y actualizar los enlaces del hub. El estilo CSS es idéntico en todos los informes, lo que garantiza la coherencia visual.</p>
+</div>
+</section>
+
+</main>
+
+<footer><div class="in">
+<b>Hub de informes mensuales · Congreso de los Diputados · XV Legislatura (septiembre 2023 – octubre 2026).</b> 36 informes publicados · 2 meses sin informe (enero 2024 y agosto 2026) · 1 duplicado (mes 38). Elaboración propia sobre los Diarios de Sesiones del Congreso y el registro de votaciones. La legislatura terminó con la disolución de las Cortes el 6 de octubre de 2026 y la convocatoria de elecciones para el 29 de noviembre de 2026.
+</div></footer>
+
+</body>
+</html>

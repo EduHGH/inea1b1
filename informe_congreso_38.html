@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Informe mensual del mes 38 de la XV legislatura: octubre de 2026. El último mes de la legislatura. El Congreso tumba los dos decretos de vivienda (172-178 y 166-184), lo que desencadena la disolución de las Cortes (6 de octubre) y la convocatoria de elecciones para el 29-N. La ley de violencia vicaria y una decena de leyes sociales decaen. La legislatura termina sin un solo Presupuesto.">
+<title>Informe mensual · Octubre 2026 · Votaciones del Congreso — mes 38 de la legislatura</title>
+<style>
+:root{
+  --granate:#7c1d30; --granate-osc:#54101f; --oro:#c9a227; --tinta:#23262e; --tinta-2:#5b6070;
+  --papel:#ffffff; --papel-2:#f7f5f2; --linea:#e4e1dc;
+  --si:#1a7f37; --si-bg:#e9f6ec; --si-bd:#c3e6cc;
+  --no:#b3261e; --no-bg:#fdeceb; --no-bd:#f2c4c1;
+  --ab:#9a6b00; --ab-bg:#fff5e0; --ab-bd:#f0dcae;
+  --ext:#5b51a3; --ext-bg:#f2effb; --ext-bd:#d9d4ee;
+  --psoe:#e6274c; --pp:#1d6fc0; --vox:#48a87a; --sumar:#e7455f;
+  --junts:#00b2a9; --erc:#f2b431; --bildu:#c2478f; --pnv:#166b4a; --mixto:#8a8f9c;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;color:var(--tinta);background:var(--papel);line-height:1.6;font-size:15.5px}
+h1,h2,h3,h4{font-family:Georgia,"Times New Roman","Noto Serif",serif;line-height:1.25}
+a{color:var(--granate)}
+/* portada */
+.portada{background:linear-gradient(160deg,var(--granate-osc) 0%,var(--granate) 62%,#93304a 100%);color:#fff;padding:48px 28px 40px;border-bottom:6px solid var(--oro)}
+.portada .kicker{margin:0 0 10px;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#ecc98b;font-weight:600}
+.portada h1{margin:0;font-size:clamp(28px,4.4vw,44px);max-width:960px}
+.portada .sub{margin:14px 0 0;font-size:clamp(15px,2vw,19px);max-width:900px;color:#f3e3e7}
+.portada .meta{margin-top:22px;font-size:13px;color:#e9d9dd}
+.portada .meta b{color:#fff}
+/* nav */
+nav.idx{position:sticky;top:0;z-index:50;background:#fffefb;border-bottom:1px solid var(--linea);box-shadow:0 1px 0 rgba(0,0,0,.03)}
+nav.idx .in{max-width:1080px;margin:0 auto;padding:9px 18px;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px}
+nav.idx a{text-decoration:none;color:var(--tinta-2);padding:3px 6px;border-radius:6px}
+nav.idx a:hover{background:var(--papel-2);color:var(--granate)}
+/* layout */
+main{max-width:1080px;margin:0 auto;padding:26px 18px 40px}
+section{margin:38px 0}
+section>h2{font-size:25px;margin:0 0 6px;color:var(--granate-osc)}
+section>h2 .rnum{color:var(--oro);font-size:14px;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:2px;font-family:"Segoe UI",Arial,sans-serif;font-weight:700}
+.sec-sub{color:var(--tinta-2);margin:0 0 14px;max-width:920px}
+h3{font-size:19px;color:var(--granate-osc);margin:26px 0 8px}
+p{margin:9px 0;max-width:920px}
+ul,ol{margin:8px 0;padding-left:24px;max-width:920px}
+li{margin:5px 0}
+/* tarjetas de resumen */
+.tarjetas{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0 6px}
+.tarj{border:1px solid var(--linea);border-radius:12px;padding:14px 16px;background:var(--papel-2)}
+.tarj .n{font-size:30px;font-weight:700;font-family:Georgia,serif;color:var(--granate)}
+.tarj .n.mini{font-size:17px;line-height:1.35;padding-top:6px;font-family:"Segoe UI",Arial,sans-serif}
+.tarj .l{font-size:12.5px;color:var(--tinta-2);margin-top:2px}
+.tarj.ko .n{color:var(--no)}
+/* cajas */
+.caja{border:1px solid var(--linea);border-left:4px solid var(--oro);background:var(--papel-2);border-radius:10px;padding:14px 18px;margin:16px 0}
+.caja h3{margin:0 0 8px;font-size:16px}
+.caja p{margin:6px 0}
+.caja.granate{border-left-color:var(--granate)}
+.caja.ok{border-left-color:var(--si)}
+.caja.aviso{border-left-color:var(--no)}
+.caja ul{margin:6px 0 6px 18px;padding:0}
+.caja li{margin:4px 0}
+/* fichas */
+.ficha{border:1px solid var(--linea);border-radius:14px;margin:24px 0;overflow:hidden;background:#fff}
+.ficha .cab{padding:16px 22px;color:#fff;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.ficha .cab h3{margin:0;color:#fff;font-size:21px;flex:1;min-width:240px}
+.ficha .cab .badge{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35)}
+.ficha .cab .fecha-f{font-size:13px;color:#f3e3e7}
+.ficha .cuerpo{padding:18px 22px 16px}
+.bloque{margin:14px 0}
+.bloque .et{font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--tinta-2);margin-bottom:4px;font-family:"Segoe UI",Arial,sans-serif}
+.bloque p{margin:0;font-size:14.5px}
+.bloque .destacado{font-size:15.5px;font-weight:600;color:var(--granate-osc)}
+/* votos */
+.voto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:6px;margin:6px 0}
+.voto-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;border-radius:8px;border:1px solid var(--linea);background:#fff;font-size:13px}
+.voto-item .g{font-weight:700}
+.voto-item .v{font-weight:700;font-size:12px;padding:2px 8px;border-radius:5px;white-space:nowrap}
+.v-si{background:var(--si-bg);color:var(--si);border:1px solid var(--si-bd)}
+.v-no{background:var(--no-bg);color:var(--no);border:1px solid var(--no-bd)}
+.v-ab{background:var(--ab-bg);color:var(--ab);border:1px solid var(--ab-bd)}
+.v-div{background:var(--ext-bg);color:var(--ext);border:1px solid var(--ext-bd)}
+.v-nv{background:#f3f3f6;color:#8a8f9c;border:1px dashed #dcdcdf;font-weight:600}
+/* dos columnas */
+.dos-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0}
+@media(max-width:760px){.dos-col{grid-template-columns:1fr}}
+.col-ben{border:1px solid var(--si-bd);background:var(--si-bg);border-radius:10px;padding:12px 14px}
+.col-per{border:1px solid var(--no-bd);background:var(--no-bg);border-radius:10px;padding:12px 14px}
+.col-ben .et,.col-per .et{margin-bottom:4px}
+.col-ben .et{color:var(--si)}
+.col-per .et{color:var(--no)}
+.col-ben p,.col-per p{margin:0;font-size:14px;color:var(--tinta)}
+/* consecuencia */
+.consec{border:1px solid var(--oro);background:#fffbe8;border-radius:10px;padding:12px 16px;margin:14px 0;font-size:15px;color:#3a2d00}
+.consec .et{color:#8a6d1f;margin-bottom:4px}
+/* chips de grupo */
+.chip{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:2px 8px;border:1px solid transparent}
+.chip-psoe{background:#fdeceb;color:var(--psoe);border-color:#f2c4c1}
+.chip-pp{background:#e8f0f9;color:var(--pp);border-color:#c4d9f2}
+.chip-vox{background:#e9f6ec;color:var(--vox);border-color:#c3e6cc}
+.chip-sumar{background:#fdeceb;color:var(--sumar);border-color:#f2c4c1}
+.chip-junts{background:#e0f5f3;color:#00706a;border-color:#b3e6e0}
+.chip-erc{background:#fff5e0;color:#9a6b00;border-color:#f0dcae}
+.chip-bildu{background:#f2effb;color:var(--bildu);border-color:#d9d4ee}
+.chip-pnv{background:#e0f0e6;color:var(--pnv);border-color:#b3d4c3}
+.chip-mixto{background:#eceef3;color:#48586c;border-color:#d4d8e0}
+/* tag coherencia */
+.coh{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;border-radius:6px;padding:2px 9px;border:1px solid transparent}
+.coh-ok{background:var(--si-bg);color:var(--si);border-color:var(--si-bd)}
+.coh-estr{background:var(--ext-bg);color:var(--ext);border-color:var(--ext-bd)}
+.coh-parc{background:var(--ab-bg);color:var(--ab);border-color:var(--ab-bd)}
+.coh-ko{background:var(--no-bg);color:var(--no);border-color:var(--no-bd)}
+/* tablas */
+.tabla-scroll{overflow-x:auto;border:1px solid var(--linea);border-radius:12px;margin:12px 0}
+table.pv{border-collapse:collapse;width:100%;min-width:680px;font-size:13.5px}
+table.pv th{background:var(--granate-osc);color:#fff;padding:9px 10px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.04em;font-family:"Segoe UI",Arial,sans-serif}
+table.pv td{border-bottom:1px solid var(--linea);padding:9px 10px;vertical-align:top;background:#fff}
+table.pv tr:nth-child(even) td{background:#fbfaf8}
+/* fuentes */
+ol.fuentes-lista{margin:10px 0;padding-left:30px;columns:2;column-gap:38px;font-size:12.5px}
+ol.fuentes-lista li{margin:6px 0;break-inside:avoid}
+ol.fuentes-lista a{overflow-wrap:anywhere;color:var(--tinta-2);text-decoration:none;font-size:11.5px}
+.nota-met{font-size:12.5px;color:var(--tinta-2);font-style:italic}
+/* pie */
+footer{border-top:4px solid var(--oro);background:var(--granate-osc);color:#e9d9dd;padding:22px 18px;font-size:13px}
+footer .in{max-width:1080px;margin:0 auto}
+footer b{color:#fff}
+/* impresión */
+@media print{
+  nav.idx{display:none}
+  .ficha,.tabla-scroll{page-break-inside:avoid}
+  body{font-size:11px}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media (max-width:760px){
+  ol.fuentes-lista{columns:1}
+  .portada{padding:32px 18px}
+}
+</style>
+</head>
+<body>
+
+<header class="portada">
+<p class="kicker">Informe mensual · Congreso de los Diputados · XV Legislatura · Cierre</p>
+<h1>Octubre de 2026: el último Pleno, la caída de la vivienda y la disolución que puso fin a la legislatura</h1>
+<p class="sub">Trigésimo octavo y último mes de la legislatura. El 2 de octubre, el Congreso tumbó los dos decretos de vivienda (172-178 y 166-184), el último intento del Gobierno de aprobar una política social. La derogación desencadenó la disolución de las Cortes (RD 806/2026, de 5 de octubre, publicado el 6) y la convocatoria de elecciones para el 29-N. La ley de violencia vicaria y una decena de leyes sociales decayeron. La legislatura terminó sin un solo Presupuesto y con la agenda social pendiente. El ciudadano perdió la vivienda y la certidumbre legislativa; solo ganó el derecho al voto.</p>
+<div class="meta">Informe de elaboración propia · <b>corte: octubre de 2026</b> · base: Diarios de Sesiones del Congreso, registro de votaciones y BOE · 2 fichas + tabla resumen + síntesis ciudadana · mes 38 de la XV legislatura (1-10-2026 → 31-10-2026)</div>
+</header>
+
+<nav class="idx"><div class="in">
+<a href="#resumen">Resumen</a>
+<a href="#contexto">Contexto del mes</a>
+<a href="#hitos">Los hitos</a>
+<a href="#tabla">Tabla resumen</a>
+<a href="#sintesis">Ganó / perdió el ciudadano</a>
+<a href="#anexo">Metodología y fuentes</a>
+</div></nav>
+
+<main>
+
+<!-- ==================== RESUMEN ==================== -->
+<section id="resumen">
+<h2><span class="rnum">Portada del mes</span>Resumen ejecutivo</h2>
+
+<div class="tarjetas">
+<div class="tarj ko"><div class="n">172-178<br>166-184</div><div class="l">los dos decretos de vivienda caen el 2 de octubre: PP, Vox, Junts y UPN (y el PNV en el segundo) los derogan</div></div>
+<div class="tarj ko"><div class="n mini">6 de octubre</div><div class="l">el BOE publica el RD 806/2026: disolución de las Cortes y elecciones el 29-N</div></div>
+<div class="tarj ko"><div class="n mini">≈ 10 leyes</div><div class="l">decaen por la disolución: violencia vicaria, trata, familias, aborto, servicios sociales, protección de menores…</div></div>
+<div class="tarj"><div class="n mini">23 de diciembre</div><div class="l">fecha de constitución de las nuevas Cámaras</div></div>
+</div>
+
+<div class="caja granate">
+<h3>Conclusión central del mes</h3>
+<p>Octubre de 2026 fue el <b>mes del final</b>. El 2 de octubre, en un Pleno extraordinario, el Congreso tumbó los <b>dos decretos de vivienda</b> que el Gobierno había aprobado in extremis el 29 de septiembre. El primero, con medidas como la prórroga de alquileres y los topes a las rentas, cayó por <b>172-178</b>; el segundo, que introducía la renovación automática de contratos, por <b>166-184</b>. La pinza PP+Vox+Junts+UPN, con el PNV sumado en el segundo, derogó la última política social del Ejecutivo. La consecuencia fue inmediata: el <b>5 de octubre</b> el Gobierno aprobó el real decreto de disolución, publicado el <b>6 de octubre</b> (RD 806/2026), que convocó elecciones para el <b>29-N</b>. Con la disolución, <b>una decena de leyes sociales</b> decayó: la ley de violencia vicaria (que había superado su primer trámite el 30-S), la ley contra la trata, la ley de familias, la reforma constitucional del aborto, la ley de servicios sociales y la protección de menores en redes, entre otras. La legislatura terminó <b>sin un solo Presupuesto</b> —tres prórrogas consecutivas— y con la agenda social pendiente. El ciudadano perdió la vivienda y la certidumbre legislativa; solo ganó el derecho al voto.</p>
+</div>
+
+<div class="caja">
+<h3>Los cuatro hallazgos del mes</h3>
+<ul>
+<li><b>1. Los decretos de vivienda caen (2-O):</b> el Pleno extraordinario rechazó el RDL 26/2026 (172-178) y el RDL 27/2026 (166-184). El primero incluía la prórroga de alquileres, los topes a las rentas y la limitación de compra a los «fondos buitre»; el segundo, la renovación automática de contratos, que solo estuvo en vigor dieciséis horas. El PP, Vox, Junts y UPN votaron en contra; en el segundo se sumó el PNV. Fue la última derrota parlamentaria de la legislatura.<span style="font-size:0.75em;color:var(--tinta-2">[citation:6]</span></li>
+<li><b>2. La disolución (5-6 de octubre):</b> el Consejo de Ministros extraordinario del 5 de octubre aprobó el real decreto de disolución de las Cortes y de convocatoria de elecciones para el 29-N. El BOE lo publicó el 6 de octubre (RD 806/2026). La campaña electoral duraría 15 días, del 13 al 27 de noviembre, y las nuevas Cámaras se constituirían el 23 de diciembre.<span style="font-size:0.75em;color:var(--tinta-2">[citation:5]</span></li>
+<li><b>3. La decena de leyes sociales que decaen:</b> la disolución interrumpió la tramitación de la <b>ley de violencia vicaria</b> (que había superado su primer trámite el 30-S), la <b>ley orgánica integral contra la trata</b>, la <b>ley contra las prácticas de conversión LGTBI</b> (que estaba en el Senado), la <b>reforma constitucional del aborto</b> (art. 43 CE), la <b>ley de familias</b>, la <b>ley de servicios sociales</b> y la <b>protección de menores en entornos digitales</b>, entre otras. Todas ellas quedaron en el limbo y solo podrán recuperarse si se reinicia su tramitación en la próxima legislatura.<span style="font-size:0.75em;color:var(--tinta-2">[citation:7]</span></li>
+<li><b>4. La legislatura termina sin Presupuestos:</b> la XV legislatura se convirtió en la <b>primera de la democracia sin un solo Presupuesto aprobado</b>. Los PGE de 2024 no se aprobaron, los de 2025 ni se presentaron y los de 2026 quedaron bloqueados. España encadenó tres prórrogas presupuestarias (2023, 2024 y 2025), con la congelación de las partidas para pensiones, funcionarios, becas y dependencia. El Gobierno agotó el 1 de octubre el plazo constitucional para remitir los Presupuestos de 2027, que tampoco presentó.<span style="font-size:0.75em;color:var(--tinta-2">[citation:9]</span></li>
+</ul>
+</div>
+</section>
+
+<!-- ==================== CONTEXTO ==================== -->
+<section id="contexto">
+<h2><span class="rnum">Contexto</span>El mes en que se cerró la legislatura</h2>
+<p class="sec-sub">Octubre de 2026 no fue un mes de actividad parlamentaria ordinaria: fue el mes del cierre. El Pleno del 2 de octubre agotó la legislatura y la disolución del 6 de octubre abrió el proceso electoral.</p>
+
+<div class="caja">
+<h3>La cronología del mes</h3>
+<ul>
+<li><b>1 de octubre:</b> el Gobierno agota el plazo constitucional para remitir al Congreso los Presupuestos de 2027. No los presenta. El Ejecutivo confirma que no habrá nuevas cuentas públicas.<span style="font-size:0.75em;color:var(--tinta-2">[citation:9]</span></li>
+<li><b>2 de octubre:</b> Pleno extraordinario. El Congreso rechaza los dos decretos de vivienda: el RDL 26/2026 (172-178) y el RDL 27/2026 (166-184). El presidente Sánchez interviene minutos antes de la votación para pedir «valentía» y «coherencia» a los grupos; su llamamiento no prospera. La ministra de Vivienda, Isabel Rodríguez, anuncia que «seguirán peleando».<span style="font-size:0.75em;color:var(--tinta-2">[citation:6]</span></li>
+<li><b>5 de octubre:</b> Consejo de Ministros extraordinario. El Gobierno aprueba el real decreto de disolución de las Cortes y de convocatoria de elecciones para el 29 de noviembre. Sánchez anuncia la decisión en una comparecencia.<span style="font-size:0.75em;color:var(--tinta-2">[citation:5]</span></li>
+<li><b>6 de octubre:</b> el BOE publica el RD 806/2026. Las Cortes quedan formalmente disueltas. Comienza el proceso electoral.<span style="font-size:0.75em;color:var(--tinta-2">[citation:8]</span></li>
+<li><b>13 de noviembre:</b> inicio de la campaña electoral (15 días).</li>
+<li><b>29 de noviembre:</b> elecciones generales.</li>
+<li><b>23 de diciembre:</b> constitución de las nuevas Cámaras.</li>
+</ul>
+</div>
+
+<div class="caja aviso">
+<h3>La aritmética de la disolución</h3>
+<p>La disolución no fue un accidente: fue el resultado de la <b>aritmética del bloqueo</b>. La pinza PP (137) + Vox (32-33) + Junts (7) + UPN (1) = <b>177-178 votos</b> se impuso en todas las votaciones clave de la legislatura. El Gobierno no pudo aprobar ni un solo Presupuesto, ni la reforma de la vivienda, ni la ley de lobbies. El último Pleno del 2 de octubre fue la constatación final: los decretos de vivienda, que habían nacido como respuesta al desahucio de Maricarmen, cayeron con los votos de la pinza. La disolución fue la salida política a un bloqueo que se había hecho estructural. El coste ciudadano fue la pérdida de la última oportunidad de regular la vivienda y de completar la agenda social.</p>
+</div>
+</section>
+
+<!-- ==================== HITOS ==================== -->
+<section id="hitos">
+<h2><span class="rnum">Los hitos</span>Fichas del mes</h2>
+<p class="sec-sub">Dos hitos concentran el mes: la caída de los decretos de vivienda (la última derrota parlamentaria) y la disolución de las Cortes (el cierre formal de la legislatura). La decena de leyes sociales que decaen completa el cuadro.</p>
+
+<!-- ===== FICHA 1: DECRETOS DE VIVIENDA ===== -->
+<div class="ficha">
+<div class="cab" style="background:linear-gradient(120deg,#8c1023,#e6274c)">
+<h3>1 · El Congreso tumba los dos decretos de vivienda (172-178 y 166-184): el último acto de la pinza</h3>
+<span class="badge">Convalidación de decretos-ley · Rechazada</span>
+<span class="fecha-f">2 de octubre de 2026</span>
+</div>
+<div class="cuerpo">
+
+<div class="bloque">
+<div class="et">Propuesta original</div>
+<p>El Gobierno había aprobado el <b>29 de septiembre</b> dos reales decretos-ley de vivienda, conocidos como «decretos Maricarmen» en referencia al desahucio de una vecina de 87 años. El <b>RDL 26/2026</b> incluía la prórroga de los alquileres, los topes a las rentas, la limitación de compra a los «fondos buitre» y beneficios fiscales para caseros e inquilinos. El <b>RDL 27/2026</b> introducía la renovación automática de los contratos de alquiler. Ambos entraron en vigor el 1 y el 2 de octubre, respectivamente.<span style="font-size:0.75em;color:var(--tinta-2">[citation:6]</span></p>
+</div>
+
+<div class="bloque">
+<div class="et">Resultado legislativo</div>
+<p><b>RDL 26/2026:</b> <span class="destacado" style="color:var(--no)">rechazado 172-178</span>. <b>RDL 27/2026:</b> <span class="destacado" style="color:var(--no)">rechazado 166-184</span>. El PP, Vox, Junts y UPN votaron en contra de ambos; en el segundo se sumó el PNV. La derogación se publicó ese mismo día en el BOE. El segundo decreto solo estuvo en vigor dieciséis horas.<span style="font-size:0.75em;color:var(--tinta-2">[citation:6]</span></p>
+</div>
+
+<div class="bloque">
+<div class="et">Voto por grupo (2-10-2026)</div>
+<div class="voto-grid">
+<div class="voto-item"><span class="g" style="color:var(--psoe)">PSOE</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--pp)">PP</span><span class="v v-no">NO</span></div>
+<div class="voto-item"><span class="g" style="color:var(--vox)">Vox</span><span class="v v-no">NO</span></div>
+<div class="voto-item"><span class="g" style="color:var(--sumar)">Sumar</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--junts)">Junts</span><span class="v v-no">NO</span></div>
+<div class="voto-item"><span class="g" style="color:var(--erc)">ERC</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--bildu)">EH Bildu</span><span class="v v-si">SÍ</span></div>
+<div class="voto-item"><span class="g" style="color:var(--pnv)">PNV</span><span class="v v-div">SÍ (1.º) / NO (2.º)</span></div>
+<div class="voto-item"><span class="g" style="color:var(--mixto)">Mixto</span><span class="v v-div">SÍ / NO</span></div>
+</div>
+<p style="font-size:12.5px;color:var(--tinta-2);margin-top:6px">En el primer decreto, el PNV votó a favor; en el segundo, en contra. El resto de la pinza (PP, Vox, Junts y UPN) votó en contra de ambos. A favor: PSOE, Sumar, ERC, EH Bildu, Podemos, Compromís, BNG y CC.</p>
+</div>
+
+<div class="bloque">
+<div class="et">Lectura ideológica</div>
+<p><span class="coh coh-estr">ESTRATÉGICO</span> · La votación no fue ideológica, sino el <b>último acto de la pinza</b>. El PP y Vox votaron en contra por coherencia con su oposición al intervencionismo en el mercado de la vivienda. Junts votó en contra como parte de su estrategia de bloqueo, que había convertido en sistemática desde enero de 2025. El PNV se sumó al «no» en el segundo decreto por su rechazo a la renovación automática de contratos. El resultado fue la <b>derrota final del Gobierno</b> y el detonante de la disolución.</p>
+</div>
+
+<div class="dos-col">
+<div class="col-ben">
+<div class="et">A quién beneficia (si se hubiera aprobado)</div>
+<p>A los <b>inquilinos</b>, que habrían visto prorrogados sus contratos y limitadas las subidas del alquiler. A las <b>familias vulnerables</b>, que habrían mantenido la protección frente a los desahucios. A los <b>demandantes de vivienda asequible</b>, que habrían contado con más oferta y menos presión de los fondos buitre.</p>
+</div>
+<div class="col-per">
+<div class="et">A quién perjudica o no beneficia directamente</div>
+<p>A los <b>inquilinos</b>, que se quedaron sin la prórroga y los topes. A las <b>familias vulnerables</b>, que perdieron la protección. Al <b>Gobierno</b>, que sufrió la derrota final. A los <b>grandes tenedores y fondos buitre</b>, que se beneficiaron de la derogación.</p>
+</div>
+</div>
+
+<div class="consec">
+<div class="et">Consecuencia ciudadana</div>
+La derogación de los decretos de vivienda tuvo una <b>consecuencia material directa</b>: los inquilinos se quedaron sin la prórroga de contratos y sin los topes a las rentas; las familias vulnerables perdieron la protección frente a los desahucios; y la limitación a los fondos buitre no llegó a aplicarse. La vivienda, el problema más citado por los ciudadanos en las encuestas, se quedó sin regular en la XV legislatura. La consecuencia fue el detonante de la disolución: el Gobierno consideró que sin mayoría para aprobar su política de vivienda no tenía sentido continuar.
+</div>
+
+</div>
+</div>
+
+<!-- ===== FICHA 2: DISOLUCIÓN ===== -->
+<div class="ficha">
+<div class="cab" style="background:linear-gradient(120deg,#0d3f78,#1d6fc0)">
+<h3>2 · La disolución de las Cortes (RD 806/2026): el final de la XV legislatura y las elecciones del 29-N</h3>
+<span class="badge">Disolución · 6 de octubre de 2026</span>
+<span class="fecha-f">5-6 de octubre de 2026</span>
+</div>
+<div class="cuerpo">
+
+<div class="bloque">
+<div class="et">Propuesta original</div>
+<p>Tras la derogación de los decretos de vivienda, el Gobierno decidió disolver las Cortes y convocar elecciones anticipadas. El <b>Consejo de Ministros extraordinario del 5 de octubre</b> aprobó el real decreto de disolución del Congreso y del Senado y de convocatoria de elecciones para el <b>domingo 29 de noviembre de 2026</b>. El <b>BOE publicó el RD 806/2026 el 6 de octubre</b>, fecha en la que entró en vigor la disolución.<span style="font-size:0.75em;color:var(--tinta-2">[citation:5]</span></p>
+</div>
+
+<div class="bloque">
+<div class="et">Resultado legislativo</div>
+<p><span class="destacado">Cortes disueltas. Elecciones convocadas para el 29-N</span>. La campaña electoral duró 15 días (del 13 al 27 de noviembre). Las nuevas Cámaras se constituirán el <b>23 de diciembre</b>. La XV legislatura quedó formalmente clausurada.<span style="font-size:0.75em;color:var(--tinta-2">[citation:5]</span></p>
+</div>
+
+<div class="bloque">
+<div class="et">El legado de la legislatura</div>
+<p>La XV legislatura se cerró con un balance de <b>bloqueo estructural</b>: <b>cero Presupuestos aprobados</b> (tres prórrogas consecutivas), <b>13 decretos-ley derogados</b>, <b>cinco sendas de gasto rechazadas</b> y una <b>decena de leyes sociales decaídas</b>. Las únicas normas de calado que sobrevivieron fueron las que contaron con el apoyo del PP (ley ELA, permiso parental, reforma del art. 49 CE) o las que se aprobaron antes de que la pinza se consolidara (amnistía, paridad). La vivienda, la jornada de 37,5 horas y la reforma fiscal quedaron sin aprobar.</p>
+</div>
+
+<div class="bloque">
+<div class="et">Lectura ideológica</div>
+<p><span class="coh coh-estr">ESTRATÉGICO</span> · La disolución no fue una decisión ideológica, sino la <b>consecuencia política de la aritmética</b>. El Gobierno constató que no podía gobernar sin mayoría y optó por anticipar las elecciones. El PP y Vox habían bloqueado sistemáticamente la agenda social; Junts había convertido el bloqueo en su estrategia desde enero de 2025. La disolución fue la salida a un bloqueo que se había hecho insostenible.</p>
+</div>
+
+<div class="dos-col">
+<div class="col-ben">
+<div class="et">A quién beneficia</div>
+<p>A los <b>partidos</b>, que pudieron medir su fuerza en las urnas. A los <b>ciudadanos</b>, que recuperaron la capacidad de decidir el futuro político del país. A la <b>democracia</b>, que pudo desbloquear una situación institucional insostenible.</p>
+</div>
+<div class="col-per">
+<div class="et">A quién perjudica o no beneficia directamente</div>
+<p>A los <b>ciudadanos que esperaban las leyes sociales pendientes</b>: la violencia vicaria, la trata, las familias, el aborto, los servicios sociales y la protección de menores decayeron. A los <b>inquilinos</b>, que perdieron la regulación de la vivienda. A los <b>pensionistas y funcionarios</b>, que siguieron sin Presupuestos. Al <b>Gobierno</b>, que no pudo completar su programa.</p>
+</div>
+</div>
+
+<div class="consec">
+<div class="et">Consecuencia ciudadana</div>
+La disolución tuvo una <b>consecuencia institucional</b>: el país volvió a las urnas. Pero también tuvo una <b>consecuencia material</b>: todas las leyes que estaban en tramitación decayeron. La ley de violencia vicaria, que había superado su primer trámite el 30-S, no llegó a aprobarse. La ley contra la trata, la ley de familias, la reforma del aborto y la protección de menores en redes quedaron en el limbo. El ciudadano ganó el derecho al voto, pero perdió la oportunidad de que esas leyes se aprobaran en esta legislatura.
+</div>
+
+</div>
+</div>
+
+</section>
+
+<!-- ==================== TABLA RESUMEN ==================== -->
+<section id="tabla">
+<h2><span class="rnum">Vista de pájaro</span>Tabla resumen del mes</h2>
+<p class="sec-sub">Dos filas para el mes del cierre: la última derrota parlamentaria y la disolución que puso fin a la legislatura.</p>
+
+<div class="tabla-scroll">
+<table class="pv">
+<thead><tr>
+<th>Votación / hito</th><th>Resultado</th><th>¿Coherente con la ideología?</th><th>Ganadores</th><th>Perdedores / no beneficiados</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><b>Decretos de vivienda (RDL 26 y 27/2026)</b></td>
+<td><span style="color:var(--no);font-weight:700">Rechazados 172-178 y 166-184</span></td>
+<td><span class="coh coh-estr">ESTRATÉGICO</span> · Último acto de la pinza PP+Vox+Junts+UPN; PNV se suma en el segundo</td>
+<td>PP, Vox, Junts y UPN (por el bloqueo); grandes tenedores y fondos buitre</td>
+<td>Inquilinos, familias vulnerables, demandantes de vivienda asequible; Gobierno</td>
+</tr>
+<tr>
+<td><b>Disolución de las Cortes (RD 806/2026)</b></td>
+<td><span style="color:var(--ab);font-weight:700">Cortes disueltas · Elecciones 29-N</span></td>
+<td><span class="coh coh-estr">ESTRATÉGICO</span> · Consecuencia política del bloqueo</td>
+<td>Partidos (midieron su fuerza); ciudadanía (recuperó el voto)</td>
+<td>Ciudadanos que esperaban las leyes sociales decaídas; inquilinos; pensionistas y funcionarios sin Presupuestos</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="caja aviso">
+<p><b>Advertencia de lectura.</b> La caída de los decretos de vivienda no cambia ninguna ley existente, pero <b>impide que las medidas entren en vigor</b> y deja sin regular el problema más citado por los ciudadanos. La disolución no es una ley, pero <b>interrumpe la tramitación de una decena de leyes sociales</b>. El mes deja un balance negativo para el ciudadano: pierde la vivienda y la certidumbre legislativa; solo gana el derecho al voto. La XV legislatura termina sin un solo Presupuesto y con la agenda social pendiente.</p>
+</div>
+</section>
+
+<!-- ==================== SÍNTESIS ==================== -->
+<section id="sintesis">
+<h2><span class="rnum">Cierre</span>Lo que ganó y perdió el ciudadano este mes (y esta legislatura)</h2>
+
+<div class="caja ok">
+<h3>Ganaron</h3>
+<ul>
+<li><b>La ciudadanía en general</b>: recuperó el derecho al voto. Las elecciones del 29-N abrieron la posibilidad de desbloquear la situación institucional y de que las leyes sociales pendientes se retomen en la próxima legislatura.</li>
+<li><b>Los partidos políticos</b>: pudieron medir su fuerza en las urnas y redefinir sus estrategias.</li>
+<li><b>La democracia</b>: la disolución puso fin a un bloqueo que había hecho insostenible el funcionamiento del Parlamento.</li>
+</ul>
+</div>
+
+<div class="caja aviso">
+<h3>Perdieron / no se beneficiaron</h3>
+<ul>
+<li><b>Los inquilinos y las familias vulnerables</b>: los decretos de vivienda fueron derogados. Se quedaron sin la prórroga de contratos, sin los topes a las rentas y sin la protección frente a los desahucios. La vivienda, el problema más citado por los ciudadanos, quedó sin regular.</li>
+<li><b>Las víctimas de violencia vicaria</b>: la ley que tipificaba la violencia vicaria como agravante de género y preveía la privación automática de la patria potestad decayó por la disolución. No llegó a aprobarse.</li>
+<li><b>Las víctimas de trata y explotación</b>: la ley orgánica integral contra la trata decayó.</li>
+<li><b>Las personas LGTBIQ+</b>: la ley contra las prácticas de conversión, que estaba en el Senado, decayó.</li>
+<li><b>Las familias</b>: la ley de familias y la prestación universal por crianza quedaron sin aprobar.</li>
+<li><b>Las mujeres</b>: la reforma constitucional para blindar el aborto (art. 43 CE) no culminó.</li>
+<li><b>Los pensionistas, funcionarios, becarios y dependientes</b>: la legislatura terminó sin Presupuestos. Las partidas quedaron congeladas en la prórroga de 2023.</li>
+<li><b>El Gobierno</b>: no pudo completar su programa. La vivienda, la jornada de 37,5 horas, la reforma fiscal y la agenda social quedaron pendientes.</li>
+</ul>
+</div>
+
+<div class="caja">
+<h3>Quedó en el limbo (y decayó con la disolución)</h3>
+<ul>
+<li><b>La ley de violencia vicaria</b>: había superado su primer trámite el 30-S, pero decayó con la disolución.</li>
+<li><b>La ley orgánica integral contra la trata y la explotación</b>: pendiente de aprobación, decayó.</li>
+<li><b>La ley contra las prácticas de conversión LGTBI</b>: en el Senado, decayó.</li>
+<li><b>La reforma constitucional del aborto (art. 43 CE)</b>: en tramitación, decayó.</li>
+<li><b>La ley de familias y la prestación universal por crianza</b>: decayó.</li>
+<li><b>La ley de servicios sociales</b>: decayó.</li>
+<li><b>La protección de menores en entornos digitales</b>: decayó.</li>
+<li><b>Los Presupuestos Generales del Estado de 2024, 2025 y 2026</b>: no se aprobaron. España encadenó tres prórrogas presupuestarias.</li>
+<li><b>La nueva financiación autonómica y la condonación de la deuda</b>: decayó.</li>
+<li><b>La jornada de 37,5 horas y el estatuto del becario</b>: no se aprobaron.</li>
+<li><b>La oficialidad del catalán, euskera y gallego en la UE</b>: no se logró.</li>
+<li><b>La promesa de 183.000 viviendas públicas</b>: no se cumplió. Solo se calificaron definitivamente 10.620.<span style="font-size:0.75em;color:var(--tinta-2">[citation:9]</span></li>
+</ul>
+</div>
+
+<div class="caja granate">
+<h3>La clave política del mes (y de la legislatura)</h3>
+<p>Octubre de 2026 fue el mes en que la XV legislatura <b>cerró su ciclo</b> con una derrota final y una disolución. Los decretos de vivienda cayeron por la pinza PP+Vox+Junts+UPN, que había bloqueado sistemáticamente la agenda social desde enero de 2025. La disolución del 6 de octubre y las elecciones del 29-N fueron la salida a un bloqueo que se había hecho estructural. El ciudadano perdió la vivienda y la decena de leyes sociales que decayeron; solo ganó el derecho al voto. La legislatura terminó <b>sin un solo Presupuesto</b> —la primera de la democracia— y con la agenda social pendiente. La lección final es la misma que se repitió mes a mes: en una legislatura de bloqueo, el Parlamento no pudo legislar y el Gobierno no pudo gobernar. La pelota quedó en el tejado de las urnas.</p>
+</div>
+</section>
+
+<!-- ==================== ANEXO ==================== -->
+<section id="anexo">
+<h2><span class="rnum">Anexo</span>Metodología y fuentes del mes</h2>
+
+<div class="caja">
+<h3>Base de datos</h3>
+<ul>
+<li><b>Diarios de Sesiones del Congreso</b>: sesión plenaria extraordinaria del 2 de octubre de 2026. Se registraron las votaciones de los dos decretos de vivienda.</li>
+<li><b>Registro de votaciones</b>: los decretos de vivienda (172-178 y 166-184) son las únicas votaciones nominales del mes. La disolución no es una votación, sino una decisión del Gobierno publicada en el BOE.</li>
+<li><b>RD 806/2026</b>: BOE núm. 248, de 6 de octubre de 2026. Disolución del Congreso y del Senado; convocatoria de elecciones para el 29-N.<span style="font-size:0.75em;color:var(--tinta-2">[citation:8]</span></li>
+</ul>
+</div>
+
+<div class="caja">
+<h3>Fuentes de consecuencias ciudadanas</h3>
+<ul>
+<li><b>Decretos de vivienda</b>: EFE (2-10-2026); El País; Newtral; La Cerca; Diario Área.<span style="font-size:0.75em;color:var(--tinta-2">[citation:6]</span></li>
+<li><b>Disolución y elecciones</b>: La Moncloa (5-10-2026); BOE (6-10-2026); Cadena SER; El Debate.<span style="font-size:0.75em;color:var(--tinta-2">[citation:5]</span></li>
+<li><b>Leyes sociales decaídas</b>: El Observador (5-10-2026); Diario de Cádiz; Notimerica; El Solidario.<span style="font-size:0.75em;color:var(--tinta-2">[citation:7]</span></li>
+<li><b>Balance de la legislatura</b>: La Voz de Asturias (7-10-2026); Newtral; Maldita.es; Notimerica.<span style="font-size:0.75em;color:var(--tinta-2">[citation:9]</span></li>
+</ul>
+</div>
+
+<div class="caja">
+<h3>Advertencias y límites</h3>
+<ul>
+<li><b>Los decretos de vivienda se rechazaron en octubre</b>: el informe los trata como la última derrota parlamentaria de la legislatura y el detonante de la disolución.</li>
+<li><b>La disolución no es una votación</b>: el informe la documenta como una decisión del Gobierno con consecuencias institucionales y legislativas.</li>
+<li><b>La ley de violencia vicaria decayó con la disolución</b>: el informe la trata como una de las leyes sociales que no llegaron a aprobarse, a pesar de haber superado su primer trámite el 30-S.</li>
+<li><b>La legislatura terminó sin Presupuestos</b>: el informe lo subraya como el dato central del balance final: tres prórrogas consecutivas y cero cuentas públicas aprobadas.</li>
+</ul>
+</div>
+
+<h3>Fuentes del volcado y del kit de informes</h3>
+<ol class="fuentes-lista">
+<li>EFE — «El Congreso rechaza los dos decretos del Gobierno sobre vivienda con los votos de PP, Vox y Junts» (2-10-2026) — <a href="https://efe.com/espana/2026-10-02/decretos-vivienda-congreso-votacion/" target="_blank" rel="noopener">efe.com</a></li>
+<li>La Moncloa — «29N: guía básica sobre las elecciones generales y el proceso electoral» (14-10-2026) — <a href="https://www.lamoncloa.gob.es" target="_blank" rel="noopener">lamoncloa.gob.es</a></li>
+<li>BOE — Real Decreto 806/2026, de 5 de octubre, de disolución del Congreso de los Diputados y del Senado y de convocatoria de elecciones (6-10-2026) — <a href="https://www.boe.es" target="_blank" rel="noopener">boe.es</a></li>
+<li>El Observador — «Elecciones anticipadas en España: estas son las leyes sociales que quedan frenadas en el Congreso» (5-10-2026) — <a href="https://www.elobservador.com.uy" target="_blank" rel="noopener">elobservador.com.uy</a></li>
+<li>La Voz de Asturias — «El discurso que Sánchez incumplió» (7-10-2026) — <a href="https://www.lavozdeasturias.es" target="_blank" rel="noopener">lavozdeasturias.es</a></li>
+<li>Newtral — «Cuando Sánchez prometía presentar los presupuestos en 2026 y agotar la legislatura» (5-10-2026) — <a href="https://www.newtral.es" target="_blank" rel="noopener">newtral.es</a></li>
+<li>Informe general «Programa y voto: la línea de cada grupo parlamentario frente a su programa electoral del 23-J» (elaboración propia)</li>
+</ol>
+<p class="nota-met">Este documento es el <b>informe del mes 38 y último</b> de la XV legislatura. Documenta el cierre: la caída de los decretos de vivienda, la disolución de las Cortes y la decena de leyes sociales que decayó. Para el informe del mes anterior, véase septiembre de 2026 (mes 37). Para el análisis completo de la legislatura, véase el informe general «Programa y voto».</p>
+</section>
+
+</main>
+
+<footer><div class="in">
+<b>Informe mensual · Octubre 2026 · Votaciones del Congreso de los Diputados (XV legislatura).</b> Mes 38 y último de la legislatura. Elaboración propia sobre los Diarios de Sesiones del Congreso, el registro de votaciones, el BOE y los programas electorales del 23-J. El último Pleno, la caída de la vivienda y la disolución que puso fin a la legislatura. Elecciones: 29 de noviembre de 2026.
+</div></footer>
+
+</body>
+</html>
