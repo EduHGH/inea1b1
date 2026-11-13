@@ -1,0 +1,1604 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="dark light">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CSE INE A1 · Almacenamiento y bases de datos — Bloque III · Teoría, esquemas y exámenes</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💾</text></svg>">
+<style>
+*{box-sizing:border-box}
+:root{
+/* ===== Obsidian Design System · tokens (docs.obsidian.md · Reference › CSS variables) ===== */
+--accent-h:258;--accent-s:88%;--accent-l:66%;--fill-l:64%;--fill-hover-l:60%;
+--color-accent:hsl(var(--accent-h),var(--accent-s),var(--accent-l));
+--interactive-accent:hsl(var(--accent-h),var(--accent-s),var(--fill-l));
+--interactive-accent-hover:hsl(var(--accent-h),var(--accent-s),var(--fill-hover-l));
+--text-accent:hsl(var(--accent-h),var(--accent-s),var(--text-accent-l));--text-accent-hover:var(--text-accent);
+--tx-red:color-mix(in srgb,var(--color-red) var(--tx-p-red),var(--color-base-100));
+--tx-orange:color-mix(in srgb,var(--color-orange) var(--tx-p-orange),var(--color-base-100));
+--tx-green:color-mix(in srgb,var(--color-green) var(--tx-p-green),var(--color-base-100));
+--tx-cyan:color-mix(in srgb,var(--color-cyan) var(--tx-p-cyan),var(--color-base-100));
+--background-primary:var(--color-base-00);--background-primary-alt:var(--color-base-10);
+--background-secondary:var(--color-base-20);--background-secondary-alt:var(--color-base-25);
+--background-modifier-hover:color-mix(in srgb,var(--mono-100) 7.5%,transparent);
+--background-modifier-border:var(--color-base-30);--background-modifier-border-hover:var(--color-base-35);
+--background-modifier-border-focus:var(--color-accent);
+--text-normal:var(--color-base-100);--text-muted:var(--color-base-70);--text-faint:var(--color-base-50);
+--text-on-accent:#fff;--text-highlight-bg:rgba(255,208,0,.4);
+--font-interface:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue","Apple Color Emoji","Segoe UI Emoji",sans-serif;
+--font-text-size:16px;--font-smaller:.875em;--font-small:.933em;--font-ui-smaller:12px;--font-ui-small:13px;--font-ui-medium:15px;
+--bold-weight:600;--line-height-normal:1.5;--line-height-tight:1.3;
+--h1-size:2em;--h2-size:1.6em;--h3-size:1.37em;--h4-size:1.25em;
+--radius-s:4px;--radius-m:8px;--radius-l:12px;--radius-xl:16px;
+--size-2-2:4px;--size-2-3:6px;--size-4-1:4px;--size-4-2:8px;--size-4-3:12px;--size-4-4:16px;--size-4-6:24px;--size-4-8:32px;
+--input-height:30px;--input-radius:5px;--file-line-width:700px;--blockquote-border-thickness:2px;--hr-thickness:2px;
+--anim-duration-fast:140ms;--anim-motion-smooth:cubic-bezier(.45,.05,.55,.95);
+--i-chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");--i-check:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");--i-menu:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h16M4 6h16M4 18h16'/%3E%3C/svg%3E");--i-sun:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41'/%3E%3C/svg%3E");--i-moon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z'/%3E%3C/svg%3E");--i-monitor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='14' x='2' y='3' rx='2'/%3E%3Cpath d='M8 21h8M12 17v4'/%3E%3C/svg%3E");
+/* alias de los nombres previos del documento → tokens de Obsidian */
+--bg:var(--background-primary);--card:var(--background-primary-alt);--nav:var(--background-secondary);
+--ink:var(--text-normal);--mut:var(--text-muted);--sub:var(--text-muted);
+--line:var(--background-modifier-border);--line2:var(--background-modifier-border-hover);--line3:var(--color-base-40);
+--ac:var(--text-accent);--acf:var(--interactive-accent);--acp:var(--interactive-accent-hover);
+--ac-soft:color-mix(in srgb,var(--color-accent) 10%,transparent);
+--rose:var(--tx-red);--rose-soft:color-mix(in srgb,var(--color-red) 10%,transparent);--rosef:var(--color-red);
+--teal:var(--tx-cyan);--teal-soft:color-mix(in srgb,var(--color-cyan) 10%,transparent);--tealf:var(--color-cyan);
+--ok:var(--tx-green);--ok-soft:color-mix(in srgb,var(--color-green) 10%,transparent);--okf:var(--color-green);
+--btn:var(--interactive-normal);--btn-h:var(--interactive-hover);--sel:var(--text-selection);--hl:var(--text-highlight-bg);
+--fb:var(--font-interface);--fh:var(--font-interface);
+color-scheme:light;
+--color-base-00:#ffffff;--color-base-05:#fcfcfc;--color-base-10:#fafafa;--color-base-20:#f6f6f6;--color-base-25:#efefef;--color-base-30:#e4e4e4;--color-base-35:#dadada;--color-base-40:#bdbdbd;--color-base-50:#ababab;--color-base-60:#707070;--color-base-70:#5c5c5c;--color-base-100:#222222;
+--color-red:#e93147;--color-orange:#ec7500;--color-yellow:#e0ac00;--color-green:#08b94e;--color-cyan:#00bfbc;--color-blue:#086ddd;--color-purple:#7852ee;--color-pink:#d53984;
+--mono-0:#fff;--mono-100:#000;--text-accent-l:59%;
+--tx-p-red:75%;--tx-p-orange:60%;--tx-p-green:55%;--tx-p-cyan:50%;
+--background-modifier-form-field:var(--color-base-00);--interactive-normal:var(--color-base-00);--interactive-hover:var(--color-base-10);
+--text-selection:color-mix(in srgb,var(--color-accent) 20%,transparent);
+--shadow-s:0 1px 2px rgba(0,0,0,.028),0 3.4px 6.7px rgba(0,0,0,.042),0 15px 30px rgba(0,0,0,.07);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
+--color-base-00:#1c1c1c;--color-base-05:#212121;--color-base-10:#232323;--color-base-20:#282828;--color-base-25:#2e2e2e;--color-base-30:#333333;--color-base-35:#3f3f3f;--color-base-40:#555555;--color-base-50:#666666;--color-base-60:#999999;--color-base-70:#b3b3b3;--color-base-100:#dadada;
+--color-red:#fb464c;--color-orange:#e9973f;--color-yellow:#e0de71;--color-green:#44cf6e;--color-cyan:#53dfdd;--color-blue:#027aff;--color-purple:#a882ff;--color-pink:#fa99cd;
+--mono-0:#000;--mono-100:#fff;--text-accent-l:76%;
+--tx-p-red:70%;--tx-p-orange:100%;--tx-p-green:100%;--tx-p-cyan:100%;
+--background-modifier-form-field:var(--color-base-25);--interactive-normal:var(--color-base-30);--interactive-hover:var(--color-base-35);
+--text-selection:color-mix(in srgb,var(--color-accent) 40%,transparent);
+--shadow-s:0 1px 2px rgba(0,0,0,.121),0 3.4px 6.7px rgba(0,0,0,.179),0 15px 30px rgba(0,0,0,.3);
+}}
+:root[data-theme="dark"]{color-scheme:dark;
+--color-base-00:#1c1c1c;--color-base-05:#212121;--color-base-10:#232323;--color-base-20:#282828;--color-base-25:#2e2e2e;--color-base-30:#333333;--color-base-35:#3f3f3f;--color-base-40:#555555;--color-base-50:#666666;--color-base-60:#999999;--color-base-70:#b3b3b3;--color-base-100:#dadada;
+--color-red:#fb464c;--color-orange:#e9973f;--color-yellow:#e0de71;--color-green:#44cf6e;--color-cyan:#53dfdd;--color-blue:#027aff;--color-purple:#a882ff;--color-pink:#fa99cd;
+--mono-0:#000;--mono-100:#fff;--text-accent-l:76%;
+--tx-p-red:70%;--tx-p-orange:100%;--tx-p-green:100%;--tx-p-cyan:100%;
+--background-modifier-form-field:var(--color-base-25);--interactive-normal:var(--color-base-30);--interactive-hover:var(--color-base-35);
+--text-selection:color-mix(in srgb,var(--color-accent) 40%,transparent);
+--shadow-s:0 1px 2px rgba(0,0,0,.121),0 3.4px 6.7px rgba(0,0,0,.179),0 15px 30px rgba(0,0,0,.3);
+}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--fb)}
+main{max-width:980px;margin:0 auto;padding:28px 18px 60px}
+header h1{font:600 clamp(26px,5vw,38px)/1.1 var(--fh);letter-spacing:-.02em;margin:6px 0 4px}
+header .k{font:700 12px var(--fh);letter-spacing:.12em;text-transform:uppercase;color:var(--ac)}
+header p{color:var(--mut);margin:0 0 14px}
+nav.ix{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 6px}
+nav.ix a{font:600 13px var(--fh);text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--card);border-radius:99px;padding:5px 12px}
+nav.ix a:hover{border-color:var(--ac);color:var(--ac)}
+section{margin-top:38px}
+h2{font:600 22px/1.2 var(--fh);margin:0 0 4px;display:flex;gap:10px;align-items:baseline}
+h2 .n{font:600 13px var(--fh);color:var(--ac);background:var(--ac-soft);border-radius:6px;padding:2px 8px}
+.sub{color:var(--mut);font-size:14.5px;margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.box{border:1.5px solid var(--line);background:var(--card);border-radius:10px;padding:10px 14px;font:600 14.5px/1.4 var(--fh)}
+.box small{display:block;font:400 13px/1.4 var(--fb);color:var(--mut);margin-top:2px}
+.box.ac{border-color:var(--ac);background:var(--ac-soft)}
+.box.rose{border-color:var(--rose);background:var(--rose-soft)}
+.box.teal{border-color:var(--teal);background:var(--teal-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.t{font:600 11.5px var(--fh);letter-spacing:.09em;text-transform:uppercase;color:var(--mut);margin:0 0 6px}
+.grid{display:grid;gap:10px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.arrow{text-align:center;color:var(--mut);font:700 18px/1 var(--fh);padding:4px 0}
+.chain{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch}
+.chain .box{flex:1 1 150px}
+.chain .box b{color:var(--ac);font-family:var(--fh)}
+.lvl{display:grid;grid-template-columns:auto 1fr;gap:0 12px}
+.lvl>.l{writing-mode:vertical-rl;transform:rotate(180deg);font:600 11px var(--fh);letter-spacing:.1em;text-transform:uppercase;color:var(--mut);text-align:center}
+.tag{display:inline-block;font:700 11.5px var(--fh);border-radius:5px;padding:1px 7px;margin:2px 3px 2px 0;background:var(--ac-soft);color:var(--ac)}
+.tag.r{background:var(--rose-soft);color:var(--rose)}.tag.t{background:var(--teal-soft);color:var(--teal);font-size:11.5px;letter-spacing:0;text-transform:none;margin:2px 3px 2px 0}.tag.o{background:var(--ok-soft);color:var(--ok)}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px;font:14px/1.45 var(--fh)}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--ac-soft);font-weight:700}
+td:first-child{font-weight:700}
+ol.p{margin:0;padding:0;list-style:none;counter-reset:p;display:grid;gap:6px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+ol.p li{counter-increment:p;border:1px solid var(--line);background:var(--card);border-radius:9px;padding:8px 12px 8px 40px;position:relative;font:600 14px/1.35 var(--fh)}
+ol.p li::before{content:counter(p);position:absolute;left:10px;top:8px;width:22px;height:22px;border-radius:50%;background:var(--ac);color:#fff;font:600 12px/22px var(--fh);text-align:center}
+.mem{border-left:4px solid var(--rose);background:var(--rose-soft);border-radius:0 10px 10px 0;padding:10px 14px;margin-top:12px;font:14.5px/1.5 var(--fh)}
+.mem b{color:var(--rose)}
+.tree{display:grid;gap:10px;justify-items:center}
+.tree .row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;width:100%}
+.tree .row .box{flex:1 1 220px;max-width:340px;text-align:center}
+footer{margin-top:44px;color:var(--mut);font:13px var(--fh);border-top:1px solid var(--line);padding-top:14px}
+@media print{nav.ix{display:none}.card,.box{break-inside:avoid}}
+
+.flt{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 4px}
+.flt button{font:700 13px var(--fh);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:99px;padding:6px 14px;cursor:pointer}
+.flt button[aria-pressed="true"]{background:var(--ac);border-color:var(--ac);color:#fff}
+.pc{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--ac);border-radius:12px;padding:14px 16px;margin-top:14px;scroll-margin-top:12px}
+.pc.p1{border-left-color:var(--rose)}.pc.p3{border-left-color:var(--teal)}
+.pc .top{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:6px}
+.pc h3{font:600 18px/1.25 var(--fh);margin:2px 0 8px}
+.pill{font:600 11.5px var(--fh);border-radius:6px;padding:2px 8px;background:var(--ac-soft);color:var(--ac)}
+.pill.p1{background:var(--rose-soft);color:var(--rose)}.pill.p3{background:var(--teal-soft);color:var(--teal)}
+.pill.id{background:var(--line);color:var(--mut)}
+.qq{border-left:3px solid var(--line);padding:2px 0 2px 12px;margin:8px 0;font-style:italic}
+.pat{font:13.5px/1.45 var(--fh);color:var(--mut);margin:6px 0}
+.why{font:14px/1.5 var(--fb);margin:6px 0 10px}
+.steps{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:7px}
+.steps li{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:start;font:14.5px/1.5 var(--fb);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:8px 10px}
+.steps .nn{width:22px;height:22px;border-radius:50%;background:var(--ac);color:#fff;font:600 12px/22px var(--fh);text-align:center;margin-top:1px}
+.pc.p1 .nn{background:var(--rose)}.pc.p3 .nn{background:var(--teal)}
+.steps .lb{font:600 13px var(--fh);color:var(--ink)}
+.steps .tx{grid-column:2}
+.steps b{font-family:var(--fh)}
+.hide{display:none}
+section.tm{margin-top:30px}
+section.tm>h2{font-size:19px}
+
+html{scroll-padding-top:calc(78px + env(safe-area-inset-top,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+.tema-sec{margin-top:56px;padding-top:26px;border-top:3px solid var(--ac)}
+.tema-sec>header h1,.tema-sec h1.tt{font:600 clamp(24px,4.6vw,34px)/1.12 var(--fh);letter-spacing:-.02em;margin:4px 0}
+.up{font:700 12.5px var(--fh);color:var(--mut);text-decoration:none;float:right}
+.up:hover{color:var(--ac)}
+.toc{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin:18px 0 0}
+.toc a{display:flex;gap:10px;align-items:baseline;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font:600 14px/1.35 var(--fh)}
+.toc a:hover{border-color:var(--ac)}
+.toc a b{font:600 12px var(--fh);color:var(--ac);background:var(--ac-soft);border-radius:6px;padding:2px 8px;white-space:nowrap}
+.toc a.pn b{color:var(--rose);background:var(--rose-soft)}
+.fab{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:20;font:600 13px var(--fh);color:#fff;background:var(--ac);border-radius:99px;padding:8px 14px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.sbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:25;background:var(--bg);padding:10px 0 8px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sbar input{flex:1 1 220px;min-width:0;font:16px var(--fh);padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+.sbar input:focus{outline:2px solid var(--ac);outline-offset:1px}
+.sbar button{font:700 13px var(--fh);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:99px;padding:8px 14px;cursor:pointer}
+.sbar button:hover{border-color:var(--ac);color:var(--ac)}
+.cnt{font:600 13px var(--fh);color:var(--mut)}
+mark.sh{background:var(--hl);color:inherit;border-radius:3px;padding:0 1px}
+.nm{display:none!important}
+.xrefs{font:600 12.5px var(--fh);color:var(--mut);margin:-2px 0 10px}
+.xrefs a{color:var(--ac);text-decoration:none;font-weight:700;margin-right:10px;display:inline-block}
+.xrefs a:hover{text-decoration:underline}
+details.plan{margin-top:10px}
+details.plan>summary{cursor:pointer;font:600 13.5px var(--fh);color:var(--ac);padding:6px 0}
+html{scroll-padding-top:calc(var(--sbh,110px) + 8px + env(safe-area-inset-top,0px))}
+.sbar{gap:6px 8px}
+.sbar button[aria-pressed="true"]{background:var(--ac);border-color:var(--ac);color:#fff}
+.tnav{flex:1 1 100%;display:flex;gap:5px;overflow-x:auto;padding:2px 0 3px;scrollbar-width:thin}
+.tnav a{flex:0 0 auto;font:700 12px var(--fh);text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:99px;padding:3px 10px}
+.tnav a.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.tnav a.pn.on{background:var(--rose);border-color:var(--rose)}
+.tp{margin-left:auto;font:700 11.5px var(--fh);color:var(--mut);white-space:nowrap}
+.tp.ok{color:var(--ok)}
+.rv{margin-left:auto;display:inline-flex;gap:6px;align-items:center;font:700 12px var(--fh);color:var(--mut);cursor:pointer;white-space:nowrap}
+.rv input{accent-color:var(--ok);width:16px;height:16px;cursor:pointer}
+section.done{border-left:4px solid var(--ok);padding-left:12px}
+article.pc.done{border-left-color:var(--ok)}
+section.done .rv,article.done .rv{color:var(--ok)}
+.dn,.em{display:none!important}
+body.mem-only section[id*="-e"]>*:not(h2):not(.mem):not(.xrefs){display:none}
+body.mem-only .nomem,body.mem-only #pendientes,body.mem-only #prioridad,body.mem-only .tema-sec>nav.ix,body.mem-only .tnav a.pn,body.mem-only .toc a.pn{display:none!important}
+@media print{.tema-sec{break-before:page}.fab,.up,.sbar,.rv{display:none}}
+
+.cb{outline:none}
+body.cv .cb:not(.op){color:transparent!important;background:var(--ac-soft);border-bottom:2px solid var(--ac);border-radius:3px;cursor:pointer;user-select:none;-webkit-user-select:none}
+body.cv .cb:not(.op) mark.sh{color:transparent;background:transparent}
+body.cv .cb.op{background:var(--ok-soft);border-radius:3px;cursor:pointer}
+body.cv-open .cb:not(.op){color:inherit!important;background:none;border-bottom:0;cursor:default;user-select:auto;-webkit-user-select:auto}
+body.cv .cb:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+.sbar button#cr{border-color:var(--ac);color:var(--ac)}
+.lk{color:var(--ac);font-weight:700;text-decoration:none}
+.lk:hover{text-decoration:underline}
+.mk td:first-child{white-space:nowrap}
+.thread{display:grid;gap:8px;margin-top:6px}
+.thread .box small a{color:var(--ac);font-weight:700;text-decoration:none}
+@media print{body.cv .cb:not(.op){color:inherit!important;background:none;border-bottom:0}}
+
+main>header,main>.tema-sec,main>footer{zoom:var(--fz,1)}
+.sbar{transition:transform .2s ease}
+.sbar.hid{transform:translateY(-115%)}
+.tools{flex:1 1 100%;display:none;flex-wrap:wrap;gap:6px 8px;align-items:center}
+#mt{display:inline-block}
+.sbar.open .tools{display:flex;max-height:42vh;overflow-y:auto}
+.sbar button.fz{padding:8px 11px}
+section.due{border-left:4px solid var(--ac);padding-left:12px}
+article.pc.due{border-left-color:var(--ac)}
+.rv.dl{color:var(--rose)}
+.rv.dl input{accent-color:var(--rose)}
+.ctl{margin-left:auto;display:inline-flex;gap:10px;align-items:center}
+.ctl .rv{margin-left:0}
+.fv{background:none;border:0;font-size:19px;line-height:1;cursor:pointer;color:var(--mut);padding:0 2px}
+.fv[aria-pressed="true"]{color:#d97706}
+.nt{margin-top:10px}
+.nt summary{cursor:pointer;font:700 12.5px var(--fh);color:var(--mut)}
+.nt.has summary{color:var(--ac)}
+.nt textarea{display:block;width:100%;min-height:72px;margin-top:6px;font:16px/1.45 var(--fb);background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px 10px;resize:vertical}
+.nt textarea:focus{outline:2px solid var(--ac);outline-offset:1px}
+@media (max-width:760px){
+  .sbar input{flex:1 1 140px}
+}
+@media print{.fv,.ctl,.nt:not(.has),.sbar{display:none}}
+
+/* ===== Obsidian Design System · componentes ===== */
+html{scrollbar-color:color-mix(in srgb,var(--mono-100) 20%,transparent) transparent}
+body{font:var(--font-text-size)/var(--line-height-normal) var(--font-interface);color:var(--text-normal);background:var(--background-primary);-webkit-font-smoothing:antialiased}
+::selection{background:var(--text-selection)}
+b,strong{font-weight:var(--bold-weight)}
+main{max-width:calc(var(--file-line-width) + 36px)}
+:where(a,button,summary,input,textarea,[tabindex]):focus-visible{outline:2px solid var(--background-modifier-border-focus);outline-offset:2px}
+
+/* tipografía: escala de encabezados de Obsidian */
+header h1,.tema-sec>header h1,.tema-sec h1.tt{font:700 var(--h1-size)/1.2 var(--font-interface);letter-spacing:0;margin:var(--size-4-2) 0 var(--size-2-2)}
+h2{font:600 var(--h2-size)/1.2 var(--font-interface);letter-spacing:0;margin:0 0 var(--size-2-2)}
+section.tm>h2{font-size:var(--h3-size);line-height:1.3}
+.pc h3{font:600 var(--h4-size)/1.4 var(--font-interface);margin:var(--size-2-2) 0 var(--size-4-2)}
+header .k,.tema-sec .k,.k{font:500 var(--font-ui-small)/1.3 var(--font-interface);letter-spacing:0;text-transform:none;color:var(--text-muted);margin:0}
+.t,.box .t{font:600 var(--font-ui-small)/1.3 var(--font-interface);letter-spacing:0;text-transform:none;color:var(--text-muted);margin:0 0 var(--size-2-2)}
+.lvl>.l{font:600 var(--font-ui-smaller) var(--font-interface);letter-spacing:0;text-transform:none}
+.sub,.why,.pat,header p{color:var(--text-muted)}
+.sub{font-size:var(--font-ui-medium)}.why,.pat,.steps li{font-size:var(--font-ui-medium)}
+.arrow{font:400 18px/1 var(--font-interface);color:var(--text-muted)}
+.up,footer,.xrefs,.cnt,.rv{font:500 var(--font-ui-small) var(--font-interface)}
+.up,footer,.cnt{color:var(--text-muted)}
+.up:hover{color:var(--text-accent)}
+.xrefs a,.lk{font-weight:500;color:var(--text-accent);text-decoration:none}
+.xrefs a:hover,.lk:hover{text-decoration:underline}
+.tema-sec{border-top:var(--hr-thickness) solid var(--background-modifier-border)}
+footer{border-top:1px solid var(--background-modifier-border)}
+
+/* superficies: lienzo · alt · secundaria; contornos de 1px */
+.card,.pc,.toc a{background:var(--background-primary-alt);border:1px solid var(--background-modifier-border);border-radius:var(--radius-l)}
+.toc a:hover{background:var(--background-modifier-hover);border-color:var(--background-modifier-border-hover)}
+.pc{border-left:3px solid var(--color-base-40)}
+.pc.p1{border-left-color:var(--color-red)}.pc.p2{border-left-color:var(--color-accent)}.pc.p3{border-left-color:var(--color-cyan)}
+article.pc.due,section.due{border-left-color:var(--color-accent)}
+article.pc.done,section.done{border-left-color:var(--color-green)}
+section.due,section.done{border-left-width:2px}
+
+/* cajas de esquema = tarjetas de Canvas; el color codifica la categoría (acento · rojo · cian · verde) */
+.box{background:var(--background-primary-alt);border:1px solid var(--background-modifier-border);border-radius:var(--radius-m);padding:var(--size-4-2) var(--size-4-3);font:500 var(--font-ui-medium)/var(--line-height-tight) var(--font-interface)}
+.box small{font:400 var(--font-ui-small)/1.4 var(--font-interface);color:var(--text-muted)}
+.box.ac,.box.rose,.box.teal,.box.ok{--bc:var(--color-accent);background:color-mix(in srgb,var(--bc) 8%,var(--background-primary));border-color:color-mix(in srgb,var(--bc) 40%,var(--background-modifier-border))}
+.box.rose{--bc:var(--color-red)}.box.teal{--bc:var(--color-cyan)}.box.ok{--bc:var(--color-green)}
+
+/* etiquetas = tags de Obsidian (píldora, tinte del 10 %) */
+.tag,.pill,h2 .n,.toc a b{--h:var(--color-accent);--ht:var(--text-accent);display:inline-block;white-space:nowrap;font:500 var(--font-smaller)/1.2 var(--font-interface);padding:.25em .65em;border-radius:2em;background:color-mix(in srgb,var(--h) 10%,transparent);color:var(--ht);border:1px solid color-mix(in srgb,var(--h) 18%,transparent)}
+.tag{margin:2px 3px 2px 0}
+.pill{font-size:var(--font-ui-smaller)}
+.tag.r,.pill.p1{--h:var(--color-red);--ht:var(--tx-red)}
+.tag.t,.pill.p3{--h:var(--color-cyan);--ht:var(--tx-cyan)}
+.tag.o{--h:var(--color-green);--ht:var(--tx-green)}
+.pill.id{--h:var(--color-base-60);--ht:var(--text-muted)}
+.tag.r,.tag.t,.tag.o,.pill.p1,.pill.p3,.pill.id,.tag.t{background:color-mix(in srgb,var(--h) 10%,transparent);color:var(--ht);font-size:var(--font-smaller);margin:2px 3px 2px 0}
+.pill.p1,.pill.p3,.pill.id{font-size:var(--font-ui-smaller);margin:0}
+
+/* tablas */
+table{font-size:var(--font-smaller)}
+th,td{border:1px solid var(--background-modifier-border);padding:var(--size-4-2) var(--size-4-3)}
+th{background:transparent;color:var(--text-normal);font-weight:var(--bold-weight)}
+td:first-child{font-weight:var(--bold-weight)}
+
+/* callout (aviso «warning») y cita */
+.mem{--cc:var(--color-orange);background:color-mix(in srgb,var(--cc) 10%,transparent);border:0;border-radius:var(--radius-s);padding:var(--size-4-3) var(--size-4-3) var(--size-4-3) var(--size-4-6);margin-top:var(--size-4-3);font:400 var(--font-ui-medium)/1.5 var(--font-interface);color:var(--text-normal)}
+.mem b{color:var(--tx-orange)}
+.qq{border-left:var(--blockquote-border-thickness) solid var(--interactive-accent);padding:0 0 0 var(--size-4-4);font-style:normal;color:var(--text-normal);background:transparent}
+
+/* listas numeradas y pasos */
+ol.p li{background:var(--background-primary-alt);border:1px solid var(--background-modifier-border);border-radius:var(--radius-m);font:500 var(--font-ui-medium)/1.35 var(--font-interface)}
+.steps li{background:var(--background-primary);border:1px solid var(--background-modifier-border);border-radius:var(--radius-m)}
+ol.p li::before,.steps .nn,.pc.p1 .nn,.pc.p3 .nn{background:var(--interactive-accent);color:var(--text-on-accent);font-weight:600}
+.steps .lb{font:600 var(--font-ui-small) var(--font-interface)}
+
+/* barra superior = cabecera de vista (superficie secundaria) */
+body::before{background:var(--background-secondary)}
+.sbar{background:var(--background-secondary);border-bottom:1px solid var(--background-modifier-border);margin:0 -18px;padding:var(--size-4-2) 18px}
+.sbar input{height:var(--input-height);padding:0 var(--size-4-3);background:var(--background-modifier-form-field);border:1px solid var(--color-base-40);border-radius:var(--input-radius);color:var(--text-normal)}
+.sbar input::placeholder,.nt textarea::placeholder{color:var(--text-muted)}
+.sbar input:hover{border-color:var(--color-base-50)}
+.sbar input:focus,.nt textarea:focus{outline:0;border-color:var(--color-accent);box-shadow:0 0 0 2px var(--color-accent)}
+.nt textarea{background:var(--background-modifier-form-field);border:1px solid var(--color-base-40);border-radius:var(--input-radius);color:var(--text-normal)}
+
+/* botones */
+.sbar button,.flt button,nav.ix a{display:inline-flex;align-items:center;gap:var(--size-2-3);height:var(--input-height);padding:0 var(--size-4-3);font:500 var(--font-ui-small) var(--font-interface);color:var(--text-normal);background:var(--interactive-normal);border:1px solid var(--background-modifier-border-hover);border-radius:var(--input-radius);text-decoration:none;cursor:pointer;transition:background-color var(--anim-duration-fast) var(--anim-motion-smooth)}
+.sbar button:hover,.flt button:hover,nav.ix a:hover{background:var(--interactive-hover);border-color:var(--color-base-40);color:var(--text-normal)}
+.sbar button[aria-pressed="true"],.flt button[aria-pressed="true"],.sbar button#cr[aria-pressed="true"]{background:var(--interactive-accent);border-color:var(--interactive-accent);color:var(--text-on-accent)}
+.sbar button[aria-pressed="true"]:hover,.flt button[aria-pressed="true"]:hover{background:var(--interactive-accent-hover);border-color:var(--interactive-accent-hover);color:var(--text-on-accent)}
+.sbar button#cr{color:var(--text-accent);border-color:var(--color-accent)}
+.sbar button:disabled{opacity:.5;cursor:default}
+.sbar button.fz{padding:0 var(--size-4-2)}
+.sbar #mt,.sbar #th{display:inline-flex}
+.sbar #mt::before,.sbar #th::before{content:"";width:16px;height:16px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat}
+.sbar #mt{--i:var(--i-menu)}.sbar #th{--i:var(--i-monitor)}
+.sbar #th[data-m="light"]{--i:var(--i-sun)}.sbar #th[data-m="dark"]{--i:var(--i-moon)}
+
+/* navegación de temas = ítems de navegación (seleccionado: acento al 20 %) */
+.tnav a{font:500 var(--font-ui-small)/1 var(--font-interface);color:var(--text-muted);background:transparent;border:0;border-radius:var(--radius-s);padding:var(--size-4-2) var(--size-4-2)}
+.tnav a:hover{background:var(--background-modifier-hover);color:var(--text-normal)}
+.tnav a.on,.tnav a.pn.on{background:color-mix(in srgb,var(--color-accent) 20%,transparent);color:var(--text-normal)}
+.fab{background:var(--interactive-accent);color:var(--text-on-accent);border-radius:var(--radius-m);font:500 var(--font-ui-small)/1 var(--font-interface);padding:var(--size-4-2) var(--size-4-3);box-shadow:var(--shadow-s)}
+.fab:hover{background:var(--interactive-accent-hover)}
+
+/* repaso: casilla de Obsidian, estrella, notas, plegables con chevron */
+.rv input{-webkit-appearance:none;appearance:none;display:inline-grid;place-content:center;width:16px;height:16px;margin:0;background:transparent;border:1px solid var(--color-base-60);border-radius:var(--radius-s)}
+.rv input:checked{background:var(--interactive-accent);border-color:var(--interactive-accent)}
+.rv input:checked::after{content:"";width:12px;height:12px;background:var(--text-on-accent);-webkit-mask:var(--i-check) center/contain no-repeat;mask:var(--i-check) center/contain no-repeat}
+.rv.dl input{border-color:var(--color-accent)}
+.fv[aria-pressed="true"]{color:var(--color-orange)}
+details>summary{list-style:none;display:flex;align-items:center;gap:var(--size-2-2)}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";flex:none;width:16px;height:16px;background:currentColor;-webkit-mask:var(--i-chev) center/contain no-repeat;mask:var(--i-chev) center/contain no-repeat;transition:transform var(--anim-duration-fast) var(--anim-motion-smooth)}
+details[open]>summary::before{transform:rotate(90deg)}
+details.plan>summary{font:600 var(--font-ui-small) var(--font-interface);color:var(--text-accent)}
+.nt summary{font:500 var(--font-ui-small) var(--font-interface)}
+.tp.ok{color:var(--tx-green)}
+mark.sh{background:var(--text-highlight-bg);color:inherit;border-radius:var(--radius-s)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important}}
+
+/* ===== Obsidian · shadcn.io/design/obsidian — violeta #a78bfa sobre zinc-900, tipografía del sistema, sin sombras ===== */
+:root,:root:not([data-theme="light"]),:root[data-theme="dark"]{color-scheme:dark;--color-base-00:#171717;--color-base-05:#1e1e1e;--color-base-10:#1e1e1e;--color-base-20:#262626;--color-base-25:#262626;--color-base-30:#262626;--color-base-35:#363636;--color-base-40:#404040;--color-base-50:#525252;--color-base-60:#8c8c8c;--color-base-70:#b3b3b3;--color-base-100:#e5e5e5;--color-accent:#a78bfa;--text-accent:#a78bfa;--interactive-accent:#7c3aed;--interactive-accent-hover:#6d28d9;--text-on-accent:#fff;--color-red:#8a5cf5;--color-cyan:#a3a3a3;--color-green:#b3b3b3;--color-orange:#a78bfa;--tx-red:#a78bfa;--tx-cyan:#b3b3b3;--tx-green:#b3b3b3;--tx-orange:#a78bfa;--mono-0:#000;--mono-100:#fff;--interactive-normal:transparent;--interactive-hover:#363636;--background-modifier-form-field:#1e1e1e;--text-highlight-bg:rgba(167,139,250,.35);--text-selection:rgba(167,139,250,.4);--shadow-s:none}
+:root[data-theme="light"]{color-scheme:light;--color-base-00:#fff;--color-base-05:#fafafa;--color-base-10:#fafafa;--color-base-20:#f4f4f5;--color-base-25:#f4f4f5;--color-base-30:#e4e4e7;--color-base-35:#d4d4d8;--color-base-40:#a1a1aa;--color-base-50:#a1a1aa;--color-base-60:#71717a;--color-base-70:#52525b;--color-base-100:#171717;--color-accent:#7c3aed;--text-accent:#7c3aed;--interactive-accent:#7c3aed;--interactive-accent-hover:#6d28d9;--color-red:#7c3aed;--color-cyan:#71717a;--color-green:#52525b;--color-orange:#7c3aed;--tx-red:#7c3aed;--tx-cyan:#52525b;--tx-green:#52525b;--tx-orange:#7c3aed;--mono-0:#fff;--mono-100:#000;--interactive-normal:#fff;--interactive-hover:#f4f4f5;--background-modifier-form-field:#fff;--text-highlight-bg:rgba(124,58,237,.2);--text-selection:rgba(124,58,237,.25);}
+:root{--font-interface:ui-sans-serif,system-ui,-apple-system,"system-ui",Roboto,Inter,"Helvetica Neue",Arial,"Noto Sans",sans-serif;--radius-s:4px;--radius-m:8px;--radius-l:8px;--input-radius:4px;--hr-thickness:1px;--bold-weight:600;--font-smaller:14px;--font-small:14px;--font-ui-small:13px;--font-ui-medium:14px;--font-ui-smaller:12px;--line-height-tight:1.43}
+header h1{font:600 clamp(36px,7vw,60px)/1 var(--font-interface);letter-spacing:-1.2px}
+.tema-sec>header h1,.tema-sec h1.tt{font:600 clamp(26px,4.4vw,36px)/1.11 var(--font-interface);letter-spacing:-.4px}
+h2,section.tm>h2{font:600 20px/1.4 var(--font-interface);letter-spacing:-.2px}
+.pc h3{font:600 16px/1.5 var(--font-interface)}
+header p{font-size:16px}
+.tp{font-weight:500}
+th{background:var(--background-secondary)}
+.card,.pc,.toc a,.box{border-radius:8px}
+.tag,.pill,h2 .n,.toc a b,.tag.r,.tag.t,.tag.o,.pill.p1,.pill.p3,.pill.id{border-radius:4px;font-weight:500}
+.sbar button,.flt button,nav.ix a,.tnav a{border-radius:4px;transition:background-color .15s ease,border-color .15s ease,color .15s ease}
+.sbar button,.flt button,nav.ix a{border-color:var(--color-base-40)}
+.fab{border-radius:9999px;padding:8px 16px;box-shadow:none}
+.sbar input,.nt textarea{border-color:var(--color-base-60);border-radius:4px}
+.sbar input:hover{border-color:var(--color-base-60)}
+.pc.p1{border-left-width:4px}
+.box.rose{background:color-mix(in srgb,var(--bc) 16%,var(--background-primary));border-color:var(--bc)}
+.box.ok{border-style:dashed}
+main p a,main td a,main small a,main li a,.xrefs a,.lk,.thread .box small a{color:var(--text-accent);text-decoration:underline;text-underline-offset:2px;font-weight:500}
+@media print{:root,:root:not([data-theme="light"]),:root[data-theme="dark"]{color-scheme:light;--color-base-00:#fff;--color-base-05:#fafafa;--color-base-10:#fafafa;--color-base-20:#f4f4f5;--color-base-25:#f4f4f5;--color-base-30:#e4e4e7;--color-base-35:#d4d4d8;--color-base-40:#a1a1aa;--color-base-50:#a1a1aa;--color-base-60:#71717a;--color-base-70:#52525b;--color-base-100:#171717;--color-accent:#7c3aed;--text-accent:#7c3aed;--interactive-accent:#7c3aed;--interactive-accent-hover:#6d28d9;--color-red:#7c3aed;--color-cyan:#71717a;--color-green:#52525b;--color-orange:#7c3aed;--tx-red:#7c3aed;--tx-cyan:#52525b;--tx-green:#52525b;--tx-orange:#7c3aed;--mono-0:#fff;--mono-100:#000;--interactive-normal:#fff;--interactive-hover:#f4f4f5;--background-modifier-form-field:#fff;--text-highlight-bg:rgba(124,58,237,.2);--text-selection:rgba(124,58,237,.25);}}
+
+/* ===== Accesibilidad ===== */
+.skip{position:fixed;left:8px;top:-80px;z-index:100;background:#7c3aed;color:#fff;font:500 14px var(--font-interface);padding:8px 16px;border-radius:4px;text-decoration:none}
+.skip:focus{top:calc(8px + env(safe-area-inset-top,0px))}
+main:focus{outline:none}
+.tw:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px}
+#th[aria-checked="true"]{border-color:var(--color-accent)}
+@media (pointer:coarse){.sbar button,.flt button,nav.ix a,.tnav a,.toc a,.fv,.rv,.nt summary,details.plan>summary{min-height:44px}.fv{min-width:44px}.rv input{width:24px;height:24px}}
+@media (prefers-contrast:more){:root:not([data-theme="light"]){--color-base-30:#8c8c8c;--color-base-35:#b3b3b3;--color-base-40:#b3b3b3;--color-base-70:#e5e5e5}:root[data-theme="light"]{--color-base-30:#52525b;--color-base-40:#3f3f46;--color-base-70:#27272a}}
+@media (forced-colors:active){.box,.card,.pc,.tag,.pill,.toc a,th,td{border:1px solid CanvasText}.sbar button[aria-pressed="true"],#th[aria-checked="true"]{outline:2px solid Highlight}}
+</style>
+<script>try{var _t=localStorage.getItem('abd-theme-v1');if(_t!=='light'&&_t!=='dark')_t='dark';document.documentElement.setAttribute('data-theme',_t);var _z=parseFloat(localStorage.getItem('abd-fz-v1'));if(_z>0.5&&_z<2)document.documentElement.style.setProperty('--fz',_z);}catch(e){}</script>
+<style>
+/* repaso con valoración, tapar columna, aviso de copia */
+.rt{display:inline-flex;gap:4px;align-items:center}
+.rt[hidden]{display:none}
+.rt button,.tcbar button,.bk button{font:700 11.5px var(--fh);padding:3px 10px;border:1px solid var(--line);border-radius:99px;background:var(--card);color:var(--ink);cursor:pointer;white-space:nowrap}
+.rt .f:hover{border-color:var(--rose);color:var(--rose)}
+.rt .c:hover,.tcbar button:hover,.bk button:hover{border-color:var(--ac);color:var(--ac)}
+.rt .e:hover{border-color:var(--ok);color:var(--ok)}
+.tcbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 2px;font:600 12px var(--fh);color:var(--mut)}
+.tcbar button[aria-pressed="true"]{background:var(--acf,var(--ac));border-color:var(--acf,var(--ac));color:#fff}
+td.tcv:not(.op),th.tcv:not(.op){color:transparent!important;background:var(--ac-soft);cursor:pointer;user-select:none;-webkit-user-select:none}
+td.tcv:not(.op) *{color:transparent!important;border-color:transparent!important;text-shadow:none!important;background:none!important}
+td.tcv.op,th.tcv.op{background:var(--ok-soft);cursor:pointer}
+td.tcv:focus-visible{outline:2px solid var(--ac);outline-offset:-2px}
+.bk{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin:10px 0;padding:10px 14px;border:1px solid var(--line);border-left:4px solid var(--rose);background:var(--rose-soft);border-radius:10px;font:14px/1.45 var(--fh);color:var(--ink)}
+.bk[hidden]{display:none}
+.bk span{flex:1 1 260px}
+.sbar button.late{border-color:var(--rose);color:var(--rose)}
+@media (pointer:coarse){.rt button,.tcbar button,.bk button{min-height:40px}}
+@media print{.rt,.tcbar,.bk{display:none}td.tcv:not(.op),th.tcv:not(.op){color:inherit!important;background:none}td.tcv:not(.op) *{color:revert!important}}
+
+/* contraste por bloque, mapa, foco, chuleta */
+.vf{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin-top:10px;font:12.5px var(--fh);color:var(--mut)}
+.vf.old{color:var(--rose)}
+.vf button,.fcs button,.dom button.cl{font:700 11.5px var(--fh);padding:3px 10px;border:1px solid var(--line);border-radius:99px;background:var(--card);color:var(--ink);cursor:pointer;white-space:nowrap}
+.vf button:hover,.fcs button:hover,.dom button.cl:hover{border-color:var(--ac);color:var(--ac)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:60;background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:99px;font:600 13px var(--fh);max-width:90vw;text-align:center}
+.toast[hidden],.fcs[hidden],.dom[hidden]{display:none}
+.fcs{position:fixed;left:0;right:0;bottom:0;z-index:35;display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:var(--bg);border-top:1px solid var(--line)}
+.fcs #fct{font:600 13px var(--fh);color:var(--mut)}
+body.fcs{padding-bottom:84px}
+body.fcs .fa>*:not(.fa):not(.fcs-cur):not(.sbar){display:none!important}
+body.fcs .fa,body.fcs .fcs-cur{display:block!important}
+body.fcs #tnav,body.fcs .fab{display:none!important}
+body.fcs-cover .fcs-cur>*:not(h2):not(.top){display:none!important}
+body.fcs-cover .fcs-cur .rt{display:none!important}
+.dom{position:fixed;inset:0;z-index:50;background:color-mix(in srgb,var(--bg) 94%,transparent);overflow:auto;padding:max(16px,env(safe-area-inset-top)) 14px 28px}
+.dom .pn{max-width:880px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;font:14px/1.5 var(--fh);color:var(--ink)}
+.dom h2{margin:0 0 8px;font-size:18px}
+.dom .hd{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.dom label{font-weight:600}
+.dom input[type=date]{font:14px var(--fh);padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink);margin-left:6px}
+.dom #domm{margin:6px 0 10px;color:var(--mut)}
+.dr{display:flex;gap:10px;align-items:flex-start;margin:8px 0}
+.dr>b{flex:0 0 34px;padding-top:6px;font-size:12px}
+.dc{display:flex;flex-wrap:wrap;gap:5px}
+.dk{position:relative;min-width:32px;height:32px;border-radius:6px;border:1px dashed var(--line);background:var(--card);color:var(--mut);font:600 12px var(--fh);cursor:pointer}
+.dk.due{border:2px solid var(--rose);background:var(--rose-soft);color:var(--rose);font-weight:800}
+.dk.ok{border:1px solid var(--ok);background:var(--ok-soft);color:var(--ok)}
+.dk.fv2::after{content:"★";position:absolute;top:-7px;right:-3px;font-size:11px;color:#d97706}
+.dkl{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--mut);margin:10px 0 2px}
+.dkl i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:5px;border:1px dashed var(--line)}
+.dkl i.due{border:2px solid var(--rose);background:var(--rose-soft)}.dkl i.ok{border:1px solid var(--ok);background:var(--ok-soft)}
+@media print{.vf,.fcs,.toast,.dom{display:none!important}
+body.chuleta header,body.chuleta .toc,body.chuleta .sbar,body.chuleta .bk,body.chuleta .xchu,body.chuleta .fab{display:none!important}
+body.chuleta .tema-sec{column-count:2;column-gap:18px;font-size:10pt}
+body.chuleta .tema-sec>h1,body.chuleta .tema-sec>.k,body.chuleta .tema-sec>p{column-span:all}
+body.chuleta .tema-sec section[id*="-e"],body.chuleta .tema-sec .mem{break-inside:avoid}}
+/* ===== Componentes propios: ejercicios autocorrigibles (lenguaje Obsidian) ===== */
+:root{--fx-ok:#44cf6e;--fx-ok-soft:color-mix(in srgb,var(--fx-ok) 12%,transparent);--fx-bad:#fb464c;--fx-bad-soft:color-mix(in srgb,var(--fx-bad) 12%,transparent)}
+:root[data-theme="light"]{--fx-ok:#08b94e;--fx-ok-soft:color-mix(in srgb,var(--fx-ok) 10%,transparent);--fx-bad:#e93147;--fx-bad-soft:color-mix(in srgb,var(--fx-bad) 8%,transparent)}
+.ex{list-style:none;margin:12px 0 0;padding:0;counter-reset:q;display:grid;gap:8px;max-width:720px}
+.ex li{counter-increment:q;position:relative;background:var(--background-primary-alt);border:1px solid var(--background-modifier-border);border-radius:var(--radius-m);padding:10px 12px 10px 40px;font:400 var(--font-ui-medium)/1.55 var(--font-interface);color:var(--text-normal)}
+.ex li::before{content:counter(q);position:absolute;left:10px;top:10px;width:22px;height:22px;border-radius:50%;background:var(--interactive-accent);color:var(--text-on-accent);font:600 12px/22px var(--font-interface);text-align:center}
+.ex li b{font-weight:var(--bold-weight)}
+input.hu{font:inherit;height:var(--input-height);min-width:7em;max-width:100%;margin:2px 4px;padding:0 8px;text-align:center;background:var(--background-modifier-form-field);border:1px solid var(--color-base-40);border-radius:var(--input-radius);color:var(--text-normal)}
+input.hu:hover{border-color:var(--color-base-60)}
+input.hu:focus{outline:0;border-color:var(--color-accent);box-shadow:0 0 0 2px var(--color-accent)}
+input.hu.ok{border-color:var(--fx-ok);background:var(--fx-ok-soft);animation:okp .45s}
+input.hu.bad{border-color:var(--fx-bad);background:var(--fx-bad-soft);border-style:dashed;animation:shk .42s}
+@keyframes okp{50%{transform:scale(1.06)}}
+@keyframes shk{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.sol{display:none;margin-top:6px;padding-left:10px;border-left:2px solid var(--fx-bad);font:500 var(--font-ui-small)/1.45 var(--font-interface);color:var(--fx-bad)}
+.sol:not(:empty){display:block;animation:upe .3s ease}
+.sol.tip{border-left-color:var(--interactive-accent);color:var(--text-accent)}
+@keyframes upe{from{opacity:0;transform:translateY(-6px)}}
+.btnx{display:inline-flex;align-items:center;gap:6px;height:34px;margin-top:12px;padding:0 16px;font:600 var(--font-ui-small) var(--font-interface);color:var(--text-on-accent);background:var(--interactive-accent);border:0;border-radius:var(--input-radius);cursor:pointer}
+.btnx:hover{background:var(--interactive-accent-hover)}
+.btnx:active{transform:scale(.97)}
+.fd{min-height:1.4em;margin-top:10px;font:600 var(--font-ui-small) var(--font-interface);color:var(--text-muted)}
+.ops{display:grid;gap:6px;margin-top:8px;max-width:560px}
+.opc{font:500 var(--font-ui-medium)/1.45 var(--font-interface);text-align:left;color:var(--text-normal);background:var(--interactive-normal);border:1px solid var(--background-modifier-border-hover);border-radius:var(--input-radius);padding:8px 12px;min-height:36px;cursor:pointer}
+.opc:hover:not(:disabled){border-color:var(--color-base-40)}
+.opc:disabled{cursor:default;opacity:.5}
+.opc:disabled:not(.ok):not(.bad){color:var(--text-muted)}
+.opc.ok{border-color:var(--fx-ok);color:var(--fx-ok);background:var(--fx-ok-soft);opacity:1;animation:okp .4s}
+.opc.bad{border-color:var(--fx-bad);color:var(--fx-bad);background:var(--fx-bad-soft);animation:shk .42s}
+.opc.ok::before{content:"✓ "}.opc.bad::before{content:"✗ "}
+.pm{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:680px;margin-top:10px}
+.pm .col{display:grid;gap:8px;align-content:start}
+.pb{font:500 var(--font-ui-medium)/1.45 var(--font-interface);text-align:left;color:var(--text-normal);background:var(--interactive-normal);border:1px solid var(--background-modifier-border-hover);border-radius:var(--input-radius);padding:9px 12px;min-height:40px;cursor:pointer}
+.pb:hover{border-color:var(--color-base-40)}
+.pb[aria-pressed="true"]{border-color:var(--color-accent);background:color-mix(in srgb,var(--color-accent) 14%,transparent)}
+.pb.ok{border-color:var(--fx-ok);color:var(--fx-ok);background:var(--fx-ok-soft);pointer-events:none}
+.pb.bad{border-color:var(--fx-bad);color:var(--fx-bad);background:var(--fx-bad-soft);animation:shk .42s}
+.pb.ok::before{content:"✓ "}.pb.bad::before{content:"✗ "}
+.eq{max-width:640px;margin:12px 0;padding:10px 14px;background:var(--background-primary-alt);border:1px solid var(--background-modifier-border);border-left:3px solid var(--interactive-accent);border-radius:var(--radius-m);font:600 var(--font-ui-medium)/1.6 var(--font-interface);color:var(--text-normal)}
+.eq sup,.eq sub{font-size:.72em}
+.exs{font:500 var(--font-ui-small) var(--font-interface);color:var(--tx-green);white-space:nowrap}
+.exs:empty{display:none}
+.pgn{margin:14px 0 0;font:500 var(--font-ui-small) var(--font-interface);color:var(--text-muted)}
+@media(pointer:coarse){.opc,.pb,.btnx{min-height:44px;height:auto}}
+@media (max-width:760px){h2{flex-wrap:wrap}h2 .ctl{flex-wrap:wrap;justify-content:flex-end}}
+@media (max-width:640px){.pm{grid-template-columns:1fr}.ex li{padding-left:36px}.ex li::before{left:8px}}
+@media print{.btnx,.exs,.pgn{display:none!important}input.hu{background:transparent;border:0;border-bottom:1px solid var(--color-base-40)}}
+</style>
+</head>
+<body id="top">
+<a class="skip" href="#main">Saltar al contenido</a>
+<main id="main" tabindex="-1">
+<div id="bk" class="bk" role="status" hidden><span></span><button id="bkg" type="button">Guardar ahora</button><button id="bkl" type="button">Recuérdamelo mañana</button></div>
+<div class="sbar" role="search"><input id="q" type="search" placeholder="Buscar (complemento a 2, RAID, SGBD, kernel)…  pulsa / para enfocar" aria-label="Buscar en el temario" autocomplete="off"><button id="qc" type="button" style="display:none">Borrar</button><span id="cnt" class="cnt" aria-live="polite"></span><button id="hoy" type="button" aria-pressed="false" title="Bloques con repaso vencido; púlsalo para verlos solo a ellos">Hoy toca: 0</button><button id="th" type="button" role="switch" aria-checked="true" title="Alterna entre modo oscuro y claro" data-m="dark">Modo oscuro</button><button id="mt" type="button" aria-expanded="false" aria-controls="tools">Herramientas</button><div id="tools" class="tools"><button id="tp" type="button" title="Despliega u oculta la respuesta modelo de cada pregunta real del INE">Mostrar respuestas modelo</button><button id="hd" type="button" aria-pressed="false" title="Oculta los bloques al día en el repaso espaciado">Ocultar repasados</button><button id="du" type="button" aria-pressed="false" title="Muestra solo los bloques que tocan repasar hoy">Toca repasar</button><button id="fvb" type="button" aria-pressed="false" title="Muestra solo los bloques marcados con estrella">Solo ⭐</button><button id="mo" type="button" aria-pressed="false" title="Muestra solo los recuadros de trampas y claves de examen">Solo trampas y claves</button><button id="cv" type="button" aria-pressed="false" title="Oculta los términos en negrita para ensayar de memoria; púlsalos para revelarlos">Tapar y recordar</button><button id="cr" type="button" style="display:none" aria-pressed="false">Revelar todo</button><button id="mpb" type="button" title="Cuadrícula de todos los bloques por estado, con la fecha del examen">Mapa de dominio</button><button id="mxb" type="button" title="Un bloque cada vez, mezclando temas, con la respuesta tapada hasta que la reveles; pulsa 1, 2 o 3 para valorar">Repaso mixto</button><button id="fob" type="button" title="Un bloque cada vez; flechas del teclado para moverte">Modo foco</button><button id="cnb" type="button" title="Vuelve al último bloque que tenías a la vista">Continuar donde lo dejé</button><button id="vo" type="button" aria-pressed="false" title="Muestra solo los bloques que nunca has contrastado con los enunciados oficiales del INE o cuyo contraste tiene más de 90 días">Sin contrastar</button><button id="chb" type="button" title="Imprime solo trampas y claves, a dos columnas, una hoja por tema">Imprimir chuleta</button><button id="anb" type="button" title="Descarga las negritas como tarjetas cloze para importar en Anki">Exportar a Anki</button><button id="fm" class="fz" type="button" aria-label="Reducir letra">A−</button><button id="fp" class="fz" type="button" aria-label="Aumentar letra">A+</button><span id="pce" class="cnt" aria-live="polite">✎ Ejercicios: 0/13</span><button id="ex" type="button" title="Descarga tus marcas, estrellas, notas y ejercicios en un archivo">Guardar progreso</button><button id="im" type="button" title="Carga un archivo de progreso guardado antes">Cargar progreso</button><input id="imf" type="file" accept="application/json,.json" hidden><button id="rs" type="button" title="Borra las fechas de repaso (no toca estrellas, notas ni ejercicios)">Reiniciar progreso</button><span id="prog" class="cnt" aria-live="polite"></span></div><nav id="tnav" class="tnav" aria-label="Ir a un tema"><a href="#intro" data-t="i">✦ Tres ideas</a><a href="#t1" data-t="1">T1</a><a href="#t2" data-t="2">T2</a><a href="#t3" data-t="3">T3</a><a href="#t4" data-t="4">T4</a><a href="#examen" data-t="x">Exámenes</a><a href="#practica" data-t="p">✎ Práctica</a><a href="#tablas" data-t="s">Σ Tablas</a><a href="#cierre" data-t="c">Cierre</a></nav></div>
+<header>
+  <div class="k">CSE INE A1 · Almacenamiento y bases de datos · Bloque III</div>
+  <h1>De los bits a la base de datos</h1>
+  <p>Teoría completa T1–T4 con esquemas y avisos de examen, los exámenes del INE (2022–2025) y 13 ejercicios autocorregibles · pulsa un tema para ir directo · cada bloque tiene su casilla de repaso, su estrella y sus notas · guarda tu progreso desde «Herramientas»</p>
+  <div class="toc"><a href="#intro"><b>✦</b>Tres ideas antes de empezar<span class="tp" data-t="i"></span></a><a href="#t1"><b>Tema 1</b>Representación de la información<span class="tp" data-t="1"></span></a><a href="#t2"><b>Tema 2</b>Arquitectura del hardware<span class="tp" data-t="2"></span></a><a href="#t3"><b>Tema 3</b>Sistemas operativos<span class="tp" data-t="3"></span></a><a href="#t4"><b>Tema 4</b>Bases de datos y SGBD<span class="tp" data-t="4"></span></a><a href="#examen"><b>Exámenes</b>Qué ha caído 2022–2025 · preguntas literales · problemas en acción<span class="tp" data-t="x"></span></a><a href="#practica"><b>✎ Práctica</b>Ejercicios autocorregibles A–F<span class="tp" data-t="p"></span></a><a href="#tablas"><b>Σ</b>Tablas transversales para memorizar<span class="tp" data-t="s"></span></a><a href="#cierre"><b>Fin</b>Lo que debes llevarte del Bloque III<span class="tp" data-t="c"></span></a></div>
+</header>
+<section class="tema-sec" id="intro" data-key="i"><a class="up" href="#top">↑ Índice</a><div class="k">CSE INE A1 · Almacenamiento y bases de datos · Bloque III</div><h1 class="tt" aria-level="2">Antes de empezar · tres ideas</h1><p>Teoría completa de los cuatro temas: representación de la información, hardware, sistemas operativos y bases de datos. Una sola pila que sube en abstracción, capa a capa — y todo el bloque cabe en tres ideas.</p><section id="intro-e1">
+  <h2 aria-level="3"><span class="n">✦</span>Tres ideas para no perderse</h2>
+  <p class="sub">Si recuerdas estas tres, cada tema del bloque es un caso particular</p>
+  <div class="grid g3" style="margin-top:10px">
+    <div class="box ac"><b>1 · Solo hay bits</b><small>Todo dato, texto, imagen o programa se reduce a cadenas de <b>0 y 1</b>. El significado lo pone quien interpreta, no el bit.</small></div>
+    <div class="box teal"><b>2 · Capas</b><small>Hardware (T1–T2), <b>sistema operativo</b> (T3) y <b>SGBD</b> (T4): cada capa organiza la de abajo y la oculta a la de arriba.</small></div>
+    <div class="box ok"><b>3 · Compromiso</b><small>Nada es a la vez rápido, barato y grande. De ahí la <b>jerarquía de memoria</b>, la caché y el almacenamiento secundario.</small></div>
+  </div>
+  <div class="mem"><b>El examen en una línea.</b> Definiciones y componentes (T2 y T4) como pregunta de manual; complemento a 2 y coma flotante (T1) como problema, todos los años; el SO (T3) y los códigos de texto, en las cuestiones de teoría.</div>
+  <div class="xrefs">Por dónde seguir: <a href="#x-e1">el mapa de qué ha caído</a> · <a href="#t1-e1">empezar por el bit</a></div>
+</section></section>
+<section class="tema-sec" id="t1"><a class="up" href="#top">↑ Índice</a><div class="k">CSE INE A1 · Almacenamiento y bases de datos · Bloque III</div><h1 class="tt" aria-level="2">Tema 1 · Representación de la información</h1><p>Esquemas de repaso · el tema con más peso: cae todos los años como problema (C2, coma flotante) y en teoría real (ASCII/Unicode en 2024, clasificación de la memoria en 2025)</p><nav class="ix" aria-label="Epígrafes del tema"><a href="#t1-e1">1.1 Bits y bytes</a><a href="#t1-e2">1.2 Memoria principal</a><a href="#t1-e3">1.3 Enteros y C2</a><a href="#t1-e4">1.4 Coma flotante y texto</a><a href="#t1-e5">1.5 Ficheros sin tipo</a><a href="#t1-e6">1.A Tipos de memoria</a><a href="#t1-e7">1.B Numeración y códigos</a></nav><section id="t1-e1">
+  <h2 aria-level="3"><span class="n">1.1</span>Bit y byte: la unidad y la agrupación</h2>
+  <p class="sub">El punto de partida de todo el bloque</p>
+  <p>Un sistema digital distingue solo <b>dos estados físicos</b> (por ejemplo, dos niveles de tensión). Por eso toda la información se codifica como secuencias de dos valores; el convenio de interpretación —no el bit— decide si esa secuencia es un número, una letra o una instrucción.</p>
+  <div class="grid g3" style="margin-top:10px">
+    <div class="box ac"><b>Bit</b><small><i>Binary digit</i>: unidad mínima de información. Toma el valor 0 o 1.</small></div>
+    <div class="box teal"><b>Byte</b><small>Agrupación de <b>8 bits</b>, unidad habitual de almacenamiento y direccionamiento. 2<sup>8</sup> = 256 combinaciones.</small></div>
+    <div class="box ok"><b>n bits</b><small>Representan <b>2<sup>n</sup></b> combinaciones distintas. Para N valores hacen falta <b>⌈log<sub>2</sub> N⌉</b> bits.</small></div>
+  </div>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: múltiplos decimales y binarios" style="padding:0;margin-top:12px"><table style="min-width:520px"><tr><th scope="col">Decimales (fabricantes)</th><th scope="col">Binarios (SO y memoria)</th></tr><tr><td>KB, MB, GB, TB: potencias de 10</td><td>KiB = 2<sup>10</sup>, MiB = 2<sup>20</sup>, GiB = 2<sup>30</sup> bytes</td></tr></table></div>
+  <div class="mem"><b>Matiz de examen.</b> El bit por sí solo no tiene significado: una misma secuencia puede ser un entero, un carácter o una instrucción según el convenio de interpretación.</div>
+</section><section id="t1-e2">
+  <h2 aria-level="3"><span class="n">1.2</span>La memoria principal: celdas con dirección</h2>
+  <p class="sub">Un array de celdas al que la CPU entra sin recorrer</p>
+  <p>La memoria principal se entiende como un <b>array de celdas</b> de tamaño fijo (típicamente un byte), cada una con una dirección única. La CPU accede a cualquiera sin recorrer las demás: es el <b>acceso aleatorio</b> (RAM).</p>
+  <div class="grid g3" style="margin-top:10px">
+    <div class="box ac"><b>Dirección</b><small>Entero que identifica cada celda. Su rango depende de la anchura del <b>bus de direcciones</b>.</small></div>
+    <div class="box teal"><b>Palabra</b><small>Unidad de datos que el procesador maneja de una vez (<b>32 o 64 bits</b>), igual al tamaño de sus registros.</small></div>
+    <div class="box ok"><b>Espacio de direcciones</b><small>Conjunto de direcciones referenciables. Con un bus de n bits: <b>2<sup>n</sup> celdas</b> (32 bits × 1 byte = 4 GiB).</small></div>
+  </div>
+  <div class="mem"><b>Ojo.</b> Sobre esta organización lineal el SO construye la memoria virtual y la paginación (T3).</div>
+  <div class="xrefs">Conexiones: <a href="#t2-e5">2.5 · el bus de direcciones fija la memoria máxima</a> · <a href="#t3-e5">3.A · paginación</a></div>
+</section><section id="t1-e3">
+  <h2 aria-level="3"><span class="n">1.3</span>Enteros con signo: tres convenios</h2>
+  <p class="sub">El corazón del examen: cae todos los años</p>
+  <p>Tres formas de codificar el signo de un entero; solo una de ellas es la que usan los procesadores. Con <b>37</b> como ejemplo, en 8 bits:</p>
+  <div class="chain" style="margin-top:10px">
+    <div class="box">Positivo<small>37 → 0010 0101</small></div>
+    <div class="box ac"><b>Signo-magnitud</b><small>bit de signo + valor absoluto → 1010 0101</small></div>
+    <div class="box teal"><b>Complemento a 1</b><small>invertir todos los bits → 1101 1010</small></div>
+    <div class="box ok"><b>Complemento a 2</b><small>invertir y sumar 1 → 1101 1011</small></div>
+  </div>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: convenios de signo" style="padding:0;margin-top:12px"><table style="min-width:560px"><tr><th scope="col">Convenio</th><th scope="col">Cómo se obtiene el negativo</th><th scope="col">Problema</th></tr><tr><td>Signo-magnitud</td><td>Bit más significativo = signo; el resto, el valor absoluto</td><td>Doble cero (+0, −0)</td></tr><tr><td>Complemento a 1</td><td>Invertir todos los bits del positivo</td><td>Doble cero</td></tr><tr><td>Complemento a 2</td><td>Invertir todos los bits y sumar 1</td><td>Ninguno: es el que usan los procesadores</td></tr></table></div>
+  <div class="eq">Rango en C2 con n bits: [−2<sup>n−1</sup>, 2<sup>n−1</sup> − 1] → con 8 bits, de <b>−128</b> a <b>+127</b></div>
+  <div class="grid g3" style="margin-top:12px">
+    <div class="box ac"><b>Asimetría</b><small>Hay un negativo más que positivos, porque el cero ocupa una sola combinación.</small></div>
+    <div class="box teal"><b>Mismo circuito</b><small>En C2 se suma y se resta sin distinguir el signo.</small></div>
+    <div class="box ok"><b>Overflow</b><small>El resultado no cabe en los bits disponibles. Se detecta si el <b>acarreo que entra al bit de signo difiere del que sale</b>. No avisa: se trunca.</small></div>
+  </div>
+  <div class="mem"><b>Trampa.</b> El overflow no avisa: el resultado se trunca. Por eso en pseudocódigo «a = a + a» con 8 bits en C2 puede imprimir un número negativo — es exactamente lo que pidió el examen de 2025.</div>
+  <div class="xrefs">Practícalo: <a href="#x-e5">2023 en acción</a> · <a href="#x-e6">2024 en acción</a> · <a href="#x-e7">2025 en acción</a> · <a href="#p-e1">ejercicio A</a></div>
+</section><section id="t1-e4">
+  <h2 aria-level="3"><span class="n">1.4</span>Reales y texto: otros dos convenios</h2>
+  <p class="sub">IEEE 754 para los reales, ASCII y Unicode para el texto</p>
+  <div class="grid g2" style="margin-top:10px">
+    <div class="box ac"><b>Coma flotante (IEEE 754)</b><small>Tres campos en una palabra fija (32 o 64 bits): <b>signo</b> (1 bit), <b>exponente</b> con <b>sesgo</b> (127 en simple precisión) y <b>mantisa</b> normalizada con <b>«1 implícito»</b>.</small></div>
+    <div class="box teal"><b>Normalizar</b><small>Desplazar la coma hasta dejar un único dígito distinto de cero a la izquierda y ajustar el exponente. Es el paso previo a codificar.</small></div>
+  </div>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: códigos de texto" style="padding:0;margin-top:12px"><table style="min-width:520px"><tr><th scope="col">Código</th><th scope="col">Bits por carácter</th><th scope="col">Alcance</th></tr><tr><td>ASCII</td><td>7 u 8</td><td>Alfabeto latino sin diacríticos</td></tr><tr><td>Unicode (UTF-8)</td><td>Variable, 1 a 4 bytes</td><td>Prácticamente cualquier sistema de escritura</td></tr></table></div>
+  <div class="mem"><b>Clave.</b> El «1 implícito» de la mantisa normalizada no se almacena: se supone siempre un 1 antes de la coma. Y para el examen: exponente sesgado = e + sesgo (127 en 32 bits, 15 en el formato de 16 bits de 2025).</div>
+</section><section id="t1-e5">
+  <h2 aria-level="3"><span class="n">1.5</span>Un fichero es solo una secuencia de bytes</h2>
+  <p class="sub">El disco no guarda «tipos»: los pone el software</p>
+  <p>El disco no guarda ninguna marca que diga «esto es una imagen». Interpretar los bytes es cosa del software que los lee — y una misma secuencia admite lecturas distintas.</p>
+  <div class="grid g3" style="margin-top:10px">
+    <div class="box ac"><b>Extensión</b><small>.txt, .jpg, .csv son una convención para elegir programa. Cambiarla no altera un solo byte.</small></div>
+    <div class="box teal"><b>Cabecera</b><small>La aplicación suele reconocer el formato por una cabecera con estructura conocida al principio del fichero.</small></div>
+    <div class="box ok"><b>Metadatos</b><small>Fechas, permisos o tipo MIME pueden existir, pero el contenido no tiene «tipo» impuesto por el hardware.</small></div>
+  </div>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: una secuencia, dos lecturas" style="padding:0;margin-top:12px"><table style="min-width:520px"><tr><th scope="col">Bytes 48 6F 6C 61</th><th scope="col">Lectura</th></tr><tr><td>Texto ASCII</td><td>«Hola»</td></tr><tr><td>Entero sin signo de 32 bits</td><td>1.215.261.793</td></tr></table></div>
+  <div class="mem"><b>Trampa.</b> El «tipo» de un fichero no está en el contenido: una misma secuencia es un texto, un entero o una instrucción según quién la lea. La extensión es solo una etiqueta.</div>
+</section><section id="t1-e6">
+  <h2 aria-level="3"><span class="n">1.A</span>Memoria: volatilidad, acceso y tecnología <span class="tag">ampliación</span></h2>
+  <p class="sub">Cómo se entra a cada memoria y de qué está hecha</p>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: formas de acceso" style="padding:0;margin-top:10px"><table style="min-width:560px"><tr><th scope="col">Acceso</th><th scope="col">Cómo funciona</th><th scope="col">Dónde</th></tr><tr><td>Aleatorio</td><td>Dirección única por celda; tiempo independiente de la posición</td><td>RAM, ROM</td></tr><tr><td>Secuencial</td><td>Se recorre en orden hasta la posición; el tiempo depende de la posición</td><td>Cinta magnética</td></tr><tr><td>Directo</td><td>Se salta al bloque y dentro de él se lee en secuencia</td><td>Discos magnéticos</td></tr><tr><td>Asociativo</td><td>Se busca por contenido, comparando todas las posiciones a la vez</td><td>Caché</td></tr></table></div>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: tipos de memoria" style="padding:0;margin-top:12px"><table style="min-width:560px"><tr><th scope="col">Tipo</th><th scope="col">Volátil</th><th scope="col">Rasgo</th></tr><tr><td>ROM</td><td>No</td><td>Se graba en fábrica; guarda el cargador de arranque</td></tr><tr><td>PROM</td><td>No</td><td>Programable una única vez, de forma no reversible</td></tr><tr><td>EPROM</td><td>No</td><td>Se borra con luz ultravioleta y se reprograma eléctricamente</td></tr><tr><td>EEPROM</td><td>No</td><td>Se borra y graba eléctricamente</td></tr><tr><td>Flash</td><td>No</td><td>Lee y escribe varias posiciones a la vez: más rápida que EEPROM</td></tr><tr><td>SRAM</td><td>Sí</td><td>Rápida, menos densa, sin refresco; se usa en cachés de CPU</td></tr><tr><td>DRAM</td><td>Sí</td><td>La lectura es destructiva y exige refresco: más lenta, más densa; es la memoria principal</td></tr><tr><td>SDRAM</td><td>Sí</td><td>DRAM síncrona con el reloj del sistema: más rápida</td></tr></table></div>
+  <div class="mem"><b>Orden de magnitud.</b> El acceso a memoria auxiliar es del orden de <b>1000 veces más lento</b> que a la principal. Y ojo al nombre: «RAM» describe la memoria principal, aunque la ROM también es de acceso aleatorio.</div>
+  <div class="xrefs">Pregunta literal: <a href="#x-e3">conv. 2025 · clasificación de la memoria</a></div>
+</section><section id="t1-e7">
+  <h2 aria-level="3"><span class="n">1.B</span>Bases de numeración y códigos de texto <span class="tag">ampliación</span></h2>
+  <p class="sub">Cuatro bases y seis códigos, de una ojeada</p>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: sistemas de numeración" style="padding:0;margin-top:10px"><table style="min-width:520px"><tr><th scope="col">Sistema</th><th scope="col">Base</th><th scope="col">Dígitos</th></tr><tr><td>Binario</td><td>2</td><td>0 1</td></tr><tr><td>Octal</td><td>8</td><td>0–7</td></tr><tr><td>Decimal</td><td>10</td><td>0–9</td></tr><tr><td>Hexadecimal</td><td>16</td><td>0–9 y A–F (A=10 … F=15)</td></tr></table></div>
+  <p>Con n dígitos en base b hay <b>b<sup>n</sup></b> combinaciones y se cuenta de 0 a <b>b<sup>n</sup>−1</b>. Un dígito hexadecimal equivale a <b>4 bits</b>; uno octal, a <b>3</b>.</p>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: códigos de caracteres" style="padding:0;margin-top:12px"><table style="min-width:560px"><tr><th scope="col">Código</th><th scope="col">Bits</th><th scope="col">Detalle</th></tr><tr><td>ASCII</td><td>7</td><td>128 símbolos</td></tr><tr><td>ASCII extendido</td><td>8</td><td>Se añade un cero a la izquierda; cabe en un byte</td></tr><tr><td>EBCDIC</td><td>8</td><td>IBM; hasta 256 símbolos; solo en mainframes IBM</td></tr><tr><td>UTF-8</td><td>8 a 32</td><td>Longitud variable (1 a 4 bytes); 0–127 coinciden con ASCII y ocupan 1 byte</td></tr><tr><td>UTF-16</td><td>16 o 32</td><td>Longitud variable; 2<sup>16</sup> = 65 536 caracteres directos; un texto sin acentos ocupa el doble que en UTF-8</td></tr><tr><td>UTF-32</td><td>32</td><td>Longitud fija: 4 bytes por carácter</td></tr></table></div>
+  <div class="mem"><b>Bits como instrucciones.</b> El procesador también codifica en binario las instrucciones; su traducción está en sus circuitos. Un error de transmisión o abrir un fichero con el programa equivocado da una secuencia sin sentido.</div>
+  <div class="xrefs">Pregunta literal: <a href="#x-e3">conv. 2024 · ASCII frente a Unicode</a></div>
+</section></section>
+<section class="tema-sec" id="t2"><a class="up" href="#top">↑ Índice</a><div class="k">CSE INE A1 · Almacenamiento y bases de datos · Bloque III</div><h1 class="tt" aria-level="2">Tema 2 · Arquitectura del hardware</h1><p>Esquemas de repaso · pregunta literal en 2023 (arquitectura básica del hardware) · del procesador al disco: Von Neumann, CPU, jerarquía de memoria, RAID y buses</p><nav class="ix" aria-label="Epígrafes del tema"><a href="#t2-e1">2.1 Von Neumann</a><a href="#t2-e2">2.2 CPU</a><a href="#t2-e3">2.3 Jerarquía de memoria</a><a href="#t2-e4">2.4 HDD, SSD y RAID</a><a href="#t2-e5">2.5 E/S y buses</a></nav><section id="t2-e1">
+  <h2 aria-level="3"><span class="n">2.1</span>Von Neumann: cuatro componentes y un cuello</h2>
+  <p class="sub">La pregunta literal de 2023: conviene saber nombrar cada pieza con exactitud</p>
+  <p>La arquitectura básica del hardware conecta <b>cuatro componentes</b> mediante buses compartidos. Cada uno tiene una función de manual que el enunciado de 2023 pedía explicar «brevemente».</p>
+  <div class="grid g2" style="margin-top:10px">
+    <div class="box ac"><b>CPU</b><small>Interpreta y ejecuta las instrucciones del programa.</small></div>
+    <div class="box teal"><b>Memoria</b><small>Almacena programas y datos en el <b>mismo espacio</b>.</small></div>
+    <div class="box ok"><b>Entrada/salida</b><small>Comunica el sistema con el exterior.</small></div>
+    <div class="box"><b>Buses</b><small>Canales compartidos que interconectan los tres anteriores.</small></div>
+  </div>
+  <div class="mem"><b>Cuello de botella.</b> Un único bus para instrucciones y datos impide leer ambos a la vez: justifica la caché. La arquitectura <b>Harvard</b> separa memoria de instrucciones y de datos, con buses independientes.</div>
+  <div class="xrefs">Enunciado literal y esqueleto de respuesta: <a href="#x-e2">conv. 2023 · pregunta 17</a> · <a href="#x-e4">emparejamiento de 2023</a></div>
+</section><section id="t2-e2">
+  <h2 aria-level="3"><span class="n">2.2</span>La CPU: control, cálculo y registros</h2>
+  <p class="sub">Tres piezas dentro del procesador y un ciclo sin fin</p>
+  <div class="grid g3" style="margin-top:10px">
+    <div class="box ac"><b>Unidad de Control</b><small>Dirige la secuencia de instrucciones y genera las señales de control.</small></div>
+    <div class="box teal"><b>ALU</b><small>Operaciones <b>aritméticas</b> (suma, resta…) y <b>lógicas</b> (AND, OR, NOT, comparaciones).</small></div>
+    <div class="box ok"><b>Registros</b><small>Memoria interna, casi instantánea y diminuta: <b>PC</b>, <b>RI</b> y de propósito general.</small></div>
+  </div>
+  <div class="chain" style="margin-top:12px">
+    <div class="box ac"><b>Fetch</b><small>coger la instrucción</small></div>
+    <div class="box ac"><b>Decode</b><small>decodificarla</small></div>
+    <div class="box ac"><b>Execute</b><small>ejecutarla</small></div>
+  </div>
+  <p style="margin-top:10px">El <b>PC</b> (contador de programa) apunta a la siguiente instrucción; el <b>RI</b> (registro de instrucción) guarda la instrucción en curso. El ciclo se repite sin parar mientras el programa se ejecuta.</p>
+  <div class="mem"><b>Clave.</b> PC → siguiente instrucción; RI → instrucción en curso. Dos siglas que el examen de opción múltiple pregunta con disfraces («el registro que apunta a la siguiente instrucción es el…»).</div>
+</section><section id="t2-e3">
+  <h2 aria-level="3"><span class="n">2.3</span>Jerarquía de memoria: más rápido, menos capacidad</h2>
+  <p class="sub">Cuatro niveles y el principio que los justifica</p>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: jerarquía de memoria" style="padding:0;margin-top:10px"><table style="min-width:560px"><tr><th scope="col">Nivel</th><th scope="col">Volátil</th><th scope="col">Papel</th></tr><tr><td>Registros</td><td>Sí</td><td>Acceso casi instantáneo; decenas de bytes</td></tr><tr><td>Caché L1/L2/L3</td><td>Sí</td><td>Copias de lo más usado, entre CPU y RAM</td></tr><tr><td>Memoria principal (RAM)</td><td>Sí</td><td>Programas y datos en ejecución</td></tr><tr><td>Secundaria (disco, SSD)</td><td>No</td><td>Persistencia de ficheros; gran capacidad, más lenta</td></tr></table></div>
+  <div class="mem"><b>Principio de localidad.</b> <b>Temporal</b>: lo usado hace poco se volverá a usar. <b>Espacial</b>: lo cercano a un dato usado también se usará. Es la razón de ser de la caché.</div>
+</section><section id="t2-e4">
+  <h2 aria-level="3"><span class="n">2.4</span>HDD, SSD y RAID</h2>
+  <p class="sub">Dos tecnologías de disco y cuatro niveles redundantes</p>
+  <div class="grid g2" style="margin-top:10px">
+    <div class="box ac"><b>HDD</b><small>Platos magnéticos y cabeza mecánica. Barato y de gran capacidad, limitado por la <b>latencia mecánica</b>.</small></div>
+    <div class="box teal"><b>SSD</b><small>Memoria <b>flash</b> sin partes móviles. Más rápido y resistente, más caro por GB y con <b>ciclos de escritura finitos</b>.</small></div>
+  </div>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: niveles RAID" style="padding:0;margin-top:12px"><table style="min-width:560px"><tr><th scope="col">Nivel</th><th scope="col">Técnica</th><th scope="col">Efecto</th></tr><tr><td>RAID 0</td><td>Striping</td><td>Máximo rendimiento, <b>sin tolerancia a fallos</b></td></tr><tr><td>RAID 1</td><td>Mirroring</td><td>Copia exacta; <b>50 %</b> de capacidad útil</td></tr><tr><td>RAID 5</td><td>Striping + paridad distribuida</td><td>Tolera 1 disco; útil = <b>(n−1)·s</b></td></tr><tr><td>RAID 10</td><td>Mirroring + striping</td><td>Alto rendimiento y redundancia; <b>50 %</b></td></tr></table></div>
+  <div class="mem"><b>Trampa.</b> RAID 0 tolera el fallo de <b>ningún</b> disco; RAID 1 y 10 dejan la mitad de la capacidad; RAID 5 pierde el equivalente a un disco y tolera uno. Los números caen en los ejercicios (4 discos de 4 TB: RAID 5 → 12 TB útiles; RAID 10 → 8 TB).</div>
+  <div class="xrefs">Practícalo: <a href="#p-e2">ejercicio B</a> · <a href="#p-e5">ejercicio E</a> · <a href="#s-e3">tabla Σ 3</a></div>
+</section><section id="t2-e5">
+  <h2 aria-level="3"><span class="n">2.5</span>Periféricos y buses</h2>
+  <p class="sub">Cómo se comunica la CPU con el exterior sin desperdiciarse</p>
+  <div class="grid g2" style="margin-top:10px">
+    <div class="box ac"><b>Interrupciones</b><small>El periférico avisa a la CPU cuando tiene datos listos, en vez de que ella lo consulte sin parar.</small></div>
+    <div class="box teal"><b>DMA</b><small>El periférico transfiere datos a memoria <b>sin que la CPU intervenga en cada byte</b>.</small></div>
+  </div>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: buses" style="padding:0;margin-top:12px"><table style="min-width:560px"><tr><th scope="col">Bus</th><th scope="col">Transporta</th><th scope="col">Su anchura determina…</th></tr><tr><td>Datos</td><td>Los datos intercambiados</td><td>Bits transferidos a la vez</td></tr><tr><td>Direcciones</td><td>La dirección a acceder</td><td>Memoria máxima direccionable</td></tr><tr><td>Control</td><td>Señales de coordinación</td><td>Lectura/escritura, interrupciones, temporización</td></tr></table></div>
+  <div class="mem"><b>Clave.</b> La anchura del bus de <b>direcciones</b> fija cuánta memoria se puede direccionar (n bits → 2<sup>n</sup> celdas); la del bus de <b>datos</b>, cuántos bits viajan a la vez. No las confundas: es la pregunta de opción múltiple más fácil de fallar.</div>
+</section></section>
+<section class="tema-sec" id="t3"><a class="up" href="#top">↑ Índice</a><div class="k">CSE INE A1 · Almacenamiento y bases de datos · Bloque III</div><h1 class="tt" aria-level="2">Tema 3 · Sistemas operativos</h1><p>Esquemas de repaso · teoría real en 2022 (clúster frente a multiprocesador) y 2025 (núcleo del SO) · el gestor que oculta el hardware: procesos, memoria, ficheros, protección y seguridad</p><nav class="ix" aria-label="Epígrafes del tema"><a href="#t3-e1">3.1 Qué hace el SO</a><a href="#t3-e2">3.2 Modo dual y procesos</a><a href="#t3-e3">3.3 Memoria virtual y ficheros</a><a href="#t3-e4">3.4 Protección y entornos</a><a href="#t3-e5">3.A Asignación de memoria</a><a href="#t3-e6">3.B Planificación y ficheros</a><a href="#t3-e7">3.C Seguridad</a></nav><section id="t3-e1">
+  <h2 aria-level="3"><span class="n">3.1</span>El sistema operativo: gestor y máquina extendida</h2>
+  <p class="sub">Dos papeles a la vez, y cuatro maneras de construirlo</p>
+  <div class="grid g2" style="margin-top:10px">
+    <div class="box ac"><b>Gestor de recursos</b><small>Reparte procesador, memoria y E/S entre programas y resuelve conflictos de acceso.</small></div>
+    <div class="box teal"><b>Máquina extendida</b><small>Oculta el hardware tras una interfaz más alta, sencilla y uniforme.</small></div>
+  </div>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: estructuras del SO" style="padding:0;margin-top:12px"><table style="min-width:560px"><tr><th scope="col">Estructura</th><th scope="col">Idea</th></tr><tr><td>Monolítica</td><td>Procedimientos que se llaman entre sí, todo en modo núcleo</td></tr><tr><td>En capas</td><td>Cada capa usa solo la inferior; capa 0 = hardware</td></tr><tr><td>Microkernel</td><td>Núcleo mínimo (IPC); servicios en modo usuario</td></tr><tr><td>Módulos / híbrida</td><td>Servicios enlazados dinámicamente / mezcla de modelos</td></tr></table></div>
+  <div class="mem"><b>Arquitectura.</b> Monoprocesador o <b>multiprocesador</b> (asimétrico o simétrico, <b>SMP</b>). Los <b>clústeres</b> buscan alta disponibilidad. Distingue bien multiprocesador (un sistema, varias CPU) de clúster (varios sistemas completos): fue la cuestión 14 de 2022.</div>
+  <div class="xrefs">Pregunta literal: <a href="#x-e2">conv. 2022 · cuestión 14</a> · <a href="#x-e3">conv. 2025 · el núcleo</a></div>
+</section><section id="t3-e2">
+  <h2 aria-level="3"><span class="n">3.2</span>Modo dual, temporizador y procesos</h2>
+  <p class="sub">Cómo el SO se protege de los programas y reparte la CPU</p>
+  <div class="grid g3" style="margin-top:10px">
+    <div class="box ac"><b>Modo usuario y núcleo</b><small>Las instrucciones <b>privilegiadas</b> solo se ejecutan en <b>modo núcleo</b>. Protege al SO de programas defectuosos.</small></div>
+    <div class="box teal"><b>Temporizador</b><small>Genera una interrupción periódica que devuelve el control al SO e impide que un proceso monopolice la CPU.</small></div>
+    <div class="box ok"><b>Proceso</b><small>Programa en ejecución, con su contexto. Unidad de trabajo del sistema.</small></div>
+  </div>
+  <div class="chain" style="margin-top:12px">
+    <div class="box">Nuevo</div>
+    <div class="box ac"><b>Listo</b><small>espera la CPU</small></div>
+    <div class="box ac"><b>Ejecución</b><small>ocupa la CPU</small></div>
+    <div class="box ok"><b>Terminado</b></div>
+  </div>
+  <p style="margin-top:10px">Desde Ejecución se pasa a <b>Bloqueado</b> al pedir E/S, y se vuelve a Listo al terminar. El <b>planificador</b> decide qué proceso ocupa la CPU. El SO crea, elimina, suspende y reanuda procesos, y ofrece sincronización y comunicación.</p>
+  <div class="mem"><b>Trampa.</b> Bloqueado no es un estado de fracaso: se entra al pedir E/S y se sale a Listo (no a Ejecución). Y las instrucciones privilegiadas: modo <b>núcleo</b>, nunca modo usuario.</div>
+</section><section id="t3-e3">
+  <h2 aria-level="3"><span class="n">3.3</span>Memoria virtual y sistema de ficheros</h2>
+  <p class="sub">La ilusión de memoria infinita y el organizador de ficheros</p>
+  <div class="grid g3" style="margin-top:10px">
+    <div class="box ac"><b>Memoria virtual</b><small>Simula con RAM y disco un espacio mayor que la memoria física. Las páginas menos usadas se llevan a disco.</small></div>
+    <div class="box teal"><b>Fallo de página</b><small>La <b>tabla de páginas</b> traduce página → marco. Si la página no está en RAM (bit de presencia 0), el SO la trae a un marco libre.</small></div>
+    <div class="box ok"><b>Sistema de ficheros</b><small>Organiza cómo se almacenan, nombran y recuperan los ficheros: espacio libre, permisos y directorios en árbol.</small></div>
+  </div>
+  <div class="mem"><b>Terciario.</b> Algunos sistemas añaden un nivel <b>terciario</b> para copias de seguridad de muy bajo coste. Sobre el sistema de ficheros reside cualquier base de datos (T4): el SGBD siempre vive encima de un SO.</div>
+  <div class="xrefs">Conexiones: <a href="#t1-e2">1.2 · la memoria lineal sobre la que se construye</a> · <a href="#t4-e1">4.1 · lo que el SGBD añade encima</a></div>
+</section><section id="t3-e4">
+  <h2 aria-level="3"><span class="n">3.4</span>Protección, seguridad y entornos</h2>
+  <p class="sub">Dos conceptos que parecen sinónimos y no lo son</p>
+  <div class="grid g2" style="margin-top:10px">
+    <div class="box ac"><b>Protección</b><small>Mecanismo que controla el acceso de procesos y usuarios a los recursos. Aplica un esquema de permisos ya definido.</small></div>
+    <div class="box teal"><b>Seguridad</b><small>Defensa frente a ataques internos y externos: virus, gusanos, denegación de servicio, robo de identidad. Mira al entorno externo.</small></div>
+  </div>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: entornos de ejecución" style="padding:0;margin-top:12px"><table style="min-width:560px"><tr><th scope="col">Entorno</th><th scope="col">Rasgo</th></tr><tr><td>Sistema distribuido</td><td>Procesadores separados, sin memoria ni reloj compartidos, unidos por red</td></tr><tr><td>Cliente-servidor</td><td>Servidores atienden peticiones de clientes</td></tr><tr><td>Peer-to-peer</td><td>Cada nodo es cliente y servidor</td></tr><tr><td>Nube</td><td>Recursos bajo demanda vía Internet (pública, privada, híbrida)</td></tr></table></div>
+  <div class="mem"><b>Trampa de examen.</b> La <b>protección</b> son mecanismos internos del SO; la <b>seguridad</b> incluye aspectos técnicos, administrativos y legales frente al exterior. Cae como pregunta de opción múltiple.</div>
+</section><section id="t3-e5">
+  <h2 aria-level="3"><span class="n">3.A</span>Asignación de memoria y fragmentación <span class="tag">ampliación</span></h2>
+  <p class="sub">De la partición fija a la segmentación paginada</p>
+  <div class="grid g2" style="margin-top:10px">
+    <div class="box ac"><b>Real y virtual</b><small>Real: la memoria física. Virtual: (1) RAM ficticia creada en disco, con más capacidad y peor rendimiento; (2) la ilusión de que cada proceso dispone de toda la memoria, lo que facilita programar.</small></div>
+    <div class="box teal"><b>MMU</b><small>Parte del procesador que gestiona el direccionamiento: comprueba que las direcciones existen y que el proceso tiene permisos. Las direcciones físicas solo las usa el SO.</small></div>
+  </div>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: esquemas de asignación" style="padding:0;margin-top:12px"><table style="min-width:620px"><tr><th scope="col">Esquema</th><th scope="col">Idea</th><th scope="col">Fragmentación</th></tr><tr><td>Contigua</td><td>Todos los datos del proceso juntos</td><td>—</td></tr><tr><td>Particiones múltiples</td><td>Huecos fijos que ocupan los procesos</td><td>Interna: el proceso no usa todo el hueco</td></tr><tr><td>Particiones dinámicas</td><td>El hueco se ajusta a lo que pide el proceso</td><td>Externa: quedan huecos pequeños repartidos</td></tr><tr><td>Paginación</td><td>Marcos de tamaño fijo; dirección (p, d); tabla de páginas</td><td>Interna; evita la externa</td></tr><tr><td>Segmentación</td><td>Segmentos lógicos de tamaño variable; tabla con base y límite</td><td>Externa; facilita compartir y proteger</td></tr><tr><td>Segmentación paginada</td><td>Segmentos divididos en páginas</td><td>Combina ventajas; es la más costosa</td></tr></table></div>
+  <div class="mem"><b>Estrategias de hueco:</b> <b>primer ajuste</b>, <b>mejor ajuste</b>, <b>peor ajuste</b>. La <b>compactación</b> alivia la fragmentación. La paginación es transparente al usuario; la segmentación, visible. Y para los números: huecos de 256 KB y 64 KB con un proceso de 272 KB → 320 KB de fragmentación externa; partición de 512 KB con proceso de 128 KB → 384 KB interna.</div>
+  <div class="xrefs">Practícalo: <a href="#p-e2">ejercicio B</a></div>
+</section><section id="t3-e6">
+  <h2 aria-level="3"><span class="n">3.B</span>Planificación, discos y ficheros <span class="tag">ampliación</span></h2>
+  <p class="sub">Quién entra en la CPU, en qué orden se sirve el disco y cómo se asignan los ficheros</p>
+  <div class="grid g2" style="margin-top:10px">
+    <div class="box ac"><b>Planificador de CPU</b><small>Criterios: por prioridad, trabajo más corto primero, FIFO, Round Robin y por política. Se atiende a la cantidad de E/S y de CPU, lote o interactivo, tiempo real y longevidad.</small></div>
+    <div class="box teal"><b>Estados</b><small>Activos: ejecución, preparado, bloqueado. Inactivos: suspendido bloqueado y suspendido programado. Operaciones: crear, destruir, suspender, reanudar, cambiar prioridad, temporizar y despertar.</small></div>
+    <div class="box ok"><b>Planificación de disco</b><small>FIFO, primero el más cercano (SSTF), exploración o elevador (SCAN) y exploración circular (C-SCAN).</small></div>
+    <div class="box"><b>Ficheros</b><small>Asignación contigua, encadenada o indexada. Acceso secuencial, directo o directo indexado. Operaciones: crear, borrar, abrir, cerrar, leer, concatenar, localizar, atributos y renombrar. Hay cuotas y compartición.</small></div>
+  </div>
+  <div class="mem"><b>Niveles del SO.</b> Por gestión: 1 procesador, 2 memoria, 3 procesos, 4 almacenamiento y E/S, 5 información. Por ejecución: 0 <b>núcleo</b>, 1 ejecutivo, 2 supervisor, 3 usuario. El núcleo está <b>siempre en memoria</b>; el resto se carga según se necesite.</div>
+  <div class="xrefs">Pregunta literal: <a href="#x-e3">conv. 2025 · el núcleo (kernel)</a></div>
+</section><section id="t3-e7">
+  <h2 aria-level="3"><span class="n">3.C</span>Seguridad: tríada, amenazas y dominios <span class="tag">ampliación</span></h2>
+  <p class="sub">Tres propiedades, una lista de enemigos y un mecanismo de control</p>
+  <div class="grid g3" style="margin-top:10px">
+    <div class="box ac"><b>Confidencialidad</b><small>La información solo es accesible a quien tiene autorización.</small></div>
+    <div class="box teal"><b>Integridad</b><small>Garantiza la exactitud y completitud de la información y de sus métodos de proceso.</small></div>
+    <div class="box ok"><b>Disponibilidad</b><small>Los usuarios autorizados acceden a la información y a sus activos cuando la necesitan.</small></div>
+  </div>
+  <div class="grid g3" style="margin-top:12px">
+    <div class="box"><b>Amenazas</b><small>Bomba lógica, puerta falsa, caballo de Troya, virus, bacteria, gusano, spyware, adware, keylogger. Se defiende con copias de seguridad locales y remotas.</small></div>
+    <div class="box"><b>Autenticación</b><small>Algo que se sabe o se tiene (contraseña). Mejor con <b>doble factor</b>.</small></div>
+    <div class="box"><b>Dominio de protección</b><small>Tupla que relaciona objetos con derechos. Se guarda en listas de control de acceso (<b>ACL</b>). Los mecanismos obedecen a políticas, que pueden cambiar.</small></div>
+  </div>
+  <div class="mem"><b>Sistemas distribuidos.</b> Altamente acoplados (memoria y reloj globales) o débilmente acoplados. Ganan resiliencia, rendimiento y escalabilidad; exigen más sincronización, coordinación y seguridad.</div>
+  <div class="mem"><b>Trampa.</b> No confundas la tríada: confidencialidad = quién accede; integridad = exactitud y completitud; disponibilidad = cuándo se accede. Cada definición cae literal en opción múltiple.</div>
+</section></section>
+<section class="tema-sec" id="t4"><a class="up" href="#top">↑ Índice</a><div class="k">CSE INE A1 · Almacenamiento y bases de datos · Bloque III</div><h1 class="tt" aria-level="2">Tema 4 · Bases de datos y SGBD</h1><p>Esquemas de repaso · pregunta literal en 2023 (componentes del SGBD) y ventajas/inconvenientes en 2022 · de los ficheros dispersos al control centralizado de los datos</p><nav class="ix" aria-label="Epígrafes del tema"><a href="#t4-e1">4.1 Cinco limitaciones</a><a href="#t4-e2">4.2 BD y SGBD</a><a href="#t4-e3">4.3 ANSI/SPARC</a><a href="#t4-e4">4.4 Ventajas y desventajas</a></nav><section id="t4-e1">
+  <h2 aria-level="3"><span class="n">4.1</span>Sistemas de ficheros: cinco limitaciones</h2>
+  <p class="sub">La raíz de todas: cada aplicación gestiona sus propios ficheros</p>
+  <p>Cada aplicación define y gestiona sus propios ficheros, <b>sin control central</b>. Esa ausencia es la raíz común de todos los problemas que el SGBD viene a resolver.</p>
+  <div class="grid g3" style="margin-top:10px">
+    <div class="box ac"><b>Aislamiento</b><small>Datos relacionados en ficheros distintos, difíciles de cruzar.</small></div>
+    <div class="box teal"><b>Duplicación</b><small>Redundancia no controlada: espacio desperdiciado e inconsistencias.</small></div>
+    <div class="box ok"><b>Dependencia</b><small>La estructura vive en el código: cambiarla obliga a modificar todos los programas.</small></div>
+    <div class="box ac"><b>Formatos incompatibles</b><small>Distintos programadores y lenguajes: intercambio difícil.</small></div>
+    <div class="box teal"><b>Consultas fijas</b><small>Cada informe nuevo exige un programa nuevo.</small></div>
+  </div>
+  <div class="mem"><b>Clave de redacción.</b> Las cinco limitaciones se responden mejor en cadena: datos aislados → se duplican → dependen del código → los formatos no cuadran → y cada consulta nueva es un programa. Practica el emparejamiento del <a class="lk" href="#p-e6">ejercicio F</a>.</div>
+</section><section id="t4-e2">
+  <h2 aria-level="3"><span class="n">4.2</span>Base de datos y SGBD: no son lo mismo</h2>
+  <p class="sub">La pregunta literal de 2023, en dos definiciones y cuatro componentes</p>
+  <div class="grid g3" style="margin-top:10px">
+    <div class="box ac"><b>Base de datos</b><small>Conjunto organizado de <b>datos relacionados lógicamente</b>, con su descripción, para las necesidades de información de una organización.</small></div>
+    <div class="box teal"><b>SGBD</b><small>Software para <b>definir, crear, mantener y controlar el acceso</b> a la base de datos.</small></div>
+    <div class="box ok"><b>Programas de aplicación</b><small>Acceden a la base a través del SGBD <b>sin conocer su almacenamiento físico</b>.</small></div>
+  </div>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: componentes del SGBD" style="padding:0;margin-top:12px"><table style="min-width:560px"><tr><th scope="col">Componente</th><th scope="col">Función</th></tr><tr><td>Motor (núcleo)</td><td>Almacenamiento físico y acceso a los datos</td></tr><tr><td>DDL</td><td>Define tipos, estructuras y restricciones</td></tr><tr><td>DML</td><td>Inserta, actualiza, elimina y recupera datos</td></tr><tr><td>Diccionario de datos</td><td>Catálogo de metadatos: describe la propia base</td></tr></table></div>
+  <div class="mem"><b>Trampa.</b> La base es el <b>conjunto de datos</b>; el SGBD, el <b>software</b> que la gestiona. El diccionario de datos es un catálogo de metadatos, no el lenguaje de consulta. Pregunta literal de 2023: entrena el <a class="lk" href="#x-e4">emparejamiento</a>.</div>
+</section><section id="t4-e3">
+  <h2 aria-level="3"><span class="n">4.3</span>ANSI/SPARC: tres niveles, dos independencias</h2>
+  <p class="sub">La arquitectura en tres capas del estándar</p>
+  <div class="chain" style="margin-top:10px">
+    <div class="box"><b>Externo</b><small>vistas de cada usuario o aplicación</small></div>
+    <div class="box ac"><b>Conceptual</b><small>esquema lógico de toda la base (ER / relacional)</small></div>
+    <div class="box teal"><b>Interno</b><small>almacenamiento físico: ficheros, índices, discos</small></div>
+  </div>
+  <div class="mem"><b>Independencia lógica:</b> cambiar el esquema no afecta a las vistas. <b>Independencia física:</b> cambiar el disco o los índices no afecta al esquema. Dos frases cortas que responden medio epígrafe.</div>
+  <div class="xrefs">Conexión: <a href="#t1-e2">1.2 · las capas de abajo siempre ocultan lo físico</a></div>
+</section><section id="t4-e4">
+  <h2 aria-level="3"><span class="n">4.4</span>Qué gana y qué cuesta un SGBD</h2>
+  <p class="sub">Once ventajas y seis inconvenientes: la cuestión 15 de 2022</p>
+  <div class="grid g2" style="margin-top:10px">
+    <div class="box ok"><b>Ventajas</b><small>Control de la <b>redundancia</b> · consistencia · compartición · estándares · <b>integridad</b> · <b>seguridad</b> · acceso ad hoc · productividad · <b>independencia de datos</b> · concurrencia · mejor copia de seguridad y recuperación.</small></div>
+    <div class="box rose"><b>Desventajas</b><small><b>Complejidad</b> · tamaño · coste del SGBD · hardware adicional y conversión · rendimiento genérico · mayor impacto de un <b>fallo central</b>.</small></div>
+  </div>
+  <div class="mem"><b>Trampa.</b> «Menor coste de conversión» y «menor impacto de un fallo» son <b>inconvenientes</b> enmascarados de ventaja: al centralizar, un fallo puede paralizar toda la organización. Cae como pregunta de opción múltiple.</div>
+  <div class="xrefs">Pregunta literal: <a href="#x-e2">conv. 2022 · cuestión 15</a></div>
+</section></section>
+<section class="tema-sec" id="examen" data-key="x"><a class="up" href="#top">↑ Índice</a><div class="k">CSE INE A1 · Almacenamiento y bases de datos · Bloque III</div><h1 class="tt" aria-level="2">Exámenes del INE · qué ha caído y cómo se pregunta</h1><p>Convocatorias 2022 a 2025 · enunciados literales con respuesta modelo, esqueletos de emparejamiento y los problemas tipo de cada año, con cifras propias · entrena también desde la barra: «Modo foco» y «Repaso mixto»</p><nav class="ix" aria-label="Epígrafes del tema"><a href="#x-e1">Mapa 2023–2025</a><a href="#x-e2">Cuestiones 2022 y 2023</a><a href="#x-e3">Cuestiones 2024 y 2025</a><a href="#x-e4">Esqueletos 2023</a><a href="#x-e5">2023 · C2</a><a href="#x-e6">2024 · resta y 32 bits</a><a href="#x-e7">2025 · 16 bits</a></nav><section id="x-e1">
+  <h2 aria-level="3"><span class="n">Mapa</span>Qué ha caído y cómo se pregunta</h2>
+  <p class="sub">T1 todos los años como problema; T2 y T4 como pregunta de manual</p>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: qué ha caído por año" style="padding:0;margin-top:10px"><table style="min-width:620px"><tr><th scope="col">Año</th><th scope="col">Tema</th><th scope="col">Enunciado</th></tr><tr><td>2023</td><td>T1</td><td>Representar un decimal en signo-magnitud, C1 y C2 con 8 bits; interpretar un patrón en C2; rango representable</td></tr><tr><td>2023</td><td>T2</td><td>Arquitectura básica del hardware y breve explicación de cada componente</td></tr><tr><td>2023</td><td>T4</td><td>Componentes de un SGBD y sus principales características</td></tr><tr><td>2024</td><td>T1</td><td>Resta directa en C2 con 8 bits; bits mínimos para un negativo; decimal fraccionario en coma flotante de 32 bits (sesgo 127)</td></tr><tr><td>2025</td><td>T1</td><td>Coma flotante de 16 bits (sesgo 15), codificar y decodificar; pseudocódigo con variables de 8 bits en C2 que se truncan módulo 256</td></tr></table></div>
+  <div class="mem"><b>Patrón.</b> La aritmética en C2 y el overflow se preguntan como problema (cuestión 3 del segundo ejercicio); T2 y T4, como pregunta de manual. Cambia el envoltorio, no el mecanismo.</div>
+  <div class="mem"><b>Qué es literal y qué no.</b> Literal: las cuestiones de teoría (INE, convocatorias 2022 a 2025) y los dos enunciados de 2023. Reconstruido: los problemas de complemento a 2, resta y coma flotante reproducen el tipo de pregunta de cada convocatoria, con cifras propias, porque no está el texto oficial del segundo ejercicio.</div>
+  <div class="xrefs">Problemas tipo: <a href="#x-e5">2023 en acción</a> · <a href="#x-e6">2024 en acción</a> · <a href="#x-e7">2025 en acción</a> · Cuestiones: <a href="#x-e2">2022–2023</a> · <a href="#x-e3">2024–2025</a></div>
+</section><section id="x-e2">
+  <h2 aria-level="3"><span class="n">2022–23</span>Cuestiones de teoría: convocatorias 2022 y 2023</h2>
+  <p class="sub">Enunciados literales · despliega cada respuesta modelo y, al final, compruébate</p>
+  <div class="xrefs">Fuente: <a href="https://ine.es/ine/oposiciones/super_ejercicio2022_1.pdf" target="_blank" rel="noopener">primer ejercicio 2022 (PDF, INE)</a> <a href="https://ine.es/ine/oposiciones/PlantillaExamen_General_CSE2024.pdf" target="_blank" rel="noopener">primer ejercicio 2023 (PDF, INE)</a></div>
+  <div class="grid g2" style="margin-top:10px">
+    <div class="card"><p class="t">Conv. 2022 · Cuestión 14</p>
+      <div class="qq">(a) ¿En qué se parecen y en qué se diferencian un sistema en clúster y un sistema multiprocesador? (b) ¿Para qué sirven los sistemas de multiprocesador y en clúster? (c) ¿Cómo afronta la tolerancia a fallos un sistema en clúster?</div>
+      <details class="plan"><summary>Respuesta modelo</summary><p>(a) Ambos suman capacidad de proceso. El <b>multiprocesador</b> es un único sistema con varias CPU (asimétrico o simétrico, SMP). El <b>clúster</b> reúne varios sistemas completos interconectados que cooperan y suelen compartir almacenamiento. (b) El multiprocesador, para más rendimiento y fiabilidad; el clúster, sobre todo para alta disponibilidad. (c) Los nodos se vigilan entre sí; si uno falla, otro asume sus servicios sobre el almacenamiento compartido (<b>conmutación por error</b>).</p></details>
+      <div class="xrefs">Teoría: <a href="#t3-e1">3.1 · arquitecturas del SO</a> · <a href="#t3-e7">3.C · distribuidos</a></div>
+    </div>
+    <div class="card"><p class="t">Conv. 2022 · Cuestión 15</p>
+      <div class="qq">Enumere y describa con la máxima brevedad las ventajas e inconvenientes de los Sistemas de Gestión de Bases de Datos frente a los sistemas de archivos.</div>
+      <details class="plan"><summary>Respuesta modelo</summary><p><b>Ventajas:</b> control de la redundancia, consistencia, compartición, estándares, integridad, seguridad, acceso ad hoc, productividad, independencia de datos, concurrencia y mejor copia de seguridad y recuperación. <b>Inconvenientes:</b> complejidad, tamaño, coste del SGBD, hardware adicional, coste de conversión, rendimiento genérico y mayor impacto de un fallo.</p></details>
+      <div class="xrefs">Teoría: <a href="#t4-e4">4.4 · ventajas y desventajas</a></div>
+    </div>
+    <div class="card"><p class="t">Conv. 2023 · Pregunta 17</p>
+      <div class="qq">Indique cuál es la arquitectura básica del hardware en un sistema de computación y una explicación breve de los distintos componentes.</div>
+      <details class="plan"><summary>Respuesta modelo</summary><p>Arquitectura de <b>Von Neumann</b>: CPU (unidad de control, ALU y registros), que ejecuta instrucciones; memoria, que guarda programas y datos; periféricos de E/S, que comunican con el exterior; y buses de datos, direcciones y control, que lo interconectan. Un único bus genera el cuello de botella.</p></details>
+      <div class="xrefs">Teoría: <a href="#t2-e1">2.1 · Von Neumann</a> · <a href="#t2-e2">2.2 · CPU</a> · <a href="#t2-e5">2.5 · buses</a></div>
+    </div>
+    <div class="card"><p class="t">Conv. 2023 · Pregunta 18</p>
+      <div class="qq">Describa los componentes de un Sistema de Gestión de Bases de Datos y cuáles son sus principales características.</div>
+      <details class="plan"><summary>Respuesta modelo</summary><p>Componentes: <b>motor</b> (almacenamiento y acceso), subsistema <b>DDL</b>, subsistema <b>DML</b> y <b>diccionario de datos</b>. Características: independencia de datos, integridad, seguridad, control de concurrencia, recuperación ante fallos, control de la redundancia y compartición de los datos.</p></details>
+      <div class="xrefs">Teoría: <a href="#t4-e2">4.2 · BD y SGBD</a> · Esqueleto: <a href="#x-e4">emparejamiento de 2023</a></div>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:16px">Compruébate: elige la respuesta correcta. <span class="exs" data-ex="qc"></span></p>
+  <ol class="ex" id="qc"></ol>
+  <div class="fd" id="fqc" aria-live="polite"></div>
+  <div class="mem"><b>Trampa.</b> El clúster no comparte memoria ni reloj: son varios sistemas completos interconectados. Y sus nodos se vigilan entre sí para dar el relevo (conmutación por error) — no es «más de lo mismo» que un multiprocesador.</div>
+</section><section id="x-e3">
+  <h2 aria-level="3"><span class="n">2024–25</span>Cuestiones de teoría: convocatorias 2024 y 2025</h2>
+  <p class="sub">Enunciados literales · despliega cada respuesta modelo y, al final, compruébate</p>
+  <div class="xrefs">Fuente: <a href="https://ine.es/ine/oposiciones/PlantillaExamen_General_CSE2025.pdf" target="_blank" rel="noopener">primer ejercicio 2024 (PDF, INE)</a> <a href="https://ine.es/ine/oposiciones/PlantillaExamen_General_CSE2026.pdf" target="_blank" rel="noopener">primer ejercicio 2025 (PDF, INE)</a></div>
+  <div class="grid g2" style="margin-top:10px">
+    <div class="card"><p class="t">Conv. 2024 · Pregunta 17</p>
+      <div class="qq">¿Qué es el código ASCII y cómo se diferencia del Unicode en la representación de caracteres?</div>
+      <details class="plan"><summary>Respuesta modelo</summary><p><b>ASCII</b> (American Standard Code for Information Interchange) usa <b>7 bits</b>: 128 símbolos; el extendido usa 8 bits. <b>Unicode</b> es el estándar mundial que cubre prácticamente cualquier sistema de escritura y tiene varias codificaciones: <b>UTF-8</b> (1 a 4 bytes, los 0–127 coinciden con ASCII), <b>UTF-16</b> (16 o 32 bits) y <b>UTF-32</b> (32 bits fijos).</p></details>
+      <div class="xrefs">Teoría: <a href="#t1-e4">1.4 · texto</a> · <a href="#t1-e7">1.B · códigos</a></div>
+    </div>
+    <div class="card"><p class="t">Conv. 2024 · Pregunta 18</p>
+      <div class="qq">¿Cuáles son las principales diferencias entre los modelos de datos relacional, en red y jerárquico?</div>
+      <details class="plan"><summary>Respuesta modelo</summary><p><b>Jerárquico</b>: árbol, cada registro con un único padre, acceso navegando desde la raíz. <b>En red</b>: grafo, un registro puede tener varios padres, acceso por punteros; más flexible y más complejo. <b>Relacional</b>: tablas enlazadas por claves y valores, sin punteros físicos, con independencia de datos.</p></details>
+      <div class="xrefs">Nota: pregunta de modelos de datos, fuera del alcance de ER y SQL; la respuesta modelo es autocontenida.</div>
+    </div>
+    <div class="card"><p class="t">Conv. 2025 · Pregunta 17</p>
+      <div class="qq">Realice una clasificación de la memoria de un sistema de computación en función de la forma de acceso a la misma.</div>
+      <details class="plan"><summary>Respuesta modelo</summary><p><b>Acceso aleatorio</b> (RAM, ROM): dirección única, tiempo independiente de la posición. <b>Secuencial</b> (cinta): se recorre en orden. <b>Directo</b> (discos): se salta al bloque y se lee en secuencia dentro de él. <b>Asociativo</b> (caché): se busca por contenido, comparando todas las posiciones a la vez.</p></details>
+      <div class="xrefs">Teoría: <a href="#t1-e6">1.A · formas de acceso</a> · <a href="#s-e2">tabla Σ 2</a></div>
+    </div>
+    <div class="card"><p class="t">Conv. 2025 · Pregunta 18</p>
+      <div class="qq">Defina el núcleo (kernel) de un sistema operativo y enumere sus funciones principales.</div>
+      <details class="plan"><summary>Respuesta modelo</summary><p>Parte fundamental del SO que se ejecuta con <b>mayores privilegios</b> (modo núcleo) y está <b>siempre en memoria</b>. Funciones: gestión del procesador y planificación, gestión de memoria, gestión de procesos, E/S y controladores, comunicación con el hardware, interrupciones, llamadas al sistema y protección.</p></details>
+      <div class="xrefs">Teoría: <a href="#t3-e1">3.1 · estructuras</a> · <a href="#t3-e6">3.B · niveles del SO</a></div>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:16px">Compruébate: elige la respuesta correcta. <span class="exs" data-ex="qd"></span></p>
+  <ol class="ex" id="qd"></ol>
+  <div class="fd" id="fqd" aria-live="polite"></div>
+  <div class="mem"><b>Trampa.</b> ASCII son <b>7 bits</b> (el extendido, 8), y en UTF-8 los 128 primeros coinciden con ASCII y ocupan 1 byte. El kernel: modo núcleo, siempre en memoria — el resto del SO se carga cuando hace falta.</div>
+</section><section id="x-e4">
+  <h2 aria-level="3"><span class="n">2023</span>Los dos enunciados de 2023, en forma de emparejamiento <span class="exs" data-ex="ha"></span> <span class="exs" data-ex="hb"></span></h2>
+  <p class="sub">Toca un elemento de la izquierda y después su función de la derecha: es el esqueleto de la respuesta</p>
+  <p class="t" style="margin-top:12px">T2 · arquitectura del hardware</p>
+  <div class="qq">«Indique cuál es la arquitectura básica del hardware en un sistema de computación y una explicación breve de los distintos componentes.»</div>
+  <div class="pm" id="ha"></div>
+  <div class="fd" id="fha">0 / 6 parejas</div>
+  <p class="t" style="margin-top:18px">T4 · componentes del SGBD</p>
+  <div class="qq">«Describa los componentes de un Sistema de Gestión de Bases de Datos y cuáles son sus principales características.»</div>
+  <div class="pm" id="hb"></div>
+  <div class="fd" id="fhb">0 / 6 parejas</div>
+  <div class="mem"><b>Para redactar.</b> Estos dos emparejamientos son literalmente el guion de las dos preguntas de 2023: nombra el componente y, a su derecha, la frase de definición. Si sabes emparejarlos, sabes responderlas.</div>
+</section><section id="x-e5">
+  <h2 aria-level="3"><span class="n">2023</span>Representación en 8 bits, en acción <span class="exs" data-ex="xc"></span></h2>
+  <p class="sub">Tipo de problema de 2023 con cifras propias: representar un decimal, interpretar un patrón y dar el rango</p>
+  <div class="mem"><b>Método.</b> Signo-magnitud: bit de signo + magnitud. C1: invertir todos los bits. C2: invertir y sumar 1. Para interpretar un patrón con MSB = 1 en 8 bits: vale <b>−(256 − valor sin signo)</b>. Rango en C2 con n bits: [−2<sup>n−1</sup>, 2<sup>n−1</sup>−1].</div>
+  <ol class="ex" id="xc"><li>Representa −37 en signo-magnitud con 8 bits: <input class="hu" style="width:8em" aria-label="hueco 1" data-a="10100101"><div class="sol"></div></li><li>Representa −37 en C1 con 8 bits: <input class="hu" style="width:8em" aria-label="hueco 2" data-a="11011010"><div class="sol"></div></li><li>Representa −37 en C2 con 8 bits: <input class="hu" style="width:8em" aria-label="hueco 3" data-a="11011011"><div class="sol"></div></li><li>El patrón 10011100 en C2 vale (decimal): <input class="hu" style="width:8em" aria-label="hueco 4" data-a="-100"><div class="sol"></div></li><li>Valor mínimo representable en C2 con 8 bits: <input class="hu" style="width:8em" aria-label="hueco 5" data-a="-128"><div class="sol"></div></li><li>Valor máximo representable en C2 con 8 bits: <input class="hu" style="width:8em" aria-label="hueco 6" data-a="127"><div class="sol"></div></li></ol>
+  <button class="btnx chk" type="button" data-g="xc">Comprobar</button>
+  <div class="fd" id="fxc" aria-live="polite"></div>
+  <div class="xrefs">Teoría: <a href="#t1-e3">1.3 · enteros y C2</a> · Más práctica: <a href="#p-e1">ejercicio A</a></div>
+</section><section id="x-e6">
+  <h2 aria-level="3"><span class="n">2024</span>Resta en C2 y coma flotante de 32 bits, en acción <span class="exs" data-ex="xd"></span></h2>
+  <p class="sub">Tipo de problema de 2024 con cifras propias: resta directa en C2, bits mínimos y 32 bits con sesgo 127</p>
+  <div class="mem"><b>Método.</b> Restar es sumar el C2 del sustraendo; si la suma sale del rango, se trunca módulo 256. Bits mínimos para −k: el menor n con 2<sup>n−1</sup> ≥ k. Coma flotante: normaliza a 1,f × 2<sup>e</sup>, exponente sesgado = <b>e + 127</b>, mantisa sin el 1 implícito.</div>
+  <ol class="ex" id="xd"><li>47 − 73 en C2 de 8 bits: C2 de 73 (binario): <input class="hu" style="width:8em" aria-label="hueco 1" data-a="10110111"><div class="sol"></div></li><li>Suma de 47 y ese C2 (binario): <input class="hu" style="width:8em" aria-label="hueco 2" data-a="11100110"><div class="sol"></div></li><li>Resultado en decimal: <input class="hu" style="width:8em" aria-label="hueco 3" data-a="-26"><div class="sol"></div></li><li>Bits mínimos en C2 para representar −75: <input class="hu" style="width:8em" aria-label="hueco 4" data-a="8"><div class="sol"></div></li><li>13,25 en 32 bits (sesgo 127): exponente sesgado en binario: <input class="hu" style="width:8em" aria-label="hueco 5" data-a="10000010"><div class="sol"></div></li><li>Primeros 5 bits de la mantisa de 13,25: <input class="hu" style="width:8em" aria-label="hueco 6" data-a="10101"><div class="sol"></div></li><li>−0,75 en 32 bits: exponente sesgado en binario: <input class="hu" style="width:8em" aria-label="hueco 7" data-a="01111110"><div class="sol"></div></li></ol>
+  <button class="btnx chk" type="button" data-g="xd">Comprobar</button>
+  <div class="fd" id="fxd" aria-live="polite"></div>
+  <div class="xrefs">Teoría: <a href="#t1-e3">1.3 · enteros y C2</a> · <a href="#t1-e4">1.4 · IEEE 754</a></div>
+</section><section id="x-e7">
+  <h2 aria-level="3"><span class="n">2025</span>Coma flotante de 16 bits y pseudocódigo, en acción <span class="exs" data-ex="xe"></span></h2>
+  <p class="sub">Tipo de problema de 2025 con cifras propias: formato 1+5+10 con sesgo 15 y variables de 8 bits en C2 que se truncan</p>
+  <div class="mem"><b>Método.</b> Formato de 16 bits: <b>1</b> de signo + <b>5</b> de exponente (sesgo <b>15</b>) + <b>10</b> de mantisa. Exponente sesgado = e + 15. Las variables de 8 bits en C2 se truncan <b>módulo 256</b>: si la suma sale de [−128, 127], suma o resta 256 hasta volver al rango.</div>
+  <ol class="ex" id="xe"><li>6,5 en 16 bits (sesgo 15): exponente sesgado: <input class="hu" style="width:8em" aria-label="hueco 1" data-a="10001"><div class="sol"></div></li><li>Mantisa de 10 bits de 6,5: <input class="hu" style="width:8em" aria-label="hueco 2" data-a="1010000000"><div class="sol"></div></li><li>0 10011 0100000000 en 16 bits (sesgo 15) vale: <input class="hu" style="width:8em" aria-label="hueco 3" data-a="20"><div class="sol"></div></li><li>a de 8 bits en C2: a = 100; a = a + a; print(a) imprime: <input class="hu" style="width:8em" aria-label="hueco 4" data-a="-56"><div class="sol"></div></li><li>Luego a = a + a; print(a) imprime: <input class="hu" style="width:8em" aria-label="hueco 5" data-a="-112"><div class="sol"></div></li><li>Luego a = a + a; print(a) imprime: <input class="hu" style="width:8em" aria-label="hueco 6" data-a="32"><div class="sol"></div></li></ol>
+  <button class="btnx chk" type="button" data-g="xe">Comprobar</button>
+  <div class="fd" id="fxe" aria-live="polite"></div>
+  <div class="mem"><b>Trampa.</b> 100 + 100 = 200 no cabe en C2 de 8 bits: 200 − 256 = <b>−56</b>. El patrón se repite hacia abajo y, al volver a desbordar por abajo, −224 + 256 = <b>32</b>. El overflow nunca avisa.</div>
+  <div class="xrefs">Teoría: <a href="#t1-e3">1.3 · overflow</a> · <a href="#t1-e4">1.4 · IEEE 754</a> · Más práctica: <a href="#p-e1">ejercicio A</a></div>
+</section></section>
+<section class="tema-sec" id="practica" data-key="p"><a class="up" href="#top">↑ Índice</a><div class="k">CSE INE A1 · Almacenamiento y bases de datos · Bloque III</div><h1 class="tt" aria-level="2">Práctica · ejercicios autocorregibles A–F</h1><p>Aquí están los seis ejercicios del bloque; los siete problemas y comprobaciones de examen viven en la sección Exámenes. El contador de la barra (✎) suma los 13 completados: se corrigen solos, con verde y rojo, y se guarda tu avance aunque cierres el archivo.</p><nav class="ix" aria-label="Epígrafes del tema"><a href="#p-e1">A · completa T1</a><a href="#p-e2">B · completa T2–T4</a><a href="#p-e3">C · elige T1–T2</a><a href="#p-e4">D · elige T3–T4</a><a href="#p-e5">E · empareja T2</a><a href="#p-e6">F · empareja T4</a></nav><section id="p-e1">
+  <h2 aria-level="3"><span class="n">A</span>Calcula y completa: T1 <span class="exs" data-ex="xa"></span></h2>
+  <p class="sub">15 huecos · C2, rangos, coma flotante, hexadecimal y UTF-8</p>
+  <ol class="ex" id="xa"><li>Representa −45 en C2 con 8 bits: <input class="hu" style="width:8em" aria-label="hueco 1" data-a="11010011"><div class="sol"></div></li><li>El patrón 11100110 en C2 vale (decimal): <input class="hu" style="width:8em" aria-label="hueco 2" data-a="-26"><div class="sol"></div></li><li>Con 12 bits en C2 el valor mínimo es: <input class="hu" style="width:8em" aria-label="hueco 3" data-a="-2048"><div class="sol"></div></li><li>35 − 58 en C2 de 8 bits da (decimal): <input class="hu" style="width:8em" aria-label="hueco 4" data-a="-23"><div class="sol"></div></li><li>Bits mínimos en C2 para representar −200: <input class="hu" style="width:8em" aria-label="hueco 5" data-a="9"><div class="sol"></div></li><li>100 + 50 con 8 bits en C2 se lee como (overflow): <input class="hu" style="width:8em" aria-label="hueco 6" data-a="-106"><div class="sol"></div></li><li>x de 8 bits en C2: x = 120; x = x + 10 imprime: <input class="hu" style="width:8em" aria-label="hueco 7" data-a="-126"><div class="sol"></div></li><li>Después x = x + 10 imprime: <input class="hu" style="width:8em" aria-label="hueco 8" data-a="-116"><div class="sol"></div></li><li>Después x = x − 30 imprime: <input class="hu" style="width:8em" aria-label="hueco 9" data-a="110"><div class="sol"></div></li><li>−5,75 en 32 bits (sesgo 127): exponente sesgado en binario: <input class="hu" style="width:8em" aria-label="hueco 10" data-a="10000001"><div class="sol"></div></li><li>10,5 en 16 bits (sesgo 15): exponente sesgado en binario: <input class="hu" style="width:8em" aria-label="hueco 11" data-a="10010"><div class="sol"></div></li><li>1 01101 1000000000 en 16 bits (sesgo 15) vale: <input class="hu" style="width:8em" aria-label="hueco 12" data-a="-0.375"><div class="sol"></div></li><li>0xB7 en decimal es: <input class="hu" style="width:8em" aria-label="hueco 13" data-a="183"><div class="sol"></div></li><li>Bits necesarios para distinguir 1000 valores: <input class="hu" style="width:8em" aria-label="hueco 14" data-a="10"><div class="sol"></div></li><li>«año» en UTF-8 ocupa (bytes): <input class="hu" style="width:8em" aria-label="hueco 15" data-a="4"><div class="sol"></div></li></ol>
+  <button class="btnx chk" type="button" data-g="xa">Comprobar</button>
+  <div class="fd" id="fxa" aria-live="polite"></div>
+  <div class="xrefs">Teoría: <a href="#t1-e3">1.3</a> · <a href="#t1-e4">1.4</a> · <a href="#t1-e7">1.B</a> · Fórmulas: <a href="#s-e6">tabla Σ 6</a></div>
+</section><section id="p-e2">
+  <h2 aria-level="3"><span class="n">B</span>Calcula y completa: T2 a T4 <span class="exs" data-ex="xb"></span></h2>
+  <p class="sub">15 huecos · direccionamiento, caché, RAID, fragmentación, SO y SGBD</p>
+  <ol class="ex" id="xb"><li>Memoria de 512 KB, páginas de 8 KB, palabras de 64 bits: bits de dirección: <input class="hu" style="width:8em" aria-label="hueco 1" data-a="16"><div class="sol"></div></li><li>Número de páginas en ese caso: <input class="hu" style="width:8em" aria-label="hueco 2" data-a="64"><div class="sol"></div></li><li>Bus de direcciones de 32 bits con celdas de 1 byte direcciona (GiB): <input class="hu" style="width:8em" aria-label="hueco 3" data-a="4"><div class="sol"></div></li><li>Tiempo medio con 90 % de aciertos, caché 2 ns, RAM 100 ns (ns): <input class="hu" style="width:8em" aria-label="hueco 4" data-a="11.8"><div class="sol"></div></li><li>RAID 5 con 4 discos de 4 TB: capacidad útil (TB): <input class="hu" style="width:8em" aria-label="hueco 5" data-a="12"><div class="sol"></div></li><li>RAID 10 con 4 discos de 4 TB: capacidad útil (TB): <input class="hu" style="width:8em" aria-label="hueco 6" data-a="8"><div class="sol"></div></li><li>RAID 0 tolera el fallo de este número de discos: <input class="hu" style="width:8em" aria-label="hueco 7" data-a="0"><div class="sol"></div></li><li>Huecos de 256 KB y 64 KB y un proceso de 272 KB: fragmentación externa (KB): <input class="hu" style="width:8em" aria-label="hueco 8" data-a="320"><div class="sol"></div></li><li>Partición de 512 KB con un proceso de 128 KB: fragmentación interna (KB): <input class="hu" style="width:8em" aria-label="hueco 9" data-a="384"><div class="sol"></div></li><li>Estados activos de un proceso: Ejecución, Preparado y: <input class="hu" style="width:8em" aria-label="hueco 10" data-a="bloqueado"><div class="sol"></div></li><li>Las instrucciones privilegiadas se ejecutan en modo: <input class="hu" style="width:8em" aria-label="hueco 11" data-a="núcleo|nucleo|kernel"><div class="sol"></div></li><li>El registro que apunta a la siguiente instrucción es el: <input class="hu" style="width:8em" aria-label="hueco 12" data-a="PC|contador de programa"><div class="sol"></div></li><li>La memoria que se busca por contenido es la: <input class="hu" style="width:8em" aria-label="hueco 13" data-a="caché|cache"><div class="sol"></div></li><li>Las páginas son de tamaño ___ y los segmentos de tamaño variable: <input class="hu" style="width:8em" aria-label="hueco 14" data-a="fijo"><div class="sol"></div></li><li>El nivel ANSI/SPARC con el esquema lógico de toda la BD es el: <input class="hu" style="width:8em" aria-label="hueco 15" data-a="conceptual"><div class="sol"></div></li></ol>
+  <button class="btnx chk" type="button" data-g="xb">Comprobar</button>
+  <div class="fd" id="fxb" aria-live="polite"></div>
+  <div class="xrefs">Teoría: <a href="#t2-e3">2.3</a> · <a href="#t2-e4">2.4</a> · <a href="#t3-e2">3.2</a> · <a href="#t3-e5">3.A</a> · <a href="#t4-e3">4.3</a></div>
+</section><section id="p-e3">
+  <h2 aria-level="3"><span class="n">C</span>Elige la respuesta correcta (T1–T2) <span class="exs" data-ex="qa"></span></h2>
+  <p class="sub">Once preguntas de opción múltiple sobre representación y hardware</p>
+  <ol class="ex" id="qa"></ol>
+  <div class="fd" id="fqa" aria-live="polite"></div>
+</section><section id="p-e4">
+  <h2 aria-level="3"><span class="n">D</span>Elige la respuesta correcta (T3–T4) <span class="exs" data-ex="qb"></span></h2>
+  <p class="sub">Once preguntas de opción múltiple sobre sistemas operativos y bases de datos</p>
+  <ol class="ex" id="qb"></ol>
+  <div class="fd" id="fqb" aria-live="polite"></div>
+</section><section id="p-e5">
+  <h2 aria-level="3"><span class="n">E</span>Une cada concepto con su rasgo (T2) <span class="exs" data-ex="ma"></span></h2>
+  <p class="sub">Toca un concepto y después su rasgo</p>
+  <div class="pm" id="ma"></div>
+  <div class="fd" id="fma">0 / 6 parejas</div>
+  <div class="xrefs">Teoría: <a href="#t2-e4">2.4 · RAID</a> · <a href="#t2-e5">2.5 · buses</a></div>
+</section><section id="p-e6">
+  <h2 aria-level="3"><span class="n">F</span>Une cada limitación con su solución (T4) <span class="exs" data-ex="mb"></span></h2>
+  <p class="sub">Toca una limitación de los ficheros y después lo que aporta un SGBD</p>
+  <div class="pm" id="mb"></div>
+  <div class="fd" id="fmb">0 / 6 parejas</div>
+  <div class="xrefs">Teoría: <a href="#t4-e1">4.1 · cinco limitaciones</a> · <a href="#t4-e4">4.4 · ventajas</a></div>
+</section></section>
+<section class="tema-sec" id="tablas" data-key="s"><a class="up" href="#top">↑ Índice</a><div class="k">CSE INE A1 · Almacenamiento y bases de datos · Bloque III</div><h1 class="tt" aria-level="2">Tablas transversales</h1><p>Lo que está repartido entre varios temas, reunido para memorizarlo de una vez. Las cifras son las de los esquemas y de los ejercicios. Con «Tapar columna» puedes tapar cualquier columna de cualquier tabla y revelarla celda a celda.</p><nav class="ix" aria-label="Epígrafes del tema"><a href="#s-e1">Σ 1 Representación</a><a href="#s-e2">Σ 2 Memoria</a><a href="#s-e3">Σ 3 RAID y buses</a><a href="#s-e4">Σ 4 SO</a><a href="#s-e5">Σ 5 SGBD</a><a href="#s-e6">Σ 6 Fórmulas</a></nav><section id="s-e1">
+  <h2 aria-level="3"><span class="n">Σ 1</span>Convenios de representación</h2>
+  <p class="sub">Enteros, reales y texto, en dos tablas · teoría en 1.3, 1.4 y 1.B</p>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: enteros y reales" style="padding:0;margin-top:10px"><table style="min-width:620px"><tr><th scope="col">Convenio</th><th scope="col">Cómo se codifica</th><th scope="col">Detalle de examen</th></tr><tr><td>Signo-magnitud</td><td>Bit de signo + valor absoluto</td><td>Doble cero (+0, −0)</td></tr><tr><td>Complemento a 1</td><td>Invertir todos los bits</td><td>Doble cero</td></tr><tr><td>Complemento a 2</td><td>Invertir y sumar 1</td><td>Rango [−2<sup>n−1</sup>, 2<sup>n−1</sup>−1]; 8 bits: −128…+127; el de los procesadores</td></tr><tr><td>IEEE 754 · 32 bits</td><td>signo 1 + exponente con sesgo 127 + mantisa con 1 implícito</td><td>palabra fija de 32 bits; normalizar antes de codificar</td></tr><tr><td>IEEE 754 · 16 bits (2025)</td><td>1 + 5 + 10, sesgo 15</td><td>exponente sesgado = e + 15</td></tr></table></div>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: códigos de texto" style="padding:0;margin-top:12px"><table style="min-width:620px"><tr><th scope="col">Código</th><th scope="col">Bits</th><th scope="col">Detalle</th></tr><tr><td>ASCII</td><td>7</td><td>128 símbolos; el extendido, 8</td></tr><tr><td>EBCDIC</td><td>8</td><td>IBM; solo mainframes</td></tr><tr><td>UTF-8</td><td>8 a 32</td><td>1 a 4 bytes; 0–127 = ASCII de 1 byte</td></tr><tr><td>UTF-16</td><td>16 o 32</td><td>65 536 caracteres directos; sin acentos, el doble que UTF-8</td></tr><tr><td>UTF-32</td><td>32</td><td>4 bytes fijos por carácter</td></tr></table></div>
+  <div class="mem"><b>Clave.</b> Un dígito hexadecimal equivale a <b>4 bits</b>; uno octal, a <b>3</b>. Con n dígitos en base b hay b<sup>n</sup> combinaciones, de 0 a b<sup>n</sup>−1. Todo lo demás de T1 gira alrededor de esta tabla.</div>
+</section><section id="s-e2">
+  <h2 aria-level="3"><span class="n">Σ 2</span>La memoria de bolsillo</h2>
+  <p class="sub">Jerarquía y formas de acceso · teoría en 1.A y 2.3</p>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: jerarquía de memoria" style="padding:0;margin-top:10px"><table style="min-width:560px"><tr><th scope="col">Nivel</th><th scope="col">Volátil</th><th scope="col">Papel</th></tr><tr><td>Registros</td><td>Sí</td><td>Acceso casi instantáneo; decenas de bytes</td></tr><tr><td>Caché L1/L2/L3 (SRAM)</td><td>Sí</td><td>Copias de lo más usado, entre CPU y RAM; acceso asociativo</td></tr><tr><td>Memoria principal (DRAM/SDRAM)</td><td>Sí</td><td>Programas y datos en ejecución; lectura destructiva y refresco</td></tr><tr><td>Secundaria (HDD, SSD)</td><td>No</td><td>Persistencia; SSD = flash, ciclos de escritura finitos</td></tr><tr><td>Terciaria</td><td>No</td><td>Copias de seguridad de muy bajo coste</td></tr></table></div>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: formas de acceso" style="padding:0;margin-top:12px"><table style="min-width:560px"><tr><th scope="col">Acceso</th><th scope="col">Cómo funciona</th><th scope="col">Dónde</th></tr><tr><td>Aleatorio</td><td>Dirección única; tiempo independiente de la posición</td><td>RAM, ROM</td></tr><tr><td>Secuencial</td><td>Se recorre en orden</td><td>Cinta magnética</td></tr><tr><td>Directo</td><td>Se salta al bloque y se lee en secuencia dentro</td><td>Discos magnéticos</td></tr><tr><td>Asociativo</td><td>Se busca por contenido, todas a la vez</td><td>Caché</td></tr></table></div>
+  <div class="mem"><b>Clave.</b> La caché se justifica por la <b>localidad temporal</b> (lo usado hace poco vuelve a usarse) y la <b>espacial</b> (lo cercano también). El acceso a memoria auxiliar es ~<b>1000 veces</b> más lento que el de la principal.</div>
+</section><section id="s-e3">
+  <h2 aria-level="3"><span class="n">Σ 3</span>RAID y buses</h2>
+  <p class="sub">Los dos inventos de T2 que traen números en los ejercicios · teoría en 2.4 y 2.5</p>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: RAID" style="padding:0;margin-top:10px"><table style="min-width:560px"><tr><th scope="col">Nivel</th><th scope="col">Técnica</th><th scope="col">Tolera fallos</th><th scope="col">Capacidad útil</th></tr><tr><td>RAID 0</td><td>Striping</td><td>Ninguno</td><td>n·s (todo)</td></tr><tr><td>RAID 1</td><td>Mirroring</td><td>1 disco</td><td>50 %</td></tr><tr><td>RAID 5</td><td>Striping + paridad distribuida</td><td>1 disco</td><td>(n−1)·s</td></tr><tr><td>RAID 10</td><td>Mirroring + striping</td><td>Alta redundancia</td><td>50 %</td></tr></table></div>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: buses" style="padding:0;margin-top:12px"><table style="min-width:560px"><tr><th scope="col">Bus</th><th scope="col">Transporta</th><th scope="col">Su anchura determina…</th></tr><tr><td>Datos</td><td>Los datos intercambiados</td><td>Bits transferidos a la vez</td></tr><tr><td>Direcciones</td><td>La dirección a acceder</td><td>Memoria máxima direccionable (2<sup>n</sup> celdas)</td></tr><tr><td>Control</td><td>Señales de coordinación</td><td>Lectura/escritura, interrupciones, temporización</td></tr></table></div>
+  <div class="mem"><b>Regla rápida.</b> Con 4 discos de 4 TB: RAID 5 → <b>12 TB</b> útiles; RAID 10 → <b>8 TB</b>; RAID 0 → 16 TB pero sin tolerancia. Y con 90 % de aciertos, caché de 2 ns y RAM de 100 ns, el tiempo medio es <b>11,8 ns</b>.</div>
+</section><section id="s-e4">
+  <h2 aria-level="3"><span class="n">Σ 4</span>El sistema operativo de bolsillo</h2>
+  <p class="sub">Estructuras, memoria, planificación y ficheros · teoría en 3.1–3.B</p>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: estructuras del SO" style="padding:0;margin-top:10px"><table style="min-width:560px"><tr><th scope="col">Estructura</th><th scope="col">Idea</th></tr><tr><td>Monolítica</td><td>Todo en modo núcleo, procedimientos que se llaman</td></tr><tr><td>En capas</td><td>Cada capa usa solo la inferior; capa 0 = hardware</td></tr><tr><td>Microkernel</td><td>Núcleo mínimo (IPC); servicios en modo usuario</td></tr><tr><td>Módulos / híbrida</td><td>Carga dinámica / mezcla de modelos</td></tr></table></div>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: asignación de memoria" style="padding:0;margin-top:12px"><table style="min-width:620px"><tr><th scope="col">Esquema</th><th scope="col">Fragmentación</th><th scope="col">Matiz</th></tr><tr><td>Particiones múltiples</td><td>Interna</td><td>El proceso no llena el hueco fijo</td></tr><tr><td>Particiones dinámicas</td><td>Externa</td><td>Huecos pequeños repartidos; alivia la compactación</td></tr><tr><td>Paginación</td><td>Interna</td><td>Páginas y marcos de tamaño fijo; transparente al usuario</td></tr><tr><td>Segmentación</td><td>Externa</td><td>Segmentos lógicos de tamaño variable; visible al usuario</td></tr><tr><td>Segmentación paginada</td><td>Combina</td><td>Lo mejor de ambas; la más costosa</td></tr></table></div>
+  <div class="grid g2" style="margin-top:12px">
+    <div class="box ac"><b>Planificación de CPU</b><small>Por prioridad · trabajo más corto primero · FIFO · Round Robin · por política. Discos: FIFO, SSTF (el más cercano), SCAN (elevador), C-SCAN (circular).</small></div>
+    <div class="box teal"><b>Estados del proceso</b><small>Activos: <b>ejecución, preparado, bloqueado</b>. Inactivos: suspendido bloqueado, suspendido programado. Niveles del SO por ejecución: 0 núcleo, 1 ejecutivo, 2 supervisor, 3 usuario.</small></div>
+  </div>
+  <div class="mem"><b>Clave.</b> El <b>kernel</b> se ejecuta con mayores privilegios y está <b>siempre en memoria</b>; el resto del SO se carga según se necesite. El temporizador devuelve el control al SO; el modo dual protege las instrucciones privilegiadas.</div>
+</section><section id="s-e5">
+  <h2 aria-level="3"><span class="n">Σ 5</span>El SGBD de bolsillo</h2>
+  <p class="sub">Limitaciones, componentes, niveles y balances · teoría en 4.1–4.4</p>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: limitación y solución" style="padding:0;margin-top:10px"><table style="min-width:560px"><tr><th scope="col">Limitación de los ficheros</th><th scope="col">Lo que aporta el SGBD</th></tr><tr><td>Aislamiento de datos</td><td>Datos integrados y compartidos</td></tr><tr><td>Duplicación</td><td>Control de la redundancia</td></tr><tr><td>Dependencia de datos</td><td>Independencia lógica y física</td></tr><tr><td>Formatos incompatibles</td><td>Mantenimiento de estándares</td></tr><tr><td>Consultas fijas</td><td>Lenguajes de consulta ad hoc</td></tr><tr><td>Falta de control central</td><td>Seguridad e integridad</td></tr></table></div>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: componentes del SGBD" style="padding:0;margin-top:12px"><table style="min-width:560px"><tr><th scope="col">Componente</th><th scope="col">Función</th></tr><tr><td>Motor (núcleo)</td><td>Almacenamiento físico y acceso</td></tr><tr><td>DDL</td><td>Define tipos, estructuras y restricciones</td></tr><tr><td>DML</td><td>Inserta, actualiza, elimina y recupera</td></tr><tr><td>Diccionario de datos</td><td>Catálogo de metadatos de la propia base</td></tr></table></div>
+  <div class="grid g2" style="margin-top:12px">
+    <div class="box ac"><b>ANSI/SPARC</b><small>Externo (vistas) → conceptual (esquema lógico) → interno (físico). Independencia <b>lógica</b>: cambiar el esquema no toca las vistas. Independencia <b>física</b>: cambiar disco o índices no toca el esquema.</small></div>
+    <div class="box teal"><b>Balances</b><small>Ventajas: redundancia, consistencia, compartición, estándares, integridad, seguridad, ad hoc, productividad, independencia, concurrencia, respaldo. Costes: complejidad, tamaño, precio, hardware y conversión, rendimiento genérico, fallo central.</small></div>
+  </div>
+  <div class="mem"><b>Trampa.</b> Base de datos ≠ SGBD: la base es el <b>conjunto de datos</b>; el SGBD, el <b>software</b> que la gestiona. Y el diccionario de datos es metadatos, no el lenguaje de consulta.</div>
+</section><section id="s-e6">
+  <h2 aria-level="3"><span class="n">Σ 6</span>Fórmulas y resultados de examen</h2>
+  <p class="sub">Todas las cuentas del bloque, con un ejemplo resuelto de las propias prácticas</p>
+  <div class="tw card" tabindex="0" role="region" aria-label="Tabla: fórmulas" style="padding:0;margin-top:10px"><table style="min-width:660px"><tr><th scope="col">Magnitud</th><th scope="col">Fórmula</th><th scope="col">Ejemplo del bloque</th></tr><tr><td>Combinaciones con n bits</td><td>2<sup>n</sup></td><td>8 bits → 256; 12 bits → 4096</td></tr><tr><td>Bits para N valores</td><td>⌈log<sub>2</sub> N⌉</td><td>1000 valores → 10 bits</td></tr><tr><td>Rango en C2 (n bits)</td><td>[−2<sup>n−1</sup>, 2<sup>n−1</sup>−1]</td><td>8 bits → −128…+127; 12 bits → mínimo −2048</td></tr><tr><td>Bits mínimos para −k</td><td>el menor n con 2<sup>n−1</sup> ≥ k</td><td>−75 → 8 bits; −200 → 9 bits</td></tr><tr><td>Exponente sesgado</td><td>e + sesgo</td><td>32 bits: sesgo 127; 16 bits: sesgo 15</td></tr><tr><td>Espacio direccionable</td><td>2<sup>n</sup> celdas</td><td>bus de 32 bits, celdas de 1 byte → 4 GiB</td></tr><tr><td>Número de páginas</td><td>memoria / tamaño de página</td><td>512 KB / 8 KB → 64 páginas; palabra de 64 bits → 16 bits de dirección</td></tr><tr><td>Tiempo medio con caché</td><td>h·t<sub>caché</sub> + (1−h)·t<sub>RAM</sub></td><td>90 %, 2 ns y 100 ns → 11,8 ns</td></tr><tr><td>Capacidad útil RAID</td><td>0: n·s · 1 y 10: 50 % · 5: (n−1)·s</td><td>4 discos de 4 TB: R5 → 12 TB, R10 → 8 TB</td></tr><tr><td>Desbordamiento C2 módulo 2<sup>n</sup></td><td>suma ± 2<sup>n</sup> hasta volver al rango</td><td>100+50 → −106; 200 → −56; −224 → 32</td></tr></table></div>
+  <div class="mem"><b>Banco de ejemplos resueltos.</b> −37: SM 10100101 · C1 11011010 · C2 11011011. Patrón 10011100 → −100; 11100110 → −26. 47 − 73 → −26. 13,25: exponente 10000010, mantisa 10101… −0,75: exponente 01111110. 6,5 en 16 bits: 0 10001 1010000000. 0 10011 0100000000 → 20. 0xB7 → 183. «año» en UTF-8 → 4 bytes.</div>
+</section></section>
+<section class="tema-sec" id="cierre" data-key="c"><a class="up" href="#top">↑ Índice</a><div class="k">CSE INE A1 · Almacenamiento y bases de datos · Bloque III</div><h1 class="tt" aria-level="2">Cierre · lo que debes llevarte</h1><p>El hilo conductor del Bloque III en tres frases; si las tres están firmes, el resto es relleno.</p><section id="c-e1">
+  <h2 aria-level="3"><span class="n">Fin</span>Tres frases para la maleta</h2>
+  <div class="grid g3" style="margin-top:10px">
+    <div class="box ac"><b>1</b><small>Todo es cadena de <b>bits</b>; el significado lo da el convenio (C2, IEEE 754, UTF-8) y el programa que interpreta.</small></div>
+    <div class="box teal"><b>2</b><small>El hardware reparte <b>velocidad y capacidad</b> en niveles; el SO lo organiza y lo protege.</small></div>
+    <div class="box ok"><b>3</b><small>El <b>SGBD</b> centraliza el control de los datos y resuelve las limitaciones de los ficheros tradicionales.</small></div>
+  </div>
+  <div class="mem"><b>Repaso final.</b> Bits con convenios (T1), capas que organizan y ocultan (T2–T3), y el control centralizado de los datos (T4). Cada capa de la pila existe porque la de abajo es lenta, pequeña o incómoda de usar.</div>
+  <div class="xrefs">Siguiente paso: <a href="#p-e1">practicar el ejercicio A</a> · <a href="#x-e5">repetir el problema tipo de 2023</a> · <a href="#s-e6">la tabla Σ 6 antes del examen</a></div>
+  <p class="pgn">Fin del Bloque III · teoría y ejercicios</p>
+</section></section>
+<footer>Esquemas del Bloque III (T1–T4) de «Almacenamiento y bases de datos», a partir del documento «Teoría completa T1–T4 + exámenes + práctica» · enunciados y cuestiones de las convocatorias 2022–2025 según el INE · resúmenes de repaso espaciado, notas y estrellas viviendo en este navegador.</footer>
+</main>
+<a class="fab" href="#top">↑ Índice</a>
+<div id="toast" class="toast" role="status" hidden></div>
+<div id="fcs" class="fcs" role="toolbar" aria-label="Modo foco" hidden><button id="fb" type="button" aria-label="Anterior">◀</button><span id="fct"></span><button id="frv" type="button">Revelar respuesta</button><button id="ff" type="button" aria-label="Siguiente">▶</button><button id="fx" type="button">Salir</button></div>
+<div id="dom" class="dom" role="dialog" aria-modal="true" aria-labelledby="domt" hidden><div class="pn"><div class="hd"><h2 id="domt">Mapa de dominio</h2><button id="domx" class="cl" type="button">Cerrar</button></div><div><label>Fecha del examen<input id="domex" type="date"></label></div><div id="domm"></div><div id="domg"></div><div class="dkl"><span><i></i>Sin repasar</span><span><i class="due"></i>Vence hoy</span><span><i class="ok"></i>Al día</span><span>★ Difícil</span></div></div></div>
+<script>
+(function(){
+function fold(s){return s.toLowerCase().replace(/[áàäâ]/g,'a').replace(/[éèëê]/g,'e').replace(/[íìïî]/g,'i').replace(/[óòöô]/g,'o').replace(/[úùüû]/g,'u').replace(/ñ/g,'n');}
+function esc(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+var inp=document.getElementById('q'),cnt=document.getElementById('cnt'),clr=document.getElementById('qc'),tg=document.getElementById('tp');
+var opened=[],timer=null;
+function unmark(){document.querySelectorAll('mark.sh').forEach(function(m){var p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});}
+function hl(block,re){
+  var w=document.createTreeWalker(block,NodeFilter.SHOW_TEXT,{acceptNode:function(n){var t=n.parentNode.nodeName;return(t==='SCRIPT'||t==='STYLE')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT;}});
+  var nodes=[],n;while((n=w.nextNode()))nodes.push(n);
+  var hit=false;
+  nodes.forEach(function(nd){
+    var v=nd.nodeValue,f=fold(v);re.lastIndex=0;var m,last=0,frag=null;
+    while((m=re.exec(f))){
+      if(!m[0].length){re.lastIndex++;continue;}
+      if(!frag)frag=document.createDocumentFragment();
+      if(m.index>last)frag.appendChild(document.createTextNode(v.slice(last,m.index)));
+      var k=document.createElement('mark');k.className='sh';k.textContent=v.slice(m.index,m.index+m[0].length);frag.appendChild(k);
+      last=m.index+m[0].length;hit=true;
+    }
+    if(frag){if(last<v.length)frag.appendChild(document.createTextNode(v.slice(last)));nd.parentNode.replaceChild(frag,nd);}
+  });
+  return hit;
+}
+function run(){
+  unmark();
+  opened.forEach(function(d){d.open=false;});opened=[];
+  var q=fold(inp.value).trim(),words=q.split(/\s+/).filter(function(x){return x.length>=2;});
+  var blocks=document.querySelectorAll('section[id*="-e"],article.pc');
+  var secs=document.querySelectorAll('section.tema-sec'),tms=document.querySelectorAll('section.tm');
+  clr.style.display=inp.value?'':'none';
+  if(!words.length){
+    blocks.forEach(function(b){b.classList.remove('nm')});secs.forEach(function(s){s.classList.remove('nm')});tms.forEach(function(s){s.classList.remove('nm')});
+    cnt.textContent='';return;
+  }
+  var re=new RegExp(words.map(esc).join('|'),'g'),total=0;
+  blocks.forEach(function(b){
+    var ok=words.every(function(x){return fold(b.textContent).indexOf(x)>-1;});
+    b.classList.toggle('nm',!ok);
+    if(ok){total++;hl(b,re);b.querySelectorAll('details.plan').forEach(function(d){if(d.querySelector('mark.sh')&&!d.open){d.open=true;opened.push(d);}});}
+  });
+  tms.forEach(function(s){s.classList.toggle('nm',!s.querySelector('article.pc:not(.nm)'));});
+  secs.forEach(function(s){s.classList.toggle('nm',!s.querySelector('section[id*="-e"]:not(.nm),article.pc:not(.nm)'));});
+  cnt.textContent=total?total+' bloque'+(total>1?'s':'')+' con coincidencias':'Sin resultados';
+}
+inp.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(run,160);});
+clr.addEventListener('click',function(){inp.value='';run();inp.focus();});
+var allOpen=false;
+tg.addEventListener('click',function(){allOpen=!allOpen;document.querySelectorAll('details.plan').forEach(function(d){d.open=allOpen;});opened=[];tg.textContent=allOpen?'Ocultar respuestas modelo':'Mostrar respuestas modelo';});
+document.addEventListener('keydown',function(e){if(e.key==='/'&&document.activeElement!==inp&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();inp.focus();}if(e.key==='Escape'&&document.activeElement===inp){inp.value='';run();inp.blur();}});
+window.addEventListener('beforeprint',function(){document.querySelectorAll('details.plan').forEach(function(d){d.open=true;});});
+})();
+</script>
+<script>
+(function(){
+var SR='abd-sr-v1',FAV='abd-fav-v1',NT='abd-notes-v1',TH='abd-theme-v1',FZ='abd-fz-v1';
+var INT=[1,3,7,14,30],BK='abd-bk-v1',VER='abd-ver-v1',EXM='abd-exam-v1',LST='abd-last-v1',VDAYS=90;
+function load(k,d){try{var v=JSON.parse(localStorage.getItem(k)||'null');return(v&&typeof v==='object')?v:d;}catch(e){return d;}}
+function store(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function pad(n){return(n<10?'0':'')+n;}
+function today(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function ts(str){var a=str.split('-');return Date.UTC(+a[0],+a[1]-1,+a[2]);}
+function addDays(str,n){var d=new Date(ts(str)+n*86400000);return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate());}
+function fmt(str){var a=str.split('-');return a[2]+'/'+a[1];}
+function fmtFull(str){var a=str.split('-');return a[2]+'/'+a[1]+'/'+a[0];}
+var sr=load(SR,{}),fav=load(FAV,{}),notes=load(NT,{}),bk=load(BK,{}),ver=load(VER,{}),exam=load(EXM,{});
+function rate(id,q){
+  var e=sr[id],st=status(id),s=e?e.s:1;
+  if(q==='f')s=1;
+  else if(q==='c')s=Math.max(1,Math.min(s,INT.length));
+  else s=(st==='due')?Math.min(s+1,INT.length):2;
+  sr[id]={s:s,d:today()};
+  store(SR,sr);touch();
+}
+function verStatus(id){var v=ver[id];if(!v)return'none';return days(today(),v)>VDAYS?'old':'ok';}
+function days(a,b){return Math.round((ts(a)-ts(b))/86400000);}
+function hasProg(){return Object.keys(sr).length+Object.keys(fav).length+Object.keys(notes).length>0;}
+function touch(){if(!bk.since){bk.since=today();store(BK,bk);}bkUI();}
+function bkUI(){
+  var ex=document.getElementById('ex'),el=document.getElementById('bk'),n=(bk.since&&hasProg())?Math.max(0,days(today(),bk.since)):0,late=n>=3;
+  if(ex){ex.classList.toggle('late',late);ex.textContent=late?'Guardar progreso ('+n+' d)':'Guardar progreso';}
+  if(!el)return;
+  var show=late&&bk.snooze!==today();
+  el.hidden=!show;
+  if(show)el.querySelector('span').textContent='Llevas '+n+' días sin guardar tu progreso. Los repasos, las estrellas, las notas y los ejercicios viven solo en este navegador: si limpias los datos o abres el archivo desde otra ruta, se pierden.';
+}
+function nextDate(id){var e=sr[id];return e?addDays(e.d,INT[Math.min(e.s,INT.length)-1]):null;}
+function status(id){var e=sr[id];if(!e)return'new';return today()>=nextDate(id)?'due':'ok';}
+
+var blocks=[].slice.call(document.querySelectorAll('section[id*="-e"],article.pc'));
+var secs=[].slice.call(document.querySelectorAll('section.tema-sec')),tms=[].slice.call(document.querySelectorAll('section.tm'));
+var $=function(i){return document.getElementById(i);};
+var hd=$('hd'),mo=$('mo'),rs=$('rs'),prog=$('prog'),bar=document.querySelector('.sbar'),du=$('du'),fvb=$('fvb');
+var hideDone=false,memOnly=false,dueOnly=false,favOnly=false,verOnly=false,rsT=null;
+
+blocks.forEach(function(b){
+  if(!b.querySelector('.mem'))b.classList.add('nomem');
+  var l=document.createElement('label');l.className='rv';
+  var c=document.createElement('input');c.type='checkbox';c.setAttribute('aria-label','Marcar como repasado');
+  var t=document.createElement('span');
+  l.appendChild(c);l.appendChild(t);
+  var f=document.createElement('button');f.type='button';f.className='fv';f.textContent='☆';f.setAttribute('aria-pressed','false');f.setAttribute('aria-label','Marcar como difícil');f.title='Marcar como difícil';
+  var ctl=document.createElement('span');ctl.className='ctl';ctl.appendChild(f);ctl.appendChild(l);
+  var host=b.matches('article')?b.querySelector('.top'):b.querySelector('h2');
+  if(host)host.appendChild(ctl);
+  var d=document.createElement('details');d.className='nt';
+  var sm=document.createElement('summary');sm.textContent='📝 Notas propias';
+  var ta=document.createElement('textarea');ta.setAttribute('aria-label','Notas propias de este bloque');ta.placeholder='Tu regla mnemotécnica, lo que se te resiste…';
+  d.appendChild(sm);d.appendChild(ta);b.appendChild(d);
+  var vw=document.createElement('div');vw.className='vf';
+  var vb=document.createElement('button');vb.type='button';
+  var vt=document.createElement('span');
+  var vx=document.createElement('button');vx.type='button';vx.textContent='Quitar';
+  vb.addEventListener('click',function(){ver[b.id]=today();store(VER,ver);touch();paint(b);upd();});
+  vx.addEventListener('click',function(){delete ver[b.id];store(VER,ver);touch();paint(b);upd();});
+  vw.appendChild(vb);vw.appendChild(vt);vw.appendChild(vx);b.appendChild(vw);
+  b._u={c:c,t:t,l:l,f:f,d:d,ta:ta,vw:vw,vb:vb,vt:vt,vx:vx};
+  ta.value=notes[b.id]||'';
+  d.classList.toggle('has',!!ta.value.trim());
+  var g=document.createElement('span');g.className='rt';
+  [['f','Fallé','Volverá a tocar mañana'],['c','Me costó','Repites el mismo intervalo (1 día si es nuevo)'],['e','Fácil','Pasa al siguiente intervalo (3 días si es nuevo)']].forEach(function(x){
+    var k=document.createElement('button');k.type='button';k.className=x[0];k.textContent=x[1];k.title=x[2];
+    k.addEventListener('click',function(){rate(b.id,x[0]);paint(b);upd();});
+    g.appendChild(k);
+  });
+  ctl.insertBefore(g,l);b._u.g=g;
+  c.addEventListener('change',function(){
+    if(c.checked)rate(b.id,'c');else{delete sr[b.id];store(SR,sr);}
+    paint(b);upd();
+  });
+  f.addEventListener('click',function(){
+    if(fav[b.id])delete fav[b.id];else fav[b.id]=1;
+    store(FAV,fav);touch();paint(b);vis();
+  });
+  ta.addEventListener('input',function(){
+    var v=ta.value;if(v.trim())notes[b.id]=v;else delete notes[b.id];
+    store(NT,notes);touch();d.classList.toggle('has',!!v.trim());
+  });
+  paint(b);
+});
+function paint(b){
+  var u=b._u,st=status(b.id);
+  b.classList.toggle('done',st==='ok');b.classList.toggle('due',st==='due');
+  u.c.checked=(st==='ok');u.l.classList.toggle('dl',st==='due');
+  u.t.textContent=st==='due'?' Toca repasar':(st==='ok'?' Repasado · próx. '+fmt(nextDate(b.id)):'');
+  u.l.title=st==='ok'?'Desmarca para reiniciar este bloque':'';
+  u.c.style.display=(st==='ok')?'':'none';u.g.hidden=(st==='ok');
+  var vs=verStatus(b.id);
+  u.vt.textContent=vs==='none'?'Sin contrastar con el examen del INE':'Contrastado el '+fmtFull(ver[b.id])+(vs==='old'?' (hace '+days(today(),ver[b.id])+' días: conviene repetirlo)':'');
+  u.vb.textContent=vs==='none'?'Marcar contrastado hoy':'Contrastado de nuevo hoy';
+  u.vx.style.display=vs==='none'?'none':'';u.vw.classList.toggle('old',vs==='old');
+  var fv=!!fav[b.id];u.f.textContent=fv?'★':'☆';u.f.setAttribute('aria-pressed',fv?'true':'false');
+  b.classList.toggle('fvd',fv);
+}
+function hidden(b){var st=status(b.id);return(hideDone&&st==='ok')||(dueOnly&&st!=='due')||(favOnly&&!fav[b.id])||(verOnly&&verStatus(b.id)==='ok');}
+function visible(b){return !b.classList.contains('nm')&&!b.classList.contains('hide')&&!hidden(b)&&!(memOnly&&b.classList.contains('nomem'));}
+function vis(){
+  $('hoy').setAttribute('aria-pressed',dueOnly?'true':'false');
+  blocks.forEach(function(b){b.classList.toggle('dn',hidden(b));});
+  tms.forEach(function(t){t.classList.toggle('em',![].some.call(t.querySelectorAll('article.pc'),visible));});
+  secs.forEach(function(s){s.classList.toggle('em',![].some.call(s.querySelectorAll('section[id*="-e"],article.pc'),visible));});
+}
+function key(s){var m=/^t(\d+)$/.exec(s.id);if(m)return m[1];return s.dataset.key||s.id;}
+function upd(){
+  var tb=0,td=0,nd=0;
+  blocks.forEach(function(b){if(status(b.id)==='due')nd++;});
+  secs.forEach(function(s){
+    var k=key(s),bs=s.querySelectorAll('section[id*="-e"],article.pc'),d=0;
+    bs.forEach(function(b){if(b.classList.contains('done'))d++;});
+    var el=document.querySelector('.tp[data-t="'+k+'"]');
+    if(el){el.textContent=d+'/'+bs.length;el.classList.toggle('ok',d===bs.length&&bs.length>0);}
+    tb+=bs.length;td+=d;
+  });
+  prog.textContent='Al día: '+td+'/'+tb+' bloques';
+  du.textContent='Toca repasar ('+nd+')';
+  $('hoy').textContent=nd?'Hoy toca: '+nd:'Hoy toca: 0 ✓';
+  vis();
+}
+function paintAll(){blocks.forEach(paint);upd();}
+hd.addEventListener('click',function(){hideDone=!hideDone;hd.setAttribute('aria-pressed',hideDone);vis();});
+du.addEventListener('click',function(){dueOnly=!dueOnly;du.setAttribute('aria-pressed',dueOnly);vis();window.scrollTo(0,0);});
+$('hoy').addEventListener('click',function(){du.click();});
+$('vo').addEventListener('click',function(){verOnly=!verOnly;this.setAttribute('aria-pressed',verOnly?'true':'false');vis();window.scrollTo(0,0);});
+fvb.addEventListener('click',function(){favOnly=!favOnly;fvb.setAttribute('aria-pressed',favOnly);vis();window.scrollTo(0,0);});
+mo.addEventListener('click',function(){memOnly=!memOnly;mo.setAttribute('aria-pressed',memOnly);document.body.classList.toggle('mem-only',memOnly);vis();window.scrollTo(0,0);});
+rs.addEventListener('click',function(){
+  if(rs.dataset.arm){clearTimeout(rsT);rs.dataset.arm='';rs.textContent='Reiniciar progreso';
+    sr={};store(SR,sr);paintAll();}
+  else{rs.dataset.arm='1';rs.textContent='¿Seguro? Pulsa otra vez';rsT=setTimeout(function(){rs.dataset.arm='';rs.textContent='Reiniciar progreso';},3500);}
+});
+document.addEventListener('visibilitychange',function(){if(!document.hidden){paintAll();bkUI();}});
+
+/* barra: altura, herramientas plegables y ocultar al bajar (móvil) */
+var mt=$('mt'),mq=window.matchMedia?window.matchMedia('(max-width:760px)'):{matches:false};
+function sbh(){document.documentElement.style.setProperty('--sbh',bar.offsetHeight+'px');}
+mt.addEventListener('click',function(){var o=!bar.classList.contains('open');bar.classList.toggle('open',o);mt.setAttribute('aria-expanded',o?'true':'false');sbh();});
+var lastY=window.pageYOffset||0,lock=0;
+document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('a[href^="#"]')){lock=Date.now()+1300;bar.classList.remove('hid');}});
+var qEl=$('q');
+qEl.addEventListener('focus',function(){bar.classList.remove('hid');});
+function barScroll(){
+  var y=window.pageYOffset||0,dy=y-lastY;
+  if(!mq.matches){bar.classList.remove('hid');lastY=y;return;}
+  if(Math.abs(dy)<6)return;
+  if(Date.now()<lock||bar.classList.contains('open')||document.activeElement===qEl||y<100||dy<0)bar.classList.remove('hid');
+  else bar.classList.add('hid');
+  lastY=y;
+}
+window.addEventListener('scroll',barScroll,{passive:true});
+sbh();window.addEventListener('resize',sbh);
+
+/* tema y tamaño de letra */
+var th=$('th'),THS=['dark','light'],THL={dark:'Modo oscuro',light:'Modo claro'};
+function curTheme(){var t=null;try{t=localStorage.getItem(TH);}catch(e){}return THS.indexOf(t)>-1?t:'dark';}
+function setTheme(t){
+  if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t);
+  try{localStorage.setItem(TH,t);}catch(e){}
+  th.textContent=THL[t];th.dataset.m=t;th.setAttribute('aria-checked',t==='dark'?'true':'false');
+}
+th.addEventListener('click',function(){setTheme(THS[(THS.indexOf(curTheme())+1)%THS.length]);});
+setTheme(curTheme());
+var STEPS=[0.85,1,1.15,1.3,1.5];
+function curFz(){var z=NaN;try{z=parseFloat(localStorage.getItem(FZ));}catch(e){}var i=STEPS.indexOf(z);return i>-1?i:1;}
+function setFz(i){i=Math.max(0,Math.min(STEPS.length-1,i));document.documentElement.style.setProperty('--fz',STEPS[i]);try{localStorage.setItem(FZ,STEPS[i]);}catch(e){}$('fm').disabled=(i===0);$('fp').disabled=(i===STEPS.length-1);setTimeout(sbh,0);}
+$('fm').addEventListener('click',function(){setFz(curFz()-1);});
+$('fp').addEventListener('click',function(){setFz(curFz()+1);});
+setFz(curFz());
+
+/* copia de progreso */
+$('ex').addEventListener('click',function(){
+  var data={tipo:'esquemas-almacenamiento-progreso',version:1,fecha:today(),sr:sr,fav:fav,notas:notes,ver:ver,ejercicios:(window.ABD?ABD.get():{}),examen:exam.d||null};
+  var blob=new Blob([JSON.stringify(data,null,1)],{type:'application/json'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='esquemas-almacenamiento-progreso-'+today()+'.json';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+  bk.last=today();bk.since=null;bk.snooze=null;store(BK,bk);bkUI();
+});
+$('bkg').addEventListener('click',function(){$('ex').click();});
+$('bkl').addEventListener('click',function(){bk.snooze=today();store(BK,bk);bkUI();});
+(function(){if(!bk.since&&!bk.last&&hasProg()){var m=null;Object.keys(sr).forEach(function(k){var d=sr[k]&&sr[k].d;if(d&&(!m||d<m))m=d;});bk.since=m||today();store(BK,bk);}bkUI();})();
+$('im').addEventListener('click',function(){$('imf').click();});
+$('imf').addEventListener('change',function(){
+  var f=this.files&&this.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(){
+    try{
+      var d=JSON.parse(r.result);
+      if(!d||d.tipo!=='esquemas-almacenamiento-progreso'||typeof d.sr!=='object'||typeof d.fav!=='object'||typeof d.notas!=='object')throw new Error('formato');
+      if(!window.confirm('Se sustituirán tus marcas, estrellas, notas y ejercicios actuales por los del archivo. ¿Continuar?'))return;
+      store(SR,d.sr);store(FAV,d.fav);store(NT,d.notas);store(VER,(d.ver&&typeof d.ver==='object')?d.ver:{});
+      if(window.ABD)ABD.set(d.ejercicios||{});
+      store(EXM,d.examen?{d:d.examen}:{});
+      bk.last=today();bk.since=null;bk.snooze=null;store(BK,bk);
+      window.location.reload();
+    }catch(e){window.alert('No he podido leer ese archivo: no parece una copia de progreso de este temario.');}
+  };
+  r.readAsText(f);this.value='';
+});
+
+/* seguimiento de sección en la barra de temas */
+var links=[].slice.call(document.querySelectorAll('#tnav a')),tick=false;
+function spy(){
+  tick=false;var cur=null,y=bar.offsetHeight+60;
+  secs.forEach(function(s){if(s.getBoundingClientRect().top<=y&&!s.classList.contains('em'))cur=key(s);});
+  links.forEach(function(a){var on=a.dataset.t===cur;a.classList.toggle('on',on);if(on&&a.scrollIntoView){var p=a.parentNode,l=a.offsetLeft-p.clientWidth/2+a.offsetWidth/2;p.scrollLeft=l;}});
+}
+window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(spy);}},{passive:true});
+window.ESQ={blocks:blocks,secs:secs,bar:bar,mo:mo,key:key,status:status,nextDate:nextDate,getSr:function(){return sr;},fav:fav,ver:ver,exam:exam,EXM:EXM,LST:LST,today:today,days:days,store:store,load:load,visible:visible,vis:vis,paintAll:paintAll,upd:upd};
+upd();spy();
+})();
+</script>
+<script>
+(function(){
+var cv=document.getElementById('cv'),cr=document.getElementById('cr'),bar=document.querySelector('.sbar');
+var tagged=false;
+function tag(){
+  if(tagged)return;tagged=true;
+  document.querySelectorAll('.tema-sec section[id*="-e"] b, .tema-sec article.pc b').forEach(function(b){
+    var t=(b.textContent||'').trim();
+    if(t.length<2||/:$/.test(t))return;
+    if(b.closest('.xrefs,.rv,.pat,th,.top,.up,.toc,nav,.ctl,.nt,.vf,.rt,.tcbar,h2,.ex,.pm,.ops,.sol,.fd,.exs,.pgn'))return;
+    b.classList.add('cb');
+  });
+}
+function setb(el,on){el.setAttribute('aria-pressed',on?'true':'false');}
+function reflow(){window.dispatchEvent(new Event('resize'));}
+function toggleAcc(on){
+  document.querySelectorAll('.cb').forEach(function(b){
+    if(on){b.setAttribute('tabindex','0');b.setAttribute('role','button');}
+    else{b.removeAttribute('tabindex');b.removeAttribute('role');b.classList.remove('op');}
+  });
+}
+cv.addEventListener('click',function(){
+  var on=!document.body.classList.contains('cv');
+  if(on)tag();
+  document.body.classList.toggle('cv',on);
+  document.body.classList.remove('cv-open');
+  setb(cv,on);setb(cr,false);cr.textContent='Revelar todo';
+  cr.style.display=on?'':'none';
+  toggleAcc(on);reflow();
+});
+cr.addEventListener('click',function(){
+  var open=!document.body.classList.contains('cv-open');
+  document.body.classList.toggle('cv-open',open);
+  setb(cr,open);cr.textContent=open?'Volver a tapar':'Revelar todo';
+});
+function flip(b){if(document.body.classList.contains('cv')&&!document.body.classList.contains('cv-open'))b.classList.toggle('op');}
+document.addEventListener('click',function(e){
+  var b=e.target.closest&&e.target.closest('b.cb');
+  if(b&&document.body.classList.contains('cv')){e.preventDefault();flip(b);}
+});
+document.addEventListener('keydown',function(e){
+  if((e.key==='Enter'||e.key===' ')&&e.target.classList&&e.target.classList.contains('cb')&&document.body.classList.contains('cv')){e.preventDefault();flip(e.target);}
+});
+})();
+</script>
+<script>
+(function(){
+function grid(tb){
+  var occ=[],info=[];
+  [].forEach.call(tb.rows,function(tr,r){
+    occ[r]=occ[r]||[];var c=0;
+    [].forEach.call(tr.cells,function(cell){
+      while(occ[r][c])c++;
+      var rs=cell.rowSpan||1,cs=cell.colSpan||1;
+      for(var i=0;i<rs;i++){occ[r+i]=occ[r+i]||[];for(var j=0;j<cs;j++)occ[r+i][c+j]=1;}
+      info.push({cell:cell,r:r,c:c});c+=cs;
+    });
+  });
+  return info;
+}
+document.querySelectorAll('table').forEach(function(tb){
+  var info=grid(tb),ncol=0,hdr=-1;
+  info.forEach(function(x){ncol=Math.max(ncol,x.c+(x.cell.colSpan||1));});
+  if(ncol<2||tb.rows.length<3)return;
+  if([].every.call(tb.rows[0].cells,function(c){return c.tagName==='TH';}))hdr=0;
+  var labels=[];
+  info.forEach(function(x){if(x.r===hdr&&labels[x.c]==null)labels[x.c]=(x.cell.textContent||'').trim();});
+  var bar=document.createElement('div');bar.className='tcbar';
+  var lab=document.createElement('span');lab.textContent='Tapar columna:';bar.appendChild(lab);
+  var active=-1,btns=[];
+  function cells(c){return info.filter(function(x){return x.r>hdr&&x.c===c;}).map(function(x){return x.cell;});}
+  function clear(){info.forEach(function(x){var e=x.cell;if(e.classList.contains('tcv')){e.classList.remove('tcv','op');e.removeAttribute('tabindex');e.removeAttribute('role');}});}
+  function cover(c){clear();active=c;if(c<0)return;cells(c).forEach(function(e){e.classList.add('tcv');e.setAttribute('tabindex','0');e.setAttribute('role','button');});}
+  for(var c=0;c<ncol;c++)(function(c){
+    var t=labels[c]||(c===0?'Fila':'Col. '+(c+1));if(t.length>24)t=t.slice(0,23)+'…';
+    var b=document.createElement('button');b.type='button';b.textContent=t;b.setAttribute('aria-pressed','false');
+    b.title='Tapa esta columna y pulsa cada celda para revelarla';
+    b.addEventListener('click',function(){
+      var on=active!==c;cover(on?c:-1);
+      btns.forEach(function(x){x.setAttribute('aria-pressed','false');});
+      b.setAttribute('aria-pressed',on?'true':'false');
+      all.style.display=on?'':'none';all.setAttribute('aria-pressed','false');all.textContent='Revelar todo';
+    });
+    btns.push(b);bar.appendChild(b);
+  })(c);
+  var all=document.createElement('button');all.type='button';all.textContent='Revelar todo';all.setAttribute('aria-pressed','false');all.style.display='none';
+  all.addEventListener('click',function(){
+    var open=all.getAttribute('aria-pressed')!=='true';
+    cells(active).forEach(function(e){e.classList.toggle('op',open);});
+    all.setAttribute('aria-pressed',open?'true':'false');all.textContent=open?'Volver a tapar':'Revelar todo';
+  });
+  bar.appendChild(all);
+  var host=tb.closest('.tw')||tb;host.parentNode.insertBefore(bar,host);
+});
+function flip(e){e.classList.toggle('op');}
+document.addEventListener('click',function(ev){
+  var e=ev.target.closest&&ev.target.closest('td.tcv,th.tcv');if(!e)return;
+  if(e.classList.contains('op')&&ev.target.closest('a'))return;
+  ev.preventDefault();flip(e);
+});
+document.addEventListener('keydown',function(ev){
+  if((ev.key==='Enter'||ev.key===' ')&&ev.target.classList&&ev.target.classList.contains('tcv')){ev.preventDefault();flip(ev.target);}
+});
+})();
+</script>
+<script>(function(){var b=document.querySelector(".sbar");if(b)b.addEventListener("focusin",function(){b.classList.remove("hid")});})();</script>
+<script>
+(function(){
+var E=window.ESQ;if(!E)return;
+var $=function(i){return document.getElementById(i);},body=document.body;
+function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function fmt(str){var a=str.split('-');return a[2]+'/'+a[1];}
+var tt;function toast(m){var t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(function(){t.hidden=true;},3500);}
+function closeTools(){E.bar.classList.remove('open');var mt=$('mt');if(mt)mt.setAttribute('aria-expanded','false');}
+function title(b){var h=b.matches('article')?b.querySelector('.top'):b.querySelector('h2');if(!h)return b.id;var c=h.cloneNode(true);[].forEach.call(c.querySelectorAll('.ctl'),function(x){x.parentNode.removeChild(x);});[].forEach.call(c.querySelectorAll('.n'),function(x){x.insertAdjacentText('afterend',' ');});return c.textContent.replace(/\s+/g,' ').trim();}
+function lbl(b){var s=b.closest('.tema-sec');if(!s)return'';var k=E.key(s);if(/^\d+$/.test(k))return 'T'+k;return{i:'✦',x:'Exámenes',p:'✎ Práctica',s:'Σ Tablas',c:'Cierre'}[k]||s.id;}
+function tag(b){var s=b.closest('.tema-sec');if(!s)return 'Almacenamiento';var m=/^t(\d+)$/.exec(s.id);return 'Almacenamiento::'+(m?'T'+m[1]:({examen:'Exámenes',practica:'Práctica',tablas:'Tablas',intro:'Intro',cierre:'Cierre'}[s.id]||s.id));}
+
+/* ===== Mapa de dominio ===== */
+var dom=$('dom'),domFrom=null;
+function mapa(){
+  var groups=[],gi={},nn=0,nd=0,no=0,h='';
+  E.blocks.forEach(function(b){var l=lbl(b);if(!(l in gi)){gi[l]=groups.length;groups.push({l:l,bs:[]});}groups[gi[l]].bs.push(b);});
+  groups.forEach(function(g){
+    h+='<div class="dr"><b>'+esc(g.l)+'</b><div class="dc">';
+    g.bs.forEach(function(b,i){
+      var st=E.status(b.id);if(st==='new')nn++;else if(st==='due')nd++;else no++;
+      var tx=title(b)+' · '+(st==='new'?'sin repasar':(st==='due'?'toca repasar hoy':'al día, próx. '+fmt(E.nextDate(b.id))))+(E.fav[b.id]?' · difícil':'');
+      h+='<button type="button" class="dk '+st+(E.fav[b.id]?' fv2':'')+'" data-id="'+b.id+'" title="'+esc(tx)+'" aria-label="'+esc(tx)+'">'+(i+1)+'</button>';
+    });
+    h+='</div></div>';
+  });
+  $('domg').innerHTML=h;
+  var ex=E.exam.d||'',pend=nn+nd,m=E.blocks.length+' bloques: '+nn+' sin repasar, '+nd+' vencen hoy, '+no+' al día.';
+  if(ex){var dl=E.days(ex,E.today());
+    if(dl<0)m+=' La fecha del examen ya pasó.';
+    else if(dl===0)m+=' El examen es hoy.';
+    else m+=' Faltan '+dl+(dl===1?' día':' días')+': para pasar por los '+pend+' pendientes una vez, unos '+Math.ceil(pend/dl)+' al día.';}
+  $('domm').textContent=m;$('domex').value=ex;
+}
+function openMap(){domFrom=document.activeElement;closeTools();mapa();dom.hidden=false;$('domx').focus();}
+function closeMap(){dom.hidden=true;if(domFrom&&domFrom.focus)domFrom.focus();}
+$('mpb').addEventListener('click',openMap);
+$('domx').addEventListener('click',closeMap);
+$('domex').addEventListener('change',function(){if(this.value)E.exam.d=this.value;else delete E.exam.d;E.store(E.EXM,E.exam);mapa();});
+$('domg').addEventListener('click',function(e){var k=e.target.closest('.dk');if(!k)return;var b=$(k.dataset.id);closeMap();if(b)b.scrollIntoView();});
+
+/* ===== Modo foco y repaso mixto ===== */
+var mode=null,list=[],idx=0,revealed=true,SES=20;
+function clearMarks(){[].forEach.call(document.querySelectorAll('.fa,.fcs-cur'),function(x){x.classList.remove('fa','fcs-cur');});}
+function save(id){E.store(E.LST,{id:id});}
+function show(i){
+  clearMarks();idx=i;var b=list[i];b.classList.add('fcs-cur');
+  for(var p=b.parentElement;p&&p!==body;p=p.parentElement)p.classList.add('fa');
+  revealed=(mode==='foco');body.classList.toggle('fcs-cover',!revealed);
+  $('frv').textContent=revealed?'Tapar respuesta':'Revelar respuesta';
+  $('fct').textContent=(mode==='mix'?'Repaso mixto ':'Foco ')+(i+1)+'/'+list.length+' · '+lbl(b);
+  $('fb').disabled=(i===0);$('ff').disabled=(i===list.length-1);
+  if(mode==='foco')save(b.id);
+  window.scrollTo(0,0);
+}
+function enter(m,l,start){mode=m;list=l;closeTools();body.classList.add('fcs');body.classList.toggle('fcs-mix',m==='mix');$('fcs').hidden=false;show(start||0);}
+function exit(){
+  var b=list[idx];mode=null;clearMarks();
+  body.classList.remove('fcs','fcs-cover','fcs-mix');$('fcs').hidden=true;
+  E.paintAll();if(b)b.scrollIntoView();
+}
+function go(d){var n=idx+d;if(n<0)return;if(n>=list.length){if(mode==='mix'){toast('Sesión terminada: '+list.length+' bloques.');exit();}return;}show(n);}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function interleave(bs){
+  var g={},keys=[],out=[];
+  bs.forEach(function(b){var l=lbl(b);if(!g[l]){g[l]=[];keys.push(l);}g[l].push(b);});
+  keys=shuffle(keys);keys.forEach(function(k){shuffle(g[k]);});
+  var more=true;while(more){more=false;keys.forEach(function(k){if(g[k].length){out.push(g[k].shift());more=true;}});}
+  return out;
+}
+$('fob').addEventListener('click',function(){
+  var l=E.blocks.filter(E.visible);if(!l.length){toast('Ningún bloque cumple los filtros activos.');return;}
+  var last=E.load(E.LST,{}).id,i=0;l.forEach(function(b,k){if(b.id===last)i=k;});
+  enter('foco',l,i);
+});
+$('mxb').addEventListener('click',function(){
+  var due=E.blocks.filter(function(b){return E.status(b.id)==='due';}),nw=E.blocks.filter(function(b){return E.status(b.id)==='new';});
+  var l=interleave(due).concat(interleave(nw)).slice(0,SES);
+  if(!l.length){toast('No queda nada pendiente: todo está al día.');return;}
+  enter('mix',l,0);toast(l.length+' bloques, de varios temas. Pulsa 1, 2 o 3 para valorar.');
+});
+$('fb').addEventListener('click',function(){go(-1);});
+$('ff').addEventListener('click',function(){go(1);});
+$('fx').addEventListener('click',exit);
+$('frv').addEventListener('click',function(){revealed=!revealed;body.classList.toggle('fcs-cover',!revealed);this.textContent=revealed?'Tapar respuesta':'Revelar respuesta';});
+document.addEventListener('click',function(e){if(mode==='mix'&&e.target.closest&&e.target.closest('.fcs-cur .rt button'))setTimeout(function(){go(1);},250);});
+document.addEventListener('keydown',function(e){
+  if(!dom.hidden&&e.key==='Escape'){closeMap();return;}
+  if(!mode)return;var t=e.target,tn=t&&t.tagName;
+  if(tn==='INPUT'||tn==='TEXTAREA'||tn==='SELECT')return;
+  if(e.key==='Escape')exit();
+  else if(e.key==='ArrowRight'){e.preventDefault();go(1);}
+  else if(e.key==='ArrowLeft'){e.preventDefault();go(-1);}
+  else if(mode==='mix'&&revealed&&{'1':'f','2':'c','3':'e'}[e.key]){var k=list[idx].querySelector('.rt .'+{'1':'f','2':'c','3':'e'}[e.key]);if(k)k.click();}
+  else if((e.key===' '||e.key==='Enter')&&tn==='BODY'){e.preventDefault();$('frv').click();}
+});
+/* última posición */
+var tk=false;
+window.addEventListener('scroll',function(){
+  if(mode||tk)return;tk=true;
+  setTimeout(function(){tk=false;if(mode)return;var y=E.bar.offsetHeight+20;
+    for(var i=0;i<E.blocks.length;i++){var r=E.blocks[i].getBoundingClientRect();if(r.height&&r.bottom>y){E.store(E.LST,{id:E.blocks[i].id});break;}}
+  },700);
+},{passive:true});
+$('cnb').addEventListener('click',function(){
+  var id=E.load(E.LST,{}).id,b=id&&$(id);closeTools();
+  if(!b){toast('Aún no hay ninguna posición guardada.');return;}
+  b.scrollIntoView();toast('Continúas en: '+title(b));
+});
+
+/* ===== Chuleta impresa ===== */
+$('chb').addEventListener('click',function(){
+  var was=E.mo.getAttribute('aria-pressed')==='true';
+  if(!was)E.mo.click();
+  E.secs.forEach(function(s){if(!/^t\d+$/.test(s.id))s.classList.add('xchu');});
+  body.classList.add('chuleta');closeTools();
+  function done(){window.removeEventListener('afterprint',done);body.classList.remove('chuleta');E.secs.forEach(function(s){s.classList.remove('xchu');});if(!was)E.mo.click();}
+  window.addEventListener('afterprint',done);
+  setTimeout(function(){window.print();},60);
+});
+
+/* ===== Exportar a Anki (cloze) ===== */
+function eligible(b){var t=(b.textContent||'').trim();if(t.length<2||/:$/.test(t))return false;if(b.querySelector('b')||(b.parentElement&&b.parentElement.closest('b')))return false;return !b.closest('.xrefs,.rv,.pat,th,.top,.up,.toc,nav,.ctl,.nt,.vf,.rt,.tcbar,h2,.ex,.pm,.ops,.sol,.fd,.exs,.pgn');}
+function unitOf(bd,blk){
+  var best=null;
+  for(var p=bd.parentElement;p&&p!==blk;p=p.parentElement){if(p.matches('tr,li,.mem,.box,p')){if((p.textContent||'').length<=450)best=p;else break;}}
+  if(best)return best;
+  var q=bd.parentElement;return(q&&q!==blk&&(q.textContent||'').length<=450)?q:null;
+}
+function anki(){
+  var groups=new Map(),lines=[],nc=0;
+  E.blocks.forEach(function(blk){
+    [].forEach.call(blk.querySelectorAll('b'),function(bd){
+      if(!eligible(bd))return;var u=unitOf(bd,blk);if(!u)return;
+      var e=groups.get(u);if(!e){e={blk:blk,bs:[]};groups.set(u,e);}e.bs.push(bd);
+    });
+  });
+  groups.forEach(function(e,u){
+    var all=[].slice.call(u.querySelectorAll('b')),cl=u.cloneNode(true),ca=[].slice.call(cl.querySelectorAll('b')),n=0;
+    all.forEach(function(b,i){if(e.bs.indexOf(b)>-1){n++;ca[i].parentNode.replaceChild(document.createTextNode('{{c'+n+'::'+b.textContent.replace(/::/g,':').replace(/[{}]/g,'')+'}}'),ca[i]);}});
+    [].forEach.call(cl.querySelectorAll('.ctl,.rt,.vf,.nt,mark.sh'),function(x){if(x.matches('mark.sh'))x.parentNode.replaceChild(document.createTextNode(x.textContent),x);else x.parentNode.removeChild(x);});
+    [].forEach.call(cl.querySelectorAll('div.t'),function(x){x.insertAdjacentText('afterend',' — ');});
+    [].forEach.call(cl.querySelectorAll('div,small,br,p,li,td,th'),function(x){x.insertAdjacentText('beforebegin',' ');x.insertAdjacentText('afterend',' ');});
+    var txt=(u.matches('tr')?[].map.call(cl.cells,function(c){return c.textContent.trim();}).join(' · '):cl.textContent).replace(/\s+/g,' ').trim();
+    if(txt.length<25||txt.replace(/\{\{c\d+::.*?\}\}/g,'').trim().length<12)return;
+    lines.push([esc(txt),esc(lbl(e.blk)+' · '+title(e.blk)),tag(e.blk)].join('\t').replace(/\n/g,' '));nc+=n;
+  });
+  if(!lines.length){toast('No he encontrado negritas para exportar.');return;}
+  var out='#separator:tab\n#html:true\n#notetype:Cloze\n#deck:Almacenamiento INE\n#tags column:3\n'+lines.join('\n')+'\n';
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([out],{type:'text/plain;charset=utf-8'}));a.download='esquemas-almacenamiento-anki.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+  closeTools();toast(lines.length+' notas, '+nc+' huecos. En Anki: Archivo > Importar.');
+  return out;
+}
+$('anb').addEventListener('click',anki);
+window.ESQ.anki=anki;
+})();
+</script>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i);};
+function N(t){return t.toLowerCase().replace(/[−–]/g,'-').replace(/,/g,'.').replace(/\s+/g,'');}
+function sh(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+var EXS='abd-ex-v1';
+function loadEx(){try{var v=JSON.parse(localStorage.getItem(EXS)||'{}');return(v&&typeof v==='object')?v:{};}catch(e){return{};}}
+function storeEx(o){try{localStorage.setItem(EXS,JSON.stringify(o));}catch(e){}}
+var ex=loadEx();
+var GROUPS=['xa','xb','xc','xd','xe','qa','qb','qc','qd','ma','mb','ha','hb'];
+function exUI(){
+  var n=0;GROUPS.forEach(function(g){if(ex[g])n++;});
+  var pe=$('pce');if(pe)pe.textContent='✎ Ejercicios: '+n+'/'+GROUPS.length;
+  GROUPS.forEach(function(g){
+    var s=document.querySelector('[data-ex="'+g+'"]');
+    if(s)s.textContent=ex[g]?'· hecho ✓':'';
+  });
+  if(window.ESQ&&ESQ.upd)ESQ.upd();
+}
+function done(g){if(!ex[g]){ex[g]=1;storeEx(ex);}exUI();}
+
+/* huecos: comprueba y corrige un grupo de inputs */
+document.querySelectorAll('.chk').forEach(function(b){
+  b.addEventListener('click',function(){
+    var g=b.dataset.g,ins=[].slice.call(document.querySelectorAll('#'+g+' input')),k=0;
+    ins.forEach(function(i){
+      var al=i.dataset.a.split('|'),ok=al.some(function(x){return N(x)===N(i.value);});
+      i.classList.toggle('ok',ok);i.classList.toggle('bad',!ok);
+      var sol=i.parentNode.querySelector('.sol');
+      if(sol)sol.textContent=ok?'':'Respuesta: '+al[0];
+      if(ok)k++;
+    });
+    var f=$('f'+g);if(f)f.textContent=k+' / '+ins.length+(k===ins.length?' · ¡completo!':'');
+    if(k===ins.length)done(g);
+  });
+});
+
+/* opción múltiple */
+function quiz(id,Q){
+  var host=$(id);if(!host)return;
+  var sb=0,ans=0;
+  Q.forEach(function(q){
+    var li=document.createElement('li');
+    var b0=document.createElement('b');b0.textContent=q[0];
+    var ops=document.createElement('div');ops.className='ops';
+    var sol=document.createElement('div');sol.className='sol tip';
+    li.appendChild(b0);li.appendChild(ops);li.appendChild(sol);
+    sh(q[1].map(function(t,i){return[t,i===0];})).forEach(function(p){
+      var bt=document.createElement('button');bt.type='button';bt.className='opc';bt.textContent=p[0];
+      bt.addEventListener('click',function(){
+        [].forEach.call(ops.querySelectorAll('.opc'),function(x){x.disabled=true;});
+        bt.classList.add(p[1]?'ok':'bad');
+        if(p[1])sb++;else{[].forEach.call(ops.querySelectorAll('.opc'),function(x){if(x.textContent===q[1][0])x.classList.add('ok');});}
+        sol.textContent=q[2];ans++;
+        var f=$('f'+id);
+        if(f)f.textContent=ans+' / '+Q.length+' respondidas · '+sb+' correctas';
+        if(ans===Q.length)done(id);
+      });
+      ops.appendChild(bt);
+    });
+    host.appendChild(li);
+  });
+}
+
+/* emparejamiento */
+function pairs(id,P){
+  var el=$(id);if(!el)return;
+  var ps=null,pk=0;
+  var c0=document.createElement('div'),c1=document.createElement('div');
+  c0.className=c1.className='col';
+  function addBtn(t,i,s){
+    var b=document.createElement('button');b.type='button';b.className='pb';b.textContent=t;b.dataset.k=i;b.dataset.s=s;
+    b.addEventListener('click',function(){
+      if(s===0){[].forEach.call(c0.querySelectorAll('.pb'),function(y){y.removeAttribute('aria-pressed');});ps=b;b.setAttribute('aria-pressed','true');return;}
+      if(!ps)return;
+      if(ps.dataset.k===b.dataset.k){
+        ps.removeAttribute('aria-pressed');
+        ps.className='pb ok';b.className='pb ok';ps=null;pk++;
+        var f=$('f'+id);if(f)f.textContent=pk+' / '+P.length+' parejas';
+        if(pk===P.length)done(id);
+      }else{b.classList.add('bad');setTimeout(function(){b.classList.remove('bad');},500);}
+    });
+    (s?c1:c0).appendChild(b);
+  }
+  sh(P.map(function(p,i){return[p[0],i];})).forEach(function(x){addBtn(x[0],x[1],0);});
+  sh(P.map(function(p,i){return[p[1],i];})).forEach(function(x){addBtn(x[0],x[1],1);});
+  el.appendChild(c0);el.appendChild(c1);
+}
+
+quiz('qa',[["¿Qué memoria usa acceso asociativo?",["La caché","La cinta magnética","El disco duro"],"Se busca por contenido, comparando todas las posiciones a la vez."],["¿Qué memoria exige refresco y su lectura es destructiva?",["DRAM","SRAM","Flash"],"Es más densa pero más lenta que la SRAM."],["¿Por qué el rango en C2 es asimétrico?",["El cero ocupa una sola combinación","Hay doble cero","Se pierde el bit de signo"],"Hay un negativo más que positivos."],["¿Cuándo hay overflow en C2?",["Si el acarreo que entra al bit de signo difiere del que sale","Si el resultado es negativo","Si hay acarreo final"],"Se trunca sin avisar."],["El «1 implícito» de IEEE 754 es…",["El primer dígito de la mantisa normalizada, no almacenado","Un bit extra de signo","El sesgo del exponente"],"Se supone siempre 1 antes de la coma."],["Cambiar la extensión de un fichero…",["No altera ni un byte","Convierte su formato","Recodifica el contenido"],"Es solo una convención para elegir programa."],["El cuello de botella de Von Neumann se debe a…",["Un único bus para instrucciones y datos","Una ALU lenta","El tamaño de la caché"],"Harvard separa ambas memorias."],["La memoria caché se justifica por…",["El principio de localidad","La volatilidad de la RAM","El ciclo fetch"],"Localidad temporal y espacial."],["Capacidad útil de RAID 1 con dos discos:",["50 %","100 %","75 %"],"Es una copia exacta."],["La DMA permite…",["Transferir datos a memoria sin que la CPU intervenga en cada byte","Que la CPU consulte al periférico sin parar","Ampliar el bus de datos"],"Libera a la CPU para otras tareas."],["En UTF-8 los caracteres 0–127…",["Ocupan 1 byte y coinciden con ASCII","Ocupan 2 bytes","Ocupan 4 bytes"],"Los demás usan de 2 a 4 bytes."]]);
+quiz('qb',[["El sistema operativo es…",["Software","Hardware","Una BIOS"],"Programa de sistema que corre en modo privilegiado."],["Las instrucciones privilegiadas se ejecutan en…",["Modo núcleo","Modo usuario","Cualquier modo"],"Modo dual de operación."],["La paginación genera…",["Fragmentación interna","Fragmentación externa","Ninguna"],"Los segmentos de tamaño variable generan la externa."],["Un proceso en Ejecución que pide E/S pasa a…",["Bloqueado","Listo","Terminado"],"Vuelve a Listo al terminar la E/S."],["Protección frente a seguridad:",["La protección son mecanismos internos del SO","La seguridad es solo interna","Son sinónimos"],"La seguridad incluye aspectos técnicos, administrativos y legales."],["La integridad garantiza…",["Exactitud y completitud de la información","Acceso solo a autorizados","Acceso cuando se necesita"],"Las otras dos son confidencialidad y disponibilidad."],["En un sistema distribuido los procesadores…",["No comparten memoria ni reloj","Comparten memoria","Comparten un reloj global siempre"],"Se comunican por red."],["La dependencia de datos de los ficheros consiste en…",["Que la estructura está en el código de los programas","Que hay datos duplicados","Que los formatos son incompatibles"],"Cambiar un fichero obliga a cambiar los programas."],["El diccionario de datos es…",["Un catálogo de metadatos de la propia base","El lenguaje de consulta","El motor del SGBD"],"El SGBD lo consulta para interpretar las peticiones."],["La independencia física significa que…",["Cambiar discos o índices no afecta al esquema","Cambiar el esquema no afecta a las vistas","No hay datos duplicados"],"La otra es la independencia lógica."],["Base de datos y SGBD:",["La base es el conjunto de datos; el SGBD, el software que la gestiona","Son lo mismo","El SGBD es el conjunto de datos"],"No hay que confundirlos."]]);
+quiz('qc',[["Un clúster se diferencia de un multiprocesador en que…",["Reúne varios sistemas completos interconectados","Comparte siempre memoria y reloj","Tiene una única CPU"],"El multiprocesador es un solo sistema con varias CPU."],["Los clústeres se emplean principalmente para…",["Ofrecer alta disponibilidad","Eliminar el sistema operativo","Ampliar el bus de datos"],"Si un nodo falla, otro asume su servicio."],["Es una ventaja de un SGBD frente a los ficheros…",["Control de la redundancia y mayor consistencia","Menor coste de conversión","Menor impacto de un fallo"],"Conversión y fallo central son inconvenientes."],["Es un inconveniente de un SGBD…",["Mayor impacto de un fallo central","Independencia de datos","Mejor concurrencia"],"Al centralizar los datos, un fallo puede paralizar la organización."],["En la arquitectura básica del hardware, ¿qué componente interpreta y ejecuta las instrucciones?",["La CPU","El bus de control","La memoria secundaria"],"Unidad de control, ALU y registros."],["El diccionario de datos de un SGBD es…",["Un catálogo de metadatos de la propia base","El lenguaje de manipulación","El almacenamiento físico"],"El SGBD lo consulta para interpretar peticiones."]]);
+quiz('qd',[["¿Cuántos bits usa el ASCII estándar?",["7 (128 símbolos)","16","32"],"El extendido usa 8 bits."],["Diferencia clave entre ASCII y Unicode:",["Unicode cubre prácticamente cualquier sistema de escritura","ASCII admite más caracteres","Unicode usa siempre 1 byte"],"UTF-8 usa de 1 a 4 bytes."],["En el modelo jerárquico cada registro tiene…",["Un único padre","Varios padres","Ningún vínculo"],"El modelo en red permite varios padres."],["¿Qué modelo enlaza datos por claves y valores en tablas, sin punteros físicos?",["Relacional","Jerárquico","En red"],"Los otros dos navegan por punteros."],["Memoria a la que se accede entrando en un bloque y leyendo en secuencia dentro de él:",["Acceso directo","Acceso aleatorio","Acceso asociativo"],"Es el de los discos magnéticos."],["El núcleo (kernel) del SO…",["Se ejecuta con mayores privilegios y está siempre en memoria","Se carga solo cuando hace falta","Es la interfaz gráfica"],"El resto del SO se carga según se necesite."]]);
+pairs('ma',[["RAID 0","Striping sin redundancia"],["RAID 1","Mirroring"],["RAID 5","Striping + paridad distribuida"],["RAID 10","Mirroring + striping"],["Bus de direcciones","Fija la memoria máxima direccionable"],["Bus de datos","Fija los bits transferidos a la vez"]]);
+pairs('mb',[["Aislamiento de datos","Datos integrados y compartidos"],["Duplicación","Control de la redundancia"],["Dependencia de datos","Independencia lógica y física"],["Formatos incompatibles","Mantenimiento de estándares"],["Consultas fijas","Lenguajes de consulta ad hoc"],["Falta de control central","Seguridad e integridad"]]);
+pairs('ha',[["CPU","Interpreta y ejecuta las instrucciones"],["Unidad de Control","Dirige el ciclo de instrucción y genera señales de control"],["ALU","Operaciones aritméticas y lógicas"],["Memoria","Almacena programas y datos"],["Periféricos de E/S","Comunican el sistema con el exterior"],["Buses","Interconectan CPU, memoria y E/S"]]);
+pairs('hb',[["Motor del SGBD","Gestiona el almacenamiento físico y el acceso"],["DDL","Define tipos, estructuras y restricciones"],["DML","Inserta, actualiza, elimina y recupera datos"],["Diccionario de datos","Catálogo de metadatos de la base"],["Programas de aplicación","Acceden a la base a través del SGBD"],["Independencia de datos","Un cambio de estructura no obliga a reescribir las aplicaciones"]]);
+
+window.ABD={get:function(){return ex;},set:function(o){ex=(o&&typeof o==='object')?o:{};storeEx(ex);exUI();}};
+exUI();
+})();
+</script>
+</body>
+</html>
