@@ -549,6 +549,11 @@ input.hu.bad{border-color:var(--fx-bad);background:var(--fx-bad-soft);border-sty
   </div>
   <div class="mem"><b>Trampa.</b> El overflow no detiene el programa: el resultado se trunca y solo el indicador de desbordamiento del registro de estado lo señala (<a href="#t2-e2">2.2</a>). Por eso en pseudocódigo «a = a + a» con 8 bits en C2 puede imprimir un número negativo — es el tipo de problema que reproduce el de 2025 (reconstruido).</div>
   <div class="xrefs">Practícalo: <a href="#x-e5">2023 en acción</a> · <a href="#x-e6">2024 en acción</a> · <a href="#x-e7">2025 en acción</a> · <a href="#p-e1">ejercicio A</a></div>
+<div class="lv" id="lv-bits"><h4>Voltea bits y mira los tres convenios</h4><p>Pulsa un bit para cambiarlo: el mismo byte se lee distinto según el convenio.</p>
+<div class="bits" id="lv-b" role="group" aria-label="Ocho bits, del de mayor peso al de menor"></div>
+<div class="row"><button type="button" data-a="inv">Invertir todos</button><button type="button" data-a="inc">+ 1</button><button type="button" data-a="rnd">Aleatorio</button><button type="button" data-a="clr">Poner a 0</button></div>
+<div class="conv" id="lv-c" aria-live="polite"></div>
+<p class="out">Prueba: <b>Invertir todos</b> y luego <b>+ 1</b> da el opuesto en complemento a 2 (salvo −128, que no tiene opuesto).</p></div>
 </section><section id="t1-e4">
   <h2 aria-level="3"><span class="n">1.4</span>Reales y texto: otros dos convenios</h2>
   <p class="sub">IEEE 754 para los reales, ASCII y Unicode para el texto</p>
@@ -649,6 +654,9 @@ input.hu.bad{border-color:var(--fx-bad);background:var(--fx-bad-soft);border-sty
   <p class="sub">Cuatro niveles y el principio que los justifica</p>
   <div class="tw card" tabindex="0" role="region" aria-label="Tabla: jerarquía de memoria" style="padding:0;margin-top:10px"><table style="min-width:560px"><tr><th scope="col">Nivel</th><th scope="col">Volátil</th><th scope="col">Papel</th></tr><tr><td>Registros</td><td>Sí</td><td>Acceso casi instantáneo; decenas de bytes</td></tr><tr><td>Caché L1/L2/L3</td><td>Sí</td><td>Copias de lo más usado, entre CPU y RAM</td></tr><tr><td>Memoria principal (RAM)</td><td>Sí</td><td>Programas y datos en ejecución</td></tr><tr><td>Secundaria (disco, SSD)</td><td>No</td><td>Persistencia de ficheros; gran capacidad, más lenta</td></tr></table></div>
   <div class="mem"><b>Principio de localidad.</b> <b>Temporal</b>: lo usado hace poco se volverá a usar. <b>Espacial</b>: lo cercano a un dato usado también se usará. Es la razón de ser de la caché.</div>
+<div class="lv" id="lv-mem"><h4>El viaje de un dato</h4><p>La CPU pide un dato y este baja nivel a nivel hasta aparecer. Cuanto más abajo, más cuesta (órdenes de magnitud).</p>
+<div class="row"><label for="lv-w">El dato está en</label><select id="lv-w"><option value="0">Registros</option><option value="1">Caché</option><option value="2" selected>Memoria principal (RAM)</option><option value="3">Disco</option></select><button type="button" id="lv-go">Pedir el dato</button></div>
+<div id="lv-l"></div><p class="out" id="lv-o" aria-live="polite"></p></div>
 </section><section id="t2-e4">
   <h2 aria-level="3"><span class="n">2.4</span>HDD, SSD y RAID</h2>
   <p class="sub">Dos tecnologías de disco y cuatro niveles redundantes</p>
@@ -736,6 +744,9 @@ input.hu.bad{border-color:var(--fx-bad);background:var(--fx-bad-soft);border-sty
   <div class="mem"><b>Niveles del SO.</b> Por gestión: 1 procesador, 2 memoria, 3 procesos, 4 almacenamiento y E/S, 5 información. Por ejecución: 0 <b>núcleo</b>, 1 ejecutivo, 2 supervisor, 3 usuario. El núcleo está <b>siempre en memoria</b>; el resto se carga según se necesite.</div>
   <div class="tw card" tabindex="0" role="region" aria-label="Tabla: planificación de CPU con tres procesos" style="padding:0;margin-top:12px"><table style="min-width:600px"><tr><th scope="col">Algoritmo</th><th scope="col">Orden (P1 = 5, P2 = 3, P3 = 1; llegan en t = 0)</th><th scope="col">Espera media</th></tr><tr><td>FIFO (no apropiativo)</td><td>P1 0–5 · P2 5–8 · P3 8–9</td><td>(0 + 5 + 8)/3 = 4,33</td></tr><tr><td>SJF (no apropiativo)</td><td>P3 0–1 · P2 1–4 · P1 4–9</td><td>(0 + 1 + 4)/3 = 1,67</td></tr><tr><td>Round Robin, quantum 2 (apropiativo)</td><td>P1 0–2 · P2 2–4 · P3 4–5 · P1 5–7 · P2 7–8 · P1 8–9</td><td>(4 + 5 + 4)/3 = 4,33</td></tr></table></div><div class="tw card" tabindex="0" role="region" aria-label="Tabla: planificación de disco" style="padding:0;margin-top:12px"><table style="min-width:620px"><tr><th scope="col">Algoritmo</th><th scope="col">Recorrido (cabeza en 53; cola 98, 183, 37, 122, 14, 124, 65, 67)</th><th scope="col">Movimiento total</th></tr><tr><td>FIFO</td><td>53 → 98 → 183 → 37 → 122 → 14 → 124 → 65 → 67</td><td>640 cilindros</td></tr><tr><td>SSTF</td><td>53 → 65 → 67 → 37 → 14 → 98 → 122 → 124 → 183</td><td>236 cilindros</td></tr><tr><td>SCAN (hacia 0)</td><td>53 → 37 → 14 → 0 → 65 → 67 → 98 → 122 → 124 → 183</td><td>236 cilindros</td></tr></table></div><div class="tw card" tabindex="0" role="region" aria-label="Tabla: asignación de ficheros" style="padding:0;margin-top:12px"><table style="min-width:600px"><tr><th scope="col">Asignación</th><th scope="col">Ventaja</th><th scope="col">Inconveniente</th></tr><tr><td>Contigua</td><td>Acceso directo y secuencial rápido</td><td>Fragmentación externa; al fichero le cuesta crecer</td></tr><tr><td>Encadenada</td><td>Sin fragmentación externa; crece sin problema</td><td>Acceso directo lento: hay que seguir los punteros</td></tr><tr><td>Indexada</td><td>Acceso directo sin recorrer y sin fragmentación externa</td><td>Un bloque índice por fichero (como el i-nodo)</td></tr></table></div>
   <div class="xrefs">Pregunta literal: <a href="#x-e3">conv. 2025 · el núcleo (kernel)</a></div>
+<div class="lv" id="lv-fs"><h4>¿Cómo se llega al bloque k de un fichero?</h4><p>Fichero de 5 bloques (B1–B5) en un disco de 16. Ix es el bloque índice. Elige la asignación y sigue el recorrido.</p>
+<div class="row"><button type="button" data-m="0" aria-pressed="true">Contigua</button><button type="button" data-m="1" aria-pressed="false">Encadenada</button><button type="button" data-m="2" aria-pressed="false">Indexada</button><label for="lv-k">Leer el bloque</label><select id="lv-k"><option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option></select><button type="button" id="lv-run">Leer</button></div>
+<div class="blks" id="lv-d"></div><p class="out" id="lv-s" aria-live="polite"></p></div>
 </section><section id="t3-e7">
   <h2 aria-level="3"><span class="n">3.C</span>Seguridad: tríada, amenazas y dominios <span class="tag">ampliación</span></h2>
   <p class="sub">Tres propiedades, una lista de enemigos y un mecanismo de control</p>
@@ -1657,6 +1668,149 @@ pairs('hb',[["Motor del SGBD","Gestiona el almacenamiento físico y el acceso"],
 
 window.ABD={get:function(){return ex;},set:function(o){ex=(o&&typeof o==='object')?o:{};storeEx(ex);exUI();}};
 exUI();
+})();
+</script>
+<style>
+.lv{margin:14px 0 4px;padding:14px 16px;border:1px solid var(--background-modifier-border);border-radius:var(--radius-l);background:var(--background-primary-alt)}
+.lv h4{margin:0 0 4px;font:600 15px/1.3 var(--font-interface);color:var(--text-normal)}
+.lv p{margin:0 0 8px;color:var(--text-muted);font-size:13.5px;line-height:1.5}
+.lv .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0;font-size:13px;color:var(--text-muted)}
+.lv button,.lv select{font:500 13px var(--font-interface);color:var(--text-normal);background:var(--background-secondary);border:1px solid var(--background-modifier-border);border-radius:var(--radius-m);padding:6px 12px;cursor:pointer;transition:background .14s,border-color .14s,transform .14s}
+.lv button:hover{border-color:var(--color-accent)}
+.lv button:focus-visible,.lv select:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px}
+.lv button[aria-pressed=true]{background:var(--interactive-accent);color:var(--text-on-accent);border-color:transparent}
+.lv .bits{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.lv .bit{width:40px;height:48px;padding:0;font:600 19px ui-monospace,Menlo,Consolas,monospace}
+.lv .bit[aria-pressed=true]{transform:translateY(-4px)}
+.lv .conv{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:8px}
+.lv .conv div{padding:8px 10px;border:1px solid var(--background-modifier-border);border-radius:var(--radius-m);background:var(--background-primary)}
+.lv .conv b{display:block;font:600 22px/1.2 var(--font-interface);font-variant-numeric:tabular-nums}
+.lv .conv small{color:var(--text-muted);font-size:11.5px}
+.lv .lvl{display:flex;justify-content:space-between;gap:12px;margin:5px 0;padding:9px 12px;border:1px solid var(--background-modifier-border);border-radius:var(--radius-m);background:var(--background-primary);font-size:14px;transition:background .2s,border-color .2s}
+.lv .lvl span+span{color:var(--text-muted);white-space:nowrap}
+.lv .lvl.on{background:color-mix(in srgb,var(--color-accent) 16%,var(--background-primary));border-color:var(--color-accent)}
+.lv .lvl.hit{background:color-mix(in srgb,var(--color-green,#3fb950) 24%,var(--background-primary));border-color:var(--color-green,#3fb950)}
+.lv .blks{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;max-width:520px;margin:10px 0}
+.lv .blk{display:flex;flex-direction:column;align-items:center;justify-content:center;height:44px;border:1px dashed var(--background-modifier-border);border-radius:var(--radius-s);background:var(--background-primary);font-size:12px;transition:background .2s,transform .2s,border-color .2s}
+.lv .blk small{color:var(--text-faint);font-size:11px}
+.lv .blk.f{border-style:solid;border-color:var(--color-accent);background:color-mix(in srgb,var(--color-accent) 12%,var(--background-primary))}
+.lv .blk.ix{border-color:var(--color-orange,#e0861a);background:color-mix(in srgb,var(--color-orange,#e0861a) 26%,var(--background-primary))}
+.lv .blk.seen{background:color-mix(in srgb,var(--color-accent) 38%,var(--background-primary))}
+.lv .blk.cur{background:var(--interactive-accent);color:var(--text-on-accent);transform:scale(1.1)}
+.lv .blk.cur small{color:inherit}
+.lv .out{min-height:3em;margin:8px 0 0;color:var(--text-normal)}
+@media print{.lv{display:none}}
+</style>
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion:reduce)').matches,T=RM?0:540;
+/* 1 · bits y convenios */
+(function(){var g=document.getElementById('lv-b'),c=document.getElementById('lv-c'),root=document.getElementById('lv-bits');if(!g||!c)return;
+var n=246,bs=[];
+for(var i=7;i>=0;i--){(function(i){var b=document.createElement('button');b.type='button';b.className='bit';b.setAttribute('aria-label','Bit '+i);b.onclick=function(){n^=1<<i;r();};g.appendChild(b);bs.push([i,b]);})(i);}
+function f(v,z){return z?'−0':(v<0?'−'+(-v):String(v));}
+function r(){bs.forEach(function(p){var on=(n>>p[0])&1;p[1].textContent=on;p[1].setAttribute('aria-pressed',on?'true':'false');});
+var neg=n>127,m=n&127,c1=neg?-((~n)&255):n,c2=neg?n-256:n;
+var X=[['Sin signo',String(n),'0 a 255'],['Signo y magnitud',f(neg?-m:m,neg&&m===0),'−127 a 127, dos ceros'],['Complemento a 1',f(c1,n===255),'−127 a 127, dos ceros'],['Complemento a 2',f(c2,false),'−128 a 127'],['Hexadecimal',('0'+n.toString(16)).slice(-2).toUpperCase(),'0x'+('0'+n.toString(16)).slice(-2)]];
+c.innerHTML=X.map(function(x){return '<div><small>'+x[0]+'</small><b>'+x[1]+'</b><small>'+x[2]+'</small></div>';}).join('');}
+root.addEventListener('click',function(e){var a=e.target.getAttribute('data-a');if(!a)return;
+if(a==='inv')n=(~n)&255;else if(a==='inc')n=(n+1)&255;else if(a==='rnd')n=Math.floor(Math.random()*256);else n=0;r();});
+r();})();
+/* 2 · viaje de un dato por la jerarquía */
+(function(){var L=document.getElementById('lv-l'),o=document.getElementById('lv-o');if(!L||!o)return;
+var N=[['Registros','~1 ns'],['Caché L1/L2/L3','~10 ns'],['Memoria principal (RAM)','~100 ns'],['Disco (SSD o HDD)','de 100 µs a 10 ms']];
+var M=['Acierto en registros: no hace falta bajar.','Acierto de caché: la CPU ni llega a la RAM.','Fallo de caché: hay que ir a la RAM. El dato y su vecindad suben a la caché (localidad temporal y espacial).','Fallo hasta el disco: es órdenes de magnitud más lento que la RAM; por eso se traen bloques enteros y se guardan arriba.'];
+var els=N.map(function(x){var d=document.createElement('div');d.className='lvl';d.innerHTML='<span>'+x[0]+'</span><span>'+x[1]+'</span>';L.appendChild(d);return d;}),busy=0;
+document.getElementById('lv-go').onclick=function(){if(busy)return;var w=+document.getElementById('lv-w').value,i=0;
+els.forEach(function(e){e.className='lvl';});o.textContent='';busy=1;
+(function st(){els[i].classList.add(i===w?'hit':'on');if(i===w){busy=0;o.textContent=M[w];return;}i++;setTimeout(st,T);})();};})();
+/* 3 · asignación de ficheros */
+(function(){var D=document.getElementById('lv-d'),s=document.getElementById('lv-s'),k=document.getElementById('lv-k');if(!D||!s||!k)return;
+var F=[[5,6,7,8,9],[2,9,4,13,6],[2,9,4,13,6]],X=1,m=0,busy=0,cells=[];
+var MSG=[function(){return '<b>Contigua · 1 acceso.</b> Se calcula inicio + (k − 1) y se salta directo. A cambio exige un hueco contiguo (fragmentación externa) y el fichero crece mal.';},
+function(n){return '<b>Encadenada · '+n+(n>1?' accesos':' acceso')+'.</b> Cada bloque apunta al siguiente: para llegar al k-ésimo hay que recorrer los anteriores (acceso secuencial). Aprovecha cualquier bloque libre.';},
+function(){return '<b>Indexada · 2 accesos.</b> Se lee el bloque índice y de ahí se salta al bloque (acceso directo) sin exigir contigüidad.';}];
+for(var i=0;i<16;i++){var c=document.createElement('div');D.appendChild(c);cells.push(c);}
+function draw(){cells.forEach(function(c,i){c.className='blk';c.innerHTML='<small>'+i+'</small>';});
+F[m].forEach(function(p,j){cells[p].classList.add('f');cells[p].innerHTML+='<b>B'+(j+1)+'</b>';});
+if(m===2){cells[X].classList.add('f','ix');cells[X].innerHTML+='<b>Ix</b>';}s.textContent='';}
+document.querySelectorAll('#lv-fs [data-m]').forEach(function(b){b.onclick=function(){if(busy)return;m=+b.getAttribute('data-m');
+document.querySelectorAll('#lv-fs [data-m]').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});draw();};});
+document.getElementById('lv-run').onclick=function(){if(busy)return;draw();var q=+k.value,path=m===0?[F[0][q-1]]:m===1?F[1].slice(0,q):[X,F[2][q-1]],i=0;busy=1;
+(function st(){cells.forEach(function(c){c.classList.remove('cur');});if(i>0)cells[path[i-1]].classList.add('seen');cells[path[i]].classList.add('cur');i++;
+if(i<path.length)setTimeout(st,T);else{busy=0;s.innerHTML=MSG[m](path.length);}})();};
+draw();})();
+})();
+</script>
+<style id="an-css">
+.an{margin:14px 0 4px;padding:12px 14px;border:1px solid var(--background-modifier-border);border-radius:var(--radius-l);background:var(--background-primary-alt)}
+.an h4{margin:0 0 6px;font:600 14px/1.3 var(--font-interface);color:var(--text-normal)}
+.an svg{display:block;width:100%;max-width:560px;height:auto;margin:0 auto}
+.an .nd rect{fill:var(--background-primary,#fff);stroke:var(--background-modifier-border-hover,#8886);stroke-width:1.2;transition:fill .4s,stroke .4s}
+.an .nd text{fill:var(--text-normal);font:11px var(--font-interface);text-anchor:middle;dominant-baseline:central}
+.an .nd.on rect{fill:color-mix(in srgb,var(--interactive-accent,#7c6cf0) 26%,var(--background-primary,#fff));stroke:var(--interactive-accent,#7c6cf0)}
+.an .ed{stroke:var(--text-faint,#888);stroke-width:1.5;stroke-dasharray:4 4;fill:none}
+.an .tk{fill:var(--interactive-accent,#7c6cf0);transition:transform .9s ease-in-out,opacity .3s}
+.an .cap{margin:8px 0 6px;min-height:2.8em;font:13px/1.4 var(--font-interface);color:var(--text-normal)}
+.an .ct{display:flex;gap:8px;align-items:center}
+.an .ci{margin-left:auto;font:12px var(--font-interface);color:var(--text-muted)}
+.an button{font:12px var(--font-interface);padding:4px 10px;border:1px solid var(--background-modifier-border);border-radius:var(--radius-m);background:var(--background-secondary);color:var(--text-normal);cursor:pointer}
+.an button:focus-visible{outline:2px solid var(--interactive-accent,#7c6cf0);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.an .tk,.an .nd rect{transition:none}}
+@media print{.an{display:none}}
+</style>
+<script id="an-js">
+(function(){
+var NS="http://www.w3.org/2000/svg",RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
+function E(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+/* [sección, título, nodos "id:etiqueta:x:y:ancho", pasos "origen>destino|texto" o "ids|texto"] */
+var D=[
+["t1","Un byte son ocho bits",["b7:7:10:50:36","b6:6:56:50:36","b5:5:102:50:36","b4:4:148:50:36","b3:3:194:50:36","b2:2:240:50:36","b1:1:286:50:36","b0:0:332:50:36"],["b0|Un bit es la unidad mínima: vale 0 o 1","b0,b1|Con 2 bits hay 4 combinaciones: cada bit duplica el total","b0,b1,b2,b3,b4,b5,b6,b7|Ocho bits forman un byte: 2⁸ = 256 valores distintos"]],
+["t1-e2","Leer una celda de memoria",["cpu:CPU:10:50:70","a:Bus de direcciones:120:8:130","d:Bus de datos:120:92:130","m:Celda 0x2A:300:50:90"],["cpu>a|La CPU pone la dirección de la celda en el bus de direcciones","a>m|La memoria selecciona la celda con esa dirección (0x2A)","m>d|El contenido de la celda sale al bus de datos","d>cpu|La CPU recibe el dato: leer = dirección + dato"]],
+["t1-e3","Un mismo byte, tres convenios",["b:1000 0001:150:8:100","sm:Signo-magnitud:10:88:120","c1:Complemento a 1:140:88:120","c2:Complemento a 2:270:88:120"],["b>sm|Signo-magnitud: bit de signo 1 y magnitud 0000001: vale −1","b>c1|Complemento a 1: se invierten los bits (01111110 = 126): vale −126","b>c2|Complemento a 2: se invierte y se suma 1 (01111111 = 127): vale −127"]],
+["t1-e5","Un fichero es una secuencia de bytes",["f:Fichero:10:50:80","b:Secuencia de bytes:120:50:140","p:Programa:300:50:90"],["f>b|Un fichero es solo una secuencia de bytes","b>p|El programa que lo abre decide qué significan","p|El mismo contenido puede ser texto, imagen o número según el convenio"]],
+["t1-e8","Los tres campos de un real",["s:Signo:10:50:80","e:Exponente sesgado:100:50:150","m:Mantisa:260:50:130"],["s|Signo: 0 es positivo y 1 negativo","e|Exponente: se guarda el valor real más el sesgo (127 en 32 bits)","m|Mantisa: la parte fraccionaria; el 1 inicial queda implícito","s,e,m|Valor = (−1)^signo × 1,mantisa × 2^(exponente − sesgo)"]],
+["t2","El ciclo de Von Neumann",["cpu:CPU:10:50:80","mem:Memoria:300:50:90","io:Entrada/salida:150:94:110"],["cpu>mem|La CPU pide a memoria la siguiente instrucción","mem>cpu|Instrucciones y datos vuelven por el mismo camino: es el cuello de Von Neumann","cpu>io|Si hace falta, ordena una operación de entrada/salida","io>mem|Los datos de E/S pasan por la memoria"]],
+["t2-e2","Ciclo de instrucción",["pc:PC:10:50:60","mem:Memoria:120:8:100","ir:IR:290:50:60","uc:Unidad de control:220:94:130","alu:ALU:60:94:80"],["pc>mem|Captación: el PC indica qué instrucción leer","mem>ir|La instrucción llega al registro de instrucción (IR)","ir>uc|Decodificación: la unidad de control la interpreta","uc>alu|Ejecución: la ALU realiza la operación","alu>pc|El PC avanza a la instrucción siguiente"]],
+["t2-e3","Un dato baja por la jerarquía de memoria",["r:Registros:5:50:75","c:Caché:100:50:65","m:RAM:190:50:60","d:Disco:280:50:70"],["r>c|Fallo en registros: se busca en la caché (nanosegundos)","c>m|Fallo en caché: se baja a la memoria principal (~100 ns)","m>d|Fallo en RAM: se llega al disco (milisegundos, millones de veces más lento)","d>m|El dato sube y se copia en los niveles superiores","m>c|Por localidad, lo usado ahora se volverá a usar: la caché lo conserva"]],
+["t2-e4","RAID 0, 1 y 5",["d:Datos A1 A2:10:50:90","d1:Disco 1:170:8:80","d2:Disco 2:170:50:80","d3:Disco 3:170:92:80"],["d>d1|RAID 0 (reparto): el bloque A1 va al disco 1","d>d2|…y A2 al disco 2: más velocidad, pero un fallo pierde todo","d>d1|RAID 1 (espejo): el bloque se escribe en el disco 1","d>d2|…y también en el disco 2: sobrevive a la caída de uno","d>d3|RAID 5 (paridad): la paridad se reparte por los discos y reconstruye uno caído"]],
+["t3","El SO, gestor y máquina extendida",["app:Aplicación:10:50:90","so:Sistema operativo:130:50:140","hw:Hardware:310:50:80"],["app>so|La aplicación pide un servicio al sistema operativo","so>hw|El SO gestiona el hardware por ella: es el gestor de recursos","hw>so|El hardware responde al SO","so>app|La aplicación recibe una máquina extendida: una vista simple, sin detalles del equipo"]],
+["t3-e2","Modo dual y llamada al sistema",["app:Programa de usuario:10:8:140","so:Núcleo (modo kernel):230:8:160","hw:Hardware:230:92:100"],["app|Modo usuario: las instrucciones privilegiadas están prohibidas","app>so|Llamada al sistema (trap): el bit de modo pasa a modo núcleo","so>hw|En modo núcleo el SO sí puede usar instrucciones privilegiadas","so>app|Al terminar, el bit de modo vuelve a usuario"]],
+["t3-e2","Estados de un proceso",["n:Nuevo:5:8:60","l:Listo:100:8:60","e:Ejecución:200:8:80","t:Terminado:310:8:80","b:Bloqueado:140:92:90"],["n>l|Admitido: pasa a la cola de listos","l>e|El planificador le asigna la CPU","e>l|El temporizador agota su turno: vuelve a listo","l>e|Recupera la CPU","e>b|Pide E/S y espera: pasa a bloqueado","b>l|Termina la E/S: vuelve a listo","l>e|Vuelve a la CPU","e>t|Acaba su ejecución: terminado"]],
+["t3-e3","Memoria virtual y fallo de página",["dv:Dirección virtual:10:8:120","tp:Tabla de páginas:150:8:120","m:Marco en RAM:290:50:100","dk:Disco (swap):150:92:110"],["dv>tp|La CPU genera una dirección virtual: página y desplazamiento","tp>m|Si la página está presente, la tabla da el marco de RAM","tp>dk|Si no lo está: fallo de página, el SO la busca en el disco","dk>m|La página se carga en un marco libre y la instrucción se repite"]],
+["t3-e6","Planificación Round Robin",["q:Cola de listos:10:50:110","c:CPU:190:50:70","f:Fin:320:50:60"],["q>c|Round robin: el primer proceso recibe un quantum de CPU","c>q|Si no ha terminado, vuelve al final de la cola","q>c|Turno del siguiente proceso","c>f|Al terminar su trabajo, sale del sistema"]],
+["t3-e7","La tríada de la seguridad",["c:Confidencialidad:10:8:140","i:Integridad:250:8:120","d:Disponibilidad:130:88:140"],["c|Confidencialidad: solo accede quien está autorizado","i|Integridad: los datos no cambian sin permiso","d|Disponibilidad: el servicio responde cuando se necesita","c,i,d|La seguridad protege las tres propiedades a la vez"]],
+["t4","Redundancia e inconsistencia",["a1:Aplicación A:10:8:100","a2:Aplicación B:10:92:100","f1:Fichero de A:170:8:110","f2:Fichero de B:170:92:110"],["a1>f1|Cada aplicación guarda sus propios ficheros","a2>f2|…y repite los mismos datos: redundancia","a1>f1|Se corrige una dirección solo en el fichero de A","f1>f2|Ahora los dos ficheros no coinciden: inconsistencia"]],
+["t4-e2","Base de datos y SGBD",["a:Aplicación:10:50:90","s:SGBD:150:50:80","b:Base de datos:290:50:100"],["a>s|La aplicación pide los datos al SGBD, no a los ficheros","s>b|El SGBD accede a los datos almacenados","b>s|…y los recupera","s>a|Entrega el resultado: la BD son los datos y el SGBD, el software que los gestiona"]],
+["t4-e3","ANSI/SPARC: tres niveles",["x:Nivel externo (vistas):120:4:170","c:Nivel conceptual:120:44:170","i:Nivel interno:120:84:170"],["x>c|Una consulta sobre una vista externa baja al nivel conceptual","c>i|…y de ahí al nivel interno, donde están los datos almacenados","c,i|Independencia física: cambiar el almacenamiento no altera el nivel conceptual","x,c|Independencia lógica: cambiar el conceptual no obliga a rehacer las vistas"]],
+["t4-e5","Jerárquico, red y relacional",["p1:Padre A:10:8:90","p2:Padre B:10:92:90","h:Hijo:150:50:80","t:Tablas y claves:280:50:110"],["p1>h|Jerárquico: cada registro hijo tiene un único padre","p2>h|Red: un hijo puede tener varios padres","h>t|Relacional: sin punteros; las tablas se relacionan por valores (claves)"]]
+];
+D.forEach(function(d){
+var sec=document.getElementById(d[0]),h=sec&&sec.querySelector("h2");if(!h)return;
+var N={},st=d[3].map(function(s){var p=s.split("|"),m=p[0].indexOf(">")>0?p[0].split(">"):null;return{m:m,i:m||p[0].split(","),c:p[1]}});
+var f=document.createElement("figure");f.className="an";
+f.innerHTML='<h4>Animación: '+d[1]+'</h4><svg viewBox="0 0 400 124" role="img" aria-label="'+d[1]+'"></svg><p class="cap"></p><div class="ct"><button type="button" class="pl"></button><button type="button" class="nx">Paso siguiente</button><span class="ci"></span></div>';
+var svg=f.querySelector("svg"),cap=f.querySelector(".cap"),pl=f.querySelector(".pl"),ci=f.querySelector(".ci");
+function C(id){var n=N[id];return[n.x+n.w/2,n.y+13]}
+d[2].forEach(function(s){var p=s.split(":");N[p[0]]={l:p[1],x:+p[2],y:+p[3],w:+p[4]}});
+var eg=E("g",{},svg),done={};
+st.forEach(function(s){if(s.m&&!done[s.m]){done[s.m]=1;var a=C(s.m[0]),b=C(s.m[1]);E("line",{x1:a[0],y1:a[1],x2:b[0],y2:b[1],class:"ed"},eg)}});
+for(var k in N){var n=N[k],g=E("g",{class:"nd"},svg);E("rect",{x:n.x,y:n.y,width:n.w,height:26,rx:6},g);E("text",{x:n.x+n.w/2,y:n.y+13},g).textContent=n.l;n.g=g}
+var tk=E("circle",{r:6,class:"tk"},svg),cur=0,tm=0,man=0;
+function go(i){cur=(i+st.length)%st.length;var s=st[cur];
+for(var k in N)N[k].g.classList.remove("on");
+s.i.forEach(function(id){N[id].g.classList.add("on")});
+if(s.m){var a=C(s.m[0]),b=C(s.m[1]);tk.style.transition="none";tk.style.opacity=1;tk.style.transform="translate("+a[0]+"px,"+a[1]+"px)";tk.getBoundingClientRect();tk.style.transition="";tk.style.transform="translate("+b[0]+"px,"+b[1]+"px)"}else tk.style.opacity=0;
+cap.textContent=s.c;ci.textContent=(cur+1)+" / "+st.length}
+function stop(){clearInterval(tm);tm=0;pl.textContent="▶ Reproducir"}
+function play(){stop();tm=setInterval(function(){go(cur+1)},2600);pl.textContent="❚❚ Pausar"}
+pl.onclick=function(){if(tm){man=1;stop()}else{man=0;play();go(cur+1)}};
+f.querySelector(".nx").onclick=function(){man=1;stop();go(cur+1)};
+var a=h;if(a.nextElementSibling&&a.nextElementSibling.classList.contains("sub"))a=a.nextElementSibling;
+while(a.nextElementSibling&&a.nextElementSibling.classList.contains("an"))a=a.nextElementSibling;
+a.after(f);go(0);stop();
+if(!RM&&"IntersectionObserver"in window)new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){if(!man&&!tm)play()}else stop()})},{threshold:.6}).observe(f);
+});
 })();
 </script>
 </body>
