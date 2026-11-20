@@ -485,6 +485,85 @@ input.hu.bad{border-color:var(--fx-bad);background:var(--fx-bad-soft);border-sty
 @media (max-width:640px){.pm{grid-template-columns:1fr}.ex li{padding-left:36px}.ex li::before{left:8px}}
 @media print{.btnx,.exs,.pgn{display:none!important}input.hu{background:transparent;border:0;border-bottom:1px solid var(--color-base-40)}}
 </style>
+<style id="wg-css">
+/* ===== Simuladores (.wg): color ámbar, controles y componentes comunes ===== */
+:root,:root[data-theme="dark"]{--tx-amber:#e7b04b}
+:root[data-theme="light"]{--tx-amber:#b45309}
+.wg .r{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin:8px 0}
+.wg .lb{flex:0 1 18em;font:600 13px/1.3 var(--font-interface);color:var(--text-muted)}
+.wg .r input[type=range]{flex:1 1 150px;width:auto;max-width:300px;min-width:110px}
+.wg .r output.v{font:600 13px var(--font-interface);font-variant-numeric:tabular-nums;color:var(--text-normal);min-width:5.5em}
+.wg button{display:inline-flex;align-items:center;gap:6px;min-height:30px;padding:0 12px;font:500 13px var(--font-interface);color:var(--text-normal);background:var(--interactive-normal);border:1px solid var(--color-base-40);border-radius:4px;cursor:pointer;transition:background-color .15s ease,border-color .15s ease}
+.wg button:hover{background:var(--interactive-hover);border-color:var(--color-base-50)}
+.wg button[aria-pressed="true"]{background:var(--interactive-accent);border-color:var(--interactive-accent);color:var(--text-on-accent)}
+.wg .pre{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0}
+.wg .pre>i{font:600 12px var(--font-interface);font-style:normal;color:var(--text-muted);margin-right:2px}
+.wg .kps{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:8px;margin:10px 0}
+.wg .kp{background:var(--background-primary);border:1px solid var(--background-modifier-border);border-radius:8px;padding:8px 10px}
+.wg .kp span{display:block;font:500 12px/1.3 var(--font-interface);color:var(--text-muted)}
+.wg .kp b{display:block;font:600 18px/1.35 var(--font-interface);font-variant-numeric:tabular-nums;color:var(--text-normal)}
+.wg .kp.k1 b{color:var(--text-accent)}
+.wg .kp.k2 b{color:var(--tx-amber)}
+.wg .nb{font:400 12.5px/1.5 var(--font-interface);color:var(--text-muted);margin:6px 0 0}
+.wg .d{min-height:3em}
+.wg svg .ax{stroke:var(--color-base-50);stroke-width:1.2;fill:none}
+.wg svg .gr{stroke:var(--background-modifier-border);stroke-width:1;fill:none}
+.wg svg text.sm{font:500 8.5px var(--font-interface)}
+.wg svg text.ac{fill:var(--text-accent);font-weight:700}
+.wg svg text.am{fill:var(--tx-amber);font-weight:700}
+.wg svg text.nx{fill:var(--text-normal);font-weight:700}
+.wg svg text.ac,.wg svg text.am,.wg svg text.nx{paint-order:stroke;stroke:var(--background-primary-alt);stroke-width:3px;stroke-linejoin:round}
+.wg svg.hit{cursor:crosshair;touch-action:pan-y}
+.wg [hidden]{display:none!important}
+.wg svg:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px}
+.wg .g2w{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2px 14px}
+.wg .g2w .r{margin:3px 0}
+.wg .g2w .lb{flex:0 0 100%}
+.wg .g2w input[type=range]{flex:1 1 80px;min-width:60px}
+.wg .g2w output.v{min-width:3.4em}
+.wg .num{width:9.5em;height:30px;padding:0 8px;font:600 13px var(--font-interface);font-variant-numeric:tabular-nums;text-align:right;color:var(--text-normal);background:var(--background-modifier-form-field);border:1px solid var(--color-base-40);border-radius:4px}
+.wg .num:focus{outline:0;border-color:var(--color-accent);box-shadow:0 0 0 2px var(--color-accent)}
+.wg table.mx{min-width:0;width:auto;margin:8px 0}
+.wg table.mx th,.wg table.mx td{padding:5px 8px;text-align:right;font-variant-numeric:tabular-nums}
+.wg table.mx th:first-child{text-align:left}
+.wg table.mx td.hl{background:color-mix(in srgb,var(--color-accent) 22%,transparent)}
+.wg table.mx td.hl2{background:color-mix(in srgb,var(--tx-amber) 24%,transparent)}
+.wg table.mx td.dg{font-weight:700}
+@media (pointer:coarse){.wg button{min-height:44px}.wg .num{height:40px}}
+@media print{.wg .r,.wg .pre,.wg button{display:none!important}.wg svg.hit{cursor:auto}.wg .num{border:0;background:transparent;box-shadow:none;width:auto;text-align:right}}
+</style>
+<script>
+/* Biblioteca común de los simuladores (.wg): formato español, SVG, deslizadores, botones y tarjetas de datos */
+window.WG=(function(){
+var NS='http://www.w3.org/2000/svg',W={};
+W.$=function(i){return document.getElementById(i)};
+/* número con coma decimal y puntos de millar (también en 4 cifras); el signo menos es el tipográfico */
+W.n=function(x,d){d=d||0;var s=Math.abs(x).toFixed(d),p=s.split('.'),i=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.');return(x<0&&+s!==0?'−':'')+i+(p[1]?','+p[1]:'')};
+W.s=function(x,d){return(x>0?'+':'')+W.n(x,d)};
+/* decimal con coma y sin separador de millar (años, fechas) */
+W.f=function(x,d){var s=Math.abs(x).toFixed(d).replace('.',',');return(x<0&&+s.replace(',','.')!==0?'−':'')+s};
+W.h=function(tag,cls,txt,par){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;if(par)par.appendChild(e);return e};
+W.head=function(host,title,desc){var p=W.h('p','sub','',host);p.style.margin='0 0 6px';W.h('b','',title,p);p.appendChild(document.createTextNode(' · '+desc));return p};
+/* SVG */
+W.svg=function(host,vb,label,cls){var s=document.createElementNS(NS,'svg');s.setAttribute('viewBox',vb);s.setAttribute('role','img');s.setAttribute('aria-label',label);if(cls)s.setAttribute('class',cls);host.appendChild(s);return s};
+W.el=function(p,n,at,txt){var e=document.createElementNS(NS,n);for(var k in at)e.setAttribute(k,at[k]);if(txt!=null)e.textContent=txt;p.appendChild(e);return e};
+W.tx=function(p,x,y,t,an,cl){var e=W.el(p,'text',{x:x,y:y,'text-anchor':an||'middle'},t);if(cl)e.setAttribute('class',cl);return e};
+W.pt=function(svg,ev){var p=svg.createSVGPoint();p.x=ev.clientX;p.y=ev.clientY;return p.matrixTransform(svg.getScreenCTM().inverse())};
+/* deslizador con etiqueta y valor; o.fmt da el texto; devuelve el input (put = fijar sin disparar cb) */
+W.sl=function(host,o){var r=W.h('div','r','',host),l=W.h('label','lb',o.label,r),i=W.h('input','',null,r),v=W.h('output','v','',r);
+i.type='range';i.id=o.id;i.min=o.min;i.max=o.max;i.step=o.step;i.value=o.val;l.htmlFor=o.id;v.htmlFor=o.id;
+function show(){v.textContent=o.fmt?o.fmt(+i.value):i.value;i.setAttribute('aria-valuetext',v.textContent)}
+i.addEventListener('input',function(){show();if(o.cb)o.cb(+i.value)});
+i.put=function(x){i.value=x;show()};i.cfg=function(mn,mx,st){i.min=mn;i.max=mx;i.step=st};i.row=r;show();return i};
+/* fila de botones; items: {t,f,on}. Con tog:true alternan aria-pressed */
+W.bt=function(host,items,lab,tog){var r=W.h('div','pre','',host);if(lab)W.h('i','',lab,r);return items.map(function(o){var b=W.h('button','',o.t,r);b.type='button';if(tog)b.setAttribute('aria-pressed',o.on?'true':'false');b.addEventListener('click',function(){if(tog){[].forEach.call(r.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',x===b?'true':'false')})}o.f(b)});return b})};
+/* interruptor independiente */
+W.tg=function(host,txt,on,f){var r=W.h('div','pre','',host),b=W.h('button','',txt,r);b.type='button';b.setAttribute('aria-pressed',on?'true':'false');b.addEventListener('click',function(){var v=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',v?'true':'false');f(v)});return b};
+/* tarjetas de resultado: devuelve los <b> de valor */
+W.kp=function(host,items){var d=W.h('div','kps','',host);return items.map(function(it){var k=W.h('div','kp'+(it[1]?' '+it[1]:''),'',d);W.h('span','',it[0],k);return W.h('b','','',k)})};
+W.num=function(host,id,val,lab,cb){var i=W.h('input','num','',host);i.type='number';i.id=id;i.value=val;i.step='any';i.inputMode='decimal';if(lab)i.setAttribute('aria-label',lab);i.addEventListener('input',function(){cb()});return i};
+return W})();
+</script>
 </head>
 <body id="top">
 <a class="skip" href="#main">Saltar al contenido</a>
@@ -601,7 +680,60 @@ input.hu.bad{border-color:var(--fx-bad);background:var(--fx-bad-soft);border-sty
   </div>
   <div class="mem"><b>Cómo se pregunta.</b> Dibujarlo exige <b>ejes rotulados</b>, las <b>tres familias de líneas identificadas</b> y el suceso localizado con su forma: punto, segmento o área. «Cuenta el plano, no la prosa». La pregunta de Lexis ha abierto el bloque de Demografía (P23) <b>cuatro convocatorias seguidas</b>, dos veces también dentro del problema práctico (mortalidad infantil, 2026).</div>
   <div class="mem"><b>Los tres polígonos clásicos.</b> Los acontecimientos del año 2023 con 2 años de edad: <b>cuadrado vertical</b> entre las edades exactas 2 y 3 dentro del año 2023. Con 1 año los nacidos en 2022: <b>banda diagonal</b> de la generación 2022 entre sus edades exactas 1 y 2. Los acaecidos a los nacidos en 2024 durante 2025: banda diagonal de la generación 2024 entre el eje y su edad exacta 1, limitada al año 2025.</div>
-  <div class="xrefs">Conexiones: <a href="#x-e11">el dibujo de la P23 en acción</a> · <a href="#t2-e8">2.8 · TMI transversal frente a probabilidad de cohorte</a> · <a href="#t3-e2">3.2 · la TEF leída por la columna y por la diagonal</a></div>
+  <div class="card wg" id="w-lx" style="margin:12px 0"></div>
+<script>
+(function(){
+var W=WG,h=W.$('w-lx'),X=function(t){return 40+60*(t-2022)},Y=function(a){return 270-60*a},
+mode='p',pt={t:2024.6,a:1.7},cell={y:2024,x:1},coh=false,sy,sa,cb,down=false;
+W.head(h,'Lexis: pincha un punto','pulsa o arrastra sobre el plano (o usa los deslizadores): en «Punto» ves las tres líneas que pasan por él; en «Casilla», el cuadrado año × edad se parte en dos triángulos de generaciones distintas');
+W.bt(h,[{t:'Punto: sus tres líneas',on:1,f:function(){setMode('p')}},{t:'Casilla: dos triángulos',f:function(){setMode('c')}}],'Modo',true);
+sy=W.sl(h,{id:'w-lx-y',label:'Fecha del calendario',min:2022,max:2026.95,step:.05,val:pt.t,fmt:function(v){return W.f(v,2)},cb:function(v){if(mode=='p')pt.t=v;else cell.y=v;draw()}});
+sa=W.sl(h,{id:'w-lx-a',label:'Edad exacta',min:0,max:3.95,step:.05,val:pt.a,fmt:function(v){return W.f(v,2)},cb:function(v){if(mode=='p')pt.a=v;else cell.x=v;draw()}});
+cb=W.tg(h,'Seguir a la generación (lectura longitudinal)',false,function(v){coh=v;draw()});cb.parentNode.hidden=true;
+var s=W.svg(h,'0 0 400 304','Diagrama de Lexis interactivo','hit'),g0=W.el(s,'g',{}),g1=W.el(s,'g',{}),d=W.h('p','d','',h);d.setAttribute('aria-live','polite');
+var i,g,ya=function(k){return k==1?'1 año cumplido':k+' años cumplidos'};
+for(i=0;i<=4;i++)W.el(g0,'line',{x1:40,y1:Y(i),x2:340,y2:Y(i),class:'gr'});
+for(i=2022;i<=2027;i++){W.el(g0,'line',{x1:X(i),y1:30,x2:X(i),y2:270,class:'gr'});W.tx(g0,X(i),286,i)}
+for(g=2018;g<=2026;g++){var a0=Math.max(0,2022-g),a1=Math.min(4,2027-g);if(a1>a0)W.el(g0,'line',{x1:X(g+a0),y1:Y(a0),x2:X(g+a1),y2:Y(a1),stroke:'var(--tx-amber)','stroke-width':1,'stroke-dasharray':'4 4',opacity:.45})}
+for(i=0;i<=4;i++)W.tx(g0,34,Y(i)+3,i,'end');
+W.tx(g0,40,10,'edad exacta','start');W.tx(g0,340,299,'calendario (1 de enero de cada año)','end');
+W.el(g0,'line',{x1:40,y1:270,x2:344,y2:270,class:'ax'});W.el(g0,'line',{x1:40,y1:270,x2:40,y2:26,class:'ax'});
+function cl(P,mx){var o=[],n=P.length,k,p,q,dp,dq,m;for(k=0;k<n;k++){p=P[k];q=P[(k+1)%n];dp=mx-p[0];dq=mx-q[0];if(dp>=0)o.push(p);if(dp*dq<0){m=dp/(dp-dq);o.push([p[0]+m*(q[0]-p[0]),p[1]+m*(q[1]-p[1])])}}return o}
+function poly(P,at){P=cl(P,2027);if(P.length>2)W.el(g1,'polygon',Object.assign({points:P.map(function(p){return X(p[0])+','+Y(p[1])}).join(' ')},at))}
+function draw(){g1.textContent='';var t,a,txt,lab;
+if(mode=='p'){t=pt.t;a=pt.a;var b=t-a,s0=Math.max(0,2022-b),e0=Math.min(4,2027-b),yr=Math.floor(t),ec=Math.floor(a),u=t-yr,v=a-ec,gen=Math.floor(b);
+W.el(g1,'rect',{x:X(yr),y:Y(ec+1),width:60,height:60,fill:'var(--color-accent)','fill-opacity':.07});
+W.el(g1,'line',{x1:X(t),y1:Y(0),x2:X(t),y2:Y(4),stroke:'var(--color-accent)','stroke-width':2.2});
+W.el(g1,'line',{x1:X(2022),y1:Y(a),x2:X(2027),y2:Y(a),stroke:'var(--text-normal)','stroke-width':2.2});
+W.el(g1,'line',{x1:X(b+s0),y1:Y(s0),x2:X(b+e0),y2:Y(e0),stroke:'var(--tx-amber)','stroke-width':2.6});
+W.el(g1,'circle',{cx:X(t),cy:Y(a),r:5.5,fill:'var(--color-accent)',stroke:'var(--background-primary)','stroke-width':2});
+var yh=Y(a)-5,yd=Y(s0)-6;if(yh<38)yh=Y(a)+13;if(s0>=3.2)yd=Y(s0)+16;if(Math.abs(yd-yh)<12)yd=yh+(yd<=yh?-13:13);
+W.tx(g1,Math.min(Math.max(X(t),62),318),24,'vertical: t = '+W.f(t,2),'middle','ac');
+W.tx(g1,338,yh,'horizontal: x = '+W.f(a,2),'end','nx');
+W.tx(g1,Math.min(X(b+s0)+7,250),yd,'diagonal: nació en '+W.f(b,2),'start','am');
+txt='Fecha '+W.f(t,2)+' y edad exacta '+W.f(a,2)+' → nació el '+W.f(b,2)+'. Por ese punto pasan tres líneas: la vertical del año '+yr+' (período), la horizontal de la edad exacta '+W.f(a,2)+' y la diagonal de la generación '+gen+'. Está en la casilla «año '+yr+' · '+ya(ec)+'», en su triángulo '+(v>u?'superior (generación '+gen+', que aún no cumple los '+(ec+1)+')':'inferior (generación '+gen+', que cumple los '+ec+' durante '+yr+')')+'.'}
+else{var Yr=cell.y,x=cell.x,gA=Yr-x-1,gB=Yr-x;
+W.el(g1,'rect',{x:X(Yr),y:Y(x+1),width:60,height:60,fill:'var(--color-accent)','fill-opacity':.13,stroke:'var(--color-accent)','stroke-width':2});
+if(coh)poly([[Yr,x],[Yr+1,x],[Yr+2,x+1],[Yr+1,x+1]],{fill:'var(--tx-amber)','fill-opacity':.2,stroke:'var(--tx-amber)','stroke-width':2.4,'stroke-dasharray':'6 3'});
+poly([[Yr,x],[Yr,x+1],[Yr+1,x+1]],{fill:'var(--tx-amber)','fill-opacity':coh?.04:.3});
+poly([[Yr,x],[Yr+1,x],[Yr+1,x+1]],{fill:'var(--color-accent)','fill-opacity':.3});
+W.el(g1,'line',{x1:X(Yr),y1:Y(x),x2:X(Yr+1),y2:Y(x+1),stroke:'var(--tx-amber)','stroke-width':2});
+W.tx(g1,X(Yr)+19,Y(x+1)+17,'gen. '+gA,'middle','am');W.tx(g1,X(Yr)+42,Y(x)-8,'gen. '+gB,'middle','ac');
+txt='Casilla del año '+Yr+' con '+ya(x)+': un cuadrado de lectura transversal. Su diagonal la parte en dos triángulos: el superior izquierdo es de la generación '+gA+' (ya '+(x==0?'había nacido':'tenía '+ya(x).replace(' cumplido','').replace(' cumplidos',''))+' al empezar el año y aún no cumple '+(x+1)+') y el inferior derecho, de la generación '+gB+' ('+(x==0?'nace':'cumple '+ya(x).replace(' cumplido','').replace(' cumplidos',''))+' durante '+Yr+'). '+
+(coh?'El paralelogramo discontinuo sigue a la generación '+gB+' en sus dos años de calendario con '+ya(x)+' ('+Yr+' y '+(Yr+1)+'): es la lectura longitudinal, y por eso la TMI y la probabilidad de la cohorte no suman las mismas muertes.':'Activa «Seguir a la generación» para ver el recorrido longitudinal de la generación '+gB+'.')}
+d.textContent=txt;s.setAttribute('aria-label','Diagrama de Lexis interactivo. '+txt)}
+function setMode(m){if(m==mode)return;if(m=='c'){cell={y:Math.min(2026,Math.floor(pt.t)),x:Math.min(3,Math.floor(pt.a))};sy.cfg(2022,2026,1);sa.cfg(0,3,1);sy.row.firstChild.textContent='Año del calendario';sa.row.firstChild.textContent='Edad cumplida'}
+else{pt={t:cell.y+.5,a:cell.x+.5};sy.cfg(2022,2026.95,.05);sa.cfg(0,3.95,.05);sy.row.firstChild.textContent='Fecha del calendario';sa.row.firstChild.textContent='Edad exacta'}
+mode=m;cb.parentNode.hidden=m!='c';sync();draw()}
+function sync(){var t=mode=='p'?pt.t:cell.y,a=mode=='p'?pt.a:cell.x;sy.put(t);sa.put(a)}
+function mv(e){var p=W.pt(s,e),t=Math.min(2026.95,Math.max(2022,2022+(p.x-40)/60)),a=Math.min(3.95,Math.max(0,(270-p.y)/60));
+if(mode=='p'){pt.t=Math.round(t*20)/20;pt.a=Math.round(a*20)/20}else{cell.y=Math.floor(t);cell.x=Math.floor(a)}sync();draw()}
+s.addEventListener('pointerdown',function(e){down=true;try{s.setPointerCapture(e.pointerId)}catch(_){}mv(e)});
+s.addEventListener('pointermove',function(e){if(down)mv(e)});
+['pointerup','pointercancel'].forEach(function(n){s.addEventListener(n,function(){down=false})});
+sync();draw()})();
+</script>
+<div class="xrefs">Conexiones: <a href="#x-e11">el dibujo de la P23 en acción</a> · <a href="#t2-e8">2.8 · TMI transversal frente a probabilidad de cohorte</a> · <a href="#t3-e2">3.2 · la TEF leída por la columna y por la diagonal</a></div>
 </section></section>
 <section class="tema-sec" id="t2"><a class="up" href="#top">↑ Índice</a><div class="k">CSE INE A1 · Demografía</div><h1 class="tt" aria-level="2">Tema 2 · Mortalidad: tasas, tabla de vida y estandarización</h1><p>Esquemas de repaso · fichas D5–D18 · el tema con más peso: la tabla de vida completa cayó en 2023 (cuestión 5, desde las nmₓ) y en 2026 (pregunta 24, tabla del INE de 2024); la TMI y sus tasas relacionadas, en 2024 y 2026; la estandarización, como teoría en 2024 y numérica pendiente</p><nav class="ix" aria-label="Epígrafes del tema"><a href="#t2-e1">2.1 Tasa central mₓ</a><a href="#t2-e2">2.2 Chiang</a><a href="#t2-e3">2.3 q y p</a><a href="#t2-e4">2.4 d y l</a><a href="#t2-e5">2.5 L: población estacionaria</a><a href="#t2-e6">2.6 T y e</a><a href="#t2-e7">2.7 TMI y relacionadas</a><a href="#t2-e8">2.8 TMI frente a cohorte</a><a href="#t2-e9">2.9 Estandarización</a><a href="#t2-e10">2.10 Esquema de la tabla</a></nav><section id="t2-e1">
   <h2 aria-level="3"><span class="n">2.1</span>Tasa específica (central) de mortalidad por edad</h2>
@@ -667,15 +799,81 @@ input.hu.bad{border-color:var(--fx-bad);background:var(--fx-bad-soft);border-sty
     <div class="box ok"><b>Perinatal</b><small>(mortinatos + D 1.ª semana) / (mortinatos + NV) × 1.000</small></div>
   </div>
   <div class="mem"><b>Ver ejemplos — P24 de 2024 y modelo M4.</b> 2024: 600 muertes en los primeros 27 días → neonatal = 600/330.000 × 1.000 = <b>1,82‰</b>; postneonatal = 300/330.000 × 1.000 = <b>0,91‰</b> (suma la TMI de 2,73‰ ✓). M4: neonatal = 700/320.000 = <b>2,19‰</b>; postneonatal = (1.100 − 700)/320.000 = <b>1,25‰</b>. «¿Qué otras tasas relacionadas puede calcular?» es literal de la P24 de 2024.</div>
-  <div class="xrefs">Conexiones: <a href="#t2-e8">2.8 · tasa frente a probabilidad de cohorte</a> · <a href="#x-e8">2026 en acción: el apartado (f)</a></div>
+  <div class="card wg" id="w-tmi" style="margin:12px 0"></div>
+<script>
+(function(){
+var W=WG,h=W.$('w-tmi'),nv,dn,dp,mt,d7,kp,s,gb,d;
+W.head(h,'Neonatal + postneonatal = TMI','mueve las defunciones de cada tramo: las dos tasas comparten denominador (los nacidos vivos), por eso suman la TMI; la perinatal cambia de numerador y de denominador');
+W.bt(h,[{t:'P24 de 2024',f:function(){set(330000,600,300,1000,450)}},{t:'Modelo M4',f:function(){set(320000,700,400,1000,450)}}],'Cargar datos');
+nv=W.sl(h,{id:'w-tmi-nv',label:'Nacidos vivos del año',min:100000,max:500000,step:1000,val:330000,fmt:function(v){return W.n(v)},cb:draw});
+dn=W.sl(h,{id:'w-tmi-dn',label:'Defunciones de 0 a 27 días',min:0,max:2000,step:10,val:600,fmt:function(v){return W.n(v)},cb:draw});
+dp=W.sl(h,{id:'w-tmi-dp',label:'Defunciones del día 28 al año',min:0,max:2000,step:10,val:300,fmt:function(v){return W.n(v)},cb:draw});
+mt=W.sl(h,{id:'w-tmi-mt',label:'Mortinatos (dato ilustrativo)',min:0,max:3000,step:50,val:1000,fmt:function(v){return W.n(v)},cb:draw});
+d7=W.sl(h,{id:'w-tmi-d7',label:'Defunciones de la 1.ª semana (ilustrativo)',min:0,max:2000,step:10,val:450,fmt:function(v){return W.n(v)},cb:draw});
+kp=W.kp(h,[['Neonatal','k1'],['Postneonatal','k2'],['TMI = suma'],['Perinatal']]);
+s=W.svg(h,'0 0 400 118','Barras de la tasa de mortalidad infantil descompuesta en neonatal y postneonatal, y de la perinatal');
+d=W.h('p','d','',h);d.setAttribute('aria-live','polite');
+function set(a,b,c,e,f){nv.put(a);dn.put(b);dp.put(c);mt.put(e);d7.put(f);draw()}
+function draw(){var N=+nv.value,a=+dn.value,b=+dp.value,m=+mt.value,w=Math.min(+d7.value,a),ne=a/N*1000,po=b/N*1000,tm=ne+po,pe=(m+w)/(m+N)*1000,mx=Math.max(6,Math.ceil(Math.max(tm,pe)+.5)),X=function(v){return 40+270*v/mx},i,ts=mx>30?10:mx>12?5:mx>8?2:1;
+d7.max=a;if(+d7.value>a)d7.put(a);
+s.textContent='';
+for(i=0;i<=mx;i+=ts){W.el(s,'line',{x1:X(i),y1:14,x2:X(i),y2:100,class:'gr'});W.tx(s,X(i),112,i,'middle')}
+W.tx(s,40,9,'por mil nacidos','start');
+W.el(s,'rect',{x:X(0),y:22,width:Math.max(0,X(ne)-X(0)),height:26,fill:'var(--color-accent)','fill-opacity':.55,stroke:'var(--color-accent)'});
+W.el(s,'rect',{x:X(ne),y:22,width:Math.max(0,X(tm)-X(ne)),height:26,fill:'var(--tx-amber)','fill-opacity':.55,stroke:'var(--tx-amber)'});
+W.tx(s,X(tm)+5,40,'TMI '+W.f(tm,2)+' ‰','start','nx');
+if(ne>.35)W.tx(s,X(ne/2),39,W.f(ne,2),'middle','ac');if(po>.35)W.tx(s,X(ne+po/2),39,W.f(po,2),'middle','am');
+W.el(s,'rect',{x:X(0),y:66,width:Math.max(0,X(pe)-X(0)),height:26,fill:'var(--text-muted)','fill-opacity':.4,stroke:'var(--text-muted)'});
+W.tx(s,X(pe)+5,84,'perinatal '+W.f(pe,2)+' ‰','start','nx');
+kp[0].textContent=W.f(ne,2)+' ‰';kp[1].textContent=W.f(po,2)+' ‰';kp[2].textContent=W.f(tm,2)+' ‰';kp[3].textContent=W.f(pe,2)+' ‰';
+d.textContent='Neonatal = '+W.n(a)+'/'+W.n(N)+' × 1.000 = '+W.f(ne,2)+' ‰ · postneonatal = '+W.n(b)+'/'+W.n(N)+' × 1.000 = '+W.f(po,2)+' ‰ · TMI = '+W.n(a+b)+'/'+W.n(N)+' × 1.000 = '+W.f(tm,2)+' ‰, que es la suma de las dos porque comparten denominador. Perinatal = ('+W.n(m)+' + '+W.n(w)+')/('+W.n(m)+' + '+W.n(N)+') × 1.000 = '+W.f(pe,2)+' ‰: no se suma a las anteriores.';
+s.setAttribute('aria-label','Barras: neonatal '+W.f(ne,2)+', postneonatal '+W.f(po,2)+', TMI '+W.f(tm,2)+' y perinatal '+W.f(pe,2)+' por mil')}
+draw()})();
+</script>
+<div class="xrefs">Conexiones: <a href="#t2-e8">2.8 · tasa frente a probabilidad de cohorte</a> · <a href="#x-e8">2026 en acción: el apartado (f)</a></div>
 </section><section id="t2-e8">
   <h2 aria-level="3"><span class="n">2.8</span>TMI (transversal) frente a probabilidad de la cohorte</h2>
   <p class="sub">Ficha D16 · la doble lectura del Lexis · caída en 2026 (C4-f) y en el modelo M4</p>
-  <p>La TMI del año suma, sobre los nacidos del año, las muertes de <b>dos generaciones</b> (la que nació ese año y la anterior); la <b>probabilidad de la cohorte</b> sigue a <b>una sola generación</b> durante sus dos años calendario de exposición. Por eso la probabilidad longitudinal es <b>mayor</b> que la tasa transversal cuando el riesgo es estable: exactamente lo que el Lexis dibuja con sus dos triángulos.</p>
+  <p>La TMI del año suma, sobre los nacidos del año, las muertes de <b>dos generaciones</b> (la que nació ese año y la anterior); la <b>probabilidad de la cohorte</b> sigue a <b>una sola generación</b> durante sus dos años calendario de exposición. Por eso <b>no coinciden</b> salvo que el riesgo y los nacimientos sean estables: si el riesgo del segundo año de vida baja de una generación a la siguiente, la TMI <b>sobrestima</b> a la cohorte, y si sube (como en el ejemplo de 2026), la <b>subestima</b>. Es exactamente lo que el Lexis dibuja con sus dos triángulos.</p>
   <div class="eq">q<sup>cohorte</sup> = (D<sub>gen. g, año t</sub> + D<sub>gen. g, año t+1</sub>) / N<sub>gen. g</sub> ≠ TMI</div>
   <p>Distinguir <b>tasa (transversal)</b> de <b>probabilidad (longitudinal)</b> y declarar cuál se calcula es la clave conceptual de la pregunta. E identificar el <b>dato inútil</b> forma parte del ejercicio: el apartado (f) de 2026 incluyó las defunciones de la generación 2025 que <b>no intervienen en ningún cálculo pedido</b>.</p>
   <div class="mem"><b>Ver ejemplo — examen 2026, cuestión 4 (f).</b> Con 15 muertes de la generación 2024 en 2024, 10 de la misma generación en 2025, 8 de la generación 2023 en 2024 y 151 nacidos (miles): TMI 2024 = (15 + 8)/151 = <b>152,3 por mil</b> (transversal); probabilidad de la cohorte 2024 = (15 + 10)/151 = <b>165,6 por mil</b> (longitudinal). Las 7 muertes de la generación 2025 son un <b>distractor</b>: solo sirven para la TMI de 2025.</div>
-  <div class="xrefs">Conexiones: <a href="#t1-e4">1.4 · los dos triángulos del cuadrado Lexis</a> · <a href="#s-e3">Σ 3 · la dualidad en una tabla</a></div>
+  <div class="card wg" id="w-ch" style="margin:12px 0"></div>
+<script>
+(function(){
+var W=WG,h=W.$('w-ch'),S={},s,d,kp,tT,tC;
+W.head(h,'TMI frente a cohorte: las mismas muertes, dos lecturas','cada triángulo del Lexis es una generación en un año de calendario; la TMI suma los dos de un cuadrado (año), la probabilidad de la cohorte suma los dos de un paralelogramo (generación)');
+W.bt(h,[{t:'Examen 2026 (C4-f)',f:function(){set(8,15,10,7,151)}},{t:'Riesgo estable',f:function(){set(10,15,10,15,151)}},{t:'Riesgo a la baja',f:function(){set(14,15,10,13,151)}}],'Cargar datos');
+function sl(k,lab,mx,v){S[k]=W.sl(h,{id:'w-ch-'+k,label:lab,min:0,max:mx,step:1,val:v,fmt:function(x){return W.n(x)},cb:draw})}
+sl('a','Gen. 2023 con <1 año, en 2024',40,8);sl('b','Gen. 2024 con <1 año, en 2024',40,15);sl('c','Gen. 2024 con <1 año, en 2025',40,10);sl('e','Gen. 2025 con <1 año, en 2025 (¿sirve?)',40,7);sl('n','Nacidos vivos de 2024 (miles)',300,151);
+S.n.min=50;
+tT=W.tg(h,'Ver la TMI de 2024 (transversal: el cuadrado)',true,draw);tC=W.tg(h,'Ver la cohorte 2024 (longitudinal: el paralelogramo)',true,draw);
+kp=W.kp(h,[['TMI 2024','k1'],['Prob. cohorte 2024','k2'],['Cohorte − TMI']]);
+s=W.svg(h,'0 0 400 190','Diagrama de Lexis de la mortalidad infantil: años 2024 y 2025, edades 0 a 1');
+d=W.h('p','d','',h);d.setAttribute('aria-live','polite');
+function set(a,b,c,e,n){S.a.put(a);S.b.put(b);S.c.put(c);S.e.put(e);S.n.put(n);draw()}
+function X(t){return 50+150*(t-2024)}function Y(a){return 150-110*a}
+function P(pts){return pts.map(function(p){return X(p[0])+','+Y(p[1])}).join(' ')}
+function draw(){var a=+S.a.value,b=+S.b.value,c=+S.c.value,e=+S.e.value,n=+S.n.value,tm=(a+b)/n*1000,q=(b+c)/n*1000,st=tT.getAttribute('aria-pressed')=='true',sc=tC.getAttribute('aria-pressed')=='true',i,txt;
+s.textContent='';
+for(i=2024;i<=2026;i++){W.el(s,'line',{x1:X(i),y1:30,x2:X(i),y2:150,class:'gr'});W.tx(s,X(i),166,'1 ene '+i)}
+W.el(s,'line',{x1:50,y1:40,x2:350,y2:40,class:'gr'});W.el(s,'line',{x1:50,y1:150,x2:350,y2:150,class:'ax'});W.el(s,'line',{x1:50,y1:150,x2:50,y2:30,class:'ax'});
+W.tx(s,44,153,'0','end');W.tx(s,44,43,'1','end');W.tx(s,50,16,'edad exacta','start');W.tx(s,350,184,'calendario','end');
+var UL1=[[2024,0],[2024,1],[2025,1]],LR1=[[2024,0],[2025,0],[2025,1]],UL2=[[2025,0],[2025,1],[2026,1]],LR2=[[2025,0],[2026,0],[2026,1]];
+if(st){W.el(s,'polygon',{points:P(UL1),fill:'var(--color-accent)','fill-opacity':.25});W.el(s,'polygon',{points:P(LR1),fill:'var(--color-accent)','fill-opacity':.25});W.el(s,'rect',{x:X(2024),y:Y(1),width:150,height:110,fill:'none',stroke:'var(--color-accent)','stroke-width':2.6})}
+if(sc){W.el(s,'polygon',{points:P(LR1),fill:'var(--tx-amber)','fill-opacity':.25});W.el(s,'polygon',{points:P(UL2),fill:'var(--tx-amber)','fill-opacity':.25});W.el(s,'polygon',{points:P([[2024,0],[2025,0],[2026,1],[2025,1]]),fill:'none',stroke:'var(--tx-amber)','stroke-width':2.6,'stroke-dasharray':'7 4'})}
+W.el(s,'line',{x1:X(2024),y1:Y(0),x2:X(2025),y2:Y(1),stroke:'var(--tx-amber)','stroke-width':1.2});W.el(s,'line',{x1:X(2025),y1:Y(0),x2:X(2026),y2:Y(1),stroke:'var(--tx-amber)','stroke-width':1.2});
+function lab(x,y,g,v,cl){W.tx(s,x,y-3,'gen. '+g,'middle','sm');W.tx(s,x,y+13,v,'middle',cl)}
+lab(98,78,2023,a,'nx');lab(152,113,2024,b,'nx');lab(248,78,2024,c,'nx');lab(300,113,2025,e+' · no interviene','sm');
+W.tx(s,200,26,'denominador: nacidos de 2024 = '+W.n(n),'middle','sm');
+kp[0].textContent=W.f(tm,1)+' ‰';kp[1].textContent=W.f(q,1)+' ‰';kp[2].textContent=W.s(q-tm,1)+' ‰';
+txt='TMI 2024 = ('+a+' + '+b+')/'+W.n(n)+' × 1.000 = '+W.f(tm,1)+' ‰ (transversal: suma las generaciones 2023 y 2024 dentro del año 2024). Probabilidad de la cohorte 2024 = ('+b+' + '+c+')/'+W.n(n)+' × 1.000 = '+W.f(q,1)+' ‰ (longitudinal: una sola generación durante 2024 y 2025). ';
+txt+=a==c?'Coinciden: con el mismo número de muertes en el segundo año de calendario de las dos generaciones, el cuadrado y el paralelogramo suman lo mismo. ':a>c?'La TMI es mayor: la generación anterior (2023) tuvo más muertes en 2024 que las que tendrá la de 2024 en 2025, o sea el riesgo baja de una generación a la siguiente. ':'La probabilidad de la cohorte es mayor: la generación 2024 acumula más muertes en su segundo año que las que la 2023 dejó en el suyo, o sea el riesgo sube. ';
+txt+='Las '+e+' muertes de la generación 2025 no entran en ninguno de los dos cálculos (solo en la TMI de 2025).';
+d.textContent=txt;s.setAttribute('aria-label','Lexis de la mortalidad infantil. TMI '+W.f(tm,1)+' por mil; probabilidad de la cohorte '+W.f(q,1)+' por mil')}
+draw()})();
+</script>
+<div class="xrefs">Conexiones: <a href="#t1-e4">1.4 · los dos triángulos del cuadrado Lexis</a> · <a href="#s-e3">Σ 3 · la dualidad en una tabla</a></div>
 </section><section id="t2-e9">
   <h2 aria-level="3"><span class="n">2.9</span>Estandarización: directa e indirecta</h2>
   <p class="sub">Fichas D17 y D18 · teoría en 2024 (P25); el numérico, pendiente</p>
@@ -796,7 +994,40 @@ upd()})();
   <p>La forma abreviada pondera cada TEF por el número de mujeres de su edad: <b>sobreestima</b> el ISF cuando las edades más fecundas son también las más pobladas (y lo subestima en el caso contrario): conviene saber declarar la diferencia. La pidieron expresamente «en la forma abreviada» en 2025 y con la hipótesis explícita de <b>fecundidad constante</b> en 2026.</p>
   <div class="mem"><b>Ver ejemplos — exámenes 2025 y 2026, y modelo M3.</b> Siete TEF quinquenales que suman 198,26 por mil: ISF = 5 · 198,26/1.000 = <b>0,99 hijos por mujer</b>, por debajo del reemplazo (2,1). 2025: ISF ≈ 30,26 × 35/1.000 = <b>1,06</b>. 2026: ISF ≈ 26,96 × 35/1.000 = <b>0,94</b>. La comparación de ambas vías con los mismos datos es el comentario habitual del apartado.</div>
   <div class="mem"><b>Sinónimos.</b> Índice sintético de fecundidad (ISF), <b>indicador coyuntural de fecundidad (ICF)</b>, índice sintético «suma de tasas»: todos lo mismo. En España el calendario actual ronda <b>1,1-1,2</b> hijos por mujer.</div>
-  <div class="xrefs">Conexiones: <a href="#t3-e4">3.4 · frente a la descendencia final</a> · <a href="#t3-e5">3.5 · de hijos a hijas</a> · <a href="#s-e1">Σ 1 · el formulario mínimo</a></div>
+  <div class="card wg" id="w-isf" style="margin:12px 0"></div>
+<script>
+(function(){
+var W=WG,h=W.$('w-isf'),G=['15-19','20-24','25-29','30-34','35-39','40-44','45-49'],T0=[2.63,13.81,43.15,70.1,51.45,15.9,1.22],M0=[990,1195,1395,1545,1795,1950,1780],sl=[],box,tl,kp,s,d;
+function sum(a){return a.reduce(function(x,y){return x+y},0)}
+W.head(h,'Del calendario de tasas al ISF','cada deslizador es una TEF quinquenal (‰). El ISF por suma solo depende de ellas; la forma abreviada (TGF × 35) depende además de cuántas mujeres hay en cada grupo, y la edad media pesa cada grupo por sus nacimientos');
+W.bt(h,[{t:'Modelo M3',f:function(){load(T0,0)}},{t:'Calendario más joven',f:function(){load([8,28,62,60,28,10,2.26],0)}},{t:'Calendario más tardío',f:function(){load([.8,5.5,22,52,66,42,9.96],0)}}],'Cargar calendario');
+box=W.h('div','g2w','',h);
+G.forEach(function(g,i){sl.push(W.sl(box,{id:'w-isf-'+i,label:'TEF '+g,min:0,max:120,step:.01,val:T0[i],fmt:function(v){return W.f(v,2)},cb:draw}))});
+tl=W.sl(h,{id:'w-isf-t',label:'Mujeres por grupo: reparto',min:-1,max:1,step:.1,val:0,fmt:function(v){return v==0?'como M3':v<0?'más jóvenes':'más mayores'},cb:draw});
+kp=W.kp(h,[['Σ TEF'],['ISF por suma','k1'],['TGF'],['ISF abreviada','k2'],['Abreviada − suma'],['Edad media maternidad']]);
+s=W.svg(h,'0 0 400 190','Barras de las tasas específicas de fecundidad por grupo de edad y del peso de las mujeres de cada grupo');
+d=W.h('p','d','',h);d.setAttribute('aria-live','polite');
+W.h('p','nb','Reparto de mujeres de 15-49 por grupo (miles) estimado para cuadrar los totales del modelo M3, que solo da las TEF sumadas y los nacimientos por grupo: 2,6 / 16,5 / 60,2 / 108,3 / 92,4 / 31,0 / 2,2.',h);
+function load(v,t){v.forEach(function(x,i){sl[i].put(x)});tl.put(t);draw()}
+function X(a){return 40+340*(a-15)/35}
+function draw(){var T=sl.map(function(x){return +x.value}),k=+tl.value,M=M0.map(function(v,i){return v*(1+k*.5*(i-3)/3)}),f=sum(M0)/sum(M),i;M=M.map(function(v){return v*f});
+var N=T.map(function(v,i){return v*M[i]/1000}),st=sum(T),isf=5*st/1000,tgf=sum(T.map(function(v,i){return v*M[i]}))/sum(M),isa=tgf*35/1000,tn=sum(N),mean=sum(N.map(function(v,i){return v*(17.5+5*i)}))/(tn||1),mo=N.indexOf(Math.max.apply(null,N)),mx=Math.max(80,Math.ceil(Math.max.apply(null,T)/20)*20),sc=110/mx;
+s.textContent='';
+for(i=0;i<=4;i++){var v=mx*i/4;W.el(s,'line',{x1:40,y1:150-v*sc,x2:380,y2:150-v*sc,class:'gr'});W.tx(s,35,153-v*sc,Math.round(v),'end')}
+W.tx(s,40,14,'TEF (‰)','start','ac');W.tx(s,380,14,'% de mujeres 15-49','end','am');
+G.forEach(function(g,j){var x0=X(15+5*j),y=150-T[j]*sc,pw=M[j]/sum(M)*100,ph=pw*110/30;
+W.el(s,'rect',{x:x0+6,y:y,width:20,height:T[j]*sc,fill:'var(--color-accent)','fill-opacity':.6,stroke:'var(--color-accent)'});
+W.el(s,'rect',{x:x0+28,y:150-ph,width:13,height:ph,fill:'var(--tx-amber)','fill-opacity':.45,stroke:'var(--tx-amber)'});
+W.tx(s,x0+16,y-3,W.f(T[j],1),'middle','sm');W.tx(s,x0+24,166,g)});
+W.el(s,'line',{x1:40,y1:150,x2:380,y2:150,class:'ax'});
+if(tn>0){W.el(s,'line',{x1:X(mean),y1:28,x2:X(mean),y2:150,stroke:'var(--text-normal)','stroke-width':1.4,'stroke-dasharray':'4 3'});
+W.tx(s,X(mean),24,'edad media '+W.f(mean,1),mean>38?'end':'middle','nx')}W.tx(s,210,184,'grupo de edad de la madre');
+kp[0].textContent=W.f(st,2)+' ‰';kp[1].textContent=W.f(isf,2);kp[2].textContent=W.f(tgf,1)+' ‰';kp[3].textContent=W.f(isa,2);kp[4].textContent=W.s(isa-isf,2);kp[5].textContent=tn>0?W.f(mean,1)+' años':'—';
+d.textContent='ISF por suma = 5 × '+W.f(st,2)+'/1.000 = '+W.f(isf,2)+' hijos por mujer'+(isf<2.1?', por debajo del reemplazo (2,1)':', por encima del reemplazo (2,1)')+'. TGF = '+W.f(tgf,1)+' ‰ → ISF abreviada = '+W.f(tgf,1)+' × 35/1.000 = '+W.f(isa,2)+': '+(Math.abs(isa-isf)<.005?'coincide con la suma.':isa>isf?'sobreestima porque los grupos con más mujeres son también los más fecundos.':'subestima porque los grupos más fecundos tienen menos mujeres que los demás.')+''+(tn>0?' Edad media a la maternidad = Σ(x+2,5)·Nₓ/ΣNₓ = '+W.f(mean,1)+' años; grupo modal: '+G[mo]+'.':' Sin nacimientos no hay edad media a la maternidad.');
+s.setAttribute('aria-label','Barras de TEF por grupo. ISF por suma '+W.f(isf,2)+', abreviada '+W.f(isa,2)+(tn>0?', edad media '+W.f(mean,1)+' años':''))}
+draw()})();
+</script>
+<div class="xrefs">Conexiones: <a href="#t3-e4">3.4 · frente a la descendencia final</a> · <a href="#t3-e5">3.5 · de hijos a hijas</a> · <a href="#s-e1">Σ 1 · el formulario mínimo</a></div>
 </section><section id="t3-e4">
   <h2 aria-level="3"><span class="n">3.4</span>Descendencia final de una generación, frente al ISF</h2>
   <p class="sub">Ficha D23 · la dualidad longitudinal/transversal aplicada a la fecundidad</p>
@@ -804,7 +1035,45 @@ upd()})();
   <div class="eq">DF<sub>gen. g</sub> = Σₓ <sub>g</sub>TEFₓ / 1.000 <span style="font-weight:400;color:var(--text-muted)">· cada tasa, leída por su diagonal del Lexis</span></div>
   <p>En España el ISF lleva décadas <b>por debajo</b> de la DF de las generaciones que cierran su período fértil: la cuestión 21 de 2023 pedía exactamente esta distinción.</p>
   <div class="mem"><b>Ver referencia — convocatoria 2022, cuestión 21.</b> La pregunta pedía comparar DF e ICF. Respuesta modelo: la DF mide hijos por mujer de una <b>generación real</b> (longitudinal, se conoce con ~45 años de retraso); el ICF suma tasas específicas de un <b>mismo año</b> (transversal, generación ficticia); difieren por <b>efectos de calendario</b>, y en España el ICF lleva décadas por debajo de la DF de las generaciones que terminan su vida fértil.</div>
-  <div class="xrefs">Conexiones: <a href="#s-e3">Σ 3 · la dualidad en una tabla</a> · <a href="#x-e2">la cuestión 21 de 2023 en los exámenes</a></div>
+  <div class="card wg" id="w-cal" style="margin:12px 0"></div>
+<script>
+(function(){
+var W=WG,h=W.$('w-cal'),df,dl,du,kp,s,d,T0=1985,T1=2055,S0=2000,lo=0,hi=3;
+W.head(h,'El ISF baja aunque cada generación tenga los mismos hijos','todas las generaciones acaban teniendo la misma descendencia final (DF), pero mientras la maternidad se retrasa el ISF del año se queda por debajo; al estabilizarse el calendario, vuelve a la DF');
+W.bt(h,[{t:'Sin retraso',f:function(){load(1.8,0,20)}},{t:'Retraso moderado',f:function(){load(1.8,.2,20)}},{t:'Retraso fuerte y largo',f:function(){load(2,.3,30)}}],'Escenario');
+df=W.sl(h,{id:'w-cal-df',label:'Descendencia final de cada generación',min:1.2,max:2.4,step:.05,val:1.8,fmt:function(v){return W.f(v,2)+' hijos'},cb:draw});
+dl=W.sl(h,{id:'w-cal-dl',label:'Retraso de cada generación respecto a la anterior',min:0,max:.4,step:.02,val:.2,fmt:function(v){return '+'+W.f(v,2)+' años'},cb:draw});
+du=W.sl(h,{id:'w-cal-du',label:'Generaciones que van retrasando (desde el año 2000)',min:5,max:40,step:1,val:20,fmt:function(v){return v+' años'},cb:draw});
+kp=W.kp(h,[['DF (todas las generaciones)','k2'],['ISF durante el retraso','k1'],['Hijos «que faltan» en el ISF'],['Edad media: de → a']]);
+s=W.svg(h,'0 0 400 200','Evolución del ISF anual frente a la descendencia final constante de las generaciones');
+d=W.h('p','d','',h);d.setAttribute('aria-live','polite');
+W.h('p','nb','Modelo ilustrativo: cada generación reparte sus hijos entre los 15 y los 49 años con forma de campana (desviación típica 5 años) alrededor de su edad media; el ISF de un año suma, edad a edad, las tasas de las generaciones que tienen entonces esa edad. Aproximación de Ryder: durante el retraso, ISF ≈ DF / (1 + retraso por generación).',h);
+function load(a,b,c){df.put(a);dl.put(b);du.put(c);draw()}
+function X(t){return 40+340*(t-T0)/(T1-T0)}function Y(v){return 160-(v-lo)/(hi-lo)*120}
+function phi(mu){var w=[],z=0,x;for(x=15;x<=49;x++){var q=Math.exp(-Math.pow(x+.5-mu,2)/50);w.push(q);z+=q}return w.map(function(q){return q/z})}
+function draw(){var DF=+df.value,D=+dl.value,N=+du.value,cache={},t,x,isf=[],pts=[],i;
+function mu(g){var c=g+30;return 28+D*Math.min(N,Math.max(0,c-S0))}
+function ph(g){var m=mu(g);return cache[g]||(cache[g]=phi(m))}
+for(t=T0;t<=T1;t++){var v=0;for(x=15;x<=49;x++)v+=DF*ph(t-x)[x-15];isf.push(v)}
+var low=Math.min.apply(null,isf);lo=Math.max(0,Math.floor((Math.min(low,DF)-.3)*2)/2);hi=Math.ceil((Math.max(DF,Math.max.apply(null,isf))+.3)*2)/2;
+s.textContent='';
+W.el(s,'rect',{x:X(S0),y:30,width:X(Math.min(T1,S0+N))-X(S0),height:130,fill:'var(--text-muted)','fill-opacity':.1});
+for(i=lo;i<=hi+1e-9;i+=.5){W.el(s,'line',{x1:40,y1:Y(i),x2:380,y2:Y(i),class:'gr'});W.tx(s,35,Y(i)+3,W.f(i,1),'end')}
+for(t=1990;t<=2050;t+=10)W.tx(s,X(t),174,t);
+W.el(s,'line',{x1:40,y1:160,x2:380,y2:160,class:'ax'});
+var up=[],dn=[];isf.forEach(function(v,k){up.push(X(T0+k)+','+Y(DF));dn.unshift(X(T0+k)+','+Y(v))});
+W.el(s,'polygon',{points:up.concat(dn).join(' '),fill:'var(--tx-amber)','fill-opacity':.22});
+W.el(s,'line',{x1:40,y1:Y(DF),x2:380,y2:Y(DF),stroke:'var(--tx-amber)','stroke-width':2,'stroke-dasharray':'6 4'});
+W.el(s,'polyline',{points:isf.map(function(v,k){return X(T0+k)+','+Y(v)}).join(' '),fill:'none',stroke:'var(--color-accent)','stroke-width':2.6,'stroke-linejoin':'round'});
+W.tx(s,380,Y(DF)-6,'DF de las generaciones: '+W.f(DF,2),'end','am');
+var mid=Math.round(S0+N/2),vm=isf[mid-T0];W.tx(s,X(mid),Math.min(Y(vm)+17,156),'ISF del año','middle','ac');
+W.tx(s,X(S0),44,'maternidad en retraso','start','sm');W.tx(s,210,196,'año natural');
+kp[0].textContent=W.f(DF,2);kp[1].textContent=W.f(vm,2);kp[2].textContent=W.f(DF-vm,2);kp[3].textContent=W.f(28,1)+' → '+W.f(28+D*N,1);
+d.textContent=D==0?'Sin retraso, el calendario no cambia y el ISF coincide con la DF ('+W.f(DF,2)+') todos los años.':'Cada generación acaba con '+W.f(DF,2)+' hijos, pero entre '+S0+' y '+(S0+N)+' cada generación retrasa su maternidad '+W.f(D,2)+' años respecto a la anterior: el ISF cae hasta '+W.f(low,2)+' (en el centro del retraso, '+W.f(vm,2)+'; la aproximación DF/(1 + '+W.f(D,2)+') da '+W.f(DF/(1+D),2)+'). Cuando el calendario se estabiliza, el ISF vuelve a la DF: lo que faltaba era maternidad aplazada, no hijos perdidos. Por eso el ISF puede estar por debajo de la DF mucho tiempo y por eso la DF solo se conoce cuando la generación acaba su vida fértil.';
+s.setAttribute('aria-label','ISF anual frente a la DF constante de '+W.f(DF,2)+' hijos; mínimo del ISF '+W.f(low,2))}
+draw()})();
+</script>
+<div class="xrefs">Conexiones: <a href="#s-e3">Σ 3 · la dualidad en una tabla</a> · <a href="#x-e2">la cuestión 21 de 2023 en los exámenes</a></div>
 </section><section id="t3-e5">
   <h2 aria-level="3"><span class="n">3.5</span>Tasa bruta y tasa neta de reproducción</h2>
   <p class="sub">Fichas D24 y D25 · del ISF a las hijas · «dos formas de obtenerla» (2025) · «¿qué información necesitaría?» (2025)</p>
@@ -838,7 +1107,41 @@ upd()})();
   <div class="eq">reemplazo: ISF ≈ 1 / (prop. niñas × supervivencia) ≈ 2,1 &nbsp;&nbsp;·&nbsp;&nbsp; déficit = 2,1 − ISF</div>
   <p>El examen de 2026 llevaba la pregunta al terreno de la política demográfica: cuánta inmigración fértil haría falta para compensar el déficit, con la lectura de que, <b>al compartir la misma fecundidad, la inmigración no puede sostener el reemplazo</b>.</p>
   <div class="mem"><b>Ver ejemplo — examen 2026, cuestión 4 (e).</b> Con ISF = 0,94: déficit = 2,1 − 0,94 = <b>1,16 hijos por mujer</b>. Nacimientos de reemplazo = 5.600 × 2,1/35 = <b>336 miles</b> frente a los 151 reales: 185 miles de déficit anual. Cada mujer inmigrante adicional aportaría 0,94/35 = 0,027 nacimientos anuales → harían falta <b>≈ 6,9 millones</b> de mujeres fértiles inmigrantes, más que la población fértil residente: la inmigración con la misma fecundidad no compensa el déficit.</div>
-  <div class="xrefs">Conexiones: <a href="#t3-e5">3.5 · la TNR, el reemplazo exacto</a> · <a href="#x-e8">2026 en acción</a></div>
+  <div class="card wg" id="w-re" style="margin:12px 0"></div>
+<script>
+(function(){
+var W=WG,h=W.$('w-re'),S={},kp,s,d,tg;
+W.head(h,'De los nacimientos al reemplazo','parte de los nacimientos y de las mujeres de 15-49: TGF → ISF abreviada → TBR → TNR, y compara con el nivel de reemplazo para ver el déficit anual y cuánta inmigración «haría falta»');
+W.bt(h,[{t:'Examen 2026 (C4-e)',f:function(){set(151,5600,.4834,.9925)}},{t:'Examen 2025 (C4)',f:function(){set(160,5288,.4875,.9925)}},{t:'Justo en el reemplazo',f:function(){var p=+S.p.value,q=+S.q.value,r=tg.getAttribute('aria-pressed')=='true'?2.1:1/(p*q);set(Math.round(+S.m.value*r/35),+S.m.value,p,q)}}],'Cargar datos');
+function sl(k,lab,mn,mx,st,v,f){S[k]=W.sl(h,{id:'w-re-'+k,label:lab,min:mn,max:mx,step:st,val:v,fmt:f,cb:draw})}
+sl('n','Nacimientos del año (miles)',20,500,1,151,function(v){return W.n(v)});
+sl('m','Mujeres de 15 a 49 años (miles)',1000,12000,50,5600,function(v){return W.n(v)});
+sl('p','Proporción de niñas entre los nacidos',.47,.5,.001,.4834,function(v){return W.f(v,3)});
+sl('q','Supervivencia hasta la edad media (lμ/l₀)',.9,1,.0005,.9925,function(v){return W.f(v,4)});
+tg=W.tg(h,'Reemplazo = 2,1 (dato del enunciado); apagado: 1 / (niñas × supervivencia)',true,draw);
+kp=W.kp(h,[['TGF'],['ISF abreviada','k1'],['TBR (hijas/mujer)'],['TNR','k1'],['ISF de reemplazo','k2'],['Déficit de ISF'],['Nacimientos de reemplazo (miles)'],['Déficit anual (miles)','k2']]);
+s=W.svg(h,'0 0 400 168','Medidores de ISF, TNR y nacimientos frente al reemplazo');
+d=W.h('p','d','',h);d.setAttribute('aria-live','polite');
+function set(n,m,p,q){S.n.put(n);S.m.put(m);S.p.put(p);S.q.put(q);draw()}
+function row(y,lab,v,ref,rl,vmax,fmt,cl){var X=function(a){return 40+330*Math.min(a,vmax)/vmax};
+W.tx(s,40,y-4,lab,'start','sm');W.el(s,'rect',{x:40,y:y,width:330,height:16,fill:'var(--background-primary)',stroke:'var(--background-modifier-border)'});
+W.el(s,'rect',{x:40,y:y,width:Math.max(0,X(v)-40),height:16,fill:cl,'fill-opacity':.6,stroke:cl});
+W.el(s,'line',{x1:X(ref),y1:y-3,x2:X(ref),y2:y+19,stroke:'var(--tx-amber)','stroke-width':2.4});
+W.tx(s,X(ref),y+30,rl,X(ref)>300?'end':'middle','am');W.tx(s,Math.min(X(v)+5,330),y+12,fmt(v),X(v)>300?'end':'start','nx')}
+function draw(){var n=+S.n.value,M=+S.m.value,p=+S.p.value,q=+S.q.value,fix=tg.getAttribute('aria-pressed')=='true',tgf=n/M*1000,isf=tgf*35/1000,tbr=isf*p,tnr=tbr*q,rep=fix?2.1:1/(p*q),def=rep-isf,nr=M*rep/35,dn=nr-n,imm=isf>.005?dn/(isf/35):0;
+s.textContent='';
+row(18,'ISF abreviada frente al reemplazo',isf,rep,'reemplazo '+W.f(rep,2),3,function(v){return W.f(v,2)},'var(--color-accent)');
+row(78,'TNR: hijas que sobreviven por mujer',tnr,1,'TNR = 1',1.6,function(v){return W.f(v,2)},'var(--color-accent)');
+var mx=Math.max(n,nr)*1.1;W.tx(s,40,134,'Nacimientos al año (miles): reales y de reemplazo','start','sm');
+W.el(s,'rect',{x:40,y:138,width:330*n/mx,height:11,fill:'var(--color-accent)','fill-opacity':.6,stroke:'var(--color-accent)'});W.tx(s,45+330*n/mx,147,W.n(n),'start','nx');
+W.el(s,'rect',{x:40,y:152,width:330*nr/mx,height:11,fill:'var(--tx-amber)','fill-opacity':.5,stroke:'var(--tx-amber)'});W.tx(s,45+330*nr/mx,161,W.n(nr),'start','am');
+kp[0].textContent=W.f(tgf,2)+' ‰';kp[1].textContent=W.f(isf,2);kp[2].textContent=W.f(tbr,2);kp[3].textContent=W.f(tnr,2);kp[4].textContent=W.f(rep,2);kp[5].textContent=W.f(def,2);kp[6].textContent=W.n(nr);kp[7].textContent=W.n(dn);
+d.textContent='TGF = '+W.n(n)+'/'+W.n(M)+' × 1.000 = '+W.f(tgf,2)+' ‰ → ISF abreviada = '+W.f(tgf,2)+' × 35/1.000 = '+W.f(isf,2)+'. TBR = '+W.f(isf,2)+' × '+W.f(p,3)+' = '+W.f(tbr,2)+' y TNR = '+W.f(tbr,2)+' × '+W.f(q,4)+' = '+W.f(tnr,2)+': '+(tnr<1?'sin migración, cada generación de mujeres sería un '+W.f((1-tnr)*100,0)+' % menor que la anterior':'sin migración, cada generación sería un '+W.f((tnr-1)*100,0)+' % mayor que la anterior')+'. Con reemplazo en '+W.f(rep,2)+', el déficit es '+W.f(def,2)+' hijos por mujer: '+W.n(nr)+' nacimientos de reemplazo frente a '+W.n(n)+' reales ('+W.s(-dn)+' mil al año). '+
+(def>0&&isf>.005?'Cada mujer inmigrante con la misma fecundidad aporta '+W.f(isf,2)+'/35 = '+W.f(isf/35,3)+' nacimientos al año, así que harían falta ≈ '+W.f(imm/1000,1)+' millones de mujeres fértiles inmigrantes'+(imm>M?', más que las '+W.f(M/1000,1)+' millones que ya residen: la inmigración con la misma fecundidad no compensa el déficit.':', menos que las '+W.f(M/1000,1)+' millones residentes.'):def<=0?'No hay déficit: la fecundidad alcanza el reemplazo.':'Sin fecundidad no hay reposición posible.');
+s.setAttribute('aria-label','ISF '+W.f(isf,2)+' frente a reemplazo '+W.f(rep,2)+'; TNR '+W.f(tnr,2))}
+draw()})();
+</script>
+<div class="xrefs">Conexiones: <a href="#t3-e5">3.5 · la TNR, el reemplazo exacto</a> · <a href="#x-e8">2026 en acción</a></div>
 </section><section id="t3-e9">
   <h2 aria-level="3"><span class="n">3.9</span>Nupcialidad: tasas brutas y por edad</h2>
   <p class="sub">Ficha D30 · subtema no caído todavía</p>
@@ -855,7 +1158,41 @@ upd()})();
   <div class="eq">SM = ΔP − (N − D) = (P<sub>t+1</sub> − P<sub>t</sub>) − CV</div>
   <p>La verificación con los flujos directos se haría hoy con la <b>Estadística de Variaciones Residenciales</b> y la <b>Estadística Continua de Población</b> del INE: nombrarlas suma en una pregunta de método.</p>
   <div class="mem"><b>Ver ejemplos — exámenes 2024 (P26) y 2026 (P26).</b> 2024: ΔP = 8.511.000 − 8.584.000 = −73.000; CV = 62.900 − 78.800 = −15.900; SM = −73.000 + 15.900 = <b>−57.100</b> (emigración neta; la tasa del propio enunciado, −6,68‰, lo confirma). 2026, quinquenio 2017-2021: ΔP = +903.288; CV = 1.805.270 − 2.215.467 = −410.197; SM = 903.288 + 410.197 = <b>+1.313.485</b> personas.</div>
-  <div class="xrefs">Conexiones: <a href="#t5-e6">5.4 · la ecuación de equilibrio completa</a> · <a href="#x-e9">los dos enunciados en acción</a></div>
+  <div class="card wg" id="w-rs" style="margin:12px 0"></div>
+<script>
+(function(){
+var W=WG,h=W.$('w-rs'),F={},mode='r',kp,s,d;
+W.head(h,'La ecuación de equilibrio, en los dos sentidos','«Residual»: conoces los stocks y el movimiento natural y despejas el saldo migratorio. «Directa»: conoces los flujos y calculas el stock final. Escribe tus cifras o carga las de los exámenes');
+W.bt(h,[{t:'Residual: despejo el saldo',on:1,f:function(){setMode('r')}},{t:'Directa: calculo el stock final',f:function(){setMode('d')}}],'Sentido',true);
+W.bt(h,[{t:'P26 de 2024',f:function(){load(8584000,8511000,62900,78800,0,0,1)}},{t:'P26 de 2026 (quinquenio)',f:function(){load(46653796,47557084,1805270,2215467,0,0,5)}},{t:'2024 desglosado en I y E',f:function(){load(8584000,0,62900,78800,110000,167100,1)}}],'Cargar datos');
+function fld(k,lab,v){var r=W.h('div','r','',h),l=W.h('label','lb',lab,r);F[k]=W.num(r,'w-rs-'+k,v,lab,draw);l.htmlFor='w-rs-'+k;F[k].row=r;F[k].fm=W.h('output','v','',r)}
+fld('p0','Población al inicio (stock Pₜ)',8584000);fld('p1','Población al final (stock Pₜ₊₁)',8511000);fld('n','Nacimientos N',62900);fld('dd','Defunciones D',78800);fld('i','Inmigrantes I',110000);fld('e','Emigrantes E',167100);fld('y','Años del período',1);
+kp=W.kp(h,[['ΔP = Pₜ₊₁ − Pₜ'],['CV = N − D','k2'],['Saldo migratorio','k1'],['Población media'],['TMN (‰, del período)','k1'],['Crecimiento total (‰)']]);
+s=W.svg(h,'0 0 400 210','Cascada de nacimientos, defunciones y saldo migratorio hasta el crecimiento total');
+d=W.h('p','d','',h);d.setAttribute('aria-live','polite');
+function setMode(m){mode=m;F.p1.row.hidden=m=='d';F.i.row.hidden=F.e.row.hidden=m=='r';var b=h.querySelector('.pre').querySelectorAll('button');b[0].setAttribute('aria-pressed',m=='r');b[1].setAttribute('aria-pressed',m=='d');draw()}
+function load(a,b,n,dd,i,e,y){setMode(i||e?'d':'r');F.p0.value=a;F.p1.value=b;F.n.value=n;F.dd.value=dd;F.i.value=i;F.e.value=e;F.y.value=y;draw()}
+function v(k){return +F[k].value||0}
+function fmt(){for(var k in F)F[k].fm.textContent=k=='y'?'':W.n(v(k))}
+function draw(){fmt();var p0=v('p0'),n=v('n'),dd=v('dd'),y=Math.max(1,v('y')),cv=n-dd,sm,dP,p1,bars,i;
+if(mode=='r'){p1=v('p1');dP=p1-p0;sm=dP-cv;bars=[['Nacimientos',n,'var(--color-accent)'],['Defunciones',-dd,'var(--tx-amber)'],['Saldo (residuo)',sm,'var(--text-muted)']]}
+else{var I=v('i'),E=v('e');sm=I-E;dP=cv+sm;p1=p0+dP;bars=[['Nacimientos',n,'var(--color-accent)'],['Defunciones',-dd,'var(--tx-amber)'],['Inmigrantes',I,'var(--text-muted)'],['Emigrantes',-E,'var(--text-muted)']]}
+var pm=(p0+p1)/2,tmn=pm?sm/pm*1000:0,r=pm?dP/pm*1000:0,lev=[0],c=0;bars.forEach(function(b){c+=b[1];lev.push(c)});
+var lo=Math.min.apply(null,lev),hi=Math.max.apply(null,lev);if(hi-lo<1){hi+=1}var pad=(hi-lo)*.14;lo-=pad;hi+=pad;
+var Y=function(a){return 176-(a-lo)/(hi-lo)*150},k=bars.length+1,sw=340/k,bw=sw*.62,x;
+s.textContent='';W.el(s,'line',{x1:40,y1:Y(0),x2:380,y2:Y(0),class:'ax'});
+c=0;bars.forEach(function(b,j){var a=c,z=c+b[1];c=z;x=40+sw*j+(sw-bw)/2;
+W.el(s,'rect',{x:x,y:Y(Math.max(a,z)),width:bw,height:Math.max(1,Math.abs(Y(a)-Y(z))),fill:b[2],'fill-opacity':.55,stroke:b[2]});
+W.tx(s,x+bw/2,Y(Math.max(a,z))-4,W.s(b[1]),'middle','sm');W.tx(s,x+bw/2,200,b[0],'middle','sm');
+if(j<bars.length-1)W.el(s,'line',{x1:x+bw,y1:Y(z),x2:x+sw,y2:Y(z),stroke:'var(--color-base-50)','stroke-dasharray':'3 3'})});
+x=40+sw*bars.length+(sw-bw)/2;W.el(s,'rect',{x:x,y:Y(Math.max(0,dP)),width:bw,height:Math.max(1,Math.abs(Y(0)-Y(dP))),fill:'var(--color-accent)','fill-opacity':.25,stroke:'var(--color-accent)','stroke-width':2.4});
+W.tx(s,x+bw/2,Y(Math.max(0,dP))-4,W.s(dP),'middle','nx');W.tx(s,x+bw/2,200,'ΔP total','middle','nx');
+kp[0].textContent=W.s(dP);kp[1].textContent=W.s(cv);kp[2].textContent=W.s(sm);kp[3].textContent=W.n(pm);kp[4].textContent=W.s(tmn,2);kp[5].textContent=W.s(r,2);
+d.textContent=(mode=='r'?'SM = ΔP − CV = ('+W.n(p1)+' − '+W.n(p0)+') − ('+W.n(n)+' − '+W.n(dd)+') = '+W.n(dP)+' '+(cv<0?'+ ':'− ')+W.n(Math.abs(cv))+' = '+W.s(sm)+' personas':'Pₜ₊₁ = Pₜ + N − D + I − E = '+W.n(p0)+' + '+W.n(n)+' − '+W.n(dd)+' + '+W.n(v('i'))+' − '+W.n(v('e'))+' = '+W.n(p1)+' (ΔP = '+W.s(dP)+'; saldo migratorio I − E = '+W.s(sm)+')')+': '+(sm>0?'inmigración neta':sm<0?'emigración neta':'saldo nulo')+'. TMN = SM/P̄ × 1.000 = '+W.s(sm)+'/'+W.n(pm)+' × 1.000 = '+W.s(tmn,2)+' ‰'+(y>1?' en el período; dividida entre '+y+', ≈ '+W.s(tmn/y,1)+' ‰ al año':'')+'. El crecimiento total son '+W.s(r,2)+' ‰: '+W.s(cv/pm*1000||0,2)+' ‰ vegetativo '+(tmn<0?'− ':'+ ')+W.n(Math.abs(tmn),2)+' ‰ migratorio.';
+s.setAttribute('aria-label','Cascada: nacimientos '+W.s(n)+', defunciones '+W.s(-dd)+', saldo migratorio '+W.s(sm)+', crecimiento total '+W.s(dP))}
+setMode('r');draw()})();
+</script>
+<div class="xrefs">Conexiones: <a href="#t5-e6">5.4 · la ecuación de equilibrio completa</a> · <a href="#x-e9">los dos enunciados en acción</a></div>
 </section><section id="t4-e2">
   <h2 aria-level="3"><span class="n">4.2</span>Tasa de migración neta</h2>
   <p class="sub">Ficha D32 · la intensidad del saldo · caída en 2024 y 2026</p>
@@ -879,7 +1216,44 @@ upd()})();
   <div class="eq">aloctonía<sub>i</sub> = (R<sub>i</sub> − R<sub>ii</sub>) / R<sub>i</sub> × 100 <span style="font-weight:400;color:var(--text-muted)">· R<sub>i</sub>: total de columna · R<sub>ii</sub>: diagonal</span></div>
   <p>Es el mismo cociente aunque cambie el nombre: en 2019 se pidió como «índice de <b>aloctonía</b> de A» y «proporción de <b>inmigrantes</b> de C». La matriz de 2019 es de <b>migración total</b> (nacimiento × residencia actual), de modo que estos efectivos son <b>stocks de toda la vida</b>, no flujos de un año — matiz que conviene declarar.</p>
   <div class="mem"><b>Ver ejemplo — examen 2019, cuestión 10.</b> Región A: 11.100 residentes, 10.359 nacidos en A que residen en A: aloctonía = (11.100 − 10.359)/11.100 = <b>6,68 %</b>. Región C: (10.023 − 9.750)/10.023 = <b>2,72 %</b> de inmigrantes.</div>
-  <div class="xrefs">Conexiones: <a href="#t4-e5">4.5 · el espejo con el otro denominador</a> · <a href="#x-e9">la matriz completa en acción</a></div>
+  <div class="card wg" id="w-mx" style="margin:12px 0"></div>
+<script>
+(function(){
+var W=WG,h=W.$('w-mx'),R=['A','B','C'],sel=0,C=[],kp,s,d,tb,rb;
+var D0=[[10359,53,172],[100,8250,101],[641,15,9750]];
+W.head(h,'La matriz de migración: dos denominadores','filas = región de nacimiento, columnas = región de residencia. La aloctonía divide por el total de la columna (residentes); la proporción de emigrantes, por el total de la fila (nacidos). Edita las celdas (miles) y elige la región');
+rb=W.bt(h,R.map(function(r,i){return{t:'Región '+r,on:i==0,f:function(){sel=i;draw()}}}),'Región analizada',true);
+W.bt(h,[{t:'Valores ilustrativos',f:function(){load(D0)}},{t:'Sin migración (solo diagonal)',f:function(){load([[10000,0,0],[0,8000,0],[0,0,9000]])}},{t:'Todo el flujo hacia A',f:function(){load([[10000,0,0],[1500,6500,0],[1500,0,7500]])}}],'Cargar matriz');
+var wrap=W.h('div','tw','',h);wrap.setAttribute('tabindex','0');wrap.setAttribute('role','region');wrap.setAttribute('aria-label','Matriz de migración editable');
+tb=W.h('table','mx','',wrap);
+var hd=W.h('tr','','',tb);['Nacidos en ↓ · residen en →'].concat(R,['Total nacidos']).forEach(function(t){var c=W.h('th','',t,hd);c.scope='col'});
+R.forEach(function(r,i){var tr=W.h('tr','','',tb),th=W.h('th','','Nacidos en '+r,tr);th.scope='row';C[i]=[];R.forEach(function(q,j){var td=W.h('td','','',tr);C[i][j]=W.num(td,'w-mx-'+i+j,D0[i][j],'Nacidos en '+r+', residen en '+q,draw);C[i][j].style.width='6.5em';td._c=C[i][j]});W.h('td','','',tr).id='w-mx-r'+i});
+var ft=W.h('tr','','',tb);W.h('th','','Total residentes',ft);for(var j=0;j<4;j++)W.h('td','','',ft).id='w-mx-c'+j;
+kp=W.kp(h,[['Residentes (columna)'],['Nacidos (fila)'],['Inmigrantes = columna − diagonal','k1'],['Aloctonía = inmigrantes/residentes','k1'],['Emigrantes = fila − diagonal','k2'],['Proporción de emigrantes','k2']]);
+s=W.svg(h,'0 0 400 104','Barras de residentes y nacidos de la región con su parte de inmigrantes y emigrantes');
+d=W.h('p','d','',h);d.setAttribute('aria-live','polite');
+function load(M){M.forEach(function(r,i){r.forEach(function(v,j){C[i][j].value=v})});draw()}
+function v(i,j){return +C[i][j].value||0}
+function pc(a,b){return b>0?W.f(a/b*100,2)+' %':'—'}
+function draw(){var i,j,rt=[0,0,0],ct=[0,0,0],tot=0;
+for(i=0;i<3;i++)for(j=0;j<3;j++){rt[i]+=v(i,j);ct[j]+=v(i,j);tot+=v(i,j)}
+for(i=0;i<3;i++){W.$('w-mx-r'+i).textContent=W.n(rt[i]);W.$('w-mx-c'+i).textContent=W.n(ct[i])}W.$('w-mx-c3').textContent=W.n(tot);
+for(i=0;i<3;i++)for(j=0;j<3;j++){var td=C[i][j].parentNode;td.className=i==j?'dg':'';if(i==j&&i==sel)td.className='dg hl';else if(j==sel)td.className='hl';else if(i==sel)td.className='hl2'}
+var dg=v(sel,sel),Ri=ct[sel],Ni=rt[sel],im=Ri-dg,em=Ni-dg,mx=Math.max(Ri,Ni,1),X=function(a){return 110+180*a/mx};
+kp[0].textContent=W.n(Ri);kp[1].textContent=W.n(Ni);kp[2].textContent=W.n(im);kp[3].textContent=pc(im,Ri);kp[4].textContent=W.n(em);kp[5].textContent=pc(em,Ni);
+s.textContent='';var r=R[sel];
+W.tx(s,0,22,'Residentes en '+r,'start','sm');W.el(s,'rect',{x:110,y:8,width:Math.max(0,X(dg)-110),height:22,fill:'var(--text-muted)','fill-opacity':.35,stroke:'var(--text-muted)'});
+W.el(s,'rect',{x:X(dg),y:8,width:Math.max(0,X(Ri)-X(dg)),height:22,fill:'var(--color-accent)','fill-opacity':.55,stroke:'var(--color-accent)'});
+W.tx(s,296,23,Ri>0?W.f(im/Ri*100,1)+' % nacidos fuera':'','start','ac');
+W.tx(s,0,70,'Nacidos en '+r,'start','sm');W.el(s,'rect',{x:110,y:56,width:Math.max(0,X(dg)-110),height:22,fill:'var(--text-muted)','fill-opacity':.35,stroke:'var(--text-muted)'});
+W.el(s,'rect',{x:X(dg),y:56,width:Math.max(0,X(Ni)-X(dg)),height:22,fill:'var(--tx-amber)','fill-opacity':.5,stroke:'var(--tx-amber)'});
+W.tx(s,296,71,Ni>0?W.f(em/Ni*100,1)+' % viven fuera':'','start','am');
+W.tx(s,110,98,'gris: nacidos en '+r+' que residen en '+r+' ('+W.n(dg)+')','start','sm');
+d.textContent='Aloctonía de '+r+' = ('+W.n(Ri)+' − '+W.n(dg)+')/'+W.n(Ri)+' = '+pc(im,Ri)+' (por columna: de los que residen en '+r+', cuántos nacieron fuera). Proporción de emigrantes de '+r+' = ('+W.n(Ni)+' − '+W.n(dg)+')/'+W.n(Ni)+' = '+pc(em,Ni)+' (por fila: de los nacidos en '+r+', cuántos residen fuera). Misma diagonal, distinto denominador. Son stocks de toda la vida (migración total), no flujos de un año.';
+s.setAttribute('aria-label','Región '+r+': aloctonía '+pc(im,Ri)+', proporción de emigrantes '+pc(em,Ni))}
+draw()})();
+</script>
+<div class="xrefs">Conexiones: <a href="#t4-e5">4.5 · el espejo con el otro denominador</a> · <a href="#x-e9">la matriz completa en acción</a></div>
 </section><section id="t4-e5">
   <h2 aria-level="3"><span class="n">4.5</span>Proporción de emigrantes</h2>
   <p class="sub">Ficha D35 · el denominador cambia a los nacidos</p>
@@ -894,7 +1268,34 @@ upd()})();
   <div class="eq">IB<sub>ij</sub> = M<sub>ij</sub> + M<sub>ji</sub> &nbsp;&nbsp;·&nbsp;&nbsp; IN<sub>ij</sub> = M<sub>ij</sub> − M<sub>ji</sub> &nbsp;&nbsp;·&nbsp;&nbsp; IC<sub>ij</sub> = (M<sub>ij</sub> − M<sub>ji</sub>) / (M<sub>ij</sub> + M<sub>ji</sub>)</div>
   <p>El <b>índice de compensación</b> normaliza el neto por el bruto: qué fracción de los movimientos entre dos regiones queda como ganancia de una de ellas. <b>0</b> significa intercambio perfectamente compensado; <b>±1</b>, flujo en un solo sentido. También se llama <b>índice de efectividad migratoria</b>.</p>
   <div class="mem"><b>Ver ejemplo — examen 2019, cuestión 10 (d), (e) y (f).</b> Entre A y B: intercambio bruto = 53 + 100 = <b>153 miles</b>. Entre B y C: intercambio neto = 22 − 15 = <b>7 miles</b> a favor de C. Y el índice de compensación A-B: IC = (100 − 53)/153 = <b>30,7 %</b> a favor de A — casi un tercio del intercambio queda como saldo favorable a A.</div>
-  <div class="xrefs">Conexiones: <a href="#t4-e4">4.4 · la matriz de origen</a> · <a href="#p-e4">practicar el cociente bruto/neto</a></div>
+  <div class="card wg" id="w-ic" style="margin:12px 0"></div>
+<script>
+(function(){
+var W=WG,h=W.$('w-ic'),S={},nx='X',ny='Y',kp,s,d;
+W.head(h,'Intercambio entre dos regiones','con solo las dos celdas simétricas de la matriz: bruto = suma, neto = diferencia, índice de compensación = neto/bruto. Las tasas parciales llevan el mismo numerador pero distinto denominador (origen para emigrar, destino para inmigrar)');
+W.bt(h,[{t:'Ejercicio D (X, Y)',f:function(){set('X','Y',40,25,8000,10000)}},{t:'2019 · A–B (100 y 53)',f:function(){set('B','A',100,53,8000,10000)}},{t:'2019 · B–C (22 y 15)',f:function(){set('B','C',22,15,8000,10000)}},{t:'Compensado',f:function(){set('X','Y',30,30,8000,10000)}},{t:'Un solo sentido',f:function(){set('X','Y',40,0,8000,10000)}}],'Cargar datos');
+function sl(k,lab,mx,st,v){S[k]=W.sl(h,{id:'w-ic-'+k,label:lab,min:k=='a'||k=='b'?0:1000,max:mx,step:st,val:v,fmt:function(x){return W.n(x)},cb:draw})}
+sl('a','Flujo de X hacia Y (miles)',200,1,40);sl('b','Flujo de Y hacia X (miles)',200,1,25);sl('p','Población media de X (miles)',20000,100,8000);sl('q','Población media de Y (miles)',20000,100,10000);
+kp=W.kp(h,[['Emigración parcial X→Y','k2'],['Inmigración parcial en Y desde X','k1'],['Intercambio bruto'],['Intercambio neto'],['Índice de compensación','k1']]);
+s=W.svg(h,'0 0 400 214','Flujos entre dos regiones y su índice de compensación');
+d=W.h('p','d','',h);d.setAttribute('aria-live','polite');
+function set(a,b,f,g,p,q){nx=a;ny=b;var t=S.a.row.firstChild,u=S.b.row.firstChild,v=S.p.row.firstChild,w=S.q.row.firstChild;t.textContent='Flujo de '+a+' hacia '+b+' (miles)';u.textContent='Flujo de '+b+' hacia '+a+' (miles)';v.textContent='Población media de '+a+' (miles)';w.textContent='Población media de '+b+' (miles)';S.a.put(f);S.b.put(g);S.p.put(p);S.q.put(q);kp[0].previousSibling.textContent='Emigración parcial '+a+'→'+b;kp[1].previousSibling.textContent='Inmigración parcial en '+b+' desde '+a;draw()}
+function arrow(y,x1,x2,w,cl,txt,ty){var dir=x2>x1?1:-1;W.el(s,'line',{x1:x1,y1:y,x2:x2-dir*10,y2:y,stroke:cl,'stroke-width':w,'stroke-opacity':.65});W.el(s,'polygon',{points:x2+','+y+' '+(x2-dir*14)+','+(y-w/2-4)+' '+(x2-dir*14)+','+(y+w/2+4),fill:cl,'fill-opacity':.85});W.tx(s,200,ty,txt,'middle',cl=='var(--color-accent)'?'ac':'am')}
+function draw(){var a=+S.a.value,b=+S.b.value,P=+S.p.value,Q=+S.q.value,ib=a+b,inn=a-b,ic=ib>0?inn/ib*100:null,mx=Math.max(a,b,1),w1=3+a/mx*20,w2=3+b/mx*20,fv=inn>0?ny:inn<0?nx:null;
+s.textContent='';
+W.el(s,'rect',{x:8,y:36,width:82,height:100,rx:8,fill:'var(--background-primary)',stroke:'var(--color-base-50)','stroke-width':1.4});W.tx(s,49,80,nx,'middle','nx').setAttribute('style','font-size:18px');W.tx(s,49,100,'P = '+W.n(P),'middle','sm');
+W.el(s,'rect',{x:310,y:36,width:82,height:100,rx:8,fill:'var(--background-primary)',stroke:'var(--color-base-50)','stroke-width':1.4});W.tx(s,351,80,ny,'middle','nx').setAttribute('style','font-size:18px');W.tx(s,351,100,'P = '+W.n(Q),'middle','sm');
+arrow(62,96,304,w1,'var(--color-accent)',nx+' → '+ny+': '+W.n(a),38);arrow(112,304,96,w2,'var(--tx-amber)',ny+' → '+nx+': '+W.n(b),138);
+W.tx(s,200,92,'bruto '+W.n(ib)+' · neto '+W.s(inn),'middle','nx');
+W.el(s,'line',{x1:40,y1:174,x2:360,y2:174,class:'ax'});[-100,-50,0,50,100].forEach(function(v){var x=200+v*1.6;W.el(s,'line',{x1:x,y1:170,x2:x,y2:178,class:'ax'});W.tx(s,x,191,(v>0?'+':'')+v+' %')});
+W.tx(s,40,207,'a favor de '+nx,'start','sm');W.tx(s,360,207,'a favor de '+ny,'end','sm');
+if(ic!=null){var x=200+ic*1.6;W.el(s,'polygon',{points:x+',171 '+(x-6)+',160 '+(x+6)+',160',fill:'var(--color-accent)'});W.tx(s,Math.min(Math.max(x,70),330),152,'IC = '+W.f(ic,1)+' %','middle','ac')}
+kp[0].textContent=W.f(a/P*1000,2)+' ‰';kp[1].textContent=W.f(a/Q*1000,2)+' ‰';kp[2].textContent=W.n(ib);kp[3].textContent=W.s(inn)+(fv?' ('+fv+')':'');kp[4].textContent=ic==null?'—':W.f(ic,1)+' %';
+d.textContent='Emigración parcial '+nx+'→'+ny+' = '+W.n(a)+'/'+W.n(P)+' × 1.000 = '+W.f(a/P*1000,2)+' ‰ (denominador: población de origen, '+nx+'). Inmigración parcial en '+ny+' desde '+nx+' = '+W.n(a)+'/'+W.n(Q)+' × 1.000 = '+W.f(a/Q*1000,2)+' ‰ (denominador: población de destino, '+ny+'): mismo numerador, otro denominador. IB = '+W.n(a)+' + '+W.n(b)+' = '+W.n(ib)+'; IN = '+W.n(a)+' − '+W.n(b)+' = '+W.s(inn)+(fv?', a favor de '+fv:'')+'; '+(ic==null?'sin movimientos no hay índice de compensación.':'IC = '+W.s(inn)+'/'+W.n(ib)+' = '+W.f(ic,1)+' %: '+(Math.abs(ic)<.05?'intercambio perfectamente compensado.':Math.abs(ic)>99.95?'todo el flujo va en un solo sentido.':'esa parte del intercambio queda como ganancia neta de '+fv+'.'));
+s.setAttribute('aria-label','Intercambio entre '+nx+' y '+ny+': bruto '+W.n(ib)+', neto '+W.s(inn)+(ic==null?'':', índice de compensación '+W.f(ic,1)+' %'))}
+draw()})();
+</script>
+<div class="xrefs">Conexiones: <a href="#t4-e4">4.4 · la matriz de origen</a> · <a href="#p-e4">practicar el cociente bruto/neto</a></div>
 </section></section>
 <section class="tema-sec" id="t5"><a class="up" href="#top">↑ Índice</a><div class="k">CSE INE A1 · Demografía</div><h1 class="tt" aria-level="2">Tema 5 · Estructura, crecimiento y poblaciones modelo</h1><p>Esquemas de repaso · fichas D38–D48 · la estructura cayó en 2024, 2025 y 2026 (P27); la ecuación de equilibrio y el crecimiento, en 2025 (P26); población estacionaria como definición en 2025 (P24); Lotka y la geométrica, aún sin caer</p><nav class="ix" aria-label="Epígrafes del tema"><a href="#t5-e1">5.1 Índice de masculinidad</a><a href="#t5-e2">5.2 Proporción de mayores</a><a href="#t5-e3">5.3 Envejecimiento y juventud</a><a href="#t5-e4">5.4 Ecuación de equilibrio</a><a href="#t5-e5">5.5 Crecimiento y tasas</a><a href="#t5-e6">5.6 Dependencias</a><a href="#t5-e7">5.7 Población estacionaria</a><a href="#t5-e8">5.8 Población estable: Lotka</a></nav><section id="t5-e1">
   <h2 aria-level="3"><span class="n">5.1</span>Tasa (índice) de masculinidad de la población</h2>
@@ -939,7 +1340,46 @@ upd()})();
   </div>
   <p>La <b>limitación</b> de la geométrica es estructural: no dice nada de la <b>composición por edades</b> de la población futura — la ventaja del método de componentes (tema 6).</p>
   <div class="mem"><b>Ver ejemplos — examen 2025 (P26) y modelos M8, M9.</b> Con TBN = 6‰ y TBM = 8‰: crecimiento sin migración = <b>−2 por mil</b> (decrecimiento vegetativo); para un crecimiento del 10‰: TMN necesaria = 10 − (−2) = <b>12 por mil</b>. M8: P(10) = 1.000.000 × (1,0097)<sup>10</sup> = <b>1.101.300</b> habitantes. M9, año a año con r = 10,3‰: P(5) = <b>1.263.086</b> (+5,26 % en cinco años). Y la duplicación: M8, ln 2/ln(1,0097) = <b>71,8 años</b>; M9, ln 2/ln(1,0103) = <b>67,6 años</b>.</div>
-  <div class="xrefs">Conexiones: <a href="#t5-e4">5.4 · la ecuación de origen</a> · <a href="#t6-e1">6.1 · el método que sí ve las edades</a></div>
+  <div class="card wg" id="w-cr" style="margin:12px 0"></div>
+<script>
+(function(){
+var W=WG,h=W.$('w-cr'),S={},p0,kp,s,d;
+W.head(h,'Las tres tasas, la geométrica y la duplicación','r = TBN − TBM + TMN (en ‰). Mueve las tasas, el horizonte y el crecimiento que quieres lograr: ves la trayectoria geométrica (continua en discontinuo), la que habría sin migración, el tiempo de duplicación y la TMN que haría falta');
+W.bt(h,[{t:'Modelo M8',f:function(){set(7.5,9.8,12,10,1000000,10)}},{t:'P26 de 2025',f:function(){set(6,8,12,10,1000000,10)}},{t:'Modelo M9 (r = 10,3 ‰)',f:function(){set(10.3,0,0,10.3,1200000,5)}}],'Cargar datos');
+function sl(k,lab,mn,mx,st,v,f){S[k]=W.sl(h,{id:'w-cr-'+k,label:lab,min:mn,max:mx,step:st,val:v,fmt:f,cb:draw})}
+var pm=function(v){return W.f(v,1)+' ‰'};
+sl('a','Tasa bruta de natalidad (TBN)',0,25,.1,7.5,pm);sl('b','Tasa bruta de mortalidad (TBM)',0,25,.1,9.8,pm);sl('m','Tasa de migración neta (TMN)',-20,40,.1,12,pm);
+sl('o','Crecimiento que se quiere lograr',-20,30,.1,10,pm);sl('k','Horizonte (años)',1,100,1,10,function(v){return v+' años'});
+var r=W.h('div','r','',h),l=W.h('label','lb','Población inicial P₀',r);p0=W.num(r,'w-cr-p0',1000000,'Población inicial',draw);l.htmlFor='w-cr-p0';p0.fm=W.h('output','v','',r);
+kp=W.kp(h,[['Crecimiento r','k1'],['Vegetativo (TBN − TBM)'],['P(k) geométrica','k1'],['P(k) continua (e^rk)'],['Duplicación / mitad'],['TMN necesaria para el objetivo','k2']]);
+s=W.svg(h,'0 0 400 200','Trayectoria de la población según el crecimiento geométrico, el continuo y el natural sin migración');
+d=W.h('p','d','',h);d.setAttribute('aria-live','polite');
+W.h('p','nb','Los modelos del examen redondean P(10) del M8 a 1.101.300; el valor exacto es 1.101.345 y los dos se aceptan en el ejercicio E.',h);
+function set(a,b,m,o,P,k){S.a.put(a);S.b.put(b);S.m.put(m);S.o.put(o);S.k.put(k);p0.value=P;draw()}
+function X(t){return 40+340*t/100}
+function draw(){var a=+S.a.value,b=+S.b.value,m=+S.m.value,o=+S.o.value,k=+S.k.value,P=+p0.value||0,i,rt=(a-b+m)/1000,rn=(a-b)/1000,g=1+rt,gk=P*Math.pow(g,k),ck=P*Math.exp(rt*k),td=rt!=0?Math.log(2)/Math.log(g):null,tn=o-(a-b),mx=1.2;
+p0.fm.textContent=W.n(P);
+for(i=0;i<=100;i+=1)mx=Math.max(mx,Math.pow(g,i),Math.exp(rt*i),Math.pow(1+rn,i));mx*=1.08;
+var Y=function(v){return 170-v/mx*130};s.textContent='';
+var raw=mx/5,pw=Math.pow(10,Math.floor(Math.log10(raw))),step=[1,2,5,10].map(function(m){return m*pw}).filter(function(v){return v>=raw-1e-9})[0];for(i=0;i<=mx+1e-9;i+=step){W.el(s,'line',{x1:40,y1:Y(i),x2:380,y2:Y(i),class:'gr'});W.tx(s,35,Y(i)+3,W.f(i,i%1?1:0)+'×','end')}
+for(i=0;i<=100;i+=20)W.tx(s,X(i),184,i);W.tx(s,210,198,'años desde el origen');
+W.el(s,'line',{x1:40,y1:170,x2:380,y2:170,class:'ax'});
+function line(f,at){var pts=[];for(i=0;i<=100;i++)pts.push(X(i)+','+Y(f(i)));W.el(s,'polyline',Object.assign({points:pts.join(' '),fill:'none','stroke-linejoin':'round'},at))}
+line(function(t){return Math.pow(1+rn,t)},{stroke:'var(--text-muted)','stroke-width':1.8,'stroke-dasharray':'2 3'});
+line(function(t){return Math.exp(rt*t)},{stroke:'var(--tx-amber)','stroke-width':1.8,'stroke-dasharray':'6 4'});
+line(function(t){return Math.pow(g,t)},{stroke:'var(--color-accent)','stroke-width':2.8});
+W.el(s,'line',{x1:X(k),y1:34,x2:X(k),y2:170,stroke:'var(--text-normal)','stroke-width':1,'stroke-dasharray':'3 3'});
+W.el(s,'circle',{cx:X(k),cy:Y(Math.pow(g,k)),r:5,fill:'var(--color-accent)',stroke:'var(--background-primary-alt)','stroke-width':2});
+W.tx(s,Math.min(X(k),340),30,'k = '+k+': ×'+W.f(Math.pow(g,k),3),k>70?'end':'middle','nx');
+var ta=td?Math.abs(td):0;if(ta&&ta<=100){var yy=rt>0?2:.5;W.el(s,'circle',{cx:X(ta),cy:Y(yy),r:4,fill:'var(--tx-amber)'});W.tx(s,Math.min(Math.max(X(ta),70),350),Y(yy)-8,(rt>0?'×2 en ':'½ en ')+W.f(ta,1)+' años','middle','am')}
+W.tx(s,380,Y(Math.pow(1+rn,100))-5<40?40:Math.max(Y(Math.pow(1+rn,100))-5,40),'solo CV','end','sm');
+var res=rn<0?'decrecimiento vegetativo':'crecimiento vegetativo';
+kp[0].textContent=W.s(rt*1000,1)+' ‰';kp[1].textContent=W.s(rn*1000,1)+' ‰';kp[2].textContent=W.n(gk);kp[3].textContent=W.n(ck);kp[4].textContent=td?W.f(Math.abs(td),1)+' años':'—';kp[5].textContent=W.s(tn,1)+' ‰';
+d.textContent='r = ('+W.f(a,1)+' − '+W.f(b,1)+' '+(m<0?'− ':'+ ')+W.f(Math.abs(m),1)+')/1.000 = '+W.s(rt*1000,1)+' ‰ ('+res+' '+W.s(rn*1000,1)+' ‰). Geométrica: P('+k+') = '+W.n(P)+' × (1 '+(rt<0?'− ':'+ ')+W.f(Math.abs(rt),4)+')^'+k+' = '+W.n(gk)+(Math.abs(ck-gk)>=1?' (continua: '+W.n(ck)+')':'')+'. '+(td?(rt>0?'Duplicación':'Reducción a la mitad')+' = ln 2/ln(1 '+(rt<0?'− ':'+ ')+W.f(Math.abs(rt),4)+') = '+W.f(Math.abs(td),1)+' años (regla 0,69/r ≈ '+W.f(Math.abs(.69/rt),1)+'). ':'Con r = 0 la población no cambia. ')+'Para crecer un '+W.f(o,1)+' ‰ con '+res+' de '+W.s(rn*1000,1)+' ‰ hace falta TMN = '+W.f(o,1)+' − ('+W.f((a-b),1)+') = '+W.s(tn,1)+' ‰.';
+s.setAttribute('aria-label','Población con r = '+W.s(rt*1000,1)+' por mil; a los '+k+' años '+W.n(gk)+' habitantes')}
+draw()})();
+</script>
+<div class="xrefs">Conexiones: <a href="#t5-e4">5.4 · la ecuación de origen</a> · <a href="#t6-e1">6.1 · el método que sí ve las edades</a></div>
 </section><section id="t5-e6">
   <h2 aria-level="3"><span class="n">5.6</span>Tasa de dependencia total y sus descomposiciones</h2>
   <p class="sub">Fichas D41 y D42 · P27 en 2024, 2025 y 2026 · tres convocatorias seguidas</p>
@@ -947,7 +1387,36 @@ upd()})();
   <div class="eq">TD = (P<sub>0-14</sub> + P<sub>65+</sub>) / P<sub>15-64</sub> × 100 &nbsp;&nbsp;·&nbsp;&nbsp; TD<sub>j</sub> = P<sub>0-14</sub>/P<sub>15-64</sub> × 100 &nbsp;&nbsp;·&nbsp;&nbsp; TD<sub>m</sub> = P<sub>65+</sub>/P<sub>15-64</sub> × 100</div>
   <p>Las dependencias parciales <b>descomponen</b> la total y encadenan tres <b>identidades</b> que el Tribunal pregunta de forma explícita (ver ejemplo abajo). Saber derivarlas en un par de líneas es la respuesta completa a la P27 de 2025.</p>
   <div class="mem"><b>Ver ejemplo — examen 2025, pregunta 27.</b> TD = (314.000 + 731.000)/1.670.000 × 100 = <b>62,6 %</b>: casi 63 dependientes por cada 100 personas de 16 a 64 años. Y las identidades: TD<sub>j</sub> = 314.000/1.670.000 = <b>18,8 %</b>; TD<sub>m</sub> = 731.000/1.670.000 = <b>43,8 %</b>; TD = 18,8 + 43,8 = 62,6 % ✓; y TD<sub>m</sub>/TD<sub>j</sub> × 100 = <b>232,8 %</b> = IE ✓ — exactamente el índice de envejecimiento calculado de forma directa en 5.3.</div>
-  <div class="xrefs">Conexiones: <a href="#s-e4">Σ 4 · las identidades derivadas</a> · <a href="#x-e10">el P27 completo en acción</a></div>
+  <div class="card wg" id="w-dp" style="margin:12px 0"></div>
+<script>
+(function(){
+var W=WG,h=W.$('w-dp'),S={},kp,s,d;
+W.head(h,'Tres grupos de edad, todos los índices','mueve los tres grupos y mira cómo cambian a la vez la proporción de mayores, los índices de envejecimiento y juventud y las tasas de dependencia, con las identidades TD = TDj + TDm y TDm/TDj = IE');
+W.bt(h,[{t:'P27 de 2025',f:function(){set(314,1670,731)}},{t:'Base ancha (≈ 1971)',f:function(){set(500,1000,130)}},{t:'Mínimo (≈ 2007-10)',f:function(){set(330,1000,110)}},{t:'Envejecida (ilustrativa)',f:function(){set(250,1000,500)}}],'Cargar estructura');
+function sl(k,lab,mx,v){S[k]=W.sl(h,{id:'w-dp-'+k,label:lab,min:0,max:mx,step:1,val:v,fmt:function(x){return W.n(x*1000)},cb:draw})}
+sl('j','Menores (0-14, o 0-15 según el enunciado)',1000,314);sl('a','Edad activa (15-64, o 16-64)',3000,1670);sl('m','Mayores (65 y más)',1500,731);
+kp=W.kp(h,[['% de mayores (65+)','k2'],['Índice de envejecimiento','k2'],['Índice de juventud'],['TDj (menores)','k1'],['TDm (mayores)','k2'],['TD total','k1']]);
+s=W.svg(h,'0 0 400 176','Barras de la composición por edades, del porcentaje de mayores con sus umbrales y de las tasas de dependencia');
+d=W.h('p','d','',h);d.setAttribute('aria-live','polite');
+function set(j,a,m){S.j.put(j);S.a.put(a);S.m.put(m);draw()}
+function draw(){var J=+S.j.value*1000,A=+S.a.value*1000,M=+S.m.value*1000,T=J+A+M,pj=T?J/T*100:0,pa=T?A/T*100:0,pm=T?M/T*100:0,ie=J?M/J*100:null,ij=M?J/M*100:null,tj=A?J/A*100:null,tm=A?M/A*100:null,td=A?(J+M)/A*100:null,cls=pm>20?'muy envejecida (más del 20 %)':pm>14?'envejecida (más del 14 %)':'no envejecida (hasta el 14 %)',x,i;
+s.textContent='';
+W.tx(s,0,12,'Composición por edades (% de la población total)','start','sm');var X1=function(v){return 20+360*v/100},c=20;
+[[pj,'var(--color-accent)',.5,'0-14'],[pa,'var(--text-muted)',.3,'edad activa'],[pm,'var(--tx-amber)',.6,'65+']].forEach(function(g){W.el(s,'rect',{x:c,y:18,width:Math.max(0,360*g[0]/100),height:24,fill:g[1],'fill-opacity':g[2],stroke:g[1]});if(g[0]>7)W.tx(s,c+180*g[0]/100,34,W.f(g[0],1)+' %','middle','nx');c+=360*g[0]/100});
+W.tx(s,0,68,'Mayores de 65 años y umbrales de envejecimiento','start','sm');var X2=function(v){return 20+360*Math.min(v,40)/40};
+W.el(s,'rect',{x:20,y:74,width:360,height:20,fill:'var(--background-primary)',stroke:'var(--background-modifier-border)'});W.el(s,'rect',{x:20,y:74,width:X2(pm)-20,height:20,fill:'var(--tx-amber)','fill-opacity':.55,stroke:'var(--tx-amber)'});
+[[14,'14 % envejecida'],[20,'20 % muy envejecida']].forEach(function(u,k){W.el(s,'line',{x1:X2(u[0]),y1:70,x2:X2(u[0]),y2:98,stroke:'var(--text-normal)','stroke-width':1.4,'stroke-dasharray':'3 2'});W.tx(s,X2(u[0])+(k?4:-4),108,u[1],k?'start':'end','sm')});
+W.tx(s,Math.min(X2(pm)+5,330),89,W.f(pm,1)+' %','start','nx');
+W.tx(s,0,132,'Tasas de dependencia (por 100 personas en edad activa)','start','sm');var X3=function(v){return 20+360*Math.min(v,120)/120};
+if(td!=null){W.el(s,'rect',{x:20,y:138,width:X3(tj)-20,height:22,fill:'var(--color-accent)','fill-opacity':.55,stroke:'var(--color-accent)'});W.el(s,'rect',{x:X3(tj),y:138,width:Math.max(0,X3(tj+tm)-X3(tj)),height:22,fill:'var(--tx-amber)','fill-opacity':.55,stroke:'var(--tx-amber)'});
+if(tj>14)W.tx(s,(20+X3(tj))/2,154,W.f(tj,1),'middle','nx');if(tm>14)W.tx(s,(X3(tj)+X3(tj+tm))/2,154,W.f(tm,1),'middle','nx');W.tx(s,Math.min(X3(td)+5,330),154,'TD '+W.f(td,1),'start','nx')}
+W.tx(s,20,174,'0','start','sm');W.tx(s,380,174,'120','end','sm');
+kp[0].textContent=W.f(pm,1)+' %';kp[1].textContent=ie==null?'—':W.f(ie,1);kp[2].textContent=ij==null?'—':W.f(ij,1);kp[3].textContent=tj==null?'—':W.f(tj,1)+' %';kp[4].textContent=tm==null?'—':W.f(tm,1)+' %';kp[5].textContent=td==null?'—':W.f(td,1)+' %';
+d.textContent=!A?'Sin población en edad activa no se pueden calcular las tasas de dependencia.':'%65+ = '+W.n(M)+'/'+W.n(T)+' × 100 = '+W.f(pm,1)+' %: sociedad '+cls+'. IE = '+W.n(M)+'/'+W.n(J)+' × 100 = '+(ie==null?'—':W.f(ie,1))+' (cada 100 menores hay '+(ie==null?'—':W.f(ie,0))+' mayores) e IJ, su inverso, '+(ij==null?'—':W.f(ij,1))+'. TD = ('+W.n(J)+' + '+W.n(M)+')/'+W.n(A)+' × 100 = '+W.f(td,1)+' %; TDj = '+W.f(tj,1)+' % y TDm = '+W.f(tm,1)+' %, que suman '+W.f(tj+tm,1)+' % ✓. TDm/TDj × 100 = '+(tj?W.f(tm/tj*100,1):'—')+' = IE'+(tj?' ✓ (es el mismo cociente, mayores entre menores, con la población activa simplificada).':'.');
+s.setAttribute('aria-label','Mayores '+W.f(pm,1)+' % de la población; índice de envejecimiento '+(ie==null?'sin dato':W.f(ie,1))+'; dependencia total '+(td==null?'sin dato':W.f(td,1))+' %')}
+draw()})();
+</script>
+<div class="xrefs">Conexiones: <a href="#s-e4">Σ 4 · las identidades derivadas</a> · <a href="#x-e10">el P27 completo en acción</a></div>
 </section><section id="t5-e7">
   <h2 aria-level="3"><span class="n">5.7</span>Población estacionaria</h2>
   <p class="sub">Ficha D47 · tema 5 del temario, no ha caído · modelo M10</p>
@@ -963,7 +1432,47 @@ upd()})();
   <div class="eq">1 = TBR · Σₓ e<sup>−rx</sup> · fₓ · lₓ/l₀</div>
   <p>Cada factor tiene su lectura: <b>r</b> es la tasa intrínseca (natural) de crecimiento; <b>fₓ</b>, el calendario de fecundidad (peso de los nacimientos a cada edad); <b>lₓ/l₀</b>, la supervivencia femenina hasta esa edad; y <b>e<sup>−rx</sup></b>, el factor de descuento demográfico. La estacionaria del epígrafe 5.7 es la estable con <b>r = 0</b>. El concepto explica el <b>impulso del crecimiento</b> (<i>population momentum</i>): aunque la fecundidad caiga al reemplazo, la estructura joven sigue empujando el crecimiento durante una generación.</p>
   <div class="mem"><b>Cómo se pregunta.</b> «Escriba la ecuación fundamental de las poblaciones estables de Lotka e interprete cada factor»: la respuesta identifica r como la tasa que iguala el valor reproductivo de las madres; con fecundidad y mortalidad constantes, la población converge a la estructura estable y crece a esa tasa.</div>
-  <div class="xrefs">Conexiones: <a href="#t5-e7">5.7 · el caso r = 0</a> · <a href="#t3-e5">3.5 · TBR y supervivencia, los ingredientes</a></div>
+  <div class="card wg" id="w-lk" style="margin:12px 0"></div>
+<script>
+(function(){
+var W=WG,h=W.$('w-lk'),S={},kp,s,d,NA=110;
+W.head(h,'Lotka: la estable frente a la estacionaria','con fecundidad y mortalidad fijas, la población converge a una estructura por edades que crece a la tasa r que cumple 1 = TBR · Σ e^(−rx) · fₓ · lₓ/l₀. Mueve TBR, el calendario y la esperanza de vida: la estacionaria (r = 0) es el caso particular en el que TNR = 1');
+W.bt(h,[{t:'Reemplazo exacto (r = 0)',f:function(){var m=mod(+S.u.value,+S.e.value);S.b.put(Math.round(100/m.sf)/100);draw()}},{t:'Natalidad baja (ISF ≈ 1,1)',f:function(){S.b.put(.54);draw()}},{t:'Natalidad alta (ISF ≈ 3,1)',f:function(){S.b.put(1.5);draw()}}],'Escenario');
+function sl(k,lab,mn,mx,st,v,f){S[k]=W.sl(h,{id:'w-lk-'+k,label:lab,min:mn,max:mx,step:st,val:v,fmt:f,cb:draw})}
+sl('b','TBR (hijas por mujer)',.2,1.8,.01,.7,function(v){return W.f(v,2)+' · ISF ≈ '+W.f(v*2.05,2)});sl('u','Edad media de la fecundidad',24,38,.5,31,function(v){return W.f(v,1)+' años'});sl('e','Esperanza de vida al nacer e₀',55,92,1,82,function(v){return v+' años'});
+kp=W.kp(h,[['TNR = TBR · Σ fₓ lₓ/l₀','k1'],['r intrínseca (Lotka)','k1'],['TBN estable'],['TBM estable'],['TBN = TBM estacionaria (1/e₀)','k2'],['% 65+ estable | estacionaria']]);
+s=W.svg(h,'0 0 400 236','Pirámide de edades de la población estable frente a la estacionaria asociada');
+d=W.h('p','d','',h);d.setAttribute('aria-live','polite');
+W.h('p','nb','Esquema ilustrativo: mortalidad de Gompertz-Makeham ajustada a la e₀ elegida, fecundidad en campana (desviación típica 5,2 años, de 15 a 49) y ambos sexos a partes iguales. TBR y ISF se relacionan con el 48,8 % de niñas al nacer (ISF = TBR × 2,05).',h);
+var cache={};
+function mod(mu,e0){var key=mu+'_'+e0;if(cache[key])return cache[key];
+function lx(B){var l=[1],x,H;for(x=0;x<NA;x++){H=.0005+B/.095*(Math.exp(.095*(x+1))-Math.exp(.095*x));l.push(l[x]*Math.exp(-H))}return l}
+function e0f(B){var l=lx(B),t=0,x;for(x=0;x<NA;x++)t+=(l[x]+l[x+1])/2;return t}
+var lo=-20,hi=-6,i,B,l,L=[],w=[],z=0,x;for(i=0;i<40;i++){var m=(lo+hi)/2;if(e0f(Math.exp(m))>e0)lo=m;else hi=m}
+B=Math.exp((lo+hi)/2);l=lx(B);for(x=0;x<NA;x++)L.push((l[x]+l[x+1])/2);
+for(x=15;x<=49;x++){var q=Math.exp(-Math.pow(x+.5-mu,2)/(2*5.2*5.2));w.push(q);z+=q}w=w.map(function(q){return q/z});
+var sf=0;w.forEach(function(q,k){sf+=q*L[15+k]});
+return cache[key]={L:L,w:w,sf:sf,e0:L.reduce(function(a,b){return a+b},0)}}
+function draw(){var TBR=+S.b.value,mu=+S.u.value,e0=+S.e.value,m=mod(mu,e0),L=m.L,w=m.w,tnr=TBR*m.sf,i,x,lo=-.08,hi=.08,r;
+function g(r){var t=0;w.forEach(function(q,k){t+=TBR*q*L[15+k]*Math.exp(-r*(15+k+.5))});return t}
+for(i=0;i<50;i++){r=(lo+hi)/2;if(g(r)>1)lo=r;else hi=r}r=(lo+hi)/2;
+var st=[],z=0,z0=0;for(x=0;x<NA;x++){var q=Math.exp(-r*(x+.5))*L[x];st.push(q);z+=q;z0+=L[x]}
+var cs=st.map(function(q){return q/z}),c0=L.map(function(q){return q/z0}),tbn=1/z,tbm=tbn-r,tb0=1/z0;
+function grp(c){var o=[],gi;for(gi=0;gi<21;gi++){var t=0,a;for(a=gi*5;a<(gi<20?gi*5+5:NA);a++)t+=c[a];o.push(t*100)}return o}
+var gs=grp(cs),g0=grp(c0),mx=Math.max.apply(null,gs.concat(g0))*1.1,sx=170/mx,y0=214,bh=9;
+var s65=cs.slice(65).reduce(function(a,b){return a+b},0)*100,s650=c0.slice(65).reduce(function(a,b){return a+b},0)*100;
+s.textContent='';
+for(i=0;i<=4;i++){var v=mx*i/4;W.tx(s,200+v*sx,230,W.f(v,1)+' %');if(i)W.tx(s,200-v*sx,230,W.f(v,1)+' %');W.el(s,'line',{x1:200+v*sx,y1:20,x2:200+v*sx,y2:y0,class:'gr'});W.el(s,'line',{x1:200-v*sx,y1:20,x2:200-v*sx,y2:y0,class:'gr'})}
+gs.forEach(function(v,k){var y=y0-(k+1)*bh;W.el(s,'rect',{x:200-v*sx,y:y,width:2*v*sx,height:bh-1,fill:'var(--color-accent)','fill-opacity':.5,stroke:'var(--color-accent)','stroke-width':.8});if(k%4==0)W.tx(s,14,y+bh-1,k==20?'100+':k*5,'middle','sm')});
+var pts=[],pts2=[];g0.forEach(function(v,k){var yt=y0-(k+1)*bh,yb=y0-k*bh;pts.push((200+v*sx)+','+yb,(200+v*sx)+','+yt);pts2.push((200-v*sx)+','+yb,(200-v*sx)+','+yt)});
+W.el(s,'polyline',{points:pts.join(' '),fill:'none',stroke:'var(--tx-amber)','stroke-width':2,'stroke-dasharray':'5 3'});W.el(s,'polyline',{points:pts2.join(' '),fill:'none',stroke:'var(--tx-amber)','stroke-width':2,'stroke-dasharray':'5 3'});
+W.tx(s,200,12,'violeta: población estable · ámbar discontinuo: estacionaria asociada','middle','sm');W.tx(s,22,22,'edad','start','sm');
+kp[0].textContent=W.f(tnr,2);var rs=Math.abs(r*1000)<.05?'0,0':W.s(r*1000,1);kp[1].textContent=rs+' ‰';kp[2].textContent=W.f(tbn*1000,1)+' ‰';kp[3].textContent=W.f(tbm*1000,1)+' ‰';kp[4].textContent=W.f(tb0*1000,1)+' ‰';kp[5].textContent=W.f(s65,1)+' | '+W.f(s650,1)+' %';
+d.textContent='Con TBR = '+W.f(TBR,2)+' y la supervivencia de e₀ = '+e0+' años, TNR = '+W.f(tnr,2)+' y la ecuación de Lotka se cumple para r = '+rs+' ‰: '+(Math.abs(tnr-1)<.006?'es (prácticamente) la población estacionaria: r ≈ 0 y TNR ≈ 1.':r>0?'población estable creciente (TNR > 1), base ancha y pocos mayores.':'población estable decreciente (TNR < 1), base estrecha y más mayores.')+' Natalidad y mortalidad estables: TBN = '+W.f(tbn*1000,1)+' ‰ y TBM = '+W.f(tbm*1000,1)+' ‰, que restan r. En la estacionaria asociada TBN = TBM = 1/e₀ = '+W.f(tb0*1000,1)+' ‰. Los mayores de 65 años pesan '+W.f(s65,1)+' % en la estable frente a '+W.f(s650,1)+' % en la estacionaria.';
+s.setAttribute('aria-label','Pirámide estable con r = '+rs+' por mil frente a la estacionaria; mayores '+W.f(s65,1)+' % frente a '+W.f(s650,1)+' %')}
+draw()})();
+</script>
+<div class="xrefs">Conexiones: <a href="#t5-e7">5.7 · el caso r = 0</a> · <a href="#t3-e5">3.5 · TBR y supervivencia, los ingredientes</a></div>
 </section></section>
 <section class="tema-sec" id="t6"><a class="up" href="#top">↑ Índice</a><div class="k">CSE INE A1 · Demografía</div><h1 class="tt" aria-level="2">Tema 6 · Proyecciones de población</h1><p>Esquemas de repaso · fichas D49 y D50 · el método de los componentes cayó como teoría en 2023 (cuestión 22); el numérico, pendiente · los estimadores intercensales, aún sin caer</p><nav class="ix" aria-label="Epígrafes del tema"><a href="#t6-e1">6.1 Método de los componentes</a><a href="#t6-e2">6.2 Estimadores intercensales</a></nav><section id="t6-e1">
   <h2 aria-level="3"><span class="n">6.1</span>Proyección por el método de los componentes</h2>
@@ -1031,7 +1540,63 @@ reset()})();
   <div class="eq">Hogares = Σₓ Pₓ · tₓ</div>
   <p>Es el método de las <b>Proyecciones de Hogares del INE</b> y conecta con los conceptos del tema: el <b>hogar</b> (persona o grupo que comparte vivienda principal), el <b>núcleo familiar</b> (la unidad intra-hogar: pareja con o sin hijos, o progenitor con hijos) y su <b>tipología</b> (unipersonales, monoparentales, compuestos, múltiples).</p>
   <div class="mem"><b>Cómo se pregunta.</b> La pregunta teórica pide definir <b>hogar</b> y <b>núcleo</b>, la tendencia española (tamaño medio de <b>~3,7 personas en 1981 a ~2,5 hoy</b>, por envejecimiento, caída de la fecundidad, emancipación tardía, auge de unipersonales e inmigración) y el <b>método de tasas de referencia</b> para proyectarlos.</div>
-  <div class="xrefs">Conexiones: <a href="#t6-e1">6.1 · la población que se proyecta antes</a> · <a href="#t3-e9">3.9 · los hogares y la nupcialidad</a></div>
+  <div class="card wg" id="w-hg" style="margin:12px 0"></div>
+<script>
+(function(){
+var W=WG,h=W.$('w-hg'),S={},kp,s,s2,d,base='hoy';
+var G=['0-14','15-24','25-34','35-44','45-54','55-64','65-74','75-84','85+'];
+var B={hoy:{P:[6800,4600,5700,7000,8000,6700,5400,3500,1400],t:[0,.035,.33,.48,.55,.58,.60,.62,.58]},
+y81:{P:[9600,6400,5400,4800,4300,3500,2400,1100,250],t:[0,.04,.36,.48,.50,.50,.50,.50,.42]}};
+function sum(a){return a.reduce(function(x,y){return x+y},0)}
+W.head(h,'Hogares = Σ Pₓ · tₓ','se proyecta la población por edades y a cada grupo se le aplica su tasa de referencia, la proporción de personas que encabezan un hogar. Cambia el tamaño de la población, su envejecimiento o las tasas, y mira cuántos hogares salen y qué lo explica');
+W.bt(h,[{t:'Estructura de hoy (≈ 2,5 personas por hogar)',on:1,f:function(){setBase('hoy')}},{t:'Estructura de 1981 (≈ 3,7)',f:function(){setBase('y81')}}],'Partida',true);
+W.bt(h,[{t:'Sin cambios',f:function(){set(0,0,0,0)}},{t:'Envejece sin crecer',f:function(){set(0,70,0,0)}},{t:'Emancipación tardía',f:function(){set(0,0,-25,0)}},{t:'Más mayores en solitario',f:function(){set(0,0,0,12)}}],'Escenario');
+function sl(k,lab,mn,mx,st,v,f){S[k]=W.sl(h,{id:'w-hg-'+k,label:lab,min:mn,max:mx,step:st,val:v,fmt:f,cb:draw})}
+function pop1(a,k){var b=B[base],f=b.P.map(function(p,g){return Math.exp(.12*a*(g-3.5))}),w=sum(b.P.map(function(p,g){return p*f[g]})),c=sum(b.P)/w*k;return b.P.map(function(p,g){return p*f[g]*c})}
+function sh65(a){var P=pop1(a,1);return sum(P.slice(6))/sum(P)*100}
+sl('k','Población total (variación)',-30,40,1,0,function(v){return W.s(v)+' %'});
+sl('a','Estructura: % de 65 y más',-100,100,5,0,function(v){return W.f(sh65(v/100),1)+' %'});
+sl('y','Tasas de referencia de 15 a 44 años',-40,40,1,0,function(v){return W.s(v)+' %'});
+sl('o','Tasas de referencia de 65 y más',-30,30,1,0,function(v){return W.s(v)+' %'});
+kp=W.kp(h,[['Hogares de partida (miles)'],['Hogares proyectados (miles)','k1'],['Variación de hogares','k2'],['Personas por hogar · partida'],['Personas por hogar · proyección','k1'],['Población proyectada (miles)']]);
+s=W.svg(h,'0 0 400 212','Hogares por grupo de edad de la persona de referencia: proyección frente a partida');
+s2=W.svg(h,'0 0 400 112','Descomposición de la variación de hogares en efecto del tamaño, de la estructura por edades y de las tasas de referencia');
+d=W.h('p','d','',h);d.setAttribute('aria-live','polite');
+W.h('p','nb','Cifras ilustrativas: una estructura por edades de tipo español y tasas de referencia inventadas para que el tamaño medio salga ≈ 2,5 hoy y ≈ 3,7 en 1981, como dice el texto; no son datos del INE. Los menores de 15 años no encabezan hogar (t = 0).',h);
+function set(k,a,y,o){S.k.put(k);S.a.put(a);S.y.put(y);S.o.put(o);draw()}
+function setBase(b){base=b;S.a.put(S.a.value);draw()}
+function draw(){var b=B[base],P0=b.P,t0=b.t,k=1+S.k.value/100,P1=pop1(S.a.value/100,k),y=S.y.value/100,o=S.o.value/100,
+t1=t0.map(function(t,g){return g>=1&&g<=3?Math.min(1,t*(1+y)):g>=6?Math.min(1,t*(1+o)):t}),
+H0g=P0.map(function(p,g){return p*t0[g]}),H1g=P1.map(function(p,g){return p*t1[g]}),
+H0=sum(H0g),H1=sum(H1g),T0=sum(P0),T1=sum(P1),H1c=sum(P1.map(function(p,g){return p*t0[g]})),
+e1=(k-1)*H0,e2=H1c-k*H0,e3=H1-H1c,z0=T0/H0,z1=T1/H1,g,mx=Math.max.apply(null,H0g.concat(H1g)),sx=138/mx,x0=40,yy;
+s.textContent='';
+W.tx(s,0,10,'Hogares por edad de la persona de referencia (miles)','start','sm');W.tx(s,400,10,'violeta: proyección · ámbar: partida','end','sm');
+for(g=1;g<9;g++){yy=22+(g-1)*21;
+W.tx(s,34,yy+10,G[g],'end','sm');
+W.el(s,'rect',{x:x0,y:yy,width:Math.max(0,H1g[g]*sx),height:13,fill:'var(--color-accent)','fill-opacity':.5,stroke:'var(--color-accent)'});
+W.el(s,'rect',{x:x0,y:yy-1.5,width:Math.max(0,H0g[g]*sx),height:16,fill:'none',stroke:'var(--tx-amber)','stroke-width':1.6,'stroke-dasharray':'4 3'});
+W.tx(s,188,yy+10,W.n(P1[g])+' × '+W.f(t1[g]*100,1)+' % = '+W.n(H1g[g]),'start','sm')}
+W.el(s,'line',{x1:x0,y1:192,x2:380,y2:192,class:'ax'});
+W.tx(s,34,206,'Σ','end','nx');W.tx(s,188,206,W.n(H1)+' hogares ('+W.n(T1)+' personas)','start','nx');
+s2.textContent='';
+var E=[['Tamaño de la población',e1,'var(--color-accent)'],['Estructura por edades',e2,'var(--tx-amber)'],['Tasas de referencia',e3,'var(--text-muted)'],['Variación total',H1-H0,'var(--color-accent)']],
+mxe=Math.max(1,Math.abs(e1),Math.abs(e2),Math.abs(e3),Math.abs(H1-H0)),sx2=80/mxe,zx=270;
+W.tx(s2,0,10,'Qué explica la variación de hogares (miles)','start','sm');
+W.el(s2,'line',{x1:zx,y1:16,x2:zx,y2:108,class:'ax'});
+E.forEach(function(e,j){var tot=j==3,y0=tot?88:20+j*22,w=e[1]*sx2;
+if(tot)W.el(s2,'line',{x1:0,y1:84,x2:400,y2:84,class:'gr'});
+W.tx(s2,0,y0+10,e[0],'start',tot?'nx':'sm');
+W.el(s2,'rect',{x:w>=0?zx:zx+w,y:y0,width:Math.abs(w),height:13,fill:e[2],'fill-opacity':tot?.25:.55,stroke:e[2],'stroke-width':tot?2.2:1});
+W.tx(s2,w>=0?zx+w+4:zx+w-4,y0+10,W.s(e[1]),w>=0?'start':'end',tot?'nx':'sm')});
+kp[0].textContent=W.n(H0);kp[1].textContent=W.n(H1);kp[2].textContent=W.s((H1/H0-1)*100,1)+' %';kp[3].textContent=W.f(z0,2);kp[4].textContent=W.f(z1,2);kp[5].textContent=W.n(T1);
+var nm=['el tamaño de la población','la estructura por edades (más mayores, que encabezan hogar con más frecuencia)','el cambio de comportamiento recogido en las tasas de referencia'],am=[Math.abs(e1),Math.abs(e2),Math.abs(e3)],mi=am.indexOf(Math.max.apply(null,am));
+d.textContent='Hogares = Σ Pₓ·tₓ = '+W.n(H0)+' mil en la partida ('+W.n(T0)+' mil personas ÷ '+W.n(H0)+' mil hogares = '+W.f(z0,2)+' por hogar). Proyección: '+W.n(T1)+' mil personas y '+W.n(H1)+' mil hogares ('+W.s((H1/H0-1)*100,1)+' %), a '+W.f(z1,2)+' personas por hogar. La variación, '+W.s(H1-H0)+' mil hogares, se reparte en '+W.s(e1)+' por el tamaño de la población, '+W.s(e2)+' por su estructura por edades y '+W.s(e3)+' por las tasas de referencia.'+(Math.max.apply(null,am)<.5?' Sin cambios en ninguno de los tres factores, los hogares no varían.':' El factor que más pesa es '+nm[mi]+'.')+''+(Math.abs(k-1)<.011&&H1>H0*1.005?' Aun con la población estancada, los hogares aumentan: baja el tamaño medio del hogar.':'');
+s.setAttribute('aria-label','Hogares proyectados: '+W.n(H1)+' mil frente a '+W.n(H0)+' mil de partida, de '+W.f(z1,2)+' personas por hogar');
+s2.setAttribute('aria-label','Variación de hogares '+W.s(H1-H0)+' mil: tamaño '+W.s(e1)+', estructura '+W.s(e2)+', tasas '+W.s(e3))}
+draw()})();
+</script>
+<div class="xrefs">Conexiones: <a href="#t6-e1">6.1 · la población que se proyecta antes</a> · <a href="#t3-e9">3.9 · los hogares y la nupcialidad</a></div>
 </section></section>
 <section class="tema-sec" id="examen" data-key="x"><a class="up" href="#top">↑ Índice</a><div class="k">CSE INE A1 · Demografía</div><h1 class="tt" aria-level="2">Exámenes del INE · qué ha caído y cómo se pregunta</h1><p>Exámenes celebrados en 2019 y de 2023 a 2026 · preguntas con respuesta modelo desplegable y los problemas de cada año con sus cifras reales, en acción · entrena también desde la barra: «Modo foco» y «Repaso mixto»</p><nav class="ix" aria-label="Epígrafes del tema"><a href="#x-e1">Mapa 2019–2026</a><a href="#x-e2">Cuestiones 2019 y 2023</a><a href="#x-e3">Cuestiones 2024–2026</a><a href="#x-e4">TMI 2024</a><a href="#x-e5">Tabla 2023</a><a href="#x-e6">Casillas 2024 y 2026</a><a href="#x-e7">Fecundidad 2025</a><a href="#x-e8">Cuestión 4 · 2026</a><a href="#x-e9">Migraciones 2019–2026</a><a href="#x-e10">Estructura 2025 y 2026</a><a href="#x-e11">Lexis · P23</a></nav><section id="x-e1">
   <h2 aria-level="3"><span class="n">Mapa</span>Qué ha caído y cómo se pregunta</h2>
@@ -1164,7 +1729,7 @@ reset()})();
   <h2 aria-level="3"><span class="n">Lexis</span>La P23 de 2026, en acción <span class="exs" data-ex="xj"></span></h2>
   <p class="sub">El dibujo que abre el bloque cuatro convocatorias seguidas: señalar los tres conjuntos de acontecimientos</p>
   <p style="margin-top:12px">La P23 pide señalar sobre el diagrama de Lexis: los acontecimientos del año 2023 con 2 años cumplidos; los acaecidos con 1 año cumplido a los nacidos en 2022; y los acaecidos a los nacidos en 2024 durante 2025. Cada uno es una de las tres lecturas del plano.</p>
-  <div class="card" id="lx" style="margin:12px 0">
+  <div class="card wg" id="lx" style="margin:12px 0">
 <style>
 #lx .r{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}
 #lx .r>b{font:700 12.5px var(--fh);color:var(--mut);min-width:6.6em}
@@ -1278,7 +1843,7 @@ upd();
   <h2 aria-level="3"><span class="n">E</span>Equilibrio, geométrica y duplicación <span class="exs" data-ex="pe"></span></h2>
   <p class="sub">Ocho huecos · la ecuación en tasas y el año a año (modelos M8 y M9)</p>
   <div class="mem"><b>Datos.</b> M8: TBN = 7,5‰, TBM = 9,8‰ y TMN = 12‰ constantes, P₀ = 1.000.000. M9: P₀ = 1.200.000 y r = 10,3‰ anual.</div>
-  <ol class="ex" id="pe"><li>r = TBN − TBM + TMN (‰): <input class="hu" style="width:6em" aria-label="hueco 1" data-a="9,7|+9,7"><div class="sol"></div></li><li>M8: P(10) = 1.000.000 × 1,0097¹⁰ (habitantes): <input class="hu" style="width:11em" aria-label="hueco 2" data-a="1.101.300|1.101.310|1101300|1101310"><div class="sol"></div></li><li>M8: tiempo de duplicación = ln 2/ln(1,0097) (años): <input class="hu" style="width:6em" aria-label="hueco 3" data-a="71,8|71,9|71,80|72"><div class="sol"></div></li><li>M9: P(1) = 1.200.000 × 1,0103 (habitantes): <input class="hu" style="width:11em" aria-label="hueco 4" data-a="1.212.360|1212360"><div class="sol"></div></li><li>M9: P(2) (habitantes): <input class="hu" style="width:11em" aria-label="hueco 5" data-a="1.224.847|1.224.847,3|1224847"><div class="sol"></div></li><li>M9: P(5) (habitantes): <input class="hu" style="width:11em" aria-label="hueco 6" data-a="1.263.086|1.263.086,3|1263086"><div class="sol"></div></li><li>M9: crecimiento total en los cinco años (%): <input class="hu" style="width:6em" aria-label="hueco 7" data-a="5,26|5,3"><div class="sol"></div></li><li>M9: tiempo de duplicación = ln 2/ln(1,0103) (años): <input class="hu" style="width:6em" aria-label="hueco 8" data-a="67,6|67,64|68"><div class="sol"></div></li></ol>
+  <ol class="ex" id="pe"><li>r = TBN − TBM + TMN (‰): <input class="hu" style="width:6em" aria-label="hueco 1" data-a="9,7|+9,7"><div class="sol"></div></li><li>M8: P(10) = 1.000.000 × 1,0097¹⁰ (habitantes): <input class="hu" style="width:11em" aria-label="hueco 2" data-a="1.101.300|1.101.310|1101300|1101310|1.101.345|1.101.345,5|1.101.345,45"><div class="sol"></div></li><li>M8: tiempo de duplicación = ln 2/ln(1,0097) (años): <input class="hu" style="width:6em" aria-label="hueco 3" data-a="71,8|71,9|71,80|72"><div class="sol"></div></li><li>M9: P(1) = 1.200.000 × 1,0103 (habitantes): <input class="hu" style="width:11em" aria-label="hueco 4" data-a="1.212.360|1212360"><div class="sol"></div></li><li>M9: P(2) (habitantes): <input class="hu" style="width:11em" aria-label="hueco 5" data-a="1.224.847|1.224.847,3|1224847"><div class="sol"></div></li><li>M9: P(5) (habitantes): <input class="hu" style="width:11em" aria-label="hueco 6" data-a="1.263.086|1.263.086,3|1263086"><div class="sol"></div></li><li>M9: crecimiento total en los cinco años (%): <input class="hu" style="width:6em" aria-label="hueco 7" data-a="5,26|5,3"><div class="sol"></div></li><li>M9: tiempo de duplicación = ln 2/ln(1,0103) (años): <input class="hu" style="width:6em" aria-label="hueco 8" data-a="67,6|67,64|68"><div class="sol"></div></li></ol>
   <button class="btnx chk" type="button" data-g="pe">Comprobar</button>
   <div class="fd" id="fpe" aria-live="polite"></div>
   <div class="xrefs">Teoría: <a href="#t5-e4">5.4 · la ecuación</a> · <a href="#t5-e5">5.5 · geométrica y duplicación</a> · <a href="#s-e1">Σ 1 · el formulario</a></div>
@@ -1397,7 +1962,7 @@ var inp=document.getElementById('q'),cnt=document.getElementById('cnt'),clr=docu
 var opened=[],timer=null;
 function unmark(){document.querySelectorAll('mark.sh').forEach(function(m){var p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});}
 function hl(block,re){
-  var w=document.createTreeWalker(block,NodeFilter.SHOW_TEXT,{acceptNode:function(n){var t=n.parentNode.nodeName;return(t==='SCRIPT'||t==='STYLE')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT;}});
+  var w=document.createTreeWalker(block,NodeFilter.SHOW_TEXT,{acceptNode:function(n){var t=n.parentNode.nodeName;return(t==='SCRIPT'||t==='STYLE'||(n.parentNode.closest&&n.parentNode.closest('svg,.wg')))?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT;}});
   var nodes=[],n;while((n=w.nextNode()))nodes.push(n);
   var hit=false;
   nodes.forEach(function(nd){
@@ -1668,7 +2233,7 @@ function tag(){
   document.querySelectorAll('.tema-sec section[id*="-e"] b, .tema-sec article.pc b').forEach(function(b){
     var t=(b.textContent||'').trim();
     if(t.length<2||/:$/.test(t))return;
-    if(b.closest('.xrefs,.rv,.pat,th,.top,.up,.toc,nav,.ctl,.nt,.vf,.rt,.tcbar,h2,.ex,.pm,.ops,.sol,.fd,.exs,.pgn'))return;
+    if(b.closest('.xrefs,.rv,.pat,th,.top,.up,.toc,nav,.ctl,.nt,.vf,.rt,.tcbar,h2,.wg,.ex,.pm,.ops,.sol,.fd,.exs,.pgn'))return;
     b.classList.add('cb');
   });
 }
@@ -1722,7 +2287,7 @@ function grid(tb){
 document.querySelectorAll('table').forEach(function(tb){
   var info=grid(tb),ncol=0,hdr=-1;
   info.forEach(function(x){ncol=Math.max(ncol,x.c+(x.cell.colSpan||1));});
-  if(ncol<2||tb.rows.length<3)return;
+  if(ncol<2||tb.rows.length<3||tb.closest('.wg'))return;
   if([].every.call(tb.rows[0].cells,function(c){return c.tagName==='TH';}))hdr=0;
   var labels=[];
   info.forEach(function(x){if(x.r===hdr&&labels[x.c]==null)labels[x.c]=(x.cell.textContent||'').trim();});
@@ -1887,7 +2452,7 @@ $('chb').addEventListener('click',function(){
 });
 
 /* ===== Exportar a Anki (cloze) ===== */
-function eligible(b){var t=(b.textContent||'').trim();if(t.length<2||/:$/.test(t))return false;if(b.querySelector('b')||(b.parentElement&&b.parentElement.closest('b')))return false;return !b.closest('.xrefs,.rv,.pat,th,.top,.up,.toc,nav,.ctl,.nt,.vf,.rt,.tcbar,h2,.ex,.pm,.ops,.sol,.fd,.exs,.pgn');}
+function eligible(b){var t=(b.textContent||'').trim();if(t.length<2||/:$/.test(t))return false;if(b.querySelector('b')||(b.parentElement&&b.parentElement.closest('b')))return false;return !b.closest('.xrefs,.rv,.pat,th,.top,.up,.toc,nav,.ctl,.nt,.vf,.rt,.tcbar,h2,.wg,.ex,.pm,.ops,.sol,.fd,.exs,.pgn');}
 function unitOf(bd,blk){
   var best=null;
   for(var p=bd.parentElement;p&&p!==blk;p=p.parentElement){if(p.matches('tr,li,.mem,.box,p')){if((p.textContent||'').length<=450)best=p;else break;}}
